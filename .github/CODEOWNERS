@@ -1,0 +1,6 @@
+# Default owners
+* @Azure/logic-apps-team
+
+# SDK components
+/src/ @Azure/logic-apps-team
+/tests/ @Azure/logic-apps-team
