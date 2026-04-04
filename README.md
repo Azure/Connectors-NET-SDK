@@ -1,3 +1,5 @@
+[![CI](https://github.com/Azure/Connectors-NET-SDK/actions/workflows/ci.yml/badge.svg)](https://github.com/Azure/Connectors-NET-SDK/actions/workflows/ci.yml)
+
 # Azure Connectors .NET SDK
 
 Type-safe .NET clients for [Azure connectors](https://learn.microsoft.com/connectors/connector-reference/) — call Office 365, SharePoint, Teams, Dataverse, and 1,000+ connectors directly from Azure Functions and other .NET apps.
