@@ -25,9 +25,7 @@ jobs:
       run: dotnet format --verify-no-changes --verbosity diagnostic
 
     - name: Lint Markdown
-      uses: DavidAnson/markdownlint-cli2-action@v19
-      with:
-        globs: '**/*.md'
+      run: npx markdownlint-cli2 '**/*.md'
 
   build-and-test:
     runs-on: ${{ matrix.os }}

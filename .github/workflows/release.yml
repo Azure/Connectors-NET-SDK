@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write    # for GitHub Release creation (softprops/action-gh-release)
+      contents: write    # for GitHub Release creation (gh release create)
       packages: write    # for GitHub Packages push
 
     steps:
