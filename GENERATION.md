@@ -19,6 +19,7 @@ The **CodefulSdkGenerator** tool generates typed C# clients from managed connect
    - Install via WinGet: `winget install projectkudu.ARMClient`
    - The generator defaults to `C:\ProgramData\chocolatey\bin\ARMClient.exe`
    - **If ARMClient is installed elsewhere** (e.g., via WinGet), set the `ARMCLIENT_PATH` environment variable:
+
      ```powershell
      # Find your ARMClient path
      (Get-Command armclient).Source
@@ -60,7 +61,8 @@ dotnet build .\src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\LogicAppsComp
 ```
 
 The compiled executable will be at:
-```
+
+```text
 src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\bin\Release\net8.0\LogicAppsCompiler.exe
 ```
 
@@ -82,6 +84,7 @@ LogicAppsCompiler.exe "<path-to-Connectors-NET-SDK>/samples/generated" unused --
 ```
 
 **Output structure per connector:**
+
 - `{Connector}Extensions.cs` - Combined types and client in one file
 
 ### Generate Agent Managed Connectors
@@ -168,7 +171,7 @@ public class Office365Client : IDisposable
 
 The connector SDK spans 4 repositories with a strict data flow:
 
-```
+```text
 ┌──────────────────────────────────────┐
 │  BPM (internal)                      │
 │  CodefulSdkGenerator                 │
@@ -235,6 +238,7 @@ The connector SDK spans 4 repositories with a strict data flow:
 ## Integration with SDK
 
 The generated code depends on the runtime SDK for:
+
 - `ITokenProvider` / `ManagedIdentityTokenProvider` - Authentication
 - `ConnectorHttpClient` - HTTP operations with retry
 - `ConnectorJsonSerializer` - JSON serialization helpers
@@ -248,11 +252,13 @@ Install the SDK NuGet package in your project:
 ## Regeneration Schedule
 
 Generated connectors should be regenerated periodically to incorporate:
+
 - New connector operations
 - Updated parameter schemas
 - Bug fixes in swagger definitions
 
 **Recommended schedule:**
+
 - Monthly regeneration for active development
 - Quarterly regeneration for stable projects
 - Immediate regeneration when new connector features are needed
@@ -312,15 +318,18 @@ jobs:
 ### Common Issues
 
 **ARMClient not authenticated:**
-```
+
+```text
 Run: armclient login
 ```
 
 **Connector not found:**
+
 - Verify connector name is correct (use lowercase, no spaces)
 - Check if connector is available in the specified Azure region
 
 **Schema parsing errors:**
+
 - Some connectors have malformed swagger definitions
 - The generator includes built-in patches for known issues
 - Problematic connectors are in the skip list
@@ -347,6 +356,7 @@ armclient GET "https://management.azure.com/subscriptions/{subscriptionId}/provi
 ```
 
 Common connectors:
+
 - `office365` - Office 365 Outlook
 - `outlook` - Outlook.com
 - `servicebus` - Azure Service Bus

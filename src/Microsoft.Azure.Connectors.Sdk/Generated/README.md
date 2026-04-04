@@ -7,7 +7,7 @@ This folder is for pre-generated connector clients to be included in the SDK pac
 The DirectClientGenerator in the BPM repo currently has bugs that produce non-compiling code:
 
 1. **Missing types** - Some types like `MeetingTimeSuggestionsV2`, `AssignCategoryBulkInput` are referenced but not defined
-2. **Escaped braces** - Properties generate `{{ get; }}` instead of `{ get; }` 
+2. **Escaped braces** - Properties generate `{{ get; }}` instead of `{ get; }`
 3. **Method group vs invocation** - `queryParams.Count` instead of `queryParams.Count()`
 4. **Collection literal vs List** - Uses `[]` collection literal then calls `.Add()` on it
 

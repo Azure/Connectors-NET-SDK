@@ -26,6 +26,7 @@ namespace Microsoft.Azure.Connectors.Sdk
 ```
 
 **Rules:**
+
 - Copyright header: Use `//----` (4 dashes) format with double space before "All rights reserved"
 - Usings OUTSIDE namespace (standard C# convention)
 - Usings sorted: System.* first, then alphabetically
@@ -43,6 +44,7 @@ namespace Microsoft.Azure.Connectors.Sdk
 | Lambda parameters | Use descriptive names | `methods.Where(method => ...)` not `m => ...` |
 
 **Variable naming rules:**
+
 - Use complete, unabbreviated English terms for all identifiers
 - No single-letter variable names, even in lambdas (use `arg`, `item`, `method`, `parameter`)
 - No placeholder names (`blah`, `foo`, `temp`, `x`) — always use meaningful names
@@ -50,6 +52,7 @@ namespace Microsoft.Azure.Connectors.Sdk
 ### File Organization
 
 **One type per file:**
+
 - Declare only one class, struct, enum, or interface per file
 - File name must match the type name
 - Exception: Nested types (e.g., private helper classes) are allowed within the containing type
@@ -57,6 +60,7 @@ namespace Microsoft.Azure.Connectors.Sdk
 ### Async/Await Format
 
 **ALWAYS use this multi-line format:**
+
 ```csharp
 var result = await this.httpClient
     .GetAsync(requestUri)
@@ -64,12 +68,14 @@ var result = await this.httpClient
 ```
 
 **Rules:**
+
 - Period on NEW line, not end of previous line
 - Arguments indented ONE level (4 spaces)
 - ALWAYS use `ConfigureAwait(continueOnCapturedContext: false)` with explicit parameter name
 - Exception: Skip await for lone return statement (unless inside `using` block)
 
 **DO NOT:**
+
 ```csharp
 // Wrong: ConfigureAwait without named parameter
 .ConfigureAwait(false);
@@ -86,11 +92,13 @@ var result = await this.httpClient.
 ### Method Calls with Multiple Parameters
 
 **Single line** if all parameters fit:
+
 ```csharp
 this.DoSomething(param1, param2);
 ```
 
 **Boolean parameters MUST always use named arguments:**
+
 ```csharp
 // Correct
 IdentifierNormalizer.Normalize(name, isVariableName: true);
@@ -102,6 +110,7 @@ this.CreateNode(schema, false);
 ```
 
 **Multi-line with named parameters:**
+
 ```csharp
 return await this
     .ProcessRequestAsync(
@@ -112,6 +121,7 @@ return await this
 ```
 
 **Rules:**
+
 - Method name on new line after object
 - Each parameter on its own line with name
 - Opening paren stays with method name
@@ -120,18 +130,21 @@ return await this
 ### Comments
 
 **Inline comments - use NOTE format:**
+
 ```csharp
 // NOTE(username): Explanation of why this code exists.
 var result = DoSomething();
 ```
 
 **Rules:**
+
 - Empty line ABOVE comment (unless first line in block)
 - NO empty line between comment and code it describes
 - Prefix: `// NOTE(username):` where username is your GitHub username
 - Do NOT comment on the 'what' unless the code is obscure; instead comment on the 'why' when appropriate
 
 **XML documentation - required for all public APIs:**
+
 ```csharp
 /// <summary>
 /// Processes the incoming request and returns the result.
@@ -141,6 +154,7 @@ public async Task<Response> ProcessAsync(Request request)
 ```
 
 **Rules:**
+
 - End descriptions with period
 - Do NOT document return values (`<returns>` tag)
 - Use `<see cref="ClassName"/>` for type references
@@ -166,6 +180,7 @@ catch (Exception ex) when (!ex.IsFatal())
 ```
 
 **Rules:**
+
 - Exception variable name: `ex` (not `exception`)
 - Use exception filter `when (!ex.IsFatal())` for general catches to avoid catching fatal exceptions
 - Wrap inserted values in single quotes in error messages
@@ -173,12 +188,14 @@ catch (Exception ex) when (!ex.IsFatal())
 - **All exceptions must have descriptive messages** — never throw exceptions without context
 
 **DO:**
+
 ```csharp
 throw new ArgumentException(message: "Parameter 'connectionId' cannot be null or empty.", paramName: nameof(connectionId));
 throw new InvalidOperationException(message: $"Operation '{operationId}' is not supported.");
 ```
 
 **DO NOT:**
+
 ```csharp
 throw new ArgumentException();  // No message
 throw new InvalidOperationException("error");  // Non-descriptive
@@ -187,6 +204,7 @@ throw new InvalidOperationException("error");  // Non-descriptive
 ### String Comparison
 
 **ALWAYS use StringComparison:**
+
 ```csharp
 // Correct
 string.Equals(str1, str2, StringComparison.OrdinalIgnoreCase)
@@ -194,6 +212,7 @@ str.StartsWith(prefix, StringComparison.Ordinal)
 ```
 
 **DO NOT:**
+
 ```csharp
 str1 == str2
 str1.Equals(str2)
@@ -202,6 +221,7 @@ str1.Equals(str2)
 ### Spacing and Braces
 
 **Empty line after closing brace:**
+
 ```csharp
 if (condition)
 {
@@ -212,6 +232,7 @@ DoSomethingElse();  // Empty line above
 ```
 
 **NO empty line before closing brace:**
+
 ```csharp
 // Wrong
 if (condition)
@@ -222,6 +243,7 @@ if (condition)
 ```
 
 **Switch statements - empty line between cases:**
+
 ```csharp
 switch (value)
 {
@@ -241,12 +263,14 @@ switch (value)
 ### Variable Declaration
 
 **Use `var` when type is obvious:**
+
 ```csharp
 var items = new List<string>();
 var response = await this.GetResponseAsync();
 ```
 
 **Use explicit type for null initialization:**
+
 ```csharp
 byte[] buffer = null;  // Not: var buffer = (byte[])null;
 ```
@@ -254,6 +278,7 @@ byte[] buffer = null;  // Not: var buffer = (byte[])null;
 ### Ternary Operators
 
 **Put `?` and `:` at START of new line:**
+
 ```csharp
 var result = condition
     ? valueIfTrue
@@ -263,6 +288,7 @@ var result = condition
 ### Logical Operators
 
 **Put `||` and `&&` at END of line:**
+
 ```csharp
 if (string.IsNullOrEmpty(value1) ||
     string.IsNullOrEmpty(value2) ||
@@ -270,6 +296,7 @@ if (string.IsNullOrEmpty(value1) ||
 ```
 
 **Return statements - first condition on new line:**
+
 ```csharp
 return
     string.IsNullOrEmpty(value1) ||
@@ -279,6 +306,7 @@ return
 ### Access Modifiers
 
 **ALWAYS explicit - order: access, static, readonly, other:**
+
 ```csharp
 public static readonly string DefaultValue = "default";
 private readonly ILogger _logger;
@@ -330,6 +358,7 @@ public async Task MethodName_Scenario_ExpectedResult()
 ```
 
 **Rules:**
+
 - Test method naming: `MethodName_Scenario_ExpectedResult`
 - Use async/await, never `.Result`
 - Use `ConfigureAwait(continueOnCapturedContext: false)` in tests too
@@ -343,7 +372,7 @@ public async Task MethodName_Scenario_ExpectedResult()
 ## NuGet Package
 
 When publishing:
+
 - Update version in `Directory.Build.props`
 - Ensure all tests pass
 - Update CHANGELOG.md with release notes
-

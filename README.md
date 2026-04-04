@@ -17,7 +17,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 
 ## How It Works
 
-```
+```text
 ┌─────────────────────────────────────┐
 │       Your Azure Function / App     │
 │                                     │
