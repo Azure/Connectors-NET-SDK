@@ -78,6 +78,7 @@ The connection is created in an **unauthenticated** state. You must complete OAu
 #### A4. Get Connection Runtime URL
 
 After OAuth consent, the connection runtime URL is available:
+
 - In the AI Gateway Manager Portal: select the connection → copy the runtime URL
 - Via ARM API:
 
@@ -144,7 +145,8 @@ az resource show `
 ```
 
 Expected output format:
-```
+
+```text
 https://{instance}.{region}.common.logic-{environment}.azure-apihub.net/apim/{connector}/{connection-id}
 ```
 
@@ -162,6 +164,7 @@ az resource show `
 ```
 
 Expected for healthy connection:
+
 ```json
 { "status": "Connected" }
 ```
@@ -372,6 +375,7 @@ var client = new Office365Client(connectionRuntimeUrl, credential);
 ### Error: "Permission denied due to missing connection ACL"
 
 The access policy hasn't propagated yet, or is missing. Solutions:
+
 1. Wait 1-5 minutes for propagation
 2. Verify the policy exists with the GET accessPolicies command
 3. Ensure the objectId matches your signed-in identity

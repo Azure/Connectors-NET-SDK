@@ -172,6 +172,7 @@ Add to `local.settings.json` under `"Values"`:
 #### Deployed compute host (e.g., Function App)
 
 Format B:
+
 ```powershell
 az functionapp config appsettings set `
     -g $resourceGroup -n $functionAppName `
@@ -179,6 +180,7 @@ az functionapp config appsettings set `
 ```
 
 Format A:
+
 ```powershell
 az functionapp config appsettings set `
     -g $resourceGroup -n $functionAppName `

@@ -118,12 +118,14 @@ This means connector triggers do **not** run on Functions compute. The connector
 **Rationale**: Worker library is a 1-2 day POC effort. Host extension (like Durable Functions, MCP) requires deeper Functions runtime integration but works across all languages. Start with worker library, prove the model, then build the extension.
 
 **Reference implementations**:
+
 - Azure Functions Event Grid extension — similar webhook registration + callback pattern.
 - [azure-functions-connectors-python](https://github.com/anthonychu/azure-functions-connectors-python) — Python sample showing connector trigger + action usage in Functions, including a Teams reply example. Must be studied in detail (see [Execution Plan](#execution-plan)).
 
 #### Local Development (F5 Experience)
 
 Local webhook triggers require:
+
 1. **Dev tunnels / ngrok** to expose a local port as a public endpoint
 2. **Webhook registration** at F5 time with the connector service pointing to the tunnel URL
 3. **Separate dev/prod connectors** — configured via `local.settings.json` (dev) vs app settings (prod)
@@ -211,12 +213,14 @@ The Functions team is already improving local CLI tooling for tunnel integration
 For each new connector, complete these steps:
 
 #### Code Generation
+
 - [ ] Generate DirectClient code: `--directClient --connectors={connectorName}`
 - [ ] Add to SDK repo as `Generated/{Connector}Extensions.cs`
 - [ ] Fix any compilation errors (document generator bugs found)
 - [ ] Create PR
 
 #### Connection Setup (see [docs/connection-setup.md](docs/connection-setup.md))
+
 - [ ] Create connection from Logic Apps Standard app
 - [ ] Get connection runtime URL: `az resource show ... --query "properties.connectionRuntimeUrl"`
 - [ ] Add access policy for your identity
@@ -224,6 +228,7 @@ For each new connector, complete these steps:
 - [ ] Test via CLI: `az rest --method GET --uri "{runtimeUrl}/{path}" --resource "https://apihub.azure.com"`
 
 #### POC Validation
+
 - [ ] Add runtime URL to `local.settings.json`
 - [ ] Create test endpoint in POC
 - [ ] Validate end-to-end request
