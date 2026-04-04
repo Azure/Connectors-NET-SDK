@@ -2,8 +2,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
-using Microsoft.Azure.Workflows.Connectors.Sdk;
-using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
+using Microsoft.Azure.Connectors.Sdk;
+using Microsoft.Azure.Connectors.Sdk.Authentication;
 
 namespace SampleConnectorUsage;
 

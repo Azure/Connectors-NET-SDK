@@ -242,7 +242,7 @@ The generated code depends on the runtime SDK for:
 Install the SDK NuGet package in your project:
 
 ```xml
-<PackageReference Include="Microsoft.Azure.Workflows.Connectors.Sdk" Version="1.0.0" />
+<PackageReference Include="Microsoft.Azure.Connectors.Sdk" Version="1.0.0" />
 ```
 
 ## Regeneration Schedule
