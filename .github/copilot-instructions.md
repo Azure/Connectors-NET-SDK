@@ -15,9 +15,9 @@ This repository contains the lightweight SDK for Azure Logic Apps connectors. Co
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Azure.Workflows.Connectors.Sdk;
+using Microsoft.Azure.Connectors.Sdk;
 
-namespace Microsoft.Azure.Workflows.Connectors.Sdk
+namespace Microsoft.Azure.Connectors.Sdk
 {
     public class YourClass
     {

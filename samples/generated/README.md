@@ -1,7 +1,7 @@
 # Generated Connector Code
 
 Pre-generated connector clients are included in the SDK package at:
-`src/Microsoft.Azure.Workflows.Connectors.Sdk/Generated/`
+`src/Microsoft.Azure.Connectors.Sdk/Generated/`
 
 This folder is available for users who want to generate additional connectors or custom connectors locally.
 

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Microsoft.Azure.Workflows.Connectors.Sdk\Microsoft.Azure.Workflows.Connectors.Sdk.csproj" />
+    <ProjectReference Include="..\..\src\Microsoft.Azure.Connectors.Sdk\Microsoft.Azure.Connectors.Sdk.csproj" />
   </ItemGroup>
 
 </Project>

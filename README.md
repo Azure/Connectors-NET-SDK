@@ -38,8 +38,8 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
                ▼
 ┌─────────────────────────────────────┐
 │   Azure Connectors .NET SDK         │
-│   Microsoft.Azure.Workflows        │
-│   .Connectors.Sdk                   │
+│   Microsoft.Azure.Connectors.Sdk    │
+│                                     │
 │                                     │
 │  • ManagedIdentityTokenProvider     │
 │  • ConnectorHttpClient + retry      │
@@ -50,7 +50,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 ## Installation
 
 ```bash
-dotnet add package Microsoft.Azure.Workflows.Connectors.Sdk
+dotnet add package Microsoft.Azure.Connectors.Sdk
 ```
 
 ## Quick Start
