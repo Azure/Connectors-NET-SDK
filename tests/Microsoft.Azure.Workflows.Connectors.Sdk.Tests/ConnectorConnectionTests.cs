@@ -2,11 +2,11 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     [TestClass]
     public class ConnectorConnectionTests
     {

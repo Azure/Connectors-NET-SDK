@@ -2,21 +2,21 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using global::Azure.Core;
+using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.Protected;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net;
-    using System.Net.Http;
-    using System.Text.Json;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using global::Azure.Core;
-    using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
-    using Moq.Protected;
-
     /// <summary>
     /// Tests for the generated SharepointonlineClient class.
     /// </summary>
@@ -73,9 +73,9 @@ namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
             };
 
             using var responseMessage = new HttpResponseMessage
-                {
-                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                };
+            {
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
 
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
@@ -118,10 +118,10 @@ namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
             var mockHandler = new Mock<HttpMessageHandler>();
 
             using var responseMessage = new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.NotFound,
-                    Content = new StringContent("{\"error\": \"Site not found\"}")
-                };
+            {
+                StatusCode = HttpStatusCode.NotFound,
+                Content = new StringContent("{\"error\": \"Site not found\"}")
+            };
 
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(

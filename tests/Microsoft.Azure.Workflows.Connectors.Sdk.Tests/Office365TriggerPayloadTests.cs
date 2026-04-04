@@ -2,12 +2,12 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Text.Json;
+using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using System.Text.Json;
-    using Microsoft.Azure.Connectors.DirectClient.Office365;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// Tests for per-trigger convenience payload types and the trigger registry.
     /// </summary>

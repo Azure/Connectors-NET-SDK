@@ -1616,9 +1616,9 @@ public class SharepointonlineConnectorException : Exception
     public SharepointonlineConnectorException(string operation, int statusCode, string responseBody)
         : base($"{operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
     {
-        Operation = operation;
-        StatusCode = statusCode;
-        ResponseBody = responseBody;
+        this.Operation = operation;
+        this.StatusCode = statusCode;
+        this.ResponseBody = responseBody;
     }
 
     private static string TruncateBody(string body)
@@ -1657,12 +1657,12 @@ public class SharepointonlineClient : IDisposable
     /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
     public SharepointonlineClient(string connectionRuntimeUrl, TokenCredential credential = null, HttpClient httpClient = null)
     {
-        _connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/') 
+        this._connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/')
             ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl));
-        _credential = credential ?? new DefaultAzureCredential();
-        _ownsCredential = credential == null;
-        _ownsHttpClient = httpClient == null;
-        _httpClient = httpClient ?? new HttpClient();
+        this._credential = credential ?? new DefaultAzureCredential();
+        this._ownsCredential = credential == null;
+        this._ownsHttpClient = httpClient == null;
+        this._httpClient = httpClient ?? new HttpClient();
     }
 
     /// <summary>
@@ -1688,14 +1688,14 @@ public class SharepointonlineClient : IDisposable
 
     private async Task<string> GetTokenAsync(CancellationToken cancellationToken)
     {
-        if (_cachedToken.HasValue && _cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
+        if (this._cachedToken.HasValue && this._cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
         {
-            return _cachedToken.Value.Token;
+            return this._cachedToken.Value.Token;
         }
 
-        _cachedToken = await _credential.GetTokenAsync(
+        this._cachedToken = await this._credential.GetTokenAsync(
             new TokenRequestContext(ApiHubScopes), cancellationToken);
-        return _cachedToken.Value.Token;
+        return this._cachedToken.Value.Token;
     }
 
     private async Task<TResponse> CallConnectorAsync<TResponse>(
@@ -1704,8 +1704,8 @@ public class SharepointonlineClient : IDisposable
         object body = null,
         CancellationToken cancellationToken = default)
     {
-        var token = await GetTokenAsync(cancellationToken);
-        var url = $"{_connectionRuntimeUrl}{path}";
+        var token = await this.GetTokenAsync(cancellationToken);
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1717,7 +1717,7 @@ public class SharepointonlineClient : IDisposable
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        using var response = await this._httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -1745,8 +1745,8 @@ public class SharepointonlineClient : IDisposable
         object body = null,
         CancellationToken cancellationToken = default)
     {
-        var token = await GetTokenAsync(cancellationToken);
-        var url = $"{_connectionRuntimeUrl}{path}";
+        var token = await this.GetTokenAsync(cancellationToken);
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1758,7 +1758,7 @@ public class SharepointonlineClient : IDisposable
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        using var response = await this._httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -1780,10 +1780,12 @@ public class SharepointonlineClient : IDisposable
     public async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, string limitColumnsByContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-        if (limitColumnsByContentType != default) queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByContentType != default)
+            queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
         var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1795,7 +1797,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/datasets";
-        return await CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1808,7 +1810,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TablesList> GetAllTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
-        return await CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1822,9 +1824,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<ApproveHubSiteJoinResponse> ApproveHubSiteJoinAsync([DynamicValues("GetDataSets")] string hubSiteAddress, string requestingSiteId, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (requestingSiteId != default) queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
+        if (requestingSiteId != default)
+            queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(hubSiteAddress.ToString())}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1837,9 +1840,10 @@ public class SharepointonlineClient : IDisposable
     public async Task CancelHubSiteJoinApprovalAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (approvalCorrelationId != default) queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
+        if (approvalCorrelationId != default)
+            queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1855,7 +1859,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<SharingLinkPermission> CreateSharingLinkAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int itemId, ItemPermissionCreateLinkBody input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
-        return await CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -1871,11 +1875,14 @@ public class SharepointonlineClient : IDisposable
     public async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFilePath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (sourceFilePath != default) queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-        if (destinationFilePath != default) queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-        if (overwriteFlag != default) queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
+        if (sourceFilePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+        if (destinationFilePath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+        if (overwriteFlag != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1889,7 +1896,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> CopyFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFileParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -1903,7 +1910,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> CopyFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFolderParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -1919,11 +1926,14 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<BlobMetadata>> ExtractFolderV2Async([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (sourceFilePath != default) queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-        if (destinationFolderPath != default) queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-        if (overwriteFlag != default) queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
+        if (sourceFilePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+        if (destinationFolderPath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+        if (overwriteFlag != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1939,10 +1949,12 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> CreateFileAsync([DynamicValues("GetDataSets")] string siteAddress, byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (folderPath != default) queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-        if (fileName != default) queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+        if (folderPath != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+        if (fileName != default)
+            queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -1956,7 +1968,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> GetFileMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1971,7 +1983,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<BlobMetadataResponse> UpdateFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        return await CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken);
+        return await this.CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -1984,7 +1996,7 @@ public class SharepointonlineClient : IDisposable
     public async Task DeleteFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -1999,9 +2011,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, bool inferContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (inferContentType != default) queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
+        if (inferContentType != default)
+            queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2014,7 +2027,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<BlobMetadata>> ListRootFolderAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders";
-        return await CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2028,7 +2041,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<BlobMetadata>> ListFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        return await CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2042,9 +2055,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filePath != default) queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+        if (filePath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2059,10 +2073,12 @@ public class SharepointonlineClient : IDisposable
     public async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filePath != default) queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-        if (inferContentType != default) queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
+        if (filePath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+        if (inferContentType != default)
+            queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2076,9 +2092,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> GetFolderMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (fileIdentifier != default) queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
+        if (fileIdentifier != default)
+            queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2092,9 +2109,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> GetFolderMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string folderPath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (folderPath != default) queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
+        if (folderPath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2107,7 +2125,7 @@ public class SharepointonlineClient : IDisposable
     public async Task HttpRequestAsync([DynamicValues("GetDataSets")] string siteAddress, SharePointHttpRequestBodyParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2122,11 +2140,14 @@ public class SharepointonlineClient : IDisposable
     public async Task JoinHubSiteAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string hubSiteId, string approvalToken = default, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (hubSiteId != default) queryParams.Add($"hubSiteId={Uri.EscapeDataString(hubSiteId.ToString())}");
-        if (approvalToken != default) queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
-        if (approvalCorrelationId != default) queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
+        if (hubSiteId != default)
+            queryParams.Add($"hubSiteId={Uri.EscapeDataString(hubSiteId.ToString())}");
+        if (approvalToken != default)
+            queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
+        if (approvalCorrelationId != default)
+            queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2140,7 +2161,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> MoveFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFileParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2154,7 +2175,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> MoveFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFolderParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2167,9 +2188,10 @@ public class SharepointonlineClient : IDisposable
     public async Task NotifyHubSiteJoinApprovalStartedAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (approvalCorrelationId != default) queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
+        if (approvalCorrelationId != default)
+            queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2182,7 +2204,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
-        return await CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2197,7 +2219,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<CreateNewDocumentSetResponse> CreateNewDocumentSetAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string library, CreateNewDocumentSetParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
-        return await CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2213,9 +2235,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<CreateNewFolderResponse> CreateNewFolderAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, CreateNewFolderParameters input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2232,10 +2255,12 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPListExpandedUser> SearchForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, [DynamicValues("GetEntitiesForUser")] string column, string emailOrName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (emailOrName != default) queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (emailOrName != default)
+            queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/entities/{Uri.EscapeDataString(column.ToString())}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2250,9 +2275,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<SPListEntity>> GetEntitiesForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2272,14 +2298,20 @@ public class SharepointonlineClient : IDisposable
     public async Task<ItemsList> GetFileItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, string filterQuery = default, string orderBy = default, int topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default) queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (limitEntriesToFolder != default) queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
-        if (includeNestedItems != default) queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (limitEntriesToFolder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
+        if (includeNestedItems != default)
+            queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2293,7 +2325,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<Table>> GetListImageFieldsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
-        return await CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2313,14 +2345,20 @@ public class SharepointonlineClient : IDisposable
     public async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string filterQuery = default, string orderBy = default, int topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default) queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (limitEntriesToFolder != default) queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
-        if (includeNestedItems != default) queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (limitEntriesToFolder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
+        if (includeNestedItems != default)
+            queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2336,9 +2374,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<PostItemResponse> PostItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, PostItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2354,9 +2393,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<GetItemResponse> GetItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2370,7 +2410,7 @@ public class SharepointonlineClient : IDisposable
     public async Task DeleteItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2387,9 +2427,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, PatchItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2406,9 +2447,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<ApprovalData> CreateApprovalRequestAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLightweightApproval")] string listOrLibrary, int id, CreateApprovalRequestInput input, [DynamicValues("GetApprovalTypes")] int approvalType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (approvalType != default) queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
+        if (approvalType != default)
+            queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2427,12 +2469,16 @@ public class SharepointonlineClient : IDisposable
     public async Task<GetItemChangesResponse> GetItemChangesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, string since, string until = default, bool includeMinorVersions = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (since != default) queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
-        if (until != default) queryParams.Add($"until={Uri.EscapeDataString(until.ToString())}");
-        if (includeMinorVersions != default) queryParams.Add($"includeDrafts={Uri.EscapeDataString(includeMinorVersions.ToString())}");
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (since != default)
+            queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+        if (until != default)
+            queryParams.Add($"until={Uri.EscapeDataString(until.ToString())}");
+        if (includeMinorVersions != default)
+            queryParams.Add($"includeDrafts={Uri.EscapeDataString(includeMinorVersions.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2447,7 +2493,7 @@ public class SharepointonlineClient : IDisposable
     public async Task CheckInFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, FileCheckInParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2461,7 +2507,7 @@ public class SharepointonlineClient : IDisposable
     public async Task CheckOutFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2475,7 +2521,7 @@ public class SharepointonlineClient : IDisposable
     public async Task DiscardFileCheckOutAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2491,9 +2537,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<Item> GetFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2508,7 +2555,7 @@ public class SharepointonlineClient : IDisposable
     public async Task GrantAccessAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, ItemGrantAccessBody input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2525,9 +2572,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<PatchFileItemResponse> PatchFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (limitColumnsByView != default) queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+        if (limitColumnsByView != default)
+            queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2543,7 +2591,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<Item> PatchFileItemWithPredictedValuesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemWithPredictedValuesParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
-        return await CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2561,11 +2609,14 @@ public class SharepointonlineClient : IDisposable
     public async Task<SetApprovalStatusOutput> SetApprovalStatusAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForApproval")] string libraryName, int id, string action, string comments = default, string eTag = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (action != default) queryParams.Add($"approvalAction={Uri.EscapeDataString(action.ToString())}");
-        if (comments != default) queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
-        if (eTag != default) queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
+        if (action != default)
+            queryParams.Add($"approvalAction={Uri.EscapeDataString(action.ToString())}");
+        if (comments != default)
+            queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
+        if (eTag != default)
+            queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2579,7 +2630,7 @@ public class SharepointonlineClient : IDisposable
     public async Task UnshareItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2594,7 +2645,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<SPListItemAttachment>> GetItemAttachmentsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
-        return await CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2611,9 +2662,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPListItemAttachment> CreateAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, byte[] input, string fileName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (fileName != default) queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
+        if (fileName != default)
+            queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2628,7 +2680,7 @@ public class SharepointonlineClient : IDisposable
     public async Task DeleteAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2644,7 +2696,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<byte[]> GetAttachmentContentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
-        return await CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2658,7 +2710,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
-        return await CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2677,11 +2729,14 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> CreateContentAssemblyDocumentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetContentAssemblyTemplates")] string documentTemplate, CreateContentAssemblyDocumentInput input, string folderPath = default, string fileName = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (folderPath != default) queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-        if (fileName != default) queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
-        if (viewNoEffect != default) queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
+        if (folderPath != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+        if (fileName != default)
+            queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
+        if (viewNoEffect != default)
+            queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2696,7 +2751,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
-        return await CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2710,7 +2765,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<Table>> GetTableViewsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
-        return await CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2723,7 +2778,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
-        return await CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2736,7 +2791,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
-        return await CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2749,7 +2804,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
-        return await CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2762,7 +2817,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
-        return await CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2775,7 +2830,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
-        return await CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2793,11 +2848,14 @@ public class SharepointonlineClient : IDisposable
     public async Task<SPBlobMetadataResponse> CreateAgreementsSolutionDocumentAsync([DynamicValues("GetDataSets")] string agreementsSolutionWorkspace, [DynamicValues("GetAgreementsSolutionTemplates")] string agreementsSolutionTemplate, CreateAgreementsSolutionDocumentInput input, string fileName = default, string tableNoEffect = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (fileName != default) queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
-        if (tableNoEffect != default) queryParams.Add($"table={Uri.EscapeDataString(tableNoEffect.ToString())}");
-        if (viewNoEffect != default) queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
+        if (fileName != default)
+            queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
+        if (tableNoEffect != default)
+            queryParams.Add($"table={Uri.EscapeDataString(tableNoEffect.ToString())}");
+        if (viewNoEffect != default)
+            queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(agreementsSolutionWorkspace.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2811,7 +2869,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
-        return await CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2824,9 +2882,10 @@ public class SharepointonlineClient : IDisposable
     public async Task<ObjectEntity> GetApprovalSchemaAsync(int approvalType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (approvalType != default) queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
+        if (approvalType != default)
+            queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
         var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2838,7 +2897,7 @@ public class SharepointonlineClient : IDisposable
     public async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/getApprovalTypes";
-        return await CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2850,17 +2909,17 @@ public class SharepointonlineClient : IDisposable
     public async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/getViewScopeOptions";
-        return await CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     public void Dispose()
     {
-        if (_ownsHttpClient)
+        if (this._ownsHttpClient)
         {
-            _httpClient?.Dispose();
+            this._httpClient?.Dispose();
         }
 
-        if (_ownsCredential && _credential is IDisposable disposableCredential)
+        if (this._ownsCredential && this._credential is IDisposable disposableCredential)
         {
             disposableCredential.Dispose();
         }

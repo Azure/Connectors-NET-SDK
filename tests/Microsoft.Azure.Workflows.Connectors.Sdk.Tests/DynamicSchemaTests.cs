@@ -2,16 +2,16 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.Azure.Connectors.DirectClient.Teams;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Text.Json;
-    using System.Text.Json.Serialization;
-    using Microsoft.Azure.Connectors.DirectClient.Teams;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// Tests for <see cref="DynamicSchemaAttribute"/> and <c>[JsonExtensionData]</c> on dynamic schema types.
     /// </summary>
