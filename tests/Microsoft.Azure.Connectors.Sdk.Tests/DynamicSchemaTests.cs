@@ -29,17 +29,15 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void DynamicSchemaAttribute_WithNullOperationId_ThrowsArgumentException()
         {
-            new DynamicSchemaAttribute(operationId: null!);
+            Assert.ThrowsExactly<ArgumentException>(() => new DynamicSchemaAttribute(operationId: null!));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void DynamicSchemaAttribute_WithEmptyOperationId_ThrowsArgumentException()
         {
-            new DynamicSchemaAttribute(operationId: string.Empty);
+            Assert.ThrowsExactly<ArgumentException>(() => new DynamicSchemaAttribute(operationId: string.Empty));
         }
 
         [TestMethod]

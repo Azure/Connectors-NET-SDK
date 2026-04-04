@@ -37,7 +37,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Office365Client(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new Office365Client(null!));
         }
 
         [TestMethod]
@@ -171,7 +171,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExceptionAsync<Office365ConnectorException>(async () =>
+                .ThrowsExactlyAsync<Office365ConnectorException>(async () =>
                     await client
                         .GetEmailV2Async(messageId: "test-message-id", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))
