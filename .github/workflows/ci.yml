@@ -70,7 +70,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release
 
     - name: Pack
-      run: dotnet pack --no-build --configuration Release --output ./nupkg      
+      run: dotnet pack --no-build --configuration Release --output ./nupkg
 
     - name: Upload NuGet package artifact
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
