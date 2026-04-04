@@ -7,8 +7,31 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Check C# formatting
+      run: dotnet format --verify-no-changes --verbosity diagnostic
+
+    - name: Lint Markdown
+      uses: DavidAnson/markdownlint-cli2-action@v19
+      with:
+        globs: '**/*.md'
+
   build-and-test:
     runs-on: ${{ matrix.os }}
+    needs: lint
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
