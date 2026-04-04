@@ -58,6 +58,18 @@ This project follows the coding conventions documented in [.github/copilot-instr
 - Use named arguments for boolean parameters
 - Use `StringComparison` for all string comparisons
 
+### Automated Enforcement
+
+Coding standards are enforced automatically in CI — PRs that violate them will fail the lint check:
+
+- **`dotnet format --verify-no-changes`** — enforces the `.editorconfig` rules (naming, spacing, braces, qualifiers)
+- **`TreatWarningsAsErrors`** — all compiler and analyzer warnings are build errors
+- **`EnforceCodeStyleInBuild`** — Roslyn code style rules run during build
+- **Nullable reference types** — enabled project-wide (`<Nullable>enable</Nullable>`)
+- **Markdown linting** — `markdownlint-cli2` checks all `.md` files
+
+Run `dotnet format` locally before pushing to catch formatting issues early.
+
 ## Generated Code
 
 Files under `src/**/Generated/` are produced by an internal Microsoft code generator that is not publicly accessible at this time. **Do not submit pull requests that directly modify generated files** — changes will be overwritten the next time the code is regenerated.
