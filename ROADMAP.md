@@ -11,6 +11,7 @@ This document tracks the progress of generating DirectClient SDK code for Logic 
 | BPM Generator | ⏳ Feature branch awaiting human review | Fixes for WhenWritingNull, nullable types, SharePoint fixes |
 | SDK (Office365) | ✅ Complete | WhenWritingNull fix merged |
 | SDK (SharePoint) | ✅ Complete | Validated end-to-end |
+| SDK (Kusto / ADX) | ✅ Complete | KQL queries, control commands, chart rendering, MCP server |
 | POC | ✅ Complete | Office365 email + SharePoint lists validated |
 
 ---
@@ -49,6 +50,7 @@ Azure-native connectors (some may overlap with existing Functions bindings).
 
 | Priority | Connector | Usage Rank | Partner Tier | Notes | Status |
 |----------|-----------|------------|--------------|-------|--------|
+| 3.0 | **Azure Data Explorer (Kusto)** | — | — | KQL queries, control commands, chart rendering, MCP server | ✅ Complete |
 | 3.1 | **Azure Blob Storage** | #8/#15 | — | May overlap with Functions binding | ⬜ Evaluate |
 | 3.2 | **Azure Log Analytics** | #7 | — | Query/ingest operations | ⬜ Not started |
 | 3.3 | **Event Hubs** | #14 | — | May overlap with Functions binding | ⬜ Evaluate |
