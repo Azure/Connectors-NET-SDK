@@ -60,13 +60,13 @@ This project follows the coding conventions documented in [.github/copilot-instr
 
 ### Automated Enforcement
 
-Coding standards are enforced automatically in CI — PRs that violate them will fail the lint check:
+Coding standards are enforced automatically in CI — PRs that violate them will not pass:
 
-- **`dotnet format --verify-no-changes`** — enforces the `.editorconfig` rules (naming, spacing, braces, qualifiers)
-- **`TreatWarningsAsErrors`** — all compiler and analyzer warnings are build errors
-- **`EnforceCodeStyleInBuild`** — Roslyn code style rules run during build
-- **Nullable reference types** — enabled project-wide (`<Nullable>enable</Nullable>`)
-- **Markdown linting** — `markdownlint-cli2` checks all `.md` files
+- **`dotnet format --verify-no-changes`** (lint job) — enforces the `.editorconfig` rules (naming, spacing, braces, qualifiers)
+- **`TreatWarningsAsErrors`** (build) — all compiler and analyzer warnings are build errors
+- **`EnforceCodeStyleInBuild`** (build) — Roslyn code style rules run during build
+- **Nullable reference types** (build) — enabled project-wide (`<Nullable>enable</Nullable>`)
+- **Markdown linting** (lint job) — `markdownlint-cli2` checks all `.md` files
 
 Run `dotnet format` locally before pushing to catch formatting issues early.
 

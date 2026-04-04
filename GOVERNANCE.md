@@ -22,7 +22,7 @@ Anyone who submits a pull request or files an issue. Contributors must agree to 
 
 - **Day-to-day decisions** (bug fixes, minor improvements) are made by any maintainer via PR review.
 - **Significant changes** (new connectors, API surface changes, breaking changes) require review and approval from at least one maintainer.
-- **Releases** are cut by maintainers using git tags (see [release instructions](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md)).
+- **Releases** are cut by maintainers using git tags (see [release instructions](README.md#releasing-a-new-version) and [CHANGELOG.md](CHANGELOG.md)).
 
 ## Contributions
 

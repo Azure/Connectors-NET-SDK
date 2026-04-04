@@ -18,7 +18,7 @@
 
 ## Checklist
 
-- [ ] Code follows the project's [coding conventions](.github/copilot-instructions.md)
-- [ ] No modifications to files under `src/**/Generated/` (see [CONTRIBUTING.md](CONTRIBUTING.md#generated-code))
+- [ ] Code follows the project's [coding conventions](copilot-instructions.md)
+- [ ] No modifications to files under `src/**/Generated/` (see [CONTRIBUTING.md](../CONTRIBUTING.md#generated-code))
 - [ ] Documentation updated (if behavior changed)
 - [ ] CHANGELOG.md updated (if user-facing change)

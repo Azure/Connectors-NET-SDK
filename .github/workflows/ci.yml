@@ -50,6 +50,7 @@ jobs:
 
     - name: Test with coverage
       run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      shell: bash
 
     - name: Upload coverage
       if: matrix.os == 'ubuntu-latest'
@@ -61,7 +62,7 @@ jobs:
     - name: Coverage summary
       if: matrix.os == 'ubuntu-latest'
       run: |
-        dotnet tool install --global dotnet-reportgenerator-globaltool
+        dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.11
         reportgenerator -reports:./coverage/**/coverage.cobertura.xml -targetdir:./coverage/report -reporttypes:TextSummary
         cat ./coverage/report/Summary.txt
 
