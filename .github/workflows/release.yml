@@ -64,7 +64,6 @@ jobs:
 
     - name: Create GitHub Release
       if: github.event_name == 'push'
-      uses: softprops/action-gh-release@v1
-      with:
-        files: ./nupkg/*.nupkg
-        generate_release_notes: true
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh release create "${{ github.ref_name }}" ./nupkg/*.nupkg --generate-notes
