@@ -2,13 +2,13 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Linq;
+using System.Reflection;
+using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using System.Linq;
-    using System.Reflection;
-    using Microsoft.Azure.Connectors.DirectClient.Office365;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// Tests for <see cref="ConnectorNames"/> and <see cref="Office365TriggerOperations"/> constants.
     /// Verifies that the string constants are consistent with the existing generated types and registries.

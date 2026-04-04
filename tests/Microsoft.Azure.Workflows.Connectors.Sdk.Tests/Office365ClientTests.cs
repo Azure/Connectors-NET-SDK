@@ -2,21 +2,21 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using global::Azure.Core;
+using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.Protected;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net;
-    using System.Net.Http;
-    using System.Text.Json;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using global::Azure.Core;
-    using Microsoft.Azure.Connectors.DirectClient.Office365;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
-    using Moq.Protected;
-
     /// <summary>
     /// Tests for the generated Office365Client class.
     /// </summary>

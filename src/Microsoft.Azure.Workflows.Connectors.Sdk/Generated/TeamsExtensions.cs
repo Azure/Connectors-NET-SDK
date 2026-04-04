@@ -2353,9 +2353,9 @@ public class TeamsConnectorException : Exception
     public TeamsConnectorException(string operation, int statusCode, string responseBody)
         : base($"{operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
     {
-        Operation = operation;
-        StatusCode = statusCode;
-        ResponseBody = responseBody;
+        this.Operation = operation;
+        this.StatusCode = statusCode;
+        this.ResponseBody = responseBody;
     }
 
     private static string TruncateBody(string body)
@@ -2394,12 +2394,12 @@ public class TeamsClient : IDisposable
     /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
     public TeamsClient(string connectionRuntimeUrl, TokenCredential credential = null, HttpClient httpClient = null)
     {
-        _connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/') 
+        this._connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/')
             ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl));
-        _credential = credential ?? new DefaultAzureCredential();
-        _ownsCredential = credential == null;
-        _ownsHttpClient = httpClient == null;
-        _httpClient = httpClient ?? new HttpClient();
+        this._credential = credential ?? new DefaultAzureCredential();
+        this._ownsCredential = credential == null;
+        this._ownsHttpClient = httpClient == null;
+        this._httpClient = httpClient ?? new HttpClient();
     }
 
     /// <summary>
@@ -2425,14 +2425,14 @@ public class TeamsClient : IDisposable
 
     private async Task<string> GetTokenAsync(CancellationToken cancellationToken)
     {
-        if (_cachedToken.HasValue && _cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
+        if (this._cachedToken.HasValue && this._cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
         {
-            return _cachedToken.Value.Token;
+            return this._cachedToken.Value.Token;
         }
 
-        _cachedToken = await _credential.GetTokenAsync(
+        this._cachedToken = await this._credential.GetTokenAsync(
             new TokenRequestContext(ApiHubScopes), cancellationToken);
-        return _cachedToken.Value.Token;
+        return this._cachedToken.Value.Token;
     }
 
     private async Task<TResponse> CallConnectorAsync<TResponse>(
@@ -2441,8 +2441,8 @@ public class TeamsClient : IDisposable
         object body = null,
         CancellationToken cancellationToken = default)
     {
-        var token = await GetTokenAsync(cancellationToken);
-        var url = $"{_connectionRuntimeUrl}{path}";
+        var token = await this.GetTokenAsync(cancellationToken);
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -2454,7 +2454,7 @@ public class TeamsClient : IDisposable
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        using var response = await this._httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -2482,8 +2482,8 @@ public class TeamsClient : IDisposable
         object body = null,
         CancellationToken cancellationToken = default)
     {
-        var token = await GetTokenAsync(cancellationToken);
-        var url = $"{_connectionRuntimeUrl}{path}";
+        var token = await this.GetTokenAsync(cancellationToken);
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -2495,7 +2495,7 @@ public class TeamsClient : IDisposable
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        using var response = await this._httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -2515,7 +2515,7 @@ public class TeamsClient : IDisposable
     public async Task<NewMeetingResponse> CreateTeamsMeetingAsync(string calendarId, NewMeeting input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
-        return await CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2527,7 +2527,7 @@ public class TeamsClient : IDisposable
     public async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/beta/me/joinedTeams";
-        return await CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2539,7 +2539,7 @@ public class TeamsClient : IDisposable
     public async Task<GetAllAssociatedTeamsResponse> GetAllAssociatedTeamsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/me/teamwork/associatedTeams";
-        return await CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2554,10 +2554,12 @@ public class TeamsClient : IDisposable
     public async Task<GetChannelsForGroupResponse> GetChannelsForGroupAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
         var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2571,7 +2573,7 @@ public class TeamsClient : IDisposable
     public async Task<CreateChannelResponse> CreateChannelAsync([DynamicValues("GetAllTeams")] string team, CreateChannelInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
-        return await CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2585,7 +2587,7 @@ public class TeamsClient : IDisposable
     public async Task<GetChannelResponse> GetChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
-        return await CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2600,10 +2602,12 @@ public class TeamsClient : IDisposable
     public async Task<GetAllChannelsForTeamResponse> GetAllChannelsForTeamAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/allChannels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2617,7 +2621,7 @@ public class TeamsClient : IDisposable
     public async Task<GetChatsResponse> GetChatsAsync(string chatTypes, string topic, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
-        return await CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2630,7 +2634,7 @@ public class TeamsClient : IDisposable
     public async Task<GetTagsResponseSchema> GetTagsAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-        return await CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2644,7 +2648,7 @@ public class TeamsClient : IDisposable
     public async Task<CreateTagResponseSchema> CreateTagAsync([DynamicValues("GetAllTeams")] string team, CreateTagInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-        return await CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2659,7 +2663,7 @@ public class TeamsClient : IDisposable
     public async Task<AddMemberToTagResponseSchema> AddMemberToTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, AddMemberToTagInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-        return await CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2673,7 +2677,7 @@ public class TeamsClient : IDisposable
     public async Task<GetTagMembersResponseSchema> GetTagMembersAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-        return await CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2687,7 +2691,7 @@ public class TeamsClient : IDisposable
     public async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberID, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberID.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2701,7 +2705,7 @@ public class TeamsClient : IDisposable
     public async Task PostFeedNotificationAsync(string postAs, string notificationType, DynamicPostFeedNotificationRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2715,7 +2719,7 @@ public class TeamsClient : IDisposable
     public async Task<AtMentionTagResponse> AtMentionTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-        return await CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2728,7 +2732,7 @@ public class TeamsClient : IDisposable
     public async Task DeleteTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2742,7 +2746,7 @@ public class TeamsClient : IDisposable
     public async Task<GetMessagesFromConversationResponse> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
-        return await CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2757,7 +2761,7 @@ public class TeamsClient : IDisposable
     public async Task<DynamicGetMessageDetailsResponseSchema> GetMessageDetailsAsync(string message, string messageType, DynamicGetMessageDetailsSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2773,9 +2777,10 @@ public class TeamsClient : IDisposable
     public async Task<ListRepliesResponseSchema> ListRepliesToMessageAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string message, int latestRepliesCount = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (latestRepliesCount != default) queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.ToString())}");
+        if (latestRepliesCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.ToString())}");
         var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages/{Uri.EscapeDataString(message.ToString())}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2790,9 +2795,10 @@ public class TeamsClient : IDisposable
     public async Task<ListMembersResponseSchema> ListMembersAsync(string threadType, DynamicListMembersSchema input, string filterQuery = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
         var path = $"/v1.0/teams/listmembers/threadType/{Uri.EscapeDataString(threadType.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2804,7 +2810,7 @@ public class TeamsClient : IDisposable
     public async Task SubscribeUserMessageWithOptionsAsync(DynamicUserMessageWithOptionsSubscriptionRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2817,7 +2823,7 @@ public class TeamsClient : IDisposable
     public async Task<GetTeamResponse> GetTeamAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
-        return await CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2830,7 +2836,7 @@ public class TeamsClient : IDisposable
     public async Task<AtMentionUserV1> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
-        return await CallConnectorAsync<AtMentionUserV1>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<AtMentionUserV1>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2843,7 +2849,7 @@ public class TeamsClient : IDisposable
     public async Task<NewChatResponse> CreateChatAsync(NewChat input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/chats";
-        return await CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2859,11 +2865,14 @@ public class TeamsClient : IDisposable
     public async Task<GetMessagesFromConversationResponse> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (top != default) queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2876,7 +2885,7 @@ public class TeamsClient : IDisposable
     public async Task<CreateATeamResponse> CreateATeamAsync(CreateATeamInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams";
-        return await CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2889,7 +2898,7 @@ public class TeamsClient : IDisposable
     public async Task AddMemberToTeamAsync([DynamicValues("GetAllTeams")] string team, AddMemberToTeamInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/members";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2903,7 +2912,7 @@ public class TeamsClient : IDisposable
     public async Task AddMemberToChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, AddMemberToChannelInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2917,7 +2926,7 @@ public class TeamsClient : IDisposable
     public async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipID, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipID.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2932,7 +2941,7 @@ public class TeamsClient : IDisposable
     public async Task<PostToConversationResponse> PostMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostMessageRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2947,7 +2956,7 @@ public class TeamsClient : IDisposable
     public async Task<PostToConversationResponse> ReplyWithMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyMessageRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2962,7 +2971,7 @@ public class TeamsClient : IDisposable
     public async Task<PostToConversationResponse> PostCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostCardRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2977,7 +2986,7 @@ public class TeamsClient : IDisposable
     public async Task<DynamicPostGatherInputToConversationResponse> PostCardAndWaitForResponseAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, PostCardAndWaitForResponseInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
-        return await CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -2992,7 +3001,7 @@ public class TeamsClient : IDisposable
     public async Task<PostToConversationResponse> ReplyWithCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyCardRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -3007,7 +3016,7 @@ public class TeamsClient : IDisposable
     public async Task<PostToConversationResponse> UpdateCardInConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicUpdateCardRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -3021,7 +3030,7 @@ public class TeamsClient : IDisposable
     public async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
-        return await CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -3034,17 +3043,17 @@ public class TeamsClient : IDisposable
     public async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/httprequest";
-        return await CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     public void Dispose()
     {
-        if (_ownsHttpClient)
+        if (this._ownsHttpClient)
         {
-            _httpClient?.Dispose();
+            this._httpClient?.Dispose();
         }
 
-        if (_ownsCredential && _credential is IDisposable disposableCredential)
+        if (this._ownsCredential && this._credential is IDisposable disposableCredential)
         {
             disposableCredential.Dispose();
         }

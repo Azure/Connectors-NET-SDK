@@ -2,10 +2,10 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk
 {
-    using System;
-
     /// <summary>
     /// Resolves connector connection settings from Azure Functions configuration.
     /// Reads settings using the <c>__</c> separator convention.

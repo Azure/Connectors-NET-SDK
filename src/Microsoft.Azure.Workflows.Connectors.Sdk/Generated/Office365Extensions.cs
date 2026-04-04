@@ -4254,9 +4254,9 @@ public class Office365ConnectorException : Exception
     public Office365ConnectorException(string operation, int statusCode, string responseBody)
         : base($"{operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
     {
-        Operation = operation;
-        StatusCode = statusCode;
-        ResponseBody = responseBody;
+        this.Operation = operation;
+        this.StatusCode = statusCode;
+        this.ResponseBody = responseBody;
     }
 
     private static string TruncateBody(string body)
@@ -4295,12 +4295,12 @@ public class Office365Client : IDisposable
     /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
     public Office365Client(string connectionRuntimeUrl, TokenCredential credential = null, HttpClient httpClient = null)
     {
-        _connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/') 
+        this._connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/')
             ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl));
-        _credential = credential ?? new DefaultAzureCredential();
-        _ownsCredential = credential == null;
-        _ownsHttpClient = httpClient == null;
-        _httpClient = httpClient ?? new HttpClient();
+        this._credential = credential ?? new DefaultAzureCredential();
+        this._ownsCredential = credential == null;
+        this._ownsHttpClient = httpClient == null;
+        this._httpClient = httpClient ?? new HttpClient();
     }
 
     /// <summary>
@@ -4326,14 +4326,14 @@ public class Office365Client : IDisposable
 
     private async Task<string> GetTokenAsync(CancellationToken cancellationToken)
     {
-        if (_cachedToken.HasValue && _cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
+        if (this._cachedToken.HasValue && this._cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
         {
-            return _cachedToken.Value.Token;
+            return this._cachedToken.Value.Token;
         }
 
-        _cachedToken = await _credential.GetTokenAsync(
+        this._cachedToken = await this._credential.GetTokenAsync(
             new TokenRequestContext(ApiHubScopes), cancellationToken);
-        return _cachedToken.Value.Token;
+        return this._cachedToken.Value.Token;
     }
 
     private async Task<TResponse> CallConnectorAsync<TResponse>(
@@ -4342,8 +4342,8 @@ public class Office365Client : IDisposable
         object body = null,
         CancellationToken cancellationToken = default)
     {
-        var token = await GetTokenAsync(cancellationToken);
-        var url = $"{_connectionRuntimeUrl}{path}";
+        var token = await this.GetTokenAsync(cancellationToken);
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -4355,7 +4355,7 @@ public class Office365Client : IDisposable
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        using var response = await this._httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -4383,8 +4383,8 @@ public class Office365Client : IDisposable
         object body = null,
         CancellationToken cancellationToken = default)
     {
-        var token = await GetTokenAsync(cancellationToken);
-        var url = $"{_connectionRuntimeUrl}{path}";
+        var token = await this.GetTokenAsync(cancellationToken);
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -4396,7 +4396,7 @@ public class Office365Client : IDisposable
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        using var response = await _httpClient.SendAsync(request, cancellationToken);
+        using var response = await this._httpClient.SendAsync(request, cancellationToken);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -4414,7 +4414,7 @@ public class Office365Client : IDisposable
     public async Task<List<GraphOutlookCategory>> GetOutlookCategoryNamesAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/Categories";
-        return await CallConnectorAsync<List<GraphOutlookCategory>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<List<GraphOutlookCategory>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4430,11 +4430,14 @@ public class Office365Client : IDisposable
     public async Task<OutlookReceiveMessage> DraftEmailAsync(ClientDraftHtmlMessage input, string messageId = default, string draftType = default, string comment = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (messageId != default) queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-        if (draftType != default) queryParams.Add($"draftType={Uri.EscapeDataString(draftType.ToString())}");
-        if (comment != default) queryParams.Add($"comment={Uri.EscapeDataString(comment.ToString())}");
+        if (messageId != default)
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+        if (draftType != default)
+            queryParams.Add($"draftType={Uri.EscapeDataString(draftType.ToString())}");
+        if (comment != default)
+            queryParams.Add($"comment={Uri.EscapeDataString(comment.ToString())}");
         var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<OutlookReceiveMessage>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<OutlookReceiveMessage>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4447,9 +4450,10 @@ public class Office365Client : IDisposable
     public async Task UpdateDraftEmailAsync(ClientDraftHtmlMessage input, string messageId, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (messageId != default) queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+        if (messageId != default)
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
         var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4461,7 +4465,7 @@ public class Office365Client : IDisposable
     public async Task SendDraftEmailAsync(string messageId, CancellationToken cancellationToken = default)
     {
         var path = $"/Draft/Send/{Uri.EscapeDataString(messageId.ToString())}";
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4474,10 +4478,12 @@ public class Office365Client : IDisposable
     public async Task AssignCategoryAsync(string messageId, string category, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (messageId != default) queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-        if (category != default) queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
+        if (messageId != default)
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+        if (category != default)
+            queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
         var path = $"/Mail/Category" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4491,7 +4497,7 @@ public class Office365Client : IDisposable
     public async Task<BatchOperationResult> AssignCategoryBulkAsync(string categoryName, List<string> input, CancellationToken cancellationToken = default)
     {
         var path = $"/Mail/Category/Bulk/{Uri.EscapeDataString(categoryName.ToString())}";
-        return await CallConnectorAsync<BatchOperationResult>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<BatchOperationResult>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4503,7 +4509,7 @@ public class Office365Client : IDisposable
     public async Task SendEmailV2Async(ClientSendHtmlMessage input, CancellationToken cancellationToken = default)
     {
         var path = $"/v2/Mail";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4521,13 +4527,18 @@ public class Office365Client : IDisposable
     public async Task<GraphClientReceiveMessage> GetEmailV2Async(string messageId, string originalMailboxAddress = default, bool includeAttachments = default, string internetMessageId = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        if (includeAttachments != default) queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
-        if (internetMessageId != default) queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
-        if (extractSensitivityLabel != default) queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-        if (sensitivityLabelMetadata != default) queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (includeAttachments != default)
+            queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+        if (internetMessageId != default)
+            queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
+        if (extractSensitivityLabel != default)
+            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+        if (sensitivityLabelMetadata != default)
+            queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
         var path = $"/v2/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4552,21 +4563,34 @@ public class Office365Client : IDisposable
     public async Task<BatchResponseGraphClientReceiveMessage> GetEmailsV3Async(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool onlyWithAttachments = default, string subjectFilter = default, bool fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool includeAttachments = default, string searchQuery = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (folder != default) queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-        if (to != default) queryParams.Add($"to={Uri.EscapeDataString(to.ToString())}");
-        if (cC != default) queryParams.Add($"cc={Uri.EscapeDataString(cC.ToString())}");
-        if (toOrCC != default) queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC.ToString())}");
-        if (from != default) queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
-        if (importance != default) queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
-        if (onlyWithAttachments != default) queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.ToString())}");
-        if (subjectFilter != default) queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
-        if (fetchOnlyUnreadMessages != default) queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.ToString())}");
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        if (includeAttachments != default) queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
-        if (searchQuery != default) queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
-        if (top != default) queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
+        if (folder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+        if (to != default)
+            queryParams.Add($"to={Uri.EscapeDataString(to.ToString())}");
+        if (cC != default)
+            queryParams.Add($"cc={Uri.EscapeDataString(cC.ToString())}");
+        if (toOrCC != default)
+            queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC.ToString())}");
+        if (from != default)
+            queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
+        if (importance != default)
+            queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
+        if (onlyWithAttachments != default)
+            queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.ToString())}");
+        if (subjectFilter != default)
+            queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
+        if (fetchOnlyUnreadMessages != default)
+            queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (includeAttachments != default)
+            queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+        if (searchQuery != default)
+            queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
+        if (top != default)
+            queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/v3/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<BatchResponseGraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<BatchResponseGraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4581,10 +4605,12 @@ public class Office365Client : IDisposable
     public async Task<GraphClientReceiveMessage> MoveV2Async(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (folder != default) queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (folder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4598,9 +4624,10 @@ public class Office365Client : IDisposable
     public async Task ReplyToV3Async(string messageId, ReplyHtmlMessage input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4613,7 +4640,7 @@ public class Office365Client : IDisposable
     public async Task<SubscriptionResponse> SendMailWithOptionsAsync(OptionsEmailSubscription input, CancellationToken cancellationToken = default)
     {
         var path = $"/mailwithoptions/$subscriptions";
-        return await CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4626,7 +4653,7 @@ public class Office365Client : IDisposable
     public async Task<SubscriptionResponse> SendApprovalMailAsync(ApprovalEmailSubscription input, CancellationToken cancellationToken = default)
     {
         var path = $"/approvalmail/$subscriptions";
-        return await CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4638,7 +4665,7 @@ public class Office365Client : IDisposable
     public async Task SharedMailboxSendEmailV2Async(SharedMailboxClientSendHtmlMessage input, CancellationToken cancellationToken = default)
     {
         var path = $"/v2/SharedMailbox/Mail";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4655,12 +4682,16 @@ public class Office365Client : IDisposable
     public async Task<GraphCalendarEventListClientReceive> V4CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default) queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (skipCount != default) queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
         var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4674,7 +4705,7 @@ public class Office365Client : IDisposable
     public async Task<GraphCalendarEventClientReceive> V4CalendarPostItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
-        return await CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4694,16 +4725,24 @@ public class Office365Client : IDisposable
     public async Task<EntityListResponseGraphCalendarEventClientReceive> GetEventsCalendarViewV3Async([DynamicValues("CalendarGetTables_V2")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string search = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (calendarId != default) queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-        if (startTime != default) queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
-        if (endTime != default) queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default) queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (skipCount != default) queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-        if (search != default) queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+        if (calendarId != default)
+            queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
+        if (startTime != default)
+            queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
+        if (endTime != default)
+            queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        if (search != default)
+            queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
         var path = $"/datasets/calendars/v3/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<EntityListResponseGraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<EntityListResponseGraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4717,7 +4756,7 @@ public class Office365Client : IDisposable
     public async Task<GraphCalendarEventClientReceive> V3CalendarGetItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string itemId, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
-        return await CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4732,7 +4771,7 @@ public class Office365Client : IDisposable
     public async Task<GraphCalendarEventClientReceive> V4CalendarPatchItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-        return await CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4744,7 +4783,7 @@ public class Office365Client : IDisposable
     public async Task<EntityListResponseGraphContactFolder> ContactGetTablesV2Async(CancellationToken cancellationToken = default)
     {
         var path = $"/v2/datasets/contacts/tables";
-        return await CallConnectorAsync<EntityListResponseGraphContactFolder>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<EntityListResponseGraphContactFolder>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4758,9 +4797,10 @@ public class Office365Client : IDisposable
     public async Task<byte[]> ExportEmailV2Async(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(messageId.ToString())}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4774,9 +4814,10 @@ public class Office365Client : IDisposable
     public async Task FlagV2Async(string messageId, UpdateEmailFlag input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4790,9 +4831,10 @@ public class Office365Client : IDisposable
     public async Task MarkAsReadV3Async(string messageId, MarkAsReadV3Input input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4805,9 +4847,10 @@ public class Office365Client : IDisposable
     public async Task DeleteEmailV2Async(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4824,11 +4867,14 @@ public class Office365Client : IDisposable
     public async Task<GetAttachmentV2Response> GetAttachmentV2Async(string messageId, string attachementId, string originalMailboxAddress = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        if (extractSensitivityLabel != default) queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-        if (sensitivityLabelMetadata != default) queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (extractSensitivityLabel != default)
+            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+        if (sensitivityLabelMetadata != default)
+            queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
         var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/attachments/{Uri.EscapeDataString(attachementId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<GetAttachmentV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetAttachmentV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4842,7 +4888,7 @@ public class Office365Client : IDisposable
     public async Task RespondToEventV2Async(string eventId, string response, ResponseToEventInvite input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4856,9 +4902,10 @@ public class Office365Client : IDisposable
     public async Task ForwardEmailV2Async(string messageId, DirectForwardMessage input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (originalMailboxAddress != default) queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
         var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4870,7 +4917,7 @@ public class Office365Client : IDisposable
     public async Task<GetRoomListsV2Response> GetRoomListsV2Async(CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/beta/me/findRoomLists";
-        return await CallConnectorAsync<GetRoomListsV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetRoomListsV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4882,7 +4929,7 @@ public class Office365Client : IDisposable
     public async Task<GetRoomsV2Response> GetRoomsV2Async(CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/beta/me/findRooms";
-        return await CallConnectorAsync<GetRoomsV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetRoomsV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4895,7 +4942,7 @@ public class Office365Client : IDisposable
     public async Task<GetRoomsInRoomListV2Response> GetRoomsInRoomListV2Async([DynamicValues("GetRoomLists_V2")] string roomList, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/beta/me/findRooms(RoomList='{Uri.EscapeDataString(roomList.ToString())}')";
-        return await CallConnectorAsync<GetRoomsInRoomListV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<GetRoomsInRoomListV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4908,7 +4955,7 @@ public class Office365Client : IDisposable
     public async Task<FindMeetingTimesV2Response> FindMeetingTimesV2Async(FindMeetingTimesV2Input input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/beta/me/findMeetingTimes";
-        return await CallConnectorAsync<FindMeetingTimesV2Response>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<FindMeetingTimesV2Response>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4921,7 +4968,7 @@ public class Office365Client : IDisposable
     public async Task<SetAutomaticRepliesSettingV2Response> SetAutomaticRepliesSettingV2Async(SetAutomaticRepliesSettingV2Input input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/mailboxSettings";
-        return await CallConnectorAsync<SetAutomaticRepliesSettingV2Response>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this.CallConnectorAsync<SetAutomaticRepliesSettingV2Response>(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4934,7 +4981,7 @@ public class Office365Client : IDisposable
     public async Task<GetMailTipsV2Response> GetMailTipsV2Async(GetMailTipsV2Input input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/getMailTips";
-        return await CallConnectorAsync<GetMailTipsV2Response>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<GetMailTipsV2Response>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4946,7 +4993,7 @@ public class Office365Client : IDisposable
     public async Task<CalendarGetTablesV2Response> CalendarGetTablesV2Async(CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/calendars";
-        return await CallConnectorAsync<CalendarGetTablesV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<CalendarGetTablesV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4959,7 +5006,7 @@ public class Office365Client : IDisposable
     public async Task CalendarDeleteItemV2Async([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4973,7 +5020,7 @@ public class Office365Client : IDisposable
     public async Task<ContactResponseV2> ContactGetItemV2Async([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}";
-        return await CallConnectorAsync<ContactResponseV2>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<ContactResponseV2>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4986,7 +5033,7 @@ public class Office365Client : IDisposable
     public async Task ContactDeleteItemV2Async([DynamicValues("ContactGetTablesV2")] string folderId, string id, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
-        await CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -5001,7 +5048,7 @@ public class Office365Client : IDisposable
     public async Task<ContactResponseV2> ContactPatchItemV2Async([DynamicValues("ContactGetTablesV2")] string folderId, string id, ContactV2 input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
-        return await CallConnectorAsync<ContactResponseV2>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this.CallConnectorAsync<ContactResponseV2>(HttpMethod.Patch, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -5018,12 +5065,16 @@ public class Office365Client : IDisposable
     public async Task<EntityListResponseContactResponseV2> ContactGetItemsV2Async([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (filterQuery != default) queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default) queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default) queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (skipCount != default) queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
         var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<EntityListResponseContactResponseV2>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<EntityListResponseContactResponseV2>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -5037,7 +5088,7 @@ public class Office365Client : IDisposable
     public async Task<ContactResponseV2> ContactPostItemV2Async([DynamicValues("ContactGetTablesV2")] string folderId, ContactV2 input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts";
-        return await CallConnectorAsync<ContactResponseV2>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<ContactResponseV2>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -5051,7 +5102,7 @@ public class Office365Client : IDisposable
     public async Task UpdateMyContactPhotoAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}/photo/$value";
-        await CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken);
+        await this.CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -5064,7 +5115,7 @@ public class Office365Client : IDisposable
     public async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/httprequest";
-        return await CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -5078,9 +5129,10 @@ public class Office365Client : IDisposable
     public async Task<MCPQueryResponse> McpEmailsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (sessionId != default) queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+        if (sessionId != default)
+            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
         var path = $"/mcp/EmailsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -5094,9 +5146,10 @@ public class Office365Client : IDisposable
     public async Task<MCPQueryResponse> McpMeetingManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (sessionId != default) queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+        if (sessionId != default)
+            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
         var path = $"/mcp/MeetingManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -5110,19 +5163,20 @@ public class Office365Client : IDisposable
     public async Task<MCPQueryResponse> McpContactsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
-        if (sessionId != default) queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+        if (sessionId != default)
+            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
         var path = $"/mcp/ContactsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this.CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     public void Dispose()
     {
-        if (_ownsHttpClient)
+        if (this._ownsHttpClient)
         {
-            _httpClient?.Dispose();
+            this._httpClient?.Dispose();
         }
 
-        if (_ownsCredential && _credential is IDisposable disposableCredential)
+        if (this._ownsCredential && this._credential is IDisposable disposableCredential)
         {
             disposableCredential.Dispose();
         }

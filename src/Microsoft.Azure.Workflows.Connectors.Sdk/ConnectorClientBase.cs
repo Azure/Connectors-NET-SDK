@@ -2,14 +2,14 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Net.Http;
+using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
+using Microsoft.Azure.Workflows.Connectors.Sdk.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk
 {
-    using System.Net.Http;
-    using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
-    using Microsoft.Azure.Workflows.Connectors.Sdk.Http;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Logging.Abstractions;
-
     /// <summary>
     /// Abstract base class for generated connector clients.
     /// </summary>

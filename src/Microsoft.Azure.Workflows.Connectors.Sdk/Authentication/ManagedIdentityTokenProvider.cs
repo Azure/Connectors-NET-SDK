@@ -2,11 +2,11 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using global::Azure.Core;
+using global::Azure.Identity;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Authentication
 {
-    using global::Azure.Core;
-    using global::Azure.Identity;
-
     /// <summary>
     /// Token provider using Azure Managed Identity.
     /// </summary>

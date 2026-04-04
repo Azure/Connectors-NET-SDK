@@ -2,11 +2,11 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Net;
+using System.Net.Http.Headers;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk
 {
-    using System.Net;
-    using System.Net.Http.Headers;
-
     /// <summary>
     /// Represents a response from a connector operation.
     /// </summary>

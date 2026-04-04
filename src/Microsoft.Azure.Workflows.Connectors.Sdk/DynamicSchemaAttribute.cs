@@ -2,10 +2,10 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk
 {
-    using System;
-
     /// <summary>
     /// Marks a parameter or type whose schema is dynamically determined at runtime via a discovery endpoint.
     /// The discovery operation returns a JSON Schema describing the available properties based on user-selected parameters.

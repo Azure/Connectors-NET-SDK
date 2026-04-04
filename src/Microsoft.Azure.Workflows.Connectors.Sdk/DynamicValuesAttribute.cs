@@ -2,10 +2,10 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk
 {
-    using System;
-
     /// <summary>
     /// Marks a parameter whose values are dynamically populated by a discovery operation at design time.
     /// </summary>

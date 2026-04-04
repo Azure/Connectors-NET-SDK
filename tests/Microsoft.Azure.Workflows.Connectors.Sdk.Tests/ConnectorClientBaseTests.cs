@@ -2,12 +2,12 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Tests
 {
-    using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
-
     [TestClass]
     public class ConnectorClientBaseTests
     {

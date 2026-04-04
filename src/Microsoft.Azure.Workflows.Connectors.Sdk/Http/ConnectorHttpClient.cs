@@ -2,17 +2,17 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
+using Microsoft.Extensions.Logging;
+using Polly;
+using Polly.Extensions.Http;
+
 namespace Microsoft.Azure.Workflows.Connectors.Sdk.Http
 {
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Text;
-    using System.Text.Json;
-    using Microsoft.Azure.Workflows.Connectors.Sdk.Authentication;
-    using Microsoft.Extensions.Logging;
-    using Polly;
-    using Polly.Extensions.Http;
-
     /// <summary>
     /// HTTP client for connector operations with retry and authentication.
     /// </summary>
