@@ -37,7 +37,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SharepointonlineClient(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new SharepointonlineClient(null!));
         }
 
         [TestMethod]
@@ -146,7 +146,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExceptionAsync<SharepointonlineConnectorException>(async () =>
+                .ThrowsExactlyAsync<SharepointonlineConnectorException>(async () =>
                     await client
                         .GetAllTablesAsync(siteAddress: "https://contoso.sharepoint.com/sites/nonexistent", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))

@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullTokenProvider_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new TestConnectorClient(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new TestConnectorClient(null!));
         }
 
         [TestMethod]

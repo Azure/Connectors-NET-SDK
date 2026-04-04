@@ -77,7 +77,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             try
             {
                 // Act & Assert
-                var exception = Assert.ThrowsException<ArgumentException>(
+                var exception = Assert.ThrowsExactly<ArgumentException>(
                     () => ConnectorConnectionResolver.Resolve("Missing"));
 
                 Assert.IsTrue(exception.Message.Contains("No connection settings found", StringComparison.OrdinalIgnoreCase));
@@ -97,7 +97,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             try
             {
-                var exception = Assert.ThrowsException<ArgumentException>(
+                var exception = Assert.ThrowsExactly<ArgumentException>(
                     () => ConnectorConnectionResolver.Resolve("Partial"));
 
                 Assert.IsTrue(
@@ -118,7 +118,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             try
             {
-                var exception = Assert.ThrowsException<ArgumentException>(
+                var exception = Assert.ThrowsExactly<ArgumentException>(
                     () => ConnectorConnectionResolver.Resolve("OnlyConn"));
 
                 Assert.IsTrue(
@@ -158,21 +158,21 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Resolve_NullConnectionSettingName_ThrowsArgumentNullException()
         {
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.ThrowsExactly<ArgumentNullException>(
                 () => ConnectorConnectionResolver.Resolve(null!));
         }
 
         [TestMethod]
         public void Resolve_EmptyConnectionSettingName_ThrowsArgumentException()
         {
-            Assert.ThrowsException<ArgumentException>(
+            Assert.ThrowsExactly<ArgumentException>(
                 () => ConnectorConnectionResolver.Resolve(string.Empty));
         }
 
         [TestMethod]
         public void Resolve_WhitespaceConnectionSettingName_ThrowsArgumentException()
         {
-            Assert.ThrowsException<ArgumentException>(
+            Assert.ThrowsExactly<ArgumentException>(
                 () => ConnectorConnectionResolver.Resolve("   "));
         }
 
