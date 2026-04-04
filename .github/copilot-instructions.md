@@ -402,14 +402,17 @@ Use when you need to publish without creating a tag or GitHub Release:
 
 ### Re-releasing a Version
 
-If a release fails or needs to be re-done on a newer commit:
+If a release fails midway (e.g., build passed but GitHub Release creation failed):
 
 ```shell
+gh release delete v1.2.3 --yes     # delete the failed GitHub Release (if one was created)
 git push origin --delete v1.2.3    # delete remote tag
 git tag -d v1.2.3                  # delete local tag
 git tag v1.2.3                     # re-tag on current HEAD
 git push origin v1.2.3             # push to trigger release
 ```
+
+**Note:** `--skip-duplicate` on the NuGet push steps means a re-release will not overwrite a package version that was already published. If the package was pushed successfully but the release failed, re-running will skip the duplicate package and only recreate the GitHub Release. To publish a corrected package, use a new version number.
 
 ### What the Release Workflow Does
 
