@@ -14,6 +14,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write    # for GitHub Release creation (softprops/action-gh-release)
+      packages: write    # for GitHub Packages push
 
     steps:
     - uses: actions/checkout@v4
@@ -49,6 +52,10 @@ jobs:
       with:
         name: nuget-package
         path: ./nupkg/*.nupkg
+
+    - name: Push to GitHub Packages
+      if: github.event_name == 'push' || github.event.inputs.version != ''
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/Azure/index.json --skip-duplicate
 
     - name: Push to NuGet.org
       if: github.event_name == 'push' || github.event.inputs.version != ''
