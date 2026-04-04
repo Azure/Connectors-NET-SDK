@@ -58,6 +58,17 @@ This project follows the coding conventions documented in [.github/copilot-instr
 - Use named arguments for boolean parameters
 - Use `StringComparison` for all string comparisons
 
+## Generated Code
+
+Files under `src/**/Generated/` are produced by an internal Microsoft code generator that is not publicly accessible at this time. **Do not submit pull requests that directly modify generated files** — changes will be overwritten the next time the code is regenerated.
+
+If you find a bug or want to suggest an improvement in the generated code:
+
+1. Open a [GitHub Issue](https://github.com/Azure/Connectors-NET-SDK/issues) describing the problem in detail
+2. Include the affected file(s) and the current (incorrect) generated output
+3. You are welcome to include a code suggestion showing the desired output — this helps the team understand the fix
+4. A Microsoft contributor will work your suggestion back into the internal code generator so the fix applies to all generated connectors
+
 ## License
 
 By contributing, you agree that your contributions will be licensed under the [MIT License](LICENSE).
