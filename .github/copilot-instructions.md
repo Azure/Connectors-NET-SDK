@@ -369,10 +369,56 @@ public async Task MethodName_Scenario_ExpectedResult()
 - Never push directly to main
 - Always create PR for review
 
-## NuGet Package
+## Releasing a New Version
 
-When publishing:
+The release workflow (`.github/workflows/release.yml`) builds, tests, packs, and publishes the NuGet package. There is no version file to update — the version comes from the git tag.
 
-- Update version in `Directory.Build.props`
-- Ensure all tests pass
-- Update CHANGELOG.md with release notes
+### Standard Release (tag push)
+
+Creates a GitHub Release with auto-generated notes, publishes to GitHub Packages, and attempts nuget.org:
+
+```shell
+git checkout main
+git pull origin main
+git tag v1.2.3
+git push origin v1.2.3
+```
+
+### Pre-release
+
+Use SemVer pre-release suffixes:
+
+```shell
+git tag v1.2.3-preview.1
+git push origin v1.2.3-preview.1
+```
+
+### Manual Dispatch (packages only, no GitHub Release)
+
+Use when you need to publish without creating a tag or GitHub Release:
+
+1. Go to Actions → Release → Run workflow
+2. Enter the version (e.g., `1.2.3`)
+
+### Re-releasing a Version
+
+If a release fails midway (e.g., build passed but GitHub Release creation failed):
+
+```shell
+gh release delete v1.2.3 --yes     # delete the failed GitHub Release (if one was created)
+git push origin --delete v1.2.3    # delete remote tag
+git tag -d v1.2.3                  # delete local tag
+git tag v1.2.3                     # re-tag on current HEAD
+git push origin v1.2.3             # push to trigger release
+```
+
+**Note:** `--skip-duplicate` on the NuGet push steps means a re-release will not overwrite a package version that was already published. If the package was pushed successfully but the release failed, re-running will skip the duplicate package and only recreate the GitHub Release. To publish a corrected package, use a new version number.
+
+### What the Release Workflow Does
+
+1. Builds and tests in Release configuration
+2. Packs with `PackageVersion` from the tag (strips the `v` prefix)
+3. Uploads `.nupkg` as a build artifact
+4. Pushes to GitHub Packages (`nuget.pkg.github.com/Azure`)
+5. Attempts push to nuget.org (requires `NUGET_API_KEY` secret, continues on error)
+6. Creates a GitHub Release with the `.nupkg` attached (tag push only)
