@@ -10,7 +10,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 
 ### Prerequisites
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) or later
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) pinned by `global.json` (currently `8.0.100`)
 - [Git](https://git-scm.com/downloads)
 
 ### Building

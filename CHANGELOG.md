@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial SDK release with core abstractions (`ConnectorClient`, `ConnectorClientOptions`)
+- Initial SDK release with core abstractions (`ConnectorClientBase`, `IConnectorClient`, `ConnectorClientOptions`)
 - Token providers: `ManagedIdentityTokenProvider`, `ConnectionStringTokenProvider`
 - HTTP pipeline with configurable retry policies
 - Office 365 connector client (generated)
