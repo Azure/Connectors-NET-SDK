@@ -422,3 +422,30 @@ git push origin v1.2.3             # push to trigger release
 4. Pushes to GitHub Packages (`nuget.pkg.github.com/Azure`)
 5. Attempts push to nuget.org (requires `NUGET_API_KEY` secret, continues on error)
 6. Creates a GitHub Release with the `.nupkg` attached (tag push only)
+
+## Adding a New Connector
+
+When adding a new generated connector client to the SDK:
+
+### Steps
+
+1. **Generate the code** using the CodefulSdkGenerator CLI from the BPM repo:
+   ```shell
+   LogicAppsCompiler <outputDir> --directClient --connectors=<connector-name>
+   ```
+2. **Copy the generated file** (`{Connector}Extensions.cs`) to `src/Microsoft.Azure.Connectors.Sdk/Generated/`
+3. **Update `ConnectorNames.cs`** — add the new connector constant in alphabetical order
+4. **Update `ManagedConnectors.cs`** — add the connector name to `AvailableConnectors` and a usage example in the header comment, both in alphabetical order
+5. **Add unit tests** — create `{Connector}ClientTests.cs` in `tests/Microsoft.Azure.Connectors.Sdk.Tests/` following the pattern of existing tests (constructor, dispose, mocked API call, error handling, serialization round-trips)
+6. **Update `ROADMAP.md`** — mark the connector as complete in the appropriate phase
+7. **Update the connection setup skill** — add the connector's API name to the supported list in `.github/skills/connection-setup/SKILL.md` (Step 2)
+8. **Run all tests** — `dotnet test` must pass with zero failures before committing
+9. **Create a PR** — reference the GitHub issue (e.g., `Closes #9`)
+
+### Validation checklist
+
+- [ ] Generated file compiles without errors
+- [ ] Existing connector tests still pass (no regressions)
+- [ ] `ConnectorNames_AllConstantsAreRegistered` test passes (ConnectorNames ↔ ManagedConnectors sync)
+- [ ] New connector tests cover: constructor, null URL, dispose, mocked success, mocked error, exception properties, type serialization round-trips
+- [ ] If the connector uses `[DynamicSchema]`, tests verify the attribute is present on the type
