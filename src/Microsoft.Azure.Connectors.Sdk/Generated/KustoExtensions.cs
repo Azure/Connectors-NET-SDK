@@ -46,6 +46,18 @@ public class Row
 }
 
 /// <summary>
+/// Response for Query schema
+/// </summary>
+public class ObjectEntity
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
 /// Response for Run KQL query and render a chart
 /// </summary>
 public class VisualizeResults
@@ -117,18 +129,6 @@ public class MCPQueryResponse
     /// <summary>error</summary>
     [JsonPropertyName("error")]
     public object Error { get; set; }
-}
-
-/// <summary>
-/// Object
-/// </summary>
-public class ObjectEntity
-{
-    /// <summary>
-    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
 }
 
 /// <summary>
@@ -438,6 +438,19 @@ public class KustoClient : IDisposable
     {
         var path = $"/ListKustoShowCommandResults";
         return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Query schema
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Query schema response.</returns>
+    public async Task<ObjectEntity> ListKustoResultsSchemaPostAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/ListKustoResultsSchema";
+        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
