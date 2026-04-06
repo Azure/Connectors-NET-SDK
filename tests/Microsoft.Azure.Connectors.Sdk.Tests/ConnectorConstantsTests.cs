@@ -91,6 +91,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void ConnectorNames_ValuesAreLowercase()
         {
             // Assert — connector API names are lowercase identifiers
+            Assert.AreEqual(ConnectorNames.Kusto, ConnectorNames.Kusto.ToLowerInvariant());
             Assert.AreEqual(ConnectorNames.Office365, ConnectorNames.Office365.ToLowerInvariant());
             Assert.AreEqual(ConnectorNames.Sharepointonline, ConnectorNames.Sharepointonline.ToLowerInvariant());
             Assert.AreEqual(ConnectorNames.Teams, ConnectorNames.Teams.ToLowerInvariant());

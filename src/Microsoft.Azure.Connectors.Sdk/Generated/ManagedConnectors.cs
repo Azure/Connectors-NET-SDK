@@ -1,6 +1,8 @@
 // DirectClient SDK - Generated Connectors
 // Each connector client is used independently:
 //
+//   using Microsoft.Azure.Connectors.DirectClient.Kusto;
+//   var client = new KustoClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Office365;
 //   var client = new Office365Client(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
@@ -21,6 +23,7 @@ public static class DirectClientConnectors
     /// The list of available connector names.
     /// </summary>
     public static readonly string[] AvailableConnectors = [
+        "kusto",
         "office365",
         "sharepointonline",
         "teams",

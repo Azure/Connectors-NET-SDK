@@ -145,6 +145,16 @@ public class ObjectEntity
 }
 
 /// <summary>
+/// Response for Get metadata about the return type of the GetItemChanges operation
+/// </summary>
+public class GetItemChangesMetadataResponse
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
 /// Response for Get datasets
 /// </summary>
 public class DataSetsList
@@ -836,16 +846,6 @@ public class FileCheckInParameters
     /// <summary>Select the type of version you would like to check in</summary>
     [JsonPropertyName("checkinType")]
     public int? CheckInType { get; set; }
-}
-
-/// <summary>
-/// GetItemChangesMetadataResponse
-/// </summary>
-public class GetItemChangesMetadataResponse
-{
-    /// <summary>schema</summary>
-    [JsonPropertyName("schema")]
-    public ObjectEntity Schema { get; set; }
 }
 
 /// <summary>
@@ -1786,6 +1786,20 @@ public class SharepointonlineClient : IDisposable
             queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
         var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get metadata about the return type of the GetItemChanges operation
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="siteAddress">Site Address</param>
+    /// <param name="listOrLibraryName">List or Library Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get metadata about the return type of the GetItemChanges operation response.</returns>
+    public async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
+    {
+        var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
+        return await this.CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>

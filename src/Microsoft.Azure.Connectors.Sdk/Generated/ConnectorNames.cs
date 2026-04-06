@@ -17,6 +17,11 @@ namespace Microsoft.Azure.Connectors.Sdk;
 public static class ConnectorNames
 {
     /// <summary>
+    /// The <c>kusto</c> connector.
+    /// </summary>
+    public const string Kusto = "kusto";
+
+    /// <summary>
     /// The <c>office365</c> connector.
     /// </summary>
     public const string Office365 = "office365";
