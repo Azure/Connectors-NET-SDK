@@ -430,9 +430,11 @@ When adding a new generated connector client to the SDK:
 ### Steps
 
 1. **Generate the code** using the CodefulSdkGenerator CLI from the BPM repo:
+
    ```shell
    LogicAppsCompiler <outputDir> --directClient --connectors=<connector-name>
    ```
+
 2. **Copy the generated file** (`{Connector}Extensions.cs`) to `src/Microsoft.Azure.Connectors.Sdk/Generated/`
 3. **Update `ConnectorNames.cs`** — add the new connector constant in alphabetical order
 4. **Update `ManagedConnectors.cs`** — add the connector name to `AvailableConnectors` and a usage example in the header comment, both in alphabetical order
