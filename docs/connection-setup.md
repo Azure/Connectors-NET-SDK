@@ -398,4 +398,4 @@ The endpoint path may be incorrect. Check the connector's swagger/OpenAPI spec f
 
 - [scripts/Setup-Connection.ps1](../scripts/Setup-Connection.ps1) - Automated setup script
 - [ROADMAP.md](../ROADMAP.md) - Connector generation progress and lessons learned
-- [DirectConnector POC](https://github.com/Azure/azure-connector-sdk-samples) - Working example with Office365 and SharePoint (planned)
+- [DirectConnector Sample](https://github.com/Azure/Connectors-NET-Samples) - Working example with Office 365, SharePoint, and Teams

@@ -232,8 +232,8 @@ The connector SDK spans 4 repositories with a strict data flow:
 |------|-----|------|
 | BPM (CodefulSdkGenerator) | Internal (Microsoft Azure DevOps) | Generator source |
 | Connector SDK (this repo) | `https://github.com/Azure/Connectors-NET-SDK` | Attribute + generated output |
-| Connector SDK LSP | Planned | Design-time IntelliSense consumer |
-| Connector SDK Samples | Planned | E2E validation target |
+| [Connector SDK LSP](https://github.com/Azure/Connectors-NET-LSP) | `https://github.com/Azure/Connectors-NET-LSP` | Design-time IntelliSense consumer |
+| [Connector SDK Samples](https://github.com/Azure/Connectors-NET-Samples) | `https://github.com/Azure/Connectors-NET-Samples` | E2E validation target |
 
 ## Integration with SDK
 
