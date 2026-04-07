@@ -160,8 +160,8 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 | Project | Description |
 |---------|-------------|
-| Connector SDK Samples (planned) | Sample Azure Functions demonstrating SDK usage with Office 365, SharePoint, and more |
-| Connector SDK LSP (planned) | Language Server Protocol server and VS Code extension for intelligent code assistance when developing with the SDK |
+| [Connector SDK Samples](https://github.com/Azure/Connectors-NET-Samples) | Sample Azure Functions demonstrating SDK usage with Office 365, SharePoint, Teams, and more |
+| [Connector SDK LSP](https://github.com/Azure/Connectors-NET-LSP) | Language Server Protocol server and VS Code extension for intelligent code assistance when developing with the SDK |
 
 ## Regenerating Connectors
 
