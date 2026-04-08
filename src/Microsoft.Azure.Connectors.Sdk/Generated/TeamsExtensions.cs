@@ -1282,6 +1282,31 @@ public static class TeamsTriggerOperations
     public const string OnNewChannelMessageMentioningMe = "OnNewChannelMessageMentioningMe";
 
     /// <summary>
+    /// When I&apos;m @mentioned.
+    /// </summary>
+    public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
+
+    /// <summary>
+    /// When someone reacted to a message in chat.
+    /// </summary>
+    public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
+
+    /// <summary>
+    /// When a new chat message is added.
+    /// </summary>
+    public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
+
+    /// <summary>
+    /// When keywords are mentioned.
+    /// </summary>
+    public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
+
+    /// <summary>
+    /// When a new message is added to a chat or channel.
+    /// </summary>
+    public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
+
+    /// <summary>
     /// When a new team member is removed.
     /// </summary>
     public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
