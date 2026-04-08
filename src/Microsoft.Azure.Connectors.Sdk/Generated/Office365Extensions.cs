@@ -278,17 +278,7 @@ public class MCPQueryResponse
 }
 
 /// <summary>
-/// Response for When an upcoming event is starting soon (V3)
-/// </summary>
-public class GraphCalendarEventListClientReceive
-{
-    /// <summary>List of calendar items</summary>
-    [JsonPropertyName("value")]
-    public List<GraphCalendarEventClientReceive> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of calendar items
+/// Response for Get event (V3)
 /// </summary>
 public class GraphCalendarEventClientReceive
 {
@@ -422,193 +412,11 @@ public class GraphCalendarEventClientReceive
 }
 
 /// <summary>
-/// Response for Get email (V2)
+/// Response for Get events (V4)
 /// </summary>
-public class GraphClientReceiveMessage
+public class GraphCalendarEventListClientReceive
 {
-    /// <summary>The mailbox owner and sender of the message</summary>
-    [JsonPropertyName("from")]
-    public string From { get; set; }
-
-    /// <summary>The recipients for the message</summary>
-    [JsonPropertyName("toRecipients")]
-    public string To { get; set; }
-
-    /// <summary>The Cc recipients for the message</summary>
-    [JsonPropertyName("ccRecipients")]
-    public string CC { get; set; }
-
-    /// <summary>The Bcc recipients for the message</summary>
-    [JsonPropertyName("bccRecipients")]
-    public string BCC { get; set; }
-
-    /// <summary>The email addresses to use when replying</summary>
-    [JsonPropertyName("replyTo")]
-    public string ReplyTo { get; set; }
-
-    /// <summary>The subject of the message</summary>
-    [JsonPropertyName("subject")]
-    public string Subject { get; set; }
-
-    /// <summary>The body of the message</summary>
-    [JsonPropertyName("body")]
-    public string Body { get; set; }
-
-    /// <summary>The importance of the message (low, normal, high)</summary>
-    [JsonPropertyName("importance")]
-    public string Importance { get; set; }
-
-    /// <summary>The preview of the message</summary>
-    [JsonPropertyName("bodyPreview")]
-    public string BodyPreview { get; set; }
-
-    /// <summary>Indicates whether the message has attachments</summary>
-    [JsonPropertyName("hasAttachments")]
-    public bool? HasAttachment { get; set; }
-
-    /// <summary>The unique identifier of the message</summary>
-    [JsonPropertyName("id")]
-    public string MessageId { get; set; }
-
-    /// <summary>The message ID in the format specified by RFC2822</summary>
-    [JsonPropertyName("internetMessageId")]
-    public string InternetMessageId { get; set; }
-
-    /// <summary>The Id of the conversation the email belongs to</summary>
-    [JsonPropertyName("conversationId")]
-    public string ConversationId { get; set; }
-
-    /// <summary>The date and time the message was received</summary>
-    [JsonPropertyName("receivedDateTime")]
-    public DateTime? ReceivedTime { get; set; }
-
-    /// <summary>Indicates whether the message has been read</summary>
-    [JsonPropertyName("isRead")]
-    public bool? IsRead { get; set; }
-
-    /// <summary>The file attachments for the message</summary>
-    [JsonPropertyName("attachments")]
-    public List<GraphClientReceiveFileAttachment> Attachments { get; set; }
-
-    /// <summary>Is Html?</summary>
-    [JsonPropertyName("isHtml")]
-    public bool? IsHTML { get; set; }
-
-    /// <summary>sensitivityLabelInfo</summary>
-    [JsonPropertyName("sensitivityLabelInfo")]
-    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
-}
-
-/// <summary>
-/// Item in The file attachments for the message
-/// </summary>
-public class GraphClientReceiveFileAttachment
-{
-    /// <summary>Attachment Id</summary>
-    [JsonPropertyName("id")]
-    public string AttachmentId { get; set; }
-
-    /// <summary>Attachment name</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>Attachment content</summary>
-    [JsonPropertyName("contentBytes")]
-    public string Content { get; set; }
-
-    /// <summary>Attachment content type</summary>
-    [JsonPropertyName("contentType")]
-    public string ContentType { get; set; }
-
-    /// <summary>The size in bytes of the attachment</summary>
-    [JsonPropertyName("size")]
-    public long? Size { get; set; }
-
-    /// <summary>Set to true if this is an inline attachment</summary>
-    [JsonPropertyName("isInline")]
-    public bool? IsInline { get; set; }
-
-    /// <summary>The date and time when the attachment was last modified</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedDateTime { get; set; }
-
-    /// <summary>Content Id</summary>
-    [JsonPropertyName("contentId")]
-    public string ContentId { get; set; }
-}
-
-/// <summary>
-/// Item in sensitivityLabelInfo
-/// </summary>
-public class SensitivityLabelMetadata
-{
-    /// <summary>SensitivityLabel Id.</summary>
-    [JsonPropertyName("sensitivityLabelId")]
-    public string SensitivityLabelId { get; set; }
-
-    /// <summary>SensitivityLabel name.</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>SensitivityLabel displayName info</summary>
-    [JsonPropertyName("displayName")]
-    public string SensitivityLabelDisplayNameInfo { get; set; }
-
-    /// <summary>SensitivityLabel details on tooltip.</summary>
-    [JsonPropertyName("tooltip")]
-    public string TooltipInfo { get; set; }
-
-    /// <summary>SensitivityLabel priority.</summary>
-    [JsonPropertyName("priority")]
-    public int? PriorityOfSensitivityLabel { get; set; }
-
-    /// <summary>SensitivityLabel color.</summary>
-    [JsonPropertyName("color")]
-    public string ColorToBeDisplayedForSensitivityLabel { get; set; }
-
-    /// <summary> is SensitivityLabel Encrypted.</summary>
-    [JsonPropertyName("isEncrypted")]
-    public bool? IsEncryptedStatusOfSensitivityLabel { get; set; }
-
-    /// <summary>Whether SensitivityLabel is Enabled.</summary>
-    [JsonPropertyName("isEnabled")]
-    public bool? WhetherSensitivityLabelIsEnabled { get; set; }
-
-    /// <summary>Whether SensitivityLabel is Parent.</summary>
-    [JsonPropertyName("isParent")]
-    public bool? WhetherSensitivityLabelIsParent { get; set; }
-
-    /// <summary>Parent SensitivityLabel Id.</summary>
-    [JsonPropertyName("parentSensitivityLabelId")]
-    public string ParentSensitivityLabelId { get; set; }
-}
-
-/// <summary>
-/// Response for Get emails (V3)
-/// </summary>
-public class BatchResponseGraphClientReceiveMessage
-{
-    /// <summary>A list of the response objects</summary>
-    [JsonPropertyName("value")]
-    public List<GraphClientReceiveMessage> Value { get; set; }
-}
-
-/// <summary>
-/// Response for When a new email arrives (V3)
-/// </summary>
-public class TriggerBatchResponseGraphClientReceiveMessage
-{
-    /// <summary>A list of the response objects</summary>
-    [JsonPropertyName("value")]
-    public List<GraphClientReceiveMessage> Value { get; set; }
-}
-
-/// <summary>
-/// Response for Get calendar view of events (V3)
-/// </summary>
-public class EntityListResponseGraphCalendarEventClientReceive
-{
-    /// <summary>List of values</summary>
+    /// <summary>List of calendar items</summary>
     [JsonPropertyName("value")]
     public List<GraphCalendarEventClientReceive> Value { get; set; }
 }
@@ -764,281 +572,6 @@ public class GraphCalendarEventClientWithActionType
     /// <summary>The possible values are: normal, personal, private, confidential</summary>
     [JsonPropertyName("sensitivity")]
     public string Sensitivity { get; set; }
-}
-
-/// <summary>
-/// Response for Get contact folders (V2)
-/// </summary>
-public class EntityListResponseGraphContactFolder
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<GraphContactFolder> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of values
-/// </summary>
-public class GraphContactFolder
-{
-    /// <summary>The ID of the contacts folder</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>The name of the contacts folder</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>The ID of the parent folder</summary>
-    [JsonPropertyName("parentFolderId")]
-    public string ParentFolderID { get; set; }
-}
-
-/// <summary>
-/// Mark as read or unread (V3)
-/// </summary>
-public class MarkAsReadInput
-{
-    /// <summary>Mark as read/unread.</summary>
-    [JsonPropertyName("isRead")]
-    public bool? MarkAs { get; set; }
-}
-
-/// <summary>
-/// Response for Get Attachment (V2)
-/// </summary>
-public class GetAttachmentResponse
-{
-    /// <summary>Id of the attachment.</summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>Name of attachment.</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>Content type of attachment.</summary>
-    [JsonPropertyName("contentType")]
-    public string ContentType { get; set; }
-
-    /// <summary>Size of attachment.</summary>
-    [JsonPropertyName("size")]
-    public int? Size { get; set; }
-
-    /// <summary>Content of attachment.</summary>
-    [JsonPropertyName("contentBytes")]
-    public string ContentBytes { get; set; }
-
-    /// <summary>Set to true if this is an inline attachment.</summary>
-    [JsonPropertyName("isInline")]
-    public bool? IsInline { get; set; }
-
-    /// <summary>The date and time when the attachment was last modified.</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedDateTime { get; set; }
-
-    /// <summary>Content Id</summary>
-    [JsonPropertyName("contentId")]
-    public string ContentId { get; set; }
-
-    /// <summary>sensitivityLabelInfo</summary>
-    [JsonPropertyName("sensitivityLabelInfo")]
-    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
-}
-
-/// <summary>
-/// Response for Get room lists (V2)
-/// </summary>
-public class GetRoomListsResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
-
-/// <summary>
-/// Response for Get rooms (V2)
-/// </summary>
-public class GetRoomsResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
-
-/// <summary>
-/// Response for Get rooms in room list (V2)
-/// </summary>
-public class GetRoomsInRoomListResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
-
-/// <summary>
-/// Find meeting times (V2)
-/// </summary>
-public class FindMeetingTimesInput
-{
-    /// <summary>List of semicolon separated email addresses</summary>
-    public string RequiredAttendees { get; set; }
-
-    /// <summary>List of semicolon separated email addresses</summary>
-    public string OptionalAttendees { get; set; }
-
-    /// <summary>Resource attendees for the event separated by semicolons</summary>
-    public string ResourceAttendees { get; set; }
-
-    /// <summary>Duration of the meeting in minutes</summary>
-    public int? MeetingDuration { get; set; }
-
-    /// <summary>Start time for meeting time suggestions</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>End time for meeting time suggestions</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>The maximum number of meeting suggestions to return in the response</summary>
-    public int? MaxCandidates { get; set; }
-
-    /// <summary>The minimum required confidence for a time slot to be returned in the response</summary>
-    public string MinimumAttendeePercentage { get; set; }
-
-    /// <summary>true if the organizer doesn&apos;t have to attend. The default is false</summary>
-    public bool? IsOrganizerOptional { get; set; }
-
-    /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
-    public string ActivityDomain { get; set; }
-}
-
-/// <summary>
-/// Response for Find meeting times (V2)
-/// </summary>
-public class FindMeetingTimesResponse
-{
-    /// <summary>Empty Suggestions Reason</summary>
-    [JsonPropertyName("emptySuggestionsReason")]
-    public string EmptySuggestionsReason { get; set; }
-
-    /// <summary>meetingTimeSuggestions</summary>
-    [JsonPropertyName("meetingTimeSuggestions")]
-    public List<object> MeetingTimeSuggestions { get; set; }
-}
-
-/// <summary>
-/// Set up automatic replies (V2)
-/// </summary>
-public class SetAutomaticRepliesSettingInput
-{
-    /// <summary>automaticRepliesSetting</summary>
-    [JsonPropertyName("automaticRepliesSetting")]
-    public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
-}
-
-/// <summary>
-/// automaticRepliesSetting
-/// </summary>
-public class AutomaticRepliesSettingClient
-{
-    /// <summary>Automatic reply setting status</summary>
-    [JsonPropertyName("status")]
-    public string Status { get; set; }
-
-    /// <summary>The audience that will see the external reply message</summary>
-    [JsonPropertyName("externalAudience")]
-    public string ExternalAudience { get; set; }
-
-    /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
-    [JsonPropertyName("scheduledStartDateTime")]
-    public object StartTime { get; set; }
-
-    /// <summary>Scheduled end time (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
-    [JsonPropertyName("scheduledEndDateTime")]
-    public object EndTime { get; set; }
-
-    /// <summary>Message for people within your organization</summary>
-    [JsonPropertyName("internalReplyMessage")]
-    public string InternalReplyMessage { get; set; }
-
-    /// <summary>Message for people outside your organization</summary>
-    [JsonPropertyName("externalReplyMessage")]
-    public string ExternalReplyMessage { get; set; }
-}
-
-/// <summary>
-/// Response for Set up automatic replies (V2)
-/// </summary>
-public class SetAutomaticRepliesSettingResponse
-{
-    /// <summary>automaticRepliesSetting</summary>
-    [JsonPropertyName("automaticRepliesSetting")]
-    public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
-}
-
-/// <summary>
-/// Get mail tips for a mailbox (V2)
-/// </summary>
-public class GetMailTipsInput
-{
-    /// <summary>Flags that represents the mailtips.</summary>
-    [JsonPropertyName("MailTipsOptions")]
-    public string FlagsThatRepresentsTheMailtips { get; set; }
-
-    /// <summary>Address of the mailbox to get mail tips for.</summary>
-    public List<string> EmailAddresses { get; set; }
-}
-
-/// <summary>
-/// Response for Get mail tips for a mailbox (V2)
-/// </summary>
-public class GetMailTipsResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<MailTipsClientReceive> Value { get; set; }
-}
-
-/// <summary>
-/// Item in value
-/// </summary>
-public class MailTipsClientReceiveV2
-{
-    /// <summary>automaticReplies</summary>
-    [JsonPropertyName("automaticReplies")]
-    public MailTipsAutomaticReplies AutomaticReplies { get; set; }
-
-    /// <summary>Is delivery restricted</summary>
-    [JsonPropertyName("deliveryRestricted")]
-    public bool? IsDeliveryRestricted { get; set; }
-
-    /// <summary>Number of external members</summary>
-    [JsonPropertyName("externalMemberCount")]
-    public int? IsModerated { get; set; }
-
-    /// <summary>Is mailbox full</summary>
-    [JsonPropertyName("mailboxFull")]
-    public bool? IsMailboxFull { get; set; }
-
-    /// <summary>Maximum message size</summary>
-    [JsonPropertyName("maxMessageSize")]
-    public long? MaximumMessageSize { get; set; }
-
-    /// <summary>Total member count</summary>
-    [JsonPropertyName("totalMemberCount")]
-    public long? TotalMemberCount { get; set; }
-}
-
-/// <summary>
-/// automaticReplies
-/// </summary>
-public class MailTipsAutomaticReplies
-{
-    /// <summary>Automatic replies message</summary>
-    [JsonPropertyName("message")]
-    public string AutomaticRepliesMessage { get; set; }
 }
 
 /// <summary>
@@ -1391,6 +924,473 @@ public class ContactResponseV2
     /// <summary>The time the contact was modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
     public DateTime? LastModifiedTime { get; set; }
+}
+
+/// <summary>
+/// Response for Get contact folders (V2)
+/// </summary>
+public class EntityListResponseGraphContactFolder
+{
+    /// <summary>List of values</summary>
+    [JsonPropertyName("value")]
+    public List<GraphContactFolder> Value { get; set; }
+}
+
+/// <summary>
+/// Item in List of values
+/// </summary>
+public class GraphContactFolder
+{
+    /// <summary>The ID of the contacts folder</summary>
+    [JsonPropertyName("id")]
+    public string ID { get; set; }
+
+    /// <summary>The name of the contacts folder</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The ID of the parent folder</summary>
+    [JsonPropertyName("parentFolderId")]
+    public string ParentFolderID { get; set; }
+}
+
+/// <summary>
+/// Find meeting times (V2)
+/// </summary>
+public class FindMeetingTimesInput
+{
+    /// <summary>List of semicolon separated email addresses</summary>
+    public string RequiredAttendees { get; set; }
+
+    /// <summary>List of semicolon separated email addresses</summary>
+    public string OptionalAttendees { get; set; }
+
+    /// <summary>Resource attendees for the event separated by semicolons</summary>
+    public string ResourceAttendees { get; set; }
+
+    /// <summary>Duration of the meeting in minutes</summary>
+    public int? MeetingDuration { get; set; }
+
+    /// <summary>Start time for meeting time suggestions</summary>
+    [JsonPropertyName("Start")]
+    public DateTime? StartTime { get; set; }
+
+    /// <summary>End time for meeting time suggestions</summary>
+    [JsonPropertyName("End")]
+    public DateTime? EndTime { get; set; }
+
+    /// <summary>The maximum number of meeting suggestions to return in the response</summary>
+    public int? MaxCandidates { get; set; }
+
+    /// <summary>The minimum required confidence for a time slot to be returned in the response</summary>
+    public string MinimumAttendeePercentage { get; set; }
+
+    /// <summary>true if the organizer doesn&apos;t have to attend. The default is false</summary>
+    public bool? IsOrganizerOptional { get; set; }
+
+    /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
+    public string ActivityDomain { get; set; }
+}
+
+/// <summary>
+/// Response for Find meeting times (V2)
+/// </summary>
+public class FindMeetingTimesResponse
+{
+    /// <summary>Empty Suggestions Reason</summary>
+    [JsonPropertyName("emptySuggestionsReason")]
+    public string EmptySuggestionsReason { get; set; }
+
+    /// <summary>meetingTimeSuggestions</summary>
+    [JsonPropertyName("meetingTimeSuggestions")]
+    public List<object> MeetingTimeSuggestions { get; set; }
+}
+
+/// <summary>
+/// Response for Get Attachment (V2)
+/// </summary>
+public class GetAttachmentResponse
+{
+    /// <summary>Id of the attachment.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>Name of attachment.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>Content type of attachment.</summary>
+    [JsonPropertyName("contentType")]
+    public string ContentType { get; set; }
+
+    /// <summary>Size of attachment.</summary>
+    [JsonPropertyName("size")]
+    public int? Size { get; set; }
+
+    /// <summary>Content of attachment.</summary>
+    [JsonPropertyName("contentBytes")]
+    public string ContentBytes { get; set; }
+
+    /// <summary>Set to true if this is an inline attachment.</summary>
+    [JsonPropertyName("isInline")]
+    public bool? IsInline { get; set; }
+
+    /// <summary>The date and time when the attachment was last modified.</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    public DateTime? LastModifiedDateTime { get; set; }
+
+    /// <summary>Content Id</summary>
+    [JsonPropertyName("contentId")]
+    public string ContentId { get; set; }
+
+    /// <summary>sensitivityLabelInfo</summary>
+    [JsonPropertyName("sensitivityLabelInfo")]
+    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+}
+
+/// <summary>
+/// Item in sensitivityLabelInfo
+/// </summary>
+public class SensitivityLabelMetadata
+{
+    /// <summary>SensitivityLabel Id.</summary>
+    [JsonPropertyName("sensitivityLabelId")]
+    public string SensitivityLabelId { get; set; }
+
+    /// <summary>SensitivityLabel name.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>SensitivityLabel displayName info</summary>
+    [JsonPropertyName("displayName")]
+    public string SensitivityLabelDisplayNameInfo { get; set; }
+
+    /// <summary>SensitivityLabel details on tooltip.</summary>
+    [JsonPropertyName("tooltip")]
+    public string TooltipInfo { get; set; }
+
+    /// <summary>SensitivityLabel priority.</summary>
+    [JsonPropertyName("priority")]
+    public int? PriorityOfSensitivityLabel { get; set; }
+
+    /// <summary>SensitivityLabel color.</summary>
+    [JsonPropertyName("color")]
+    public string ColorToBeDisplayedForSensitivityLabel { get; set; }
+
+    /// <summary> is SensitivityLabel Encrypted.</summary>
+    [JsonPropertyName("isEncrypted")]
+    public bool? IsEncryptedStatusOfSensitivityLabel { get; set; }
+
+    /// <summary>Whether SensitivityLabel is Enabled.</summary>
+    [JsonPropertyName("isEnabled")]
+    public bool? WhetherSensitivityLabelIsEnabled { get; set; }
+
+    /// <summary>Whether SensitivityLabel is Parent.</summary>
+    [JsonPropertyName("isParent")]
+    public bool? WhetherSensitivityLabelIsParent { get; set; }
+
+    /// <summary>Parent SensitivityLabel Id.</summary>
+    [JsonPropertyName("parentSensitivityLabelId")]
+    public string ParentSensitivityLabelId { get; set; }
+}
+
+/// <summary>
+/// Response for Get email (V2)
+/// </summary>
+public class GraphClientReceiveMessage
+{
+    /// <summary>The mailbox owner and sender of the message</summary>
+    [JsonPropertyName("from")]
+    public string From { get; set; }
+
+    /// <summary>The recipients for the message</summary>
+    [JsonPropertyName("toRecipients")]
+    public string To { get; set; }
+
+    /// <summary>The Cc recipients for the message</summary>
+    [JsonPropertyName("ccRecipients")]
+    public string CC { get; set; }
+
+    /// <summary>The Bcc recipients for the message</summary>
+    [JsonPropertyName("bccRecipients")]
+    public string BCC { get; set; }
+
+    /// <summary>The email addresses to use when replying</summary>
+    [JsonPropertyName("replyTo")]
+    public string ReplyTo { get; set; }
+
+    /// <summary>The subject of the message</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>The body of the message</summary>
+    [JsonPropertyName("body")]
+    public string Body { get; set; }
+
+    /// <summary>The importance of the message (low, normal, high)</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>The preview of the message</summary>
+    [JsonPropertyName("bodyPreview")]
+    public string BodyPreview { get; set; }
+
+    /// <summary>Indicates whether the message has attachments</summary>
+    [JsonPropertyName("hasAttachments")]
+    public bool? HasAttachment { get; set; }
+
+    /// <summary>The unique identifier of the message</summary>
+    [JsonPropertyName("id")]
+    public string MessageId { get; set; }
+
+    /// <summary>The message ID in the format specified by RFC2822</summary>
+    [JsonPropertyName("internetMessageId")]
+    public string InternetMessageId { get; set; }
+
+    /// <summary>The Id of the conversation the email belongs to</summary>
+    [JsonPropertyName("conversationId")]
+    public string ConversationId { get; set; }
+
+    /// <summary>The date and time the message was received</summary>
+    [JsonPropertyName("receivedDateTime")]
+    public DateTime? ReceivedTime { get; set; }
+
+    /// <summary>Indicates whether the message has been read</summary>
+    [JsonPropertyName("isRead")]
+    public bool? IsRead { get; set; }
+
+    /// <summary>The file attachments for the message</summary>
+    [JsonPropertyName("attachments")]
+    public List<GraphClientReceiveFileAttachment> Attachments { get; set; }
+
+    /// <summary>Is Html?</summary>
+    [JsonPropertyName("isHtml")]
+    public bool? IsHTML { get; set; }
+
+    /// <summary>sensitivityLabelInfo</summary>
+    [JsonPropertyName("sensitivityLabelInfo")]
+    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+}
+
+/// <summary>
+/// Item in The file attachments for the message
+/// </summary>
+public class GraphClientReceiveFileAttachment
+{
+    /// <summary>Attachment Id</summary>
+    [JsonPropertyName("id")]
+    public string AttachmentId { get; set; }
+
+    /// <summary>Attachment name</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>Attachment content</summary>
+    [JsonPropertyName("contentBytes")]
+    public string Content { get; set; }
+
+    /// <summary>Attachment content type</summary>
+    [JsonPropertyName("contentType")]
+    public string ContentType { get; set; }
+
+    /// <summary>The size in bytes of the attachment</summary>
+    [JsonPropertyName("size")]
+    public long? Size { get; set; }
+
+    /// <summary>Set to true if this is an inline attachment</summary>
+    [JsonPropertyName("isInline")]
+    public bool? IsInline { get; set; }
+
+    /// <summary>The date and time when the attachment was last modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    public DateTime? LastModifiedDateTime { get; set; }
+
+    /// <summary>Content Id</summary>
+    [JsonPropertyName("contentId")]
+    public string ContentId { get; set; }
+}
+
+/// <summary>
+/// Response for Get emails (V3)
+/// </summary>
+public class BatchResponseGraphClientReceiveMessage
+{
+    /// <summary>A list of the response objects</summary>
+    [JsonPropertyName("value")]
+    public List<GraphClientReceiveMessage> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get calendar view of events (V3)
+/// </summary>
+public class EntityListResponseGraphCalendarEventClientReceive
+{
+    /// <summary>List of values</summary>
+    [JsonPropertyName("value")]
+    public List<GraphCalendarEventClientReceive> Value { get; set; }
+}
+
+/// <summary>
+/// Get mail tips for a mailbox (V2)
+/// </summary>
+public class GetMailTipsInput
+{
+    /// <summary>Flags that represents the mailtips.</summary>
+    [JsonPropertyName("MailTipsOptions")]
+    public string FlagsThatRepresentsTheMailtips { get; set; }
+
+    /// <summary>Address of the mailbox to get mail tips for.</summary>
+    public List<string> EmailAddresses { get; set; }
+}
+
+/// <summary>
+/// Response for Get mail tips for a mailbox (V2)
+/// </summary>
+public class GetMailTipsResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<MailTipsClientReceive> Value { get; set; }
+}
+
+/// <summary>
+/// Item in value
+/// </summary>
+public class MailTipsClientReceiveV2
+{
+    /// <summary>automaticReplies</summary>
+    [JsonPropertyName("automaticReplies")]
+    public MailTipsAutomaticReplies AutomaticReplies { get; set; }
+
+    /// <summary>Is delivery restricted</summary>
+    [JsonPropertyName("deliveryRestricted")]
+    public bool? IsDeliveryRestricted { get; set; }
+
+    /// <summary>Number of external members</summary>
+    [JsonPropertyName("externalMemberCount")]
+    public int? IsModerated { get; set; }
+
+    /// <summary>Is mailbox full</summary>
+    [JsonPropertyName("mailboxFull")]
+    public bool? IsMailboxFull { get; set; }
+
+    /// <summary>Maximum message size</summary>
+    [JsonPropertyName("maxMessageSize")]
+    public long? MaximumMessageSize { get; set; }
+
+    /// <summary>Total member count</summary>
+    [JsonPropertyName("totalMemberCount")]
+    public long? TotalMemberCount { get; set; }
+}
+
+/// <summary>
+/// automaticReplies
+/// </summary>
+public class MailTipsAutomaticReplies
+{
+    /// <summary>Automatic replies message</summary>
+    [JsonPropertyName("message")]
+    public string AutomaticRepliesMessage { get; set; }
+}
+
+/// <summary>
+/// Response for Get room lists (V2)
+/// </summary>
+public class GetRoomListsResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get rooms (V2)
+/// </summary>
+public class GetRoomsResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get rooms in room list (V2)
+/// </summary>
+public class GetRoomsInRoomListResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Mark as read or unread (V3)
+/// </summary>
+public class MarkAsReadInput
+{
+    /// <summary>Mark as read/unread.</summary>
+    [JsonPropertyName("isRead")]
+    public bool? MarkAs { get; set; }
+}
+
+/// <summary>
+/// Response for When an email is flagged (V4)
+/// </summary>
+public class TriggerBatchResponseGraphClientReceiveMessage
+{
+    /// <summary>A list of the response objects</summary>
+    [JsonPropertyName("value")]
+    public List<GraphClientReceiveMessage> Value { get; set; }
+}
+
+/// <summary>
+/// Set up automatic replies (V2)
+/// </summary>
+public class SetAutomaticRepliesSettingInput
+{
+    /// <summary>automaticRepliesSetting</summary>
+    [JsonPropertyName("automaticRepliesSetting")]
+    public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
+}
+
+/// <summary>
+/// automaticRepliesSetting
+/// </summary>
+public class AutomaticRepliesSettingClient
+{
+    /// <summary>Automatic reply setting status</summary>
+    [JsonPropertyName("status")]
+    public string Status { get; set; }
+
+    /// <summary>The audience that will see the external reply message</summary>
+    [JsonPropertyName("externalAudience")]
+    public string ExternalAudience { get; set; }
+
+    /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("scheduledStartDateTime")]
+    public object StartTime { get; set; }
+
+    /// <summary>Scheduled end time (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("scheduledEndDateTime")]
+    public object EndTime { get; set; }
+
+    /// <summary>Message for people within your organization</summary>
+    [JsonPropertyName("internalReplyMessage")]
+    public string InternalReplyMessage { get; set; }
+
+    /// <summary>Message for people outside your organization</summary>
+    [JsonPropertyName("externalReplyMessage")]
+    public string ExternalReplyMessage { get; set; }
+}
+
+/// <summary>
+/// Response for Set up automatic replies (V2)
+/// </summary>
+public class SetAutomaticRepliesSettingResponse
+{
+    /// <summary>automaticRepliesSetting</summary>
+    [JsonPropertyName("automaticRepliesSetting")]
+    public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
 }
 
 /// <summary>
@@ -3463,47 +3463,15 @@ public class MCPQueryRequest
 #region Trigger Payloads
 
 /// <summary>
-/// Typed trigger payload for the OnUpcomingEventsV3 trigger (Office365 "When an upcoming event is starting soon (V3)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnCalendarChangedItems trigger (Office365 "When an event is added, updated or deleted (V3)", operationId: CalendarGetOnChangedItemsV3).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarChangedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+public class Office365OnCalendarChangedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientWithActionType>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the OnNewEmailV3 trigger (Office365 "When a new email arrives (V3)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailTriggerPayload&gt;(body)</c>.
-/// </summary>
-public class Office365OnNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
-{
-}
-
-/// <summary>
-/// Typed trigger payload for the OnFlaggedEmailV4 trigger (Office365 "When an email is flagged (V4)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnFlaggedEmailTriggerPayload&gt;(body)</c>.
-/// </summary>
-public class Office365OnFlaggedEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
-{
-}
-
-/// <summary>
-/// Typed trigger payload for the OnNewMentionMeEmailV3 trigger (Office365 "When a new email mentioning me arrives (V3)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailMentioningMeTriggerPayload&gt;(body)</c>.
-/// </summary>
-public class Office365OnNewEmailMentioningMeTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
-{
-}
-
-/// <summary>
-/// Typed trigger payload for the SharedMailboxOnNewEmailV2 trigger (Office365 "When a new email arrives in a shared mailbox (V2)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
-/// </summary>
-public class Office365OnSharedMailboxNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
-{
-}
-
-/// <summary>
-/// Typed trigger payload for the CalendarGetOnNewItemsV3 trigger (Office365 "When a new event is created (V3)").
+/// Typed trigger payload for the OnCalendarNewItems trigger (Office365 "When a new event is created (V3)", operationId: CalendarGetOnNewItemsV3).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarNewItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnCalendarNewItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
@@ -3511,7 +3479,7 @@ public class Office365OnCalendarNewItemsTriggerPayload : TriggerCallbackPayload<
 }
 
 /// <summary>
-/// Typed trigger payload for the CalendarGetOnUpdatedItemsV3 trigger (Office365 "When an event is modified (V3)").
+/// Typed trigger payload for the OnCalendarUpdatedItems trigger (Office365 "When an event is modified (V3)", operationId: CalendarGetOnUpdatedItemsV3).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarUpdatedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnCalendarUpdatedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
@@ -3519,10 +3487,42 @@ public class Office365OnCalendarUpdatedItemsTriggerPayload : TriggerCallbackPayl
 }
 
 /// <summary>
-/// Typed trigger payload for the CalendarGetOnChangedItemsV3 trigger (Office365 "When an event is added, updated or deleted (V3)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarChangedItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnFlaggedEmail trigger (Office365 "When an email is flagged (V4)", operationId: OnFlaggedEmailV4).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnFlaggedEmailTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class Office365OnCalendarChangedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientWithActionType>
+public class Office365OnFlaggedEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnNewEmail trigger (Office365 "When a new email arrives (V3)", operationId: OnNewEmailV3).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnNewEmailMentioningMe trigger (Office365 "When a new email mentioning me arrives (V3)", operationId: OnNewMentionMeEmailV3).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailMentioningMeTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnNewEmailMentioningMeTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnUpcomingEvents trigger (Office365 "When an upcoming event is starting soon (V3)", operationId: OnUpcomingEventsV3).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnSharedMailboxNewEmail trigger (Office365 "When a new email arrives in a shared mailbox (V2)", operationId: SharedMailboxOnNewEmailV2).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnSharedMailboxNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
 {
 }
 
@@ -3538,14 +3538,14 @@ public static class Office365Triggers
     public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
         new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
         {
-            ["OnUpcomingEventsV3"] = typeof(Office365OnUpcomingEventsTriggerPayload),
-            ["OnNewEmailV3"] = typeof(Office365OnNewEmailTriggerPayload),
-            ["OnFlaggedEmailV4"] = typeof(Office365OnFlaggedEmailTriggerPayload),
-            ["OnNewMentionMeEmailV3"] = typeof(Office365OnNewEmailMentioningMeTriggerPayload),
-            ["SharedMailboxOnNewEmailV2"] = typeof(Office365OnSharedMailboxNewEmailTriggerPayload),
+            ["CalendarGetOnChangedItemsV3"] = typeof(Office365OnCalendarChangedItemsTriggerPayload),
             ["CalendarGetOnNewItemsV3"] = typeof(Office365OnCalendarNewItemsTriggerPayload),
             ["CalendarGetOnUpdatedItemsV3"] = typeof(Office365OnCalendarUpdatedItemsTriggerPayload),
-            ["CalendarGetOnChangedItemsV3"] = typeof(Office365OnCalendarChangedItemsTriggerPayload),
+            ["OnFlaggedEmailV4"] = typeof(Office365OnFlaggedEmailTriggerPayload),
+            ["OnNewEmailV3"] = typeof(Office365OnNewEmailTriggerPayload),
+            ["OnNewMentionMeEmailV3"] = typeof(Office365OnNewEmailMentioningMeTriggerPayload),
+            ["OnUpcomingEventsV3"] = typeof(Office365OnUpcomingEventsTriggerPayload),
+            ["SharedMailboxOnNewEmailV2"] = typeof(Office365OnSharedMailboxNewEmailTriggerPayload),
         });
 }
 
@@ -3561,34 +3561,10 @@ public static class Office365Triggers
 public static class Office365TriggerOperations
 {
     /// <summary>
-    /// When an upcoming event is starting soon (V3).
-    /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
+    /// When an event is added, updated or deleted (V3).
+    /// Payload type: <see cref="Office365OnCalendarChangedItemsTriggerPayload"/>.
     /// </summary>
-    public const string OnUpcomingEvents = "OnUpcomingEventsV3";
-
-    /// <summary>
-    /// When a new email arrives (V3).
-    /// Payload type: <see cref="Office365OnNewEmailTriggerPayload"/>.
-    /// </summary>
-    public const string OnNewEmail = "OnNewEmailV3";
-
-    /// <summary>
-    /// When an email is flagged (V4).
-    /// Payload type: <see cref="Office365OnFlaggedEmailTriggerPayload"/>.
-    /// </summary>
-    public const string OnFlaggedEmail = "OnFlaggedEmailV4";
-
-    /// <summary>
-    /// When a new email mentioning me arrives (V3).
-    /// Payload type: <see cref="Office365OnNewEmailMentioningMeTriggerPayload"/>.
-    /// </summary>
-    public const string OnNewEmailMentioningMe = "OnNewMentionMeEmailV3";
-
-    /// <summary>
-    /// When a new email arrives in a shared mailbox (V2).
-    /// Payload type: <see cref="Office365OnSharedMailboxNewEmailTriggerPayload"/>.
-    /// </summary>
-    public const string OnSharedMailboxNewEmail = "SharedMailboxOnNewEmailV2";
+    public const string OnCalendarChangedItems = "CalendarGetOnChangedItemsV3";
 
     /// <summary>
     /// When a new event is created (V3).
@@ -3603,10 +3579,34 @@ public static class Office365TriggerOperations
     public const string OnCalendarUpdatedItems = "CalendarGetOnUpdatedItemsV3";
 
     /// <summary>
-    /// When an event is added, updated or deleted (V3).
-    /// Payload type: <see cref="Office365OnCalendarChangedItemsTriggerPayload"/>.
+    /// When an email is flagged (V4).
+    /// Payload type: <see cref="Office365OnFlaggedEmailTriggerPayload"/>.
     /// </summary>
-    public const string OnCalendarChangedItems = "CalendarGetOnChangedItemsV3";
+    public const string OnFlaggedEmail = "OnFlaggedEmailV4";
+
+    /// <summary>
+    /// When a new email arrives (V3).
+    /// Payload type: <see cref="Office365OnNewEmailTriggerPayload"/>.
+    /// </summary>
+    public const string OnNewEmail = "OnNewEmailV3";
+
+    /// <summary>
+    /// When a new email mentioning me arrives (V3).
+    /// Payload type: <see cref="Office365OnNewEmailMentioningMeTriggerPayload"/>.
+    /// </summary>
+    public const string OnNewEmailMentioningMe = "OnNewMentionMeEmailV3";
+
+    /// <summary>
+    /// When an upcoming event is starting soon (V3).
+    /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
+    /// </summary>
+    public const string OnUpcomingEvents = "OnUpcomingEventsV3";
+
+    /// <summary>
+    /// When a new email arrives in a shared mailbox (V2).
+    /// Payload type: <see cref="Office365OnSharedMailboxNewEmailTriggerPayload"/>.
+    /// </summary>
+    public const string OnSharedMailboxNewEmail = "SharedMailboxOnNewEmailV2";
 
 }
 
@@ -3621,27 +3621,142 @@ public static class Office365TriggerOperations
 public static class Office365TriggerParameters
 {
     /// <summary>
-    /// Input parameters for the OnUpcomingEventsV3 trigger operation.
+    /// Input parameters for the OnCalendarChangedItems trigger operation (operationId: CalendarGetOnChangedItemsV3).
     /// </summary>
-    public static class OnUpcomingEvents
+    public static class OnCalendarChangedItems
     {
         /// <summary>
-        /// Unique identifier of the calendar.
-        /// Required.
-        /// Dynamic values from: CalendarGetTables_V2.
+        /// Number of incoming days in calendar to be tracked
+        /// Default: 300.
         /// </summary>
-        public const string Table = "table";
+        public const string IncomingDays = "incomingDays";
 
         /// <summary>
-        /// Time (in minutes) to look ahead for upcoming events.
-        /// Default: 15.
+        /// Number of past days in calendar to be tracked
+        /// Default: 50.
         /// </summary>
-        public const string LookAheadTimeInMinutes = "lookAheadTimeInMinutes";
+        public const string PastDays = "pastDays";
 
     }
 
     /// <summary>
-    /// Input parameters for the OnNewEmailV3 trigger operation.
+    /// Input parameters for the OnCalendarNewItems trigger operation (operationId: CalendarGetOnNewItemsV3).
+    /// </summary>
+    public static class OnCalendarNewItems
+    {
+        /// <summary>
+        /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
+        /// </summary>
+        public const string Filter = "$filter";
+
+        /// <summary>
+        /// An ODATA orderBy query for specifying the order of entries.
+        /// </summary>
+        public const string Orderby = "$orderby";
+
+        /// <summary>
+        /// Total number of entries to retrieve (default = all).
+        /// </summary>
+        public const string Top = "$top";
+
+        /// <summary>
+        /// The number of entries to skip (default = 0).
+        /// </summary>
+        public const string Skip = "$skip";
+
+        /// <summary>
+        /// Special header to enable operation simulation.
+        /// </summary>
+        public const string XMsOperationContext = "x-ms-operation-context";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnCalendarUpdatedItems trigger operation (operationId: CalendarGetOnUpdatedItemsV3).
+    /// </summary>
+    public static class OnCalendarUpdatedItems
+    {
+        /// <summary>
+        /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
+        /// </summary>
+        public const string Filter = "$filter";
+
+        /// <summary>
+        /// An ODATA orderBy query for specifying the order of entries.
+        /// </summary>
+        public const string Orderby = "$orderby";
+
+        /// <summary>
+        /// Total number of entries to retrieve (default = all).
+        /// </summary>
+        public const string Top = "$top";
+
+        /// <summary>
+        /// The number of entries to skip (default = 0).
+        /// </summary>
+        public const string Skip = "$skip";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnFlaggedEmail trigger operation (operationId: OnFlaggedEmailV4).
+    /// </summary>
+    public static class OnFlaggedEmail
+    {
+        /// <summary>
+        /// Mail folder to check for new emails.
+        /// Default: Inbox.
+        /// </summary>
+        public const string FolderPath = "folderPath";
+
+        /// <summary>
+        /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string To = "to";
+
+        /// <summary>
+        /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string Cc = "cc";
+
+        /// <summary>
+        /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string ToOrCc = "toOrCc";
+
+        /// <summary>
+        /// Sender email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string From = "from";
+
+        /// <summary>
+        /// Importance of the email (Any, High, Normal, Low).
+        /// Default: Any.
+        /// Allowed values: Any, Low, Normal, High.
+        /// </summary>
+        public const string Importance = "importance";
+
+        /// <summary>
+        /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
+        /// Default: false.
+        /// </summary>
+        public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
+
+        /// <summary>
+        /// Should the response of the trigger include the attachments content.
+        /// Default: false.
+        /// </summary>
+        public const string IncludeAttachments = "includeAttachments";
+
+        /// <summary>
+        /// String to look for in the subject line.
+        /// </summary>
+        public const string SubjectFilter = "subjectFilter";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnNewEmail trigger operation (operationId: OnNewEmailV3).
     /// </summary>
     public static class OnNewEmail
     {
@@ -3703,64 +3818,7 @@ public static class Office365TriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnFlaggedEmailV4 trigger operation.
-    /// </summary>
-    public static class OnFlaggedEmail
-    {
-        /// <summary>
-        /// Mail folder to check for new emails.
-        /// Default: Inbox.
-        /// </summary>
-        public const string FolderPath = "folderPath";
-
-        /// <summary>
-        /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
-        /// </summary>
-        public const string To = "to";
-
-        /// <summary>
-        /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-        /// </summary>
-        public const string Cc = "cc";
-
-        /// <summary>
-        /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-        /// </summary>
-        public const string ToOrCc = "toOrCc";
-
-        /// <summary>
-        /// Sender email addresses separated by semicolons (If any match, the trigger will run).
-        /// </summary>
-        public const string From = "from";
-
-        /// <summary>
-        /// Importance of the email (Any, High, Normal, Low).
-        /// Default: Any.
-        /// Allowed values: Any, Low, Normal, High.
-        /// </summary>
-        public const string Importance = "importance";
-
-        /// <summary>
-        /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
-        /// Default: false.
-        /// </summary>
-        public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
-
-        /// <summary>
-        /// Should the response of the trigger include the attachments content.
-        /// Default: false.
-        /// </summary>
-        public const string IncludeAttachments = "includeAttachments";
-
-        /// <summary>
-        /// String to look for in the subject line.
-        /// </summary>
-        public const string SubjectFilter = "subjectFilter";
-
-    }
-
-    /// <summary>
-    /// Input parameters for the OnNewMentionMeEmailV3 trigger operation.
+    /// Input parameters for the OnNewEmailMentioningMe trigger operation (operationId: OnNewMentionMeEmailV3).
     /// </summary>
     public static class OnNewEmailMentioningMe
     {
@@ -3821,7 +3879,27 @@ public static class Office365TriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the SharedMailboxOnNewEmailV2 trigger operation.
+    /// Input parameters for the OnUpcomingEvents trigger operation (operationId: OnUpcomingEventsV3).
+    /// </summary>
+    public static class OnUpcomingEvents
+    {
+        /// <summary>
+        /// Unique identifier of the calendar.
+        /// Required.
+        /// Dynamic values from: CalendarGetTables_V2.
+        /// </summary>
+        public const string Table = "table";
+
+        /// <summary>
+        /// Time (in minutes) to look ahead for upcoming events.
+        /// Default: 15.
+        /// </summary>
+        public const string LookAheadTimeInMinutes = "lookAheadTimeInMinutes";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnSharedMailboxNewEmail trigger operation (operationId: SharedMailboxOnNewEmailV2).
     /// </summary>
     public static class OnSharedMailboxNewEmail
     {
@@ -3885,84 +3963,6 @@ public static class Office365TriggerParameters
         /// Special header to enable operation simulation.
         /// </summary>
         public const string XMsOperationContext = "x-ms-operation-context";
-
-    }
-
-    /// <summary>
-    /// Input parameters for the CalendarGetOnNewItemsV3 trigger operation.
-    /// </summary>
-    public static class OnCalendarNewItems
-    {
-        /// <summary>
-        /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
-        /// </summary>
-        public const string Filter = "$filter";
-
-        /// <summary>
-        /// An ODATA orderBy query for specifying the order of entries.
-        /// </summary>
-        public const string Orderby = "$orderby";
-
-        /// <summary>
-        /// Total number of entries to retrieve (default = all).
-        /// </summary>
-        public const string Top = "$top";
-
-        /// <summary>
-        /// The number of entries to skip (default = 0).
-        /// </summary>
-        public const string Skip = "$skip";
-
-        /// <summary>
-        /// Special header to enable operation simulation.
-        /// </summary>
-        public const string XMsOperationContext = "x-ms-operation-context";
-
-    }
-
-    /// <summary>
-    /// Input parameters for the CalendarGetOnUpdatedItemsV3 trigger operation.
-    /// </summary>
-    public static class OnCalendarUpdatedItems
-    {
-        /// <summary>
-        /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
-        /// </summary>
-        public const string Filter = "$filter";
-
-        /// <summary>
-        /// An ODATA orderBy query for specifying the order of entries.
-        /// </summary>
-        public const string Orderby = "$orderby";
-
-        /// <summary>
-        /// Total number of entries to retrieve (default = all).
-        /// </summary>
-        public const string Top = "$top";
-
-        /// <summary>
-        /// The number of entries to skip (default = 0).
-        /// </summary>
-        public const string Skip = "$skip";
-
-    }
-
-    /// <summary>
-    /// Input parameters for the CalendarGetOnChangedItemsV3 trigger operation.
-    /// </summary>
-    public static class OnCalendarChangedItems
-    {
-        /// <summary>
-        /// Number of incoming days in calendar to be tracked
-        /// Default: 300.
-        /// </summary>
-        public const string IncomingDays = "incomingDays";
-
-        /// <summary>
-        /// Number of past days in calendar to be tracked
-        /// Default: 50.
-        /// </summary>
-        public const string PastDays = "pastDays";
 
     }
 
@@ -4337,15 +4337,295 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Send an email (V2)
+    /// Delete event (V2)
     /// </summary>
-    /// <remarks>This operation sends an email message.</remarks>
+    /// <remarks>This operation deletes an event in a calendar.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="id">Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task CalendarDeleteItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get event (V3)
+    /// </summary>
+    /// <remarks>This operation gets a specific event from a calendar using Graph API. (V3)</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="itemId">Item id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get event (V3) response.</returns>
+    public async Task<GraphCalendarEventClientReceive> CalendarGetItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string itemId, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get events (V4)
+    /// </summary>
+    /// <remarks>This operation gets events from a calendar using Graph API. (V4)</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="topCount">Top Count</param>
+    /// <param name="skipCount">Skip Count</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get events (V4) response.</returns>
+    public async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get calendars (V2)
+    /// </summary>
+    /// <remarks>This operation lists available calendars.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get calendars (V2) response.</returns>
+    public async Task<CalendarGetTablesResponse> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/calendars";
+        return await this.CallConnectorAsync<CalendarGetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Update event (V4)
+    /// </summary>
+    /// <remarks>This operation updates an event in a calendar using Graph API.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="id">Id</param>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendEmailAsync(SendEmailInput input, CancellationToken cancellationToken = default)
+    /// <returns>The Update event (V4) response.</returns>
+    public async Task<GraphCalendarEventClientReceive> CalendarPatchItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
     {
-        var path = $"/v2/Mail";
+        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Create event (V4)
+    /// </summary>
+    /// <remarks>This operation creates a new event in a calendar.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create event (V4) response.</returns>
+    public async Task<GraphCalendarEventClientReceive> CalendarPostItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
+        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Delete contact (V2)
+    /// </summary>
+    /// <remarks>This operation deletes a contact from a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="id">Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task ContactDeleteItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get contact (V2)
+    /// </summary>
+    /// <remarks>This operation gets a specific contact from a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="itemId">Item id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get contact (V2) response.</returns>
+    public async Task<ContactResponse> ContactGetItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}";
+        return await this.CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get contacts (V2)
+    /// </summary>
+    /// <remarks>This operation gets contacts from a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="topCount">Top Count</param>
+    /// <param name="skipCount">Skip Count</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get contacts (V2) response.</returns>
+    public async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Get contact folders (V2)
+    /// </summary>
+    /// <remarks>This operation lists available contacts folders using Graph API</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get contact folders (V2) response.</returns>
+    public async Task<EntityListResponseGraphContactFolder> ContactGetTablesAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/v2/datasets/contacts/tables";
+        return await this.CallConnectorAsync<EntityListResponseGraphContactFolder>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Update contact (V2)
+    /// </summary>
+    /// <remarks>This operation updates a contact in a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="id">Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Update contact (V2) response.</returns>
+    public async Task<ContactResponse> ContactPatchItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, Contact input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
+        return await this.CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Create contact (V2)
+    /// </summary>
+    /// <remarks>This operation creates a new contact in a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create contact (V2) response.</returns>
+    public async Task<ContactResponse> ContactPostItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, Contact input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts";
+        return await this.CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Delete email (V2)
+    /// </summary>
+    /// <remarks>This operation deletes an email by id.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task DeleteEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Export email (V2)
+    /// </summary>
+    /// <remarks>Export the content of the email in the EML file format.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Export email (V2) response.</returns>
+    public async Task<byte[]> ExportEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(messageId.ToString())}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Find meeting times (V2)
+    /// </summary>
+    /// <remarks>Find meeting time suggestions based on organizer, attendee availability, and time or location constraints</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Find meeting times (V2) response.</returns>
+    public async Task<FindMeetingTimesResponse> FindMeetingTimesAsync(FindMeetingTimesInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/beta/me/findMeetingTimes";
+        return await this.CallConnectorAsync<FindMeetingTimesResponse>(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Flag email (V2)
+    /// </summary>
+    /// <remarks>This operation updates an email flag.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task FlagAsync(string messageId, UpdateEmailFlag input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Forward an email (V2)
+    /// </summary>
+    /// <remarks>Forward an email.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task ForwardEmailAsync(string messageId, DirectForwardMessage input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Get Attachment (V2)
+    /// </summary>
+    /// <remarks>This operation gets an email attachment by id.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="attachementId">Attachement Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
+    /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get Attachment (V2) response.</returns>
+    public async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (extractSensitivityLabel != default)
+            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+        if (sensitivityLabelMetadata != default)
+            queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/attachments/{Uri.EscapeDataString(attachementId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<GetAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -4430,95 +4710,6 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Move email (V2)
-    /// </summary>
-    /// <remarks>This operation moves an email to the specified folder within the same mailbox.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="folder">Folder</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Move email (V2) response.</returns>
-    public async Task<GraphClientReceiveMessage> MoveAsync(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (folder != default)
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Reply to email (V3)
-    /// </summary>
-    /// <remarks>This operation replies to an email.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ReplyToAsync(string messageId, ReplyEmailInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Send an email from a shared mailbox (V2)
-    /// </summary>
-    /// <remarks>This operation sends an email from a shared mailbox. Your account should have permission to access the mailbox for this operation to succeed.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SharedMailboxSendEmailAsync(SharedMailboxSendEmailInput input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/v2/SharedMailbox/Mail";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Get events (V4)
-    /// </summary>
-    /// <remarks>This operation gets events from a calendar using Graph API. (V4)</remarks>
-    /// <param name="calendarId">Calendar id</param>
-    /// <param name="filterQuery">Filter Query</param>
-    /// <param name="orderBy">Order By</param>
-    /// <param name="topCount">Top Count</param>
-    /// <param name="skipCount">Skip Count</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get events (V4) response.</returns>
-    public async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (filterQuery != default)
-            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default)
-            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default)
-            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (skipCount != default)
-            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Create event (V4)
-    /// </summary>
-    /// <remarks>This operation creates a new event in a calendar.</remarks>
-    /// <param name="calendarId">Calendar id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Create event (V4) response.</returns>
-    public async Task<GraphCalendarEventClientReceive> CalendarPostItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
-        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
     /// Get calendar view of events (V3)
     /// </summary>
     /// <remarks>This operation gets all events (including instances of recurrences) in a calendar using Graph API. Recurrence property is null in this case.</remarks>
@@ -4556,166 +4747,16 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Get event (V3)
+    /// Get mail tips for a mailbox (V2)
     /// </summary>
-    /// <remarks>This operation gets a specific event from a calendar using Graph API. (V3)</remarks>
-    /// <param name="calendarId">Calendar id</param>
-    /// <param name="itemId">Item id</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get event (V3) response.</returns>
-    public async Task<GraphCalendarEventClientReceive> CalendarGetItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string itemId, CancellationToken cancellationToken = default)
-    {
-        var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
-        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Update event (V4)
-    /// </summary>
-    /// <remarks>This operation updates an event in a calendar using Graph API.</remarks>
-    /// <param name="calendarId">Calendar id</param>
-    /// <param name="id">Id</param>
+    /// <remarks>Get mail tips for a mailbox such as automatic replies / OOF message or if the mailbox is full. This is not available in GccHigh and Mooncake.</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Update event (V4) response.</returns>
-    public async Task<GraphCalendarEventClientReceive> CalendarPatchItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
+    /// <returns>The Get mail tips for a mailbox (V2) response.</returns>
+    public async Task<GetMailTipsResponse> GetMailTipsAsync(GetMailTipsInput input, CancellationToken cancellationToken = default)
     {
-        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-        return await this.CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Get contact folders (V2)
-    /// </summary>
-    /// <remarks>This operation lists available contacts folders using Graph API</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get contact folders (V2) response.</returns>
-    public async Task<EntityListResponseGraphContactFolder> ContactGetTablesAsync(CancellationToken cancellationToken = default)
-    {
-        var path = $"/v2/datasets/contacts/tables";
-        return await this.CallConnectorAsync<EntityListResponseGraphContactFolder>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Export email (V2)
-    /// </summary>
-    /// <remarks>Export the content of the email in the EML file format.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Export email (V2) response.</returns>
-    public async Task<byte[]> ExportEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(messageId.ToString())}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Flag email (V2)
-    /// </summary>
-    /// <remarks>This operation updates an email flag.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task FlagAsync(string messageId, UpdateEmailFlag input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Mark as read or unread (V3)
-    /// </summary>
-    /// <remarks>This operation marks an email as read/unread.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task MarkAsReadAsync(string messageId, MarkAsReadInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Delete email (V2)
-    /// </summary>
-    /// <remarks>This operation deletes an email by id.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeleteEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Get Attachment (V2)
-    /// </summary>
-    /// <remarks>This operation gets an email attachment by id.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="attachementId">Attachement Id</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
-    /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get Attachment (V2) response.</returns>
-    public async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        if (extractSensitivityLabel != default)
-            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-        if (sensitivityLabelMetadata != default)
-            queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
-        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/attachments/{Uri.EscapeDataString(attachementId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Respond to an event invite (V2)
-    /// </summary>
-    /// <remarks>Respond to an event invite.</remarks>
-    /// <param name="eventId">Event Id</param>
-    /// <param name="response">Response</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task RespondToEventAsync(string eventId, string response, ResponseToEventInvite input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Forward an email (V2)
-    /// </summary>
-    /// <remarks>Forward an email.</remarks>
-    /// <param name="messageId">Message Id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ForwardEmailAsync(string messageId, DirectForwardMessage input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (originalMailboxAddress != default)
-            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        var path = $"/codeless/v1.0/me/getMailTips";
+        return await this.CallConnectorAsync<GetMailTipsResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4756,16 +4797,83 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Find meeting times (V2)
+    /// Mark as read or unread (V3)
     /// </summary>
-    /// <remarks>Find meeting time suggestions based on organizer, attendee availability, and time or location constraints</remarks>
+    /// <remarks>This operation marks an email as read/unread.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task MarkAsReadAsync(string messageId, MarkAsReadInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Move email (V2)
+    /// </summary>
+    /// <remarks>This operation moves an email to the specified folder within the same mailbox.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="folder">Folder</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Move email (V2) response.</returns>
+    public async Task<GraphClientReceiveMessage> MoveAsync(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (folder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Reply to email (V3)
+    /// </summary>
+    /// <remarks>This operation replies to an email.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task ReplyToAsync(string messageId, ReplyEmailInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Respond to an event invite (V2)
+    /// </summary>
+    /// <remarks>Respond to an event invite.</remarks>
+    /// <param name="eventId">Event Id</param>
+    /// <param name="response">Response</param>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Find meeting times (V2) response.</returns>
-    public async Task<FindMeetingTimesResponse> FindMeetingTimesAsync(FindMeetingTimesInput input, CancellationToken cancellationToken = default)
+    public async Task RespondToEventAsync(string eventId, string response, ResponseToEventInvite input, CancellationToken cancellationToken = default)
     {
-        var path = $"/codeless/beta/me/findMeetingTimes";
-        return await this.CallConnectorAsync<FindMeetingTimesResponse>(HttpMethod.Post, path, input, cancellationToken);
+        var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+    }
+
+    /// <summary>
+    /// Send an email (V2)
+    /// </summary>
+    /// <remarks>This operation sends an email message.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task SendEmailAsync(SendEmailInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v2/Mail";
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     /// <summary>
@@ -4782,123 +4890,15 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Get mail tips for a mailbox (V2)
+    /// Send an email from a shared mailbox (V2)
     /// </summary>
-    /// <remarks>Get mail tips for a mailbox such as automatic replies / OOF message or if the mailbox is full. This is not available in GccHigh and Mooncake.</remarks>
+    /// <remarks>This operation sends an email from a shared mailbox. Your account should have permission to access the mailbox for this operation to succeed.</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get mail tips for a mailbox (V2) response.</returns>
-    public async Task<GetMailTipsResponse> GetMailTipsAsync(GetMailTipsInput input, CancellationToken cancellationToken = default)
+    public async Task SharedMailboxSendEmailAsync(SharedMailboxSendEmailInput input, CancellationToken cancellationToken = default)
     {
-        var path = $"/codeless/v1.0/me/getMailTips";
-        return await this.CallConnectorAsync<GetMailTipsResponse>(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Get calendars (V2)
-    /// </summary>
-    /// <remarks>This operation lists available calendars.</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get calendars (V2) response.</returns>
-    public async Task<CalendarGetTablesResponse> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/calendars";
-        return await this.CallConnectorAsync<CalendarGetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Delete event (V2)
-    /// </summary>
-    /// <remarks>This operation deletes an event in a calendar.</remarks>
-    /// <param name="calendarId">Calendar id</param>
-    /// <param name="id">Id</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task CalendarDeleteItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Get contact (V2)
-    /// </summary>
-    /// <remarks>This operation gets a specific contact from a contacts folder.</remarks>
-    /// <param name="folderId">Folder id</param>
-    /// <param name="itemId">Item id</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get contact (V2) response.</returns>
-    public async Task<ContactResponse> ContactGetItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}";
-        return await this.CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Delete contact (V2)
-    /// </summary>
-    /// <remarks>This operation deletes a contact from a contacts folder.</remarks>
-    /// <param name="folderId">Folder id</param>
-    /// <param name="id">Id</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ContactDeleteItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Update contact (V2)
-    /// </summary>
-    /// <remarks>This operation updates a contact in a contacts folder.</remarks>
-    /// <param name="folderId">Folder id</param>
-    /// <param name="id">Id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Update contact (V2) response.</returns>
-    public async Task<ContactResponse> ContactPatchItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, Contact input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
-        return await this.CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Get contacts (V2)
-    /// </summary>
-    /// <remarks>This operation gets contacts from a contacts folder.</remarks>
-    /// <param name="folderId">Folder id</param>
-    /// <param name="filterQuery">Filter Query</param>
-    /// <param name="orderBy">Order By</param>
-    /// <param name="topCount">Top Count</param>
-    /// <param name="skipCount">Skip Count</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get contacts (V2) response.</returns>
-    public async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (filterQuery != default)
-            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default)
-            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default)
-            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (skipCount != default)
-            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Create contact (V2)
-    /// </summary>
-    /// <remarks>This operation creates a new contact in a contacts folder.</remarks>
-    /// <param name="folderId">Folder id</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Create contact (V2) response.</returns>
-    public async Task<ContactResponse> ContactPostItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, Contact input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts";
-        return await this.CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken);
+        var path = $"/v2/SharedMailbox/Mail";
+        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
     }
 
     public void Dispose()

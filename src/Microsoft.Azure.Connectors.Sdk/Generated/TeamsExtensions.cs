@@ -2228,7 +2228,7 @@ public static class TeamsTriggerOperations
 public static class TeamsTriggerParameters
 {
     /// <summary>
-    /// Input parameters for the OnNewChannelMessage trigger operation.
+    /// Input parameters for the OnNewChannelMessage trigger operation (operationId: OnNewChannelMessage).
     /// </summary>
     public static class OnNewChannelMessage
     {
@@ -2241,7 +2241,7 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnNewChannelMessageMentioningMe trigger operation.
+    /// Input parameters for the OnNewChannelMessageMentioningMe trigger operation (operationId: OnNewChannelMessageMentioningMe).
     /// </summary>
     public static class OnNewChannelMessageMentioningMe
     {
@@ -2254,7 +2254,7 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the WebhookMessageReactionTrigger trigger operation.
+    /// Input parameters for the OnWebhookMessageReactionTrigger trigger operation (operationId: WebhookMessageReactionTrigger).
     /// </summary>
     public static class OnWebhookMessageReactionTrigger
     {
@@ -2281,7 +2281,7 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the WebhookKeywordTrigger trigger operation.
+    /// Input parameters for the OnWebhookKeywordTrigger trigger operation (operationId: WebhookKeywordTrigger).
     /// </summary>
     public static class OnWebhookKeywordTrigger
     {
@@ -2294,7 +2294,7 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnGroupMembershipRemoval trigger operation.
+    /// Input parameters for the OnTeamMemberRemoved trigger operation (operationId: OnGroupMembershipRemoval).
     /// </summary>
     public static class OnTeamMemberRemoved
     {
@@ -2314,7 +2314,7 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnGroupMembershipAdd trigger operation.
+    /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
     /// </summary>
     public static class OnTeamMemberAdded
     {

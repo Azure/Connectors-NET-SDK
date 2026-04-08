@@ -1263,7 +1263,7 @@ public class SPForASelectedFileResponse
 #region Trigger Payloads
 
 /// <summary>
-/// Typed trigger payload for the GetOnChangedItems trigger (Sharepointonline "When an item or a file is modified").
+/// Typed trigger payload for the OnChangedItems trigger (Sharepointonline "When an item or a file is modified", operationId: GetOnChangedItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnChangedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
@@ -1271,7 +1271,7 @@ public class SharepointonlineOnChangedItemsTriggerPayload : TriggerCallbackPaylo
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnDeletedFileItems trigger (Sharepointonline "When a file is deleted").
+/// Typed trigger payload for the OnDeletedFileItems trigger (Sharepointonline "When a file is deleted", operationId: GetOnDeletedFileItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
@@ -1279,7 +1279,7 @@ public class SharepointonlineOnDeletedFileItemsTriggerPayload : TriggerCallbackP
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnDeletedItems trigger (Sharepointonline "When an item is deleted").
+/// Typed trigger payload for the OnDeletedItems trigger (Sharepointonline "When an item is deleted", operationId: GetOnDeletedItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
@@ -1287,7 +1287,7 @@ public class SharepointonlineOnDeletedItemsTriggerPayload : TriggerCallbackPaylo
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnNewFileItems trigger (Sharepointonline "When a file is created (properties only)").
+/// Typed trigger payload for the OnNewFileItems trigger (Sharepointonline "When a file is created (properties only)", operationId: GetOnNewFileItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
@@ -1295,7 +1295,7 @@ public class SharepointonlineOnNewFileItemsTriggerPayload : TriggerCallbackPaylo
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnNewItems trigger (Sharepointonline "When an item is created").
+/// Typed trigger payload for the OnNewItems trigger (Sharepointonline "When an item is created", operationId: GetOnNewItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
@@ -1303,7 +1303,7 @@ public class SharepointonlineOnNewItemsTriggerPayload : TriggerCallbackPayload<I
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnUpdatedFileClassifiedTimes trigger (Sharepointonline "When a file is classified by a Microsoft Syntex model").
+/// Typed trigger payload for the OnUpdatedFileClassifiedTimes trigger (Sharepointonline "When a file is classified by a Microsoft Syntex model", operationId: GetOnUpdatedFileClassifiedTimes).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
@@ -1311,7 +1311,7 @@ public class SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload : Trigge
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnUpdatedFileItems trigger (Sharepointonline "When a file is created or modified (properties only)").
+/// Typed trigger payload for the OnUpdatedFileItems trigger (Sharepointonline "When a file is created or modified (properties only)", operationId: GetOnUpdatedFileItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
@@ -1319,7 +1319,7 @@ public class SharepointonlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackP
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnUpdatedItems trigger (Sharepointonline "When an item is created or modified").
+/// Typed trigger payload for the OnUpdatedItems trigger (Sharepointonline "When an item is created or modified", operationId: GetOnUpdatedItems).
 /// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
@@ -1431,7 +1431,7 @@ public static class SharepointonlineTriggerOperations
 public static class SharepointonlineTriggerParameters
 {
     /// <summary>
-    /// Input parameters for the GetOnChangedItems trigger operation.
+    /// Input parameters for the OnChangedItems trigger operation (operationId: GetOnChangedItems).
     /// </summary>
     public static class OnChangedItems
     {
@@ -1449,7 +1449,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnDeletedFileItems trigger operation.
+    /// Input parameters for the OnDeletedFileItems trigger operation (operationId: GetOnDeletedFileItems).
     /// </summary>
     public static class OnDeletedFileItems
     {
@@ -1461,7 +1461,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnNewFileItems trigger operation.
+    /// Input parameters for the OnNewFileItems trigger operation (operationId: GetOnNewFileItems).
     /// </summary>
     public static class OnNewFileItems
     {
@@ -1479,7 +1479,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnNewItems trigger operation.
+    /// Input parameters for the OnNewItems trigger operation (operationId: GetOnNewItems).
     /// </summary>
     public static class OnNewItems
     {
@@ -1492,7 +1492,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnUpdatedFileClassifiedTimes trigger operation.
+    /// Input parameters for the OnUpdatedFileClassifiedTimes trigger operation (operationId: GetOnUpdatedFileClassifiedTimes).
     /// </summary>
     public static class OnUpdatedFileClassifiedTimes
     {
@@ -1510,7 +1510,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnUpdatedFileItems trigger operation.
+    /// Input parameters for the OnUpdatedFileItems trigger operation (operationId: GetOnUpdatedFileItems).
     /// </summary>
     public static class OnUpdatedFileItems
     {
@@ -1528,7 +1528,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnUpdatedItems trigger operation.
+    /// Input parameters for the OnUpdatedItems trigger operation (operationId: GetOnUpdatedItems).
     /// </summary>
     public static class OnUpdatedItems
     {
@@ -1541,7 +1541,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnNewFile trigger operation.
+    /// Input parameters for the OnNewFile trigger operation (operationId: OnNewFile).
     /// </summary>
     public static class OnNewFile
     {
@@ -1566,7 +1566,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnUpdatedFile trigger operation.
+    /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFile).
     /// </summary>
     public static class OnUpdatedFile
     {
