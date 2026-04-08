@@ -1264,65 +1264,65 @@ public class SPForASelectedFileResponse
 
 /// <summary>
 /// Typed trigger payload for the GetOnChangedItems trigger (Sharepointonline "When an item or a file is modified").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnChangedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnChangedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnDeletedFileItems trigger (Sharepointonline "When a file is deleted").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
+public class SharepointonlineOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnDeletedItems trigger (Sharepointonline "When an item is deleted").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnDeletedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
+public class SharepointonlineOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnNewFileItems trigger (Sharepointonline "When a file is created (properties only)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnNewFileItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnNewItems trigger (Sharepointonline "When an item is created").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnNewItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnUpdatedFileClassifiedTimes trigger (Sharepointonline "When a file is classified by a Microsoft Syntex model").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnUpdatedFileItems trigger (Sharepointonline "When a file is created or modified (properties only)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
 /// Typed trigger payload for the GetOnUpdatedItems trigger (Sharepointonline "When an item is created or modified").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnUpdatedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
@@ -1338,14 +1338,14 @@ public static class SharepointonlineTriggers
     public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
         new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
         {
-            ["GetOnChangedItems"] = typeof(SharepointonlineGetOnChangedItemsTriggerPayload),
-            ["GetOnDeletedFileItems"] = typeof(SharepointonlineGetOnDeletedFileItemsTriggerPayload),
-            ["GetOnDeletedItems"] = typeof(SharepointonlineGetOnDeletedItemsTriggerPayload),
-            ["GetOnNewFileItems"] = typeof(SharepointonlineGetOnNewFileItemsTriggerPayload),
-            ["GetOnNewItems"] = typeof(SharepointonlineGetOnNewItemsTriggerPayload),
-            ["GetOnUpdatedFileClassifiedTimes"] = typeof(SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload),
-            ["GetOnUpdatedFileItems"] = typeof(SharepointonlineGetOnUpdatedFileItemsTriggerPayload),
-            ["GetOnUpdatedItems"] = typeof(SharepointonlineGetOnUpdatedItemsTriggerPayload),
+            ["GetOnChangedItems"] = typeof(SharepointonlineOnChangedItemsTriggerPayload),
+            ["GetOnDeletedFileItems"] = typeof(SharepointonlineOnDeletedFileItemsTriggerPayload),
+            ["GetOnDeletedItems"] = typeof(SharepointonlineOnDeletedItemsTriggerPayload),
+            ["GetOnNewFileItems"] = typeof(SharepointonlineOnNewFileItemsTriggerPayload),
+            ["GetOnNewItems"] = typeof(SharepointonlineOnNewItemsTriggerPayload),
+            ["GetOnUpdatedFileClassifiedTimes"] = typeof(SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload),
+            ["GetOnUpdatedFileItems"] = typeof(SharepointonlineOnUpdatedFileItemsTriggerPayload),
+            ["GetOnUpdatedItems"] = typeof(SharepointonlineOnUpdatedItemsTriggerPayload),
         });
 }
 
@@ -1362,51 +1362,51 @@ public static class SharepointonlineTriggerOperations
 {
     /// <summary>
     /// When an item or a file is modified.
-    /// Payload type: <see cref="SharepointonlineGetOnChangedItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnChangedItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnChangedItems = "GetOnChangedItems";
+    public const string OnChangedItems = "GetOnChangedItems";
 
     /// <summary>
     /// When a file is deleted.
-    /// Payload type: <see cref="SharepointonlineGetOnDeletedFileItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnDeletedFileItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnDeletedFileItems = "GetOnDeletedFileItems";
+    public const string OnDeletedFileItems = "GetOnDeletedFileItems";
 
     /// <summary>
     /// When an item is deleted.
-    /// Payload type: <see cref="SharepointonlineGetOnDeletedItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnDeletedItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnDeletedItems = "GetOnDeletedItems";
+    public const string OnDeletedItems = "GetOnDeletedItems";
 
     /// <summary>
     /// When a file is created (properties only).
-    /// Payload type: <see cref="SharepointonlineGetOnNewFileItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnNewFileItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnNewFileItems = "GetOnNewFileItems";
+    public const string OnNewFileItems = "GetOnNewFileItems";
 
     /// <summary>
     /// When an item is created.
-    /// Payload type: <see cref="SharepointonlineGetOnNewItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnNewItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnNewItems = "GetOnNewItems";
+    public const string OnNewItems = "GetOnNewItems";
 
     /// <summary>
     /// When a file is classified by a Microsoft Syntex model.
-    /// Payload type: <see cref="SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload"/>.
     /// </summary>
-    public const string GetOnUpdatedFileClassifiedTimes = "GetOnUpdatedFileClassifiedTimes";
+    public const string OnUpdatedFileClassifiedTimes = "GetOnUpdatedFileClassifiedTimes";
 
     /// <summary>
     /// When a file is created or modified (properties only).
-    /// Payload type: <see cref="SharepointonlineGetOnUpdatedFileItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnUpdatedFileItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnUpdatedFileItems = "GetOnUpdatedFileItems";
+    public const string OnUpdatedFileItems = "GetOnUpdatedFileItems";
 
     /// <summary>
     /// When an item is created or modified.
-    /// Payload type: <see cref="SharepointonlineGetOnUpdatedItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnUpdatedItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnUpdatedItems = "GetOnUpdatedItems";
+    public const string OnUpdatedItems = "GetOnUpdatedItems";
 
     /// <summary>
     /// When a file is created in a folder (deprecated).
@@ -1433,7 +1433,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnChangedItems trigger operation.
     /// </summary>
-    public static class GetOnChangedItems
+    public static class OnChangedItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1451,7 +1451,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnDeletedFileItems trigger operation.
     /// </summary>
-    public static class GetOnDeletedFileItems
+    public static class OnDeletedFileItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1463,7 +1463,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnNewFileItems trigger operation.
     /// </summary>
-    public static class GetOnNewFileItems
+    public static class OnNewFileItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1481,7 +1481,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnNewItems trigger operation.
     /// </summary>
-    public static class GetOnNewItems
+    public static class OnNewItems
     {
         /// <summary>
         /// Avoid column threshold issues by only using columns defined in a view
@@ -1494,7 +1494,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnUpdatedFileClassifiedTimes trigger operation.
     /// </summary>
-    public static class GetOnUpdatedFileClassifiedTimes
+    public static class OnUpdatedFileClassifiedTimes
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1512,7 +1512,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnUpdatedFileItems trigger operation.
     /// </summary>
-    public static class GetOnUpdatedFileItems
+    public static class OnUpdatedFileItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1530,7 +1530,7 @@ public static class SharepointonlineTriggerParameters
     /// <summary>
     /// Input parameters for the GetOnUpdatedItems trigger operation.
     /// </summary>
-    public static class GetOnUpdatedItems
+    public static class OnUpdatedItems
     {
         /// <summary>
         /// Avoid column threshold issues by only using columns defined in a view
@@ -1925,29 +1925,6 @@ public class SharepointonlineClient : IDisposable
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Extract folder
-    /// </summary>
-    /// <remarks>Extracts an archive file into a SharePoint folder (example: .zip).</remarks>
-    /// <param name="siteAddress">Site Address</param>
-    /// <param name="sourceFilePath">Source File Path</param>
-    /// <param name="destinationFolderPath">Destination Folder Path</param>
-    /// <param name="overwriteFlag">Overwrite Flag</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Extract folder response.</returns>
-    public async Task<List<BlobMetadata>> ExtractFolderV2Async([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (sourceFilePath != default)
-            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-        if (destinationFolderPath != default)
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-        if (overwriteFlag != default)
-            queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
-        var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2924,6 +2901,29 @@ public class SharepointonlineClient : IDisposable
     {
         var path = $"/getViewScopeOptions";
         return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Extract folder
+    /// </summary>
+    /// <remarks>Extracts an archive file into a SharePoint folder (example: .zip).</remarks>
+    /// <param name="siteAddress">Site Address</param>
+    /// <param name="sourceFilePath">Source File Path</param>
+    /// <param name="destinationFolderPath">Destination Folder Path</param>
+    /// <param name="overwriteFlag">Overwrite Flag</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Extract folder response.</returns>
+    public async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sourceFilePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+        if (destinationFolderPath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+        if (overwriteFlag != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
+        var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     public void Dispose()

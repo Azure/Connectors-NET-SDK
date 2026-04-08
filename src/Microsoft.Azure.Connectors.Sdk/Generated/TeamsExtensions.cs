@@ -753,7 +753,7 @@ public class DiscoverySettings
 /// <summary>
 /// Response for Get an @mention token for a user
 /// </summary>
-public class AtMentionUserV1
+public class AtMentionUser
 {
     /// <summary>An @mention token for the user. This property can be inserted into messages</summary>
     [JsonPropertyName("atMention")]
@@ -2208,12 +2208,12 @@ public static class TeamsTriggerOperations
     /// <summary>
     /// When a new team member is removed.
     /// </summary>
-    public const string OnGroupMembershipRemoval = "OnGroupMembershipRemoval";
+    public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
 
     /// <summary>
     /// When a new team member is added.
     /// </summary>
-    public const string OnGroupMembershipAdd = "OnGroupMembershipAdd";
+    public const string OnTeamMemberAdded = "OnGroupMembershipAdd";
 
 }
 
@@ -2256,7 +2256,7 @@ public static class TeamsTriggerParameters
     /// <summary>
     /// Input parameters for the WebhookMessageReactionTrigger trigger operation.
     /// </summary>
-    public static class WebhookMessageReactionTrigger
+    public static class OnWebhookMessageReactionTrigger
     {
         /// <summary>
         /// Choose emoji to monitor for message reactions
@@ -2283,7 +2283,7 @@ public static class TeamsTriggerParameters
     /// <summary>
     /// Input parameters for the WebhookKeywordTrigger trigger operation.
     /// </summary>
-    public static class WebhookKeywordTrigger
+    public static class OnWebhookKeywordTrigger
     {
         /// <summary>
         /// A comma separated list of keywords to search for
@@ -2296,7 +2296,7 @@ public static class TeamsTriggerParameters
     /// <summary>
     /// Input parameters for the OnGroupMembershipRemoval trigger operation.
     /// </summary>
-    public static class OnGroupMembershipRemoval
+    public static class OnTeamMemberRemoved
     {
         /// <summary>
         /// Select team
@@ -2316,7 +2316,7 @@ public static class TeamsTriggerParameters
     /// <summary>
     /// Input parameters for the OnGroupMembershipAdd trigger operation.
     /// </summary>
-    public static class OnGroupMembershipAdd
+    public static class OnTeamMemberAdded
     {
         /// <summary>
         /// Select team
@@ -2983,10 +2983,10 @@ public class TeamsClient : IDisposable
     /// <param name="user">User</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get an @mention token for a user response.</returns>
-    public async Task<AtMentionUserV1> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
+    public async Task<AtMentionUser> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
-        return await this.CallConnectorAsync<AtMentionUserV1>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>

@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ListKustoResultsPostAsync_WithMockedResponse_ReturnsExpectedResult()
+        public async Task ListKustoResultsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -99,7 +99,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act
             var result = await client
-                .ListKustoResultsPostAsync(
+                .ListKustoResultsAsync(
                     input: new QueryAndListSchema
                     {
                         Cluster = "https://mycluster.kusto.windows.net",
@@ -117,7 +117,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ListKustoResultsPostAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task ListKustoResultsAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -153,7 +153,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var exception = await Assert
                 .ThrowsExactlyAsync<KustoConnectorException>(async () =>
                     await client
-                        .ListKustoResultsPostAsync(
+                        .ListKustoResultsAsync(
                             input: new QueryAndListSchema
                             {
                                 Cluster = "https://mycluster.kusto.windows.net",
