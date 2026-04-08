@@ -143,7 +143,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 - [GENERATION.md](GENERATION.md) - How to generate connector code
 - [docs/connection-setup.md](docs/connection-setup.md) - Setting up connections for local testing
 - [ROADMAP.md](ROADMAP.md) - Connector generation progress and lessons learned
-- [samples/](samples/) - Sample usage projects
+- [Azure/Connectors-NET-Samples](https://github.com/Azure/Connectors-NET-Samples) - Full working samples (Azure Functions, triggers, etc.)
 
 ### AI Agent Skills
 
