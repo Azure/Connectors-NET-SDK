@@ -686,44 +686,6 @@ public class CreateAgreementsSolutionDocumentInput
 }
 
 /// <summary>
-/// ApplicationPermissionIdentity
-/// </summary>
-public class ApplicationPermissionIdentity
-{
-    /// <summary>Application display name</summary>
-    [JsonPropertyName("displayName")]
-    public string PermissionGrantedToApplicationDisplayName { get; set; }
-}
-
-/// <summary>
-/// BlobDataSetsMetadata
-/// </summary>
-public class BlobDataSetsMetadata
-{
-    /// <summary>Blob dataset source</summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; }
-
-    /// <summary>Blob dataset display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Blob dataset url encoding</summary>
-    [JsonPropertyName("urlEncoding")]
-    public string UrlEncoding { get; set; }
-}
-
-/// <summary>
-/// BlobMetadataPage
-/// </summary>
-public class BlobMetadataPage
-{
-    /// <summary>Blob metadata collection.</summary>
-    [JsonPropertyName("value")]
-    public List<BlobMetadata> Value { get; set; }
-}
-
-/// <summary>
 /// CopyFileParameters
 /// </summary>
 public class CopyFileParameters
@@ -795,46 +757,6 @@ public class CreateNewFolderParameters
 }
 
 /// <summary>
-/// DataSetsMetadata
-/// </summary>
-public class DataSetsMetadata
-{
-    /// <summary>tabular</summary>
-    [JsonPropertyName("tabular")]
-    public TabularDataSetsMetadata Tabular { get; set; }
-
-    /// <summary>blob</summary>
-    [JsonPropertyName("blob")]
-    public BlobDataSetsMetadata Blob { get; set; }
-}
-
-/// <summary>
-/// tabular
-/// </summary>
-public class TabularDataSetsMetadata
-{
-    /// <summary>Dataset source</summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; }
-
-    /// <summary>Dataset display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Dataset url encoding</summary>
-    [JsonPropertyName("urlEncoding")]
-    public string UrlEncoding { get; set; }
-
-    /// <summary>Table display name</summary>
-    [JsonPropertyName("tableDisplayName")]
-    public string TableDisplayName { get; set; }
-
-    /// <summary>Table plural display name</summary>
-    [JsonPropertyName("tablePluralName")]
-    public string TablePluralName { get; set; }
-}
-
-/// <summary>
 /// FileCheckInParameters
 /// </summary>
 public class FileCheckInParameters
@@ -846,34 +768,6 @@ public class FileCheckInParameters
     /// <summary>Select the type of version you would like to check in</summary>
     [JsonPropertyName("checkinType")]
     public int? CheckInType { get; set; }
-}
-
-/// <summary>
-/// GroupPermissionIdentity
-/// </summary>
-public class GroupPermissionIdentity
-{
-    /// <summary>Group display name</summary>
-    [JsonPropertyName("displayName")]
-    public string PermissionGrantedToGroupDisplayName { get; set; }
-}
-
-/// <summary>
-/// HubSiteJoinApprovalOutput
-/// </summary>
-public class HubSiteJoinApprovalOutput
-{
-    /// <summary>Requesting Site Url</summary>
-    public string RequestingSiteUrl { get; set; }
-
-    /// <summary>Requesting Site Id</summary>
-    public string RequestingSiteId { get; set; }
-
-    /// <summary>Requesting Site Title</summary>
-    public string RequestingSiteTitle { get; set; }
-
-    /// <summary>Approval Correlation Id</summary>
-    public string ApprovalCorrelationId { get; set; }
 }
 
 /// <summary>
@@ -899,42 +793,6 @@ public class ItemGrantAccessBody
 }
 
 /// <summary>
-/// ItemPermissionAddBody
-/// </summary>
-public class ItemPermissionAddBody
-{
-    /// <summary>A collection of recipients who will receive access and the sharing invitation.</summary>
-    [JsonPropertyName("recipients")]
-    public List<ItemPermissionRecipient> Recipients { get; set; }
-
-    /// <summary>Specify the roles that are be granted to the recipients of the sharing invitation.</summary>
-    [JsonPropertyName("roles")]
-    public List<string> Roles { get; set; }
-
-    /// <summary>Specifies where the recipient of the invitation is required to sign-in to view the shared item.</summary>
-    [JsonPropertyName("requireSignIn")]
-    public bool? RequireSignIn { get; set; }
-
-    /// <summary>Specifies if an email or post is generated (true) or if the permission is just created (false).</summary>
-    [JsonPropertyName("sendInvitation")]
-    public bool? SendInvitation { get; set; }
-
-    /// <summary>A plain text formatted message that is included in the sharing invitation. Maximum length 2000 characters.</summary>
-    [JsonPropertyName("message")]
-    public string Message { get; set; }
-}
-
-/// <summary>
-/// Item in A collection of recipients who will receive access and the sharing invitation.
-/// </summary>
-public class ItemPermissionRecipient
-{
-    /// <summary>The email address for the recipient, if the recipient has an associated email address.</summary>
-    [JsonPropertyName("email")]
-    public string Email { get; set; }
-}
-
-/// <summary>
 /// ItemPermissionCreateLinkBody
 /// </summary>
 public class ItemPermissionCreateLinkBody
@@ -950,68 +808,6 @@ public class ItemPermissionCreateLinkBody
     /// <summary>The date after which the link will expire in yyyy-MM-dd format. Only applicable for anonymous links.</summary>
     [JsonPropertyName("expirationDateTime")]
     public DateTime? LinkExpiration { get; set; }
-}
-
-/// <summary>
-/// ItemPermissionUpdateBody
-/// </summary>
-public class ItemPermissionUpdateBody
-{
-    /// <summary>Specify updated roles for this permission.</summary>
-    [JsonPropertyName("roles")]
-    public List<string> Roles { get; set; }
-}
-
-/// <summary>
-/// ItemReference
-/// </summary>
-public class ItemReference
-{
-    /// <summary>The name of the parent item</summary>
-    [JsonPropertyName("name")]
-    public string InheritedFromItemName { get; set; }
-
-    /// <summary>Path that can be used to navigate to the parent item</summary>
-    [JsonPropertyName("path")]
-    public string InheritedFromItemPath { get; set; }
-
-    /// <summary>sharepointIds</summary>
-    [JsonPropertyName("sharepointIds")]
-    public SharePointIds SharepointIds { get; set; }
-}
-
-/// <summary>
-/// sharepointIds
-/// </summary>
-public class SharePointIds
-{
-    /// <summary>The unique identifier (guid) for the item&apos;s list in SharePoint</summary>
-    [JsonPropertyName("listId")]
-    public string InheritedFromListId { get; set; }
-
-    /// <summary>An integer identifier for the item within the containing list</summary>
-    [JsonPropertyName("listItemId")]
-    public string InheritedFromItemId { get; set; }
-
-    /// <summary>The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site</summary>
-    [JsonPropertyName("listItemUniqueId")]
-    public string InheritedFromItemUniqueId { get; set; }
-
-    /// <summary>The unique identifier (guid) for the item&apos;s site collection (SPSite)</summary>
-    [JsonPropertyName("siteId")]
-    public string InheritedFromSiteId { get; set; }
-
-    /// <summary>The SharePoint URL for the site that contains the item</summary>
-    [JsonPropertyName("siteUrl")]
-    public string InheritedFromSiteUrl { get; set; }
-
-    /// <summary>The unique identifier (guid) for the tenancy</summary>
-    [JsonPropertyName("tenantId")]
-    public string InheritedFromTenantId { get; set; }
-
-    /// <summary>The unique identifier (guid) for the item&apos;s site (SPWeb)</summary>
-    [JsonPropertyName("webId")]
-    public string InheritedFromWebId { get; set; }
 }
 
 /// <summary>
@@ -1073,141 +869,6 @@ public class PatchFileItemWithPredictedValuesParameters
 }
 
 /// <summary>
-/// Permission
-/// </summary>
-public class Permission
-{
-    /// <summary>Permission id</summary>
-    [JsonPropertyName("id")]
-    public string PermissionId { get; set; }
-
-    /// <summary>grantedTo</summary>
-    [JsonPropertyName("grantedTo")]
-    public PermissionIdentitySet GrantedTo { get; set; }
-
-    /// <summary>For link type permissions, the details of the users to whom permission was granted</summary>
-    [JsonPropertyName("grantedToIdentities")]
-    public List<SharingLinkPermissionIdentitySet> SharingLinkGrantedTo { get; set; }
-
-    /// <summary>invitation</summary>
-    [JsonPropertyName("invitation")]
-    public SharingInvitation Invitation { get; set; }
-
-    /// <summary>inheritedFrom</summary>
-    [JsonPropertyName("inheritedFrom")]
-    public ItemReference InheritedFrom { get; set; }
-
-    /// <summary>link</summary>
-    [JsonPropertyName("link")]
-    public SharingLink Link { get; set; }
-
-    /// <summary>The type of permission - read, write, owner, member</summary>
-    [JsonPropertyName("roles")]
-    public List<string> PermissionRoles { get; set; }
-}
-
-/// <summary>
-/// grantedTo
-/// </summary>
-public class PermissionIdentitySet
-{
-    /// <summary>application</summary>
-    [JsonPropertyName("application")]
-    public ApplicationPermissionIdentity Application { get; set; }
-
-    /// <summary>group</summary>
-    [JsonPropertyName("group")]
-    public GroupPermissionIdentity Group { get; set; }
-
-    /// <summary>user</summary>
-    [JsonPropertyName("user")]
-    public UserPermissionIdentity User { get; set; }
-}
-
-/// <summary>
-/// user
-/// </summary>
-public class UserPermissionIdentity
-{
-    /// <summary>User display name</summary>
-    [JsonPropertyName("displayName")]
-    public string PermissionGrantedToUserDisplayName { get; set; }
-
-    /// <summary>User email</summary>
-    [JsonPropertyName("email")]
-    public string PermissionGrantedToUserEmail { get; set; }
-}
-
-/// <summary>
-/// Item in For link type permissions, the details of the users to whom permission was granted
-/// </summary>
-public class SharingLinkPermissionIdentitySet
-{
-    /// <summary>user</summary>
-    [JsonPropertyName("user")]
-    public SharingLinkUserPermissionIdentity User { get; set; }
-}
-
-/// <summary>
-/// user
-/// </summary>
-public class SharingLinkUserPermissionIdentity
-{
-    /// <summary>User display name</summary>
-    [JsonPropertyName("displayName")]
-    public string UserDisplayName { get; set; }
-
-    /// <summary>User email</summary>
-    [JsonPropertyName("email")]
-    public string UserEmail { get; set; }
-}
-
-/// <summary>
-/// invitation
-/// </summary>
-public class SharingInvitation
-{
-    /// <summary>The email address provided for the recipient of the sharing invitation</summary>
-    [JsonPropertyName("email")]
-    public string SharingInvitationEmail { get; set; }
-
-    /// <summary>If true the recipient of the invitation needs to sign in in order to access the shared item</summary>
-    [JsonPropertyName("signInRequired")]
-    public bool? SharingInvitationSignInRequired { get; set; }
-}
-
-/// <summary>
-/// PermissionsList
-/// </summary>
-public class PermissionsList
-{
-    /// <summary>List of Permissions</summary>
-    [JsonPropertyName("value")]
-    public List<Permission> Value { get; set; }
-}
-
-/// <summary>
-/// Procedure
-/// </summary>
-public class Procedure
-{
-    /// <summary>Procedure name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Procedure display name</summary>
-    public string DisplayName { get; set; }
-}
-
-/// <summary>
-/// PublishedResult
-/// </summary>
-public class PublishedResult
-{
-    /// <summary>A boolean value (true, false) to indicate whether the scheduled version of the file has been published</summary>
-    public bool? IsFilePublished { get; set; }
-}
-
-/// <summary>
 /// SharePointHttpRequestBodyParameters
 /// </summary>
 public class SharePointHttpRequestBodyParameters
@@ -1227,35 +888,6 @@ public class SharePointHttpRequestBodyParameters
     /// <summary>Enter request content in JSON</summary>
     [JsonPropertyName("body")]
     public string Body { get; set; }
-}
-
-/// <summary>
-/// SPContentType
-/// </summary>
-public class SPContentType
-{
-    /// <summary>Content type Id</summary>
-    public string Id { get; set; }
-
-    /// <summary>Content type name</summary>
-    public string Name { get; set; }
-}
-
-/// <summary>
-/// SPForASelectedFileResponse
-/// </summary>
-public class SPForASelectedFileResponse
-{
-    /// <summary>File Identifier</summary>
-    public long? ID { get; set; }
-
-    /// <summary>File Url</summary>
-    [JsonPropertyName("itemUrl")]
-    public string ItemUrl { get; set; }
-
-    /// <summary>File Name</summary>
-    [JsonPropertyName("fileName")]
-    public string FileName { get; set; }
 }
 
 #endregion Types

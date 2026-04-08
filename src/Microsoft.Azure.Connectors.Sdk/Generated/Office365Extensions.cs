@@ -1394,656 +1394,7 @@ public class SetAutomaticRepliesSettingResponse
 }
 
 /// <summary>
-/// TableMetadata
-/// </summary>
-public class TableMetadata
-{
-    /// <summary>Table name</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>Table title</summary>
-    [JsonPropertyName("title")]
-    public string Title { get; set; }
-
-    /// <summary>Table permission</summary>
-    [JsonPropertyName("x-ms-permission")]
-    public string XMsPermission { get; set; }
-
-    /// <summary>x-ms-capabilities</summary>
-    [JsonPropertyName("x-ms-capabilities")]
-    public TableCapabilitiesMetadata XMsCapabilities { get; set; }
-
-    /// <summary>schema</summary>
-    [JsonPropertyName("schema")]
-    public ObjectEntity Schema { get; set; }
-
-    /// <summary>referencedEntities</summary>
-    [JsonPropertyName("referencedEntities")]
-    public ObjectEntity ReferencedEntities { get; set; }
-
-    /// <summary>Url link</summary>
-    [JsonPropertyName("webUrl")]
-    public string WebUrl { get; set; }
-}
-
-/// <summary>
-/// x-ms-capabilities
-/// </summary>
-public class TableCapabilitiesMetadata
-{
-    /// <summary>sortRestrictions</summary>
-    [JsonPropertyName("sortRestrictions")]
-    public TableSortRestrictionsMetadata SortRestrictions { get; set; }
-
-    /// <summary>filterRestrictions</summary>
-    [JsonPropertyName("filterRestrictions")]
-    public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
-
-    /// <summary>selectRestrictions</summary>
-    [JsonPropertyName("selectRestrictions")]
-    public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
-
-    /// <summary>Server paging restrictions</summary>
-    [JsonPropertyName("isOnlyServerPagable")]
-    public bool? IsOnlyServerPagable { get; set; }
-
-    /// <summary>List of supported filter capabilities</summary>
-    [JsonPropertyName("filterFunctionSupport")]
-    public List<string> FilterFunctionSupport { get; set; }
-
-    /// <summary>List of supported server-driven paging capabilities</summary>
-    [JsonPropertyName("serverPagingOptions")]
-    public List<string> ServerPagingOptions { get; set; }
-}
-
-/// <summary>
-/// sortRestrictions
-/// </summary>
-public class TableSortRestrictionsMetadata
-{
-    /// <summary>Indicates whether this table has sortable columns</summary>
-    [JsonPropertyName("sortable")]
-    public bool? Sortable { get; set; }
-
-    /// <summary>List of unsortable properties</summary>
-    [JsonPropertyName("unsortableProperties")]
-    public List<string> UnsortableProperties { get; set; }
-
-    /// <summary>List of properties which support ascending order only</summary>
-    [JsonPropertyName("ascendingOnlyProperties")]
-    public List<string> AscendingOnlyProperties { get; set; }
-}
-
-/// <summary>
-/// filterRestrictions
-/// </summary>
-public class TableFilterRestrictionsMetadata
-{
-    /// <summary>Indicates whether this table has filterable columns</summary>
-    [JsonPropertyName("filterable")]
-    public bool? Filterable { get; set; }
-
-    /// <summary>List of non filterable properties</summary>
-    [JsonPropertyName("nonFilterableProperties")]
-    public List<string> NonFilterableProperties { get; set; }
-
-    /// <summary>List of required properties</summary>
-    [JsonPropertyName("requiredProperties")]
-    public List<string> RequiredProperties { get; set; }
-}
-
-/// <summary>
-/// selectRestrictions
-/// </summary>
-public class TableSelectRestrictionsMetadata
-{
-    /// <summary>Indicates whether this table has selectable columns</summary>
-    [JsonPropertyName("selectable")]
-    public bool? Selectable { get; set; }
-}
-
-/// <summary>
-/// schema
-/// </summary>
-public class ObjectEntity
-{
-    /// <summary>
-    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// CalendarEventList
-/// </summary>
-public class CalendarEventList
-{
-    /// <summary>List of calendar items</summary>
-    [JsonPropertyName("value")]
-    public List<CalendarEventBackend> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of calendar items
-/// </summary>
-public class CalendarEventBackend
-{
-    /// <summary>The Event&apos;s unique identifier</summary>
-    public string Id { get; set; }
-
-    /// <summary>List of attendees for the event</summary>
-    public List<Attendee> Attendees { get; set; }
-
-    /// <summary>Body</summary>
-    public ItemBody Body { get; set; }
-
-    /// <summary>The preview of the message associated with the event</summary>
-    public string BodyPreview { get; set; }
-
-    /// <summary>The categories associated with the event</summary>
-    public List<string> Categories { get; set; }
-
-    /// <summary>This property identifies the version of the event object. Every time the event is changed, ChangeKey changes as well.</summary>
-    public string ChangeKey { get; set; }
-
-    /// <summary>The date and time that the event was created</summary>
-    [JsonPropertyName("DateTimeCreated")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>The date and time that the event was last modified</summary>
-    [JsonPropertyName("DateTimeLastModified")]
-    public DateTime? LastModifiedTime { get; set; }
-
-    /// <summary>The end time of the event</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>This property specifies the time zone of the meeting end time. The value must be as defined in Windows (example: &apos;Pacific Standard Time&apos;).</summary>
-    public string EndTimeZone { get; set; }
-
-    /// <summary>Set to true if the event has attachments</summary>
-    public bool? HasAttachments { get; set; }
-
-    /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
-    [JsonPropertyName("ICalUId")]
-    public string EventUniqueID { get; set; }
-
-    /// <summary>The importance of the event: Low, Normal, or High</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Set to true if the event lasts all day</summary>
-    [JsonPropertyName("IsAllDay")]
-    public bool? IsAllDayEvent { get; set; }
-
-    /// <summary>Set to true if the event has been canceled</summary>
-    public bool? IsCancelled { get; set; }
-
-    /// <summary>Set to true if the message sender is also the organizer</summary>
-    public bool? IsOrganizer { get; set; }
-
-    /// <summary>Location</summary>
-    public Location Location { get; set; }
-
-    /// <summary>Organizer</summary>
-    public Recipient Organizer { get; set; }
-
-    /// <summary>Recurrence</summary>
-    public PatternedRecurrence Recurrence { get; set; }
-
-    /// <summary>Time in minutes before event start to remind</summary>
-    public int? Reminder { get; set; }
-
-    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-    public bool? ResponseRequested { get; set; }
-
-    /// <summary>ResponseStatus</summary>
-    public ResponseStatus ResponseStatus { get; set; }
-
-    /// <summary>Unique identifier for Series Master event type</summary>
-    public string SeriesMasterId { get; set; }
-
-    /// <summary>Shows as free or busy</summary>
-    public string ShowAs { get; set; }
-
-    /// <summary>The start time of the event</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>This property specifies the time zone of the meeting start time. The value must be as defined in Windows (example: &apos;Pacific Standard Time&apos;).</summary>
-    public string StartTimeZone { get; set; }
-
-    /// <summary>Event subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>The event type: Single Instance, Occurrence, Exception, or Series Master</summary>
-    public string Type { get; set; }
-
-    /// <summary>The preview of the message associated with the event</summary>
-    public string WebLink { get; set; }
-
-    /// <summary>The reason property used by O365 sync events protocol, will be &apos;deleted&apos; if its a deleted event.</summary>
-    public string Reason { get; set; }
-}
-
-/// <summary>
-/// Item in List of attendees for the event
-/// </summary>
-public class Attendee
-{
-    /// <summary>Status</summary>
-    public ResponseStatus Status { get; set; }
-
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>EmailAddress</summary>
-    public EmailAddress EmailAddress { get; set; }
-}
-
-/// <summary>
-/// Status
-/// </summary>
-public class ResponseStatus
-{
-    /// <summary>Response</summary>
-    public string Response { get; set; }
-
-    /// <summary>Time</summary>
-    public DateTime? Time { get; set; }
-}
-
-/// <summary>
-/// Location
-/// </summary>
-public class Location
-{
-    /// <summary>DisplayName</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>Address</summary>
-    public PhysicalAddress Address { get; set; }
-
-    /// <summary>Coordinates</summary>
-    public GeoCoordinates Coordinates { get; set; }
-}
-
-/// <summary>
-/// Coordinates
-/// </summary>
-public class GeoCoordinates
-{
-    /// <summary>Altitude</summary>
-    public double? Altitude { get; set; }
-
-    /// <summary>Latitude</summary>
-    public double? Latitude { get; set; }
-
-    /// <summary>Longitude</summary>
-    public double? Longitude { get; set; }
-
-    /// <summary>Accuracy</summary>
-    public double? Accuracy { get; set; }
-
-    /// <summary>AltitudeAccuracy</summary>
-    public double? AltitudeAccuracy { get; set; }
-}
-
-/// <summary>
-/// Recurrence
-/// </summary>
-public class PatternedRecurrence
-{
-    /// <summary>Pattern</summary>
-    public RecurrencePattern Pattern { get; set; }
-
-    /// <summary>Range</summary>
-    public RecurrenceRange Range { get; set; }
-}
-
-/// <summary>
-/// Pattern
-/// </summary>
-public class RecurrencePattern
-{
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>Interval</summary>
-    public int? Interval { get; set; }
-
-    /// <summary>Month</summary>
-    public int? Month { get; set; }
-
-    /// <summary>DayOfMonth</summary>
-    public int? DayOfMonth { get; set; }
-
-    /// <summary>DaysOfWeek</summary>
-    public List<string> DaysOfWeek { get; set; }
-
-    /// <summary>FirstDayOfWeek</summary>
-    public string FirstDayOfWeek { get; set; }
-
-    /// <summary>Index</summary>
-    public string Index { get; set; }
-}
-
-/// <summary>
-/// Range
-/// </summary>
-public class RecurrenceRange
-{
-    /// <summary>Type</summary>
-    public string Type { get; set; }
-
-    /// <summary>StartDate</summary>
-    public DateTime? StartDate { get; set; }
-
-    /// <summary>EndDate</summary>
-    public DateTime? EndDate { get; set; }
-
-    /// <summary>NumberOfOccurrences</summary>
-    public int? NumberOfOccurrences { get; set; }
-}
-
-/// <summary>
-/// CalendarEventListClientReceive
-/// </summary>
-public class CalendarEventListClientReceive
-{
-    /// <summary>List of calendar items</summary>
-    [JsonPropertyName("value")]
-    public List<CalendarEventClientReceive> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of calendar items
-/// </summary>
-public class CalendarEventClientReceive
-{
-    /// <summary>Event subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Start time of the event (example: &apos;2016-11-01T14:30:00Z&apos;)</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>End time of the event (example: &apos;2016-11-01T15:30:00Z&apos;)</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>Status to show during the event (Unknown - -1, Free - 0, Tentative - 1, Busy - 2, Oof - 3, WorkingElsewhere - 4)</summary>
-    public int? ShowAs { get; set; }
-
-    /// <summary>The recurrence pattern for the event (None - 0, Daily - 1, Weekly - 2, Monthly - 3, Yearly - 4)</summary>
-    public int? Recurrence { get; set; }
-
-    /// <summary>The response type of the event (None - 0, Organizer - 1, TentativelyAccepted - 2, Accepted - 3, Declined - 4, NotResponded - 5)</summary>
-    public int? ResponseType { get; set; }
-
-    /// <summary>The response time of the event</summary>
-    public DateTime? ResponseTime { get; set; }
-
-    /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
-    [JsonPropertyName("ICalUId")]
-    public string EventUniqueID { get; set; }
-
-    /// <summary>The importance of the event (0 - Low, 1 - Normal, 2 - High)</summary>
-    public int? Importance { get; set; }
-
-    /// <summary>The event&apos;s unique identifier</summary>
-    public string Id { get; set; }
-
-    /// <summary>The date and time that the event was created</summary>
-    [JsonPropertyName("DateTimeCreated")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>The date and time that the event was last modified</summary>
-    [JsonPropertyName("DateTimeLastModified")]
-    public DateTime? LastModifiedTime { get; set; }
-
-    /// <summary>The organizer of the event</summary>
-    public string Organizer { get; set; }
-
-    /// <summary>Time zone of the event</summary>
-    public string TimeZone { get; set; }
-
-    /// <summary>Unique identifier for Series Master event type</summary>
-    public string SeriesMasterId { get; set; }
-
-    /// <summary>The categories associated with the event</summary>
-    public List<string> Categories { get; set; }
-
-    /// <summary>The URL to open the event in Outlook Web App</summary>
-    public string WebLink { get; set; }
-
-    /// <summary>Required attendees for the event separated by semicolons</summary>
-    public string RequiredAttendees { get; set; }
-
-    /// <summary>Optional attendees for the event separated by semicolons</summary>
-    public string OptionalAttendees { get; set; }
-
-    /// <summary>Resource attendees for the event separated by semicolons</summary>
-    public string ResourceAttendees { get; set; }
-
-    /// <summary>Body of the message associated with the event</summary>
-    public string Body { get; set; }
-
-    /// <summary>Set to true if the body is Html</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-
-    /// <summary>Location of the event</summary>
-    public string Location { get; set; }
-
-    /// <summary>Set to true if the event lasts all day</summary>
-    [JsonPropertyName("IsAllDay")]
-    public bool? IsAllDayEvent { get; set; }
-
-    /// <summary>End time of the recurrence</summary>
-    [JsonPropertyName("RecurrenceEnd")]
-    public DateTime? RecurrenceEndTime { get; set; }
-
-    /// <summary>How many times to repeat the event</summary>
-    public int? NumberOfOccurrences { get; set; }
-
-    /// <summary>Time in minutes before event start to remind</summary>
-    public int? Reminder { get; set; }
-
-    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-    public bool? ResponseRequested { get; set; }
-}
-
-/// <summary>
-/// PaginatedListResponse[CalendarEventClientReceiveStringEnums]
-/// </summary>
-public class PaginatedListResponseCalendarEventClientReceiveStringEnums
-{
-    /// <summary>Values</summary>
-    public List<CalendarEventClientReceiveStringEnums> Values { get; set; }
-}
-
-/// <summary>
-/// Item in Values
-/// </summary>
-public class CalendarEventClientReceiveStringEnums
-{
-    /// <summary>The importance of the event: Low, Normal, or High</summary>
-    public string Importance { get; set; }
-
-    /// <summary>The response type of the event: None, Organizer, TentativelyAccepted, Accepted, Declined or NotResponded</summary>
-    public string ResponseType { get; set; }
-
-    /// <summary>The recurrence pattern for the event</summary>
-    public string Recurrence { get; set; }
-
-    /// <summary>Status to show during the event</summary>
-    public string ShowAs { get; set; }
-
-    /// <summary>Event subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Start time of the event (example: &apos;2016-11-01T14:30:00Z&apos;)</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>End time of the event (example: &apos;2016-11-01T15:30:00Z&apos;)</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>The response time of the event</summary>
-    public DateTime? ResponseTime { get; set; }
-
-    /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
-    [JsonPropertyName("ICalUId")]
-    public string EventUniqueID { get; set; }
-
-    /// <summary>The event&apos;s unique identifier</summary>
-    public string Id { get; set; }
-
-    /// <summary>The date and time that the event was created</summary>
-    [JsonPropertyName("DateTimeCreated")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>The date and time that the event was last modified</summary>
-    [JsonPropertyName("DateTimeLastModified")]
-    public DateTime? LastModifiedTime { get; set; }
-
-    /// <summary>The organizer of the event</summary>
-    public string Organizer { get; set; }
-
-    /// <summary>Time zone of the event</summary>
-    public string TimeZone { get; set; }
-
-    /// <summary>Unique identifier for Series Master event type</summary>
-    public string SeriesMasterId { get; set; }
-
-    /// <summary>The categories associated with the event</summary>
-    public List<string> Categories { get; set; }
-
-    /// <summary>The URL to open the event in Outlook Web App</summary>
-    public string WebLink { get; set; }
-
-    /// <summary>Required attendees for the event separated by semicolons</summary>
-    public string RequiredAttendees { get; set; }
-
-    /// <summary>Optional attendees for the event separated by semicolons</summary>
-    public string OptionalAttendees { get; set; }
-
-    /// <summary>Resource attendees for the event separated by semicolons</summary>
-    public string ResourceAttendees { get; set; }
-
-    /// <summary>Body of the message associated with the event</summary>
-    public string Body { get; set; }
-
-    /// <summary>Set to true if the body is Html</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-
-    /// <summary>Location of the event</summary>
-    public string Location { get; set; }
-
-    /// <summary>Set to true if the event lasts all day</summary>
-    [JsonPropertyName("IsAllDay")]
-    public bool? IsAllDayEvent { get; set; }
-
-    /// <summary>End time of the recurrence</summary>
-    [JsonPropertyName("RecurrenceEnd")]
-    public DateTime? RecurrenceEndTime { get; set; }
-
-    /// <summary>How many times to repeat the event</summary>
-    public int? NumberOfOccurrences { get; set; }
-
-    /// <summary>Time in minutes before event start to remind</summary>
-    public int? Reminder { get; set; }
-
-    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-    public bool? ResponseRequested { get; set; }
-}
-
-/// <summary>
-/// ClientSubscription
-/// </summary>
-public class ClientSubscription
-{
-    /// <summary>Callback url to the flow engine. Expected as part of the request and provided by Flow.</summary>
-    public string NotificationUrl { get; set; }
-}
-
-/// <summary>
-/// EntityListResponse[FilePickerFile]
-/// </summary>
-public class EntityListResponseFilePickerFile
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<FilePickerFile> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of values
-/// </summary>
-public class FilePickerFile
-{
-    /// <summary>Uniquely identifies the file</summary>
-    public string Id { get; set; }
-
-    /// <summary>Display name for the file</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>Set to true if the file is a folder</summary>
-    public bool? IsFolder { get; set; }
-
-    /// <summary>Path of the file</summary>
-    public string Path { get; set; }
-}
-
-/// <summary>
-/// ClientSendMessage
-/// </summary>
-public class ClientSendMessage
-{
-    /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
-    [JsonPropertyName("From")]
-    public string FromSendAs { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-    [JsonPropertyName("Cc")]
-    public string CC { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-    [JsonPropertyName("Bcc")]
-    public string BCC { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-    public string To { get; set; }
-
-    /// <summary>Specify the subject of the mail</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Specify the body of the mail</summary>
-    public string Body { get; set; }
-
-    /// <summary>Attachments</summary>
-    public List<ClientSendAttachment> Attachments { get; set; }
-
-    /// <summary>Sensitivity</summary>
-    public string Sensitivity { get; set; }
-
-    /// <summary>The email addresses to use when replying</summary>
-    public string ReplyTo { get; set; }
-
-    /// <summary>Importance</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Is Html?</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-}
-
-/// <summary>
-/// Item in Attachments
+/// ClientSendAttachment
 /// </summary>
 public class ClientSendAttachment
 {
@@ -2053,100 +1404,6 @@ public class ClientSendAttachment
     /// <summary>Attachment content</summary>
     [JsonPropertyName("ContentBytes")]
     public string Content { get; set; }
-}
-
-/// <summary>
-/// ClientReceiveMessageStringEnums
-/// </summary>
-public class ClientReceiveMessageStringEnums
-{
-    /// <summary>The importance of the message</summary>
-    public string Importance { get; set; }
-
-    /// <summary>The mailbox owner and sender of the message</summary>
-    public string From { get; set; }
-
-    /// <summary>The recipients for the message</summary>
-    public string To { get; set; }
-
-    /// <summary>The Cc recipients for the message</summary>
-    [JsonPropertyName("Cc")]
-    public string CC { get; set; }
-
-    /// <summary>The Bcc recipients for the message</summary>
-    [JsonPropertyName("Bcc")]
-    public string BCC { get; set; }
-
-    /// <summary>The email addresses to use when replying</summary>
-    public string ReplyTo { get; set; }
-
-    /// <summary>The subject of the message</summary>
-    public string Subject { get; set; }
-
-    /// <summary>The body of the message</summary>
-    public string Body { get; set; }
-
-    /// <summary>The preview of the message</summary>
-    public string BodyPreview { get; set; }
-
-    /// <summary>Indicates whether the message has attachments</summary>
-    public bool? HasAttachment { get; set; }
-
-    /// <summary>The unique identifier of the message</summary>
-    [JsonPropertyName("Id")]
-    public string MessageId { get; set; }
-
-    /// <summary>The message ID in the format specified by RFC2822</summary>
-    public string InternetMessageId { get; set; }
-
-    /// <summary>The Id of the conversation the email belongs to</summary>
-    public string ConversationId { get; set; }
-
-    /// <summary>The date and time the message was received</summary>
-    [JsonPropertyName("DateTimeReceived")]
-    public DateTime? ReceivedTime { get; set; }
-
-    /// <summary>Indicates whether the message has been read</summary>
-    public bool? IsRead { get; set; }
-
-    /// <summary>The file attachments for the message</summary>
-    public List<ClientReceiveFileAttachment> Attachments { get; set; }
-
-    /// <summary>Is Html?</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-}
-
-/// <summary>
-/// Item in The file attachments for the message
-/// </summary>
-public class ClientReceiveFileAttachment
-{
-    /// <summary>Attachment Id</summary>
-    [JsonPropertyName("Id")]
-    public string AttachmentId { get; set; }
-
-    /// <summary>Attachment name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Attachment content</summary>
-    [JsonPropertyName("ContentBytes")]
-    public string Content { get; set; }
-
-    /// <summary>Attachment content type</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>The size in bytes of the attachment</summary>
-    public long? Size { get; set; }
-
-    /// <summary>Set to true if this is an inline attachment</summary>
-    public bool? IsInline { get; set; }
-
-    /// <summary>The date and time when the attachment was last modified</summary>
-    public DateTime? LastModifiedDateTime { get; set; }
-
-    /// <summary>Content Id</summary>
-    public string ContentId { get; set; }
 }
 
 /// <summary>
@@ -2228,114 +1485,6 @@ public class DraftEmailInput
 }
 
 /// <summary>
-/// BatchResponse[ClientReceiveMessage]
-/// </summary>
-public class BatchResponseClientReceiveMessage
-{
-    /// <summary>A list of the response objects</summary>
-    [JsonPropertyName("value")]
-    public List<ClientReceiveMessage> Value { get; set; }
-}
-
-/// <summary>
-/// Item in A list of the response objects
-/// </summary>
-public class ClientReceiveMessage
-{
-    /// <summary>The mailbox owner and sender of the message</summary>
-    public string From { get; set; }
-
-    /// <summary>The recipients for the message</summary>
-    public string To { get; set; }
-
-    /// <summary>The Cc recipients for the message</summary>
-    [JsonPropertyName("Cc")]
-    public string CC { get; set; }
-
-    /// <summary>The Bcc recipients for the message</summary>
-    [JsonPropertyName("Bcc")]
-    public string BCC { get; set; }
-
-    /// <summary>The email addresses to use when replying</summary>
-    public string ReplyTo { get; set; }
-
-    /// <summary>The subject of the message</summary>
-    public string Subject { get; set; }
-
-    /// <summary>The body of the message</summary>
-    public string Body { get; set; }
-
-    /// <summary>The importance of the message (0 - Low, 1 - Normal, 2 - High)</summary>
-    public int? Importance { get; set; }
-
-    /// <summary>The preview of the message</summary>
-    public string BodyPreview { get; set; }
-
-    /// <summary>Indicates whether the message has attachments</summary>
-    public bool? HasAttachment { get; set; }
-
-    /// <summary>The unique identifier of the message</summary>
-    [JsonPropertyName("Id")]
-    public string MessageId { get; set; }
-
-    /// <summary>The message ID in the format specified by RFC2822</summary>
-    public string InternetMessageId { get; set; }
-
-    /// <summary>The Id of the conversation the email belongs to</summary>
-    public string ConversationId { get; set; }
-
-    /// <summary>The date and time the message was received</summary>
-    [JsonPropertyName("DateTimeReceived")]
-    public DateTime? ReceivedTime { get; set; }
-
-    /// <summary>Indicates whether the message has been read</summary>
-    public bool? IsRead { get; set; }
-
-    /// <summary>The file attachments for the message</summary>
-    public List<ClientReceiveFileAttachment> Attachments { get; set; }
-
-    /// <summary>Is Html?</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-}
-
-/// <summary>
-/// ReplyMessage
-/// </summary>
-public class ReplyMessage
-{
-    /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
-    public string To { get; set; }
-
-    /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
-    [JsonPropertyName("Cc")]
-    public string CC { get; set; }
-
-    /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
-    [JsonPropertyName("Bcc")]
-    public string BCC { get; set; }
-
-    /// <summary>Email subject (if empty, the original subject used).</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Content of the email.</summary>
-    public string Body { get; set; }
-
-    /// <summary>True to reply to all recipients. (default: False)</summary>
-    public bool? ReplyAll { get; set; }
-
-    /// <summary>True to send the reply as HTML. (default: True)</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-
-    /// <summary>Pick an importance. (default: Low)</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Details of attachments to be sent along with the reply.</summary>
-    public List<ClientSendAttachment> Attachments { get; set; }
-}
-
-/// <summary>
 /// ReplyHtmlMessage
 /// </summary>
 public class ReplyEmailInput
@@ -2365,182 +1514,6 @@ public class ReplyEmailInput
 
     /// <summary>Details of attachments to be sent along with the reply.</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
-}
-
-/// <summary>
-/// TriggerBatchResponse[ClientReceiveMessage]
-/// </summary>
-public class TriggerBatchResponseClientReceiveMessage
-{
-    /// <summary>A list of the response objects</summary>
-    [JsonPropertyName("value")]
-    public List<ClientReceiveMessage> Value { get; set; }
-}
-
-/// <summary>
-/// MailTipsClientReceive
-/// </summary>
-public class MailTipsClientReceive
-{
-    /// <summary>AutomaticReplies</summary>
-    public MailTipsAutomaticReplies AutomaticReplies { get; set; }
-
-    /// <summary>Is delivery restricted</summary>
-    public bool? DeliveryRestricted { get; set; }
-
-    /// <summary>Number of external members</summary>
-    public int? ExternalMemberCount { get; set; }
-
-    /// <summary>Is moderated</summary>
-    public bool? IsModerated { get; set; }
-
-    /// <summary>Is mailbox full</summary>
-    public bool? MailboxFull { get; set; }
-
-    /// <summary>Maximum message size</summary>
-    public long? MaxMessageSize { get; set; }
-
-    /// <summary>Total member count</summary>
-    public long? TotalMemberCount { get; set; }
-}
-
-/// <summary>
-/// BatchResponse[SensitivityLabel]
-/// </summary>
-public class BatchResponseSensitivityLabel
-{
-    /// <summary>A list of the response objects</summary>
-    [JsonPropertyName("value")]
-    public List<SensitivityLabel> Value { get; set; }
-}
-
-/// <summary>
-/// Item in A list of the response objects
-/// </summary>
-public class SensitivityLabel
-{
-    /// <summary>Gets or sets the identifier.</summary>
-    public string Id { get; set; }
-
-    /// <summary>Gets or sets the display name.</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>Gets or sets the applicable to.</summary>
-    public string ApplicableTo { get; set; }
-
-    /// <summary>Gets or sets sub labels.</summary>
-    public List<SensitivityLabel> SubLabels { get; set; }
-}
-
-/// <summary>
-/// TriggerBatchResponse[ReceiveMessageMetadata]
-/// </summary>
-public class TriggerBatchResponseReceiveMessageMetadata
-{
-    /// <summary>A list of the response objects</summary>
-    [JsonPropertyName("value")]
-    public List<ReceiveMessageMetadata> Value { get; set; }
-}
-
-/// <summary>
-/// Item in A list of the response objects
-/// </summary>
-public class ReceiveMessageMetadata
-{
-    /// <summary>The mailbox owner and sender of the message</summary>
-    public string From { get; set; }
-
-    /// <summary>The recipients for the message</summary>
-    public string To { get; set; }
-
-    /// <summary>The Cc recipients for the message</summary>
-    [JsonPropertyName("Cc")]
-    public string CC { get; set; }
-
-    /// <summary>The Bcc recipients for the message</summary>
-    [JsonPropertyName("Bcc")]
-    public string BCC { get; set; }
-
-    /// <summary>The email addresses to use when replying</summary>
-    public string ReplyTo { get; set; }
-
-    /// <summary>The subject of the message</summary>
-    public string Subject { get; set; }
-
-    /// <summary>The importance of the message  (0 - Low, 1 - Normal, 2 - High)</summary>
-    public int? Importance { get; set; }
-
-    /// <summary>Indicates whether the message has attachments</summary>
-    public bool? HasAttachment { get; set; }
-
-    /// <summary>The unique identifier of the message</summary>
-    [JsonPropertyName("Id")]
-    public string MessageId { get; set; }
-
-    /// <summary>The date and time the message was received</summary>
-    [JsonPropertyName("DateTimeReceived")]
-    public DateTime? ReceivedTime { get; set; }
-
-    /// <summary>Indicates whether the message has been read</summary>
-    public bool? IsRead { get; set; }
-}
-
-/// <summary>
-/// DataSetsMetadata
-/// </summary>
-public class DataSetsMetadata
-{
-    /// <summary>tabular</summary>
-    [JsonPropertyName("tabular")]
-    public TabularDataSetsMetadata Tabular { get; set; }
-
-    /// <summary>blob</summary>
-    [JsonPropertyName("blob")]
-    public BlobDataSetsMetadata Blob { get; set; }
-}
-
-/// <summary>
-/// tabular
-/// </summary>
-public class TabularDataSetsMetadata
-{
-    /// <summary>Dataset source</summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; }
-
-    /// <summary>Dataset display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Dataset url encoding</summary>
-    [JsonPropertyName("urlEncoding")]
-    public string UrlEncoding { get; set; }
-
-    /// <summary>Table display name</summary>
-    [JsonPropertyName("tableDisplayName")]
-    public string TableDisplayName { get; set; }
-
-    /// <summary>Table plural display name</summary>
-    [JsonPropertyName("tablePluralName")]
-    public string TablePluralName { get; set; }
-}
-
-/// <summary>
-/// blob
-/// </summary>
-public class BlobDataSetsMetadata
-{
-    /// <summary>Blob dataset source</summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; }
-
-    /// <summary>Blob dataset display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Blob dataset url encoding</summary>
-    [JsonPropertyName("urlEncoding")]
-    public string UrlEncoding { get; set; }
 }
 
 /// <summary>
@@ -2599,24 +1572,6 @@ public class MessageWithOptions
 }
 
 /// <summary>
-/// ApprovalEmailResponse
-/// </summary>
-public class ApprovalEmailResponse
-{
-    /// <summary>User response</summary>
-    public string SelectedOption { get; set; }
-
-    /// <summary>User email address. The value is the user&apos;s email address for individual users and user ID for the members in Distribution Group or Mail Enabled Security Group.</summary>
-    public string UserEmailAddress { get; set; }
-
-    /// <summary>User tenant ID. The value is the tenant id of the user for both individual users and the members in Distribution Group or Mail Enabled Security Group.</summary>
-    public string UserTenantId { get; set; }
-
-    /// <summary>User ID. The value is the user id for both individual users and the members in Distribution Group or Mail Enabled Security Group.</summary>
-    public string UserId { get; set; }
-}
-
-/// <summary>
 /// ApprovalEmailSubscription
 /// </summary>
 public class ApprovalEmailSubscription
@@ -2669,49 +1624,6 @@ public class ApprovalMessage
 }
 
 /// <summary>
-/// SharedMailboxClientSendMessage
-/// </summary>
-public class SharedMailboxClientSendMessage
-{
-    /// <summary>Specify email address of a shared mailbox like someone@contoso.com</summary>
-    [JsonPropertyName("MailboxAddress")]
-    public string OriginalMailboxAddress { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-    public string To { get; set; }
-
-    /// <summary>Specify the subject of the mail</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Specify the body of the mail</summary>
-    public string Body { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-    [JsonPropertyName("Cc")]
-    public string CC { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-    [JsonPropertyName("Bcc")]
-    public string BCC { get; set; }
-
-    /// <summary>Attachments</summary>
-    public List<ClientSendAttachment> Attachments { get; set; }
-
-    /// <summary>Sensitivity</summary>
-    public string Sensitivity { get; set; }
-
-    /// <summary>The email addresses to use when replying</summary>
-    public string ReplyTo { get; set; }
-
-    /// <summary>Importance</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Is Html?</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-}
-
-/// <summary>
 /// SharedMailboxClientSendHtmlMessage
 /// </summary>
 public class SharedMailboxSendEmailInput
@@ -2748,248 +1660,6 @@ public class SharedMailboxSendEmailInput
 
     /// <summary>Importance</summary>
     public string Importance { get; set; }
-}
-
-/// <summary>
-/// SubscriptionPayload[OutlookReceiveMessage]
-/// </summary>
-public class SubscriptionPayloadOutlookReceiveMessage
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<SubscriptionPayloadEntityOutlookReceiveMessage> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of values
-/// </summary>
-public class SubscriptionPayloadEntityOutlookReceiveMessage
-{
-    /// <summary>Sequence number</summary>
-    public int? SequenceNumber { get; set; }
-
-    /// <summary>Change type</summary>
-    public string ChangeType { get; set; }
-
-    /// <summary>Client state</summary>
-    public string ClientState { get; set; }
-
-    /// <summary>Resource</summary>
-    public string Resource { get; set; }
-
-    /// <summary>ResourceData</summary>
-    public OutlookReceiveMessage ResourceData { get; set; }
-}
-
-/// <summary>
-/// SubscriptionPayload[SubscriptionEvent]
-/// </summary>
-public class SubscriptionPayloadSubscriptionEvent
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<SubscriptionPayloadEntitySubscriptionEvent> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of values
-/// </summary>
-public class SubscriptionPayloadEntitySubscriptionEvent
-{
-    /// <summary>Sequence number</summary>
-    public int? SequenceNumber { get; set; }
-
-    /// <summary>Change type</summary>
-    public string ChangeType { get; set; }
-
-    /// <summary>Client state</summary>
-    public string ClientState { get; set; }
-
-    /// <summary>Resource</summary>
-    public string Resource { get; set; }
-
-    /// <summary>ResourceData</summary>
-    public SubscriptionEvent ResourceData { get; set; }
-}
-
-/// <summary>
-/// ResourceData
-/// </summary>
-public class SubscriptionEvent
-{
-    /// <summary>The Event&apos;s unique identifier</summary>
-    public string Id { get; set; }
-}
-
-/// <summary>
-/// EntityListResponse[Table]
-/// </summary>
-public class EntityListResponseTable
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<Table> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of values
-/// </summary>
-public class Table
-{
-    /// <summary>The name of the table. The name is used at runtime.</summary>
-    public string Name { get; set; }
-
-    /// <summary>The display name of the table.</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>Additional table properties provided by the connector to the clients.</summary>
-    public object DynamicProperties { get; set; }
-}
-
-/// <summary>
-/// EntityListResponse[CalendarEventBackend]
-/// </summary>
-public class EntityListResponseCalendarEventBackend
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<CalendarEventBackend> Value { get; set; }
-}
-
-/// <summary>
-/// EntityListResponse[CalendarEventClientReceiveStringEnums]
-/// </summary>
-public class EntityListResponseCalendarEventClientReceiveStringEnums
-{
-    /// <summary>List of values</summary>
-    [JsonPropertyName("value")]
-    public List<CalendarEventClientReceiveStringEnums> Value { get; set; }
-}
-
-/// <summary>
-/// CalendarEventClient
-/// </summary>
-public class CalendarEventClient
-{
-    /// <summary>Event subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Start time of the event (example: &apos;2016-11-01T14:30:00Z&apos;)</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>End time of the event (example: &apos;2016-11-01T15:30:00Z&apos;)</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>Time zone of the event</summary>
-    public string TimeZone { get; set; }
-
-    /// <summary>Required attendees for the event separated by semicolons</summary>
-    public string RequiredAttendees { get; set; }
-
-    /// <summary>Optional attendees for the event separated by semicolons</summary>
-    public string OptionalAttendees { get; set; }
-
-    /// <summary>Resource attendees for the event separated by semicolons</summary>
-    public string ResourceAttendees { get; set; }
-
-    /// <summary>Body of the message associated with the event</summary>
-    public string Body { get; set; }
-
-    /// <summary>Set to true if the body is Html</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-
-    /// <summary>Location of the event</summary>
-    public string Location { get; set; }
-
-    /// <summary>The importance of the event: Low, Normal, or High</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Set to true if the event lasts all day</summary>
-    [JsonPropertyName("IsAllDay")]
-    public bool? IsAllDayEvent { get; set; }
-
-    /// <summary>The recurrence pattern for the event</summary>
-    public string Recurrence { get; set; }
-
-    /// <summary>End time of the recurrence</summary>
-    [JsonPropertyName("RecurrenceEnd")]
-    public DateTime? RecurrenceEndTime { get; set; }
-
-    /// <summary>How many times to repeat the event</summary>
-    public int? NumberOfOccurrences { get; set; }
-
-    /// <summary>Time in minutes before event start to remind</summary>
-    public int? Reminder { get; set; }
-
-    /// <summary>Status to show during the event</summary>
-    public string ShowAs { get; set; }
-
-    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-    public bool? ResponseRequested { get; set; }
-}
-
-/// <summary>
-/// CalendarEventHtmlClient
-/// </summary>
-public class CalendarEventHtmlClient
-{
-    /// <summary>Event subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Start time of the event (example: &apos;2016-11-01T14:30:00Z&apos;)</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>End time of the event (example: &apos;2016-11-01T15:30:00Z&apos;)</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>Time zone of the event</summary>
-    public string TimeZone { get; set; }
-
-    /// <summary>Required attendees for the event separated by semicolons</summary>
-    public string RequiredAttendees { get; set; }
-
-    /// <summary>Optional attendees for the event separated by semicolons</summary>
-    public string OptionalAttendees { get; set; }
-
-    /// <summary>Resource attendees for the event separated by semicolons</summary>
-    public string ResourceAttendees { get; set; }
-
-    /// <summary>Body of the message associated with the event</summary>
-    public string Body { get; set; }
-
-    /// <summary>Location of the event</summary>
-    public string Location { get; set; }
-
-    /// <summary>The importance of the event: Low, Normal, or High</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Set to true if the event lasts all day</summary>
-    [JsonPropertyName("IsAllDay")]
-    public bool? IsAllDayEvent { get; set; }
-
-    /// <summary>The recurrence pattern for the event</summary>
-    public string Recurrence { get; set; }
-
-    /// <summary>End time of the recurrence</summary>
-    [JsonPropertyName("RecurrenceEnd")]
-    public DateTime? RecurrenceEndTime { get; set; }
-
-    /// <summary>How many times to repeat the event</summary>
-    public int? NumberOfOccurrences { get; set; }
-
-    /// <summary>Time in minutes before event start to remind</summary>
-    public int? Reminder { get; set; }
-
-    /// <summary>Status to show during the event</summary>
-    public string ShowAs { get; set; }
-
-    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-    public bool? ResponseRequested { get; set; }
 }
 
 /// <summary>
@@ -3083,283 +1753,33 @@ public class GraphCalendarEventClient
 }
 
 /// <summary>
-/// CalendarEventListWithActionType
+/// MailTipsClientReceive_V2
 /// </summary>
-public class CalendarEventListWithActionType
+public class MailTipsClientReceive
 {
-    /// <summary>List of calendar items</summary>
-    [JsonPropertyName("value")]
-    public List<CalendarEventClientWithActionType> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of calendar items
-/// </summary>
-public class CalendarEventClientWithActionType
-{
-    /// <summary>Changed action type of the event - added, updated or deleted.</summary>
-    public string ActionType { get; set; }
-
-    /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
-    public bool? IsAdded { get; set; }
-
-    /// <summary>Flag that indicates whether the event was updated since the last poll of the trigger.</summary>
-    public bool? IsUpdated { get; set; }
-
-    /// <summary>Event subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Start time of the event (example: &apos;2016-11-01T14:30:00Z&apos;)</summary>
-    [JsonPropertyName("Start")]
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>End time of the event (example: &apos;2016-11-01T15:30:00Z&apos;)</summary>
-    [JsonPropertyName("End")]
-    public DateTime? EndTime { get; set; }
-
-    /// <summary>Status to show during the event (Unknown - -1, Free - 0, Tentative - 1, Busy - 2, Oof - 3, WorkingElsewhere - 4)</summary>
-    public int? ShowAs { get; set; }
-
-    /// <summary>The recurrence pattern for the event (None - 0, Daily - 1, Weekly - 2, Monthly - 3, Yearly - 4)</summary>
-    public int? Recurrence { get; set; }
-
-    /// <summary>The response type of the event (None - 0, Organizer - 1, TentativelyAccepted - 2, Accepted - 3, Declined - 4, NotResponded - 5)</summary>
-    public int? ResponseType { get; set; }
-
-    /// <summary>The response time of the event</summary>
-    public DateTime? ResponseTime { get; set; }
-
-    /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
-    [JsonPropertyName("ICalUId")]
-    public string EventUniqueID { get; set; }
-
-    /// <summary>The importance of the event (0 - Low, 1 - Normal, 2 - High)</summary>
-    public int? Importance { get; set; }
-
-    /// <summary>The event&apos;s unique identifier</summary>
-    public string Id { get; set; }
-
-    /// <summary>The date and time that the event was created</summary>
-    [JsonPropertyName("DateTimeCreated")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>The date and time that the event was last modified</summary>
-    [JsonPropertyName("DateTimeLastModified")]
-    public DateTime? LastModifiedTime { get; set; }
-
-    /// <summary>The organizer of the event</summary>
-    public string Organizer { get; set; }
-
-    /// <summary>Time zone of the event</summary>
-    public string TimeZone { get; set; }
-
-    /// <summary>Unique identifier for Series Master event type</summary>
-    public string SeriesMasterId { get; set; }
-
-    /// <summary>The categories associated with the event</summary>
-    public List<string> Categories { get; set; }
-
-    /// <summary>The URL to open the event in Outlook Web App</summary>
-    public string WebLink { get; set; }
-
-    /// <summary>Required attendees for the event separated by semicolons</summary>
-    public string RequiredAttendees { get; set; }
-
-    /// <summary>Optional attendees for the event separated by semicolons</summary>
-    public string OptionalAttendees { get; set; }
-
-    /// <summary>Resource attendees for the event separated by semicolons</summary>
-    public string ResourceAttendees { get; set; }
-
-    /// <summary>Body of the message associated with the event</summary>
-    public string Body { get; set; }
-
-    /// <summary>Set to true if the body is Html</summary>
-    [JsonPropertyName("IsHtml")]
-    public bool? IsHTML { get; set; }
-
-    /// <summary>Location of the event</summary>
-    public string Location { get; set; }
-
-    /// <summary>Set to true if the event lasts all day</summary>
-    [JsonPropertyName("IsAllDay")]
-    public bool? IsAllDayEvent { get; set; }
-
-    /// <summary>End time of the recurrence</summary>
-    [JsonPropertyName("RecurrenceEnd")]
-    public DateTime? RecurrenceEndTime { get; set; }
-
-    /// <summary>How many times to repeat the event</summary>
-    public int? NumberOfOccurrences { get; set; }
-
-    /// <summary>Time in minutes before event start to remind</summary>
-    public int? Reminder { get; set; }
-
-    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-    public bool? ResponseRequested { get; set; }
-}
-
-/// <summary>
-/// Contact
-/// </summary>
-public class Contact
-{
-    /// <summary>The contact&apos;s unique identifier.</summary>
-    public string Id { get; set; }
-
-    /// <summary>The ID of the contact&apos;s parent folder</summary>
-    public string ParentFolderId { get; set; }
-
-    /// <summary>The contact&apos;s birthday</summary>
-    public DateTime? Birthday { get; set; }
-
-    /// <summary>The name the contact is filed under</summary>
-    public string FileAs { get; set; }
-
-    /// <summary>The contact&apos;s display name</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>The contact&apos;s given name</summary>
-    public string GivenName { get; set; }
-
-    /// <summary>The contact&apos;s initials</summary>
-    public string Initials { get; set; }
-
-    /// <summary>The contact&apos;s middle name</summary>
-    public string MiddleName { get; set; }
-
-    /// <summary>The contact&apos;s nickname</summary>
-    [JsonPropertyName("NickName")]
-    public string Nickname { get; set; }
-
-    /// <summary>The contact&apos;s surname</summary>
-    public string Surname { get; set; }
-
-    /// <summary>The contact&apos;s title</summary>
-    public string Title { get; set; }
-
-    /// <summary>The contact&apos;s generation</summary>
-    public string Generation { get; set; }
-
-    /// <summary>The contact&apos;s email addresses</summary>
-    public List<EmailAddress> EmailAddresses { get; set; }
-
-    /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
-    [JsonPropertyName("ImAddresses")]
-    public List<string> IMAddresses { get; set; }
-
-    /// <summary>The contact&apos;s job title</summary>
-    public string JobTitle { get; set; }
-
-    /// <summary>The name of the contact&apos;s company</summary>
-    public string CompanyName { get; set; }
-
-    /// <summary>The contact&apos;s department</summary>
-    public string Department { get; set; }
-
-    /// <summary>The location of the contact&apos;s office</summary>
-    public string OfficeLocation { get; set; }
-
-    /// <summary>The contact&apos;s profession</summary>
-    public string Profession { get; set; }
-
-    /// <summary>The business home page of the contact</summary>
-    public string BusinessHomePage { get; set; }
-
-    /// <summary>The name of the contact&apos;s assistant</summary>
-    public string AssistantName { get; set; }
-
-    /// <summary>The name of the contact&apos;s manager</summary>
-    public string Manager { get; set; }
-
-    /// <summary>The contact&apos;s home phone numbers</summary>
-    public List<string> HomePhones { get; set; }
-
-    /// <summary>The contact&apos;s business phone numbers</summary>
-    public List<string> BusinessPhones { get; set; }
-
-    /// <summary>The contact&apos;s mobile phone number</summary>
-    [JsonPropertyName("MobilePhone1")]
-    public string MobilePhone { get; set; }
-
-    /// <summary>HomeAddress</summary>
-    public PhysicalAddress HomeAddress { get; set; }
-
-    /// <summary>BusinessAddress</summary>
-    public PhysicalAddress BusinessAddress { get; set; }
-
-    /// <summary>OtherAddress</summary>
-    public PhysicalAddress OtherAddress { get; set; }
-
-    /// <summary>The phonetic Japanese company name of the contact</summary>
-    public string YomiCompanyName { get; set; }
-
-    /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
-    public string YomiGivenName { get; set; }
-
-    /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
-    public string YomiSurname { get; set; }
-
-    /// <summary>The categories associated with the contact</summary>
-    public List<string> Categories { get; set; }
-
-    /// <summary>Identifies the version of the event object</summary>
-    public string ChangeKey { get; set; }
-
-    /// <summary>The time the contact was created</summary>
-    [JsonPropertyName("DateTimeCreated")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>The time the contact was modified</summary>
-    [JsonPropertyName("DateTimeLastModified")]
-    public DateTime? LastModifiedTime { get; set; }
-}
-
-/// <summary>
-/// DataSetsList
-/// </summary>
-public class DataSetsList
-{
-    /// <summary>List of datasets</summary>
-    [JsonPropertyName("value")]
-    public List<DataSet> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of datasets
-/// </summary>
-public class DataSet
-{
-    /// <summary>Dataset name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Dataset display name</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>Pass-through Native Queries</summary>
-    [JsonPropertyName("query")]
-    public List<PassThroughNativeQuery> Query { get; set; }
-}
-
-/// <summary>
-/// Item in Pass-through Native Queries
-/// </summary>
-public class PassThroughNativeQuery
-{
-    /// <summary>Query language</summary>
-    public string Language { get; set; }
-}
-
-/// <summary>
-/// Procedure
-/// </summary>
-public class Procedure
-{
-    /// <summary>Procedure name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Procedure display name</summary>
-    public string DisplayName { get; set; }
+    /// <summary>automaticReplies</summary>
+    [JsonPropertyName("automaticReplies")]
+    public MailTipsAutomaticReplies AutomaticReplies { get; set; }
+
+    /// <summary>Is delivery restricted</summary>
+    [JsonPropertyName("deliveryRestricted")]
+    public bool? IsDeliveryRestricted { get; set; }
+
+    /// <summary>Number of external members</summary>
+    [JsonPropertyName("externalMemberCount")]
+    public int? IsModerated { get; set; }
+
+    /// <summary>Is mailbox full</summary>
+    [JsonPropertyName("mailboxFull")]
+    public bool? IsMailboxFull { get; set; }
+
+    /// <summary>Maximum message size</summary>
+    [JsonPropertyName("maxMessageSize")]
+    public long? MaximumMessageSize { get; set; }
+
+    /// <summary>Total member count</summary>
+    [JsonPropertyName("totalMemberCount")]
+    public long? TotalMemberCount { get; set; }
 }
 
 /// <summary>
@@ -3398,30 +1818,163 @@ public class DirectForwardMessage
 }
 
 /// <summary>
-/// LocationConstraint
-/// </summary>
-public class LocationConstraint
-{
-    /// <summary>Should a meeting location be returned for the meeting?</summary>
-    public bool? IsRequired { get; set; }
-
-    /// <summary>Should the response provide one or more meeting location suggestions?</summary>
-    public bool? SuggestLocation { get; set; }
-
-    /// <summary>Locations</summary>
-    public List<object> Locations { get; set; }
-}
-
-/// <summary>
-/// DateTimeTimeZone
+/// DateTimeTimeZone_V2
 /// </summary>
 public class DateTimeTimeZone
 {
-    /// <summary>DateTime</summary>
+    /// <summary>DateTime (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("dateTime")]
     public string DateTime { get; set; }
 
-    /// <summary>TimeZone</summary>
+    /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
+    [JsonPropertyName("timeZone")]
     public string TimeZone { get; set; }
+}
+
+/// <summary>
+/// Contact_V2
+/// </summary>
+public class Contact
+{
+    /// <summary>The contact&apos;s unique identifier.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The ID of the contact&apos;s parent folder</summary>
+    [JsonPropertyName("parentFolderId")]
+    public string ParentFolderId { get; set; }
+
+    /// <summary>The contact&apos;s birthday</summary>
+    [JsonPropertyName("birthday")]
+    public DateTime? Birthday { get; set; }
+
+    /// <summary>The name the contact is filed under</summary>
+    [JsonPropertyName("fileAs")]
+    public string FileAs { get; set; }
+
+    /// <summary>The contact&apos;s display name</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The contact&apos;s given name</summary>
+    [JsonPropertyName("givenName")]
+    public string GivenName { get; set; }
+
+    /// <summary>The contact&apos;s initials</summary>
+    [JsonPropertyName("initials")]
+    public string Initials { get; set; }
+
+    /// <summary>The contact&apos;s middle name</summary>
+    [JsonPropertyName("middleName")]
+    public string MiddleName { get; set; }
+
+    /// <summary>The contact&apos;s nickname</summary>
+    [JsonPropertyName("nickName")]
+    public string Nickname { get; set; }
+
+    /// <summary>The contact&apos;s surname</summary>
+    [JsonPropertyName("surname")]
+    public string Surname { get; set; }
+
+    /// <summary>The contact&apos;s title</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; }
+
+    /// <summary>The contact&apos;s generation</summary>
+    [JsonPropertyName("generation")]
+    public string Generation { get; set; }
+
+    /// <summary>The contact&apos;s email addresses</summary>
+    [JsonPropertyName("emailAddresses")]
+    public List<EmailAddress> EmailAddresses { get; set; }
+
+    /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
+    [JsonPropertyName("imAddresses")]
+    public List<string> IMAddresses { get; set; }
+
+    /// <summary>The contact&apos;s job title</summary>
+    [JsonPropertyName("jobTitle")]
+    public string JobTitle { get; set; }
+
+    /// <summary>The name of the contact&apos;s company</summary>
+    [JsonPropertyName("companyName")]
+    public string CompanyName { get; set; }
+
+    /// <summary>The contact&apos;s department</summary>
+    [JsonPropertyName("department")]
+    public string Department { get; set; }
+
+    /// <summary>The location of the contact&apos;s office</summary>
+    [JsonPropertyName("officeLocation")]
+    public string OfficeLocation { get; set; }
+
+    /// <summary>The contact&apos;s profession</summary>
+    [JsonPropertyName("profession")]
+    public string Profession { get; set; }
+
+    /// <summary>The business home page of the contact</summary>
+    [JsonPropertyName("businessHomePage")]
+    public string BusinessHomePage { get; set; }
+
+    /// <summary>The name of the contact&apos;s assistant</summary>
+    [JsonPropertyName("assistantName")]
+    public string AssistantName { get; set; }
+
+    /// <summary>The name of the contact&apos;s manager</summary>
+    [JsonPropertyName("manager")]
+    public string Manager { get; set; }
+
+    /// <summary>The contact&apos;s home phone numbers</summary>
+    [JsonPropertyName("homePhones")]
+    public List<string> HomePhones { get; set; }
+
+    /// <summary>The contact&apos;s business phone numbers</summary>
+    [JsonPropertyName("businessPhones")]
+    public List<string> BusinessPhones { get; set; }
+
+    /// <summary>The contact&apos;s mobile phone number</summary>
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
+
+    /// <summary>homeAddress</summary>
+    [JsonPropertyName("homeAddress")]
+    public PhysicalAddress HomeAddress { get; set; }
+
+    /// <summary>businessAddress</summary>
+    [JsonPropertyName("businessAddress")]
+    public PhysicalAddress BusinessAddress { get; set; }
+
+    /// <summary>otherAddress</summary>
+    [JsonPropertyName("otherAddress")]
+    public PhysicalAddress OtherAddress { get; set; }
+
+    /// <summary>The phonetic Japanese company name of the contact</summary>
+    [JsonPropertyName("yomiCompanyName")]
+    public string YomiCompanyName { get; set; }
+
+    /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
+    [JsonPropertyName("yomiGivenName")]
+    public string YomiGivenName { get; set; }
+
+    /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
+    [JsonPropertyName("yomiSurname")]
+    public string YomiSurname { get; set; }
+
+    /// <summary>The categories associated with the contact</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>Identifies the version of the event object</summary>
+    [JsonPropertyName("changeKey")]
+    public string ChangeKey { get; set; }
+
+    /// <summary>The time the contact was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    public DateTime? CreatedTime { get; set; }
+
+    /// <summary>The time the contact was modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    public DateTime? LastModifiedTime { get; set; }
 }
 
 /// <summary>
