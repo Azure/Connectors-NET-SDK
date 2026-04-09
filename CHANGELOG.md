@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0-preview.1] - 2026-04-09
+
+### Added
+
+- OneDrive for Business generated typed client with 22 action operations and 4 trigger operations (#39)
+- OneDrive file operations: get/update/delete metadata, get/create file content, copy, move, convert, extract archive (#39)
+- OneDrive sharing: create share links by file ID or path (#39)
+- OneDrive folder operations: list root folder, list files in folder, find files by search (#39)
+- OneDrive trigger payloads and operation constants for file created/modified events (#39)
+
 ## [0.3.0-preview.1] - 2026-04-09
 
 ### Breaking Changes
@@ -59,7 +69,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.3.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.4.0-preview.1...HEAD
+[0.4.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.3.0-preview.1...v0.4.0-preview.1
 [0.3.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.2.0-preview.1...v0.3.0-preview.1
 [0.2.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.1.0-preview.1...v0.2.0-preview.1
 [0.1.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/releases/tag/v0.1.0-preview.1
