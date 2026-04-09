@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0-preview.1] - 2026-04-09
+
+### Breaking Changes
+
+- Simplified all generated operation names by stripping version suffixes (V2, V3, V4) — e.g., `SendEmailV2Async` → `SendEmailAsync` (#44)
+- Simplified trigger names to start with `On` prefix and use natural English — e.g., `CalendarGetOnUpdatedItemsV3` → `OnCalendarUpdatedItems` (#44)
+- Simplified type names with per-connector aliases — e.g., `ClientSendHtmlMessage` → `SendEmailInput` (#44)
+- Dropped `OnFlaggedEmailV3` trigger (superseded by V4, identical parameters) (#44)
+- Pruned unreferenced swagger definition types from generated output (#44)
+- Removed `samples/SampleConnectorUsage/` project (use [Connectors-NET-Samples](https://github.com/Azure/Connectors-NET-Samples) instead) (#44)
+
+### Added
+
+- Trigger operation constants for all triggers, including those without response types (e.g., `OnWebhookMessageReactionTrigger`) (#44)
+- Definition type pruning: generator now only emits types transitively reachable from operations (#44)
+
+### Changed
+
+- Wire values (operationId strings, JSON property names) remain unchanged — only the C# API surface is simplified (#44)
+- README Quick Start and validated-connectors table updated for new names (#44)
+- Documentation link updated to point to Connectors-NET-Samples repo (#44)
+
 ## [0.2.0-preview.1] - 2026-04-07
 
 ### Added
@@ -37,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.2.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.3.0-preview.1...HEAD
+[0.3.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.2.0-preview.1...v0.3.0-preview.1
 [0.2.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.1.0-preview.1...v0.2.0-preview.1
 [0.1.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/releases/tag/v0.1.0-preview.1
