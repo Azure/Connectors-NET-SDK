@@ -5,6 +5,8 @@
 //   var client = new KustoClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Office365;
 //   var client = new Office365Client(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.DirectClient.Onedriveforbusiness;
+//   var client = new OnedriveforbusinessClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
 //   var client = new SharepointonlineClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Teams;
@@ -25,6 +27,7 @@ public static class DirectClientConnectors
     public static readonly string[] AvailableConnectors = [
         "kusto",
         "office365",
+        "onedriveforbusiness",
         "sharepointonline",
         "teams",
     ];
