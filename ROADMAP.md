@@ -12,6 +12,7 @@ This document tracks the progress of generating DirectClient SDK code for Logic 
 | SDK (Office365) | ✅ Complete | WhenWritingNull fix merged |
 | SDK (SharePoint) | ✅ Complete | Validated end-to-end |
 | SDK (Kusto / ADX) | ✅ Complete | KQL queries, control commands, chart rendering, MCP server |
+| SDK (OneDrive for Business) | ✅ Complete | File CRUD, search, sharing, thumbnails, triggers |
 | POC | ✅ Complete | Office365 email + SharePoint lists validated |
 
 ---
@@ -30,7 +31,7 @@ These connectors form the backbone of modern agentic solutions with Teams as fro
 | 1.1 | **SharePoint Online** | #1/#3 | Tier 1 | 5.74B | Knowledge base, file/list operations | ✅ Complete |
 | 1.2 | **Microsoft Graph** | — | Tier 2 | 820M | Unified M365 API backbone | ⬜ Not started |
 | 1.3 | **Microsoft Teams** | — | Tier 2 | 550M | Preferred front-end, messaging | ⬜ Not started |
-| 1.4 | **OneDrive for Business** | #6 | Tier 2 | 719M | User files, knowledge base | ⬜ Not started |
+| 1.4 | **OneDrive for Business** | #6 | Tier 1 | 719M | User files, knowledge base | ✅ Complete |
 | 1.5 | **Office 365 Users** | #16 | Tier 1 | 2.92B | User directory, profile data | ⬜ Not started |
 
 ### Phase 2: Data & Integration (Enterprise Core)
@@ -300,6 +301,7 @@ For each new connector, complete these steps:
 
 | Date | Change |
 |------|--------|
+| 2026-04-09 | Added OneDrive for Business connector client (Tier 1). File operations, sharing, thumbnails, search, triggers. |
 | 2026-04-03 | Initial public release with Office365, SharePoint, and Teams connector clients. Trigger support in active design. |
 
 ---
@@ -318,5 +320,6 @@ For each new connector, complete these steps:
 
 | Connector | File Size | Operations | Issues Found | Notes |
 |-----------|-----------|------------|--------------|-------|
+| OneDrive for Business | ~43KB | ~22 | None | File CRUD, sharing, thumbnails, search, folder ops, triggers |
 | Office365 | ~170KB | ~50 | WhenWritingNull | Clean generation after fix |
 | SharePoint | ~100KB | ~110 | 2 (newlines, property collision) | Validated with GetAllTablesAsync listing 8 libraries |

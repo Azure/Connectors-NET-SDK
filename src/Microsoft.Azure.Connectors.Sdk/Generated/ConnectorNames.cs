@@ -27,6 +27,11 @@ public static class ConnectorNames
     public const string Office365 = "office365";
 
     /// <summary>
+    /// The <c>onedriveforbusiness</c> connector.
+    /// </summary>
+    public const string Onedriveforbusiness = "onedriveforbusiness";
+
+    /// <summary>
     /// The <c>sharepointonline</c> connector.
     /// </summary>
     public const string Sharepointonline = "sharepointonline";
