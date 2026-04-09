@@ -70,6 +70,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             using var responseMessage = new HttpResponseMessage
             {
+                StatusCode = HttpStatusCode.OK,
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
             };
 
