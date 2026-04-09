@@ -12,10 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - OneDrive for Business generated typed client with 22 action operations and 4 trigger operations (#39)
-- OneDrive file operations: get/update/delete metadata, get/create file content, copy, move, convert, extract archive
-- OneDrive sharing: create share links by file ID or path
-- OneDrive folder operations: list root folder, list files in folder, find files by search
-- OneDrive trigger payloads and operation constants for file created/modified events
+- OneDrive file operations: get/update/delete metadata, get/create file content, copy, move, convert, extract archive (#39)
+- OneDrive sharing: create share links by file ID or path (#39)
+- OneDrive folder operations: list root folder, list files in folder, find files by search (#39)
+- OneDrive trigger payloads and operation constants for file created/modified events (#39)
 
 ## [0.3.0-preview.1] - 2026-04-09
 
