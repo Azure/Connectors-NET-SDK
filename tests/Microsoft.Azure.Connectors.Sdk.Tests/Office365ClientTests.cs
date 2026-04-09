@@ -141,7 +141,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task GetEmailV2Async_WithErrorResponse_ThrowsConnectorException()
+        public async Task GetEmailAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -173,7 +173,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var exception = await Assert
                 .ThrowsExactlyAsync<Office365ConnectorException>(async () =>
                     await client
-                        .GetEmailV2Async(messageId: "test-message-id", cancellationToken: CancellationToken.None)
+                        .GetEmailAsync(messageId: "test-message-id", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 

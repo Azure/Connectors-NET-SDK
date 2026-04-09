@@ -84,10 +84,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         };
 
         [TestMethod]
-        public void Deserialize_OnNewEmailV3TriggerPayload_MatchesGenericPayload()
+        public void Deserialize_OnNewEmailTriggerPayload_MatchesGenericPayload()
         {
             // Act
-            var typed = JsonSerializer.Deserialize<Office365OnNewEmailV3TriggerPayload>(
+            var typed = JsonSerializer.Deserialize<Office365OnNewEmailTriggerPayload>(
                 Office365TriggerPayloadTests.CapturedEmailTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -109,10 +109,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_OnNewEmailV3TriggerPayload_ParsesEmailFields()
+        public void Deserialize_OnNewEmailTriggerPayload_ParsesEmailFields()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365OnNewEmailV3TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnNewEmailTriggerPayload>(
                 Office365TriggerPayloadTests.CapturedEmailTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -131,10 +131,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_OnFlaggedEmailV3TriggerPayload_Works()
+        public void Deserialize_OnFlaggedEmailTriggerPayload_Works()
         {
-            // Act — OnFlaggedEmailV3 uses the same response type (GraphClientReceiveMessage)
-            var result = JsonSerializer.Deserialize<Office365OnFlaggedEmailV3TriggerPayload>(
+            // Act — OnFlaggedEmail uses the same response type (GraphClientReceiveMessage)
+            var result = JsonSerializer.Deserialize<Office365OnFlaggedEmailTriggerPayload>(
                 Office365TriggerPayloadTests.CapturedEmailTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -147,10 +147,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_OnFlaggedEmailV4TriggerPayload_Works()
+        public void Deserialize_OnNewEmailMentioningMeTriggerPayload_Works()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365OnFlaggedEmailV4TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnNewEmailMentioningMeTriggerPayload>(
                 Office365TriggerPayloadTests.CapturedEmailTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -162,10 +162,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_OnNewMentionMeEmailV3TriggerPayload_Works()
+        public void Deserialize_OnSharedMailboxNewEmailTriggerPayload_Works()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365OnNewMentionMeEmailV3TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnSharedMailboxNewEmailTriggerPayload>(
                 Office365TriggerPayloadTests.CapturedEmailTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -177,25 +177,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_SharedMailboxOnNewEmailV2TriggerPayload_Works()
+        public void Deserialize_OnUpcomingEventsTriggerPayload_ParsesCalendarFields()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365SharedMailboxOnNewEmailV2TriggerPayload>(
-                Office365TriggerPayloadTests.CapturedEmailTriggerPayload,
-                Office365TriggerPayloadTests.JsonOptions);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Body);
-            Assert.IsNotNull(result.Body.Value);
-            Assert.AreEqual(1, result.Body.Value.Count);
-        }
-
-        [TestMethod]
-        public void Deserialize_OnUpcomingEventsV3TriggerPayload_ParsesCalendarFields()
-        {
-            // Act
-            var result = JsonSerializer.Deserialize<Office365OnUpcomingEventsV3TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnUpcomingEventsTriggerPayload>(
                 Office365TriggerPayloadTests.CalendarEventTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -213,10 +198,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_CalendarGetOnNewItemsV3TriggerPayload_Works()
+        public void Deserialize_OnCalendarNewItemsTriggerPayload_Works()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365CalendarGetOnNewItemsV3TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnCalendarNewItemsTriggerPayload>(
                 Office365TriggerPayloadTests.CalendarEventTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -229,10 +214,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_CalendarGetOnUpdatedItemsV3TriggerPayload_Works()
+        public void Deserialize_OnCalendarUpdatedItemsTriggerPayload_Works()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365CalendarGetOnUpdatedItemsV3TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnCalendarUpdatedItemsTriggerPayload>(
                 Office365TriggerPayloadTests.CalendarEventTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -244,10 +229,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Deserialize_CalendarGetOnChangedItemsV3TriggerPayload_ParsesActionType()
+        public void Deserialize_OnCalendarChangedItemsTriggerPayload_ParsesActionType()
         {
             // Act
-            var result = JsonSerializer.Deserialize<Office365CalendarGetOnChangedItemsV3TriggerPayload>(
+            var result = JsonSerializer.Deserialize<Office365OnCalendarChangedItemsTriggerPayload>(
                 Office365TriggerPayloadTests.CalendarChangedEventTriggerPayload,
                 Office365TriggerPayloadTests.JsonOptions);
 
@@ -267,8 +252,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Office365Triggers_Operations_ContainsAllTriggers()
         {
-            // Assert — all 9 trigger operations are registered
-            Assert.AreEqual(9, Office365Triggers.Operations.Count);
+            // Assert — all 8 trigger operations are registered (V3 flagged email dropped)
+            Assert.AreEqual(8, Office365Triggers.Operations.Count);
         }
 
         [TestMethod]
@@ -276,7 +261,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Assert
             Assert.IsTrue(Office365Triggers.Operations.ContainsKey("OnNewEmailV3"));
-            Assert.IsTrue(Office365Triggers.Operations.ContainsKey("OnFlaggedEmailV3"));
             Assert.IsTrue(Office365Triggers.Operations.ContainsKey("OnFlaggedEmailV4"));
             Assert.IsTrue(Office365Triggers.Operations.ContainsKey("OnNewMentionMeEmailV3"));
             Assert.IsTrue(Office365Triggers.Operations.ContainsKey("SharedMailboxOnNewEmailV2"));
@@ -296,14 +280,14 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Office365Triggers_Operations_MapsToCorrectTypes()
         {
             // Assert — email triggers map to GraphClientReceiveMessage-based payloads
-            Assert.AreEqual(typeof(Office365OnNewEmailV3TriggerPayload), Office365Triggers.Operations["OnNewEmailV3"]);
-            Assert.AreEqual(typeof(Office365OnFlaggedEmailV3TriggerPayload), Office365Triggers.Operations["OnFlaggedEmailV3"]);
+            Assert.AreEqual(typeof(Office365OnNewEmailTriggerPayload), Office365Triggers.Operations["OnNewEmailV3"]);
+            Assert.AreEqual(typeof(Office365OnFlaggedEmailTriggerPayload), Office365Triggers.Operations["OnFlaggedEmailV4"]);
 
             // Assert — calendar triggers map to GraphCalendarEventClientReceive-based payloads
-            Assert.AreEqual(typeof(Office365OnUpcomingEventsV3TriggerPayload), Office365Triggers.Operations["OnUpcomingEventsV3"]);
+            Assert.AreEqual(typeof(Office365OnUpcomingEventsTriggerPayload), Office365Triggers.Operations["OnUpcomingEventsV3"]);
 
             // Assert — changed items trigger maps to GraphCalendarEventClientWithActionType
-            Assert.AreEqual(typeof(Office365CalendarGetOnChangedItemsV3TriggerPayload), Office365Triggers.Operations["CalendarGetOnChangedItemsV3"]);
+            Assert.AreEqual(typeof(Office365OnCalendarChangedItemsTriggerPayload), Office365Triggers.Operations["CalendarGetOnChangedItemsV3"]);
         }
 
         [TestMethod]
@@ -328,8 +312,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Office365TriggerPayloadTests.JsonOptions);
 
             // Assert — the result is the correct typed payload
-            Assert.IsInstanceOfType(result, typeof(Office365OnNewEmailV3TriggerPayload));
-            var typed = (Office365OnNewEmailV3TriggerPayload)result!;
+            Assert.IsInstanceOfType(result, typeof(Office365OnNewEmailTriggerPayload));
+            var typed = (Office365OnNewEmailTriggerPayload)result!;
             Assert.AreEqual(1, typed.Body!.Value!.Count);
             Assert.AreEqual("Test email for trigger callback", typed.Body.Value[0].Subject);
         }
@@ -339,11 +323,11 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Assert — all trigger payload types are subtypes of TriggerCallbackPayload<T>
             Assert.IsTrue(typeof(TriggerCallbackPayload<GraphClientReceiveMessage>)
-                .IsAssignableFrom(typeof(Office365OnNewEmailV3TriggerPayload)));
+                .IsAssignableFrom(typeof(Office365OnNewEmailTriggerPayload)));
             Assert.IsTrue(typeof(TriggerCallbackPayload<GraphCalendarEventClientReceive>)
-                .IsAssignableFrom(typeof(Office365OnUpcomingEventsV3TriggerPayload)));
+                .IsAssignableFrom(typeof(Office365OnUpcomingEventsTriggerPayload)));
             Assert.IsTrue(typeof(TriggerCallbackPayload<GraphCalendarEventClientWithActionType>)
-                .IsAssignableFrom(typeof(Office365CalendarGetOnChangedItemsV3TriggerPayload)));
+                .IsAssignableFrom(typeof(Office365OnCalendarChangedItemsTriggerPayload)));
         }
     }
 }

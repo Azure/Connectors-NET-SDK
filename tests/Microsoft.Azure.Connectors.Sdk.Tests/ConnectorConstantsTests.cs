@@ -150,69 +150,63 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_OnNewEmailV3_HasCorrectValue()
+        public void Office365TriggerOperations_OnNewEmail_HasCorrectValue()
         {
-            Assert.AreEqual("OnNewEmailV3", Office365TriggerOperations.OnNewEmailV3);
+            Assert.AreEqual("OnNewEmailV3", Office365TriggerOperations.OnNewEmail);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_OnUpcomingEventsV3_HasCorrectValue()
+        public void Office365TriggerOperations_OnUpcomingEvents_HasCorrectValue()
         {
-            Assert.AreEqual("OnUpcomingEventsV3", Office365TriggerOperations.OnUpcomingEventsV3);
+            Assert.AreEqual("OnUpcomingEventsV3", Office365TriggerOperations.OnUpcomingEvents);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_OnFlaggedEmailV3_HasCorrectValue()
+        public void Office365TriggerOperations_OnFlaggedEmail_HasCorrectValue()
         {
-            Assert.AreEqual("OnFlaggedEmailV3", Office365TriggerOperations.OnFlaggedEmailV3);
+            Assert.AreEqual("OnFlaggedEmailV4", Office365TriggerOperations.OnFlaggedEmail);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_OnFlaggedEmailV4_HasCorrectValue()
+        public void Office365TriggerOperations_OnNewEmailMentioningMe_HasCorrectValue()
         {
-            Assert.AreEqual("OnFlaggedEmailV4", Office365TriggerOperations.OnFlaggedEmailV4);
+            Assert.AreEqual("OnNewMentionMeEmailV3", Office365TriggerOperations.OnNewEmailMentioningMe);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_OnNewMentionMeEmailV3_HasCorrectValue()
+        public void Office365TriggerOperations_OnSharedMailboxNewEmail_HasCorrectValue()
         {
-            Assert.AreEqual("OnNewMentionMeEmailV3", Office365TriggerOperations.OnNewMentionMeEmailV3);
+            Assert.AreEqual("SharedMailboxOnNewEmailV2", Office365TriggerOperations.OnSharedMailboxNewEmail);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_SharedMailboxOnNewEmailV2_HasCorrectValue()
+        public void Office365TriggerOperations_OnCalendarNewItems_HasCorrectValue()
         {
-            Assert.AreEqual("SharedMailboxOnNewEmailV2", Office365TriggerOperations.SharedMailboxOnNewEmailV2);
+            Assert.AreEqual("CalendarGetOnNewItemsV3", Office365TriggerOperations.OnCalendarNewItems);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_CalendarGetOnNewItemsV3_HasCorrectValue()
+        public void Office365TriggerOperations_OnCalendarUpdatedItems_HasCorrectValue()
         {
-            Assert.AreEqual("CalendarGetOnNewItemsV3", Office365TriggerOperations.CalendarGetOnNewItemsV3);
+            Assert.AreEqual("CalendarGetOnUpdatedItemsV3", Office365TriggerOperations.OnCalendarUpdatedItems);
         }
 
         [TestMethod]
-        public void Office365TriggerOperations_CalendarGetOnUpdatedItemsV3_HasCorrectValue()
+        public void Office365TriggerOperations_OnCalendarChangedItems_HasCorrectValue()
         {
-            Assert.AreEqual("CalendarGetOnUpdatedItemsV3", Office365TriggerOperations.CalendarGetOnUpdatedItemsV3);
-        }
-
-        [TestMethod]
-        public void Office365TriggerOperations_CalendarGetOnChangedItemsV3_HasCorrectValue()
-        {
-            Assert.AreEqual("CalendarGetOnChangedItemsV3", Office365TriggerOperations.CalendarGetOnChangedItemsV3);
+            Assert.AreEqual("CalendarGetOnChangedItemsV3", Office365TriggerOperations.OnCalendarChangedItems);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_ConstantsUsableInSwitch()
         {
             // Verify constants are compile-time constants usable in switch statements
-            var operationName = Office365TriggerOperations.OnNewEmailV3;
+            var operationName = Office365TriggerOperations.OnNewEmail;
             string result = operationName switch
             {
-                Office365TriggerOperations.OnNewEmailV3 => "email",
-                Office365TriggerOperations.OnUpcomingEventsV3 => "calendar",
-                Office365TriggerOperations.CalendarGetOnChangedItemsV3 => "calendar-changed",
+                Office365TriggerOperations.OnNewEmail => "email",
+                Office365TriggerOperations.OnUpcomingEvents => "calendar",
+                Office365TriggerOperations.OnCalendarChangedItems => "calendar-changed",
                 _ => "unknown",
             };
 

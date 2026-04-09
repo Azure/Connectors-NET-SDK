@@ -753,7 +753,7 @@ public class DiscoverySettings
 /// <summary>
 /// Response for Get an @mention token for a user
 /// </summary>
-public class AtMentionUserV1
+public class AtMentionUser
 {
     /// <summary>An @mention token for the user. This property can be inserted into messages</summary>
     [JsonPropertyName("atMention")]
@@ -945,36 +945,6 @@ public class ObjectWithoutType
 }
 
 /// <summary>
-/// PostMessageSchema
-/// </summary>
-public class PostMessageSchema
-{
-    /// <summary>schema</summary>
-    [JsonPropertyName("schema")]
-    public ObjectEntity Schema { get; set; }
-}
-
-/// <summary>
-/// PostCardSchema
-/// </summary>
-public class PostCardSchema
-{
-    /// <summary>schema</summary>
-    [JsonPropertyName("schema")]
-    public ObjectEntity Schema { get; set; }
-}
-
-/// <summary>
-/// PostCardAndWaitSchema
-/// </summary>
-public class PostCardAndWaitSchema
-{
-    /// <summary>schema</summary>
-    [JsonPropertyName("schema")]
-    public ObjectEntity Schema { get; set; }
-}
-
-/// <summary>
 /// DynamicGetMessageDetailsSchema
 /// </summary>
 [DynamicSchema("GetMessageDetailsInputSchema")]
@@ -993,48 +963,6 @@ public class DynamicGetMessageDetailsSchema
 /// </summary>
 [DynamicSchema("ListMembersInputSchema")]
 public class DynamicListMembersSchema
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicUserNotificationRequest
-/// </summary>
-[DynamicSchema("GetNotificationInputMetadata")]
-public class DynamicUserNotificationRequest
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicPostConversationNotificationRequest
-/// </summary>
-[DynamicSchema("GetNotificationInputMetadata")]
-public class DynamicPostConversationNotificationRequest
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicChannelNotificationRequest
-/// </summary>
-[DynamicSchema("GetNotificationInputMetadata")]
-public class DynamicChannelNotificationRequest
 {
     /// <summary>
     /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -1143,34 +1071,6 @@ public class DynamicUpdateCardRequest
 }
 
 /// <summary>
-/// DynamicUserAdaptiveCardRequest
-/// </summary>
-[DynamicSchema("GetAdaptiveCardInputMetadata")]
-public class DynamicUserAdaptiveCardRequest
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicChannelAdaptiveCardRequest
-/// </summary>
-[DynamicSchema("GetAdaptiveCardInputMetadata")]
-public class DynamicChannelAdaptiveCardRequest
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
 /// DynamicUserMessageWithOptionsSubscriptionRequest
 /// </summary>
 [DynamicSchema("GetMessageWithOptionsSubscriptionInputMetadata")]
@@ -1185,226 +1085,10 @@ public class DynamicUserMessageWithOptionsSubscriptionRequest
 }
 
 /// <summary>
-/// DynamicUserMessageWithOptionsSubscriptionResult
-/// </summary>
-[DynamicSchema("GetMessageWithOptionsSubscriptionOutputMetadata")]
-public class DynamicUserMessageWithOptionsSubscriptionResult
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicSelectedMessageTriggerResult
-/// </summary>
-[DynamicSchema("GetSelectedMessageTriggerOutputsMetadata")]
-public class DynamicSelectedMessageTriggerResult
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicComposeMessageTriggerResult
-/// </summary>
-[DynamicSchema("GetComposeMessageTriggerOutputsMetadata")]
-public class DynamicComposeMessageTriggerResult
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicCardResponseTriggerResult
-/// </summary>
-[DynamicSchema("GetCardResponseTriggerOutputsMetadata")]
-public class DynamicCardResponseTriggerResult
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// MessageReactionWebhookResponseSchema
-/// </summary>
-public class MessageReactionWebhookResponseSchema
-{
-    /// <summary>threadType</summary>
-    [JsonPropertyName("threadType")]
-    public string ThreadType { get; set; }
-
-    /// <summary>The chat&apos;s unique identifier</summary>
-    [JsonPropertyName("chatId")]
-    public string ChatId { get; set; }
-
-    /// <summary>The team&apos;s unique identifier</summary>
-    [JsonPropertyName("teamId")]
-    public string TeamId { get; set; }
-
-    /// <summary>The channel&apos;s unique identifier</summary>
-    [JsonPropertyName("channelId")]
-    public string ChannelId { get; set; }
-
-    /// <summary>Id of the message which was reacted</summary>
-    [JsonPropertyName("messageId")]
-    public string MessageId { get; set; }
-
-    /// <summary>ID of the parent message of the thread</summary>
-    [JsonPropertyName("replyToId")]
-    public string ReplyToId { get; set; }
-
-    /// <summary>Link to the message which was reacted</summary>
-    [JsonPropertyName("messageLink")]
-    public string Messagelink { get; set; }
-
-    /// <summary>Reacting user&apos;s Id</summary>
-    [JsonPropertyName("userId")]
-    public string UserId { get; set; }
-
-    /// <summary>Message reaction used</summary>
-    [JsonPropertyName("messageReaction")]
-    public string MessageReaction { get; set; }
-}
-
-/// <summary>
-/// ChatMessageWebhookResponseSchema
-/// </summary>
-public class ChatMessageWebhookResponseSchema
-{
-    /// <summary>Message details response</summary>
-    [JsonPropertyName("value")]
-    public List<object> Message { get; set; }
-}
-
-/// <summary>
 /// DynamicWebhookTriggerRequestSchema
 /// </summary>
 [DynamicSchema("GetWebhookTriggerRequestSchema")]
 public class DynamicWebhookTriggerRequestSchema
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicKeywordWebhookTriggerResponseSchema
-/// </summary>
-[DynamicSchema("GetWebhookTriggerResponseSchema")]
-public class DynamicKeywordWebhookTriggerResponseSchema
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicAtMentionWebhookTriggerResponseSchema
-/// </summary>
-[DynamicSchema("GetWebhookTriggerResponseSchema")]
-public class DynamicAtMentionWebhookTriggerResponseSchema
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicNewMessageWebhookTriggerResponseSchema
-/// </summary>
-[DynamicSchema("GetWebhookTriggerResponseSchema")]
-public class DynamicNewMessageWebhookTriggerResponseSchema
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicPostToConversationResponse
-/// </summary>
-[DynamicSchema("GetPostToConversationResponseSchema")]
-public class DynamicPostToConversationResponse
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// MessageId
-/// </summary>
-public class MessageId
-{
-    /// <summary>Unique message identifier</summary>
-    [JsonPropertyName("id")]
-    public string MessageID { get; set; }
-}
-
-/// <summary>
-/// DynamicUserFlowContinuationSubscriptionResult
-/// </summary>
-[DynamicSchema("GetFlowContinuationSubscriptionOutputMetadata")]
-public class DynamicUserFlowContinuationSubscriptionResult
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicChannelFlowContinuationSubscriptionResult
-/// </summary>
-[DynamicSchema("GetFlowContinuationSubscriptionOutputMetadata")]
-public class DynamicChannelFlowContinuationSubscriptionResult
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// DynamicGatherInputSubscriptionResult
-/// </summary>
-[DynamicSchema("GetFlowContinuationSubscriptionWithPosterOutputMetadata")]
-public class DynamicGatherInputSubscriptionResult
 {
     /// <summary>
     /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -1482,600 +1166,6 @@ public class ChatMessage
     /// <summary>Summary text of the message that could be used for push notifications and summary views or fall back views</summary>
     [JsonPropertyName("summary")]
     public string Summary { get; set; }
-}
-
-/// <summary>
-/// WebhookRequest
-/// </summary>
-public class WebhookRequest
-{
-    /// <summary>Specify a well-formed URL of the endpoint that will receive notifications</summary>
-    [JsonPropertyName("notificationUrl")]
-    public string NotificationUrl { get; set; }
-}
-
-/// <summary>
-/// GetTimeOffReasonsResponse
-/// </summary>
-public class GetTimeOffReasonsResponse
-{
-    /// <summary>@odata.context</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
-
-    /// <summary>The list of time off reasons.</summary>
-    [JsonPropertyName("value")]
-    public List<object> ArrayContainingTimeOffReasons { get; set; }
-}
-
-/// <summary>
-/// TimeOffRequestResponse
-/// </summary>
-public class TimeOffRequestResponse
-{
-    /// <summary>The unique ID of the TimeOff request.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? ModifiedTime { get; set; }
-
-    /// <summary>The person the request is assigned to: &apos;manager&apos; or &apos;recipient&apos;</summary>
-    [JsonPropertyName("assignedTo")]
-    public string AssignedTo { get; set; }
-
-    /// <summary>&apos;approved&apos;, &apos;pending&apos; or &apos;declined&apos;</summary>
-    [JsonPropertyName("state")]
-    public string State { get; set; }
-
-    /// <summary>Time when the request was sent</summary>
-    [JsonPropertyName("senderDateTime")]
-    public DateTime? SenderTime { get; set; }
-
-    /// <summary>The message from the request sender</summary>
-    [JsonPropertyName("senderMessage")]
-    public string SenderMessage { get; set; }
-
-    /// <summary>The ID of the user that sent the request</summary>
-    [JsonPropertyName("senderUserId")]
-    public string SenderID { get; set; }
-
-    /// <summary>Time when the manager responded</summary>
-    [JsonPropertyName("managerActionDateTime")]
-    public DateTime? ManagerActionTime { get; set; }
-
-    /// <summary>The message from the manager</summary>
-    [JsonPropertyName("managerActionMessage")]
-    public string ManagerMessage { get; set; }
-
-    /// <summary>The ID of the manager that responded</summary>
-    [JsonPropertyName("managerUserId")]
-    public string ManagerID { get; set; }
-
-    /// <summary>Start of time requested off</summary>
-    [JsonPropertyName("startDateTime")]
-    public DateTime? FromStartTime { get; set; }
-
-    /// <summary>End of time requested off</summary>
-    [JsonPropertyName("endDateTime")]
-    public DateTime? ToEndTime { get; set; }
-
-    /// <summary>The ID of the TimeOff Reason</summary>
-    [JsonPropertyName("timeOffReasonId")]
-    public string TimeOffReasonID { get; set; }
-}
-
-/// <summary>
-/// OfferShiftRequestResponse
-/// </summary>
-public class OfferShiftRequestResponse
-{
-    /// <summary>The unique ID of the Offer Shift request.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? ModifiedTime { get; set; }
-
-    /// <summary>The person the request is assigned to: &apos;manager&apos; or &apos;recipient&apos;</summary>
-    [JsonPropertyName("assignedTo")]
-    public string AssignedTo { get; set; }
-
-    /// <summary>&apos;approved&apos;, &apos;pending&apos; or &apos;declined&apos;</summary>
-    [JsonPropertyName("state")]
-    public string State { get; set; }
-
-    /// <summary>Time when the request was sent</summary>
-    [JsonPropertyName("senderDateTime")]
-    public DateTime? SenderTime { get; set; }
-
-    /// <summary>The message from the request sender</summary>
-    [JsonPropertyName("senderMessage")]
-    public string SenderMessage { get; set; }
-
-    /// <summary>The ID of the user that sent the request</summary>
-    [JsonPropertyName("senderUserId")]
-    public string SenderID { get; set; }
-
-    /// <summary>The ID of the shift from the sender</summary>
-    [JsonPropertyName("senderShiftId")]
-    public string SenderShiftID { get; set; }
-
-    /// <summary>Time when the recipient responded</summary>
-    [JsonPropertyName("recipientActionDateTime")]
-    public DateTime? ReceiverTime { get; set; }
-
-    /// <summary>The message from the recipient</summary>
-    [JsonPropertyName("recipientActionMessage")]
-    public string RecipientMessage { get; set; }
-
-    /// <summary>The ID of the recipient of the request</summary>
-    [JsonPropertyName("recipientUserId")]
-    public string RecipientID { get; set; }
-
-    /// <summary>Time when the manager responded</summary>
-    [JsonPropertyName("managerActionDateTime")]
-    public DateTime? ManagerActionTime { get; set; }
-
-    /// <summary>The message from the manager</summary>
-    [JsonPropertyName("managerActionMessage")]
-    public string ManagerMessage { get; set; }
-
-    /// <summary>The ID of the manager that responded</summary>
-    [JsonPropertyName("managerUserId")]
-    public string ManagerID { get; set; }
-}
-
-/// <summary>
-/// SwapShiftsChangeRequestResponse
-/// </summary>
-public class SwapShiftsChangeRequestResponse
-{
-    /// <summary>The unique ID of the Swap Shift request.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? ModifiedTime { get; set; }
-
-    /// <summary>The person the request is assigned to: &apos;manager&apos; or &apos;recipient&apos;</summary>
-    [JsonPropertyName("assignedTo")]
-    public string AssignedTo { get; set; }
-
-    /// <summary>&apos;approved&apos;, &apos;pending&apos; or &apos;declined&apos;</summary>
-    [JsonPropertyName("state")]
-    public string State { get; set; }
-
-    /// <summary>Time when the request was sent</summary>
-    [JsonPropertyName("senderDateTime")]
-    public DateTime? SenderTime { get; set; }
-
-    /// <summary>The message from the request sender</summary>
-    [JsonPropertyName("senderMessage")]
-    public string SenderMessage { get; set; }
-
-    /// <summary>The ID of the user that sent the request</summary>
-    [JsonPropertyName("senderUserId")]
-    public string SenderID { get; set; }
-
-    /// <summary>The ID of the shift from the sender</summary>
-    [JsonPropertyName("senderShiftId")]
-    public string SenderShiftID { get; set; }
-
-    /// <summary>Time when the recipient responded</summary>
-    [JsonPropertyName("recipientActionDateTime")]
-    public DateTime? ReceiverTime { get; set; }
-
-    /// <summary>The message from the recipient</summary>
-    [JsonPropertyName("recipientActionMessage")]
-    public string RecipientMessage { get; set; }
-
-    /// <summary>The ID of the recipient of the request</summary>
-    [JsonPropertyName("recipientUserId")]
-    public string RecipientID { get; set; }
-
-    /// <summary>The ID of the shift from the recipient</summary>
-    [JsonPropertyName("recipientShiftId")]
-    public string RecipientShiftID { get; set; }
-
-    /// <summary>Time when the manager responded</summary>
-    [JsonPropertyName("managerActionDateTime")]
-    public DateTime? ManagerActionTime { get; set; }
-
-    /// <summary>The message from the manager</summary>
-    [JsonPropertyName("managerActionMessage")]
-    public string ManagerMessage { get; set; }
-
-    /// <summary>The ID of the manager that responded</summary>
-    [JsonPropertyName("managerUserId")]
-    public string ManagerID { get; set; }
-}
-
-/// <summary>
-/// OpenShiftChangeRequestResponse
-/// </summary>
-public class OpenShiftChangeRequestResponse
-{
-    /// <summary>The unique ID of the Open Shift Change request.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? ModifiedTime { get; set; }
-
-    /// <summary>The person the request is assigned to: &apos;manager&apos; or &apos;recipient&apos;</summary>
-    [JsonPropertyName("assignedTo")]
-    public string AssignedTo { get; set; }
-
-    /// <summary>&apos;approved&apos;, &apos;pending&apos; or &apos;declined&apos;</summary>
-    [JsonPropertyName("state")]
-    public string State { get; set; }
-
-    /// <summary>Time when the request was sent</summary>
-    [JsonPropertyName("senderDateTime")]
-    public DateTime? SenderTime { get; set; }
-
-    /// <summary>The message from the request sender</summary>
-    [JsonPropertyName("senderMessage")]
-    public string SenderMessage { get; set; }
-
-    /// <summary>The ID of the user that sent the request</summary>
-    [JsonPropertyName("senderUserId")]
-    public string SenderID { get; set; }
-
-    /// <summary>Time when the manager responded</summary>
-    [JsonPropertyName("managerActionDateTime")]
-    public DateTime? ManagerActionTime { get; set; }
-
-    /// <summary>The message from the manager</summary>
-    [JsonPropertyName("managerActionMessage")]
-    public string ManagerMessage { get; set; }
-
-    /// <summary>The ID of the manager that responded</summary>
-    [JsonPropertyName("managerUserId")]
-    public string ManagerID { get; set; }
-
-    /// <summary>The ID of the open shift being requested</summary>
-    [JsonPropertyName("openShiftId")]
-    public string OpenShiftID { get; set; }
-}
-
-/// <summary>
-/// EditOpenShiftRequest
-/// </summary>
-public class EditOpenShiftRequest
-{
-    /// <summary>Scheduling Group ID</summary>
-    [JsonPropertyName("schedulingGroupId")]
-    public string SchedulingGroupID { get; set; }
-
-    /// <summary>sharedOpenShift</summary>
-    [JsonPropertyName("sharedOpenShift")]
-    public object SharedOpenShift { get; set; }
-}
-
-/// <summary>
-/// OpenShiftResponse
-/// </summary>
-public class OpenShiftResponse
-{
-    /// <summary>The unique ID of the open shift.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedDateTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? ModifiedDateTime { get; set; }
-
-    /// <summary>Scheduling Group ID</summary>
-    [JsonPropertyName("schedulingGroupId")]
-    public string SchedulingGroupID { get; set; }
-
-    /// <summary>lastModifiedBy</summary>
-    [JsonPropertyName("lastModifiedBy")]
-    public LastModifiedBy LastModifiedBy { get; set; }
-
-    /// <summary>sharedOpenShift</summary>
-    [JsonPropertyName("sharedOpenShift")]
-    public SharedOpenShift SharedOpenShift { get; set; }
-
-    /// <summary>draftOpenShift</summary>
-    [JsonPropertyName("draftOpenShift")]
-    public DraftOpenShift DraftOpenShift { get; set; }
-}
-
-/// <summary>
-/// lastModifiedBy
-/// </summary>
-public class LastModifiedBy
-{
-    /// <summary>Application</summary>
-    [JsonPropertyName("application")]
-    public string Application { get; set; }
-
-    /// <summary>Device</summary>
-    [JsonPropertyName("device")]
-    public string Device { get; set; }
-
-    /// <summary>Conversation</summary>
-    [JsonPropertyName("conversation")]
-    public string Conversation { get; set; }
-
-    /// <summary>User</summary>
-    [JsonPropertyName("user")]
-    public object User { get; set; }
-}
-
-/// <summary>
-/// sharedOpenShift
-/// </summary>
-public class SharedOpenShift
-{
-    /// <summary>Display Name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Notes</summary>
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("startDateTime")]
-    public DateTime? FromStartTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("endDateTime")]
-    public DateTime? ToEndTime { get; set; }
-
-    /// <summary>Theme</summary>
-    [JsonPropertyName("theme")]
-    public string Theme { get; set; }
-
-    /// <summary>Open Slot Count</summary>
-    [JsonPropertyName("openSlotCount")]
-    public int? OpenSlotCount { get; set; }
-
-    /// <summary>activities</summary>
-    [JsonPropertyName("activities")]
-    public List<object> Activities { get; set; }
-}
-
-/// <summary>
-/// draftOpenShift
-/// </summary>
-public class DraftOpenShift
-{
-    /// <summary>Display Name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Notes</summary>
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("startDateTime")]
-    public DateTime? FromStartTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("endDateTime")]
-    public DateTime? ToEndTime { get; set; }
-
-    /// <summary>Theme</summary>
-    [JsonPropertyName("theme")]
-    public string Theme { get; set; }
-
-    /// <summary>Open Slot Count</summary>
-    [JsonPropertyName("openSlotCount")]
-    public int? OpenSlotCount { get; set; }
-
-    /// <summary>activities</summary>
-    [JsonPropertyName("activities")]
-    public List<object> Activities { get; set; }
-}
-
-/// <summary>
-/// ShiftResponse
-/// </summary>
-public class ShiftResponse
-{
-    /// <summary>The unique ID of the shift.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedDateTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? ModifiedDateTime { get; set; }
-
-    /// <summary>Assigned To User ID</summary>
-    [JsonPropertyName("userId")]
-    public string AssignedToUserID { get; set; }
-
-    /// <summary>Scheduling Group ID</summary>
-    [JsonPropertyName("schedulingGroupId")]
-    public string SchedulingGroupID { get; set; }
-
-    /// <summary>lastModifiedBy</summary>
-    [JsonPropertyName("lastModifiedBy")]
-    public LastModifiedBy LastModifiedBy { get; set; }
-
-    /// <summary>sharedShift</summary>
-    [JsonPropertyName("sharedShift")]
-    public SharedShift SharedShift { get; set; }
-
-    /// <summary>draftShift</summary>
-    [JsonPropertyName("draftShift")]
-    public DraftShift DraftShift { get; set; }
-}
-
-/// <summary>
-/// sharedShift
-/// </summary>
-public class SharedShift
-{
-    /// <summary>Display Name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Notes</summary>
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("startDateTime")]
-    public DateTime? FromStartTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("endDateTime")]
-    public DateTime? ToEndTime { get; set; }
-
-    /// <summary>Theme</summary>
-    [JsonPropertyName("theme")]
-    public string Theme { get; set; }
-
-    /// <summary>activities</summary>
-    [JsonPropertyName("activities")]
-    public List<object> Activities { get; set; }
-}
-
-/// <summary>
-/// draftShift
-/// </summary>
-public class DraftShift
-{
-    /// <summary>Display Name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Notes</summary>
-    [JsonPropertyName("notes")]
-    public string Notes { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("startDateTime")]
-    public DateTime? FromStartTime { get; set; }
-
-    /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
-    [JsonPropertyName("endDateTime")]
-    public DateTime? ToEndTime { get; set; }
-
-    /// <summary>Theme</summary>
-    [JsonPropertyName("theme")]
-    public string Theme { get; set; }
-
-    /// <summary>activities</summary>
-    [JsonPropertyName("activities")]
-    public List<object> Activities { get; set; }
-}
-
-/// <summary>
-/// ScheduleResponse
-/// </summary>
-public class ScheduleResponse
-{
-    /// <summary>The unique ID of the schedule.</summary>
-    [JsonPropertyName("id")]
-    public string ScheduleID { get; set; }
-
-    /// <summary>The Time Zone of the schedule.</summary>
-    [JsonPropertyName("timeZone")]
-    public string ScheduleTimeZone { get; set; }
-
-    /// <summary>The Provision Status of the schedule.</summary>
-    [JsonPropertyName("provisionStatus")]
-    public string ScheduleProvisionStatus { get; set; }
-
-    /// <summary>The Provision Status Code of the schedule.</summary>
-    [JsonPropertyName("provisionStatusCode")]
-    public string ScheduleProvisionStatusCode { get; set; }
-}
-
-/// <summary>
-/// SchedulingGroupResponse
-/// </summary>
-public class SchedulingGroupResponse
-{
-    /// <summary>The unique ID of the scheduling group.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>The display name for the scheduling group.</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Indicates whether the scheduling group can be used when creating new entities or updating existing ones.</summary>
-    [JsonPropertyName("isActive")]
-    public bool? IsActive { get; set; }
-
-    /// <summary>List of IDs of users in the scheduling group.</summary>
-    [JsonPropertyName("userIds")]
-    public List<string> UserIDs { get; set; }
-}
-
-/// <summary>
-/// BotMentionRequest
-/// </summary>
-public class BotMentionRequest
-{
-    /// <summary>The bot&apos;s unique identifier (GUID)</summary>
-    [JsonPropertyName("botId")]
-    public string BotID { get; set; }
-
-    /// <summary>The bot&apos;s app identifier (GUID)</summary>
-    [JsonPropertyName("appId")]
-    public string AppID { get; set; }
-
-    /// <summary>The bot&apos;s display name</summary>
-    [JsonPropertyName("name")]
-    public string BotName { get; set; }
-}
-
-/// <summary>
-/// AtMentionBotResponse
-/// </summary>
-public class AtMentionBotResponse
-{
-    /// <summary>An @mention token for the bot. This property can be inserted into messages and adaptive cards</summary>
-    [JsonPropertyName("atMention")]
-    public string Mention { get; set; }
-}
-
-/// <summary>
-/// ChannelIds
-/// </summary>
-public class ChannelIds
-{
-    /// <summary>channel</summary>
-    [JsonPropertyName("channel")]
-    public string Channel { get; set; }
 }
 
 /// <summary>
@@ -2166,20 +1256,6 @@ public class NewMeeting
     public string OnlineMeetingProvider { get; set; }
 }
 
-/// <summary>
-/// VirtualAgentBots
-/// </summary>
-public class VirtualAgentBots
-{
-    /// <summary>@odata.context</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
-
-    /// <summary>List of the Microsoft Copilot Studio agents</summary>
-    [JsonPropertyName("value")]
-    public List<object> AListOfTheMicrosoftCopilotStudioAgents { get; set; }
-}
-
 #endregion Types
 
 #region Trigger Payloads
@@ -2206,14 +1282,39 @@ public static class TeamsTriggerOperations
     public const string OnNewChannelMessageMentioningMe = "OnNewChannelMessageMentioningMe";
 
     /// <summary>
+    /// When I&apos;m @mentioned.
+    /// </summary>
+    public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
+
+    /// <summary>
+    /// When someone reacted to a message in chat.
+    /// </summary>
+    public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
+
+    /// <summary>
+    /// When a new chat message is added.
+    /// </summary>
+    public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
+
+    /// <summary>
+    /// When keywords are mentioned.
+    /// </summary>
+    public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
+
+    /// <summary>
+    /// When a new message is added to a chat or channel.
+    /// </summary>
+    public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
+
+    /// <summary>
     /// When a new team member is removed.
     /// </summary>
-    public const string OnGroupMembershipRemoval = "OnGroupMembershipRemoval";
+    public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
 
     /// <summary>
     /// When a new team member is added.
     /// </summary>
-    public const string OnGroupMembershipAdd = "OnGroupMembershipAdd";
+    public const string OnTeamMemberAdded = "OnGroupMembershipAdd";
 
 }
 
@@ -2228,7 +1329,7 @@ public static class TeamsTriggerOperations
 public static class TeamsTriggerParameters
 {
     /// <summary>
-    /// Input parameters for the OnNewChannelMessage trigger operation.
+    /// Input parameters for the OnNewChannelMessage trigger operation (operationId: OnNewChannelMessage).
     /// </summary>
     public static class OnNewChannelMessage
     {
@@ -2241,7 +1342,7 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnNewChannelMessageMentioningMe trigger operation.
+    /// Input parameters for the OnNewChannelMessageMentioningMe trigger operation (operationId: OnNewChannelMessageMentioningMe).
     /// </summary>
     public static class OnNewChannelMessageMentioningMe
     {
@@ -2254,9 +1355,9 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the WebhookMessageReactionTrigger trigger operation.
+    /// Input parameters for the OnWebhookMessageReactionTrigger trigger operation (operationId: WebhookMessageReactionTrigger).
     /// </summary>
-    public static class WebhookMessageReactionTrigger
+    public static class OnWebhookMessageReactionTrigger
     {
         /// <summary>
         /// Choose emoji to monitor for message reactions
@@ -2281,9 +1382,9 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the WebhookKeywordTrigger trigger operation.
+    /// Input parameters for the OnWebhookKeywordTrigger trigger operation (operationId: WebhookKeywordTrigger).
     /// </summary>
-    public static class WebhookKeywordTrigger
+    public static class OnWebhookKeywordTrigger
     {
         /// <summary>
         /// A comma separated list of keywords to search for
@@ -2294,9 +1395,9 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnGroupMembershipRemoval trigger operation.
+    /// Input parameters for the OnTeamMemberRemoved trigger operation (operationId: OnGroupMembershipRemoval).
     /// </summary>
-    public static class OnGroupMembershipRemoval
+    public static class OnTeamMemberRemoved
     {
         /// <summary>
         /// Select team
@@ -2314,9 +1415,9 @@ public static class TeamsTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnGroupMembershipAdd trigger operation.
+    /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
     /// </summary>
-    public static class OnGroupMembershipAdd
+    public static class OnTeamMemberAdded
     {
         /// <summary>
         /// Select team
@@ -2983,10 +2084,10 @@ public class TeamsClient : IDisposable
     /// <param name="user">User</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get an @mention token for a user response.</returns>
-    public async Task<AtMentionUserV1> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
+    public async Task<AtMentionUser> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
-        return await this.CallConnectorAsync<AtMentionUserV1>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this.CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>

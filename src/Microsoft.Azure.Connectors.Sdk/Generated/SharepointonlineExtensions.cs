@@ -686,44 +686,6 @@ public class CreateAgreementsSolutionDocumentInput
 }
 
 /// <summary>
-/// ApplicationPermissionIdentity
-/// </summary>
-public class ApplicationPermissionIdentity
-{
-    /// <summary>Application display name</summary>
-    [JsonPropertyName("displayName")]
-    public string PermissionGrantedToApplicationDisplayName { get; set; }
-}
-
-/// <summary>
-/// BlobDataSetsMetadata
-/// </summary>
-public class BlobDataSetsMetadata
-{
-    /// <summary>Blob dataset source</summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; }
-
-    /// <summary>Blob dataset display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Blob dataset url encoding</summary>
-    [JsonPropertyName("urlEncoding")]
-    public string UrlEncoding { get; set; }
-}
-
-/// <summary>
-/// BlobMetadataPage
-/// </summary>
-public class BlobMetadataPage
-{
-    /// <summary>Blob metadata collection.</summary>
-    [JsonPropertyName("value")]
-    public List<BlobMetadata> Value { get; set; }
-}
-
-/// <summary>
 /// CopyFileParameters
 /// </summary>
 public class CopyFileParameters
@@ -795,46 +757,6 @@ public class CreateNewFolderParameters
 }
 
 /// <summary>
-/// DataSetsMetadata
-/// </summary>
-public class DataSetsMetadata
-{
-    /// <summary>tabular</summary>
-    [JsonPropertyName("tabular")]
-    public TabularDataSetsMetadata Tabular { get; set; }
-
-    /// <summary>blob</summary>
-    [JsonPropertyName("blob")]
-    public BlobDataSetsMetadata Blob { get; set; }
-}
-
-/// <summary>
-/// tabular
-/// </summary>
-public class TabularDataSetsMetadata
-{
-    /// <summary>Dataset source</summary>
-    [JsonPropertyName("source")]
-    public string Source { get; set; }
-
-    /// <summary>Dataset display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
-
-    /// <summary>Dataset url encoding</summary>
-    [JsonPropertyName("urlEncoding")]
-    public string UrlEncoding { get; set; }
-
-    /// <summary>Table display name</summary>
-    [JsonPropertyName("tableDisplayName")]
-    public string TableDisplayName { get; set; }
-
-    /// <summary>Table plural display name</summary>
-    [JsonPropertyName("tablePluralName")]
-    public string TablePluralName { get; set; }
-}
-
-/// <summary>
 /// FileCheckInParameters
 /// </summary>
 public class FileCheckInParameters
@@ -846,34 +768,6 @@ public class FileCheckInParameters
     /// <summary>Select the type of version you would like to check in</summary>
     [JsonPropertyName("checkinType")]
     public int? CheckInType { get; set; }
-}
-
-/// <summary>
-/// GroupPermissionIdentity
-/// </summary>
-public class GroupPermissionIdentity
-{
-    /// <summary>Group display name</summary>
-    [JsonPropertyName("displayName")]
-    public string PermissionGrantedToGroupDisplayName { get; set; }
-}
-
-/// <summary>
-/// HubSiteJoinApprovalOutput
-/// </summary>
-public class HubSiteJoinApprovalOutput
-{
-    /// <summary>Requesting Site Url</summary>
-    public string RequestingSiteUrl { get; set; }
-
-    /// <summary>Requesting Site Id</summary>
-    public string RequestingSiteId { get; set; }
-
-    /// <summary>Requesting Site Title</summary>
-    public string RequestingSiteTitle { get; set; }
-
-    /// <summary>Approval Correlation Id</summary>
-    public string ApprovalCorrelationId { get; set; }
 }
 
 /// <summary>
@@ -899,42 +793,6 @@ public class ItemGrantAccessBody
 }
 
 /// <summary>
-/// ItemPermissionAddBody
-/// </summary>
-public class ItemPermissionAddBody
-{
-    /// <summary>A collection of recipients who will receive access and the sharing invitation.</summary>
-    [JsonPropertyName("recipients")]
-    public List<ItemPermissionRecipient> Recipients { get; set; }
-
-    /// <summary>Specify the roles that are be granted to the recipients of the sharing invitation.</summary>
-    [JsonPropertyName("roles")]
-    public List<string> Roles { get; set; }
-
-    /// <summary>Specifies where the recipient of the invitation is required to sign-in to view the shared item.</summary>
-    [JsonPropertyName("requireSignIn")]
-    public bool? RequireSignIn { get; set; }
-
-    /// <summary>Specifies if an email or post is generated (true) or if the permission is just created (false).</summary>
-    [JsonPropertyName("sendInvitation")]
-    public bool? SendInvitation { get; set; }
-
-    /// <summary>A plain text formatted message that is included in the sharing invitation. Maximum length 2000 characters.</summary>
-    [JsonPropertyName("message")]
-    public string Message { get; set; }
-}
-
-/// <summary>
-/// Item in A collection of recipients who will receive access and the sharing invitation.
-/// </summary>
-public class ItemPermissionRecipient
-{
-    /// <summary>The email address for the recipient, if the recipient has an associated email address.</summary>
-    [JsonPropertyName("email")]
-    public string Email { get; set; }
-}
-
-/// <summary>
 /// ItemPermissionCreateLinkBody
 /// </summary>
 public class ItemPermissionCreateLinkBody
@@ -950,68 +808,6 @@ public class ItemPermissionCreateLinkBody
     /// <summary>The date after which the link will expire in yyyy-MM-dd format. Only applicable for anonymous links.</summary>
     [JsonPropertyName("expirationDateTime")]
     public DateTime? LinkExpiration { get; set; }
-}
-
-/// <summary>
-/// ItemPermissionUpdateBody
-/// </summary>
-public class ItemPermissionUpdateBody
-{
-    /// <summary>Specify updated roles for this permission.</summary>
-    [JsonPropertyName("roles")]
-    public List<string> Roles { get; set; }
-}
-
-/// <summary>
-/// ItemReference
-/// </summary>
-public class ItemReference
-{
-    /// <summary>The name of the parent item</summary>
-    [JsonPropertyName("name")]
-    public string InheritedFromItemName { get; set; }
-
-    /// <summary>Path that can be used to navigate to the parent item</summary>
-    [JsonPropertyName("path")]
-    public string InheritedFromItemPath { get; set; }
-
-    /// <summary>sharepointIds</summary>
-    [JsonPropertyName("sharepointIds")]
-    public SharePointIds SharepointIds { get; set; }
-}
-
-/// <summary>
-/// sharepointIds
-/// </summary>
-public class SharePointIds
-{
-    /// <summary>The unique identifier (guid) for the item&apos;s list in SharePoint</summary>
-    [JsonPropertyName("listId")]
-    public string InheritedFromListId { get; set; }
-
-    /// <summary>An integer identifier for the item within the containing list</summary>
-    [JsonPropertyName("listItemId")]
-    public string InheritedFromItemId { get; set; }
-
-    /// <summary>The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site</summary>
-    [JsonPropertyName("listItemUniqueId")]
-    public string InheritedFromItemUniqueId { get; set; }
-
-    /// <summary>The unique identifier (guid) for the item&apos;s site collection (SPSite)</summary>
-    [JsonPropertyName("siteId")]
-    public string InheritedFromSiteId { get; set; }
-
-    /// <summary>The SharePoint URL for the site that contains the item</summary>
-    [JsonPropertyName("siteUrl")]
-    public string InheritedFromSiteUrl { get; set; }
-
-    /// <summary>The unique identifier (guid) for the tenancy</summary>
-    [JsonPropertyName("tenantId")]
-    public string InheritedFromTenantId { get; set; }
-
-    /// <summary>The unique identifier (guid) for the item&apos;s site (SPWeb)</summary>
-    [JsonPropertyName("webId")]
-    public string InheritedFromWebId { get; set; }
 }
 
 /// <summary>
@@ -1073,141 +869,6 @@ public class PatchFileItemWithPredictedValuesParameters
 }
 
 /// <summary>
-/// Permission
-/// </summary>
-public class Permission
-{
-    /// <summary>Permission id</summary>
-    [JsonPropertyName("id")]
-    public string PermissionId { get; set; }
-
-    /// <summary>grantedTo</summary>
-    [JsonPropertyName("grantedTo")]
-    public PermissionIdentitySet GrantedTo { get; set; }
-
-    /// <summary>For link type permissions, the details of the users to whom permission was granted</summary>
-    [JsonPropertyName("grantedToIdentities")]
-    public List<SharingLinkPermissionIdentitySet> SharingLinkGrantedTo { get; set; }
-
-    /// <summary>invitation</summary>
-    [JsonPropertyName("invitation")]
-    public SharingInvitation Invitation { get; set; }
-
-    /// <summary>inheritedFrom</summary>
-    [JsonPropertyName("inheritedFrom")]
-    public ItemReference InheritedFrom { get; set; }
-
-    /// <summary>link</summary>
-    [JsonPropertyName("link")]
-    public SharingLink Link { get; set; }
-
-    /// <summary>The type of permission - read, write, owner, member</summary>
-    [JsonPropertyName("roles")]
-    public List<string> PermissionRoles { get; set; }
-}
-
-/// <summary>
-/// grantedTo
-/// </summary>
-public class PermissionIdentitySet
-{
-    /// <summary>application</summary>
-    [JsonPropertyName("application")]
-    public ApplicationPermissionIdentity Application { get; set; }
-
-    /// <summary>group</summary>
-    [JsonPropertyName("group")]
-    public GroupPermissionIdentity Group { get; set; }
-
-    /// <summary>user</summary>
-    [JsonPropertyName("user")]
-    public UserPermissionIdentity User { get; set; }
-}
-
-/// <summary>
-/// user
-/// </summary>
-public class UserPermissionIdentity
-{
-    /// <summary>User display name</summary>
-    [JsonPropertyName("displayName")]
-    public string PermissionGrantedToUserDisplayName { get; set; }
-
-    /// <summary>User email</summary>
-    [JsonPropertyName("email")]
-    public string PermissionGrantedToUserEmail { get; set; }
-}
-
-/// <summary>
-/// Item in For link type permissions, the details of the users to whom permission was granted
-/// </summary>
-public class SharingLinkPermissionIdentitySet
-{
-    /// <summary>user</summary>
-    [JsonPropertyName("user")]
-    public SharingLinkUserPermissionIdentity User { get; set; }
-}
-
-/// <summary>
-/// user
-/// </summary>
-public class SharingLinkUserPermissionIdentity
-{
-    /// <summary>User display name</summary>
-    [JsonPropertyName("displayName")]
-    public string UserDisplayName { get; set; }
-
-    /// <summary>User email</summary>
-    [JsonPropertyName("email")]
-    public string UserEmail { get; set; }
-}
-
-/// <summary>
-/// invitation
-/// </summary>
-public class SharingInvitation
-{
-    /// <summary>The email address provided for the recipient of the sharing invitation</summary>
-    [JsonPropertyName("email")]
-    public string SharingInvitationEmail { get; set; }
-
-    /// <summary>If true the recipient of the invitation needs to sign in in order to access the shared item</summary>
-    [JsonPropertyName("signInRequired")]
-    public bool? SharingInvitationSignInRequired { get; set; }
-}
-
-/// <summary>
-/// PermissionsList
-/// </summary>
-public class PermissionsList
-{
-    /// <summary>List of Permissions</summary>
-    [JsonPropertyName("value")]
-    public List<Permission> Value { get; set; }
-}
-
-/// <summary>
-/// Procedure
-/// </summary>
-public class Procedure
-{
-    /// <summary>Procedure name</summary>
-    public string Name { get; set; }
-
-    /// <summary>Procedure display name</summary>
-    public string DisplayName { get; set; }
-}
-
-/// <summary>
-/// PublishedResult
-/// </summary>
-public class PublishedResult
-{
-    /// <summary>A boolean value (true, false) to indicate whether the scheduled version of the file has been published</summary>
-    public bool? IsFilePublished { get; set; }
-}
-
-/// <summary>
 /// SharePointHttpRequestBodyParameters
 /// </summary>
 public class SharePointHttpRequestBodyParameters
@@ -1229,100 +890,71 @@ public class SharePointHttpRequestBodyParameters
     public string Body { get; set; }
 }
 
-/// <summary>
-/// SPContentType
-/// </summary>
-public class SPContentType
-{
-    /// <summary>Content type Id</summary>
-    public string Id { get; set; }
-
-    /// <summary>Content type name</summary>
-    public string Name { get; set; }
-}
-
-/// <summary>
-/// SPForASelectedFileResponse
-/// </summary>
-public class SPForASelectedFileResponse
-{
-    /// <summary>File Identifier</summary>
-    public long? ID { get; set; }
-
-    /// <summary>File Url</summary>
-    [JsonPropertyName("itemUrl")]
-    public string ItemUrl { get; set; }
-
-    /// <summary>File Name</summary>
-    [JsonPropertyName("fileName")]
-    public string FileName { get; set; }
-}
-
 #endregion Types
 
 #region Trigger Payloads
 
 /// <summary>
-/// Typed trigger payload for the GetOnChangedItems trigger (Sharepointonline "When an item or a file is modified").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnChangedItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnChangedItems trigger (Sharepointonline "When an item or a file is modified", operationId: GetOnChangedItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnChangedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnDeletedFileItems trigger (Sharepointonline "When a file is deleted").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnDeletedFileItems trigger (Sharepointonline "When a file is deleted", operationId: GetOnDeletedFileItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
+public class SharepointonlineOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnDeletedItems trigger (Sharepointonline "When an item is deleted").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnDeletedItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnDeletedItems trigger (Sharepointonline "When an item is deleted", operationId: GetOnDeletedItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
+public class SharepointonlineOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnNewFileItems trigger (Sharepointonline "When a file is created (properties only)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnNewFileItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnNewFileItems trigger (Sharepointonline "When a file is created (properties only)", operationId: GetOnNewFileItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnNewItems trigger (Sharepointonline "When an item is created").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnNewItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnNewItems trigger (Sharepointonline "When an item is created", operationId: GetOnNewItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnUpdatedFileClassifiedTimes trigger (Sharepointonline "When a file is classified by a Microsoft Syntex model").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnUpdatedFileClassifiedTimes trigger (Sharepointonline "When a file is classified by a Microsoft Syntex model", operationId: GetOnUpdatedFileClassifiedTimes).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnUpdatedFileItems trigger (Sharepointonline "When a file is created or modified (properties only)").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnUpdatedFileItems trigger (Sharepointonline "When a file is created or modified (properties only)", operationId: GetOnUpdatedFileItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
 /// <summary>
-/// Typed trigger payload for the GetOnUpdatedItems trigger (Sharepointonline "When an item is created or modified").
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineGetOnUpdatedItemsTriggerPayload&gt;(body)</c>.
+/// Typed trigger payload for the OnUpdatedItems trigger (Sharepointonline "When an item is created or modified", operationId: GetOnUpdatedItems).
+/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
-public class SharepointonlineGetOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
+public class SharepointonlineOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
 }
 
@@ -1338,14 +970,14 @@ public static class SharepointonlineTriggers
     public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
         new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
         {
-            ["GetOnChangedItems"] = typeof(SharepointonlineGetOnChangedItemsTriggerPayload),
-            ["GetOnDeletedFileItems"] = typeof(SharepointonlineGetOnDeletedFileItemsTriggerPayload),
-            ["GetOnDeletedItems"] = typeof(SharepointonlineGetOnDeletedItemsTriggerPayload),
-            ["GetOnNewFileItems"] = typeof(SharepointonlineGetOnNewFileItemsTriggerPayload),
-            ["GetOnNewItems"] = typeof(SharepointonlineGetOnNewItemsTriggerPayload),
-            ["GetOnUpdatedFileClassifiedTimes"] = typeof(SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload),
-            ["GetOnUpdatedFileItems"] = typeof(SharepointonlineGetOnUpdatedFileItemsTriggerPayload),
-            ["GetOnUpdatedItems"] = typeof(SharepointonlineGetOnUpdatedItemsTriggerPayload),
+            ["GetOnChangedItems"] = typeof(SharepointonlineOnChangedItemsTriggerPayload),
+            ["GetOnDeletedFileItems"] = typeof(SharepointonlineOnDeletedFileItemsTriggerPayload),
+            ["GetOnDeletedItems"] = typeof(SharepointonlineOnDeletedItemsTriggerPayload),
+            ["GetOnNewFileItems"] = typeof(SharepointonlineOnNewFileItemsTriggerPayload),
+            ["GetOnNewItems"] = typeof(SharepointonlineOnNewItemsTriggerPayload),
+            ["GetOnUpdatedFileClassifiedTimes"] = typeof(SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload),
+            ["GetOnUpdatedFileItems"] = typeof(SharepointonlineOnUpdatedFileItemsTriggerPayload),
+            ["GetOnUpdatedItems"] = typeof(SharepointonlineOnUpdatedItemsTriggerPayload),
         });
 }
 
@@ -1362,51 +994,51 @@ public static class SharepointonlineTriggerOperations
 {
     /// <summary>
     /// When an item or a file is modified.
-    /// Payload type: <see cref="SharepointonlineGetOnChangedItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnChangedItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnChangedItems = "GetOnChangedItems";
+    public const string OnChangedItems = "GetOnChangedItems";
 
     /// <summary>
     /// When a file is deleted.
-    /// Payload type: <see cref="SharepointonlineGetOnDeletedFileItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnDeletedFileItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnDeletedFileItems = "GetOnDeletedFileItems";
+    public const string OnDeletedFileItems = "GetOnDeletedFileItems";
 
     /// <summary>
     /// When an item is deleted.
-    /// Payload type: <see cref="SharepointonlineGetOnDeletedItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnDeletedItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnDeletedItems = "GetOnDeletedItems";
+    public const string OnDeletedItems = "GetOnDeletedItems";
 
     /// <summary>
     /// When a file is created (properties only).
-    /// Payload type: <see cref="SharepointonlineGetOnNewFileItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnNewFileItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnNewFileItems = "GetOnNewFileItems";
+    public const string OnNewFileItems = "GetOnNewFileItems";
 
     /// <summary>
     /// When an item is created.
-    /// Payload type: <see cref="SharepointonlineGetOnNewItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnNewItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnNewItems = "GetOnNewItems";
+    public const string OnNewItems = "GetOnNewItems";
 
     /// <summary>
     /// When a file is classified by a Microsoft Syntex model.
-    /// Payload type: <see cref="SharepointonlineGetOnUpdatedFileClassifiedTimesTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload"/>.
     /// </summary>
-    public const string GetOnUpdatedFileClassifiedTimes = "GetOnUpdatedFileClassifiedTimes";
+    public const string OnUpdatedFileClassifiedTimes = "GetOnUpdatedFileClassifiedTimes";
 
     /// <summary>
     /// When a file is created or modified (properties only).
-    /// Payload type: <see cref="SharepointonlineGetOnUpdatedFileItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnUpdatedFileItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnUpdatedFileItems = "GetOnUpdatedFileItems";
+    public const string OnUpdatedFileItems = "GetOnUpdatedFileItems";
 
     /// <summary>
     /// When an item is created or modified.
-    /// Payload type: <see cref="SharepointonlineGetOnUpdatedItemsTriggerPayload"/>.
+    /// Payload type: <see cref="SharepointonlineOnUpdatedItemsTriggerPayload"/>.
     /// </summary>
-    public const string GetOnUpdatedItems = "GetOnUpdatedItems";
+    public const string OnUpdatedItems = "GetOnUpdatedItems";
 
     /// <summary>
     /// When a file is created in a folder (deprecated).
@@ -1431,9 +1063,9 @@ public static class SharepointonlineTriggerOperations
 public static class SharepointonlineTriggerParameters
 {
     /// <summary>
-    /// Input parameters for the GetOnChangedItems trigger operation.
+    /// Input parameters for the OnChangedItems trigger operation (operationId: GetOnChangedItems).
     /// </summary>
-    public static class GetOnChangedItems
+    public static class OnChangedItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1449,9 +1081,9 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnDeletedFileItems trigger operation.
+    /// Input parameters for the OnDeletedFileItems trigger operation (operationId: GetOnDeletedFileItems).
     /// </summary>
-    public static class GetOnDeletedFileItems
+    public static class OnDeletedFileItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1461,40 +1093,9 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnNewFileItems trigger operation.
+    /// Input parameters for the OnNewFileItems trigger operation (operationId: GetOnNewFileItems).
     /// </summary>
-    public static class GetOnNewFileItems
-    {
-        /// <summary>
-        /// Select a folder, or leave blank for the whole library
-        /// </summary>
-        public const string FolderPath = "folderPath";
-
-        /// <summary>
-        /// Avoid column threshold issues by only using columns defined in a view
-        /// Dynamic values from: GetTableViews.
-        /// </summary>
-        public const string View = "view";
-
-    }
-
-    /// <summary>
-    /// Input parameters for the GetOnNewItems trigger operation.
-    /// </summary>
-    public static class GetOnNewItems
-    {
-        /// <summary>
-        /// Avoid column threshold issues by only using columns defined in a view
-        /// Dynamic values from: GetTableViews.
-        /// </summary>
-        public const string View = "view";
-
-    }
-
-    /// <summary>
-    /// Input parameters for the GetOnUpdatedFileClassifiedTimes trigger operation.
-    /// </summary>
-    public static class GetOnUpdatedFileClassifiedTimes
+    public static class OnNewFileItems
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1510,9 +1111,22 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnUpdatedFileItems trigger operation.
+    /// Input parameters for the OnNewItems trigger operation (operationId: GetOnNewItems).
     /// </summary>
-    public static class GetOnUpdatedFileItems
+    public static class OnNewItems
+    {
+        /// <summary>
+        /// Avoid column threshold issues by only using columns defined in a view
+        /// Dynamic values from: GetTableViews.
+        /// </summary>
+        public const string View = "view";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnUpdatedFileClassifiedTimes trigger operation (operationId: GetOnUpdatedFileClassifiedTimes).
+    /// </summary>
+    public static class OnUpdatedFileClassifiedTimes
     {
         /// <summary>
         /// Select a folder, or leave blank for the whole library
@@ -1528,9 +1142,27 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the GetOnUpdatedItems trigger operation.
+    /// Input parameters for the OnUpdatedFileItems trigger operation (operationId: GetOnUpdatedFileItems).
     /// </summary>
-    public static class GetOnUpdatedItems
+    public static class OnUpdatedFileItems
+    {
+        /// <summary>
+        /// Select a folder, or leave blank for the whole library
+        /// </summary>
+        public const string FolderPath = "folderPath";
+
+        /// <summary>
+        /// Avoid column threshold issues by only using columns defined in a view
+        /// Dynamic values from: GetTableViews.
+        /// </summary>
+        public const string View = "view";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnUpdatedItems trigger operation (operationId: GetOnUpdatedItems).
+    /// </summary>
+    public static class OnUpdatedItems
     {
         /// <summary>
         /// Avoid column threshold issues by only using columns defined in a view
@@ -1541,7 +1173,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnNewFile trigger operation.
+    /// Input parameters for the OnNewFile trigger operation (operationId: OnNewFile).
     /// </summary>
     public static class OnNewFile
     {
@@ -1566,7 +1198,7 @@ public static class SharepointonlineTriggerParameters
     }
 
     /// <summary>
-    /// Input parameters for the OnUpdatedFile trigger operation.
+    /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFile).
     /// </summary>
     public static class OnUpdatedFile
     {
@@ -1925,29 +1557,6 @@ public class SharepointonlineClient : IDisposable
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-    /// <summary>
-    /// Extract folder
-    /// </summary>
-    /// <remarks>Extracts an archive file into a SharePoint folder (example: .zip).</remarks>
-    /// <param name="siteAddress">Site Address</param>
-    /// <param name="sourceFilePath">Source File Path</param>
-    /// <param name="destinationFolderPath">Destination Folder Path</param>
-    /// <param name="overwriteFlag">Overwrite Flag</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Extract folder response.</returns>
-    public async Task<List<BlobMetadata>> ExtractFolderV2Async([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (sourceFilePath != default)
-            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-        if (destinationFolderPath != default)
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-        if (overwriteFlag != default)
-            queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
-        var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -2924,6 +2533,29 @@ public class SharepointonlineClient : IDisposable
     {
         var path = $"/getViewScopeOptions";
         return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>
+    /// Extract folder
+    /// </summary>
+    /// <remarks>Extracts an archive file into a SharePoint folder (example: .zip).</remarks>
+    /// <param name="siteAddress">Site Address</param>
+    /// <param name="sourceFilePath">Source File Path</param>
+    /// <param name="destinationFolderPath">Destination Folder Path</param>
+    /// <param name="overwriteFlag">Overwrite Flag</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Extract folder response.</returns>
+    public async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sourceFilePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+        if (destinationFolderPath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+        if (overwriteFlag != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
+        var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
     public void Dispose()

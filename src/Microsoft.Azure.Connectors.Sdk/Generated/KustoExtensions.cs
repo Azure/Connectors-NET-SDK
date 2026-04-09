@@ -421,7 +421,7 @@ public class KustoClient : IDisposable
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run KQL query response.</returns>
-    public async Task<Table> ListKustoResultsPostAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+    public async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoResults/false";
         return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
@@ -434,7 +434,7 @@ public class KustoClient : IDisposable
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run show control command response.</returns>
-    public async Task<Table> ListKustoShowCommandResultsPostAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
+    public async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoShowCommandResults";
         return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
@@ -447,7 +447,7 @@ public class KustoClient : IDisposable
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Query schema response.</returns>
-    public async Task<ObjectEntity> ListKustoResultsSchemaPostAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+    public async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoResultsSchema";
         return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
@@ -460,7 +460,7 @@ public class KustoClient : IDisposable
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run KQL query and render a chart response.</returns>
-    public async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsPostAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
+    public async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunKustoAndVisualizeResults/false";
         return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
@@ -473,7 +473,7 @@ public class KustoClient : IDisposable
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run control command and render a chart response.</returns>
-    public async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsPostAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
+    public async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunKustoAndVisualizeResults/true";
         return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
