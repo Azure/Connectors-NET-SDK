@@ -104,7 +104,7 @@ var connectionRuntimeUrl = "https://...";
 using var client = new Office365Client(connectionRuntimeUrl);
 
 // Call typed operations
-await client.SendEmailV2Async(new SendEmailV2Input
+await client.SendEmailAsync(new SendEmailInput
 {
     To = "recipient@example.com",
     Subject = "Hello from SDK",
@@ -153,7 +153,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
-| Office365 | ✅ Validated | SendEmailV2, GetOutlookCategoryNames |
+| Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames |
 | SharePoint | ✅ Validated | GetAllTables (list libraries) |
 
 ## Related Projects
