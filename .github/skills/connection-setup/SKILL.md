@@ -200,4 +200,11 @@ az rest --method GET --uri "$runtimeUrl/datasets" --resource "https://apihub.azu
 
 # Teams — list joined teams to verify Teams connection
 az rest --method GET --uri "$runtimeUrl/beta/me/joinedTeams" --resource "https://apihub.azure.com" -o json
+
+# OneDrive for Business — list root folder
+az rest --method GET --uri "$runtimeUrl/datasets/default/folders" --resource "https://apihub.azure.com" -o json
 ```
+
+## Next Steps
+
+- **Triggers:** To register polling triggers (e.g., OnNewEmail, OnNewFile), use the [trigger-registration skill](../trigger-registration/SKILL.md).
