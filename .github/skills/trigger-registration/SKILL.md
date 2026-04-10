@@ -134,7 +134,7 @@ $body = @{
             httpMethod = "Post"
         }
         parameters = @(
-            @{ name = "folderId"; value = $folderId }
+            @{ name = "folderId"; value = "<folder-id-from-step-2>" }
             @{ name = "includeSubfolders"; value = "false" }
         )
     }
@@ -143,8 +143,7 @@ $body = @{
 $uri = "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-03-01-preview"
 $response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
     -ContentType "application/json" `
-    -Headers @{ Authorization = "Bearer $token" } `
-    -UseBasicParsing
+    -Headers @{ Authorization = "Bearer $token" }
 
 Write-Output "Status: $($response.StatusCode)"
 ```
@@ -177,6 +176,8 @@ Upload or create content in the watched location to trigger the callback:
 
 ```powershell
 # Example: upload a file to OneDrive to fire OnNewFileV2
+# Set $baseUrl to your deployed Function App, e.g.:
+# $baseUrl = "https://<function-app-name>.azurewebsites.net/api"
 $uploadBody = '{"folderPath":"/Documents","fileName":"trigger-test.txt","content":"Hello from trigger test"}'
 Invoke-RestMethod -Uri "$baseUrl/onedrive/upload?code=$functionKey" `
     -Method POST -Body $uploadBody -ContentType "application/json"
@@ -260,9 +261,23 @@ if (root.TryGetProperty("body", out var bodyElement) &&
     // NOTE: The base64 string may be wrapped in extra quotes
     // from the Logic Apps expression engine. Strip them.
     var base64Content = bodyElement.GetString()?.Trim('"') ?? string.Empty;
-    var fileBytes = Convert.FromBase64String(base64Content);
 
-    // fileBytes contains the actual file content
+    if (!string.IsNullOrWhiteSpace(base64Content))
+    {
+        var maximumDecodedLength = (base64Content.Length / 4) * 3;
+        var fileBytesBuffer = new byte[maximumDecodedLength];
+
+        if (Convert.TryFromBase64String(base64Content, fileBytesBuffer, out var bytesWritten))
+        {
+            var fileBytes = fileBytesBuffer.AsSpan(0, bytesWritten).ToArray();
+
+            // fileBytes contains the actual file content
+        }
+        else
+        {
+            // Invalid base64 payload — handle gracefully
+        }
+    }
 }
 ```
 

@@ -207,4 +207,4 @@ az rest --method GET --uri "$runtimeUrl/datasets/default/folders" --resource "ht
 
 ## Next Steps
 
-- **Triggers:** To register polling triggers (e.g., OnNewEmail, OnNewFile), use the [trigger-registration skill](.github/skills/trigger-registration/SKILL.md).
+- **Triggers:** To register polling triggers (e.g., OnNewEmail, OnNewFile), use the [trigger-registration skill](../trigger-registration/SKILL.md).
