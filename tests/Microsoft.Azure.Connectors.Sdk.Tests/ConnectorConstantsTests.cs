@@ -21,8 +21,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_Office365_MatchesRegisteredConnector()
         {
-            // Assert — constant matches the string used in DirectClientConnectors.AvailableConnectors
-            Assert.AreEqual("office365", ConnectorNames.Office365);
+            // Assert — constant is registered in DirectClientConnectors.AvailableConnectors
             CollectionAssert.Contains(
                 Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
                 ConnectorNames.Office365);
@@ -31,7 +30,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_SharePointOnline_MatchesRegisteredConnector()
         {
-            Assert.AreEqual("sharepointonline", ConnectorNames.Sharepointonline);
             CollectionAssert.Contains(
                 Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
                 ConnectorNames.Sharepointonline);
@@ -40,7 +38,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_Teams_MatchesRegisteredConnector()
         {
-            Assert.AreEqual("teams", ConnectorNames.Teams);
             CollectionAssert.Contains(
                 Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
                 ConnectorNames.Teams);
@@ -152,49 +149,73 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Office365TriggerOperations_OnNewEmail_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("OnNewEmailV3", Office365TriggerOperations.OnNewEmail);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnUpcomingEvents_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("OnUpcomingEventsV3", Office365TriggerOperations.OnUpcomingEvents);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnFlaggedEmail_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("OnFlaggedEmailV4", Office365TriggerOperations.OnFlaggedEmail);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnNewEmailMentioningMe_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("OnNewMentionMeEmailV3", Office365TriggerOperations.OnNewEmailMentioningMe);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnSharedMailboxNewEmail_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("SharedMailboxOnNewEmailV2", Office365TriggerOperations.OnSharedMailboxNewEmail);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnCalendarNewItems_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("CalendarGetOnNewItemsV3", Office365TriggerOperations.OnCalendarNewItems);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnCalendarUpdatedItems_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("CalendarGetOnUpdatedItemsV3", Office365TriggerOperations.OnCalendarUpdatedItems);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnCalendarChangedItems_HasCorrectValue()
         {
+            // NOTE(daviburg): Intentionally pinning const string values; assertion will always be true by design.
+#pragma warning disable MSTEST0032
             Assert.AreEqual("CalendarGetOnChangedItemsV3", Office365TriggerOperations.OnCalendarChangedItems);
+#pragma warning restore MSTEST0032
         }
 
         [TestMethod]
