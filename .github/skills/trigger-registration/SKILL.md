@@ -286,7 +286,8 @@ if (root.TryGetProperty("body", out var bodyElement) &&
 ### Metadata Triggers (e.g., OnNewFilesV2)
 
 ```csharp
-// body is {"value":[{...BlobMetadata...}]}
+// Callback JSON shape: {"body":{"value":[{...BlobMetadata...}]}}
+// Deserialize using the SDK's typed trigger payload class.
 var payload = JsonSerializer.Deserialize<OnedriveforbusinessOnNewFilesTriggerPayload>(
     body, jsonOptions);
 
