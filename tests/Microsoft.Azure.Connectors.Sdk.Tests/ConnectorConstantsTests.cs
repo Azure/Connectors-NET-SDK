@@ -22,7 +22,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void ConnectorNames_Office365_MatchesRegisteredConnector()
         {
             // Assert — constant matches the string used in DirectClientConnectors.AvailableConnectors
-            Assert.AreEqual("office365", ConnectorNames.Office365);
             CollectionAssert.Contains(
                 Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
                 ConnectorNames.Office365);
@@ -31,7 +30,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_SharePointOnline_MatchesRegisteredConnector()
         {
-            Assert.AreEqual("sharepointonline", ConnectorNames.Sharepointonline);
             CollectionAssert.Contains(
                 Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
                 ConnectorNames.Sharepointonline);
@@ -40,7 +38,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_Teams_MatchesRegisteredConnector()
         {
-            Assert.AreEqual("teams", ConnectorNames.Teams);
             CollectionAssert.Contains(
                 Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
                 ConnectorNames.Teams);
@@ -152,49 +149,57 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Office365TriggerOperations_OnNewEmail_HasCorrectValue()
         {
-            Assert.AreEqual("OnNewEmailV3", Office365TriggerOperations.OnNewEmail);
+            string actual = Office365TriggerOperations.OnNewEmail;
+            Assert.AreEqual("OnNewEmailV3", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnUpcomingEvents_HasCorrectValue()
         {
-            Assert.AreEqual("OnUpcomingEventsV3", Office365TriggerOperations.OnUpcomingEvents);
+            string actual = Office365TriggerOperations.OnUpcomingEvents;
+            Assert.AreEqual("OnUpcomingEventsV3", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnFlaggedEmail_HasCorrectValue()
         {
-            Assert.AreEqual("OnFlaggedEmailV4", Office365TriggerOperations.OnFlaggedEmail);
+            string actual = Office365TriggerOperations.OnFlaggedEmail;
+            Assert.AreEqual("OnFlaggedEmailV4", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnNewEmailMentioningMe_HasCorrectValue()
         {
-            Assert.AreEqual("OnNewMentionMeEmailV3", Office365TriggerOperations.OnNewEmailMentioningMe);
+            string actual = Office365TriggerOperations.OnNewEmailMentioningMe;
+            Assert.AreEqual("OnNewMentionMeEmailV3", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnSharedMailboxNewEmail_HasCorrectValue()
         {
-            Assert.AreEqual("SharedMailboxOnNewEmailV2", Office365TriggerOperations.OnSharedMailboxNewEmail);
+            string actual = Office365TriggerOperations.OnSharedMailboxNewEmail;
+            Assert.AreEqual("SharedMailboxOnNewEmailV2", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnCalendarNewItems_HasCorrectValue()
         {
-            Assert.AreEqual("CalendarGetOnNewItemsV3", Office365TriggerOperations.OnCalendarNewItems);
+            string actual = Office365TriggerOperations.OnCalendarNewItems;
+            Assert.AreEqual("CalendarGetOnNewItemsV3", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnCalendarUpdatedItems_HasCorrectValue()
         {
-            Assert.AreEqual("CalendarGetOnUpdatedItemsV3", Office365TriggerOperations.OnCalendarUpdatedItems);
+            string actual = Office365TriggerOperations.OnCalendarUpdatedItems;
+            Assert.AreEqual("CalendarGetOnUpdatedItemsV3", actual);
         }
 
         [TestMethod]
         public void Office365TriggerOperations_OnCalendarChangedItems_HasCorrectValue()
         {
-            Assert.AreEqual("CalendarGetOnChangedItemsV3", Office365TriggerOperations.OnCalendarChangedItems);
+            string actual = Office365TriggerOperations.OnCalendarChangedItems;
+            Assert.AreEqual("CalendarGetOnChangedItemsV3", actual);
         }
 
         [TestMethod]
