@@ -143,11 +143,15 @@ $body = @{
 } | ConvertTo-Json -Depth 4
 
 $uri = "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-03-01-preview"
-$response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
-    -ContentType "application/json" `
-    -Headers @{ Authorization = "Bearer $token" }
-
-Write-Output "Status: $($response.StatusCode)"
+try {
+    $response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
+        -ContentType "application/json" `
+        -Headers @{ Authorization = "Bearer $token" }
+    Write-Output "Status: $($response.StatusCode)"
+} catch {
+    Write-Output "Error: $($_.Exception.Response.StatusCode) $($_.Exception.Response.ReasonPhrase)"
+    $_.ErrorDetails.Message
+}
 ```
 
 Expected: HTTP 201 Created.
@@ -245,7 +249,7 @@ Get-ChildItem "$env:TEMP/func-logs" -Recurse -Filter "*.log" |
 | `Could not find member 'parameterName'` | Used `parameterName` in parameter array | Use `name` |
 | `Cannot deserialize... into AIGatewayOperationsParameter[]` | Parameters as object, not array | Use `[{"name":"...","value":"..."}]` array |
 | `missing required property 'folderId'` | Required trigger parameter not provided | Add to parameters array |
-| Trigger provisions but never fires callback | Missing `notificationDetails` | Add `notificationDetails` with `callbackUrl` and `httpMethod` |
+| Trigger provisions but never fires callback | Missing `notificationDetails` or empty `notificationDetails.callbackUrl` | Add `notificationDetails` with a non-empty `callbackUrl` and `httpMethod` |
 | `az rest` PUT returns no output/error | `az rest` swallows non-2xx responses silently | Use `Invoke-WebRequest` instead for PUT operations |
 
 ## Handling Trigger Payloads in Code
