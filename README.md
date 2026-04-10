@@ -153,9 +153,10 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
-| Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames |
-| OneDrive for Business | ✅ Generated | File CRUD, sharing, thumbnails, search, folder ops |
-| SharePoint | ✅ Validated | GetAllTables (list libraries) |
+| Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
+| OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink |
+| SharePoint | ✅ Validated | GetAllTables, ListRootFolder, ListFolder, GetFileContentByPath, CreateFile |
+| Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
 
 ## Related Projects
 
