@@ -27,7 +27,7 @@ Registers polling trigger configs on an AI Gateway so that connector events (new
 
 Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the AI Gateway to **poll** the connector for events and **POST callbacks** to your function when events occur.
 
-```
+```text
 AI Gateway
 ├── connections/
 │   └── onedrive-test          ← auth + runtime URL (connection-setup skill)
@@ -63,7 +63,9 @@ public const string OnNewFile = "OnNewFileV2";
 public const string OnNewFiles = "OnNewFilesV2";
 ```
 
-The `*Triggers.Operations` dictionary only maps metadata triggers (those with typed payloads). If an operation name is **not** in the dictionary, it is a binary trigger.
+If the connector generates a `*Triggers.Operations` dictionary, that dictionary only maps metadata triggers (those with typed payloads). If an operation name is **not** in the dictionary, it is a binary trigger.
+
+Some connectors may not generate a `*Triggers` registry at all. When `*Triggers.Operations` is unavailable, check the XML doc comment on the `*TriggerOperations` constant: a `Payload type:` annotation indicates a metadata trigger, while no annotation indicates a binary trigger.
 
 ## Procedure
 
@@ -76,8 +78,8 @@ $resourceGroup = "<resource-group>"
 $functionAppName = "<function-app-name>"
 $functionName = "<trigger-callback-function-name>"
 
-$keys = az functionapp keys list -g $resourceGroup -n $functionAppName -o json | ConvertFrom-Json
-$functionKey = $keys.functionKeys.default
+$keys = az functionapp function keys list -g $resourceGroup -n $functionAppName --function-name $functionName -o json | ConvertFrom-Json
+$functionKey = $keys.default
 $callbackUrl = "https://$functionAppName.azurewebsites.net/api/$functionName?code=$functionKey"
 ```
 
