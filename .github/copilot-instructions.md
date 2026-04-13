@@ -375,7 +375,7 @@ The release workflow (`.github/workflows/release.yml`) builds, tests, packs, and
 
 ### Standard Release (tag push)
 
-Creates a GitHub Release with auto-generated notes, publishes to GitHub Packages, and attempts nuget.org:
+Creates a GitHub Release with auto-generated notes, publishes to NuGet.org and GitHub Packages:
 
 ```shell
 git checkout main
@@ -419,8 +419,8 @@ git push origin v1.2.3             # push to trigger release
 1. Builds and tests in Release configuration
 2. Packs with `PackageVersion` from the tag (strips the `v` prefix)
 3. Uploads `.nupkg` as a build artifact
-4. Pushes to GitHub Packages (`nuget.pkg.github.com/Azure`)
-5. Attempts push to nuget.org (requires `NUGET_API_KEY` secret, continues on error)
+4. Pushes to NuGet.org (requires `NUGET_API_KEY` secret)
+5. Pushes to GitHub Packages (`nuget.pkg.github.com/Azure`)
 6. Creates a GitHub Release with the `.nupkg` attached (tag push only)
 
 ## Adding a New Connector

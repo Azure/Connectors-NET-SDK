@@ -60,7 +60,6 @@ jobs:
     - name: Push to NuGet.org
       if: github.event_name == 'push' || github.event.inputs.version != ''
       run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-      continue-on-error: true
 
     - name: Create GitHub Release
       if: github.event_name == 'push'

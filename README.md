@@ -49,17 +49,18 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 
 ## Installation
 
-### From NuGet.org (coming soon)
+### From NuGet.org
 
 ```bash
-dotnet add package Microsoft.Azure.Connectors.Sdk
+dotnet add package Microsoft.Azure.Connectors.Sdk --prerelease
 ```
 
-### From GitHub Packages (private feed)
+### From GitHub Packages (alternative)
 
-While the repo is private, packages are published to the GitHub Packages feed on each tagged release.
+Packages are also published to the GitHub Packages feed on each tagged release.
+This requires authentication with a GitHub PAT:
 
-1. Authenticate with a GitHub PAT that can access packages from the private repository:
+1. Authenticate with a GitHub PAT that can access packages from the repository:
    - For a classic PAT, grant `repo` and `read:packages` scopes.
    - For a fine-grained PAT, grant the repository access and `read` permission for packages.
 
@@ -73,7 +74,7 @@ While the repo is private, packages are published to the GitHub Packages feed on
 2. Install the package:
 
    ```shell
-   dotnet add package Microsoft.Azure.Connectors.Sdk
+   dotnet add package Microsoft.Azure.Connectors.Sdk --prerelease
    ```
 
 ## Quick Start
@@ -192,7 +193,7 @@ git tag v1.2.3-preview.1
 git push origin v1.2.3-preview.1
 ```
 
-The release workflow will build, test, pack, publish to GitHub Packages, and create a GitHub Release with the `.nupkg` attached.
+The release workflow will build, test, pack, publish to NuGet.org and GitHub Packages, and create a GitHub Release with the `.nupkg` attached.
 
 See the [Releasing a New Version](.github/copilot-instructions.md#releasing-a-new-version) section in the copilot instructions for re-release and manual dispatch options.
 
