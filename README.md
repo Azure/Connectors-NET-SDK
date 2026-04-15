@@ -164,7 +164,7 @@ Connectors with generated typed clients that have not yet been fully validated e
 
 | Connector | Status | Available Operations |
 |-----------|--------|----------------------|
-| MS Graph Groups & Users | ✅ Generated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties, GetMemberGroups |
+| MS Graph Groups & Users | ✅ Generated | ListUsers, ListGroupsByDisplayNameSearch, ListSubscribedSkus, ListDirectGroupMembers, GetMemberLicenseDetails, GetGroupProperties, GetMemberGroups |
 
 ## Related Projects
 
