@@ -97,16 +97,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 TeamsList = new List<object> { "team1", "team2", "team3" }
             };
 
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
+
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -136,16 +138,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
 
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.Forbidden,
+                Content = new StringContent("{\"error\": \"Access denied\"}")
+            };
+
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.Forbidden,
-                    Content = new StringContent("{\"error\": \"Access denied\"}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

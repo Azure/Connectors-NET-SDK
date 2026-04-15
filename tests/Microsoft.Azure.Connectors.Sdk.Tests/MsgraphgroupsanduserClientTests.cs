@@ -97,16 +97,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Value = new List<object> { "user1", "user2" }
             };
 
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
+
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -136,16 +138,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
 
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.NotFound,
+                Content = new StringContent("{\"error\": \"Group not found\"}")
+            };
+
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.NotFound,
-                    Content = new StringContent("{\"error\": \"Group not found\"}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
