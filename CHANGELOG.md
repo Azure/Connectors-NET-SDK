@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- MS Graph Groups and Users (`msgraphgroupsanduser`) generated typed client with 7 action operations: ListUsers, ListGroupsByDisplayNameSearch, ListSubscribedSkus, ListDirectGroupMembers, GetMemberLicenseDetails, GetGroupProperties, GetMemberGroups
+- Teams unit tests (constructor, dispose, mocked API call, error handling, serialization round-trips)
+
 ## [0.4.0-preview.1] - 2026-04-09
 
 ### Added
