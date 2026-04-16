@@ -145,7 +145,7 @@ public class GetGroupPropertiesResponse
 
     /// <summary>Can a role be assigned to this group?</summary>
     [JsonPropertyName("isAssignableToRole")]
-    public string IsAssignableToRole { get; set; }
+    public bool? IsAssignableToRole { get; set; }
 
     /// <summary>Group&apos;s email</summary>
     [JsonPropertyName("mail")]
