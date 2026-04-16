@@ -22,7 +22,7 @@ public static class ConnectorNames
     public const string Kusto = "kusto";
 
     /// <summary>
-    /// The <c>msgraphgroupsanduser</c> connector (MS Graph Groups and Users).
+    /// The <c>msgraphgroupsanduser</c> connector (MS Graph Groups &amp; Users).
     /// </summary>
     public const string Msgraphgroupsanduser = "msgraphgroupsanduser";
 
