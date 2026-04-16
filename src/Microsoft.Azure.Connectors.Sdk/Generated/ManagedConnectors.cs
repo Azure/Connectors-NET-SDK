@@ -3,6 +3,8 @@
 //
 //   using Microsoft.Azure.Connectors.DirectClient.Kusto;
 //   var client = new KustoClient(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.DirectClient.Msgraphgroupsanduser;
+//   var client = new MsgraphgroupsanduserClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Office365;
 //   var client = new Office365Client(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Onedriveforbusiness;
@@ -26,6 +28,7 @@ public static class DirectClientConnectors
     /// </summary>
     public static readonly string[] AvailableConnectors = [
         "kusto",
+        "msgraphgroupsanduser",
         "office365",
         "onedriveforbusiness",
         "sharepointonline",

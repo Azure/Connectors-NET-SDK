@@ -22,6 +22,11 @@ public static class ConnectorNames
     public const string Kusto = "kusto";
 
     /// <summary>
+    /// The <c>msgraphgroupsanduser</c> connector (MS Graph Groups &amp; Users).
+    /// </summary>
+    public const string Msgraphgroupsanduser = "msgraphgroupsanduser";
+
+    /// <summary>
     /// The <c>office365</c> connector.
     /// </summary>
     public const string Office365 = "office365";
