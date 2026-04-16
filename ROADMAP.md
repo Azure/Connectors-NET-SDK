@@ -30,7 +30,7 @@ These connectors form the backbone of modern agentic solutions with Teams as fro
 |----------|-----------|------------|--------------|-------------------|---------------|--------|
 | 1.0 | **Office 365** | #2/#10 | Tier 1 | 2.67B | Email/Calendar backend | ✅ Complete |
 | 1.1 | **SharePoint Online** | #1/#3 | Tier 1 | 5.74B | Knowledge base, file/list operations | ✅ Complete |
-| 1.2 | **Microsoft Graph** | — | Tier 2 | 820M | Unified M365 API backbone | ✅ Complete |
+| 1.2 | **MS Graph Groups & Users** (`msgraphgroupsanduser`) | — | Tier 2 | 820M | Groups/users Graph surface | ✅ Complete |
 | 1.3 | **Microsoft Teams** | — | Tier 2 | 550M | Preferred front-end, messaging | ✅ Complete |
 | 1.4 | **OneDrive for Business** | #6 | Tier 1 | 719M | User files, knowledge base | ✅ Complete |
 | 1.5 | **Office 365 Users** | #16 | Tier 1 | 2.92B | User directory, profile data | ⬜ Not started |
