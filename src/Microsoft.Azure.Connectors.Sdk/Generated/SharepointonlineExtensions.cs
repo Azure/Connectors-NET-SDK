@@ -1312,10 +1312,10 @@ public class SharepointonlineClient : IDisposable
     {
         if (string.IsNullOrEmpty(managedIdentityClientId))
         {
-            return new ManagedIdentityCredential();
+            return new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned);
         }
 
-        return new ManagedIdentityCredential(managedIdentityClientId);
+        return new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(managedIdentityClientId));
     }
 
     private async Task<string> GetTokenAsync(CancellationToken cancellationToken)
