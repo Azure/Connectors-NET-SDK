@@ -1,4 +1,5 @@
-[![CI](https://github.com/Azure/Connectors-NET-SDK/actions/workflows/ci.yml/badge.svg)](https://github.com/Azure/Connectors-NET-SDK/actions/workflows/ci.yml)
+[![CI](https://dev.azure.com/azfunc/public/_apis/build/status/connector-sdk.public?branchName=main)](https://dev.azure.com/azfunc/public/_build?definitionId=BUILD_ID)
+[![NuGet](https://img.shields.io/nuget/v/Microsoft.Azure.Connectors.Sdk.svg)](https://www.nuget.org/packages/Microsoft.Azure.Connectors.Sdk)
 
 # Azure Connectors .NET SDK
 
@@ -49,32 +50,11 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 
 ## Installation
 
-### From NuGet.org (coming soon)
+### From NuGet.org
 
 ```bash
-dotnet add package Microsoft.Azure.Connectors.Sdk
+dotnet add package Microsoft.Azure.Connectors.Sdk --prerelease
 ```
-
-### From GitHub Packages (private feed)
-
-While the repo is private, packages are published to the GitHub Packages feed on each tagged release.
-
-1. Authenticate with a GitHub PAT that can access packages from the private repository:
-   - For a classic PAT, grant `repo` and `read:packages` scopes.
-   - For a fine-grained PAT, grant the repository access and `read` permission for packages.
-
-   ```shell
-   dotnet nuget add source https://nuget.pkg.github.com/Azure/index.json \
-     --name github-azure \
-     --username YOUR_GITHUB_USERNAME \
-     --password YOUR_GITHUB_PAT
-   ```
-
-2. Install the package:
-
-   ```shell
-   dotnet add package Microsoft.Azure.Connectors.Sdk
-   ```
 
 ## Quick Start
 
@@ -165,6 +145,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 |---------|-------------|
 | [Connector SDK Samples](https://github.com/Azure/Connectors-NET-Samples) | Sample Azure Functions demonstrating SDK usage with Office 365, SharePoint, Teams, and more |
 | [Connector SDK LSP](https://github.com/Azure/Connectors-NET-LSP) | Language Server Protocol server and VS Code extension for intelligent code assistance when developing with the SDK |
+| [Azure Functions Connector Extension](https://github.com/Azure/azure-functions-connector-extension) | Azure Functions host and worker extensions for managed connectors|
 
 ## Regenerating Connectors
 

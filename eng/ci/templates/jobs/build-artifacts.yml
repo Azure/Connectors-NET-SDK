@@ -1,0 +1,118 @@
+parameters:
+  - name: createArtifacts
+    type: boolean
+    default: true
+
+jobs:
+  - job: BuildArtifacts
+    displayName: Build Artifacts
+
+    variables:
+      - template: /eng/ci/templates/variables/build.yml@self
+      - name: packages_path
+        value: $(Build.ArtifactStagingDirectory)/packages
+
+    templateContext:
+      outputParentDirectory: $(packages_path)
+      outputs:
+        - ${{ if eq(parameters.createArtifacts, true) }}:
+            - output: pipelineArtifact
+              displayName: Publish artifacts
+              path: $(packages_path)
+              artifact: drop
+
+    steps:
+      - task: NuGetAuthenticate@1
+        displayName: 'NuGet Authenticate'
+
+      - task: UseDotNet@2
+        displayName: Install .NET SDK from global.json
+        inputs:
+          packageType: sdk
+          useGlobalJson: true
+
+      - task: DotNetCoreCLI@2
+        displayName: Build project
+        inputs:
+          command: custom
+          custom: build
+          arguments: -c $(configuration)
+          projects: $(project)
+
+      - task: DotNetCoreCLI@2
+        displayName: Check C# formatting
+        inputs:
+          command: custom
+          custom: format
+          arguments: --verify-no-changes --verbosity diagnostic
+          projects: $(project)
+
+      - pwsh: |
+          Write-Host "===== dotnet --info ====="
+          dotnet --info
+
+          Write-Host ""
+          Write-Host "===== Installed SDKs ====="
+          dotnet --list-sdks
+
+          Write-Host ""
+          Write-Host "===== Installed Runtimes ====="
+          dotnet --list-runtimes
+        displayName: 'Display .NET info'
+
+      - task: DotNetCoreCLI@2
+        displayName: Run tests with coverage
+        inputs:
+          command: test
+          arguments: --no-build -c $(configuration) --collect:"XPlat Code Coverage" --results-directory $(Agent.TempDirectory)/coverage
+          projects: $(project)
+          publishTestResults: true
+          testRunTitle: 'Unit Tests'
+
+      - pwsh: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.11
+          reportgenerator -reports:$(Agent.TempDirectory)/coverage/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/coverage/report -reporttypes:Cobertura
+        displayName: Generate coverage report
+
+      - task: PublishCodeCoverageResults@2
+        displayName: Publish code coverage
+        inputs:
+          summaryFileLocation: $(Agent.TempDirectory)/coverage/report/Cobertura.xml
+
+      - pwsh: npx markdownlint-cli2 '**/*.md'
+        displayName: Lint Markdown
+
+      - ${{ if eq(parameters.createArtifacts, true) }}:
+          - template: ci/sign-files.yml@eng
+            parameters:
+              displayName: Sign assemblies
+              folderPath: out/bin/Microsoft.Azure.Connectors.Sdk/
+              pattern: Microsoft.Azure.Connectors.Sdk.dll
+              signType: dll
+
+          - task: DeleteFiles@1
+            displayName: Delete CodeSignSummary files
+            inputs:
+              sourceFolder: out/bin/Microsoft.Azure.Connectors.Sdk/
+              contents: '**/CodeSignSummary-*.md'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Build package'
+            inputs:
+              command: custom
+              custom: pack
+              arguments: --no-build -c $(configuration) -o $(packages_path)
+              projects: $(project)
+
+          - template: ci/sign-files.yml@eng
+            parameters:
+              displayName: Sign nuget packages
+              folderPath: $(packages_path)
+              pattern: '*.nupkg'
+              signType: nuget
+
+          - task: DeleteFiles@1
+            displayName: Delete CodeSignSummary files
+            inputs:
+              sourceFolder: $(packages_path)
+              contents: '**/CodeSignSummary-*.md'

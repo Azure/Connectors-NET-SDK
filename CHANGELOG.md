@@ -5,11 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased] - 0.6.0-preview.1
 
 ### Added
 
-- MS Graph Groups & Users (`msgraphgroupsanduser`) generated typed client with 7 action operations: ListUsers, ListGroupsByDisplayNameSearch, ListSubscribedSkus, ListDirectGroupMembers, GetMemberLicenseDetails, GetGroupProperties, GetMemberGroups
+- Initial NuGet.org release of the Azure Connectors .NET SDK
+
+## [0.5.0-preview.1] - 2026-04-15
+
+### Added
+
+- MS Graph Groups & Users (`msgraphgroupsanduser`) generated typed client with 7 action operations: ListUsers, ListGroupsByDisplayNameSearch, ListSu
+bscribedSkus, ListDirectGroupMembers, GetMemberLicenseDetails, GetGroupProperties, GetMemberGroups
 - Teams unit tests (constructor, dispose, mocked API call, error handling, serialization round-trips)
 
 ## [0.4.0-preview.1] - 2026-04-09
@@ -74,7 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.4.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.5.0-preview.1...HEAD
+[0.5.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.4.0-preview.1...v0.5.0-preview.1
 [0.4.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.3.0-preview.1...v0.4.0-preview.1
 [0.3.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.2.0-preview.1...v0.3.0-preview.1
 [0.2.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.1.0-preview.1...v0.2.0-preview.1

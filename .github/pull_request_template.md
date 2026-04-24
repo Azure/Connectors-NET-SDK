@@ -22,3 +22,5 @@
 - [ ] No modifications to files under `src/**/Generated/` (see [CONTRIBUTING.md](../CONTRIBUTING.md#generated-code))
 - [ ] Documentation updated (if behavior changed)
 - [ ] CHANGELOG.md updated (if user-facing change)
+- [ ] `release_notes.md` updated (if shipping a new version, clear previous version notes)
+- [ ] Version updated in `eng/build/Version.props` (if shipping a new version)

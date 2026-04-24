@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <PackageId>Microsoft.Azure.Connectors.Sdk</PackageId>
-    <Description>Lightweight SDK for building typed connectors for Azure Logic Apps</Description>
-    <PackageTags>azure;logicapps;connectors;sdk</PackageTags>
+    <Description>Lightweight SDK for building typed connectors for Azure</Description>
+    <PackageTags>azure;connectors;sdk</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
