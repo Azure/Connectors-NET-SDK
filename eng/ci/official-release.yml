@@ -1,6 +1,10 @@
 parameters:
+  - name: isReleaseBranchOrTag
+    displayName: Is this build from a release branch or release tag?
+    type: boolean
+    default: false
   - name: publishToNugetOrg
-    displayName: Publish to nuget.org?
+    displayName: Publish to nuget.org? (Only effective when triggered from a release branch or tag)
     type: boolean
     default: false
 
@@ -11,13 +15,9 @@ resources:
   pipelines:
     - pipeline: build
       source: connector-sdk.official
-      # Only accept builds from release tags or release branches.
-      branch:
-        include:
-          - refs/tags/v*
-          - refs/heads/release/*
 
 extends:
   template: /eng/ci/templates/jobs/release-packages.yml@self
   parameters:
-    publishToNugetOrg: ${{ parameters.publishToNugetOrg }}
+    isReleaseBranchOrTag: ${{ parameters.isReleaseBranchOrTag }}
+    publishToNugetOrg: ${{ and(parameters.isReleaseBranchOrTag, parameters.publishToNugetOrg) }}

@@ -1,4 +1,6 @@
 parameters:
+  - name: isReleaseBranchOrTag
+    type: boolean
   - name: publishToNugetOrg
     type: boolean
   - name: artifactName
@@ -41,6 +43,37 @@ extends:
                   packageName: Microsoft.Azure.Connectors.Sdk
                   buildTag: connector-sdk
                   dropPath: $(Pipeline.Workspace)/build/${{ parameters.artifactName }}
+
+              - ${{ if eq(parameters.publishToNugetOrg, true) }}:
+                - pwsh: |
+                    $ErrorActionPreference = 'Stop'
+                    $dropPath = "$(Pipeline.Workspace)/build/${{ parameters.artifactName }}"
+                    $nupkgs = Get-ChildItem -Path $dropPath -Recurse -Filter '*.nupkg'
+
+                    if ($nupkgs.Count -eq 0) {
+                      Write-Host "##vso[task.LogIssue type=error;]No .nupkg files found in '$dropPath'."
+                      exit 1
+                    }
+
+                    # Build-reason keywords embedded by Version.targets must not reach nuget.org.
+                    $blockedKeywords = @('dev', 'ci', 'pr')
+                    $failed = $false
+
+                    foreach ($pkg in $nupkgs) {
+                      Write-Host "Checking package: $($pkg.Name)"
+                      foreach ($keyword in $blockedKeywords) {
+                        # Match the keyword as a dot-delimited segment so we don't false-positive
+                        # on words like 'preview' or 'service'. Pattern: .dev. or -dev. etc.
+                        if ($pkg.Name -match "[\.\-]$keyword[\.\-]") {
+                          Write-Host "##vso[task.LogIssue type=error;]Package '$($pkg.Name)' contains CI build-reason keyword '$keyword'. Only release-quality (PublicRelease) packages may be published to nuget.org."
+                          $failed = $true
+                        }
+                      }
+                    }
+
+                    if ($failed) { exit 1 }
+                    Write-Host "All packages passed nuget.org version validation."
+                  displayName: Validate package versions for nuget.org
 
       - stage: Release
         dependsOn: Prepare
