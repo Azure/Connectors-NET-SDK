@@ -1,0 +1,95 @@
+parameters:
+  - name: isReleaseBranchOrTag
+    type: boolean
+  - name: publishToNugetOrg
+    type: boolean
+  - name: artifactName
+    type: string
+    default: drop
+
+resources:
+  repositories:
+    - repository: 1es
+      type: git
+      name: 1ESPipelineTemplates/1ESPipelineTemplates
+      ref: refs/tags/release
+    - repository: eng
+      type: git
+      name: engineering
+      ref: refs/tags/release
+
+extends:
+  template: v1/1ES.Official.PipelineTemplate.yml@1es
+  parameters:
+    pool:
+      name: 1es-pool-azfunc
+      image: 1es-windows-2022
+      os: windows
+
+    stages:
+      - stage: Prepare
+        jobs:
+          - job: Prepare
+            templateContext:
+              type: validationJob
+
+            steps:
+              - download: build
+                artifact: ${{ parameters.artifactName }}
+                patterns: '**/Microsoft.Azure.Connectors.Sdk.*.nupkg'
+                displayName: Download SDK package
+              - template: /eng/ci/templates/steps/get-package-version.yml@self
+                parameters:
+                  packageName: Microsoft.Azure.Connectors.Sdk
+                  buildTag: connector-sdk
+                  dropPath: $(Pipeline.Workspace)/build/${{ parameters.artifactName }}
+
+              - ${{ if eq(parameters.publishToNugetOrg, true) }}:
+                - pwsh: |
+                    $ErrorActionPreference = 'Stop'
+                    $dropPath = "$(Pipeline.Workspace)/build/${{ parameters.artifactName }}"
+                    $nupkgs = Get-ChildItem -Path $dropPath -Recurse -Filter '*.nupkg'
+
+                    if ($nupkgs.Count -eq 0) {
+                      Write-Host "##vso[task.LogIssue type=error;]No .nupkg files found in '$dropPath'."
+                      exit 1
+                    }
+
+                    # Build-reason keywords embedded by Version.targets must not reach nuget.org.
+                    $blockedKeywords = @('dev', 'ci', 'pr')
+                    $failed = $false
+
+                    foreach ($pkg in $nupkgs) {
+                      Write-Host "Checking package: $($pkg.Name)"
+                      foreach ($keyword in $blockedKeywords) {
+                        # Match the keyword as a dot-delimited segment so we don't false-positive
+                        # on words like 'preview' or 'service'. Pattern: .dev. or -dev. etc.
+                        if ($pkg.Name -match "[\.\-]$keyword[\.\-]") {
+                          Write-Host "##vso[task.LogIssue type=error;]Package '$($pkg.Name)' contains CI build-reason keyword '$keyword'. Only release-quality (PublicRelease) packages may be published to nuget.org."
+                          $failed = $true
+                        }
+                      }
+                    }
+
+                    if ($failed) { exit 1 }
+                    Write-Host "All packages passed nuget.org version validation."
+                  displayName: Validate package versions for nuget.org
+
+      - stage: Release
+        dependsOn: Prepare
+
+        jobs:
+          - template: /ci/release-nuget-package.yml@eng
+            parameters:
+              isProduction: true
+              approvers: '[TEAM FOUNDATION]\David Burg,[TEAM FOUNDATION]\Rama Krishna Rayudu,[TEAM FOUNDATION]\Varad Meru''s Team'
+              allowApproversToApproveTheirOwnRuns: false
+              stagingFeed: public/pre-release
+              packages: '**/Microsoft.Azure.Connectors.Sdk.*.nupkg'
+              artifact:
+                name: ${{ parameters.artifactName }}
+                pipeline: build
+              ${{ if eq(parameters.publishToNugetOrg, true) }}:
+                partnerDrop:
+                  serviceConnection: azure-sdk-partner-drops
+                  targetFolder: azure-connectors/dotnet/connector-sdk/$(Build.BuildNumber)

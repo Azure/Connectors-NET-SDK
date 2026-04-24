@@ -1,0 +1,9 @@
+variables:
+  - name: configuration
+    value: Release
+  - name: project
+    value: Microsoft.Azure.Connectors.Sdk.sln
+  - name: Build.Counter
+    value: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
+  - name: RepoRoot
+    value: $(Build.SourcesDirectory)
