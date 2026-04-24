@@ -127,7 +127,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 ### AI Agent Skills
 
-- [Connection Setup Skill](.github/skills/connection-setup/SKILL.md) - AI agent workflow for creating AI Gateway connections, OAuth consent, access policies, and configuring app settings — all from within VS Code
+- [Connection Setup Skill](.github/skills/connection-setup/SKILL.md) - AI agent workflow for creating Connectors Gateway connections, OAuth consent, access policies, and configuring app settings — all from within VS Code
 
 ## Validated Connectors
 

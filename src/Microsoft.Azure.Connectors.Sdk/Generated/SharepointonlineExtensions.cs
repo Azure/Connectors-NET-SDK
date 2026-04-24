@@ -896,7 +896,7 @@ public class SharePointHttpRequestBodyParameters
 
 /// <summary>
 /// Typed trigger payload for the OnChangedItems trigger (Sharepointonline "When an item or a file is modified", operationId: GetOnChangedItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnChangedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnChangedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
@@ -904,7 +904,7 @@ public class SharepointonlineOnChangedItemsTriggerPayload : TriggerCallbackPaylo
 
 /// <summary>
 /// Typed trigger payload for the OnDeletedFileItems trigger (Sharepointonline "When a file is deleted", operationId: GetOnDeletedFileItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
 {
@@ -912,7 +912,7 @@ public class SharepointonlineOnDeletedFileItemsTriggerPayload : TriggerCallbackP
 
 /// <summary>
 /// Typed trigger payload for the OnDeletedItems trigger (Sharepointonline "When an item is deleted", operationId: GetOnDeletedItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
 {
@@ -920,7 +920,7 @@ public class SharepointonlineOnDeletedItemsTriggerPayload : TriggerCallbackPaylo
 
 /// <summary>
 /// Typed trigger payload for the OnNewFileItems trigger (Sharepointonline "When a file is created (properties only)", operationId: GetOnNewFileItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
@@ -928,7 +928,7 @@ public class SharepointonlineOnNewFileItemsTriggerPayload : TriggerCallbackPaylo
 
 /// <summary>
 /// Typed trigger payload for the OnNewItems trigger (Sharepointonline "When an item is created", operationId: GetOnNewItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnNewItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
@@ -936,7 +936,7 @@ public class SharepointonlineOnNewItemsTriggerPayload : TriggerCallbackPayload<I
 
 /// <summary>
 /// Typed trigger payload for the OnUpdatedFileClassifiedTimes trigger (Sharepointonline "When a file is classified by a Microsoft Syntex model", operationId: GetOnUpdatedFileClassifiedTimes).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
 {
@@ -944,7 +944,7 @@ public class SharepointonlineOnUpdatedFileClassifiedTimesTriggerPayload : Trigge
 
 /// <summary>
 /// Typed trigger payload for the OnUpdatedFileItems trigger (Sharepointonline "When a file is created or modified (properties only)", operationId: GetOnUpdatedFileItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
@@ -952,7 +952,7 @@ public class SharepointonlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackP
 
 /// <summary>
 /// Typed trigger payload for the OnUpdatedItems trigger (Sharepointonline "When an item is created or modified", operationId: GetOnUpdatedItems).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharepointonlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class SharepointonlineOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
 {
@@ -988,7 +988,7 @@ public static class SharepointonlineTriggers
 /// <summary>
 /// Trigger operation name constants for the Sharepointonline connector.
 /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the AI Gateway TriggerConfig <c>operationName</c> field.
+/// and with the Connectors Gateway TriggerConfig <c>operationName</c> field.
 /// </summary>
 public static class SharepointonlineTriggerOperations
 {
@@ -1058,7 +1058,7 @@ public static class SharepointonlineTriggerOperations
 
 /// <summary>
 /// Trigger input parameter name constants for the Sharepointonline connector.
-/// These correspond to the AI Gateway TriggerConfig <c>parameters</c> array.
+/// These correspond to the Connectors Gateway TriggerConfig <c>parameters</c> array.
 /// </summary>
 public static class SharepointonlineTriggerParameters
 {

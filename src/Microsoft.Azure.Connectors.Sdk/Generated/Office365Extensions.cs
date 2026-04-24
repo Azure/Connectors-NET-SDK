@@ -2017,7 +2017,7 @@ public class MCPQueryRequest
 
 /// <summary>
 /// Typed trigger payload for the OnCalendarChangedItems trigger (Office365 "When an event is added, updated or deleted (V3)", operationId: CalendarGetOnChangedItemsV3).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarChangedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarChangedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnCalendarChangedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientWithActionType>
 {
@@ -2025,7 +2025,7 @@ public class Office365OnCalendarChangedItemsTriggerPayload : TriggerCallbackPayl
 
 /// <summary>
 /// Typed trigger payload for the OnCalendarNewItems trigger (Office365 "When a new event is created (V3)", operationId: CalendarGetOnNewItemsV3).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarNewItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarNewItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnCalendarNewItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
 {
@@ -2033,7 +2033,7 @@ public class Office365OnCalendarNewItemsTriggerPayload : TriggerCallbackPayload<
 
 /// <summary>
 /// Typed trigger payload for the OnCalendarUpdatedItems trigger (Office365 "When an event is modified (V3)", operationId: CalendarGetOnUpdatedItemsV3).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarUpdatedItemsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarUpdatedItemsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnCalendarUpdatedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
 {
@@ -2041,7 +2041,7 @@ public class Office365OnCalendarUpdatedItemsTriggerPayload : TriggerCallbackPayl
 
 /// <summary>
 /// Typed trigger payload for the OnFlaggedEmail trigger (Office365 "When an email is flagged (V4)", operationId: OnFlaggedEmailV4).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnFlaggedEmailTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnFlaggedEmailTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnFlaggedEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
 {
@@ -2049,7 +2049,7 @@ public class Office365OnFlaggedEmailTriggerPayload : TriggerCallbackPayload<Grap
 
 /// <summary>
 /// Typed trigger payload for the OnNewEmail trigger (Office365 "When a new email arrives (V3)", operationId: OnNewEmailV3).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
 {
@@ -2057,7 +2057,7 @@ public class Office365OnNewEmailTriggerPayload : TriggerCallbackPayload<GraphCli
 
 /// <summary>
 /// Typed trigger payload for the OnNewEmailMentioningMe trigger (Office365 "When a new email mentioning me arrives (V3)", operationId: OnNewMentionMeEmailV3).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailMentioningMeTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailMentioningMeTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnNewEmailMentioningMeTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
 {
@@ -2065,7 +2065,7 @@ public class Office365OnNewEmailMentioningMeTriggerPayload : TriggerCallbackPayl
 
 /// <summary>
 /// Typed trigger payload for the OnUpcomingEvents trigger (Office365 "When an upcoming event is starting soon (V3)", operationId: OnUpcomingEventsV3).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
 {
@@ -2073,7 +2073,7 @@ public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<Gr
 
 /// <summary>
 /// Typed trigger payload for the OnSharedMailboxNewEmail trigger (Office365 "When a new email arrives in a shared mailbox (V2)", operationId: SharedMailboxOnNewEmailV2).
-/// Deserialize AI Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
+/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class Office365OnSharedMailboxNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
 {
@@ -2109,7 +2109,7 @@ public static class Office365Triggers
 /// <summary>
 /// Trigger operation name constants for the Office365 connector.
 /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the AI Gateway TriggerConfig <c>operationName</c> field.
+/// and with the Connectors Gateway TriggerConfig <c>operationName</c> field.
 /// </summary>
 public static class Office365TriggerOperations
 {
@@ -2169,7 +2169,7 @@ public static class Office365TriggerOperations
 
 /// <summary>
 /// Trigger input parameter name constants for the Office365 connector.
-/// These correspond to the AI Gateway TriggerConfig <c>parameters</c> array.
+/// These correspond to the Connectors Gateway TriggerConfig <c>parameters</c> array.
 /// </summary>
 public static class Office365TriggerParameters
 {

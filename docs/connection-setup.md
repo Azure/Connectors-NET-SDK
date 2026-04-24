@@ -59,7 +59,7 @@ $connectorName = "office365"  # API connector name
 $connectionName = "office365-test"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName/connections/$connectionName?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName?api-version=2026-05-01-preview" `
     --body "{`"properties`":{`"connectorName`":`"$connectorName`"}}"
 ```
 
