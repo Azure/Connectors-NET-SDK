@@ -1,0 +1,44 @@
+<Project>
+
+  <!--
+    The convention for names of Azure DevOps repositories mirrored from GitHub is "{GitHub org
+  name}.{GitHub repository name}".
+  -->
+  <PropertyGroup>
+    <!-- There are quite a few git repo forms:
+      https://{org}@dev.azure.com/{org}/{project}/_git/{repo}
+      https://dev.azure.com/{org}/{project}/_git/{repo}
+      https://{org}.visualstudio.com/{project}/_git/{repo}
+      {org}@vs-ssh.visualstudio.com:v3/{org}/{project}/{repo}
+      git@ssh.dev.azure.com:v3/{org}/{project}/{repo}
+    -->
+    <!-- Set DisableSourceLinkUrlTranslation to true when building a tool for internal use where
+    sources only come from internal URIs -->
+    <DisableSourceLinkUrlTranslation Condition="'$(DisableSourceLinkUrlTranslation)' == ''">false</DisableSourceLinkUrlTranslation>
+
+    <!-- NOTE: Update the org/project below to match your Azure DevOps organization. -->
+    <_AzDoOrg>azfunc</_AzDoOrg>
+    <_AzDoProject>internal</_AzDoProject>
+    <_TranslateUrlPattern>
+      (https://$(_AzDoOrg)%40dev\.azure\.com/$(_AzDoOrg)/$(_AzDoProject)/_git|https://dev\.azure\.com/$(_AzDoOrg)/$(_AzDoProject)/_git|https://$(_AzDoOrg)\.visualstudio\.com/$(_AzDoProject)/_git|$(_AzDoOrg)%40vs-ssh\.visualstudio\.com:v3/$(_AzDoOrg)/$(_AzDoProject)|git%40ssh\.dev\.azure\.com:v3/$(_AzDoOrg)/$(_AzDoProject))/([^/\.]+)\.(.+)</_TranslateUrlPattern>
+    <_TranslateUrlReplacement>https://github.com/$2/$3</_TranslateUrlReplacement>
+  </PropertyGroup>
+
+  <!-- When building from Azure Devops we update SourceLink to point back to the GitHub repo. -->
+  <Target Name="_TranslateAzureDevOpsUrlToGitHubUrl"
+    Condition="'$(DisableSourceLinkUrlTranslation)' == 'false'"
+    DependsOnTargets="$(SourceControlManagerUrlTranslationTargets)"
+    BeforeTargets="SourceControlManagerPublishTranslatedUrls">
+    <PropertyGroup>
+      <ScmRepositoryUrl>$([System.Text.RegularExpressions.Regex]::Replace($(ScmRepositoryUrl),
+        $(_TranslateUrlPattern), $(_TranslateUrlReplacement)))</ScmRepositoryUrl>
+    </PropertyGroup>
+    <ItemGroup>
+      <SourceRoot Update="@(SourceRoot)">
+        <ScmRepositoryUrl>$([System.Text.RegularExpressions.Regex]::Replace(%(SourceRoot.ScmRepositoryUrl),
+          $(_TranslateUrlPattern), $(_TranslateUrlReplacement)))</ScmRepositoryUrl>
+      </SourceRoot>
+    </ItemGroup>
+  </Target>
+
+</Project>
