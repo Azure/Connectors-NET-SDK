@@ -12,7 +12,7 @@ namespace Microsoft.Azure.Connectors.Sdk
     /// </summary>
     public static class ConnectorConnectionResolver
     {
-        private const string AiGatewayNameSuffix = "__aiGatewayName";
+        private const string ConnectorGatewayNameSuffix = "__connectorGatewayName";
         private const string ConnectionNameSuffix = "__connectionName";
         private const string ConnectionRuntimeUrlSuffix = "__connectionRuntimeUrl";
 
@@ -35,29 +35,29 @@ namespace Microsoft.Azure.Connectors.Sdk
 
             var options = new ConnectorConnectionOptions
             {
-                AiGatewayName = Environment.GetEnvironmentVariable(
-                    connectionSettingName + ConnectorConnectionResolver.AiGatewayNameSuffix),
+                ConnectorGatewayName = Environment.GetEnvironmentVariable(
+                    connectionSettingName + ConnectorConnectionResolver.ConnectorGatewayNameSuffix),
                 ConnectionName = Environment.GetEnvironmentVariable(
                     connectionSettingName + ConnectorConnectionResolver.ConnectionNameSuffix),
                 ConnectionRuntimeUrl = Environment.GetEnvironmentVariable(
                     connectionSettingName + ConnectorConnectionResolver.ConnectionRuntimeUrlSuffix),
             };
 
-            if (!options.IsAiGatewayConnection && !options.IsDirectConnection)
+            if (!options.IsConnectorGatewayConnection && !options.IsDirectConnection)
             {
                 // NOTE(daviburg): Differentiate between no settings and partial settings for better diagnostics.
-                var hasPartialAiGateway =
-                    !string.IsNullOrWhiteSpace(options.AiGatewayName) ||
+                var hasPartialConnectorGateway =
+                    !string.IsNullOrWhiteSpace(options.ConnectorGatewayName) ||
                     !string.IsNullOrWhiteSpace(options.ConnectionName);
 
-                var message = hasPartialAiGateway
-                    ? $"Partial AI Gateway connection settings found for '{connectionSettingName}'. " +
-                      $"Both '{connectionSettingName}{ConnectorConnectionResolver.AiGatewayNameSuffix}' and " +
+                var message = hasPartialConnectorGateway
+                    ? $"Partial Connectors Gateway connection settings found for '{connectionSettingName}'. " +
+                      $"Both '{connectionSettingName}{ConnectorConnectionResolver.ConnectorGatewayNameSuffix}' and " +
                       $"'{connectionSettingName}{ConnectorConnectionResolver.ConnectionNameSuffix}' must be set together."
                     : $"No connection settings found for '{connectionSettingName}'. " +
-                      $"Expected either '{connectionSettingName}{ConnectorConnectionResolver.AiGatewayNameSuffix}' + " +
+                      $"Expected either '{connectionSettingName}{ConnectorConnectionResolver.ConnectorGatewayNameSuffix}' + " +
                       $"'{connectionSettingName}{ConnectorConnectionResolver.ConnectionNameSuffix}' " +
-                      $"(AI Gateway connection) or " +
+                      $"(Connectors Gateway connection) or " +
                       $"'{connectionSettingName}{ConnectorConnectionResolver.ConnectionRuntimeUrlSuffix}' (direct connection).";
 
                 throw new ArgumentException(

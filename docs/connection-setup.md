@@ -33,13 +33,13 @@ For Office365 connections, use a different test path:
 
 ## Connection Types
 
-There are two ways to create connections, depending on whether you use the AI Gateway:
+There are two ways to create connections, depending on whether you use the Connectors Gateway:
 
-### Option A: AI Gateway Connection (Recommended for Triggers)
+### Option A: Connectors Gateway Connection (Recommended for Triggers)
 
-AI Gateway connections are required for connector triggers (AI Gateway manages the polling infrastructure). They also work for actions.
+Connectors Gateway connections are required for connector triggers (Connectors Gateway manages the polling infrastructure). They also work for actions.
 
-#### A1. Create an AI Gateway
+#### A1. Create a Connectors Gateway
 
 ```powershell
 $subscriptionId = "<your-subscription-id>"
@@ -48,11 +48,11 @@ $gatewayName = "<your-gateway-name>"
 $location = "<azure-region>"  # e.g., "brazilsouth"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
     --body "{`"location`":`"$location`",`"properties`":{}}"
 ```
 
-#### A2. Create a Connection in the AI Gateway
+#### A2. Create a Connection in the Connectors Gateway
 
 ```powershell
 $connectorName = "office365"  # API connector name
@@ -65,11 +65,11 @@ az rest --method PUT `
 
 The connection is created in an **unauthenticated** state. You must complete OAuth consent.
 
-#### A3. OAuth Consent via AI Gateway Manager Portal
+#### A3. OAuth Consent via Connectors Gateway Manager Portal
 
-1. Open the [AI Gateway Manager Portal](https://nice-desert-04d03581e.2.azurestaticapps.net/)
+1. Open the [Connectors Gateway Manager Portal](https://nice-desert-04d03581e.2.azurestaticapps.net/)
 2. Run the command shown on the portal to get an ARM token, paste it, and save
-3. Select your AI Gateway — the connections will appear
+3. Select your Connectors Gateway — the connections will appear
 4. Click **Authorize** on the connection requiring consent
 5. Complete the OAuth flow. Status changes from `Error` to `Connected`.
 
@@ -79,12 +79,12 @@ The connection is created in an **unauthenticated** state. You must complete OAu
 
 After OAuth consent, the connection runtime URL is available:
 
-- In the AI Gateway Manager Portal: select the connection → copy the runtime URL
+- In the Connectors Gateway Manager Portal: select the connection → copy the runtime URL
 - Via ARM API:
 
 ```powershell
 $result = az rest --method GET `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName/connections/$connectionName?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json
 $result.properties.connectionRuntimeUrl
 ```
@@ -99,7 +99,7 @@ $tenantId = "<aad-tenant-id>"
 $policyName = "functionapp-msi"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName/connections/$connectionName/accessPolicies/$policyName?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName/accessPolicies/$policyName?api-version=2026-05-01-preview" `
     --body "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"identity`":{`"objectId`":`"$msiObjectId`",`"tenantId`":`"$tenantId`"}}}}" `
     --headers "Content-Type=application/json"
 ```
@@ -110,7 +110,7 @@ The same connection (and access policy) is used for **both triggers and actions*
 
 ### Option B: Standalone ARM Connection (Actions Only)
 
-Standalone connections work for actions but do not support AI Gateway triggers.
+Standalone connections work for actions but do not support Connectors Gateway triggers.
 
 #### Manual Steps (Option B — Standalone)
 

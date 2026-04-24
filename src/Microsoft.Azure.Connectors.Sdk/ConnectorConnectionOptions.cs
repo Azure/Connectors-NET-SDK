@@ -6,18 +6,18 @@ namespace Microsoft.Azure.Connectors.Sdk
 {
     /// <summary>
     /// Represents connection settings resolved from Azure Functions configuration.
-    /// Settings use the <c>__</c> separator convention (e.g., <c>Office365Connection__aiGatewayName</c>).
+    /// Settings use the <c>__</c> separator convention (e.g., <c>Office365Connection__connectorGatewayName</c>).
     /// </summary>
     public class ConnectorConnectionOptions
     {
         /// <summary>
-        /// Gets or sets the AI Gateway name (Format A).
-        /// Resolved from <c>{connectionSettingName}__aiGatewayName</c> app setting.
+        /// Gets or sets the Connectors Gateway name (Format A).
+        /// Resolved from <c>{connectionSettingName}__connectorGatewayName</c> app setting.
         /// </summary>
-        public string? AiGatewayName { get; set; }
+        public string? ConnectorGatewayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the connection name within the AI Gateway (Format A).
+        /// Gets or sets the connection name within the Connectors Gateway (Format A).
         /// Resolved from <c>{connectionSettingName}__connectionName</c> app setting.
         /// </summary>
         public string? ConnectionName { get; set; }
@@ -29,11 +29,11 @@ namespace Microsoft.Azure.Connectors.Sdk
         public string? ConnectionRuntimeUrl { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this is an AI Gateway connection (Format A).
-        /// True when both <see cref="AiGatewayName"/> and <see cref="ConnectionName"/> are set.
+        /// Gets a value indicating whether this is a Connectors Gateway connection (Format A).
+        /// True when both <see cref="ConnectorGatewayName"/> and <see cref="ConnectionName"/> are set.
         /// </summary>
-        public bool IsAiGatewayConnection =>
-            !string.IsNullOrWhiteSpace(this.AiGatewayName) &&
+        public bool IsConnectorGatewayConnection =>
+            !string.IsNullOrWhiteSpace(this.ConnectorGatewayName) &&
             !string.IsNullOrWhiteSpace(this.ConnectionName);
 
         /// <summary>
