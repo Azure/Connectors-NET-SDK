@@ -82,6 +82,14 @@ jobs:
       - pwsh: npx markdownlint-cli2 '**/*.md'
         displayName: Lint Markdown
 
+      - task: DotNetCoreCLI@2
+        displayName: Validate package (pack dry run)
+        inputs:
+          command: custom
+          custom: pack
+          arguments: --no-build -c $(configuration) -o $(Agent.TempDirectory)/pack-validation
+          projects: $(project)
+
       - ${{ if eq(parameters.createArtifacts, true) }}:
           - template: ci/sign-files.yml@eng
             parameters:
