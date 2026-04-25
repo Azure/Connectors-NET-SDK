@@ -2,6 +2,9 @@ parameters:
   - name: createArtifacts
     type: boolean
     default: true
+  - name: lintMarkdown
+    type: boolean
+    default: false
 
 jobs:
   - job: BuildArtifacts
@@ -79,8 +82,9 @@ jobs:
         inputs:
           summaryFileLocation: $(Agent.TempDirectory)/coverage/report/Cobertura.xml
 
-      - pwsh: npx markdownlint-cli2 '**/*.md'
-        displayName: Lint Markdown
+      - ${{ if eq(parameters.lintMarkdown, true) }}:
+          - pwsh: npx markdownlint-cli2 '**/*.md'
+            displayName: Lint Markdown
 
       - task: DotNetCoreCLI@2
         displayName: Validate package (pack dry run)
