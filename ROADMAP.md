@@ -92,10 +92,10 @@ Trigger support has moved from design to implementation planning. The BPM runtim
 
 #### Connector Resource Access Strategy
 
-The SDK currently uses `Microsoft.Web/connections` resources directly for both actions and trigger registration. The **Connectors Gateway** resource (`Microsoft.Web/connectorGateways`) exposes connections and triggers as data-plane resources without requiring Logic Apps. The Connectors Gateway API version `2026-05-01-preview` is now available.
+The SDK currently uses `Microsoft.Web/connections` resources directly for both actions and trigger registration. The **Connector Gateway** resource (`Microsoft.Web/connectorGateways`) exposes connections and triggers as data-plane resources without requiring Logic Apps. The Connector Gateway API version `2026-05-01-preview` is now available.
 
 **Current approach:** Use `Microsoft.Web/connectorGateways` for connection and trigger management.
-**Migration:** Transition from `Microsoft.Web/connections` direct access to Connectors Gateway is in progress (see [Execution Plan](#execution-plan)).
+**Migration:** Transition from `Microsoft.Web/connections` direct access to Connector Gateway is in progress (see [Execution Plan](#execution-plan)).
 
 #### Architecture Decision: Webhook Model (Event Grid Analogy)
 
@@ -247,22 +247,22 @@ For each new connector, complete these steps:
 - **[M365 Agent POC](https://github.com/coreai-microsoft/m365-agent-poc)** — Working POC using today's GA connectors with Functions (LA Connector as trigger layer, Functions as code runner). Found v1/v2/v3 connector version surprises and webhook subscribe 404 issues. Analyzed internally.
 - **[Codeful Workflows SDK](https://github.com/AzureAD/logicapps-sdk)** (`logicapps-sdk`) — C# code-to-workflow compiler. Generates typed trigger classes for all 1000+ managed connectors. Compiles to workflow.json and delegates trigger lifecycle to Logic Apps runtime. Different approach from our direct-invocation SDK but shares swagger-to-trigger-model generation. Analyzed internally.
 - **BPM Runtime Trigger Architecture** — Analyzed the Logic Apps runtime trigger implementation: three trigger strategies (polling, pure webhook, notification hybrid), dual-job provisioning, class hierarchy, coordination protocol. Extraction plan and trigger taxonomy documentation available internally.
-- **Connectors Gateway API Design** — Control plane API design for `Microsoft.Web/connectorGateways` (internal document).
+- **Connector Gateway API Design** — Control plane API design for `Microsoft.Web/connectorGateways` (internal document).
 
 ### Backlog
 
-1. **Transition to Connectors Gateway API** (`Microsoft.Web/connectorGateways`)
-   - The Connectors Gateway resource exposes connections and triggers as data-plane resources without requiring Logic Apps. API version `2026-05-01-preview`.
-   - [x] Monitor Connectors Gateway API availability and documentation
+1. **Transition to Connector Gateway API** (`Microsoft.Web/connectorGateways`)
+   - The Connector Gateway resource exposes connections and triggers as data-plane resources without requiring Logic Apps. API version `2026-05-01-preview`.
+   - [x] Monitor Connector Gateway API availability and documentation
    - [x] Evaluate migration path from `Microsoft.Web/connections` direct access
-   - [x] Update SDK connection setup to support Connectors Gateway resource type
-   - [ ] Update POC to validate Connectors Gateway–based connection flow
-   - [x] Update `docs/connection-setup.md` with Connectors Gateway instructions
+   - [x] Update SDK connection setup to support Connector Gateway resource type
+   - [ ] Update POC to validate Connector Gateway–based connection flow
+   - [x] Update `docs/connection-setup.md` with Connector Gateway instructions
 
 1. **Multi-language trigger SDK** (Python, Node.js, Java)
 
 1. **Connection setup automation** (VS Code extension / LSP)
-   - AI agents can already automate the full connection lifecycle via the `connection-setup` skill (`.github/skills/connection-setup/SKILL.md`): Connectors Gateway creation, connection creation, OAuth consent link, access policies, and settings injection.
+   - AI agents can already automate the full connection lifecycle via the `connection-setup` skill (`.github/skills/connection-setup/SKILL.md`): Connector Gateway creation, connection creation, OAuth consent link, access policies, and settings injection.
    - **Next:** Build native VS Code extension support (or LSP ConnectionsService) for in-editor connection creation with UI, following the building blocks documented in the skill file.
    - [ ] LSP ConnectionsService: detect existing connections, guided creation flow
    - [ ] VS Code command palette: "Add Connector Connection" with connector picker
@@ -281,7 +281,7 @@ For each new connector, complete these steps:
 |------------|--------|--------|
 | BPM generator PR merged to master | ⏳ Awaiting review | Can work from feature branch, but need master for stability |
 | OAuth connections for testing | ✅ Office365 works | Need connection setup for each new connector |
-| Connectors Gateway API | ⏳ In progress | Transitioning from `Microsoft.Web/connections` to `Microsoft.Web/connectorGateways` |
+| Connector Gateway API | ⏳ In progress | Transitioning from `Microsoft.Web/connections` to `Microsoft.Web/connectorGateways` |
 | Functions extension for triggers | ⬜ Functions team owns | We provide SDK + connector-side delivery; they build the extension |
 | MWF sync cadence | ✅ Established 2026-03-13 | Cross-team alignment on Connectors for Functions |
 
