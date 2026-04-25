@@ -50,7 +50,7 @@ extends:
     settings:
       # PR's from forks do not have sufficient permissions to set tags.
       skipBuildTagsForGitHubPullRequests: ${{ variables['System.PullRequest.IsFork'] }}
-      networkIsolationPolicy: npm
+      networkIsolationPolicy: Good,Npm
 
     stages:
       - stage: Build_Windows
