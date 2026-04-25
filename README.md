@@ -1,4 +1,4 @@
-[![CI](https://dev.azure.com/azfunc/public/_apis/build/status/connector-sdk.public?branchName=main)](https://dev.azure.com/azfunc/public/_build?definitionId=BUILD_ID)
+[![CI](https://dev.azure.com/azfunc/public/_apis/build/status/connector-sdk.public?branchName=main)](https://dev.azure.com/azfunc/public/_build?definitionId=1716&branchName=main)
 [![NuGet](https://img.shields.io/nuget/v/Microsoft.Azure.Connectors.Sdk.svg)](https://www.nuget.org/packages/Microsoft.Azure.Connectors.Sdk)
 
 # Azure Connectors .NET SDK
