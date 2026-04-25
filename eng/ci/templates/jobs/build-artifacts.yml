@@ -64,14 +64,14 @@ jobs:
         displayName: Run tests with coverage
         inputs:
           command: test
-          arguments: --no-build -c $(configuration) --collect:"XPlat Code Coverage" --results-directory $(Agent.TempDirectory)/coverage
+          arguments: --no-build -c $(configuration) --collect:"XPlat Code Coverage"
           projects: $(project)
           publishTestResults: true
           testRunTitle: 'Unit Tests'
 
       - pwsh: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.11
-          reportgenerator -reports:$(Agent.TempDirectory)/coverage/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/coverage/report -reporttypes:Cobertura
+          reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/coverage/report -reporttypes:Cobertura
         displayName: Generate coverage report
 
       - task: PublishCodeCoverageResults@2
@@ -87,7 +87,8 @@ jobs:
         inputs:
           command: custom
           custom: pack
-          arguments: --no-build -c $(configuration) -o $(Agent.TempDirectory)/pack-validation
+          arguments: --no-build -c $(configuration) -o
+            $(Agent.TempDirectory)/pack-validation
           projects: $(project)
 
       - ${{ if eq(parameters.createArtifacts, true) }}:
