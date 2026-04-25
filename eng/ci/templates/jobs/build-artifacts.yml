@@ -83,6 +83,10 @@ jobs:
           summaryFileLocation: $(Agent.TempDirectory)/coverage/report/Cobertura.xml
 
       - ${{ if eq(parameters.lintMarkdown, true) }}:
+          - task: npmAuthenticate@0
+            displayName: Authenticate npm
+            inputs:
+              workingFile: .npmrc
           - pwsh: npx markdownlint-cli2 '**/*.md'
             displayName: Lint Markdown
 
