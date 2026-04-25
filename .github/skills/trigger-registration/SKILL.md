@@ -98,6 +98,7 @@ There is no `ConnectorTrigger` template yet. Use `azd` with an HTTP trigger temp
    ```
 
    > **Note:** If `Microsoft.Azure.Connectors.Sdk` is not yet published on NuGet, use a project reference to the local SDK repo instead:
+   >
    > ```xml
    > <ProjectReference Include="..\..\Connectors-NET-SDK\src\Microsoft.Azure.Connectors.Sdk\Microsoft.Azure.Connectors.Sdk.csproj" />
    > ```
@@ -139,7 +140,7 @@ public class EmailTrigger(ILogger<EmailTrigger> logger)
 
 The connector extension registers a webhook endpoint on the Function App at:
 
-```
+```text
 POST /runtime/webhooks/connector?functionName={FunctionName}&code={connector_extension_key}
 ```
 
