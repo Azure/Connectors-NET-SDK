@@ -86,8 +86,8 @@ jobs:
           - task: npmAuthenticate@0
             displayName: Authenticate npm
             inputs:
-              workingFile: .npmrc
-          - pwsh: npx markdownlint-cli2 '**/*.md'
+              workingFile: eng/ci/.npmrc
+          - pwsh: npx --userconfig eng/ci/.npmrc markdownlint-cli2 '**/*.md'
             displayName: Lint Markdown
 
       - task: DotNetCoreCLI@2
