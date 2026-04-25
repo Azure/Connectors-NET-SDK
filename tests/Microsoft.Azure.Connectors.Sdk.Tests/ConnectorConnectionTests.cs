@@ -15,16 +15,16 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         /// </summary>
         private static void ClearConnectionEnvVars(string prefix)
         {
-            Environment.SetEnvironmentVariable($"{prefix}__aiGatewayName", null);
+            Environment.SetEnvironmentVariable($"{prefix}__connectorGatewayName", null);
             Environment.SetEnvironmentVariable($"{prefix}__connectionName", null);
             Environment.SetEnvironmentVariable($"{prefix}__connectionRuntimeUrl", null);
         }
 
         [TestMethod]
-        public void Resolve_AiGatewayFormat_ReturnsCorrectOptions()
+        public void Resolve_ConnectorGatewayFormat_ReturnsCorrectOptions()
         {
             ClearConnectionEnvVars("TestConn");
-            Environment.SetEnvironmentVariable("TestConn__aiGatewayName", "my-gateway");
+            Environment.SetEnvironmentVariable("TestConn__connectorGatewayName", "my-gateway");
             Environment.SetEnvironmentVariable("TestConn__connectionName", "my-connection");
 
             try
@@ -33,9 +33,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 var options = ConnectorConnectionResolver.Resolve("TestConn");
 
                 // Assert
-                Assert.IsTrue(options.IsAiGatewayConnection);
+                Assert.IsTrue(options.IsConnectorGatewayConnection);
                 Assert.IsFalse(options.IsDirectConnection);
-                Assert.AreEqual("my-gateway", options.AiGatewayName);
+                Assert.AreEqual("my-gateway", options.ConnectorGatewayName);
                 Assert.AreEqual("my-connection", options.ConnectionName);
                 Assert.IsNull(options.ConnectionRuntimeUrl);
             }
@@ -57,10 +57,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 var options = ConnectorConnectionResolver.Resolve("DirectConn");
 
                 // Assert
-                Assert.IsFalse(options.IsAiGatewayConnection);
+                Assert.IsFalse(options.IsConnectorGatewayConnection);
                 Assert.IsTrue(options.IsDirectConnection);
                 Assert.AreEqual("https://apihub.net/apim/office365/abc123", options.ConnectionRuntimeUrl);
-                Assert.IsNull(options.AiGatewayName);
+                Assert.IsNull(options.ConnectorGatewayName);
                 Assert.IsNull(options.ConnectionName);
             }
             finally
@@ -90,10 +90,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Resolve_PartialAiGateway_OnlyGatewayName_ThrowsPartialMessage()
+        public void Resolve_PartialConnectorGateway_OnlyGatewayName_ThrowsPartialMessage()
         {
             ClearConnectionEnvVars("Partial");
-            Environment.SetEnvironmentVariable("Partial__aiGatewayName", "my-gateway");
+            Environment.SetEnvironmentVariable("Partial__connectorGatewayName", "my-gateway");
 
             try
             {
@@ -101,8 +101,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     () => ConnectorConnectionResolver.Resolve("Partial"));
 
                 Assert.IsTrue(
-                    exception.Message.Contains("Partial AI Gateway", StringComparison.OrdinalIgnoreCase),
-                    $"Expected partial AI Gateway message but got: {exception.Message}");
+                    exception.Message.Contains("Partial Connectors Gateway", StringComparison.OrdinalIgnoreCase),
+                    $"Expected partial Connectors Gateway message but got: {exception.Message}");
             }
             finally
             {
@@ -111,7 +111,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Resolve_PartialAiGateway_OnlyConnectionName_ThrowsPartialMessage()
+        public void Resolve_PartialConnectorGateway_OnlyConnectionName_ThrowsPartialMessage()
         {
             ClearConnectionEnvVars("OnlyConn");
             Environment.SetEnvironmentVariable("OnlyConn__connectionName", "my-connection");
@@ -122,8 +122,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     () => ConnectorConnectionResolver.Resolve("OnlyConn"));
 
                 Assert.IsTrue(
-                    exception.Message.Contains("Partial AI Gateway", StringComparison.OrdinalIgnoreCase),
-                    $"Expected partial AI Gateway message but got: {exception.Message}");
+                    exception.Message.Contains("Partial Connectors Gateway", StringComparison.OrdinalIgnoreCase),
+                    $"Expected partial Connectors Gateway message but got: {exception.Message}");
             }
             finally
             {
@@ -135,7 +135,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Resolve_BothFormatsPresent_BothFlagsAreTrue()
         {
             ClearConnectionEnvVars("Both");
-            Environment.SetEnvironmentVariable("Both__aiGatewayName", "my-gateway");
+            Environment.SetEnvironmentVariable("Both__connectorGatewayName", "my-gateway");
             Environment.SetEnvironmentVariable("Both__connectionName", "my-conn");
             Environment.SetEnvironmentVariable("Both__connectionRuntimeUrl", "https://apihub.net/apim/office365/abc");
 
@@ -143,9 +143,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             {
                 var options = ConnectorConnectionResolver.Resolve("Both");
 
-                Assert.IsTrue(options.IsAiGatewayConnection);
+                Assert.IsTrue(options.IsConnectorGatewayConnection);
                 Assert.IsTrue(options.IsDirectConnection);
-                Assert.AreEqual("my-gateway", options.AiGatewayName);
+                Assert.AreEqual("my-gateway", options.ConnectorGatewayName);
                 Assert.AreEqual("my-conn", options.ConnectionName);
                 Assert.AreEqual("https://apihub.net/apim/office365/abc", options.ConnectionRuntimeUrl);
             }
@@ -181,10 +181,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             var options = new ConnectorConnectionOptions();
 
-            Assert.IsNull(options.AiGatewayName);
+            Assert.IsNull(options.ConnectorGatewayName);
             Assert.IsNull(options.ConnectionName);
             Assert.IsNull(options.ConnectionRuntimeUrl);
-            Assert.IsFalse(options.IsAiGatewayConnection);
+            Assert.IsFalse(options.IsConnectorGatewayConnection);
             Assert.IsFalse(options.IsDirectConnection);
         }
     }

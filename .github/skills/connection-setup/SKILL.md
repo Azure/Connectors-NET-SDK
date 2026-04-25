@@ -1,9 +1,9 @@
 ---
 name: connection-setup
-description: 'Create and configure AI Gateway connections for SDK-supported connectors. USE WHEN: setting up a new connector connection, creating an AI Gateway, authorizing OAuth consent, adding access policies, or configuring local.settings.json / app settings. Covers Office365, SharePoint, Teams, and any Microsoft.Web/connections connector. NOT FOR: general SDK usage, trigger registration, or code generation.'
+description: 'Create and configure Connectors Gateway connections for SDK-supported connectors. USE WHEN: setting up a new connector connection, creating a Connectors Gateway, authorizing OAuth consent, adding access policies, or configuring local.settings.json / app settings. Covers Office365, SharePoint, Teams, and any Microsoft.Web/connections connector. NOT FOR: general SDK usage, trigger registration, or code generation.'
 ---
 
-# AI Gateway Connection Setup
+# Connectors Gateway Connection Setup
 
 Automates the end-to-end connection lifecycle for SDK-supported connectors, keeping the developer in VS Code.
 
@@ -22,16 +22,16 @@ Automates the end-to-end connection lifecycle for SDK-supported connectors, keep
 
 ## Procedure
 
-### Step 1: Create or Select AI Gateway
+### Step 1: Create or Select Connectors Gateway
 
-Check for an existing AI Gateway in the resource group:
+Check for an existing Connectors Gateway in the resource group:
 
 ```powershell
 $subscriptionId = "<subscription-id>"
 $resourceGroup = "<resource-group>"
 
 az rest --method GET `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json | Select-Object -ExpandProperty value | Select-Object name
 ```
 
@@ -45,7 +45,7 @@ $gwBody = "{`"location`":`"$location`",`"properties`":{}}"
 $tempFile = Join-Path $env:TEMP "gw-body.json"
 [System.IO.File]::WriteAllText($tempFile, $gwBody)
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -58,12 +58,12 @@ Supported SDK connector names: `office365`, `onedriveforbusiness`, `sharepointon
 $connectorName = "<connector-name>"      # e.g., "office365", "onedriveforbusiness", "sharepointonline", "teams", "msgraphgroupsanduser"
 $connectionName = "<connection-name>"    # e.g., "office365-test", "sharepoint-test"
 
-$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName"
+$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName"
 $connBody = "{`"properties`":{`"connectorName`":`"$connectorName`"}}"
 $tempFile = Join-Path $env:TEMP "conn-body.json"
 [System.IO.File]::WriteAllText($tempFile, $connBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name, @{n='status';e={$_.properties.statuses[0].status}}
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -79,7 +79,7 @@ $consentBody = '{"parameters":[{"redirectUrl":"https://portal.azure.com","parame
 $tempFile = Join-Path $env:TEMP "consent-body.json"
 [System.IO.File]::WriteAllText($tempFile, $consentBody)
 $result = az rest --method POST `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}/listConsentLinks?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/connections/${connectionName}/listConsentLinks?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 
@@ -91,7 +91,7 @@ The user completes OAuth in the browser. After consent, verify:
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json | Select-Object @{n='status';e={$_.properties.statuses[0].status}}
 ```
 
@@ -101,7 +101,7 @@ Expected: `Connected`.
 
 ```powershell
 $conn = az rest --method GET `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json
 $runtimeUrl = $conn.properties.connectionRuntimeUrl
 Write-Output "Runtime URL: $runtimeUrl"
@@ -119,7 +119,7 @@ $policyBody = "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"id
 $tempFile = Join-Path $env:TEMP "policy-body.json"
 [System.IO.File]::WriteAllText($tempFile, $policyBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}/accessPolicies/local-dev?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/connections/${connectionName}/accessPolicies/local-dev?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -135,7 +135,7 @@ $policyBody = "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"id
 $tempFile = Join-Path $env:TEMP "msi-policy-body.json"
 [System.IO.File]::WriteAllText($tempFile, $policyBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}/accessPolicies/functionapp-msi?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/connections/${connectionName}/accessPolicies/functionapp-msi?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -160,11 +160,11 @@ Add to `local.settings.json` under `"Values"`:
 }
 ```
 
-#### Format A — AI Gateway (triggers + actions)
+#### Format A — Connectors Gateway (triggers + actions)
 
 ```json
 {
-  "{connectionSettingName}__aiGatewayName": "<gateway-name>",
+  "{connectionSettingName}__connectorGatewayName": "<gateway-name>",
   "{connectionSettingName}__connectionName": "<connection-name>"
 }
 ```
@@ -184,7 +184,7 @@ Format A:
 ```powershell
 az functionapp config appsettings set `
     -g $resourceGroup -n $functionAppName `
-    --settings "{connectionSettingName}__aiGatewayName=$gatewayName" "{connectionSettingName}__connectionName=$connectionName"
+    --settings "{connectionSettingName}__connectorGatewayName=$gatewayName" "{connectionSettingName}__connectionName=$connectionName"
 ```
 
 ### Step 7: Verify Connection

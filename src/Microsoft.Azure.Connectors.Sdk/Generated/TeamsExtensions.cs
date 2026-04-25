@@ -1267,7 +1267,7 @@ public class NewMeeting
 /// <summary>
 /// Trigger operation name constants for the Teams connector.
 /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the AI Gateway TriggerConfig <c>operationName</c> field.
+/// and with the Connectors Gateway TriggerConfig <c>operationName</c> field.
 /// </summary>
 public static class TeamsTriggerOperations
 {
@@ -1324,7 +1324,7 @@ public static class TeamsTriggerOperations
 
 /// <summary>
 /// Trigger input parameter name constants for the Teams connector.
-/// These correspond to the AI Gateway TriggerConfig <c>parameters</c> array.
+/// These correspond to the Connectors Gateway TriggerConfig <c>parameters</c> array.
 /// </summary>
 public static class TeamsTriggerParameters
 {

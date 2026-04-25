@@ -1,23 +1,23 @@
 ---
 name: trigger-registration
-description: 'Register AI Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur. Covers trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill), general SDK usage, or code generation.'
+description: 'Register Connectors Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur. Covers trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill), general SDK usage, or code generation.'
 ---
 
-# AI Gateway Trigger Registration
+# Connectors Gateway Trigger Registration
 
-Registers polling trigger configs on an AI Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint.
+Registers polling trigger configs on a Connectors Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint.
 
 ## When to Use
 
 - Developer needs a connector trigger (e.g., "when a new file is created in OneDrive")
-- Developer has an existing AI Gateway connection (use the `connection-setup` skill first if not)
+- Developer has an existing Connectors Gateway connection (use the `connection-setup` skill first if not)
 - Developer needs to wire up the callback URL from a deployed Azure Function
 - Developer needs to understand binary vs metadata trigger payload shapes
 
 ## Prerequisites
 
 - Azure CLI installed and authenticated (`az login`)
-- AI Gateway with a connected connector (see `connection-setup` skill)
+- Connectors Gateway with a connected connector (see `connection-setup` skill)
 - Deployed Azure Function with an HTTP-triggered callback endpoint
 - Function key for the callback endpoint
 
@@ -25,10 +25,10 @@ Registers polling trigger configs on an AI Gateway so that connector events (new
 
 ### Trigger Config vs Connection
 
-Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the AI Gateway to **poll** the connector for events and **POST callbacks** to your function when events occur.
+Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the Connectors Gateway to **poll** the connector for events and **POST callbacks** to your function when events occur.
 
 ```text
-AI Gateway
+Connectors Gateway
 ├── connections/
 │   └── onedrive-test          ← auth + runtime URL (connection-setup skill)
 └── triggerConfigs/
@@ -109,7 +109,7 @@ az rest --method GET `
 $subscriptionId = "<subscription-id>"
 $resourceGroup = "<resource-group>"
 $gatewayName = "<gateway-name>"
-$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/aigateways/$gatewayName"
+$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName"
 
 $triggerName = "<trigger-config-name>"   # e.g., "onedrive-newfile-binary"
 $connectionName = "<connection-name>"    # e.g., "onedrive-test"
@@ -189,7 +189,7 @@ Invoke-RestMethod -Uri "$baseUrl/onedrive/upload?code=$functionKey" `
     -Method POST -Body $uploadBody -ContentType "application/json"
 ```
 
-The AI Gateway polls the connector every 1-5 minutes. After polling detects the new content, it POSTs the trigger payload to your callback URL.
+The Connectors Gateway polls the connector every 1-5 minutes. After polling detects the new content, it POSTs the trigger payload to your callback URL.
 
 ### Step 7: Verify Callback Received
 
@@ -247,7 +247,7 @@ Get-ChildItem "$env:TEMP/func-logs" -Recurse -Filter "*.log" |
 | `Could not find member 'connectionName'` | Used `connectionName` instead of `connectionDetails` | Use `connectionDetails` with nested `connectorName` + `connectionName` |
 | `Could not find member 'callbackUrl'` | Put `callbackUrl` at properties level | Wrap in `notificationDetails` |
 | `Could not find member 'parameterName'` | Used `parameterName` in parameter array | Use `name` |
-| `Cannot deserialize... into AIGatewayOperationsParameter[]` | Parameters as object, not array | Use `[{"name":"...","value":"..."}]` array |
+| `Cannot deserialize... into ConnectorGatewayOperationsParameter[]` | Parameters as object, not array | Use `[{"name":"...","value":"..."}]` array |
 | `missing required property 'folderId'` | Required trigger parameter not provided | Add to parameters array |
 | Trigger provisions but never fires callback | Missing `notificationDetails` or empty `notificationDetails.callbackUrl` | Add `notificationDetails` with a non-empty `callbackUrl` and `httpMethod` |
 | `az rest` PUT returns no output/error | `az rest` swallows non-2xx responses silently | Use `Invoke-WebRequest` instead for PUT operations |
