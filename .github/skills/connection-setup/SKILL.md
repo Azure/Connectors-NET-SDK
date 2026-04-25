@@ -19,6 +19,7 @@ Automates the end-to-end connection lifecycle for SDK-supported connectors, keep
 - Azure CLI installed and authenticated (`az login`)
 - Target subscription and resource group known
 - For deployed scenarios: compute host (e.g., Function App, App Service) with managed identity enabled
+- **Supported regions** for Connectors Gateway: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the resource group and Function App can be in any region.
 
 ## Procedure
 
@@ -41,7 +42,7 @@ If none exists, create one:
 $gatewayName = "<gateway-name>"
 $location = "<azure-region>"
 
-$gwBody = "{`"location`":`"$location`",`"properties`":{}}"
+$gwBody = "{`"location`":`"$location`",`"identity`":{`"type`":`"SystemAssigned`"},`"properties`":{}}"
 $tempFile = Join-Path $env:TEMP "gw-body.json"
 [System.IO.File]::WriteAllText($tempFile, $gwBody)
 az rest --method PUT `
@@ -49,6 +50,18 @@ az rest --method PUT `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
+
+> **Important:** The gateway must have a managed identity enabled (`SystemAssigned`) for trigger callback authentication. If the gateway was created without an identity, update it:
+>
+> ```powershell
+> $gwBody = "{`"location`":`"$location`",`"identity`":{`"type`":`"SystemAssigned`"},`"properties`":{}}"
+> $tempFile = Join-Path $env:TEMP "gw-identity.json"
+> [System.IO.File]::WriteAllText($tempFile, $gwBody)
+> az rest --method PUT `
+>     --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
+>     --body "@$tempFile" --headers "Content-Type=application/json" -o json
+> Remove-Item $tempFile -ErrorAction SilentlyContinue
+> ```
 
 ### Step 2: Create Connection
 
@@ -109,6 +122,8 @@ Write-Output "Runtime URL: $runtimeUrl"
 
 ### Step 5: Add Access Policies
 
+> **Note:** Access policies control which identities can call the connection's runtime URL for connector **actions** (e.g., send email, list files). For **trigger-only** scenarios, the Connectors Gateway polls server-side and does not need an access policy on the connection. Skip this step if your function only receives trigger callbacks and does not call connector actions at runtime.
+
 #### For local development (Azure CLI identity)
 
 ```powershell
@@ -143,6 +158,8 @@ Remove-Item $tempFile -ErrorAction SilentlyContinue
 > ACL propagation takes 1-5 minutes. If you get 403 errors immediately after adding, wait and retry.
 
 ### Step 6: Configure App Settings
+
+> **Note:** Connection app settings are only needed when your function code calls connector **actions** at runtime using `ConnectorConnectionResolver`. For **trigger-only** scenarios, the function receives callbacks directly from the Connectors Gateway and does not need these settings. Skip this step if your function only receives trigger callbacks.
 
 The SDK's `ConnectorConnectionResolver` reads connection settings using the Azure Functions `__` (double-underscore) environment variable separator convention.
 
