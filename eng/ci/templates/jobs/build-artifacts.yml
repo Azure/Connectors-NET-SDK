@@ -2,6 +2,9 @@ parameters:
   - name: createArtifacts
     type: boolean
     default: true
+  - name: lintMarkdown
+    type: boolean
+    default: false
 
 jobs:
   - job: BuildArtifacts
@@ -64,14 +67,14 @@ jobs:
         displayName: Run tests with coverage
         inputs:
           command: test
-          arguments: --no-build -c $(configuration) --collect:"XPlat Code Coverage" --results-directory $(Agent.TempDirectory)/coverage
+          arguments: --no-build -c $(configuration) --collect:"XPlat Code Coverage"
           projects: $(project)
           publishTestResults: true
           testRunTitle: 'Unit Tests'
 
       - pwsh: |
           dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.11
-          reportgenerator -reports:$(Agent.TempDirectory)/coverage/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/coverage/report -reporttypes:Cobertura
+          reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/coverage/report -reporttypes:Cobertura
         displayName: Generate coverage report
 
       - task: PublishCodeCoverageResults@2
@@ -79,8 +82,13 @@ jobs:
         inputs:
           summaryFileLocation: $(Agent.TempDirectory)/coverage/report/Cobertura.xml
 
-      - pwsh: npx markdownlint-cli2 '**/*.md'
-        displayName: Lint Markdown
+      - ${{ if eq(parameters.lintMarkdown, true) }}:
+          - task: npmAuthenticate@0
+            displayName: Authenticate npm
+            inputs:
+              workingFile: eng/ci/.npmrc
+          - pwsh: npx --userconfig eng/ci/.npmrc markdownlint-cli2 '**/*.md'
+            displayName: Lint Markdown
 
       - task: DotNetCoreCLI@2
         displayName: Validate package (pack dry run)

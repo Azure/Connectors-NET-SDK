@@ -58,6 +58,7 @@ extends:
           - template: /eng/ci/templates/jobs/build-artifacts.yml@self
             parameters:
               createArtifacts: false
+              lintMarkdown: true
 
       - stage: Build_Linux
         displayName: Build (Linux)
@@ -70,3 +71,4 @@ extends:
           - template: /eng/ci/templates/jobs/build-artifacts.yml@self
             parameters:
               createArtifacts: false
+              lintMarkdown: true

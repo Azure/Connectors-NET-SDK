@@ -1,11 +1,11 @@
 ---
 name: trigger-registration
-description: 'Register Connector Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur. Covers trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill), general SDK usage, or code generation.'
+description: 'Register Connector Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur, creating a .NET Function App project with ConnectorTrigger, or wiring post-deploy trigger config scripts. Covers function app scaffolding, trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill).'
 ---
 
 # Connector Gateway Trigger Registration
 
-Registers polling trigger configs on a Connector Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint.
+Registers polling trigger configs on a Connector Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint. Also covers scaffolding a .NET Function App project with the connector extension packages.
 
 ## When to Use
 
@@ -18,8 +18,12 @@ Registers polling trigger configs on a Connector Gateway so that connector event
 
 - Azure CLI installed and authenticated (`az login`)
 - Connector Gateway with a connected connector (see `connection-setup` skill)
-- Deployed Azure Function with an HTTP-triggered callback endpoint
-- Function key for the callback endpoint
+- The gateway must have a **system-assigned managed identity** enabled (required for trigger callback authentication)
+- Deployed Azure Function App with a connector trigger function
+- **Supported regions** for Connector Gateway: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the Function App can be in any region.
+- For .NET: the Function App project must reference:
+  - `Microsoft.Azure.Functions.Worker.Extensions.Connector` — provides the `[ConnectorTrigger]` attribute
+  - `Microsoft.Azure.Connectors.Sdk` — provides typed connector clients and trigger payload types
 
 ## Key Concepts
 
@@ -67,21 +71,97 @@ If the connector generates a `*Triggers.Operations` dictionary, that dictionary 
 
 Some connectors may not generate a `*Triggers` registry at all. When `*Triggers.Operations` is unavailable, check the XML doc comment on the `*TriggerOperations` constant: a `Payload type:` annotation indicates a metadata trigger, while no annotation indicates a binary trigger.
 
+## .NET Function App with Connector Extension
+
+### Scaffolding a New Project
+
+There is no `ConnectorTrigger` template yet. Use `azd` with an HTTP trigger template and replace the trigger:
+
+1. **Initialize** with the Azure Functions .NET quickstart:
+
+   ```shell
+   azd init -t functions-quickstart-dotnet-azd
+   ```
+
+2. **Replace the HTTP trigger** with a `[ConnectorTrigger]` function. Delete any sample HTTP functions and create your trigger function (see example below).
+
+3. **Add packages** to the Function App `.csproj`:
+
+   ```xml
+   <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Connector" Version="0.1.0-alpha" />
+   ```
+
+   For SDK typed payloads, also add:
+
+   ```xml
+   <PackageReference Include="Microsoft.Azure.Connectors.Sdk" Version="*" />
+   ```
+
+   > **Note:** If `Microsoft.Azure.Connectors.Sdk` is not yet published on NuGet, use a project reference to the local SDK repo instead:
+   >
+   > ```xml
+   > <ProjectReference Include="..\..\Connectors-NET-SDK\src\Microsoft.Azure.Connectors.Sdk\Microsoft.Azure.Connectors.Sdk.csproj" />
+   > ```
+
+4. **Build and deploy**:
+
+   ```shell
+   azd up
+   ```
+
+### Packages
+
+- `Microsoft.Azure.Functions.Worker.Extensions.Connector` — provides the `[ConnectorTrigger]` attribute and POCO converter. See [azure-functions-connector-extension](https://github.com/Azure/azure-functions-connector-extension).
+- `Microsoft.Azure.Connectors.Sdk` — typed connector clients and trigger payload types (e.g., `Office365OnNewEmailTriggerPayload`, `TeamsClient`)
+
+### Example: ConnectorTrigger Function
+
+Use the `[ConnectorTrigger]` attribute with SDK typed payloads for POCO binding. Payload types are in the `Microsoft.Azure.Connectors.DirectClient.<Connector>` namespace:
+
+```csharp
+using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
+
+public class EmailTrigger(ILogger<EmailTrigger> logger)
+{
+    [Function("OnNewEmailReceived")]
+    public void OnNewEmailReceived(
+        [ConnectorTrigger] Office365OnNewEmailTriggerPayload payload)
+    {
+        var emails = payload.Body?.Value ?? [];
+        foreach (var email in emails)
+        {
+            logger.LogInformation("Subject: {Subject}, From: {From}", email.Subject, email.From);
+        }
+    }
+}
+```
+
+The connector extension registers a webhook endpoint on the Function App at:
+
+```text
+POST /runtime/webhooks/connector?functionName={FunctionName}&code={connector_extension_key}
+```
+
+The `connector_extension` system key is auto-generated when the extension loads. Use this URL as the callback when creating trigger configs (see Step 1 below).
+
 ## Procedure
 
 ### Step 1: Get the Callback URL
 
-Build the callback URL from your deployed Function App:
+The connector extension exposes a webhook endpoint on the Function App. Build the callback URL using the `connector_extension` system key:
 
 ```powershell
 $resourceGroup = "<resource-group>"
 $functionAppName = "<function-app-name>"
-$functionName = "<trigger-callback-function-name>"
+$functionName = "<connector-trigger-function-name>"
 
-$keys = az functionapp function keys list -g $resourceGroup -n $functionAppName --function-name $functionName -o json | ConvertFrom-Json
-$functionKey = $keys.default
-$callbackUrl = "https://$functionAppName.azurewebsites.net/api/$functionName?code=$functionKey"
+$connectorExtensionKey = az functionapp keys list -g $resourceGroup -n $functionAppName --query "systemKeys.connector_extension" -o tsv
+$callbackUrl = "https://$functionAppName.azurewebsites.net/runtime/webhooks/connector?functionName=$functionName&code=$connectorExtensionKey"
 ```
+
+> **Important:** The `functionName` query parameter must exactly match the `[Function("...")]` attribute name in your code. A mismatch means the connector extension cannot route the callback to your function.
 
 ### Step 2: Get Trigger Parameters
 
@@ -95,6 +175,8 @@ OnedriveforbusinessTriggerParameters.OnNewFile.InferContentType   // Optional, d
 ```
 
 For folder IDs, use the connector's list operations to discover them:
+
+> **Note:** Listing folders requires a data-plane call to the connection runtime URL. If you skipped access policies in the `connection-setup` skill (trigger-only flow), you must first add a local-dev access policy (`connection-setup` Step 5) to avoid 403 errors.
 
 ```powershell
 $runtimeUrl = "<connection-runtime-url>"  # from connection-setup skill Step 4
@@ -142,7 +224,7 @@ $body = @{
     }
 } | ConvertTo-Json -Depth 4
 
-$uri = "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-03-01-preview"
+$uri = "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
 try {
     $response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
         -ContentType "application/json" `
@@ -154,13 +236,23 @@ try {
 }
 ```
 
+#### Alternative: Using az rest
+
+```powershell
+$bodyFile = [System.IO.Path]::GetTempFileName()
+$body | Out-File -FilePath $bodyFile -Encoding utf8
+
+az rest --method PUT --url $uri --body "@$bodyFile" --headers "Content-Type=application/json"
+Remove-Item $bodyFile -ErrorAction SilentlyContinue
+```
+
 Expected: HTTP 201 Created.
 
 ### Step 4: Verify Trigger Config
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
     --query "properties.{operation:operationName, state:state, hasCallback:notificationDetails.callbackUrl!=null}" `
     -o table
 ```
@@ -171,7 +263,7 @@ Expected: `state = Enabled`, `hasCallback = True`.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/triggerConfigs?api-version=2026-03-01-preview" `
+    --uri "https://management.azure.com${gwId}/triggerConfigs?api-version=2026-05-01-preview" `
     --query "value[].{name:name, operation:properties.operationName, state:properties.state}" `
     -o table
 ```
@@ -217,7 +309,7 @@ Get-ChildItem "$env:TEMP/func-logs" -Recurse -Filter "*.log" |
       "connectionName": "onedrive-test"
     },
     "notificationDetails": {
-      "callbackUrl": "https://my-func.azurewebsites.net/api/callback?code=...",
+      "callbackUrl": "https://my-func.azurewebsites.net/runtime/webhooks/connector?functionName=OnNewFile&code=<connector-extension-key>",
       "httpMethod": "Post"
     },
     "parameters": [
