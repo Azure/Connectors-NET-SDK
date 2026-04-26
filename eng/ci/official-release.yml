@@ -4,8 +4,7 @@ parameters:
     type: boolean
     default: false
   - name: publishToNugetOrg
-    displayName: Publish to nuget.org? (Only effective when triggered from a release
-      branch or tag)
+    displayName: Publish to nuget.org? (Only effective when triggered from a release branch or tag)
     type: boolean
     default: false
 

@@ -309,7 +309,7 @@ Get-ChildItem "$env:TEMP/func-logs" -Recurse -Filter "*.log" |
       "connectionName": "onedrive-test"
     },
     "notificationDetails": {
-      "callbackUrl": "https://my-func.azurewebsites.net/runtime/webhooks/connector?functionName=OnNewFile&code=...",
+      "callbackUrl": "https://my-func.azurewebsites.net/runtime/webhooks/connector?functionName=OnNewFile&code=<connector-extension-key>",
       "httpMethod": "Post"
     },
     "parameters": [

@@ -95,8 +95,7 @@ jobs:
         inputs:
           command: custom
           custom: pack
-          arguments: --no-build -c $(configuration) -o
-            $(Agent.TempDirectory)/pack-validation
+          arguments: --no-build -c $(configuration) -o $(Agent.TempDirectory)/pack-validation
           projects: $(project)
 
       - ${{ if eq(parameters.createArtifacts, true) }}:
