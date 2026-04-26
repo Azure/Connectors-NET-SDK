@@ -14,7 +14,7 @@ trigger: none
 resources:
   pipelines:
     - pipeline: build
-      source: connector-sdk.official
+      source: connectors-sdk.official
 
 extends:
   template: /eng/ci/templates/jobs/release-packages.yml@self
