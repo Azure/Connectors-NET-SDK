@@ -83,7 +83,6 @@ extends:
             parameters:
               isProduction: true
               approvers: '[TEAM FOUNDATION]\David Burg,[TEAM FOUNDATION]\Rama Krishna Rayudu,[TEAM FOUNDATION]\Varad Meru''s Team'
-              allowApproversToApproveTheirOwnRuns: false
               stagingFeed: public/pre-release
               packages: '**/Microsoft.Azure.Connectors.Sdk.*.nupkg'
               artifact:
