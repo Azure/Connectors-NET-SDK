@@ -8,9 +8,9 @@
     <!-- Core dependencies -->
     <PackageVersion Include="Azure.Core" Version="1.53.0" />
     <PackageVersion Include="Azure.Identity" Version="1.21.0" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.6" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.6" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.7" />
     <PackageVersion Include="Polly" Version="8.6.6" />
     <PackageVersion Include="Polly.Extensions.Http" Version="3.0.0" />
     
