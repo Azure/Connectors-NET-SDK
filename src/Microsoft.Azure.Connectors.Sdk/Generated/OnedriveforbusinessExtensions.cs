@@ -111,7 +111,7 @@ public class BlobMetadataPage
 
 /// <summary>
 /// Typed trigger payload for the OnNewFiles trigger (Onedriveforbusiness "When a file is created (properties only)", operationId: OnNewFilesV2).
-/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnedriveforbusinessOnNewFilesTriggerPayload&gt;(body)</c>.
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnedriveforbusinessOnNewFilesTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class OnedriveforbusinessOnNewFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
 {
@@ -119,7 +119,7 @@ public class OnedriveforbusinessOnNewFilesTriggerPayload : TriggerCallbackPayloa
 
 /// <summary>
 /// Typed trigger payload for the OnUpdatedFiles trigger (Onedriveforbusiness "When a file is modified (properties only)", operationId: OnUpdatedFilesV2).
-/// Deserialize Connectors Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnedriveforbusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnedriveforbusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
 /// </summary>
 public class OnedriveforbusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
 {
@@ -149,7 +149,7 @@ public static class OnedriveforbusinessTriggers
 /// <summary>
 /// Trigger operation name constants for the Onedriveforbusiness connector.
 /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the Connectors Gateway TriggerConfig <c>operationName</c> field.
+/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
 /// </summary>
 public static class OnedriveforbusinessTriggerOperations
 {
@@ -183,7 +183,7 @@ public static class OnedriveforbusinessTriggerOperations
 
 /// <summary>
 /// Trigger input parameter name constants for the Onedriveforbusiness connector.
-/// These correspond to the Connectors Gateway TriggerConfig <c>parameters</c> array.
+/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
 /// </summary>
 public static class OnedriveforbusinessTriggerParameters
 {

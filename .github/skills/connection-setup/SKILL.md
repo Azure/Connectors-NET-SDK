@@ -1,9 +1,9 @@
 ---
 name: connection-setup
-description: 'Create and configure Connectors Gateway connections for SDK-supported connectors. USE WHEN: setting up a new connector connection, creating a Connectors Gateway, authorizing OAuth consent, adding access policies, or configuring local.settings.json / app settings. Covers Office365, SharePoint, Teams, and any Microsoft.Web/connections connector. NOT FOR: general SDK usage, trigger registration, or code generation.'
+description: 'Create and configure Connector Gateway connections for SDK-supported connectors. USE WHEN: setting up a new connector connection, creating a Connector Gateway, authorizing OAuth consent, adding access policies, or configuring local.settings.json / app settings. Covers Office365, SharePoint, Teams, and any Microsoft.Web/connections connector. NOT FOR: general SDK usage, trigger registration, or code generation.'
 ---
 
-# Connectors Gateway Connection Setup
+# Connector Gateway Connection Setup
 
 Automates the end-to-end connection lifecycle for SDK-supported connectors, keeping the developer in VS Code.
 
@@ -22,9 +22,9 @@ Automates the end-to-end connection lifecycle for SDK-supported connectors, keep
 
 ## Procedure
 
-### Step 1: Create or Select Connectors Gateway
+### Step 1: Create or Select Connector Gateway
 
-Check for an existing Connectors Gateway in the resource group:
+Check for an existing Connector Gateway in the resource group:
 
 ```powershell
 $subscriptionId = "<subscription-id>"
@@ -160,7 +160,7 @@ Add to `local.settings.json` under `"Values"`:
 }
 ```
 
-#### Format A — Connectors Gateway (triggers + actions)
+#### Format A — Connector Gateway (triggers + actions)
 
 ```json
 {

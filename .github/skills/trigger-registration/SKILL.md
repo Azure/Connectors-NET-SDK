@@ -1,23 +1,23 @@
 ---
 name: trigger-registration
-description: 'Register Connectors Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur. Covers trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill), general SDK usage, or code generation.'
+description: 'Register Connector Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur. Covers trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill), general SDK usage, or code generation.'
 ---
 
-# Connectors Gateway Trigger Registration
+# Connector Gateway Trigger Registration
 
-Registers polling trigger configs on a Connectors Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint.
+Registers polling trigger configs on a Connector Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint.
 
 ## When to Use
 
 - Developer needs a connector trigger (e.g., "when a new file is created in OneDrive")
-- Developer has an existing Connectors Gateway connection (use the `connection-setup` skill first if not)
+- Developer has an existing Connector Gateway connection (use the `connection-setup` skill first if not)
 - Developer needs to wire up the callback URL from a deployed Azure Function
 - Developer needs to understand binary vs metadata trigger payload shapes
 
 ## Prerequisites
 
 - Azure CLI installed and authenticated (`az login`)
-- Connectors Gateway with a connected connector (see `connection-setup` skill)
+- Connector Gateway with a connected connector (see `connection-setup` skill)
 - Deployed Azure Function with an HTTP-triggered callback endpoint
 - Function key for the callback endpoint
 
@@ -25,10 +25,10 @@ Registers polling trigger configs on a Connectors Gateway so that connector even
 
 ### Trigger Config vs Connection
 
-Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the Connectors Gateway to **poll** the connector for events and **POST callbacks** to your function when events occur.
+Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the Connector Gateway to **poll** the connector for events and **POST callbacks** to your function when events occur.
 
 ```text
-Connectors Gateway
+Connector Gateway
 ├── connections/
 │   └── onedrive-test          ← auth + runtime URL (connection-setup skill)
 └── triggerConfigs/
@@ -189,7 +189,7 @@ Invoke-RestMethod -Uri "$baseUrl/onedrive/upload?code=$functionKey" `
     -Method POST -Body $uploadBody -ContentType "application/json"
 ```
 
-The Connectors Gateway polls the connector every 1-5 minutes. After polling detects the new content, it POSTs the trigger payload to your callback URL.
+The Connector Gateway polls the connector every 1-5 minutes. After polling detects the new content, it POSTs the trigger payload to your callback URL.
 
 ### Step 7: Verify Callback Received
 
