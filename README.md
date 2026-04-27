@@ -120,6 +120,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 ## Documentation
 
+- [docs/concepts.md](docs/concepts.md) - Key concepts, terminology, and architecture
 - [GENERATION.md](GENERATION.md) - How to generate connector code
 - [docs/connection-setup.md](docs/connection-setup.md) - Setting up connections for local testing
 - [ROADMAP.md](ROADMAP.md) - Connector generation progress and lessons learned
