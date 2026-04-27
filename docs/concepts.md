@@ -84,13 +84,14 @@ Connector (e.g. "office365")
 
 > **Connector vs. API:** A connector is not the same as the underlying SaaS API. The connector is a managed proxy layer that normalizes authentication, pagination, throttling, and schema across hundreds of backend services.
 
-### Connector Gateways (Resource Provider)
+### Connector Gateways (ARM Resource Type)
 
-**Connector Gateways** refers to the Azure Resource Manager (ARM) resource provider (`Microsoft.Web/connectorGateways`) that manages the lifecycle of gateways, connections, access policies, and trigger registrations. It is the control plane that you interact with via the Azure CLI, ARM templates, or the Azure Portal.
+**Connector Gateways** refers to the Azure Resource Manager (ARM) resource type `connectorGateways` under the `Microsoft.Web` resource provider. This resource type manages the lifecycle of gateways, connections, access policies, and trigger registrations. It is the control plane that you interact with via the Azure CLI, ARM templates, or the Azure Portal.
 
 ARM namespace: `Microsoft.Web`
 
 Key API operations:
+
 | Operation | ARM Path |
 |-----------|----------|
 | List gateways | `GET .../connectorGateways` |
@@ -104,7 +105,7 @@ Key API operations:
 A **Connector Gateway** is a specific ARM resource (`Microsoft.Web/connectorGateways/{gatewayName}`) deployed in a resource group. It acts as a container for one or more **connections** and provides:
 
 - **Managed identity** — A system-assigned identity used by the gateway to authenticate trigger callbacks to your compute host.
-- **Regional endpoint** — The gateway must be located in a [supported region](docs/connection-setup.md).
+- **Regional endpoint** — The gateway must be located in a [supported region](connection-setup.md).
 - **Connection grouping** — Multiple connections for different connectors can live under one gateway.
 
 ```text
@@ -137,18 +138,20 @@ Connection lifecycle:
                   (no auth)              (token stored)        via runtime URL
 ```
 
-> **Note:** There are also standalone ARM connections (`Microsoft.Web/connections`) created through Logic Apps Standard. These support actions but not Connector Gateway triggers.
+> **Note:** There are also standalone ARM connections (`Microsoft.Web/connections`), called **API Connection** in the Azure Portal. These can be created through Logic Apps (any SKU). They support actions but not Connector Gateway triggers.
 
 ### Connection Runtime URL
 
 The **connection runtime URL** is the HTTPS endpoint exposed by a connection. All connector operations flow through this URL. It encodes the connection identity, region, and routing information.
 
 Format:
+
 ```text
 https://{instance}.{region}.common.logic-{env}.azure-apihub.net/apim/{connector}/{connection-id}
 ```
 
 Your application code passes this URL to the SDK client constructor:
+
 ```csharp
 using var client = new Office365Client(connectionRuntimeUrl);
 ```
@@ -158,6 +161,7 @@ using var client = new Office365Client(connectionRuntimeUrl);
 An **access policy** grants an Azure AD identity permission to call a connection's runtime URL. Without an access policy, API calls return `403 Forbidden`.
 
 Typical identities:
+
 - **Local development** — Your Azure CLI user identity
 - **Deployed app** — The Azure Function or App Service managed identity
 
@@ -175,7 +179,7 @@ Connection: "office365-conn"
        └── Parameters: { folderId: "Inbox" }
 ```
 
-The Connector Gateway polls the trigger endpoint on a schedule. When new items are found, it POST the payload to your callback URL using the gateway's managed identity for authentication.
+The Connector Gateway polls the trigger endpoint on a schedule. When new items are found, it POSTs the payload to your callback URL using the gateway's managed identity for authentication.
 
 ### Trigger Callback Payload
 
