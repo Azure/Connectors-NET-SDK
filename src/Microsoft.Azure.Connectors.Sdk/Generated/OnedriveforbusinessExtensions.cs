@@ -94,7 +94,7 @@ public class SharingLink
 /// <summary>
 /// Response for List files in folder
 /// </summary>
-public class BlobMetadataPage
+public class BlobMetadataPage : IPageable<BlobMetadata>
 {
     /// <summary>Blob metadata collection.</summary>
     [JsonPropertyName("value")]
@@ -439,6 +439,25 @@ public class OnedriveforbusinessClient : IDisposable
         return this._cachedToken.Value.Token;
     }
 
+    private string ResolveUrl(string path)
+    {
+        if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
+        {
+            var baseUri = new Uri(this._connectionRuntimeUrl);
+            var nextUri = new Uri(path);
+            if (!string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException(
+                    $"NextLink host '{nextUri.Host}' does not match connection host '{baseUri.Host}'. " +
+                    "Refusing to send credentials to an unexpected host.");
+            }
+
+            return path;
+        }
+
+        return $"{this._connectionRuntimeUrl}{path}";
+    }
+
     private async Task<TResponse> CallConnectorAsync<TResponse>(
         HttpMethod method,
         string path,
@@ -446,7 +465,7 @@ public class OnedriveforbusinessClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = this.ResolveUrl(path);
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -487,7 +506,7 @@ public class OnedriveforbusinessClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = this.ResolveUrl(path);
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -907,12 +926,13 @@ public class OnedriveforbusinessClient : IDisposable
     /// </summary>
     /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
     /// <param name="folder">Folder</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List files in folder response.</returns>
-    public async Task<BlobMetadataPage> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
+    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
+    public ConnectorPageable<BlobMetadataPage, BlobMetadata> ListFolderAsync(string folder)
     {
         var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
-        return await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return new ConnectorPageable<BlobMetadataPage, BlobMetadata>(
+            async ct => await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
+            async (nextLink, ct) => await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct));
     }
 
     public void Dispose()

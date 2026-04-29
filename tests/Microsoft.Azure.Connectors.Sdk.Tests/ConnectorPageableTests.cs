@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         private class TestPage : IPageable<TestItem>
         {
             [JsonPropertyName("value")]
-            public IReadOnlyList<TestItem> Value { get; set; } = new List<TestItem>();
+            public List<TestItem> Value { get; set; } = new();
 
             [JsonPropertyName("nextLink")]
             public string? NextLink { get; set; }

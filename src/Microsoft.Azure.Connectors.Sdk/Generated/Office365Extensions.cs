@@ -248,7 +248,7 @@ public class ObjectWithoutType
 }
 
 /// <summary>
-/// Response for Email Management MCP Server
+/// Response for Email Management MCP Server (deprecated)
 /// </summary>
 public class MCPQueryResponse
 {
@@ -2621,6 +2621,25 @@ public class Office365Client : IDisposable
         return this._cachedToken.Value.Token;
     }
 
+    private string ResolveUrl(string path)
+    {
+        if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
+        {
+            var baseUri = new Uri(this._connectionRuntimeUrl);
+            var nextUri = new Uri(path);
+            if (!string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException(
+                    $"NextLink host '{nextUri.Host}' does not match connection host '{baseUri.Host}'. " +
+                    "Refusing to send credentials to an unexpected host.");
+            }
+
+            return path;
+        }
+
+        return $"{this._connectionRuntimeUrl}{path}";
+    }
+
     private async Task<TResponse> CallConnectorAsync<TResponse>(
         HttpMethod method,
         string path,
@@ -2628,7 +2647,7 @@ public class Office365Client : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = this.ResolveUrl(path);
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -2669,7 +2688,7 @@ public class Office365Client : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = this.ResolveUrl(path);
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -2839,13 +2858,13 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Email Management MCP Server
+    /// Email Management MCP Server (deprecated)
     /// </summary>
     /// <remarks>This MCP server manages email messages from your Office 365 account</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="sessionId">sessionId</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Email Management MCP Server response.</returns>
+    /// <returns>The Email Management MCP Server (deprecated) response.</returns>
     public async Task<MCPQueryResponse> McpEmailsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -2856,13 +2875,13 @@ public class Office365Client : IDisposable
     }
 
     /// <summary>
-    /// Meeting Management MCP Server
+    /// Meeting Management MCP Server (deprecated)
     /// </summary>
     /// <remarks>This MCP server manages events, calendars and meetings</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="sessionId">sessionId</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Meeting Management MCP Server response.</returns>
+    /// <returns>The Meeting Management MCP Server (deprecated) response.</returns>
     public async Task<MCPQueryResponse> McpMeetingManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();

@@ -14,7 +14,7 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// <summary>
         /// Gets the items in this page.
         /// </summary>
-        IReadOnlyList<T> Value { get; }
+        List<T> Value { get; }
 
         /// <summary>
         /// Gets the URL to retrieve the next page, or null if this is the last page.
