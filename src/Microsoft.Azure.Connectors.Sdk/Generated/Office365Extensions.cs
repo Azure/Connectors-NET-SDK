@@ -2627,10 +2627,11 @@ public class Office365Client : IDisposable
         {
             var baseUri = new Uri(this._connectionRuntimeUrl);
             var nextUri = new Uri(path);
-            if (!string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||
+                !string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
             {
                 throw new InvalidOperationException(
-                    $"NextLink host '{nextUri.Host}' does not match connection host '{baseUri.Host}'. " +
+                    $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}' does not match connection URI '{baseUri.Scheme}://{baseUri.Host}'. " +
                     "Refusing to send credentials to an unexpected host.");
             }
 

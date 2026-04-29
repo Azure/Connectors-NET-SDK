@@ -1542,10 +1542,11 @@ public class TeamsClient : IDisposable
         {
             var baseUri = new Uri(this._connectionRuntimeUrl);
             var nextUri = new Uri(path);
-            if (!string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||
+                !string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
             {
                 throw new InvalidOperationException(
-                    $"NextLink host '{nextUri.Host}' does not match connection host '{baseUri.Host}'. " +
+                    $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}' does not match connection URI '{baseUri.Scheme}://{baseUri.Host}'. " +
                     "Refusing to send credentials to an unexpected host.");
             }
 
@@ -1866,8 +1867,8 @@ public class TeamsClient : IDisposable
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
         return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
-            async ct => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
-            async (nextLink, ct) => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct));
+            cancellationToken => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken),
+            (nextLink, cancellationToken) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
     }
 
     /// <summary>
@@ -2143,8 +2144,8 @@ public class TeamsClient : IDisposable
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
-            async ct => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
-            async (nextLink, ct) => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct));
+            cancellationToken => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken),
+            (nextLink, cancellationToken) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
     }
 
     /// <summary>

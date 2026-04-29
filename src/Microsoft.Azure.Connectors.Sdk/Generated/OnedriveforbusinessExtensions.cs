@@ -445,10 +445,11 @@ public class OnedriveforbusinessClient : IDisposable
         {
             var baseUri = new Uri(this._connectionRuntimeUrl);
             var nextUri = new Uri(path);
-            if (!string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||
+                !string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
             {
                 throw new InvalidOperationException(
-                    $"NextLink host '{nextUri.Host}' does not match connection host '{baseUri.Host}'. " +
+                    $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}' does not match connection URI '{baseUri.Scheme}://{baseUri.Host}'. " +
                     "Refusing to send credentials to an unexpected host.");
             }
 
@@ -931,8 +932,8 @@ public class OnedriveforbusinessClient : IDisposable
     {
         var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
         return new ConnectorPageable<BlobMetadataPage, BlobMetadata>(
-            async ct => await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
-            async (nextLink, ct) => await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct));
+            cancellationToken => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: cancellationToken),
+            (nextLink, cancellationToken) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
     }
 
     public void Dispose()
