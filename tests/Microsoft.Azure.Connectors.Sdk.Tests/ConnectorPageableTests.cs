@@ -36,8 +36,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var pageable = new ConnectorPageable<TestPage, TestItem>(
-                ct => Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null }),
-                (nextLink, ct) => Task.FromResult<TestPage>(null!));
+                cancellationToken => Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null }),
+                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
 
             // Act
             var items = new List<TestItem>();
@@ -55,8 +55,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var pageable = new ConnectorPageable<TestPage, TestItem>(
-                ct => Task.FromResult(new TestPage { Value = null!, NextLink = null }),
-                (nextLink, ct) => Task.FromResult<TestPage>(null!));
+                cancellationToken => Task.FromResult(new TestPage { Value = null!, NextLink = null }),
+                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
 
             // Act
             var items = new List<TestItem>();
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var pageable = new ConnectorPageable<TestPage, TestItem>(
-                ct => Task.FromResult(new TestPage
+                cancellationToken => Task.FromResult(new TestPage
                 {
                     Value = new List<TestItem>
                     {
@@ -84,7 +84,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     },
                     NextLink = null
                 }),
-                (nextLink, ct) => Task.FromResult<TestPage>(null!));
+                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
 
             // Act
             var items = new List<TestItem>();
@@ -106,7 +106,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange
             var callCount = 0;
             var pageable = new ConnectorPageable<TestPage, TestItem>(
-                ct =>
+                cancellationToken =>
                 {
                     callCount++;
                     return Task.FromResult(new TestPage
@@ -115,7 +115,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                         NextLink = "https://api.contoso.com/next?page=2"
                     });
                 },
-                (nextLink, ct) =>
+                (nextLink, cancellationToken) =>
                 {
                     callCount++;
                     if (nextLink == "https://api.contoso.com/next?page=2")
@@ -154,12 +154,12 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var pageable = new ConnectorPageable<TestPage, TestItem>(
-                ct => Task.FromResult(new TestPage
+                cancellationToken => Task.FromResult(new TestPage
                 {
                     Value = new List<TestItem> { new TestItem { Id = "1" } },
                     NextLink = "https://api.contoso.com/next?page=2"
                 }),
-                (nextLink, ct) => Task.FromResult(new TestPage
+                (nextLink, cancellationToken) => Task.FromResult(new TestPage
                 {
                     Value = new List<TestItem> { new TestItem { Id = "2" } },
                     NextLink = null
@@ -185,7 +185,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange & Act & Assert
             Assert.ThrowsExactly<ArgumentNullException>(() =>
-                new ConnectorPageable<TestPage, TestItem>(null!, (nextLink, ct) => Task.FromResult<TestPage>(null!)));
+                new ConnectorPageable<TestPage, TestItem>(null!, (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!)));
         }
 
         [TestMethod]
@@ -193,7 +193,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange & Act & Assert
             Assert.ThrowsExactly<ArgumentNullException>(() =>
-                new ConnectorPageable<TestPage, TestItem>(ct => Task.FromResult<TestPage>(null!), null!));
+                new ConnectorPageable<TestPage, TestItem>(cancellationToken => Task.FromResult<TestPage>(null!), null!));
         }
 
         [TestMethod]
@@ -204,18 +204,25 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var cts = new CancellationTokenSource();
 
             var pageable = new ConnectorPageable<TestPage, TestItem>(
-                ct =>
+                cancellationToken =>
                 {
-                    receivedToken = ct;
+                    receivedToken = cancellationToken;
                     return Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null });
                 },
-                (nextLink, ct) => Task.FromResult<TestPage>(null!));
+                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
 
             // Act
             var enumerator = pageable.GetAsyncEnumerator(cts.Token);
-            while (await enumerator.MoveNextAsync().ConfigureAwait(continueOnCapturedContext: false))
+            try
             {
-                // No items expected
+                while (await enumerator.MoveNextAsync().ConfigureAwait(continueOnCapturedContext: false))
+                {
+                    // No items expected
+                }
+            }
+            finally
+            {
+                await enumerator.DisposeAsync().ConfigureAwait(continueOnCapturedContext: false);
             }
 
             // Assert
