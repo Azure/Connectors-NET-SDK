@@ -94,7 +94,7 @@ public class SharingLink
 /// <summary>
 /// Response for List files in folder
 /// </summary>
-public class BlobMetadataPage : IPageable<BlobMetadata>
+public class BlobMetadataPage
 {
     /// <summary>Blob metadata collection.</summary>
     [JsonPropertyName("value")]
@@ -446,7 +446,7 @@ public class OnedriveforbusinessClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -487,7 +487,7 @@ public class OnedriveforbusinessClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -905,15 +905,14 @@ public class OnedriveforbusinessClient : IDisposable
     /// <summary>
     /// List files in folder
     /// </summary>
-    /// <remarks>This operation gets the list of files and subfolders in a folder. Returns an async enumerable that automatically follows pagination.</remarks>
+    /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
     /// <param name="folder">Folder</param>
-    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-    public ConnectorPageable<BlobMetadataPage, BlobMetadata> ListFolderAsync(string folder)
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List files in folder response.</returns>
+    public async Task<BlobMetadataPage> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
-        return new ConnectorPageable<BlobMetadataPage, BlobMetadata>(
-            async ct => await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
-            async (nextLink, ct) => await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct));
+        return await this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
     public void Dispose()

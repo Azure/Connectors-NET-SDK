@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// Initializes a new instance of the <see cref="ConnectorPageable{TPage, TItem}"/> class.
         /// </summary>
         /// <param name="firstPageFunc">Function that fetches the first page.</param>
-        /// <param name="nextPageFunc">Function that fetches subsequent pages given an absolute NextLink URL.</param>
+        /// <param name="nextPageFunc">Function that fetches subsequent pages given a NextLink URL as returned by the service (absolute or relative).</param>
         public ConnectorPageable(
             Func<CancellationToken, Task<TPage>> firstPageFunc,
             Func<string, CancellationToken, Task<TPage>> nextPageFunc)
@@ -43,6 +43,7 @@ namespace Microsoft.Azure.Connectors.Sdk
                 {
                     foreach (var item in page.Value)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
                         yield return item;
                     }
                 }
@@ -68,6 +69,7 @@ namespace Microsoft.Azure.Connectors.Sdk
 
             while (page != null)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 yield return page;
 
                 if (string.IsNullOrEmpty(page.NextLink))

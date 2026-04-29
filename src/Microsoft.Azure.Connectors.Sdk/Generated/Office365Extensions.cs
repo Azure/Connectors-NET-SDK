@@ -2628,7 +2628,7 @@ public class Office365Client : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -2669,7 +2669,7 @@ public class Office365Client : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
+        var url = $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);

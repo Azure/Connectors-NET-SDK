@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         private class TestPage : IPageable<TestItem>
         {
             [JsonPropertyName("value")]
-            public List<TestItem> Value { get; set; } = new();
+            public IReadOnlyList<TestItem> Value { get; set; } = new List<TestItem>();
 
             [JsonPropertyName("nextLink")]
             public string? NextLink { get; set; }
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act
             var items = new List<TestItem>();
-            await foreach (var item in pageable)
+            await foreach (var item in pageable.ConfigureAwait(continueOnCapturedContext: false))
             {
                 items.Add(item);
             }
@@ -60,7 +60,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act
             var items = new List<TestItem>();
-            await foreach (var item in pageable)
+            await foreach (var item in pageable.ConfigureAwait(continueOnCapturedContext: false))
             {
                 items.Add(item);
             }
@@ -88,7 +88,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act
             var items = new List<TestItem>();
-            await foreach (var item in pageable)
+            await foreach (var item in pageable.ConfigureAwait(continueOnCapturedContext: false))
             {
                 items.Add(item);
             }
@@ -136,7 +136,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act
             var items = new List<TestItem>();
-            await foreach (var item in pageable)
+            await foreach (var item in pageable.ConfigureAwait(continueOnCapturedContext: false))
             {
                 items.Add(item);
             }
@@ -167,7 +167,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act
             var pages = new List<TestPage>();
-            await foreach (var page in pageable.AsPages())
+            await foreach (var page in pageable.AsPages().ConfigureAwait(continueOnCapturedContext: false))
             {
                 pages.Add(page);
             }
@@ -212,7 +212,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 (nextLink, ct) => Task.FromResult<TestPage>(null!));
 
             // Act
-            await foreach (var item in pageable.WithCancellation(cts.Token))
+            var enumerator = pageable.GetAsyncEnumerator(cts.Token);
+            while (await enumerator.MoveNextAsync().ConfigureAwait(continueOnCapturedContext: false))
             {
                 // No items expected
             }
