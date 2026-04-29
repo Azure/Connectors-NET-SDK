@@ -1337,7 +1337,7 @@ public class SharepointonlineClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1378,7 +1378,7 @@ public class SharepointonlineClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);

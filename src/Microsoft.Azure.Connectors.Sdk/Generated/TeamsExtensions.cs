@@ -453,7 +453,7 @@ public class AtMentionTagResponse
 /// <summary>
 /// Response for Get messages in a channel
 /// </summary>
-public class GetMessagesFromConversationResponse
+public class GetMessagesFromConversationResponse : IPageable<ChatMessage>
 {
     /// <summary>@odata.context</summary>
     [JsonPropertyName("@odata.context")]
@@ -1543,7 +1543,7 @@ public class TeamsClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1584,7 +1584,7 @@ public class TeamsClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = Uri.IsWellFormedUriString(path, UriKind.Absolute) ? path : $"{this._connectionRuntimeUrl}{path}";
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1839,15 +1839,16 @@ public class TeamsClient : IDisposable
     /// <summary>
     /// Get messages in a channel
     /// </summary>
-    /// <remarks>Gets messages from a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
+    /// <remarks>Gets messages from a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel. Returns an async enumerable that automatically follows pagination.</remarks>
     /// <param name="team">Team</param>
     /// <param name="channel">Channel</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get messages in a channel response.</returns>
-    public async Task<GetMessagesFromConversationResponse> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
+    public ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
-        return await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
+            async ct => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
+            async (nextLink, ct) => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct));
     }
 
     /// <summary>
@@ -2106,14 +2107,13 @@ public class TeamsClient : IDisposable
     /// <summary>
     /// Get messages in a chat
     /// </summary>
-    /// <remarks>Retrieves messages from a one on one or group chat</remarks>
+    /// <remarks>Retrieves messages from a one on one or group chat. Returns an async enumerable that automatically follows pagination.</remarks>
     /// <param name="conversationID">Conversation ID</param>
     /// <param name="filterQuery">Filter Query</param>
     /// <param name="orderBy">Order By</param>
     /// <param name="top">Top</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get messages in a chat response.</returns>
-    public async Task<GetMessagesFromConversationResponse> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
+    public ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -2123,7 +2123,9 @@ public class TeamsClient : IDisposable
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
+            async ct => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
+            async (nextLink, ct) => await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct));
     }
 
     /// <summary>
