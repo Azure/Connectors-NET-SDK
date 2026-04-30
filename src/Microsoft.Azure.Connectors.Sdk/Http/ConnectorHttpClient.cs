@@ -155,16 +155,16 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                 }
             }
 
-            var token = await this._tokenProvider
-                .GetAccessTokenAsync(scopes, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpResponseMessage response;
 
             try
             {
+                var token = await this._tokenProvider
+                    .GetAccessTokenAsync(scopes, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 response = await this._retryPolicy
                     .ExecuteAsync(() => this._httpClient.SendAsync(request, cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -178,7 +178,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
 
                 throw;
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 if (activity is not null)
                 {

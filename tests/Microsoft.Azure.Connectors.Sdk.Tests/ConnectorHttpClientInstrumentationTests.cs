@@ -50,7 +50,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             request.Headers.Add("x-ms-client-request-id", "test-request-id");
 
             // Act
-            using var response = await client.SendAsync(request, TestScopes);
+            using var response = await client
+                .SendAsync(request, TestScopes)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -83,7 +85,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
             // Act — should complete without Activity overhead
-            using var response = await client.SendAsync(request, TestScopes);
+            using var response = await client
+                .SendAsync(request, TestScopes)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -124,7 +128,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
             // Act
-            using var response = await client.SendAsync(request, TestScopes);
+            using var response = await client
+                .SendAsync(request, TestScopes)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -166,7 +172,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Post, "https://test.azure.com/api/files");
 
             // Act
-            using var response = await client.SendAsync(request, TestScopes);
+            using var response = await client
+                .SendAsync(request, TestScopes)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -202,7 +210,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/test");
 
             // Act
-            using var response = await client.SendAsync(request, TestScopes);
+            using var response = await client
+                .SendAsync(request, TestScopes)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -251,8 +261,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/chats");
 
             // Act & Assert
-            await Assert.ThrowsExactlyAsync<HttpRequestException>(
-                () => client.SendAsync(request, TestScopes));
+            await Assert
+                .ThrowsExactlyAsync<HttpRequestException>(
+                    () => client.SendAsync(request, TestScopes))
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(1, capturedActivities.Count);
 
