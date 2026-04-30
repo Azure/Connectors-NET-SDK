@@ -453,7 +453,7 @@ public class AtMentionTagResponse
 /// <summary>
 /// Response for Get messages in a channel
 /// </summary>
-public class GetMessagesFromConversationResponse
+public class GetMessagesFromConversationResponse : IPageable<ChatMessage>
 {
     /// <summary>@odata.context</summary>
     [JsonPropertyName("@odata.context")]
@@ -1536,6 +1536,27 @@ public class TeamsClient : IDisposable
         return this._cachedToken.Value.Token;
     }
 
+    private string ResolveUrl(string path)
+    {
+        if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
+        {
+            var baseUri = new Uri(this._connectionRuntimeUrl);
+            var nextUri = new Uri(path);
+            if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||
+                !string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase) ||
+                baseUri.Port != nextUri.Port)
+            {
+                throw new InvalidOperationException(
+                    $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}:{nextUri.Port}' does not match connection URI '{baseUri.Scheme}://{baseUri.Host}:{baseUri.Port}'. " +
+                    "Refusing to send credentials to an unexpected host.");
+            }
+
+            return path;
+        }
+
+        return $"{this._connectionRuntimeUrl}{path}";
+    }
+
     private async Task<TResponse> CallConnectorAsync<TResponse>(
         HttpMethod method,
         string path,
@@ -1543,7 +1564,7 @@ public class TeamsClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = this.ResolveUrl(path);
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1584,7 +1605,7 @@ public class TeamsClient : IDisposable
         CancellationToken cancellationToken = default)
     {
         var token = await this.GetTokenAsync(cancellationToken);
-        var url = $"{this._connectionRuntimeUrl}{path}";
+        var url = this.ResolveUrl(path);
         var operation = $"{method} {path}";
 
         using var request = new HttpRequestMessage(method, url);
@@ -1842,12 +1863,13 @@ public class TeamsClient : IDisposable
     /// <remarks>Gets messages from a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
     /// <param name="team">Team</param>
     /// <param name="channel">Channel</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get messages in a channel response.</returns>
-    public async Task<GetMessagesFromConversationResponse> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
+    public ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
-        return await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
+            cancellationToken => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken),
+            (nextLink, cancellationToken) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
     }
 
     /// <summary>
@@ -2111,9 +2133,8 @@ public class TeamsClient : IDisposable
     /// <param name="filterQuery">Filter Query</param>
     /// <param name="orderBy">Order By</param>
     /// <param name="top">Top</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get messages in a chat response.</returns>
-    public async Task<GetMessagesFromConversationResponse> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
+    public ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -2123,7 +2144,9 @@ public class TeamsClient : IDisposable
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
+            cancellationToken => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken),
+            (nextLink, cancellationToken) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
     }
 
     /// <summary>
@@ -2367,7 +2390,7 @@ public class TeamsClient : IDisposable
     /// <summary>
     /// Send a Microsoft Graph HTTP request
     /// </summary>
-    /// <remarks>Construct a Microsoft Graph REST API request to invoke against the Microsoft Teams endpoints. These segments are supported: 1st segment: /teams, /me, /users 2nd segment: channels, chats, installedApps, messages, pinnedMessages. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api</remarks>
+    /// <remarks>Construct a Microsoft Graph REST API request to invoke against the Microsoft Teams endpoints. These segments are supported: 1st segment: /teams, /me, /users 2nd segment: channels, chats, installedApps, messages, pinnedMessages, onlineMeetings. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Send a Microsoft Graph HTTP request response.</returns>
