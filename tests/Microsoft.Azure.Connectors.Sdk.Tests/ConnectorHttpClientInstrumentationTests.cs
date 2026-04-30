@@ -123,7 +123,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
             // Act
-            var response = await client.SendAsync(request, TestScopes);
+            await client.SendAsync(request, TestScopes);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
