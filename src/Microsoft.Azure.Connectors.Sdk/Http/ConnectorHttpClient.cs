@@ -32,7 +32,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         private readonly ConnectorClientOptions _options;
         private readonly ILogger _logger;
         private readonly AsyncPolicy<HttpResponseMessage> _retryPolicy;
-        private readonly string? _connectorName;
+        private readonly Func<string?>? _connectorNameProvider;
         private readonly bool _ownsHttpClient;
         private bool _disposed;
 
@@ -54,11 +54,14 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class with an externally managed HttpClient.
+        /// The caller is responsible for configuring the <paramref name="httpClient"/> (e.g., BaseAddress, Timeout);
+        /// <see cref="ConnectorClientOptions.BaseUri"/> and <see cref="ConnectorClientOptions.Timeout"/> are only
+        /// applied when the client creates its own HttpClient internally.
         /// </summary>
         /// <param name="tokenProvider">The token provider.</param>
         /// <param name="options">The client options.</param>
         /// <param name="logger">The logger.</param>
-        /// <param name="httpClient">An externally managed HttpClient. The caller is responsible for its lifetime.</param>
+        /// <param name="httpClient">An externally managed HttpClient. The caller is responsible for its lifetime and configuration.</param>
         /// <param name="connectorName">The connector name for telemetry.</param>
         public ConnectorHttpClient(
             ITokenProvider tokenProvider,
@@ -66,6 +69,25 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             ILogger logger,
             HttpClient? httpClient,
             string? connectorName = null)
+            : this(tokenProvider, options, logger, httpClient, connectorName is not null ? () => connectorName : null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class with a deferred connector name provider.
+        /// Use this constructor when the connector name is not available at construction time (e.g., from a virtual property).
+        /// </summary>
+        /// <param name="tokenProvider">The token provider.</param>
+        /// <param name="options">The client options.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="httpClient">An externally managed HttpClient, or null to create one internally.</param>
+        /// <param name="connectorNameProvider">A function that returns the connector name for telemetry. Evaluated on each request.</param>
+        internal ConnectorHttpClient(
+            ITokenProvider tokenProvider,
+            ConnectorClientOptions options,
+            ILogger logger,
+            HttpClient? httpClient,
+            Func<string?>? connectorNameProvider)
         {
             ArgumentNullException.ThrowIfNull(tokenProvider);
             ArgumentNullException.ThrowIfNull(options);
@@ -73,7 +95,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             this._tokenProvider = tokenProvider;
             this._options = options;
             this._logger = logger;
-            this._connectorName = connectorName;
+            this._connectorNameProvider = connectorNameProvider;
 
             if (httpClient is not null)
             {
@@ -121,9 +143,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                 activity.SetTag("http.method", request.Method.ToString());
                 activity.SetTag("http.url", request.RequestUri?.ToString());
 
-                if (this._connectorName is not null)
+                var connectorName = this._connectorNameProvider?.Invoke();
+                if (connectorName is not null)
                 {
-                    activity.SetTag("connector.name", this._connectorName);
+                    activity.SetTag("connector.name", connectorName);
                 }
 
                 if (request.Headers.TryGetValues("x-ms-client-request-id", out var requestIdValues))

@@ -34,7 +34,12 @@ namespace Microsoft.Azure.Connectors.Sdk
 
             options ??= new ConnectorClientOptions();
             this._logger = logger ?? NullLogger.Instance;
-            this._httpClient = new ConnectorHttpClient(tokenProvider, options, this._logger, this.ConnectorName);
+            this._httpClient = new ConnectorHttpClient(
+                tokenProvider,
+                options,
+                this._logger,
+                httpClient: null,
+                connectorNameProvider: () => this.ConnectorName);
         }
 
         /// <inheritdoc />
