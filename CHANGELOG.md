@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0-preview.1] - 2026-04-30
+
+### Added
+
+- `IAsyncEnumerable<T>` auto-pagination support for paginated connector operations (#58)
+- `IPageable<T>` interface for page types with `Value` + `NextLink` properties
+- `ConnectorPageable<TPage, TItem>` implementing `IAsyncEnumerable<TItem>` with automatic NextLink following and `AsPages()` for page-level access
+- Paginated methods: `OnedriveforbusinessClient.ListFolderAsync`, `TeamsClient.GetMessagesFromChannelAsync`, `TeamsClient.GetMessagesFromChatAsync`
+
+### Changed
+
+- Paginated methods now return `ConnectorPageable<TPage, TItem>` instead of `Task<TPage>` (breaking change)
+- `CallConnectorAsync` supports absolute NextLink URLs via `ResolveUrl` with SSRF protection (scheme + host + port validation)
+- `ManagedIdentityCredential` updated from deprecated constructor to `ManagedIdentityId` API
+- SDK `using` directive conditionally emitted only when needed by generated code
+
 ## [0.6.0-preview.1] - YYYY-MM-DD
 
 ### Added
@@ -82,7 +98,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.6.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...HEAD
+[0.7.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.6.0-preview.1...v0.7.0-preview.1
 [0.6.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.5.0-preview.1...v0.6.0-preview.1
 [0.5.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.4.0-preview.1...v0.5.0-preview.1
 [0.4.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.3.0-preview.1...v0.4.0-preview.1
