@@ -17,6 +17,11 @@ namespace Microsoft.Azure.Connectors.Sdk;
 public static class ConnectorNames
 {
     /// <summary>
+    /// The <c>azureloganalytics</c> connector.
+    /// </summary>
+    public const string Azureloganalytics = "azureloganalytics";
+
+    /// <summary>
     /// The <c>kusto</c> connector.
     /// </summary>
     public const string Kusto = "kusto";
@@ -30,6 +35,11 @@ public static class ConnectorNames
     /// The <c>office365</c> connector.
     /// </summary>
     public const string Office365 = "office365";
+
+    /// <summary>
+    /// The <c>office365users</c> connector.
+    /// </summary>
+    public const string Office365users = "office365users";
 
     /// <summary>
     /// The <c>onedriveforbusiness</c> connector.
