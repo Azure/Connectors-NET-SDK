@@ -65,7 +65,7 @@ Remove-Item $tempFile -ErrorAction SilentlyContinue
 
 ### Step 2: Create Connection
 
-Supported SDK connector names: `office365`, `onedriveforbusiness`, `sharepointonline`, `teams`, `msgraphgroupsanduser` (and any `Microsoft.Web/connections` connector name).
+Supported SDK connector names: `office365`, `office365users`, `onedriveforbusiness`, `sharepointonline`, `teams`, `msgraphgroupsanduser` (and any `Microsoft.Web/connections` connector name).
 
 ```powershell
 $connectorName = "<connector-name>"      # e.g., "office365", "onedriveforbusiness", "sharepointonline", "teams", "msgraphgroupsanduser"

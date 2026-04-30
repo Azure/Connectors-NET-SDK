@@ -135,6 +135,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
+| Office365 Users | ✅ Validated | MyProfile, UserProfile, Manager, DirectReports, SearchUser |
 | OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink |
 | SharePoint | ✅ Validated | GetAllTables, ListRootFolder, ListFolder, GetFileContentByPath, CreateFile |
 | MS Graph Groups & Users | ✅ Validated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties |

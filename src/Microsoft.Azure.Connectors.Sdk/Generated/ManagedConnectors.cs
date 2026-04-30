@@ -1,12 +1,16 @@
 // DirectClient SDK - Generated Connectors
 // Each connector client is used independently:
 //
+//   using Microsoft.Azure.Connectors.DirectClient.Azureloganalytics;
+//   var client = new AzureloganalyticsClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Kusto;
 //   var client = new KustoClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Msgraphgroupsanduser;
 //   var client = new MsgraphgroupsanduserClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Office365;
 //   var client = new Office365Client(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.DirectClient.Office365users;
+//   var client = new Office365usersClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Onedriveforbusiness;
 //   var client = new OnedriveforbusinessClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
@@ -27,9 +31,11 @@ public static class DirectClientConnectors
     /// The list of available connector names.
     /// </summary>
     public static readonly string[] AvailableConnectors = [
+        "azureloganalytics",
         "kusto",
         "msgraphgroupsanduser",
         "office365",
+        "office365users",
         "onedriveforbusiness",
         "sharepointonline",
         "teams",
