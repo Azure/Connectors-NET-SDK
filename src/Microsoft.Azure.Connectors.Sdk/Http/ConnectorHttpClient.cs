@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -18,11 +19,21 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
     /// </summary>
     public class ConnectorHttpClient : IDisposable
     {
+        /// <summary>
+        /// The ActivitySource name used for OpenTelemetry instrumentation.
+        /// Subscribe to this name to receive connector HTTP spans.
+        /// </summary>
+        public const string ActivitySourceName = "Microsoft.Azure.Connectors.Sdk";
+
+        private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
+
         private readonly HttpClient _httpClient;
         private readonly ITokenProvider _tokenProvider;
         private readonly ConnectorClientOptions _options;
         private readonly ILogger _logger;
         private readonly AsyncPolicy<HttpResponseMessage> _retryPolicy;
+        private readonly string? _connectorName;
+        private readonly bool _ownsHttpClient;
         private bool _disposed;
 
         /// <summary>
@@ -31,10 +42,30 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         /// <param name="tokenProvider">The token provider.</param>
         /// <param name="options">The client options.</param>
         /// <param name="logger">The logger.</param>
+        /// <param name="connectorName">The connector name for telemetry.</param>
         public ConnectorHttpClient(
             ITokenProvider tokenProvider,
             ConnectorClientOptions options,
-            ILogger logger)
+            ILogger logger,
+            string? connectorName = null)
+            : this(tokenProvider, options, logger, httpClient: null, connectorName)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class with an externally managed HttpClient.
+        /// </summary>
+        /// <param name="tokenProvider">The token provider.</param>
+        /// <param name="options">The client options.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="httpClient">An externally managed HttpClient. The caller is responsible for its lifetime.</param>
+        /// <param name="connectorName">The connector name for telemetry.</param>
+        public ConnectorHttpClient(
+            ITokenProvider tokenProvider,
+            ConnectorClientOptions options,
+            ILogger logger,
+            HttpClient? httpClient,
+            string? connectorName = null)
         {
             ArgumentNullException.ThrowIfNull(tokenProvider);
             ArgumentNullException.ThrowIfNull(options);
@@ -42,15 +73,26 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             this._tokenProvider = tokenProvider;
             this._options = options;
             this._logger = logger;
+            this._connectorName = connectorName;
 
-            this._httpClient = new HttpClient
+            if (httpClient is not null)
             {
-                Timeout = options.Timeout
-            };
+                this._httpClient = httpClient;
+                this._ownsHttpClient = false;
+            }
+            else
+            {
+                this._httpClient = new HttpClient
+                {
+                    Timeout = options.Timeout
+                };
 
-            if (options.BaseUri != null)
-            {
-                this._httpClient.BaseAddress = options.BaseUri;
+                if (options.BaseUri != null)
+                {
+                    this._httpClient.BaseAddress = options.BaseUri;
+                }
+
+                this._ownsHttpClient = true;
             }
 
             this._retryPolicy = this.CreateRetryPolicy();
@@ -70,15 +112,64 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         {
             ArgumentNullException.ThrowIfNull(request);
 
+            using var activity = ActivitySource.StartActivity(
+                $"HTTP {request.Method}",
+                ActivityKind.Client);
+
+            if (activity is not null)
+            {
+                activity.SetTag("http.method", request.Method.ToString());
+                activity.SetTag("http.url", request.RequestUri?.ToString());
+
+                if (this._connectorName is not null)
+                {
+                    activity.SetTag("connector.name", this._connectorName);
+                }
+
+                if (request.Headers.TryGetValues("x-ms-client-request-id", out var requestIdValues))
+                {
+                    activity.SetTag("x-ms-client-request-id", string.Join(",", requestIdValues));
+                }
+            }
+
             var token = await this._tokenProvider
                 .GetAccessTokenAsync(scopes, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            return await this._retryPolicy
-                .ExecuteAsync(() => this._httpClient.SendAsync(request, cancellationToken))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            HttpResponseMessage response;
+
+            try
+            {
+                response = await this._retryPolicy
+                    .ExecuteAsync(() => this._httpClient.SendAsync(request, cancellationToken))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+            catch (Exception ex)
+            {
+                if (activity is not null)
+                {
+                    activity.SetTag("otel.status_code", "ERROR");
+                    activity.SetTag("otel.status_description", ex.Message);
+                    activity.SetStatus(ActivityStatusCode.Error, ex.Message);
+                }
+
+                throw;
+            }
+
+            if (activity is not null)
+            {
+                activity.SetTag("http.status_code", (int)response.StatusCode);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    activity.SetTag("otel.status_code", "ERROR");
+                    activity.SetStatus(ActivityStatusCode.Error, $"HTTP {(int)response.StatusCode}");
+                }
+            }
+
+            return response;
         }
 
         /// <summary>
@@ -149,7 +240,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         {
             if (!this._disposed)
             {
-                if (disposing)
+                if (disposing && this._ownsHttpClient)
                 {
                     this._httpClient?.Dispose();
                 }
