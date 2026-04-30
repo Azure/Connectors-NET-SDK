@@ -84,6 +84,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
+            var baselineActivity = Activity.Current;
+
             // Act — should complete without Activity overhead
             using var response = await client
                 .SendAsync(request, TestScopes)
@@ -91,7 +93,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.IsNull(Activity.Current, "No Activity should be created when no listener is registered.");
+            Assert.AreEqual(baselineActivity, Activity.Current, "Activity.Current should be unchanged when no listener is registered.");
         }
 
         [TestMethod]
