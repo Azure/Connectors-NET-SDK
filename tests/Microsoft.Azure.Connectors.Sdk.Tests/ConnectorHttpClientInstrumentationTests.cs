@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             request.Headers.Add("x-ms-client-request-id", "test-request-id");
 
             // Act
-            await client.SendAsync(request, TestScopes);
+            using var response = await client.SendAsync(request, TestScopes);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -83,10 +83,11 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
             // Act — should complete without Activity overhead
-            var response = await client.SendAsync(request, TestScopes);
+            using var response = await client.SendAsync(request, TestScopes);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNull(Activity.Current, "No Activity should be created when no listener is registered.");
         }
 
         [TestMethod]
@@ -123,7 +124,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
             // Act
-            await client.SendAsync(request, TestScopes);
+            using var response = await client.SendAsync(request, TestScopes);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -131,6 +132,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var activity = capturedActivities[0];
             Assert.AreEqual(500, activity.GetTagItem("http.status_code"));
             Assert.AreEqual("ERROR", activity.GetTagItem("otel.status_code")?.ToString());
+            Assert.AreEqual("HTTP 500 Internal Server Error", activity.GetTagItem("otel.status_description")?.ToString());
             Assert.AreEqual(ActivityStatusCode.Error, activity.Status);
         }
 
@@ -164,7 +166,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Post, "https://test.azure.com/api/files");
 
             // Act
-            await client.SendAsync(request, TestScopes);
+            using var response = await client.SendAsync(request, TestScopes);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);
@@ -200,7 +202,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/test");
 
             // Act
-            await client.SendAsync(request, TestScopes);
+            using var response = await client.SendAsync(request, TestScopes);
 
             // Assert
             Assert.AreEqual(1, capturedActivities.Count);

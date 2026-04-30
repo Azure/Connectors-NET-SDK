@@ -169,6 +169,15 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                     .ExecuteAsync(() => this._httpClient.SendAsync(request, cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
             }
+            catch (OperationCanceledException)
+            {
+                if (activity is not null)
+                {
+                    activity.SetStatus(ActivityStatusCode.Error, "Canceled");
+                }
+
+                throw;
+            }
             catch (Exception ex)
             {
                 if (activity is not null)
@@ -188,6 +197,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                 if (!response.IsSuccessStatusCode)
                 {
                     activity.SetTag("otel.status_code", "ERROR");
+                    activity.SetTag("otel.status_description", $"HTTP {(int)response.StatusCode} {response.ReasonPhrase}");
                     activity.SetStatus(ActivityStatusCode.Error, $"HTTP {(int)response.StatusCode}");
                 }
             }
