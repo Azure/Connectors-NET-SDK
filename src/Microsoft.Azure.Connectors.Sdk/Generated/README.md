@@ -1,29 +1,22 @@
 # Generated Connector Clients
 
-This folder is for pre-generated connector clients to be included in the SDK package.
+This folder contains pre-generated typed connector clients included in the SDK NuGet package.
 
-## ⚠️ Generator Bugs
+> **Do not hand-edit generated files.** If the generated code has issues, fix the
+> [CodefulSdkGenerator](../../../GENERATION.md) in the BPM repo and regenerate.
 
-The DirectClientGenerator in the BPM repo currently has bugs that produce non-compiling code:
+## Included Connectors
 
-1. **Missing types** - Some types like `MeetingTimeSuggestionsV2`, `AssignCategoryBulkInput` are referenced but not defined
-2. **Escaped braces** - Properties generate `{{ get; }}` instead of `{ get; }`
-3. **Method group vs invocation** - `queryParams.Count` instead of `queryParams.Count()`
-4. **Collection literal vs List** - Uses `[]` collection literal then calls `.Add()` on it
+| Connector | File | Client Class | Description |
+|-----------|------|-------------|-------------|
+| Kusto | `KustoExtensions.cs` | `KustoClient` | Azure Data Explorer (Kusto) queries and commands |
+| MS Graph Groups & Users | `MsgraphgroupsanduserExtensions.cs` | `MsgraphgroupsanduserClient` | Microsoft Graph groups and user operations |
+| Office 365 | `Office365Extensions.cs` | `Office365Client` | Office 365 Outlook (email, calendar, contacts) |
+| OneDrive for Business | `OnedriveforbusinessExtensions.cs` | `OnedriveforbusinessClient` | OneDrive for Business file operations |
+| SharePoint Online | `SharepointonlineExtensions.cs` | `SharepointonlineClient` | SharePoint Online lists, items, and files |
+| Teams | `TeamsExtensions.cs` | `TeamsClient` | Microsoft Teams messaging and channel operations |
 
-These bugs need to be fixed in the BPM PR before generated code can be included.
-
-**Current status:** Generated files are excluded from compilation via csproj.
-
-## After Generator Fixes
-
-Once the generator is fixed, this folder will contain:
-
-| Connector | File | Description |
-|-----------|------|-------------|
-| Office365 | `Office365Extensions.cs` | Office 365 Outlook (email, calendar, contacts) |
-
-## Usage (After Fix)
+## Usage
 
 ```csharp
 using Microsoft.Azure.Connectors.DirectClient.Office365;
@@ -41,9 +34,11 @@ await client.SendEmailV2Async(new SendEmailV2Input
 
 ## Regenerating
 
+From the BPM repo root, after building the generator:
+
 ```powershell
-$generator = ".\src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\bin\Release\LogicAppsCompiler.exe"
-& $generator ".\src\Microsoft.Azure.Connectors.Sdk\Generated" unused --directClient --connectors=office365
+$generator = ".\src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\bin\Release\net8.0\LogicAppsCompiler.exe"
+& $generator "<path-to-Connectors-NET-SDK>\src\Microsoft.Azure.Connectors.Sdk\Generated" unused --directClient --connectors=kusto,msgraphgroupsanduser,office365,onedriveforbusiness,sharepointonline,teams
 ```
 
-See [GENERATION.md](../../../GENERATION.md) for complete documentation.
+See [GENERATION.md](../../../GENERATION.md) for complete documentation including prerequisites and build steps.
