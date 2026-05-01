@@ -371,48 +371,112 @@ public async Task MethodName_Scenario_ExpectedResult()
 
 ## Releasing a New Version
 
-The release workflow (`.github/workflows/release.yml`) builds, tests, packs, and publishes the NuGet package. There is no version file to update — the version comes from the git tag.
+The release pipeline is hosted in Azure DevOps (`azfunc/internal`) and publishes to nuget.org. The version comes from `eng/build/Version.props` combined with a build-reason suffix (`.dev`, `.ci`, `.pr`) that is stripped for release builds triggered from tags or release branches.
 
-### Standard Release (tag push)
+### ADO Pipeline IDs
 
-Creates a GitHub Release with auto-generated notes, publishes to GitHub Packages, and attempts nuget.org:
+| Pipeline | ID | Org/Project | Purpose |
+|----------|-----|-------------|---------|
+| `connectors-sdk.code-mirror` | 1717 | `azfunc/internal` | Syncs GitHub → ADO mirror (triggers on `main` push) |
+| `connectors-sdk.official` | 1718 | `azfunc/internal` | Official build (triggers on `main`, `release/*`, and `v*` tags) |
+| `connectors-sdk.release` | 1719 | `azfunc/internal` | NuGet.org publish (manual trigger, consumes official build artifacts) |
+| `connectors-sdk.public` | 1716 | `azfunc/public` | PR validation CI |
+
+Pipeline folder: [`\azure\connectors-sdk`](https://dev.azure.com/azfunc/internal/_build?definitionScope=%5Cazure%5Cconnectors-sdk)
+
+### Release Steps
+
+#### 1. Version bump PR
+
+Create a PR that updates `VersionPrefix` and `CHANGELOG.md`:
+
+```text
+eng/build/Version.props   → <VersionPrefix>X.Y.Z</VersionPrefix>
+                          → <VersionSuffix>preview.N</VersionSuffix> (if changing suffix)
+CHANGELOG.md              → Add ## [X.Y.Z-preview.N] section with changes
+                          → Add link definition at bottom
+                          → Update [Unreleased] compare link
+```
+
+The package version is composed as `VersionPrefix-VersionSuffix.BuildReason[.BuildNumber.BuildCounter]`.
+Release builds from tags strip the `BuildReason` segment, producing `X.Y.Z-preview.N`.
+
+#### 2. Create tag and release branch
+
+From the merged `main`:
 
 ```shell
 git checkout main
 git pull origin main
-git tag v1.2.3
-git push origin v1.2.3
+git tag vX.Y.Z-preview.N
+git push origin vX.Y.Z-preview.N
+git checkout -b release/vX.Y.Z-preview.N
+git push origin release/vX.Y.Z-preview.N
 ```
 
-### Pre-release
+Both the tag and the release branch are needed. The tag determines the package version (no build-reason suffix). The release branch exists for traceability — note that the code mirror pipeline only triggers on `main` pushes, so you may need to queue a manual mirror run (step 3) to sync the tag and release branch to ADO.
 
-Use SemVer pre-release suffixes:
+#### 3. Code mirror syncs to ADO
+
+The code mirror pipeline (1717) runs on `main` pushes and syncs all branches and tags to the ADO mirror repo. If the tag doesn't sync automatically, queue a manual run:
+
+```powershell
+az pipelines run --id 1717 --org https://dev.azure.com/azfunc --project internal --branch main
+```
+
+#### 4. Official build runs
+
+The official build pipeline (1718) triggers automatically on `v*` tags in the ADO mirror. If it doesn't trigger, queue it manually:
+
+```powershell
+az pipelines run --id 1718 --org https://dev.azure.com/azfunc --project internal --branch refs/tags/vX.Y.Z-preview.N
+```
+
+Wait for it to complete. The build produces `Microsoft.Azure.Connectors.Sdk.X.Y.Z-preview.N.nupkg`.
+
+#### 5. Run the release pipeline
+
+Queue the release pipeline (1719) with parameters to publish to nuget.org:
+
+```powershell
+az pipelines run --id 1719 --org https://dev.azure.com/azfunc --project internal \
+  --branch refs/tags/vX.Y.Z-preview.N \
+  --parameters isReleaseBranchOrTag=true publishToNugetOrg=true
+```
+
+The release pipeline:
+
+1. **Prepare stage** — downloads the `.nupkg` from the official build, validates the version has no `dev`/`ci`/`pr` keywords
+2. **Release stage** — requires human approval (resource-based check), then pushes to nuget.org
+
+#### 6. Create GitHub Release
+
+After the NuGet package is published:
 
 ```shell
-git tag v1.2.3-preview.1
-git push origin v1.2.3-preview.1
+gh release create vX.Y.Z-preview.N --title "vX.Y.Z-preview.N" --notes "Release notes here" --prerelease
 ```
 
-### Manual Dispatch (packages only, no GitHub Release)
+#### 7. Verify
 
-Use when you need to publish without creating a tag or GitHub Release:
-
-1. Go to Actions → Release → Run workflow
-2. Enter the version (e.g., `1.2.3`)
-
-### Re-releasing a Version
-
-If a release fails midway (e.g., build passed but GitHub Release creation failed):
-
-```shell
-gh release delete v1.2.3 --yes     # delete the failed GitHub Release (if one was created)
-git push origin --delete v1.2.3    # delete remote tag
-git tag -d v1.2.3                  # delete local tag
-git tag v1.2.3                     # re-tag on current HEAD
-git push origin v1.2.3             # push to trigger release
+```powershell
+# Check nuget.org (may take a few minutes to propagate)
+Invoke-RestMethod "https://api.nuget.org/v3-flatcontainer/microsoft.azure.connectors.sdk/index.json" |
+  Select-Object -ExpandProperty versions | Select-Object -Last 3
 ```
 
-**Note:** `--skip-duplicate` on the NuGet push steps means a re-release will not overwrite a package version that was already published. If the package was pushed successfully but the release failed, re-running will skip the duplicate package and only recreate the GitHub Release. To publish a corrected package, use a new version number.
+### Version Scheme
+
+| Build source | Package version | Published to |
+|-------------|----------------|-------------|
+| Dev (local) | `X.Y.Z-preview.N.dev` | Not published |
+| CI (`main` push) | `X.Y.Z-preview.N.ci.YYMMDD.N` | Internal feed |
+| PR | `X.Y.Z-preview.N.pr.YYMMDD.N` | Not published |
+| Tag/release branch | `X.Y.Z-preview.N` | nuget.org |
+
+### Re-releasing
+
+If the release pipeline fails after the official build succeeds, re-run pipeline 1719 pointing to the same build. If the package was already pushed to nuget.org, NuGet's `--skip-duplicate` prevents overwrites — use a new version number for corrections.
 
 ### What the Release Workflow Does
 
