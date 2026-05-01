@@ -377,7 +377,7 @@ The release pipeline is hosted in Azure DevOps (`azfunc/internal`) and publishes
 
 | Pipeline | ID | Org/Project | Purpose |
 |----------|-----|-------------|---------|
-| `connectors-sdk.code-mirror` | 1717 | `azfunc/internal` | Syncs GitHub → ADO mirror (triggers on `main` push) |
+| `connectors-sdk.code-mirror` | 1717 | `azfunc/internal` | Syncs GitHub → ADO mirror (triggers on `main`, `release/*`, and `v*` tags) |
 | `connectors-sdk.official` | 1718 | `azfunc/internal` | Official build (triggers on `main`, `release/*`, and `v*` tags) |
 | `connectors-sdk.release` | 1719 | `azfunc/internal` | NuGet.org publish (manual trigger, consumes official build artifacts) |
 | `connectors-sdk.public` | 1716 | `azfunc/public` | PR validation CI |
@@ -414,11 +414,11 @@ git checkout -b release/vX.Y.Z-preview.N
 git push origin release/vX.Y.Z-preview.N
 ```
 
-Both the tag and the release branch are needed. The tag determines the package version (no build-reason suffix). The release branch exists for traceability — note that the code mirror pipeline only triggers on `main` pushes, so you may need to queue a manual mirror run (step 3) to sync the tag and release branch to ADO.
+Both the tag and the release branch are needed. The tag determines the package version (no build-reason suffix). The release branch exists for traceability. The code mirror pipeline triggers on `main`, `release/*` branches, and `v*` tags, so both refs sync automatically.
 
 #### 3. Code mirror syncs to ADO
 
-The code mirror pipeline (1717) runs on `main` pushes and syncs all branches and tags to the ADO mirror repo. If the tag doesn't sync automatically, queue a manual run:
+The code mirror pipeline (1717) triggers on `main`, `release/*` branches, and `v*` tags — so pushing the tag and release branch in step 2 automatically syncs them to the ADO mirror repo. If it doesn't trigger, queue a manual run:
 
 ```powershell
 az pipelines run --id 1717 --org https://dev.azure.com/azfunc --project internal --branch main
