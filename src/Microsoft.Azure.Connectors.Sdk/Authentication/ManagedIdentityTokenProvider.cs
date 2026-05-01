@@ -12,22 +12,20 @@ namespace Microsoft.Azure.Connectors.Sdk.Authentication
     /// </summary>
     public class ManagedIdentityTokenProvider : ITokenProvider
     {
-        private readonly DefaultAzureCredential _credential;
+        private readonly ManagedIdentityCredential _credential;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManagedIdentityTokenProvider"/> class.
         /// </summary>
-        /// <param name="clientId">Optional client ID for user-assigned managed identity.</param>
+        /// <param name="clientId">
+        /// Optional client ID for user-assigned managed identity.
+        /// If <see langword="null"/>, the system-assigned identity is used.
+        /// </param>
         public ManagedIdentityTokenProvider(string? clientId = null)
         {
-            var options = new DefaultAzureCredentialOptions();
-
-            if (!string.IsNullOrEmpty(clientId))
-            {
-                options.ManagedIdentityClientId = clientId;
-            }
-
-            this._credential = new DefaultAzureCredential(options);
+            this._credential = string.IsNullOrEmpty(clientId)
+                ? new(ManagedIdentityId.SystemAssigned)
+                : new(ManagedIdentityId.FromUserAssignedClientId(clientId));
         }
 
         /// <inheritdoc />
