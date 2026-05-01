@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0-preview.1] - 2026-04-30
+
+### Added
+
+- Office 365 Users (`office365users`) generated typed client for user profile lookups, manager/reports chain, user search, and trending documents (#75)
+- Azure Log Analytics (`azureloganalytics`) generated typed client for workspace discovery and query schema operations (#74)
+- SMTP (`smtp`) generated typed client for sending email via SMTP connectors (#76)
+- Azure Blob Storage (`azureblob`) generated typed client with file and container operations (#80)
+- IBM MQ (`mq`) generated typed client for messaging queue operations (#81)
+- OpenTelemetry `ActivitySource` instrumentation in `ConnectorHttpClient` for distributed tracing of connector API calls (#73)
+
 ## [0.7.0-preview.1] - 2026-04-30
 
 ### Added
@@ -98,7 +109,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.8.0-preview.1...HEAD
+[0.8.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...v0.8.0-preview.1
 [0.7.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.6.0-preview.1...v0.7.0-preview.1
 [0.6.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.5.0-preview.1...v0.6.0-preview.1
 [0.5.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.4.0-preview.1...v0.5.0-preview.1
