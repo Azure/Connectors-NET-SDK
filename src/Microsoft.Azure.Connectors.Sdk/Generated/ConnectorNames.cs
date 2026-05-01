@@ -32,6 +32,11 @@ public static class ConnectorNames
     public const string Kusto = "kusto";
 
     /// <summary>
+    /// The <c>mq</c> connector (IBM MQ).
+    /// </summary>
+    public const string Mq = "mq";
+
+    /// <summary>
     /// The <c>msgraphgroupsanduser</c> connector.
     /// </summary>
     public const string Msgraphgroupsanduser = "msgraphgroupsanduser";

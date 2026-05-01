@@ -7,6 +7,8 @@
 //   var client = new AzureloganalyticsClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Kusto;
 //   var client = new KustoClient(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.DirectClient.Mq;
+//   var client = new MqClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Msgraphgroupsanduser;
 //   var client = new MsgraphgroupsanduserClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Office365;
@@ -38,6 +40,7 @@ public static class DirectClientConnectors
         "azureblob",
         "azureloganalytics",
         "kusto",
+        "mq",
         "msgraphgroupsanduser",
         "office365",
         "office365users",
