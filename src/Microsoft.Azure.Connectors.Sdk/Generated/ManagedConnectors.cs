@@ -1,6 +1,8 @@
 // DirectClient SDK - Generated Connectors
 // Each connector client is used independently:
 //
+//   using Microsoft.Azure.Connectors.DirectClient.Azureblob;
+//   var client = new AzureblobClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Azureloganalytics;
 //   var client = new AzureloganalyticsClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Kusto;
@@ -33,6 +35,7 @@ public static class DirectClientConnectors
     /// The list of available connector names.
     /// </summary>
     public static readonly string[] AvailableConnectors = [
+        "azureblob",
         "azureloganalytics",
         "kusto",
         "msgraphgroupsanduser",
