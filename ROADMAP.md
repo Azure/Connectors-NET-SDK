@@ -65,7 +65,7 @@ Enterprise messaging, databases, and LOB systems.
 | Priority | Connector | Usage Rank | Partner Tier | 90-Day Executions | Status |
 |----------|-----------|------------|--------------|-------------------|--------|
 | 4.1 | **JDBC** | — | Tier 2 | 1.24B | Generic database connectivity | ⬜ Not started |
-| 4.2 | **IBM MQ** | — | Tier 2 | 1.02B | Enterprise messaging | ⬜ Not started |
+| 4.2 | **IBM MQ** | — | Tier 2 | 1.02B | Enterprise messaging | ✅ Generated (PR #81) |
 | 4.3 | **SMTP** | — | Tier 2 | 916M | Email sending | ✅ Generated + validated |
 | 4.4 | **SFTP** | — | Tier 2 | 251M | File transfer | ⬜ Not started |
 | 4.5 | **Oracle Database** | — | Tier 3 | 109M | Enterprise DB | ⬜ Not started |
