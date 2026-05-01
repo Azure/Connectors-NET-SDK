@@ -134,6 +134,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
+| Azure Log Analytics | ✅ Validated | ListSubscriptions, ListResourceGroups, ListWorkspaceNames, ListArmQueryResultsSchema |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
 | Office365 Users | ✅ Validated | MyProfile, UserProfile, Manager, DirectReports, SearchUser |
 | OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink |
