@@ -42,27 +42,13 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         /// <param name="tokenProvider">The token provider.</param>
         /// <param name="options">The client options.</param>
         /// <param name="logger">The logger.</param>
-        public ConnectorHttpClient(
-            ITokenProvider tokenProvider,
-            ConnectorClientOptions options,
-            ILogger logger)
-            : this(tokenProvider, options, logger, httpClient: null, connectorNameProvider: null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class.
-        /// </summary>
-        /// <param name="tokenProvider">The token provider.</param>
-        /// <param name="options">The client options.</param>
-        /// <param name="logger">The logger.</param>
         /// <param name="connectorName">The connector name for telemetry.</param>
         public ConnectorHttpClient(
             ITokenProvider tokenProvider,
             ConnectorClientOptions options,
             ILogger logger,
-            string connectorName)
-            : this(tokenProvider, options, logger, httpClient: null, () => connectorName)
+            string? connectorName = null)
+            : this(tokenProvider, options, logger, httpClient: null, connectorName is not null ? () => connectorName : null)
         {
         }
 
