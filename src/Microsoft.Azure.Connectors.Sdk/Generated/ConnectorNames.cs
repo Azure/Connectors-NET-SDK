@@ -52,6 +52,11 @@ public static class ConnectorNames
     public const string Sharepointonline = "sharepointonline";
 
     /// <summary>
+    /// The <c>smtp</c> connector.
+    /// </summary>
+    public const string Smtp = "smtp";
+
+    /// <summary>
     /// The <c>teams</c> connector.
     /// </summary>
     public const string Teams = "teams";

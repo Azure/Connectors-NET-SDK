@@ -15,6 +15,8 @@
 //   var client = new OnedriveforbusinessClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
 //   var client = new SharepointonlineClient(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.DirectClient.Smtp;
+//   var client = new SmtpClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Teams;
 //   var client = new TeamsClient(connectionRuntimeUrl);
 
@@ -38,6 +40,7 @@ public static class DirectClientConnectors
         "office365users",
         "onedriveforbusiness",
         "sharepointonline",
+        "smtp",
         "teams",
     ];
 }

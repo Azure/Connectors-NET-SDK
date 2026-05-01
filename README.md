@@ -141,6 +141,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 | SharePoint | ✅ Validated | GetAllTables, ListRootFolder, ListFolder, GetFileContentByPath, CreateFile |
 | MS Graph Groups & Users | ✅ Validated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties |
 | Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
+| SMTP | ✅ Validated | SendEmail |
 
 ## Related Projects
 
