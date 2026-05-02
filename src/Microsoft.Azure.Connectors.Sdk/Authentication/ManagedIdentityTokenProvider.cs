@@ -19,7 +19,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Authentication
         /// </summary>
         /// <param name="clientId">
         /// Optional client ID for user-assigned managed identity.
-        /// If <see langword="null"/>, the system-assigned identity is used.
+        /// If <see langword="null"/> or empty, the system-assigned identity is used.
         /// </param>
         public ManagedIdentityTokenProvider(string? clientId = null)
         {

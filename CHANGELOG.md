@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `ManagedIdentityTokenProvider` now uses `ManagedIdentityCredential` instead of `DefaultAzureCredential`, aligning with [Azure SDK best practices for deterministic credentials in production](https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication/best-practices#use-deterministic-credentials-in-production-environments) (#86)
+
 ## [0.8.0-preview.1] - 2026-04-30
 
 ### Added
