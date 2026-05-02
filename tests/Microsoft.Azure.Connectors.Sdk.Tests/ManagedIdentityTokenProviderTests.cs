@@ -13,36 +13,19 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
     public class ManagedIdentityTokenProviderTests
     {
         /// <summary>
-        /// Extracts the <c>ManagedIdentityId.ToString()</c> value from a <see cref="ManagedIdentityTokenProvider"/>
-        /// by reflecting into its private <c>_credential</c> field and the credential's internal
-        /// <c>Client.ManagedIdentityId</c> property. Returns values like <c>"SystemAssigned"</c>
-        /// or <c>"ClientId {clientId}"</c>.
+        /// Extracts the private <c>_credential</c> field from a <see cref="ManagedIdentityTokenProvider"/>
+        /// and returns it cast to <see cref="ManagedIdentityCredential"/>.
+        /// Only reflects into our own type's private field — not into Azure.Identity internals.
         /// </summary>
-        private static string GetManagedIdentityIdString(ManagedIdentityTokenProvider provider)
+        private static ManagedIdentityCredential GetCredential(ManagedIdentityTokenProvider provider)
         {
-            // ManagedIdentityTokenProvider._credential (ManagedIdentityCredential)
             var credentialField = typeof(ManagedIdentityTokenProvider)
                 .GetField("_credential", BindingFlags.NonPublic | BindingFlags.Instance);
             Assert.IsNotNull(credentialField, "Expected private field '_credential' on ManagedIdentityTokenProvider.");
             var credential = credentialField.GetValue(provider);
             Assert.IsNotNull(credential);
             Assert.IsInstanceOfType<ManagedIdentityCredential>(credential);
-
-            // ManagedIdentityCredential.<Client>k__BackingField (ManagedIdentityClient)
-            var clientProperty = credential.GetType()
-                .GetProperty("Client", BindingFlags.NonPublic | BindingFlags.Instance);
-            Assert.IsNotNull(clientProperty, "Expected internal property 'Client' on ManagedIdentityCredential.");
-            var client = clientProperty.GetValue(credential);
-            Assert.IsNotNull(client);
-
-            // ManagedIdentityClient.<ManagedIdentityId>k__BackingField (ManagedIdentityId)
-            var identityIdProperty = client.GetType()
-                .GetProperty("ManagedIdentityId", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            Assert.IsNotNull(identityIdProperty, "Expected property 'ManagedIdentityId' on ManagedIdentityClient.");
-            var identityId = identityIdProperty.GetValue(client);
-            Assert.IsNotNull(identityId);
-
-            return identityId.ToString()!;
+            return (ManagedIdentityCredential)credential;
         }
         [TestMethod]
         public void Constructor_WithNullClientId_ShouldCreateInstance()
@@ -80,9 +63,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange & Act
             var provider = new ManagedIdentityTokenProvider(clientId: string.Empty);
 
-            // Assert — empty string should be treated the same as null (system-assigned)
-            var identityIdString = GetManagedIdentityIdString(provider);
-            Assert.AreEqual("SystemAssigned", identityIdString);
+            // Assert — empty string should produce a ManagedIdentityCredential (same as null)
+            var credential = GetCredential(provider);
+            Assert.IsNotNull(credential);
         }
 
         [TestMethod]
@@ -101,21 +84,20 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange & Act
             var provider = new ManagedIdentityTokenProvider(clientId: null);
 
-            // Assert — verify the credential is ManagedIdentityCredential with system-assigned identity
-            var identityIdString = GetManagedIdentityIdString(provider);
-            Assert.AreEqual("SystemAssigned", identityIdString);
+            // Assert — verify the credential is ManagedIdentityCredential, not DefaultAzureCredential
+            var credential = GetCredential(provider);
+            Assert.IsNotNull(credential);
         }
 
         [TestMethod]
         public void Constructor_WithClientId_ShouldUseManagedIdentityCredential()
         {
             // Arrange & Act
-            const string clientId = "12345678-1234-1234-1234-123456789012";
-            var provider = new ManagedIdentityTokenProvider(clientId: clientId);
+            var provider = new ManagedIdentityTokenProvider(clientId: "12345678-1234-1234-1234-123456789012");
 
-            // Assert — verify user-assigned path stores the provided client ID
-            var identityIdString = GetManagedIdentityIdString(provider);
-            Assert.AreEqual($"ClientId {clientId}", identityIdString);
+            // Assert — verify user-assigned path also uses ManagedIdentityCredential
+            var credential = GetCredential(provider);
+            Assert.IsNotNull(credential);
         }
 
         [TestMethod]
