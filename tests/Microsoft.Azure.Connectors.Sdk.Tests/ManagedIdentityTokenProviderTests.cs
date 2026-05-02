@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Reflection;
+using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -51,6 +53,36 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void Constructor_WithNullClientId_ShouldUseManagedIdentityCredential()
+        {
+            // Arrange & Act
+            var provider = new ManagedIdentityTokenProvider(clientId: null);
+
+            // Assert — verify the private _credential field is ManagedIdentityCredential, not DefaultAzureCredential
+            var credentialField = typeof(ManagedIdentityTokenProvider)
+                .GetField("_credential", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(credentialField);
+
+            var credential = credentialField.GetValue(provider);
+            Assert.IsInstanceOfType<ManagedIdentityCredential>(credential);
+        }
+
+        [TestMethod]
+        public void Constructor_WithClientId_ShouldUseManagedIdentityCredential()
+        {
+            // Arrange & Act
+            var provider = new ManagedIdentityTokenProvider(clientId: "12345678-1234-1234-1234-123456789012");
+
+            // Assert — verify user-assigned path also uses ManagedIdentityCredential
+            var credentialField = typeof(ManagedIdentityTokenProvider)
+                .GetField("_credential", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(credentialField);
+
+            var credential = credentialField.GetValue(provider);
+            Assert.IsInstanceOfType<ManagedIdentityCredential>(credential);
+        }
+
+        [TestMethod]
         public async Task GetAccessTokenAsync_WithNullScopes_ShouldThrowArgumentNullException()
         {
             // Arrange
@@ -77,7 +109,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void ImplementsITokenProvider()
+        public void Constructor_Default_ShouldImplementITokenProvider()
         {
             // Arrange & Act
             var provider = new ManagedIdentityTokenProvider();
