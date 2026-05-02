@@ -4,7 +4,7 @@
 
 using System.Linq;
 using System.Reflection;
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Azure.Connectors.Sdk.Tests
@@ -21,9 +21,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_Office365_MatchesRegisteredConnector()
         {
-            // Assert — constant is registered in DirectClientConnectors.AvailableConnectors
+            // Assert — constant is registered in SdkConnectors.AvailableConnectors
             CollectionAssert.Contains(
-                Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
+                Microsoft.Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors,
                 ConnectorNames.Office365);
         }
 
@@ -31,7 +31,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void ConnectorNames_SharePointOnline_MatchesRegisteredConnector()
         {
             CollectionAssert.Contains(
-                Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
+                Microsoft.Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors,
                 ConnectorNames.Sharepointonline);
         }
 
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void ConnectorNames_Teams_MatchesRegisteredConnector()
         {
             CollectionAssert.Contains(
-                Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors,
+                Microsoft.Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors,
                 ConnectorNames.Teams);
         }
 
@@ -54,11 +54,11 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .ToHashSet();
 
             // Assert — every registered connector has a constant
-            foreach (var connector in Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors)
+            foreach (var connector in Microsoft.Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors)
             {
                 Assert.IsTrue(
                     constants.Contains(connector),
-                    $"Connector '{connector}' is in DirectClientConnectors.AvailableConnectors but missing from ConnectorNames.");
+                    $"Connector '{connector}' is in SdkConnectors.AvailableConnectors but missing from ConnectorNames.");
             }
         }
 
@@ -72,7 +72,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Select(field => (string)field.GetRawConstantValue()!)
                 .ToList();
 
-            var registered = Microsoft.Azure.Connectors.DirectClient.DirectClientConnectors.AvailableConnectors;
+            var registered = Microsoft.Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors;
 
             // Assert — every constant in ConnectorNames maps to a registered connector
             foreach (var constant in constants)
@@ -80,7 +80,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 CollectionAssert.Contains(
                     registered,
                     constant,
-                    $"ConnectorNames has constant '{constant}' but it's not in DirectClientConnectors.AvailableConnectors.");
+                    $"ConnectorNames has constant '{constant}' but it's not in SdkConnectors.AvailableConnectors.");
             }
         }
 
