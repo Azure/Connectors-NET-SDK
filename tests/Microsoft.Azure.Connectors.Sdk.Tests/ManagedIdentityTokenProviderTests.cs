@@ -27,6 +27,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             Assert.IsInstanceOfType<ManagedIdentityCredential>(credential);
             return (ManagedIdentityCredential)credential;
         }
+
         [TestMethod]
         public void Constructor_WithNullClientId_ShouldCreateInstance()
         {
