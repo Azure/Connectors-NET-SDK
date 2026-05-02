@@ -68,7 +68,7 @@ src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\bin\Release\net8.0\LogicApps
 
 ## Generation Commands
 
-### Generate DirectClient SDK (Recommended)
+### Generate Connectors SDK (Recommended)
 
 Generates typed async clients for calling connectors directly from Azure Functions:
 
@@ -214,7 +214,7 @@ The connector SDK spans 4 repositories with a strict data flow:
 2. **Fix bugs in the generator, not in generated output** — if generated code has issues (typos,
    wrong annotations, missing methods), fix the CodefulSdkGenerator in the BPM repo, then
    regenerate. This ensures fixes survive regeneration and benefit all generation targets
-   (DirectClient SDK, Codeful Workflow SDK, etc.).
+   (Connectors SDK, Codeful Workflow SDK, etc.).
 3. **`DynamicValuesAttribute` is hand-written** — defined in `src/.../DynamicValuesAttribute.cs`.
    The generator emits references to it; the LSP reads it via Roslyn reflection.
 4. **Merge order** — SDK (attribute) → BPM (generator) → LSP and POC (consumers). The SDK must

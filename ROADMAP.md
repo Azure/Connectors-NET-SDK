@@ -218,7 +218,7 @@ For each new connector, complete these steps:
 
 #### Code Generation
 
-- [ ] Generate DirectClient code: `--directClient --connectors={connectorName}`
+- [ ] Generate connector code: `--directClient --connectors={connectorName}`
 - [ ] Add to SDK repo as `Generated/{Connector}Extensions.cs`
 - [ ] Fix any compilation errors (document generator bugs found)
 - [ ] Create PR
