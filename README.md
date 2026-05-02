@@ -108,6 +108,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 ## SDK Components
 
 ### Client Base
+
 | Component | Description |
 |-----------|-------------|
 | `ConnectorClientBase` | Abstract base class for all generated clients — provides authentication, retry, OTel tracing, JSON serialization, and SSRF-protected URL resolution |
