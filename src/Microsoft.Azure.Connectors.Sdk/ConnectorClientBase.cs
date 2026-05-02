@@ -3,7 +3,6 @@
 //------------------------------------------------------------
 
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -242,6 +241,13 @@ namespace Microsoft.Azure.Connectors.Sdk
         {
             if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
             {
+                if (string.IsNullOrEmpty(this._connectionRuntimeUrl))
+                {
+                    throw new InvalidOperationException(
+                        message: "Cannot validate absolute NextLink URL because no connection runtime URL was configured. " +
+                        "Set ConnectorClientOptions.BaseUri or use a constructor that accepts connectionRuntimeUrl.");
+                }
+
                 var baseUri = new Uri(this._connectionRuntimeUrl);
                 var nextUri = new Uri(path);
                 if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||

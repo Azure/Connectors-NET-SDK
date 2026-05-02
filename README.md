@@ -75,7 +75,7 @@ Copy the generated `*Extensions.cs` files to your project.
 ### 3. Use the Typed Client
 
 ```csharp
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 using Microsoft.Azure.Connectors.Sdk;
 
 // Get connection runtime URL from Azure Portal
@@ -112,7 +112,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 |-----------|-------------|
 | `ConnectorClientBase` | Abstract base class for all generated clients — provides authentication, retry, OTel tracing, JSON serialization, and SSRF-protected URL resolution |
 | `ConnectorClientOptions` | Configuration for retry count, timeout, exponential backoff, and initial retry delay |
-| `ConnectorException` | Unified exception for connector API failures with `ConnectorName`, `StatusCode`, and `ResponseBody` |
+| `ConnectorException` | Unified exception for connector API failures with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` |
 
 ### Authentication
 
