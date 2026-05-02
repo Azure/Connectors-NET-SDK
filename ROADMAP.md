@@ -1,8 +1,8 @@
-# DirectClient SDK Roadmap
+# Connectors SDK Roadmap
 
 ## Overview
 
-This document tracks the progress of generating DirectClient SDK code for Logic Apps connectors, starting with high-value actions and expanding to triggers in later phases.
+This document tracks the progress of generating Connectors SDK code for Logic Apps connectors, starting with high-value actions and expanding to triggers in later phases.
 
 ## Current Status
 

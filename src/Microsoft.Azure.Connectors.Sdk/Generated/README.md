@@ -19,7 +19,7 @@ This folder contains pre-generated typed connector clients included in the SDK N
 ## Usage
 
 ```csharp
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 
 var connectionRuntimeUrl = "https://...";  // From Azure Portal
 using var client = new Office365Client(connectionRuntimeUrl);

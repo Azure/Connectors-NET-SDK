@@ -116,10 +116,10 @@ There is no `ConnectorTrigger` template yet. Use `azd` with an HTTP trigger temp
 
 ### Example: ConnectorTrigger Function
 
-Use the `[ConnectorTrigger]` attribute with SDK typed payloads for POCO binding. Payload types are in the `Microsoft.Azure.Connectors.DirectClient.<Connector>` namespace:
+Use the `[ConnectorTrigger]` attribute with SDK typed payloads for POCO binding. Payload types are in the `Microsoft.Azure.Connectors.Sdk.<Connector>` namespace:
 
 ```csharp
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
