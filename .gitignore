@@ -34,3 +34,4 @@ Thumbs.db
 
 # Local generator output (staging area — canonical location is src/.../Generated/)
 samples/generated/*.cs
+_generated/

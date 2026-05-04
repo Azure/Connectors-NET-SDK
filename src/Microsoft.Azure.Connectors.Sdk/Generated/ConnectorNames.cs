@@ -17,6 +17,11 @@ namespace Microsoft.Azure.Connectors.Sdk;
 public static class ConnectorNames
 {
     /// <summary>
+    /// The <c>arm</c> connector (Azure Resource Manager).
+    /// </summary>
+    public const string Arm = "arm";
+
+    /// <summary>
     /// The <c>azureblob</c> connector.
     /// </summary>
     public const string Azureblob = "azureblob";
