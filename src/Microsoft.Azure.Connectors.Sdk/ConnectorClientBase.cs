@@ -78,7 +78,7 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// <param name="httpClient">Optional externally managed HttpClient.</param>
         protected ConnectorClientBase(
             string connectionRuntimeUrl,
-            string managedIdentityClientId,
+            string? managedIdentityClientId,
             ConnectorClientOptions? options = null,
             HttpClient? httpClient = null)
             : this(
@@ -262,6 +262,13 @@ namespace Microsoft.Azure.Connectors.Sdk
                 return path;
             }
 
+            if (string.IsNullOrEmpty(this._connectionRuntimeUrl))
+            {
+                throw new InvalidOperationException(
+                    message: "Cannot resolve relative path because no connection runtime URL was configured. " +
+                    "Set ConnectorClientOptions.BaseUri or use a constructor that accepts connectionRuntimeUrl.");
+            }
+
             return $"{this._connectionRuntimeUrl}{path}";
         }
 
@@ -292,11 +299,17 @@ namespace Microsoft.Azure.Connectors.Sdk
         private static ConnectorClientOptions ApplyBaseUri(ConnectorClientOptions? options, string connectionRuntimeUrl)
         {
             options ??= new ConnectorClientOptions();
-            options.BaseUri = new Uri(connectionRuntimeUrl?.TrimEnd('/') ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl)));
+
+            var uri = new Uri(connectionRuntimeUrl?.TrimEnd('/') ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl)));
+
+            // NOTE(daviburg): Only set BaseUri when the caller did not provide one.
+            // This avoids silently overwriting a user-specified BaseUri on a shared options instance.
+            options.BaseUri ??= uri;
+
             return options;
         }
 
-        private static TokenCredential CreateManagedIdentityCredential(string managedIdentityClientId)
+        private static TokenCredential CreateManagedIdentityCredential(string? managedIdentityClientId)
         {
             if (string.IsNullOrEmpty(managedIdentityClientId))
             {

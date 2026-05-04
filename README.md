@@ -75,8 +75,9 @@ Copy the generated `*Extensions.cs` files to your project.
 ### 3. Use the Typed Client
 
 ```csharp
-using Microsoft.Azure.Connectors.Sdk.Office365;
+using System;
 using Microsoft.Azure.Connectors.Sdk;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 
 // Get connection runtime URL from Azure Portal
 var connectionRuntimeUrl = "https://...";
