@@ -298,9 +298,18 @@ namespace Microsoft.Azure.Connectors.Sdk
 
         private static ConnectorClientOptions ApplyBaseUri(ConnectorClientOptions? options, string connectionRuntimeUrl)
         {
-            options ??= new ConnectorClientOptions();
+            ArgumentNullException.ThrowIfNull(connectionRuntimeUrl);
 
-            var uri = new Uri(connectionRuntimeUrl?.TrimEnd('/') ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl)));
+            var trimmed = connectionRuntimeUrl.TrimEnd('/');
+
+            if (!Uri.TryCreate(trimmed, UriKind.Absolute, out var uri))
+            {
+                throw new ArgumentException(
+                    message: $"The connection runtime URL '{trimmed}' is not a valid absolute URI.",
+                    paramName: nameof(connectionRuntimeUrl));
+            }
+
+            options ??= new ConnectorClientOptions();
 
             // NOTE(daviburg): Only set BaseUri when the caller did not provide one.
             // This avoids silently overwriting a user-specified BaseUri on a shared options instance.
