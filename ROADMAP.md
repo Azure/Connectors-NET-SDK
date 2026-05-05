@@ -54,7 +54,7 @@ Azure-native connectors (some may overlap with existing Functions bindings).
 |----------|-----------|------------|--------------|-------|--------|
 | 3.0 | **Azure Data Explorer (Kusto)** | — | — | KQL queries, control commands, chart rendering, MCP server | ✅ Complete |
 | 3.1 | **Azure Blob Storage** | #8/#15 | — | May overlap with Functions binding | ⬜ Evaluate |
-| 3.2 | **Azure Log Analytics** | #7 | — | Query/ingest operations | ⬜ Not started |
+| 3.2 | ~~Azure Log Analytics~~ | #7 | — | Connector fully deprecated by Microsoft. Replacement is Azure Monitor Logs (no SDK client yet). | ❌ Deprecated |
 | 3.3 | **Event Hubs** | #14 | — | May overlap with Functions binding | ⬜ Evaluate |
 | 3.4 | **Service Bus** | #4/#13 | — | Functions already supports | ⚠️ Skip (native) |
 

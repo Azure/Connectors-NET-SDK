@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Azure Log Analytics (`azureloganalytics`) connector removed — the connector and all its user-facing operations are deprecated by Microsoft (see [connector docs](https://learn.microsoft.com/en-us/connectors/azureloganalytics/)). Microsoft recommends the [Azure Monitor Logs](https://learn.microsoft.com/en-us/connectors/azuremonitorlogs/) connector as a replacement; this SDK does not yet include a generated client for it.
+
 ## [0.8.0-preview.1] - 2026-04-30
 
 ### Added
 
 - Office 365 Users (`office365users`) generated typed client for user profile lookups, manager/reports chain, user search, and trending documents (#75)
-- Azure Log Analytics (`azureloganalytics`) generated typed client for workspace discovery and query schema operations (#74)
+- Azure Log Analytics (`azureloganalytics`) generated typed client for workspace discovery and query schema operations (#74) *(removed in next release — connector deprecated by Microsoft)*
 - SMTP (`smtp`) generated typed client for sending email via SMTP connectors (#76)
 - Azure Blob Storage (`azureblob`) generated typed client with file and container operations (#80)
 - IBM MQ (`mq`) generated typed client for messaging queue operations (#81)
