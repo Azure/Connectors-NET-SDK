@@ -134,7 +134,6 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
-| Azure Log Analytics | ✅ Validated | ListSubscriptions, ListResourceGroups, ListWorkspaceNames, ListArmQueryResultsSchema |
 | IBM MQ | 🔄 SDK Generated | SendAsync, ReadAsync, ReadAllAsync, ReceiveAsync, ReceiveAllAsync, DeleteAsync, DeleteAllAsync |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
 | Office365 Users | ✅ Validated | MyProfile, UserProfile, Manager, DirectReports, SearchUser |
