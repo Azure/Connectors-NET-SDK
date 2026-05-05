@@ -22,6 +22,11 @@ public static class ConnectorNames
     public const string Azureblob = "azureblob";
 
     /// <summary>
+    /// The <c>azuremonitorlogs</c> connector.
+    /// </summary>
+    public const string Azuremonitorlogs = "azuremonitorlogs";
+
+    /// <summary>
     /// The <c>kusto</c> connector.
     /// </summary>
     public const string Kusto = "kusto";
