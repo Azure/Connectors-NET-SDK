@@ -1108,7 +1108,9 @@ public class ArmClient : IDisposable
     /// <returns>The Lists the subscription locations response.</returns>
     public async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
@@ -1121,7 +1123,9 @@ public class ArmClient : IDisposable
     /// <returns>The Read a subscription response.</returns>
     public async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
@@ -1132,7 +1136,9 @@ public class ArmClient : IDisposable
     /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
     public ConnectorPageable<SubscriptionListResult, Subscription> SubscriptionsListAsync()
     {
-        var path = $"/subscriptions";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<SubscriptionListResult, Subscription>(
             cancellationToken => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
             (nextLink, cancellationToken) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
@@ -1153,6 +1159,7 @@ public class ArmClient : IDisposable
         var queryParams = new List<string>();
         if (waitForDeployment != default)
             queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
@@ -1173,6 +1180,7 @@ public class ArmClient : IDisposable
         var queryParams = new List<string>();
         if (waitForDeployment != default)
             queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken);
     }
@@ -1187,7 +1195,9 @@ public class ArmClient : IDisposable
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
@@ -1201,7 +1211,9 @@ public class ArmClient : IDisposable
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
@@ -1217,7 +1229,9 @@ public class ArmClient : IDisposable
     /// <returns>The Validate a template deployment response.</returns>
     public async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken);
     }
 
@@ -1232,7 +1246,9 @@ public class ArmClient : IDisposable
     /// <returns>The Export deployment template response.</returns>
     public async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
@@ -1252,6 +1268,7 @@ public class ArmClient : IDisposable
             queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<DeploymentListResult, DeploymentExtended>(
             cancellationToken => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
@@ -1270,7 +1287,9 @@ public class ArmClient : IDisposable
     /// <returns>The Read a template deployment operation response.</returns>
     public async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
@@ -1288,6 +1307,7 @@ public class ArmClient : IDisposable
         var queryParams = new List<string>();
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<DeploymentOperationsListResult, DeploymentOperation>(
             cancellationToken => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
@@ -1304,7 +1324,9 @@ public class ArmClient : IDisposable
     /// <returns>The Unregister resource provider response.</returns>
     public async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
@@ -1318,7 +1340,9 @@ public class ArmClient : IDisposable
     /// <returns>The Register resource provider response.</returns>
     public async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken);
     }
 
@@ -1337,6 +1361,7 @@ public class ArmClient : IDisposable
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         if (expand != default)
             queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<ProviderListResult, Provider>(
             cancellationToken => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
@@ -1357,6 +1382,7 @@ public class ArmClient : IDisposable
         var queryParams = new List<string>();
         if (expand != default)
             queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
@@ -1380,6 +1406,7 @@ public class ArmClient : IDisposable
             queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<ResourceListResult, GenericResource>(
             cancellationToken => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
@@ -1396,7 +1423,9 @@ public class ArmClient : IDisposable
     /// <returns>The Read a resource group response.</returns>
     public async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
@@ -1411,7 +1440,9 @@ public class ArmClient : IDisposable
     /// <returns>The Create or update a resource group response.</returns>
     public async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken);
     }
 
@@ -1424,7 +1455,9 @@ public class ArmClient : IDisposable
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
@@ -1439,7 +1472,9 @@ public class ArmClient : IDisposable
     /// <returns>The Update an existing resource group response.</returns>
     public async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken);
     }
 
@@ -1454,7 +1489,9 @@ public class ArmClient : IDisposable
     /// <returns>The Export a resource group template response.</returns>
     public async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken);
     }
 
@@ -1473,6 +1510,7 @@ public class ArmClient : IDisposable
             queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<ResourceGroupListResult, ResourceGroup>(
             cancellationToken => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
@@ -1497,6 +1535,7 @@ public class ArmClient : IDisposable
             queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<ResourceListResult, GenericResource>(
             cancellationToken => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
@@ -1635,7 +1674,9 @@ public class ArmClient : IDisposable
     /// <returns>The Create or update a subscription resource tag value response.</returns>
     public async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken);
     }
 
@@ -1649,7 +1690,9 @@ public class ArmClient : IDisposable
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
@@ -1663,7 +1706,9 @@ public class ArmClient : IDisposable
     /// <returns>The Create or update a subscription resource tag name response.</returns>
     public async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken);
     }
 
@@ -1676,7 +1721,9 @@ public class ArmClient : IDisposable
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
@@ -1688,7 +1735,9 @@ public class ArmClient : IDisposable
     /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
     public ConnectorPageable<TagsListResult, TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription)
     {
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames";
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return new ConnectorPageable<TagsListResult, TagDetails>(
             cancellationToken => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
             (nextLink, cancellationToken) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
