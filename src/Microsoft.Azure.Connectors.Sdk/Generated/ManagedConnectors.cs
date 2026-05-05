@@ -1,44 +1,44 @@
-// DirectClient SDK - Generated Connectors
+// Connectors SDK - Generated Connectors
 // Each connector client is used independently:
 //
-//   using Microsoft.Azure.Connectors.DirectClient.Azureblob;
+//   using Microsoft.Azure.Connectors.Sdk.Azureblob;
 //   var client = new AzureblobClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Azureloganalytics;
-//   var client = new AzureloganalyticsClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Kusto;
+//   using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs;
+//   var client = new AzuremonitorlogsClient(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.Sdk.Kusto;
 //   var client = new KustoClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Mq;
+//   using Microsoft.Azure.Connectors.Sdk.Mq;
 //   var client = new MqClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Msgraphgroupsanduser;
+//   using Microsoft.Azure.Connectors.Sdk.Msgraphgroupsanduser;
 //   var client = new MsgraphgroupsanduserClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Office365;
+//   using Microsoft.Azure.Connectors.Sdk.Office365;
 //   var client = new Office365Client(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Office365users;
+//   using Microsoft.Azure.Connectors.Sdk.Office365users;
 //   var client = new Office365usersClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Onedriveforbusiness;
+//   using Microsoft.Azure.Connectors.Sdk.Onedriveforbusiness;
 //   var client = new OnedriveforbusinessClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
+//   using Microsoft.Azure.Connectors.Sdk.Sharepointonline;
 //   var client = new SharepointonlineClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Smtp;
+//   using Microsoft.Azure.Connectors.Sdk.Smtp;
 //   var client = new SmtpClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.DirectClient.Teams;
+//   using Microsoft.Azure.Connectors.Sdk.Teams;
 //   var client = new TeamsClient(connectionRuntimeUrl);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-namespace Microsoft.Azure.Connectors.DirectClient;
+namespace Microsoft.Azure.Connectors.Sdk;
 
 /// <summary>
-/// Provides a list of available DirectClient connectors.
+/// Provides a list of available SDK connectors.
 /// </summary>
-public static class DirectClientConnectors
+public static class SdkConnectors
 {
     /// <summary>
     /// The list of available connector names.
     /// </summary>
     public static readonly string[] AvailableConnectors = [
         "azureblob",
-        "azureloganalytics",
+        "azuremonitorlogs",
         "kusto",
         "mq",
         "msgraphgroupsanduser",

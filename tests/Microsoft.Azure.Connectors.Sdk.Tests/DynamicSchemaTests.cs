@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.Azure.Connectors.DirectClient.Teams;
+using Microsoft.Azure.Connectors.Sdk.Teams;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Azure.Connectors.Sdk.Tests

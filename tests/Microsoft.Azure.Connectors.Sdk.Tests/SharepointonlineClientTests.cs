@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.DirectClient.Sharepointonline;
+using Microsoft.Azure.Connectors.Sdk.Sharepointonline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -146,7 +146,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<SharepointonlineConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .GetAllTablesAsync(siteAddress: "https://contoso.sharepoint.com/sites/nonexistent", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))
@@ -157,10 +157,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void SharepointonlineConnectorException_ShouldContainExpectedProperties()
+        public void ConnectorException_ShouldContainExpectedProperties()
         {
             // Arrange & Act
-            var exception = new SharepointonlineConnectorException(
+            var exception = new ConnectorException("sharepointonline",
                 operation: "GET /test",
                 statusCode: 403,
                 responseBody: "Access denied");

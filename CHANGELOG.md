@@ -7,16 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- Renamed all generated connector namespaces from `Microsoft.Azure.Connectors.DirectClient.*` to `Microsoft.Azure.Connectors.Sdk.*` for consistency with the package name and cross-language SDKs (#87)
+  - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
+- Renamed `DirectClientConnectors` class to `SdkConnectors` (#87)
+  - e.g., `DirectClientConnectors.AvailableConnectors` → `SdkConnectors.AvailableConnectors`
+
 ### Changed
 
+- **Breaking:** Generated connector clients now inherit from `ConnectorClientBase` instead of implementing `IDisposable` directly (#88)
+- **Breaking:** Per-connector exception types (e.g., `Office365ConnectorException`, `TeamsConnectorException`) replaced with unified `ConnectorException` base type with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` properties (#88)
+- **Breaking:** Generated client constructors accept a new optional `ConnectorClientOptions` parameter for configuring retry policy, timeout, and exponential backoff — the `HttpClient` parameter moved from position 3 to position 4 (#88)
+- Generated clients now use SDK infrastructure (`ConnectorHttpClient`) for authentication, retry with exponential backoff, OpenTelemetry instrumentation, and SSRF-protected URL resolution (#88)
 - `ManagedIdentityTokenProvider` now uses `ManagedIdentityCredential` instead of `DefaultAzureCredential`, aligning with [Azure SDK best practices for deterministic credentials in production](https://learn.microsoft.com/dotnet/azure/sdk/authentication/best-practices#use-deterministic-credentials-in-production-environments) (#86)
+
+### Added
+
+- Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results
+- `TokenCredentialTokenProvider` adapter — wraps any `Azure.Core.TokenCredential` as an `ITokenProvider` for the SDK's HTTP pipeline (#88)
+- `ConnectorException` — unified exception type for all connector API failures (#88)
+- `ConnectorClientBase` now provides `CallConnectorAsync`, `ResolveUrl`, shared JSON options, and convenience constructors accepting `connectionRuntimeUrl` + `TokenCredential` (#88)
+
+### Removed
+
+- Azure Log Analytics (`azureloganalytics`) connector removed — the connector and all its user-facing operations are deprecated by Microsoft (see [connector docs](https://learn.microsoft.com/en-us/connectors/azureloganalytics/)). Microsoft recommends the [Azure Monitor Logs](https://learn.microsoft.com/en-us/connectors/azuremonitorlogs/) connector as a replacement.
 
 ## [0.8.0-preview.1] - 2026-04-30
 
 ### Added
 
 - Office 365 Users (`office365users`) generated typed client for user profile lookups, manager/reports chain, user search, and trending documents (#75)
-- Azure Log Analytics (`azureloganalytics`) generated typed client for workspace discovery and query schema operations (#74)
+- Azure Log Analytics (`azureloganalytics`) generated typed client for workspace discovery and query schema operations (#74) *(removed in next release — connector deprecated by Microsoft)*
 - SMTP (`smtp`) generated typed client for sending email via SMTP connectors (#76)
 - Azure Blob Storage (`azureblob`) generated typed client with file and container operations (#80)
 - IBM MQ (`mq`) generated typed client for messaging queue operations (#81)
