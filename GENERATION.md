@@ -118,7 +118,7 @@ LogicAppsCompiler.exe <output-directory> unused --managedConnectors
 using System.Text.Json.Serialization;
 // ... other usings
 
-namespace Microsoft.Azure.Connectors.DirectClient.Office365;
+namespace Microsoft.Azure.Connectors.Sdk.Office365;
 
 #region Types
 

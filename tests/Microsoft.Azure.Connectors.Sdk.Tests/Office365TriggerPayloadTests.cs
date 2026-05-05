@@ -3,7 +3,7 @@
 //------------------------------------------------------------
 
 using System.Text.Json;
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Azure.Connectors.Sdk.Tests

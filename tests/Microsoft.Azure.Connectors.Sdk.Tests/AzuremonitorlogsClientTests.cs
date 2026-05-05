@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.DirectClient.Azuremonitorlogs;
+using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -151,7 +151,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<AzuremonitorlogsConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .QueryDataAsync(
                             input: "invalid query |||",
@@ -226,10 +226,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void AzuremonitorlogsConnectorException_ShouldContainExpectedProperties()
+        public void ConnectorException_ShouldContainExpectedProperties()
         {
             // Arrange & Act
-            var exception = new AzuremonitorlogsConnectorException(
+            var exception = new ConnectorException("azuremonitorlogs",
                 operation: "POST /queryData",
                 statusCode: 403,
                 responseBody: "Access denied");

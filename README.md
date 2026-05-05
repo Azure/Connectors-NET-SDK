@@ -75,13 +75,25 @@ Copy the generated `*Extensions.cs` files to your project.
 ### 3. Use the Typed Client
 
 ```csharp
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using System;
+using Microsoft.Azure.Connectors.Sdk;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 
 // Get connection runtime URL from Azure Portal
 var connectionRuntimeUrl = "https://...";
 
-// Create client (uses DefaultAzureCredential by default)
+// Create client with default settings (uses DefaultAzureCredential)
 using var client = new Office365Client(connectionRuntimeUrl);
+
+// Or configure retry, timeout, and backoff
+using var clientWithOptions = new Office365Client(
+    connectionRuntimeUrl,
+    options: new ConnectorClientOptions
+    {
+        MaxRetryAttempts = 5,
+        Timeout = TimeSpan.FromSeconds(60),
+        UseExponentialBackoff = true
+    });
 
 // Call typed operations
 await client.SendEmailAsync(new SendEmailInput
@@ -96,12 +108,21 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 ## SDK Components
 
+### Client Base
+
+| Component | Description |
+|-----------|-------------|
+| `ConnectorClientBase` | Abstract base class for all generated clients — provides authentication, retry, OTel tracing, JSON serialization, and SSRF-protected URL resolution |
+| `ConnectorClientOptions` | Configuration for retry count, timeout, exponential backoff, and initial retry delay |
+| `ConnectorException` | Unified exception for connector API failures with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` |
+
 ### Authentication
 
 | Provider | Use Case |
 |----------|----------|
 | `ManagedIdentityTokenProvider` | Azure-hosted apps (App Service, Functions) |
 | `ConnectionStringTokenProvider` | Local development with API keys |
+| `TokenCredentialTokenProvider` | Wraps any `Azure.Core.TokenCredential` (DefaultAzureCredential, etc.) |
 
 ### HTTP
 
