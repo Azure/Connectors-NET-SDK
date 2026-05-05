@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Azure Log Analytics (`azureloganalytics`) connector removed — the connector and all its user-facing operations are deprecated by Microsoft (see [connector docs](https://learn.microsoft.com/en-us/connectors/azureloganalytics/)). Use [Azure Monitor Logs](https://learn.microsoft.com/en-us/connectors/azuremonitorlogs/) instead.
+- Azure Log Analytics (`azureloganalytics`) connector removed — the connector and all its user-facing operations are deprecated by Microsoft (see [connector docs](https://learn.microsoft.com/en-us/connectors/azureloganalytics/)). Microsoft recommends the [Azure Monitor Logs](https://learn.microsoft.com/en-us/connectors/azuremonitorlogs/) connector as a replacement; this SDK does not yet include a generated client for it.
 
 ## [0.8.0-preview.1] - 2026-04-30
 
