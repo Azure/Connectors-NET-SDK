@@ -3,8 +3,8 @@
 //
 //   using Microsoft.Azure.Connectors.Sdk.Azureblob;
 //   var client = new AzureblobClient(connectionRuntimeUrl);
-//   using Microsoft.Azure.Connectors.Sdk.Azureloganalytics;
-//   var client = new AzureloganalyticsClient(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs;
+//   var client = new AzuremonitorlogsClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.Sdk.Kusto;
 //   var client = new KustoClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.Sdk.Mq;
@@ -38,7 +38,7 @@ public static class SdkConnectors
     /// </summary>
     public static readonly string[] AvailableConnectors = [
         "azureblob",
-        "azureloganalytics",
+        "azuremonitorlogs",
         "kusto",
         "mq",
         "msgraphgroupsanduser",

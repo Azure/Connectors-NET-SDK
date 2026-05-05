@@ -22,9 +22,9 @@ public static class ConnectorNames
     public const string Azureblob = "azureblob";
 
     /// <summary>
-    /// The <c>azureloganalytics</c> connector.
+    /// The <c>azuremonitorlogs</c> connector.
     /// </summary>
-    public const string Azureloganalytics = "azureloganalytics";
+    public const string Azuremonitorlogs = "azuremonitorlogs";
 
     /// <summary>
     /// The <c>kusto</c> connector.
@@ -32,7 +32,7 @@ public static class ConnectorNames
     public const string Kusto = "kusto";
 
     /// <summary>
-    /// The <c>mq</c> connector (IBM MQ).
+    /// The <c>mq</c> connector.
     /// </summary>
     public const string Mq = "mq";
 

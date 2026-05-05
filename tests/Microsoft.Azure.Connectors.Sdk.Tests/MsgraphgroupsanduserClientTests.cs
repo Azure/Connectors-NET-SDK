@@ -165,7 +165,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<MsgraphgroupsanduserConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .GetGroupPropertiesAsync(objectIDOfTheMicrosoftEntraIDGroup: "test-group-id", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))

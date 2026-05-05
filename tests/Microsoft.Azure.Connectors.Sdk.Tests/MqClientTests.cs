@@ -191,7 +191,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ReceiveAsync_WithErrorResponse_ThrowsMqConnectorException()
+        public async Task ReceiveAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -221,7 +221,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<MqConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .ReceiveAsync(
                             new SingleGetValidOptions { Queue = "NONEXISTENT.QUEUE" },

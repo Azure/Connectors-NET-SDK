@@ -315,7 +315,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<Office365usersConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .MyProfileAsync(cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))

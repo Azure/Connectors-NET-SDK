@@ -171,7 +171,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<Office365ConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .GetEmailAsync(messageId: "test-message-id", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))

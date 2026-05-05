@@ -146,7 +146,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<OnedriveforbusinessConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .GetFileMetadataAsync(
                             file: "nonexistent-file-id",
@@ -159,10 +159,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void OnedriveforbusinessConnectorException_ShouldContainExpectedProperties()
+        public void ConnectorException_ShouldContainExpectedProperties()
         {
             // Arrange & Act
-            var exception = new OnedriveforbusinessConnectorException(
+            var exception = new ConnectorException("onedriveforbusiness",
                 operation: "GET /datasets/default/files/abc",
                 statusCode: 403,
                 responseBody: "Access denied");
