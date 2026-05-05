@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Office 365 Users (`office365users`) generated typed client for user profile lookups, manager/reports chain, user search, and trending documents (#75)
+- Azure Log Analytics (`azureloganalytics`) generated typed client for workspace discovery and query schema operations (#74) *(removed in next release — connector deprecated by Microsoft)*
 - SMTP (`smtp`) generated typed client for sending email via SMTP connectors (#76)
 - Azure Blob Storage (`azureblob`) generated typed client with file and container operations (#80)
 - IBM MQ (`mq`) generated typed client for messaging queue operations (#81)
