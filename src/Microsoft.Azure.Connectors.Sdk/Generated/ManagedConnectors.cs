@@ -3,6 +3,8 @@
 //
 //   using Microsoft.Azure.Connectors.DirectClient.Azureblob;
 //   var client = new AzureblobClient(connectionRuntimeUrl);
+//   using Microsoft.Azure.Connectors.DirectClient.Azuremonitorlogs;
+//   var client = new AzuremonitorlogsClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Kusto;
 //   var client = new KustoClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.DirectClient.Mq;
@@ -36,6 +38,7 @@ public static class DirectClientConnectors
     /// </summary>
     public static readonly string[] AvailableConnectors = [
         "azureblob",
+        "azuremonitorlogs",
         "kusto",
         "mq",
         "msgraphgroupsanduser",
