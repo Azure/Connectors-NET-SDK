@@ -1,6 +1,6 @@
-# Connection Setup for DirectClient SDK Validation
+# Connection Setup for Connectors SDK Validation
 
-This guide documents how to set up and configure API connections for testing DirectClient SDK generated code.
+This guide documents how to set up and configure API connections for testing Connectors SDK generated code.
 
 ## Prerequisites
 
@@ -204,7 +204,7 @@ Open the returned `link` URL in your browser to complete OAuth authorization.
 
 ### Step 5: Add Access Policy for CLI/Local Testing
 
-DirectClient SDK uses `DefaultAzureCredential` which authenticates as your Azure CLI identity. You must grant your identity access to the connection.
+The Connectors SDK uses `DefaultAzureCredential` which authenticates as your Azure CLI identity. You must grant your identity access to the connection.
 
 #### Get Your Identity Information
 

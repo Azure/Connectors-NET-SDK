@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- Renamed all generated connector namespaces from `Microsoft.Azure.Connectors.DirectClient.*` to `Microsoft.Azure.Connectors.Sdk.*` for consistency with the package name and cross-language SDKs (#87)
+  - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
+- Renamed `DirectClientConnectors` class to `SdkConnectors` (#87)
+  - e.g., `DirectClientConnectors.AvailableConnectors` → `SdkConnectors.AvailableConnectors`
+
 ### Changed
 
 - **Breaking:** Generated connector clients now inherit from `ConnectorClientBase` instead of implementing `IDisposable` directly (#88)
