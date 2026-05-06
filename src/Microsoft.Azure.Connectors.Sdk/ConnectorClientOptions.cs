@@ -2,36 +2,51 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using global::Azure.Core;
+
 namespace Microsoft.Azure.Connectors.Sdk
 {
     /// <summary>
     /// Configuration options for connector clients.
+    /// Inherits from <see cref="ClientOptions"/> to provide Azure SDK standard
+    /// retry, transport, and diagnostics configuration.
     /// </summary>
-    public class ConnectorClientOptions
+    /// <remarks>
+    /// <para>
+    /// Retry behavior is configured via the inherited <see cref="ClientOptions.Retry"/> property.
+    /// Custom HTTP transport can be set via <see cref="ClientOptions.Transport"/>.
+    /// </para>
+    /// </remarks>
+    public class ConnectorClientOptions : ClientOptions
     {
+        /// <summary>
+        /// The service version of the Connector SDK API.
+        /// </summary>
+        public enum ServiceVersion
+        {
+            /// <summary>
+            /// Version 1 of the Connector SDK API.
+            /// </summary>
+            V1 = 1,
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorClientOptions"/> class.
+        /// </summary>
+        /// <param name="version">The service version.</param>
+        public ConnectorClientOptions(ServiceVersion version = ServiceVersion.V1)
+        {
+            this.Version = version;
+        }
+
+        /// <summary>
+        /// Gets the service version.
+        /// </summary>
+        public ServiceVersion Version { get; }
+
         /// <summary>
         /// Gets or sets the base URI for the connector endpoint.
         /// </summary>
         public Uri? BaseUri { get; set; }
-
-        /// <summary>
-        /// Gets or sets the maximum number of retry attempts.
-        /// </summary>
-        public int MaxRetryAttempts { get; set; } = 3;
-
-        /// <summary>
-        /// Gets or sets the timeout for HTTP requests.
-        /// </summary>
-        public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(30);
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to use exponential backoff.
-        /// </summary>
-        public bool UseExponentialBackoff { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the initial retry delay.
-        /// </summary>
-        public TimeSpan InitialRetryDelay { get; set; } = TimeSpan.FromMilliseconds(500);
     }
 }

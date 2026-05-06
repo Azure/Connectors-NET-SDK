@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
+using global::Azure.Core.Pipeline;
 using Microsoft.Azure.Connectors.Sdk.Mq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -51,23 +52,17 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Dispose_WithInjectedHttpClient_ShouldNotDisposeIt()
+        public void Dispose_CalledTwice_ShouldNotThrow()
         {
             // Arrange
-            var httpClient = new HttpClient();
             var mockCredential = new Mock<TokenCredential>();
-
             var client = new MqClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
-                httpClient: httpClient);
+                credential: mockCredential.Object);
 
-            // Act
+            // Act & Assert - calling Dispose twice should not throw (idempotent)
             client.Dispose();
-
-            // Assert - injected HttpClient should still be usable (not disposed)
-            httpClient.DefaultRequestHeaders.Add("X-Test-Header", "TestValue");
-            Assert.IsTrue(httpClient.DefaultRequestHeaders.Contains("X-Test-Header"));
+            client.Dispose();
         }
 
         [TestMethod]
@@ -115,12 +110,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            var options = new ConnectorClientOptions();
+
+
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+
+
+            options.Retry.MaxRetries = 0;
 
             using var client = new MqClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
-                httpClient: httpClient);
+                options: options);
 
             // Act
             var result = await client
@@ -168,12 +169,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            var options = new ConnectorClientOptions();
+
+
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+
+
+            options.Retry.MaxRetries = 0;
 
             using var client = new MqClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
-                httpClient: httpClient);
+                options: options);
 
             // Act
             var result = await client
@@ -212,12 +219,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            var options = new ConnectorClientOptions();
+
+
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+
+
+            options.Retry.MaxRetries = 0;
 
             using var client = new MqClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
-                httpClient: httpClient);
+                options: options);
 
             // Act & Assert
             var exception = await Assert
@@ -264,12 +277,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            var options = new ConnectorClientOptions();
+
+
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+
+
+            options.Retry.MaxRetries = 0;
 
             using var client = new MqClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
-                httpClient: httpClient);
+                options: options);
 
             // Act
             var result = await client

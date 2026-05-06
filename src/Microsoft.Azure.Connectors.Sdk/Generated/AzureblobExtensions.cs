@@ -329,9 +329,8 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
     /// <param name="credential">Optional credential. Defaults to <see cref="DefaultAzureCredential"/>.</param>
     /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
-    public AzureblobClient(string connectionRuntimeUrl, TokenCredential credential = null, ConnectorClientOptions options = null, HttpClient httpClient = null)
-        : base(connectionRuntimeUrl, credential, options, httpClient)
+    public AzureblobClient(string connectionRuntimeUrl, TokenCredential credential = null, ConnectorClientOptions options = null)
+        : base(connectionRuntimeUrl, credential, options)
     {
     }
 
@@ -341,9 +340,8 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
     /// <param name="managedIdentityClientId">The client ID for user-assigned managed identity. Use null for system-assigned identity with <see cref="ManagedIdentityCredential"/>.</param>
     /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
-    public AzureblobClient(string connectionRuntimeUrl, string managedIdentityClientId, ConnectorClientOptions options = null, HttpClient httpClient = null)
-        : base(connectionRuntimeUrl, managedIdentityClientId, options, httpClient)
+    public AzureblobClient(string connectionRuntimeUrl, string managedIdentityClientId, ConnectorClientOptions options = null)
+        : base(connectionRuntimeUrl, managedIdentityClientId, options)
     {
     }
 

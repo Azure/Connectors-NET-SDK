@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
+using global::Azure.Core.Pipeline;
 using Microsoft.Azure.Connectors.Sdk.Arm;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -36,10 +37,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
         /// <summary>
         /// Creates an ArmClient with a mocked handler that returns the specified response.
-        /// Reuses a shared credential mock; creates one HttpClient per handler since
-        /// HttpClient binds to its handler at construction.
+        /// Uses HttpClientTransport to inject the mock into the Azure.Core pipeline.
         /// </summary>
-        private static (ArmClient Client, HttpClient HttpClient) CreateMockedClient(HttpResponseMessage response)
+        private static ArmClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -51,13 +51,14 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Callback(() => { })
                 .Verifiable();
 
-            var httpClient = new HttpClient(mockHandler.Object);
-            var client = new ArmClient(
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            return new ArmClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: SharedMockCredential.Object,
-                httpClient: httpClient);
-
-            return (client, httpClient);
+                options: options);
         }
 
         /// <summary>
@@ -91,26 +92,17 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Dispose_WithInjectedHttpClient_ShouldNotDisposeIt()
+        public void Dispose_CalledTwice_ShouldNotThrow()
         {
             // Arrange
-            var httpClient = new HttpClient();
             var mockCredential = new Mock<TokenCredential>();
-
             var client = new ArmClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
-                httpClient: httpClient);
+                credential: mockCredential.Object);
 
-            // Act
+            // Act & Assert - calling Dispose twice should not throw (idempotent)
             client.Dispose();
-
-            // Assert - injected HttpClient should still be usable (not disposed)
-            httpClient.DefaultRequestHeaders.Add("X-Test-Header", "TestValue");
-            Assert.IsTrue(httpClient.DefaultRequestHeaders.Contains("X-Test-Header"));
-
-            // Cleanup
-            httpClient.Dispose();
+            client.Dispose();
         }
 
         [TestMethod]
@@ -195,23 +187,20 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
             };
 
-            var (client, httpClient) = CreateMockedClient(responseMessage);
-            using (httpClient)
-            using (client)
-            {
-                // Act
-                var result = await client
-                    .SubscriptionsGetAsync(
-                        subscription: "00000000-0000-0000-0000-000000000000",
-                        cancellationToken: CancellationToken.None)
-                    .ConfigureAwait(continueOnCapturedContext: false);
+            using var client = CreateMockedClient(responseMessage);
 
-                // Assert
-                Assert.IsNotNull(result);
-                Assert.AreEqual("00000000-0000-0000-0000-000000000000", result.SubscriptionId);
-                Assert.AreEqual("Test Subscription", result.DisplayName);
-                Assert.AreEqual("Enabled", result.State);
-            }
+            // Act
+            var result = await client
+                .SubscriptionsGetAsync(
+                    subscription: "00000000-0000-0000-0000-000000000000",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("00000000-0000-0000-0000-000000000000", result.SubscriptionId);
+            Assert.AreEqual("Test Subscription", result.DisplayName);
+            Assert.AreEqual("Enabled", result.State);
         }
 
         [TestMethod]
@@ -231,23 +220,20 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
             };
 
-            var (client, httpClient) = CreateMockedClient(responseMessage);
-            using (httpClient)
-            using (client)
-            {
-                // Act
-                var result = await client
-                    .ResourceGroupsGetAsync(
-                        subscription: "00000000-0000-0000-0000-000000000000",
-                        resourceGroup: "test-rg",
-                        cancellationToken: CancellationToken.None)
-                    .ConfigureAwait(continueOnCapturedContext: false);
+            using var client = CreateMockedClient(responseMessage);
 
-                // Assert
-                Assert.IsNotNull(result);
-                Assert.AreEqual("test-rg", result.Name);
-                Assert.AreEqual("westus2", result.Location);
-            }
+            // Act
+            var result = await client
+                .ResourceGroupsGetAsync(
+                    subscription: "00000000-0000-0000-0000-000000000000",
+                    resourceGroup: "test-rg",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("test-rg", result.Name);
+            Assert.AreEqual("westus2", result.Location);
         }
 
         [TestMethod]
@@ -260,27 +246,24 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Content = new StringContent("{\"error\": \"Resource not found\"}")
             };
 
-            var (client, httpClient) = CreateMockedClient(responseMessage);
-            using (httpClient)
-            using (client)
-            {
-                // Act & Assert
-                var exception = await Assert
-                    .ThrowsExactlyAsync<ConnectorException>(async () =>
-                        await client
-                            .ResourcesGetByIdAsync(
-                                subscription: "00000000-0000-0000-0000-000000000000",
-                                resourceGroup: "test-rg",
-                                resourceProvider: "Microsoft.Compute",
-                                shortResourceId: "virtualMachines/myVM",
-                                clientApiVersion: "2023-03-01",
-                                cancellationToken: CancellationToken.None)
-                            .ConfigureAwait(continueOnCapturedContext: false))
-                    .ConfigureAwait(continueOnCapturedContext: false);
+            using var client = CreateMockedClient(responseMessage);
 
-                Assert.AreEqual(404, exception.StatusCode);
-                Assert.IsTrue(exception.ResponseBody.Contains("Resource not found", StringComparison.Ordinal));
-            }
+            // Act & Assert
+            var exception = await Assert
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
+                    await client
+                        .ResourcesGetByIdAsync(
+                            subscription: "00000000-0000-0000-0000-000000000000",
+                            resourceGroup: "test-rg",
+                            resourceProvider: "Microsoft.Compute",
+                            shortResourceId: "virtualMachines/myVM",
+                            clientApiVersion: "2023-03-01",
+                            cancellationToken: CancellationToken.None)
+                        .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(404, exception.StatusCode);
+            Assert.IsTrue(exception.ResponseBody.Contains("Resource not found", StringComparison.Ordinal));
         }
 
         [TestMethod]
