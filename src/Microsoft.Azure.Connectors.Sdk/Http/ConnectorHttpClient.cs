@@ -3,20 +3,28 @@
 //------------------------------------------------------------
 
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using global::Azure.Core;
+using global::Azure.Core.Pipeline;
 using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.Extensions.Logging;
-using Polly;
-using Polly.Extensions.Http;
 
 namespace Microsoft.Azure.Connectors.Sdk.Http
 {
     /// <summary>
-    /// HTTP client for connector operations with retry and authentication.
+    /// HTTP client for connector operations with Azure.Core <see cref="HttpPipeline"/>
+    /// for retry, authentication, and diagnostics.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This class is retained for standalone usage outside of <see cref="ConnectorClientBase"/>.
+    /// Generated connector clients use the pipeline built by <see cref="ConnectorClientBase"/> directly.
+    /// </para>
+    /// </remarks>
     public class ConnectorHttpClient : IDisposable
     {
         /// <summary>
@@ -27,13 +35,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
 
         private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 
-        private readonly HttpClient _httpClient;
-        private readonly ITokenProvider _tokenProvider;
+        private readonly HttpPipeline _pipeline;
         private readonly ConnectorClientOptions _options;
         private readonly ILogger _logger;
-        private readonly AsyncPolicy<HttpResponseMessage> _retryPolicy;
         private readonly Func<string?>? _connectorNameProvider;
-        private readonly bool _ownsHttpClient;
         private bool _disposed;
 
         /// <summary>
@@ -42,89 +47,50 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         /// <param name="tokenProvider">The token provider.</param>
         /// <param name="options">The client options.</param>
         /// <param name="logger">The logger.</param>
+        /// <param name="scopes">The authentication scopes for the pipeline.</param>
         /// <param name="connectorName">The connector name for telemetry.</param>
         public ConnectorHttpClient(
             ITokenProvider tokenProvider,
             ConnectorClientOptions options,
             ILogger logger,
+            string[] scopes,
             string? connectorName = null)
-            : this(tokenProvider, options, logger, httpClient: null, connectorName is not null ? () => connectorName : null)
+            : this(
+                ConnectorHttpClient.BuildPipeline(tokenProvider, options, scopes),
+                options,
+                logger,
+                connectorName is not null ? () => connectorName : null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class with an externally managed HttpClient.
-        /// The caller is responsible for configuring the <paramref name="httpClient"/> (e.g., BaseAddress, Timeout);
-        /// <see cref="ConnectorClientOptions.BaseUri"/> and <see cref="ConnectorClientOptions.Timeout"/> are only
-        /// applied when the client creates its own HttpClient internally.
+        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class
+        /// with a pre-built <see cref="HttpPipeline"/>.
         /// </summary>
-        /// <param name="tokenProvider">The token provider.</param>
+        /// <param name="pipeline">The HTTP pipeline (handles retry, auth, diagnostics).</param>
         /// <param name="options">The client options.</param>
         /// <param name="logger">The logger.</param>
-        /// <param name="httpClient">An externally managed HttpClient. The caller is responsible for its lifetime and configuration.</param>
-        /// <param name="connectorName">The connector name for telemetry.</param>
+        /// <param name="connectorNameProvider">A function that returns the connector name for telemetry.</param>
         public ConnectorHttpClient(
-            ITokenProvider tokenProvider,
+            HttpPipeline pipeline,
             ConnectorClientOptions options,
             ILogger logger,
-            HttpClient? httpClient,
-            string? connectorName = null)
-            : this(tokenProvider, options, logger, httpClient, connectorName is not null ? () => connectorName : null)
+            Func<string?>? connectorNameProvider = null)
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class with a deferred connector name provider.
-        /// Use this constructor when the connector name is not available at construction time (e.g., from a virtual property).
-        /// </summary>
-        /// <param name="tokenProvider">The token provider.</param>
-        /// <param name="options">The client options.</param>
-        /// <param name="logger">The logger.</param>
-        /// <param name="httpClient">An externally managed HttpClient, or null to create one internally.</param>
-        /// <param name="connectorNameProvider">A function that returns the connector name for telemetry. Evaluated on each request.</param>
-        internal ConnectorHttpClient(
-            ITokenProvider tokenProvider,
-            ConnectorClientOptions options,
-            ILogger logger,
-            HttpClient? httpClient,
-            Func<string?>? connectorNameProvider)
-        {
-            ArgumentNullException.ThrowIfNull(tokenProvider);
+            ArgumentNullException.ThrowIfNull(pipeline);
             ArgumentNullException.ThrowIfNull(options);
 
-            this._tokenProvider = tokenProvider;
+            this._pipeline = pipeline;
             this._options = options;
             this._logger = logger;
             this._connectorNameProvider = connectorNameProvider;
-
-            if (httpClient is not null)
-            {
-                this._httpClient = httpClient;
-                this._ownsHttpClient = false;
-            }
-            else
-            {
-                this._httpClient = new HttpClient
-                {
-                    Timeout = options.Timeout
-                };
-
-                if (options.BaseUri != null)
-                {
-                    this._httpClient.BaseAddress = options.BaseUri;
-                }
-
-                this._ownsHttpClient = true;
-            }
-
-            this._retryPolicy = this.CreateRetryPolicy();
         }
 
         /// <summary>
-        /// Sends an HTTP request with authentication and retry.
+        /// Sends an HTTP request through the Azure.Core pipeline with retry and authentication.
         /// </summary>
         /// <param name="request">The HTTP request.</param>
-        /// <param name="scopes">The authentication scopes.</param>
+        /// <param name="scopes">The authentication scopes (used for telemetry; auth is configured in the pipeline).</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The HTTP response.</returns>
         public async Task<HttpResponseMessage> SendAsync(
@@ -155,19 +121,82 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                 }
             }
 
-            HttpResponseMessage response;
-
             try
             {
-                var token = await this._tokenProvider
-                    .GetAccessTokenAsync(scopes, cancellationToken)
+                // Convert HttpRequestMessage to Azure.Core pipeline request
+                var message = this._pipeline.CreateMessage();
+                var pipelineRequest = message.Request;
+                pipelineRequest.Method = RequestMethod.Parse(request.Method.Method);
+
+                if (request.RequestUri is not null)
+                {
+                    pipelineRequest.Uri.Reset(request.RequestUri);
+                }
+
+                // Copy request headers
+                foreach (var header in request.Headers)
+                {
+                    foreach (var value in header.Value)
+                    {
+                        pipelineRequest.Headers.Add(header.Key, value);
+                    }
+                }
+
+                // Copy content
+                if (request.Content is not null)
+                {
+                    var contentBytes = await request.Content
+                        .ReadAsByteArrayAsync(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                    pipelineRequest.Content = RequestContent.Create(contentBytes);
+
+                    if (request.Content.Headers.ContentType is not null)
+                    {
+                        pipelineRequest.Headers.Add("Content-Type", request.Content.Headers.ContentType.ToString());
+                    }
+                }
+
+                await this._pipeline
+                    .SendAsync(message, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var pipelineResponse = message.Response;
 
-                response = await this._retryPolicy
-                    .ExecuteAsync(() => this._httpClient.SendAsync(request, cancellationToken))
-                    .ConfigureAwait(continueOnCapturedContext: false);
+                // Convert Azure.Core Response to HttpResponseMessage
+                var httpResponse = new HttpResponseMessage((HttpStatusCode)pipelineResponse.Status);
+
+                if (pipelineResponse.ContentStream is not null)
+                {
+                    var contentStream = new MemoryStream();
+                    await pipelineResponse.ContentStream
+                        .CopyToAsync(contentStream, cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                    contentStream.Position = 0;
+                    httpResponse.Content = new StreamContent(contentStream);
+                }
+
+                // Copy response headers
+                foreach (var header in pipelineResponse.Headers)
+                {
+                    if (!httpResponse.Headers.TryAddWithoutValidation(header.Name, header.Value))
+                    {
+                        httpResponse.Content?.Headers.TryAddWithoutValidation(header.Name, header.Value);
+                    }
+                }
+
+                if (activity is not null)
+                {
+                    activity.SetTag("http.status_code", pipelineResponse.Status);
+
+                    if (pipelineResponse.IsError)
+                    {
+                        activity.SetTag("otel.status_code", "ERROR");
+                        activity.SetTag("otel.status_description", $"HTTP {pipelineResponse.Status} {pipelineResponse.ReasonPhrase}");
+                        activity.SetStatus(ActivityStatusCode.Error, $"HTTP {pipelineResponse.Status}");
+                    }
+                }
+
+                return httpResponse;
             }
             catch (OperationCanceledException)
             {
@@ -189,20 +218,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
 
                 throw;
             }
-
-            if (activity is not null)
-            {
-                activity.SetTag("http.status_code", (int)response.StatusCode);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    activity.SetTag("otel.status_code", "ERROR");
-                    activity.SetTag("otel.status_description", $"HTTP {(int)response.StatusCode} {response.ReasonPhrase}");
-                    activity.SetStatus(ActivityStatusCode.Error, $"HTTP {(int)response.StatusCode}");
-                }
-            }
-
-            return response;
         }
 
         /// <summary>
@@ -224,7 +239,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                 .SendAsync(request, scopes, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            return await this
+            return await ConnectorHttpClient
                 .ParseResponseAsync<T>(response, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
@@ -253,7 +268,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
                 .SendAsync(request, scopes, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            return await this
+            return await ConnectorHttpClient
                 .ParseResponseAsync<TResponse>(response, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
@@ -266,49 +281,36 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         }
 
         /// <summary>
-        /// Disposes the HTTP client resources.
+        /// Disposes resources.
         /// </summary>
         /// <param name="disposing">True if called from Dispose.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!this._disposed)
             {
-                if (disposing && this._ownsHttpClient)
-                {
-                    this._httpClient?.Dispose();
-                }
-
                 this._disposed = true;
             }
         }
 
-        private AsyncPolicy<HttpResponseMessage> CreateRetryPolicy()
+        private static HttpPipeline BuildPipeline(
+            ITokenProvider tokenProvider,
+            ConnectorClientOptions options,
+            string[] scopes)
         {
-            if (this._options.UseExponentialBackoff)
-            {
-                return HttpPolicyExtensions
-                    .HandleTransientHttpError()
-                    .WaitAndRetryAsync(
-                        retryCount: this._options.MaxRetryAttempts,
-                        sleepDurationProvider: retryAttempt =>
-                            TimeSpan.FromMilliseconds(
-                                this._options.InitialRetryDelay.TotalMilliseconds * Math.Pow(2, retryAttempt - 1)),
-                        onRetry: (outcome, delay, retryAttempt, context) =>
-                        {
-                            this._logger.LogWarning(
-                                "Retry attempt {RetryAttempt} after {Delay}ms due to {Reason}",
-                                retryAttempt,
-                                delay.TotalMilliseconds,
-                                outcome.Exception?.Message ?? outcome.Result?.StatusCode.ToString());
-                        });
-            }
+            ArgumentNullException.ThrowIfNull(tokenProvider);
+            ArgumentNullException.ThrowIfNull(options);
+            ArgumentNullException.ThrowIfNull(scopes);
 
-            return HttpPolicyExtensions
-                .HandleTransientHttpError()
-                .RetryAsync(this._options.MaxRetryAttempts);
+            var credential = new TokenProviderCredential(tokenProvider);
+            return HttpPipelineBuilder.Build(
+                options,
+                perRetryPolicies: new HttpPipelinePolicy[]
+                {
+                    new BearerTokenAuthenticationPolicy(credential, scopes)
+                });
         }
 
-        private async Task<ConnectorResponse<T>> ParseResponseAsync<T>(
+        private static async Task<ConnectorResponse<T>> ParseResponseAsync<T>(
             HttpResponseMessage response,
             CancellationToken cancellationToken)
         {

@@ -33,6 +33,17 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void Constructor_WithConnectionRuntimeUrl_ShouldCreateInstance()
+        {
+            // Arrange & Act
+            using var client = new TestConnectorClientWithUrl("https://test.azure.com/connection");
+
+            // Assert
+            Assert.IsNotNull(client);
+            Assert.AreEqual("TestConnector", client.ConnectorName);
+        }
+
+        [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
@@ -91,6 +102,26 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.AreEqual("https://proxy.azure-apihub.net/apim/arm/conn123/subscriptions", result);
+        }
+
+        [TestMethod]
+        public void ConnectorClientOptions_InheritsFromClientOptions()
+        {
+            // Arrange & Act
+            var options = new ConnectorClientOptions();
+
+            // Assert - should be an Azure.Core.ClientOptions
+            Assert.IsInstanceOfType<global::Azure.Core.ClientOptions>(options);
+        }
+
+        [TestMethod]
+        public void ConnectorClientOptions_ServiceVersion_DefaultsToV1()
+        {
+            // Arrange & Act
+            var options = new ConnectorClientOptions();
+
+            // Assert
+            Assert.AreEqual(ConnectorClientOptions.ServiceVersion.V1, options.Version);
         }
 
         private class TestConnectorClient : ConnectorClientBase
