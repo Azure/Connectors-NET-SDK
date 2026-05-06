@@ -984,8 +984,8 @@ public class ArmClient : ConnectorClientBase
     /// List subscriptions
     /// </summary>
     /// <remarks>Gets a list of all the subscriptions to which the principal has access.</remarks>
-    /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
     public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1113,8 +1113,8 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="filter">Filter</param>
     /// <param name="top">Top</param>
-    /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
     public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1156,8 +1156,8 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="deploymentName">Deployment Name</param>
     /// <param name="top">Top</param>
-    /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
     public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1210,8 +1210,8 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="top">Top</param>
     /// <param name="expand">Expand</param>
-    /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
     public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1255,8 +1255,8 @@ public class ArmClient : ConnectorClientBase
     /// <param name="filter">Filter</param>
     /// <param name="expand">Expand</param>
     /// <param name="top">Top</param>
-    /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
     public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1363,8 +1363,8 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="filter">Filter</param>
     /// <param name="top">Top</param>
-    /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
     public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1388,8 +1388,8 @@ public class ArmClient : ConnectorClientBase
     /// <param name="filter">Filter</param>
     /// <param name="expand">Expand</param>
     /// <param name="top">Top</param>
-    /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
     public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -1597,8 +1597,8 @@ public class ArmClient : ConnectorClientBase
     /// </summary>
     /// <remarks>Lists all the subscription resource tags.</remarks>
     /// <param name="subscription">Subscription</param>
-    /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
     public virtual AsyncPageable<TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();

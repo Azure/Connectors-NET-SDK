@@ -271,8 +271,8 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// List subscriptions
     /// </summary>
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
     public virtual AsyncPageable<Subscription> ListSubscriptionsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/listSubscriptions";
@@ -287,8 +287,8 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// </summary>
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="subscription">Subscription</param>
-    /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
     public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -308,8 +308,8 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="resourceType">Resource Type</param>
-    /// <returns>An async enumerable of <see cref="ResourceItem"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ResourceItem"/> items across all pages.</returns>
     public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
@@ -332,8 +332,8 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="resourceType">Resource Type</param>
-    /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
     public virtual AsyncPageable<TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();

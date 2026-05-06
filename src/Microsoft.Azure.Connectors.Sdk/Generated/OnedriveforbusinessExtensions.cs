@@ -778,8 +778,8 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// </summary>
     /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
     /// <param name="folder">Folder</param>
-    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
     public virtual AsyncPageable<BlobMetadata> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";

@@ -882,8 +882,8 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="searchTerm">Search term</param>
     /// <param name="top">Top</param>
     /// <param name="isSearchTermRequired">Is search term required</param>
-    /// <returns>An async enumerable of <see cref="User"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="User"/> items across all pages.</returns>
     public virtual AsyncPageable<User> SearchUserAsync(string searchTerm = default, int top = default, bool isSearchTermRequired = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();

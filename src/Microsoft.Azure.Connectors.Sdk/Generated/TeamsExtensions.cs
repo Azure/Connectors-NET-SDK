@@ -1713,8 +1713,8 @@ public class TeamsClient : ConnectorClientBase
     /// <remarks>Gets messages from a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
     /// <param name="team">Team</param>
     /// <param name="channel">Channel</param>
-    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
     public virtual AsyncPageable<ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
@@ -1985,8 +1985,8 @@ public class TeamsClient : ConnectorClientBase
     /// <param name="filterQuery">Filter Query</param>
     /// <param name="orderBy">Order By</param>
     /// <param name="top">Top</param>
-    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
     public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();

@@ -628,8 +628,8 @@ public class AzureblobClient : ConnectorClientBase
     /// <remarks>This operation lists blobs in the Azure Blob Storage root folder.</remarks>
     /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
     /// <param name="pagingMarker">Paging Marker</param>
-    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
     /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
     public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
