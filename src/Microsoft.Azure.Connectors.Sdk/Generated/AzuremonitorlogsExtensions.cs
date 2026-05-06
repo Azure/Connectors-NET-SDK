@@ -258,6 +258,11 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected AzuremonitorlogsClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "azuremonitorlogs";
 
@@ -266,7 +271,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// </summary>
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-    public ConnectorPageable<SubscriptionListResult, Subscription> ListSubscriptionsAsync()
+    public virtual ConnectorPageable<SubscriptionListResult, Subscription> ListSubscriptionsAsync()
     {
         var path = $"/listSubscriptions";
         return new ConnectorPageable<SubscriptionListResult, Subscription>(
@@ -280,7 +285,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="subscription">Subscription</param>
     /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-    public ConnectorPageable<ResourceGroupListResult, ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription)
+    public virtual ConnectorPageable<ResourceGroupListResult, ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -299,7 +304,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="resourceType">Resource Type</param>
     /// <returns>An async enumerable of <see cref="ResourceItem"/> items across all pages.</returns>
-    public ConnectorPageable<ResourceItemListResult, ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType)
+    public virtual ConnectorPageable<ResourceItemListResult, ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -321,7 +326,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="resourceType">Resource Type</param>
     /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
-    public ConnectorPageable<TimeRangeListResult, TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType)
+    public virtual ConnectorPageable<TimeRangeListResult, TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType)
     {
         var queryParams = new List<string>();
         if (resourceType != default)
@@ -344,7 +349,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="timeRange">Time Range</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run query and list results response.</returns>
-    public async Task<Table> QueryDataAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
+    public virtual async Task<Table> QueryDataAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -373,7 +378,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="timeRange">Time Range</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get query schema response.</returns>
-    public async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -403,7 +408,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="chartType">Chart Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run query and visualize results response.</returns>
-    public async Task<VisualizeResults> VisualizeQueryAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, string chartType, CancellationToken cancellationToken = default)
+    public virtual async Task<VisualizeResults> VisualizeQueryAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, string chartType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -433,7 +438,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="resourceName">Resource Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run query and list results V2 response.</returns>
-    public async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
+    public virtual async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -459,7 +464,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="resourceName">Resource Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get query schema response.</returns>
-    public async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -486,7 +491,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="chartType">Chart Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run query and visualize results V2 response.</returns>
-    public async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
+    public virtual async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)

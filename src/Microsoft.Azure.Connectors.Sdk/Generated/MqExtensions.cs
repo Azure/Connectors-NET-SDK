@@ -251,6 +251,11 @@ public class MqClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected MqClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "mq";
 
@@ -261,7 +266,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Browse message response.</returns>
-    public async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/read";
         return await this.CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
@@ -274,7 +279,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Browse messages response.</returns>
-    public async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/readall";
         return await this.CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken);
@@ -287,7 +292,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Receive message response.</returns>
-    public async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/receive";
         return await this.CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
@@ -300,7 +305,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Receive messages response.</returns>
-    public async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/receiveall";
         return await this.CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken);
@@ -313,7 +318,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Delete message response.</returns>
-    public async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/delete";
         return await this.CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
@@ -326,7 +331,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Delete messages response.</returns>
-    public async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/deleteall";
         return await this.CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken);
@@ -339,7 +344,7 @@ public class MqClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Send message response.</returns>
-    public async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
+    public virtual async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
     {
         var path = $"/send";
         return await this.CallConnectorAsync<SendResponse>(HttpMethod.Post, path, input, cancellationToken);
