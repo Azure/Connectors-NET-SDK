@@ -39,7 +39,7 @@ From the BPM repo root, after building the generator:
 
 ```powershell
 $generator = ".\src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\bin\Release\net8.0\LogicAppsCompiler.exe"
-& $generator "<path-to-Connectors-NET-SDK>\src\Microsoft.Azure.Connectors.Sdk\Generated" unused --directClient --connectors=kusto,msgraphgroupsanduser,office365,onedriveforbusiness,sharepointonline,teams
+& $generator "<path-to-Connectors-NET-SDK>\src\Microsoft.Azure.Connectors.Sdk\Generated" unused --directClient --connectors=arm,azureblob,azuremonitorlogs,kusto,mq,msgraphgroupsanduser,office365,office365users,onedriveforbusiness,sharepointonline,smtp,teams
 ```
 
 See [GENERATION.md](../../../GENERATION.md) for complete documentation including prerequisites and build steps.

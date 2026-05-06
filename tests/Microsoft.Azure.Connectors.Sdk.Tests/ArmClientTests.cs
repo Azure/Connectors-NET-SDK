@@ -61,14 +61,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         /// <summary>
-        /// Stub handler for tests that don't make HTTP calls (constructor, dispose, serialization).
-        /// </summary>
-        private sealed class MockHttpMessageHandler : HttpMessageHandler
-        {
-            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-                => Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK));
-        }
-
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
