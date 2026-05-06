@@ -253,7 +253,9 @@ namespace Microsoft.Azure.Connectors.Sdk
 
                 var baseUri = new Uri(this._connectionRuntimeUrl);
                 var nextUri = new Uri(path);
-                if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) &&
+                    baseUri.Port == nextUri.Port)
                 {
                     return path;
                 }
