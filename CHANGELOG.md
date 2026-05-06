@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
 - Renamed `DirectClientConnectors` class to `SdkConnectors` (#87)
   - e.g., `DirectClientConnectors.AvailableConnectors` → `SdkConnectors.AvailableConnectors`
+- **`ConnectorClientOptions` now inherits from `Azure.Core.ClientOptions`** — retry, transport, and diagnostics are configured via the inherited `Retry`, `Transport`, and `Diagnostics` properties instead of custom properties (#88)
+  - Removed `MaxRetryAttempts`, `Timeout`, `UseExponentialBackoff`, `InitialRetryDelay` — use `options.Retry.MaxRetries`, `options.Retry.NetworkTimeout`, `options.Retry.Mode`, `options.Retry.Delay` instead
+  - Added `ServiceVersion` enum for API versioning
+- **Removed `HttpClient` parameter from all generated client constructors** — inject custom HTTP transport via `options.Transport = new HttpClientTransport(httpClient)` instead (#88)
+- **Replaced Polly retry with Azure.Core `HttpPipeline`** — retry, authentication, and diagnostics now use the standard Azure SDK pipeline (#88)
+- **Removed `Polly` and `Microsoft.Extensions.Http` package dependencies** (#88)
 
 ### Changed
 
@@ -26,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results
 - `TokenCredentialTokenProvider` adapter — wraps any `Azure.Core.TokenCredential` as an `ITokenProvider` for the SDK's HTTP pipeline (#88)
+- `TokenProviderCredential` adapter — wraps an `ITokenProvider` as `Azure.Core.TokenCredential` for use with `BearerTokenAuthenticationPolicy` in the `HttpPipeline` (#88)
 - `ConnectorException` — unified exception type for all connector API failures (#88)
 - `ConnectorClientBase` now provides `CallConnectorAsync`, `ResolveUrl`, shared JSON options, and convenience constructors accepting `connectionRuntimeUrl` + `TokenCredential` (#88)
 
