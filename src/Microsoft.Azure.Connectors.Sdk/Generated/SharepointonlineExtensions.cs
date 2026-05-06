@@ -1261,6 +1261,11 @@ public class SharepointonlineClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected SharepointonlineClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "sharepointonline";
 
@@ -1274,7 +1279,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByContentType">Limit Columns by Content Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get list metadata response.</returns>
-    public async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, string limitColumnsByContentType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, string limitColumnsByContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -1293,7 +1298,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="listOrLibraryName">List or Library Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get metadata about the return type of the GetItemChanges operation response.</returns>
-    public async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
+    public virtual async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
     {
         var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
         return await this.CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1305,7 +1310,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get datasets response.</returns>
-    public async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/datasets";
         return await this.CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1318,7 +1323,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get all lists and libraries response.</returns>
-    public async Task<TablesList> GetAllTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<TablesList> GetAllTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
         return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1332,7 +1337,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="requestingSiteId">Requesting Site Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Approve hub site join request response.</returns>
-    public async Task<ApproveHubSiteJoinResponse> ApproveHubSiteJoinAsync([DynamicValues("GetDataSets")] string hubSiteAddress, string requestingSiteId, CancellationToken cancellationToken = default)
+    public virtual async Task<ApproveHubSiteJoinResponse> ApproveHubSiteJoinAsync([DynamicValues("GetDataSets")] string hubSiteAddress, string requestingSiteId, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (requestingSiteId != default)
@@ -1348,7 +1353,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="requestingSiteAddress">Requesting Site Address</param>
     /// <param name="approvalCorrelationId">Approval Correlation Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task CancelHubSiteJoinApprovalAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
+    public virtual async Task CancelHubSiteJoinApprovalAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (approvalCorrelationId != default)
@@ -1367,7 +1372,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create sharing link for a file or folder response.</returns>
-    public async Task<SharingLinkPermission> CreateSharingLinkAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int itemId, ItemPermissionCreateLinkBody input, CancellationToken cancellationToken = default)
+    public virtual async Task<SharingLinkPermission> CreateSharingLinkAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int itemId, ItemPermissionCreateLinkBody input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
         return await this.CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken);
@@ -1383,7 +1388,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="overwriteFlag">Overwrite Flag</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Copy file (deprecated) response.</returns>
-    public async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFilePath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFilePath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sourceFilePath != default)
@@ -1404,7 +1409,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Copy file response.</returns>
-    public async Task<SPBlobMetadataResponse> CopyFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFileParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> CopyFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFileParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
@@ -1418,7 +1423,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Copy folder response.</returns>
-    public async Task<SPBlobMetadataResponse> CopyFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFolderParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> CopyFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFolderParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
@@ -1434,7 +1439,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="fileName">File Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create file response.</returns>
-    public async Task<SPBlobMetadataResponse> CreateFileAsync([DynamicValues("GetDataSets")] string siteAddress, byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> CreateFileAsync([DynamicValues("GetDataSets")] string siteAddress, byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (folderPath != default)
@@ -1453,7 +1458,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="fileIdentifier">File Identifier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file metadata response.</returns>
-    public async Task<SPBlobMetadataResponse> GetFileMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> GetFileMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1468,7 +1473,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update file response.</returns>
-    public async Task<BlobMetadataResponse> UpdateFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, byte[] input, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadataResponse> UpdateFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
         return await this.CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken);
@@ -1481,7 +1486,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="fileIdentifier">File Identifier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeleteFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
@@ -1496,7 +1501,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="inferContentType">Infer Content Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file content response.</returns>
-    public async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, bool inferContentType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, bool inferContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (inferContentType != default)
@@ -1512,7 +1517,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List root folder response.</returns>
-    public async Task<List<BlobMetadata>> ListRootFolderAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> ListRootFolderAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders";
         return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1526,7 +1531,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="fileIdentifier">File Identifier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List folder response.</returns>
-    public async Task<List<BlobMetadata>> ListFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> ListFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders/{Uri.EscapeDataString(fileIdentifier.ToString())}";
         return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1540,7 +1545,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="filePath">File Path</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file metadata using path response.</returns>
-    public async Task<SPBlobMetadataResponse> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -1558,7 +1563,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="inferContentType">Infer Content Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file content using path response.</returns>
-    public async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -1577,7 +1582,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="fileIdentifier">File Identifier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get folder metadata response.</returns>
-    public async Task<SPBlobMetadataResponse> GetFolderMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> GetFolderMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (fileIdentifier != default)
@@ -1594,7 +1599,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="folderPath">Folder Path</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get folder metadata using path response.</returns>
-    public async Task<SPBlobMetadataResponse> GetFolderMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string folderPath, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> GetFolderMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string folderPath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (folderPath != default)
@@ -1610,7 +1615,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task HttpRequestAsync([DynamicValues("GetDataSets")] string siteAddress, SharePointHttpRequestBodyParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task HttpRequestAsync([DynamicValues("GetDataSets")] string siteAddress, SharePointHttpRequestBodyParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
         await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
@@ -1625,7 +1630,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="approvalToken">Approval Token</param>
     /// <param name="approvalCorrelationId">Approval Correlation Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task JoinHubSiteAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string hubSiteId, string approvalToken = default, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
+    public virtual async Task JoinHubSiteAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string hubSiteId, string approvalToken = default, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (hubSiteId != default)
@@ -1646,7 +1651,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Move file response.</returns>
-    public async Task<SPBlobMetadataResponse> MoveFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFileParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> MoveFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFileParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
@@ -1660,7 +1665,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Move folder response.</returns>
-    public async Task<SPBlobMetadataResponse> MoveFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFolderParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> MoveFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFolderParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
         return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
@@ -1673,7 +1678,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="requestingSiteAddress">Requesting Site Address</param>
     /// <param name="approvalCorrelationId">Approval Correlation Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task NotifyHubSiteJoinApprovalStartedAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
+    public virtual async Task NotifyHubSiteJoinApprovalStartedAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (approvalCorrelationId != default)
@@ -1689,7 +1694,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get lists response.</returns>
-    public async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
         return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1704,7 +1709,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create new document set response.</returns>
-    public async Task<CreateNewDocumentSetResponse> CreateNewDocumentSetAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string library, CreateNewDocumentSetParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task<CreateNewDocumentSetResponse> CreateNewDocumentSetAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string library, CreateNewDocumentSetParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
         return await this.CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken);
@@ -1720,7 +1725,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create new folder response.</returns>
-    public async Task<CreateNewFolderResponse> CreateNewFolderAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, CreateNewFolderParameters input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<CreateNewFolderResponse> CreateNewFolderAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, CreateNewFolderParameters input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -1740,7 +1745,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Resolve person response.</returns>
-    public async Task<SPListExpandedUser> SearchForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, [DynamicValues("GetEntitiesForUser")] string column, string emailOrName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<SPListExpandedUser> SearchForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, [DynamicValues("GetEntitiesForUser")] string column, string emailOrName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (emailOrName != default)
@@ -1760,7 +1765,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Returns User fields for a list response.</returns>
-    public async Task<List<SPListEntity>> GetEntitiesForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<List<SPListEntity>> GetEntitiesForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -1783,7 +1788,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get files (properties only) response.</returns>
-    public async Task<ItemsList> GetFileItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, string filterQuery = default, string orderBy = default, int topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<ItemsList> GetFileItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, string filterQuery = default, string orderBy = default, int topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -1810,7 +1815,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="listName">List Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get list image fields response.</returns>
-    public async Task<List<Table>> GetListImageFieldsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
+    public virtual async Task<List<Table>> GetListImageFieldsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
         return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -1830,7 +1835,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get items response.</returns>
-    public async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string filterQuery = default, string orderBy = default, int topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string filterQuery = default, string orderBy = default, int topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -1859,7 +1864,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create item response.</returns>
-    public async Task<PostItemResponse> PostItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, PostItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, PostItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -1878,7 +1883,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get item response.</returns>
-    public async Task<GetItemResponse> GetItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -1895,7 +1900,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="listName">List Name</param>
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeleteItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
@@ -1912,7 +1917,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update item response.</returns>
-    public async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, PatchItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, PatchItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -1932,7 +1937,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="approvalType">Approval Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create an approval request for an item or file response.</returns>
-    public async Task<ApprovalData> CreateApprovalRequestAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLightweightApproval")] string listOrLibrary, int id, CreateApprovalRequestInput input, [DynamicValues("GetApprovalTypes")] int approvalType, CancellationToken cancellationToken = default)
+    public virtual async Task<ApprovalData> CreateApprovalRequestAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLightweightApproval")] string listOrLibrary, int id, CreateApprovalRequestInput input, [DynamicValues("GetApprovalTypes")] int approvalType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (approvalType != default)
@@ -1954,7 +1959,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get changes for an item or a file (properties only) response.</returns>
-    public async Task<GetItemChangesResponse> GetItemChangesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, string since, string until = default, bool includeMinorVersions = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<GetItemChangesResponse> GetItemChangesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, string since, string until = default, bool includeMinorVersions = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (since != default)
@@ -1978,7 +1983,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="id">Id</param>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task CheckInFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, FileCheckInParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task CheckInFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, FileCheckInParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
         await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
@@ -1992,7 +1997,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="libraryName">Library Name</param>
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task CheckOutFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
+    public virtual async Task CheckOutFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
         await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
@@ -2006,7 +2011,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="libraryName">Library Name</param>
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DiscardFileCheckOutAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
+    public virtual async Task DiscardFileCheckOutAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
         await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
@@ -2022,7 +2027,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file properties response.</returns>
-    public async Task<Item> GetFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<Item> GetFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -2040,7 +2045,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="id">Id</param>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task GrantAccessAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, ItemGrantAccessBody input, CancellationToken cancellationToken = default)
+    public virtual async Task GrantAccessAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, ItemGrantAccessBody input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
         await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
@@ -2057,7 +2062,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="limitColumnsByView">Limit Columns by View</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update file properties response.</returns>
-    public async Task<PatchFileItemResponse> PatchFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+    public virtual async Task<PatchFileItemResponse> PatchFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (limitColumnsByView != default)
@@ -2076,7 +2081,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update file properties using AI Builder model results response.</returns>
-    public async Task<Item> PatchFileItemWithPredictedValuesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemWithPredictedValuesParameters input, CancellationToken cancellationToken = default)
+    public virtual async Task<Item> PatchFileItemWithPredictedValuesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemWithPredictedValuesParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
         return await this.CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
@@ -2094,7 +2099,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="eTag">ETag</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Set content approval status response.</returns>
-    public async Task<SetApprovalStatusOutput> SetApprovalStatusAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForApproval")] string libraryName, int id, string action, string comments = default, string eTag = default, CancellationToken cancellationToken = default)
+    public virtual async Task<SetApprovalStatusOutput> SetApprovalStatusAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForApproval")] string libraryName, int id, string action, string comments = default, string eTag = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (action != default)
@@ -2115,7 +2120,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="listOrLibraryName">List or Library Name</param>
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task UnshareItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, CancellationToken cancellationToken = default)
+    public virtual async Task UnshareItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
         await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
@@ -2130,7 +2135,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="id">Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get attachments response.</returns>
-    public async Task<List<SPListItemAttachment>> GetItemAttachmentsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string id, CancellationToken cancellationToken = default)
+    public virtual async Task<List<SPListItemAttachment>> GetItemAttachmentsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
         return await this.CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2147,7 +2152,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="fileName">File Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Add attachment response.</returns>
-    public async Task<SPListItemAttachment> CreateAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, byte[] input, string fileName, CancellationToken cancellationToken = default)
+    public virtual async Task<SPListItemAttachment> CreateAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, byte[] input, string fileName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (fileName != default)
@@ -2165,7 +2170,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="id">Id</param>
     /// <param name="fileIdentifier">File Identifier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeleteAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
@@ -2181,7 +2186,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="fileIdentifier">File Identifier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get attachment content response.</returns>
-    public async Task<byte[]> GetAttachmentContentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetAttachmentContentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
         return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2195,7 +2200,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="sharePointDocumentLibraryName">SharePoint document library name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get document library templates response.</returns>
-    public async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
+    public virtual async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
         return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2214,7 +2219,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="viewNoEffect">View (no effect)</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Generate document using Microsoft Syntex (preview) response.</returns>
-    public async Task<SPBlobMetadataResponse> CreateContentAssemblyDocumentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetContentAssemblyTemplates")] string documentTemplate, CreateContentAssemblyDocumentInput input, string folderPath = default, string fileName = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> CreateContentAssemblyDocumentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetContentAssemblyTemplates")] string documentTemplate, CreateContentAssemblyDocumentInput input, string folderPath = default, string fileName = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (folderPath != default)
@@ -2236,7 +2241,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="documentTemplate">Document template</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get placeholders from template response.</returns>
-    public async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
+    public virtual async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
         return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2250,7 +2255,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="listName">List Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get list views response.</returns>
-    public async Task<List<Table>> GetTableViewsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
+    public virtual async Task<List<Table>> GetTableViewsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
         return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2263,7 +2268,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get libraries where Content Approval is supported response.</returns>
-    public async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
         return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2276,7 +2281,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get libraries response.</returns>
-    public async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
         return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2289,7 +2294,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get lists and libraries where lightweight approvals is enabled response.</returns>
-    public async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
         return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2302,7 +2307,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="siteAddress">Site Address</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get lists and libraries response.</returns>
-    public async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+    public virtual async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
         return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2315,7 +2320,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Agreements Solution - Get Templates response.</returns>
-    public async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
+    public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
         return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2333,7 +2338,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="viewNoEffect">View (no effect)</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Agreements Solution - Generate document within Agreements Solution workspace response.</returns>
-    public async Task<SPBlobMetadataResponse> CreateAgreementsSolutionDocumentAsync([DynamicValues("GetDataSets")] string agreementsSolutionWorkspace, [DynamicValues("GetAgreementsSolutionTemplates")] string agreementsSolutionTemplate, CreateAgreementsSolutionDocumentInput input, string fileName = default, string tableNoEffect = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
+    public virtual async Task<SPBlobMetadataResponse> CreateAgreementsSolutionDocumentAsync([DynamicValues("GetDataSets")] string agreementsSolutionWorkspace, [DynamicValues("GetAgreementsSolutionTemplates")] string agreementsSolutionTemplate, CreateAgreementsSolutionDocumentInput input, string fileName = default, string tableNoEffect = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (fileName != default)
@@ -2354,7 +2359,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="agreementsSolutionTemplate">Agreements Solution template</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Agreements Solution - Get template fields response.</returns>
-    public async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
+    public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
         return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2367,7 +2372,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="approvalType">Approval Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get the appropriate creation schema for the approval request type response.</returns>
-    public async Task<ObjectEntity> GetApprovalSchemaAsync(int approvalType, CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectEntity> GetApprovalSchemaAsync(int approvalType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (approvalType != default)
@@ -2382,7 +2387,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get available approval request types response.</returns>
-    public async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/getApprovalTypes";
         return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2394,7 +2399,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get SPViewScope options to use for folder querying behavior response.</returns>
-    public async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/getViewScopeOptions";
         return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -2410,7 +2415,7 @@ public class SharepointonlineClient : ConnectorClientBase
     /// <param name="overwriteFlag">Overwrite Flag</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Extract folder response.</returns>
-    public async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sourceFilePath != default)

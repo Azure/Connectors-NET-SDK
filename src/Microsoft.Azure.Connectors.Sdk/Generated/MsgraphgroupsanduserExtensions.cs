@@ -292,6 +292,11 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected MsgraphgroupsanduserClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "msgraphgroupsanduser";
 
@@ -301,7 +306,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <remarks>Retrieve all users in the organization (Microsoft Entra ID Tenant)</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List Users response.</returns>
-    public async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users";
         return await this.CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -314,7 +319,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <param name="searchByDisplayName">Search by display name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List Groups By Display Name Search response.</returns>
-    public async Task<ListGroupsByDisplayNameSearchResponse> ListGroupsByDisplayNameSearchAsync(string searchByDisplayName = default, CancellationToken cancellationToken = default)
+    public virtual async Task<ListGroupsByDisplayNameSearchResponse> ListGroupsByDisplayNameSearchAsync(string searchByDisplayName = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (searchByDisplayName != default)
@@ -329,7 +334,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <remarks>Details of organization&apos;s subscribed license plan SKUs</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List Subscribed Skus response.</returns>
-    public async Task<ListSubscribedSkusResponse> ListSubscribedSkusAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<ListSubscribedSkusResponse> ListSubscribedSkusAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/subscribedSkus";
         return await this.CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -344,7 +349,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <param name="dataPointColumnSelection">Data point (column) selection</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List Direct Group Members response.</returns>
-    public async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIDOfTheMicrosoftEntraIDGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
+    public virtual async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIDOfTheMicrosoftEntraIDGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filterBy != default)
@@ -363,7 +368,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <param name="selectionOfDataPointsColumns">Selection of data points(columns)</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get Member License Details response.</returns>
-    public async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
+    public virtual async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (selectionOfDataPointsColumns != default)
@@ -379,7 +384,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get Group Properties response.</returns>
-    public async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIDOfTheMicrosoftEntraIDGroup, CancellationToken cancellationToken = default)
+    public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIDOfTheMicrosoftEntraIDGroup, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}";
         return await this.CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -393,7 +398,7 @@ public class MsgraphgroupsanduserClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get Member Groups response.</returns>
-    public async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
+    public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/getMemberGroups";
         return await this.CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken);

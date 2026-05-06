@@ -345,6 +345,11 @@ public class AzureblobClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected AzureblobClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "azureblob";
 
@@ -354,7 +359,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get storage accounts response.</returns>
-    public async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v2/codeless/GetDataSets";
         return await this.CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -370,7 +375,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite?</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Copy blob (V2) response.</returns>
-    public async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sourceUrl != default)
@@ -392,7 +397,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="specifyFolderPathToUpload">Specify folder path to upload</param>
     /// <param name="specifyNameOfTheBlobToCreate">Specify name of the blob to create</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task CreateBlockBlobAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string specifyFolderPathToUpload, string specifyNameOfTheBlobToCreate, CancellationToken cancellationToken = default)
+    public virtual async Task CreateBlockBlobAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string specifyFolderPathToUpload, string specifyNameOfTheBlobToCreate, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (specifyFolderPathToUpload != default)
@@ -413,7 +418,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="blobName">Blob name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create blob (V2) response.</returns>
-    public async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (folderPath != default)
@@ -433,7 +438,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="blobPath">Blob path</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create SAS URI by path (V2) response.</returns>
-    public async Task<SharedAccessSignature> CreateShareLinkByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, SharedAccessSignatureBlobPolicy input, string blobPath, CancellationToken cancellationToken = default)
+    public virtual async Task<SharedAccessSignature> CreateShareLinkByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, SharedAccessSignatureBlobPolicy input, string blobPath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (blobPath != default)
@@ -449,7 +454,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
     /// <param name="blob">Blob</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeleteFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, CancellationToken cancellationToken = default)
     {
         var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
@@ -465,7 +470,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite?</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Extract archive to folder (V2) response.</returns>
-    public async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sourceArchiveBlobPath != default)
@@ -486,7 +491,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="blobPath">Blob path</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get available access policies (V2) response.</returns>
-    public async Task<List<SharedAccessSignatureBlobPolicy>> GetAccessPoliciesAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, CancellationToken cancellationToken = default)
+    public virtual async Task<List<SharedAccessSignatureBlobPolicy>> GetAccessPoliciesAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (blobPath != default)
@@ -506,7 +511,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="purviewAcccountName">Purview Acccount Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get blob content (V2) response.</returns>
-    public async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (inferContentType != default)
@@ -530,7 +535,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="purviewAcccountName">Purview Acccount Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get blob content using path (V2) response.</returns>
-    public async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (blobPath != default)
@@ -555,7 +560,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="purviewAcccountName">Purview Acccount Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get Blob Metadata (V2) response.</returns>
-    public async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+    public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (extractMIPLabels != default)
@@ -576,7 +581,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="purviewAcccountName">Purview Acccount Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get Blob Metadata using path (V2) response.</returns>
-    public async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+    public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (blobPath != default)
@@ -601,7 +606,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="purviewAcccountName">Purview Acccount Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Lists blobs (V2) response.</returns>
-    public async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool flatListing = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+    public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool flatListing = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (pagingMarker != default)
@@ -623,7 +628,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
     /// <param name="pagingMarker">Paging Marker</param>
     /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-    public ConnectorPageable<BlobMetadataPage, BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default)
+    public virtual ConnectorPageable<BlobMetadataPage, BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default)
     {
         var queryParams = new List<string>();
         if (pagingMarker != default)
@@ -642,7 +647,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="blobPath">Blob path</param>
     /// <param name="blobTier">Blob Tier</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SetBlobTierByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, string blobTier, CancellationToken cancellationToken = default)
+    public virtual async Task SetBlobTierByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, string blobTier, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (blobPath != default)
@@ -662,7 +667,7 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update blob (V2) response.</returns>
-    public async Task<BlobMetadata> UpdateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, byte[] input, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> UpdateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
         return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken);

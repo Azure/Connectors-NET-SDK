@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **Removed `ConnectorResponse<T>` class** and `ConnectorHttpClient.GetAsync<T>`, `PostAsync<TRequest, TResponse>`, `ParseResponseAsync<T>` methods — all generated clients use `ConnectorClientBase.CallConnectorAsync<T>` which returns `Task<T>` directly; no callers referenced these APIs (#99)
 - Renamed all generated connector namespaces from `Microsoft.Azure.Connectors.DirectClient.*` to `Microsoft.Azure.Connectors.Sdk.*` for consistency with the package name and cross-language SDKs (#87)
   - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
 - Renamed `DirectClientConnectors` class to `SdkConnectors` (#87)

@@ -5,8 +5,6 @@
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 
@@ -204,59 +202,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             }
         }
 
-        /// <summary>
-        /// Sends a GET request.
-        /// </summary>
-        /// <typeparam name="T">The response type.</typeparam>
-        /// <param name="requestUri">The request URI.</param>
-        /// <param name="scopes">The authentication scopes.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The response.</returns>
-        public async Task<ConnectorResponse<T>> GetAsync<T>(
-            string requestUri,
-            string[] scopes,
-            CancellationToken cancellationToken = default)
-        {
-            using var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-
-            var response = await this
-                .SendAsync(request, scopes, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            return await ConnectorHttpClient
-                .ParseResponseAsync<T>(response, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Sends a POST request with JSON body.
-        /// </summary>
-        /// <typeparam name="TRequest">The request body type.</typeparam>
-        /// <typeparam name="TResponse">The response type.</typeparam>
-        /// <param name="requestUri">The request URI.</param>
-        /// <param name="body">The request body.</param>
-        /// <param name="scopes">The authentication scopes.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The response.</returns>
-        public async Task<ConnectorResponse<TResponse>> PostAsync<TRequest, TResponse>(
-            string requestUri,
-            TRequest body,
-            string[] scopes,
-            CancellationToken cancellationToken = default)
-        {
-            using var request = new HttpRequestMessage(HttpMethod.Post, requestUri);
-            var json = JsonSerializer.Serialize(body);
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await this
-                .SendAsync(request, scopes, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            return await ConnectorHttpClient
-                .ParseResponseAsync<TResponse>(response, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
         /// <inheritdoc />
         public void Dispose()
         {
@@ -274,27 +219,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             {
                 this._disposed = true;
             }
-        }
-
-        private static async Task<ConnectorResponse<T>> ParseResponseAsync<T>(
-            HttpResponseMessage response,
-            CancellationToken cancellationToken)
-        {
-            T? value = default;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content
-                    .ReadAsStringAsync(cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-                if (!string.IsNullOrEmpty(content))
-                {
-                    value = JsonSerializer.Deserialize<T>(content);
-                }
-            }
-
-            return new ConnectorResponse<T>(response.StatusCode, response.Headers, value);
         }
     }
 }
