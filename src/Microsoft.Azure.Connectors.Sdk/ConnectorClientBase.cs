@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -356,18 +357,25 @@ namespace Microsoft.Azure.Connectors.Sdk
                 string? continuationToken = null,
                 int? pageSizeHint = null)
             {
-                return this.EnumeratePages();
+                return this.EnumeratePages(continuationToken);
             }
 
             private async IAsyncEnumerable<Page<TItem>> EnumeratePages(
+                string? continuationToken = null,
                 [EnumeratorCancellation] CancellationToken enumeratorCancellation = default)
             {
                 using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
                     this._cancellationToken, enumeratorCancellation);
                 var cancellationToken = linkedCts.Token;
 
-                var page = await this._firstPageFunc(cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
+                // NOTE(daviburg): When a continuationToken is provided, resume from that page
+                // instead of starting over. This supports callers who persist a ContinuationToken
+                // from a previous AsPages() enumeration and resume later.
+                var page = string.IsNullOrEmpty(continuationToken)
+                    ? await this._firstPageFunc(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false)
+                    : await this._nextPageFunc(continuationToken!, cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
 
                 while (page != null)
                 {
@@ -407,7 +415,44 @@ namespace Microsoft.Azure.Connectors.Sdk
 
             public override string? ContinuationToken => this._continuationToken;
 
-            public override Response GetRawResponse() => null!;
+            public override Response GetRawResponse() => ConnectorClientBase.NoOpResponse.Instance;
+        }
+
+        /// <summary>
+        /// A minimal <see cref="Response"/> implementation for connector pagination.
+        /// Connector SDK requests go through <see cref="HttpPipeline"/> which owns the real
+        /// response lifecycle — page objects don't retain the transport response, so this
+        /// provides a non-null placeholder that satisfies the <see cref="Page{T}"/> contract.
+        /// </summary>
+        private sealed class NoOpResponse : Response
+        {
+            internal static readonly NoOpResponse Instance = new();
+
+            public override int Status => 200;
+
+            public override string ReasonPhrase => "OK";
+
+            public override Stream? ContentStream { get; set; }
+
+            public override string ClientRequestId { get; set; } = string.Empty;
+
+            public override void Dispose() { }
+
+            protected override bool TryGetHeader(string name, [NotNullWhen(true)] out string? value)
+            {
+                value = null;
+                return false;
+            }
+
+            protected override bool TryGetHeaderValues(string name, [NotNullWhen(true)] out IEnumerable<string>? values)
+            {
+                values = null;
+                return false;
+            }
+
+            protected override bool ContainsHeader(string name) => false;
+
+            protected override IEnumerable<HttpHeader> EnumerateHeaders() => [];
         }
     }
 }

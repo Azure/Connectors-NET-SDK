@@ -219,7 +219,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 (nextLink, ct) => Task.FromResult<TestPage>(null!));
 
             // Act
-            await foreach (var item in pageable
+            await foreach (var _ in pageable
                 .WithCancellation(cts.Token)
                 .ConfigureAwait(continueOnCapturedContext: false))
             {
@@ -248,7 +248,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 cts.Token);
 
             // Act
-            await foreach (var item in pageable.ConfigureAwait(continueOnCapturedContext: false))
+            await foreach (var _ in pageable.ConfigureAwait(continueOnCapturedContext: false))
             {
                 // No items expected
             }
@@ -270,6 +270,38 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsInstanceOfType<AsyncPageable<TestItem>>(pageable);
+        }
+
+        [TestMethod]
+        public async Task AsPages_WithContinuationToken_ResumesFromToken()
+        {
+            // Arrange
+            using var client = new TestConnectorClient();
+            var pageable = client.GetItemsAsync(
+                ct => Task.FromResult(new TestPage
+                {
+                    Value = new List<TestItem> { new TestItem { Id = "1" } },
+                    NextLink = "https://api.contoso.com/next?page=2"
+                }),
+                (nextLink, ct) => Task.FromResult(new TestPage
+                {
+                    Value = new List<TestItem> { new TestItem { Id = "2" } },
+                    NextLink = null
+                }));
+
+            // Act — resume from a continuation token, skipping first page
+            var pages = new List<Page<TestItem>>();
+            await foreach (var page in pageable
+                .AsPages(continuationToken: "https://api.contoso.com/next?page=2")
+                .ConfigureAwait(continueOnCapturedContext: false))
+            {
+                pages.Add(page);
+            }
+
+            // Assert — should get only the second page
+            Assert.AreEqual(1, pages.Count);
+            Assert.AreEqual("2", pages[0].Values[0].Id);
+            Assert.IsNull(pages[0].ContinuationToken);
         }
     }
 }
