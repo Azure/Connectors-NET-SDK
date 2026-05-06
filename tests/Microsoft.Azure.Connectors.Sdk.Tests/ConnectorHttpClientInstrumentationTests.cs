@@ -5,11 +5,9 @@
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
-using Azure.Core;
 using Azure.Core.Pipeline;
 using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.Azure.Connectors.Sdk.Http;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -42,7 +40,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var client = new ConnectorHttpClient(
                 tokenProvider.Object,
                 options,
-                NullLogger.Instance,
                 TestScopes,
                 connectorName: "office365");
 
@@ -75,7 +72,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var client = new ConnectorHttpClient(
                 tokenProvider.Object,
                 options,
-                NullLogger.Instance,
                 TestScopes,
                 connectorName: "office365");
 
@@ -115,7 +111,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var client = new ConnectorHttpClient(
                 tokenProvider.Object,
                 options,
-                NullLogger.Instance,
                 TestScopes,
                 connectorName: "office365");
 
@@ -156,7 +151,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var client = new ConnectorHttpClient(
                 tokenProvider.Object,
                 options,
-                NullLogger.Instance,
                 TestScopes,
                 connectorName: "sharepointonline");
 
@@ -193,7 +187,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             using var client = new ConnectorHttpClient(
                 tokenProvider.Object,
                 options,
-                NullLogger.Instance,
                 TestScopes);
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/test");

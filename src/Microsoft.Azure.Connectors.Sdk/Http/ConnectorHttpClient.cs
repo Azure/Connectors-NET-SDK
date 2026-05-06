@@ -5,13 +5,11 @@
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.Azure.Connectors.Sdk.Authentication;
-using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Azure.Connectors.Sdk.Http
 {
@@ -36,8 +34,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 
         private readonly HttpPipeline _pipeline;
-        private readonly ConnectorClientOptions _options;
-        private readonly ILogger _logger;
         private readonly Func<string?>? _connectorNameProvider;
         private bool _disposed;
 
@@ -45,20 +41,16 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class.
         /// </summary>
         /// <param name="tokenProvider">The token provider.</param>
-        /// <param name="options">The client options.</param>
-        /// <param name="logger">The logger.</param>
+        /// <param name="options">The client options (used to build the pipeline).</param>
         /// <param name="scopes">The authentication scopes for the pipeline.</param>
         /// <param name="connectorName">The connector name for telemetry.</param>
         public ConnectorHttpClient(
             ITokenProvider tokenProvider,
             ConnectorClientOptions options,
-            ILogger logger,
             string[] scopes,
             string? connectorName = null)
             : this(
                 ConnectorHttpClient.BuildPipeline(tokenProvider, options, scopes),
-                options,
-                logger,
                 connectorName is not null ? () => connectorName : null)
         {
         }
@@ -68,21 +60,14 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         /// with a pre-built <see cref="HttpPipeline"/>.
         /// </summary>
         /// <param name="pipeline">The HTTP pipeline (handles retry, auth, diagnostics).</param>
-        /// <param name="options">The client options.</param>
-        /// <param name="logger">The logger.</param>
         /// <param name="connectorNameProvider">A function that returns the connector name for telemetry.</param>
         public ConnectorHttpClient(
             HttpPipeline pipeline,
-            ConnectorClientOptions options,
-            ILogger logger,
             Func<string?>? connectorNameProvider = null)
         {
             ArgumentNullException.ThrowIfNull(pipeline);
-            ArgumentNullException.ThrowIfNull(options);
 
             this._pipeline = pipeline;
-            this._options = options;
-            this._logger = logger;
             this._connectorNameProvider = connectorNameProvider;
         }
 
@@ -124,7 +109,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             try
             {
                 // Convert HttpRequestMessage to Azure.Core pipeline request
-                var message = this._pipeline.CreateMessage();
+                using var message = this._pipeline.CreateMessage();
                 var pipelineRequest = message.Request;
                 pipelineRequest.Method = RequestMethod.Parse(request.Method.Method);
 

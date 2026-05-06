@@ -149,7 +149,7 @@ namespace Microsoft.Azure.Connectors.Sdk
             var url = this.ResolveUrl(path);
             var operation = $"{method} {path}";
 
-            var message = this._pipeline.CreateMessage();
+            using var message = this._pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Parse(method.Method);
             request.Uri.Reset(new Uri(url));
@@ -206,7 +206,7 @@ namespace Microsoft.Azure.Connectors.Sdk
             var url = this.ResolveUrl(path);
             var operation = $"{method} {path}";
 
-            var message = this._pipeline.CreateMessage();
+            using var message = this._pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Parse(method.Method);
             request.Uri.Reset(new Uri(url));
