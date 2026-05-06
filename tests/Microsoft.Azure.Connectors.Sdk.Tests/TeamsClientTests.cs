@@ -181,7 +181,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(403, exception.StatusCode);
+            Assert.AreEqual(403, exception.Status);
             Assert.IsTrue(exception.ResponseBody.Contains("Access denied", StringComparison.Ordinal));
         }
 

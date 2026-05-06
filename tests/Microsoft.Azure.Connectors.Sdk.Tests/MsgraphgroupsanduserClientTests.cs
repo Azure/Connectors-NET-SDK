@@ -178,7 +178,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(404, exception.StatusCode);
+            Assert.AreEqual(404, exception.Status);
             Assert.IsTrue(exception.ResponseBody.Contains("Group not found", StringComparison.Ordinal));
         }
 

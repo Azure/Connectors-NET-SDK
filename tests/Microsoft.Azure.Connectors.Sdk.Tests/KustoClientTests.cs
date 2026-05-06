@@ -177,7 +177,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(400, exception.StatusCode);
+            Assert.AreEqual(400, exception.Status);
             Assert.IsTrue(exception.ResponseBody.Contains("Query syntax error", StringComparison.Ordinal));
         }
 
@@ -191,7 +191,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 responseBody: "Access denied");
 
             // Assert
-            Assert.AreEqual(403, exception.StatusCode);
+            Assert.AreEqual(403, exception.Status);
             Assert.AreEqual("Access denied", exception.ResponseBody);
             Assert.IsTrue(exception.Message.Contains("POST /ListKustoResults/false", StringComparison.Ordinal));
             Assert.IsTrue(exception.Message.Contains("403", StringComparison.Ordinal));

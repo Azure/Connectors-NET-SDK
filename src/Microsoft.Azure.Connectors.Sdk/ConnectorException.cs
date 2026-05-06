@@ -2,13 +2,16 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using Azure;
+
 namespace Microsoft.Azure.Connectors.Sdk
 {
     /// <summary>
     /// Exception thrown when a connector API operation fails.
-    /// Contains the HTTP status code and response body for diagnostic purposes.
+    /// Inherits from <see cref="RequestFailedException"/> so that consumers can catch
+    /// all Azure SDK HTTP errors (including connector errors) with a single catch block.
     /// </summary>
-    public class ConnectorException : Exception
+    public class ConnectorException : RequestFailedException
     {
         private const int MaxResponseBodyLength = 2000;
 
@@ -20,11 +23,10 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// <param name="statusCode">The HTTP status code.</param>
         /// <param name="responseBody">The response body from the connector service.</param>
         public ConnectorException(string connectorName, string operation, int statusCode, string responseBody)
-            : base($"[{connectorName}] {operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
+            : base(statusCode, $"[{connectorName}] {operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
         {
             this.ConnectorName = connectorName;
             this.Operation = operation;
-            this.StatusCode = statusCode;
             this.ResponseBody = responseBody;
         }
 
@@ -37,11 +39,6 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// Gets the operation that failed.
         /// </summary>
         public string Operation { get; }
-
-        /// <summary>
-        /// Gets the HTTP status code.
-        /// </summary>
-        public int StatusCode { get; }
 
         /// <summary>
         /// Gets the response body.
