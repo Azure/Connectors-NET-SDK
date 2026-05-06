@@ -251,7 +251,7 @@ The SDK supports pluggable authentication via `ITokenProvider`:
 
 | Provider | Use Case |
 |----------|----------|
-| `ManagedIdentityTokenProvider` | Azure-hosted apps — uses `DefaultAzureCredential` (managed identity, Azure CLI, env vars) |
+| `ManagedIdentityTokenProvider` | Azure-hosted apps — uses `ManagedIdentityCredential` (system-assigned or user-assigned managed identity) |
 | `ConnectionStringTokenProvider` | API key authentication or direct token pass-through |
 | Custom `ITokenProvider` | Any authentication scheme you implement |
 
@@ -265,10 +265,9 @@ The SDK supports pluggable authentication via `ITokenProvider`:
  ConnectorHttpClient ──► ITokenProvider.GetAccessTokenAsync()
     │                          │
     │                          ▼
-    │                   DefaultAzureCredential
-    │                     ├── Managed Identity (Azure)
-    │                     ├── Azure CLI (local dev)
-    │                     └── Environment Variables
+    │                   ManagedIdentityCredential
+    │                     ├── System-assigned identity (default)
+    │                     └── User-assigned identity (with clientId)
     │
     ▼
  HTTP request with "Authorization: Bearer {token}"
