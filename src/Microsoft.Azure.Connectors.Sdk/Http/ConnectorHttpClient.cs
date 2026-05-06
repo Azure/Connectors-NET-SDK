@@ -34,6 +34,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 
         private readonly HttpPipeline _pipeline;
+        private readonly Uri? _baseUri;
         private readonly Func<string?>? _connectorNameProvider;
         private bool _disposed;
 
@@ -51,6 +52,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             string? connectorName = null)
             : this(
                 ConnectorHttpClient.BuildPipeline(tokenProvider, options, scopes),
+                options.BaseUri,
                 connectorName is not null ? () => connectorName : null)
         {
         }
@@ -60,14 +62,17 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         /// with a pre-built <see cref="HttpPipeline"/>.
         /// </summary>
         /// <param name="pipeline">The HTTP pipeline (handles retry, auth, diagnostics).</param>
+        /// <param name="baseUri">Optional base URI for resolving relative request URIs.</param>
         /// <param name="connectorNameProvider">A function that returns the connector name for telemetry.</param>
         public ConnectorHttpClient(
             HttpPipeline pipeline,
+            Uri? baseUri = null,
             Func<string?>? connectorNameProvider = null)
         {
             ArgumentNullException.ThrowIfNull(pipeline);
 
             this._pipeline = pipeline;
+            this._baseUri = baseUri;
             this._connectorNameProvider = connectorNameProvider;
         }
 
@@ -115,7 +120,21 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
 
                 if (request.RequestUri is not null)
                 {
-                    pipelineRequest.Uri.Reset(request.RequestUri);
+                    if (!request.RequestUri.IsAbsoluteUri)
+                    {
+                        if (this._baseUri is null)
+                        {
+                            throw new InvalidOperationException(
+                                "Cannot send a request with a relative URI because no BaseUri was configured. " +
+                                "Set ConnectorClientOptions.BaseUri or use an absolute URI.");
+                        }
+
+                        pipelineRequest.Uri.Reset(new Uri(this._baseUri, request.RequestUri));
+                    }
+                    else
+                    {
+                        pipelineRequest.Uri.Reset(request.RequestUri);
+                    }
                 }
 
                 // Copy request headers

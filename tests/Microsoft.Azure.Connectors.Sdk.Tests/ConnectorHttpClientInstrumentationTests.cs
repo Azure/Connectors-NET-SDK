@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using Azure.Core.Pipeline;
+using global::Azure;
 using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.Azure.Connectors.Sdk.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -60,6 +61,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             Assert.AreEqual("GET", activity.GetTagItem("http.method")?.ToString());
             Assert.AreEqual("office365", activity.GetTagItem("connector.name")?.ToString());
             Assert.AreEqual("test-request-id", activity.GetTagItem("x-ms-client-request-id")?.ToString());
+            Assert.AreEqual(200, activity.GetTagItem("http.status_code"));
         }
 
         [TestMethod]
@@ -201,6 +203,58 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             Assert.IsNull(capturedActivities[0].GetTagItem("connector.name"));
         }
 
+        [TestMethod]
+        public async Task SendAsync_OnException_SetsErrorStatusAndRethrows()
+        {
+            // Arrange
+            var capturedActivities = new List<Activity>();
+
+            using var listener = new ActivityListener
+            {
+                ShouldListenTo = source => string.Equals(source.Name, ConnectorHttpClient.ActivitySourceName, StringComparison.Ordinal),
+                Sample = (ref ActivityCreationOptions<ActivityContext> _) => ActivitySamplingResult.AllDataAndRecorded,
+                ActivityStopped = activity => capturedActivities.Add(activity),
+            };
+
+            ActivitySource.AddActivityListener(listener);
+
+            var handler = new Mock<HttpMessageHandler>();
+            handler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ThrowsAsync(new HttpRequestException("Connection refused"));
+
+            var tokenProvider = CreateMockTokenProvider();
+            using var httpClient = new HttpClient(handler.Object);
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(httpClient);
+            options.Retry.MaxRetries = 0;
+
+            using var client = new ConnectorHttpClient(
+                tokenProvider.Object,
+                options,
+                TestScopes,
+                connectorName: "teams");
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/chats");
+
+            // Act & Assert
+            await Assert
+                .ThrowsExactlyAsync<RequestFailedException>(
+                    () => client.SendAsync(request, TestScopes))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(1, capturedActivities.Count);
+
+            var activity = capturedActivities[0];
+            Assert.AreEqual("ERROR", activity.GetTagItem("otel.status_code")?.ToString());
+            Assert.AreEqual("Connection refused", activity.GetTagItem("otel.status_description")?.ToString());
+            Assert.AreEqual(ActivityStatusCode.Error, activity.Status);
+        }
+
         private static ConnectorClientOptions CreateOptionsWithMockTransport(HttpStatusCode statusCode)
         {
             var handler = new Mock<HttpMessageHandler>();
@@ -212,8 +266,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(new HttpResponseMessage(statusCode));
 
+            var httpClient = new HttpClient(handler.Object);
             var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(handler.Object));
+            options.Transport = new HttpClientTransport(httpClient);
             options.Retry.MaxRetries = 0;
             return options;
         }
