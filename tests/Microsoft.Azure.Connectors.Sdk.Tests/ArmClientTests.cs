@@ -23,6 +23,53 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
     [TestClass]
     public class ArmClientTests
     {
+        private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
+        private static readonly HttpClient SharedHttpClient = new HttpClient(new MockHttpMessageHandler());
+
+        private static Mock<TokenCredential> CreateMockCredential()
+        {
+            var mock = new Mock<TokenCredential>();
+            mock
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+            return mock;
+        }
+
+        /// <summary>
+        /// Creates an ArmClient with a mocked handler that returns the specified response.
+        /// Reuses a shared credential mock; creates one HttpClient per handler since
+        /// HttpClient binds to its handler at construction.
+        /// </summary>
+        private static (ArmClient Client, HttpClient HttpClient) CreateMockedClient(HttpResponseMessage response)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response)
+                .Callback(() => { })
+                .Verifiable();
+
+            var httpClient = new HttpClient(mockHandler.Object);
+            var client = new ArmClient(
+                connectionRuntimeUrl: "https://test.azure.com/connection",
+                credential: SharedMockCredential.Object,
+                httpClient: httpClient);
+
+            return (client, httpClient);
+        }
+
+        /// <summary>
+        /// Stub handler for tests that don't make HTTP calls (constructor, dispose, serialization).
+        /// </summary>
+        private sealed class MockHttpMessageHandler : HttpMessageHandler
+        {
+            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+                => Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK));
+        }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -140,7 +187,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public async Task SubscriptionsGetAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             var expectedResponse = new Subscription
             {
                 Id = "/subscriptions/00000000-0000-0000-0000-000000000000",
@@ -156,46 +202,29 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
             };
 
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage)
-                .Callback(() => { })
-                .Verifiable();
+            var (client, httpClient) = CreateMockedClient(responseMessage);
+            using (httpClient)
+            using (client)
+            {
+                // Act
+                var result = await client
+                    .SubscriptionsGetAsync(
+                        subscription: "00000000-0000-0000-0000-000000000000",
+                        cancellationToken: CancellationToken.None)
+                    .ConfigureAwait(continueOnCapturedContext: false);
 
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            using var httpClient = new HttpClient(mockHandler.Object);
-
-            using var client = new ArmClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
-                httpClient: httpClient);
-
-            // Act
-            var result = await client
-                .SubscriptionsGetAsync(
-                    subscription: "00000000-0000-0000-0000-000000000000",
-                    cancellationToken: CancellationToken.None)
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("00000000-0000-0000-0000-000000000000", result.SubscriptionId);
-            Assert.AreEqual("Test Subscription", result.DisplayName);
-            Assert.AreEqual("Enabled", result.State);
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.AreEqual("00000000-0000-0000-0000-000000000000", result.SubscriptionId);
+                Assert.AreEqual("Test Subscription", result.DisplayName);
+                Assert.AreEqual("Enabled", result.State);
+            }
         }
 
         [TestMethod]
         public async Task ResourceGroupsGetAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             var expectedResponse = new ResourceGroup
             {
                 Id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg",
@@ -209,90 +238,56 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
             };
 
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage)
-                .Callback(() => { })
-                .Verifiable();
+            var (client, httpClient) = CreateMockedClient(responseMessage);
+            using (httpClient)
+            using (client)
+            {
+                // Act
+                var result = await client
+                    .ResourceGroupsGetAsync(
+                        subscription: "00000000-0000-0000-0000-000000000000",
+                        resourceGroup: "test-rg",
+                        cancellationToken: CancellationToken.None)
+                    .ConfigureAwait(continueOnCapturedContext: false);
 
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            using var httpClient = new HttpClient(mockHandler.Object);
-
-            using var client = new ArmClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
-                httpClient: httpClient);
-
-            // Act
-            var result = await client
-                .ResourceGroupsGetAsync(
-                    subscription: "00000000-0000-0000-0000-000000000000",
-                    resourceGroup: "test-rg",
-                    cancellationToken: CancellationToken.None)
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("test-rg", result.Name);
-            Assert.AreEqual("westus2", result.Location);
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.AreEqual("test-rg", result.Name);
+                Assert.AreEqual("westus2", result.Location);
+            }
         }
 
         [TestMethod]
         public async Task ResourcesGetByIdAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
-
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.NotFound,
                 Content = new StringContent("{\"error\": \"Resource not found\"}")
             };
 
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage)
-                .Callback(() => { })
-                .Verifiable();
+            var (client, httpClient) = CreateMockedClient(responseMessage);
+            using (httpClient)
+            using (client)
+            {
+                // Act & Assert
+                var exception = await Assert
+                    .ThrowsExactlyAsync<ConnectorException>(async () =>
+                        await client
+                            .ResourcesGetByIdAsync(
+                                subscription: "00000000-0000-0000-0000-000000000000",
+                                resourceGroup: "test-rg",
+                                resourceProvider: "Microsoft.Compute",
+                                shortResourceId: "virtualMachines/myVM",
+                                clientApiVersion: "2023-03-01",
+                                cancellationToken: CancellationToken.None)
+                            .ConfigureAwait(continueOnCapturedContext: false))
+                    .ConfigureAwait(continueOnCapturedContext: false);
 
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            using var httpClient = new HttpClient(mockHandler.Object);
-
-            using var client = new ArmClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
-                httpClient: httpClient);
-
-            // Act & Assert
-            var exception = await Assert
-                .ThrowsExactlyAsync<ConnectorException>(async () =>
-                    await client
-                        .ResourcesGetByIdAsync(
-                            subscription: "00000000-0000-0000-0000-000000000000",
-                            resourceGroup: "test-rg",
-                            resourceProvider: "Microsoft.Compute",
-                            shortResourceId: "virtualMachines/myVM",
-                            clientApiVersion: "2023-03-01",
-                            cancellationToken: CancellationToken.None)
-                        .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.AreEqual(404, exception.StatusCode);
-            Assert.IsTrue(exception.ResponseBody.Contains("Resource not found", StringComparison.Ordinal));
+                Assert.AreEqual(404, exception.StatusCode);
+                Assert.IsTrue(exception.ResponseBody.Contains("Resource not found", StringComparison.Ordinal));
+            }
         }
 
         [TestMethod]
