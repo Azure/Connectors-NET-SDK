@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
@@ -628,15 +629,17 @@ public class AzureblobClient : ConnectorClientBase
     /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
     /// <param name="pagingMarker">Paging Marker</param>
     /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-    public virtual ConnectorPageable<BlobMetadataPage, BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default)
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (pagingMarker != default)
             queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
         var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<BlobMetadataPage, BlobMetadata>(
-            cancellationToken => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
+            ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>

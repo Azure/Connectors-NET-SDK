@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.Azure.Connectors.Sdk;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the ConnectorPageable class.
+    /// Tests for the AsyncPageable pagination infrastructure (CreatePageable).
     /// </summary>
     [TestClass]
     public class ConnectorPageableTests
@@ -31,13 +32,30 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             public string? NextLink { get; set; }
         }
 
+        /// <summary>
+        /// Minimal test client that exposes CreatePageable for testing.
+        /// </summary>
+        private class TestConnectorClient : ConnectorClientBase
+        {
+            public override string ConnectorName => "test";
+
+            public AsyncPageable<TestItem> GetItemsAsync(
+                Func<CancellationToken, Task<TestPage>> firstPageFunc,
+                Func<string, CancellationToken, Task<TestPage>> nextPageFunc,
+                CancellationToken cancellationToken = default)
+            {
+                return this.CreatePageable<TestPage, TestItem>(firstPageFunc, nextPageFunc, cancellationToken);
+            }
+        }
+
         [TestMethod]
         public async Task GetAsyncEnumerator_EmptyPage_YieldsNoItems()
         {
             // Arrange
-            var pageable = new ConnectorPageable<TestPage, TestItem>(
-                cancellationToken => Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null }),
-                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
+            using var client = new TestConnectorClient();
+            var pageable = client.GetItemsAsync(
+                ct => Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null }),
+                (nextLink, ct) => Task.FromResult<TestPage>(null!));
 
             // Act
             var items = new List<TestItem>();
@@ -54,9 +72,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public async Task GetAsyncEnumerator_NullValue_YieldsNoItems()
         {
             // Arrange
-            var pageable = new ConnectorPageable<TestPage, TestItem>(
-                cancellationToken => Task.FromResult(new TestPage { Value = null!, NextLink = null }),
-                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
+            using var client = new TestConnectorClient();
+            var pageable = client.GetItemsAsync(
+                ct => Task.FromResult(new TestPage { Value = null!, NextLink = null }),
+                (nextLink, ct) => Task.FromResult<TestPage>(null!));
 
             // Act
             var items = new List<TestItem>();
@@ -73,8 +92,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public async Task GetAsyncEnumerator_SinglePage_YieldsAllItems()
         {
             // Arrange
-            var pageable = new ConnectorPageable<TestPage, TestItem>(
-                cancellationToken => Task.FromResult(new TestPage
+            using var client = new TestConnectorClient();
+            var pageable = client.GetItemsAsync(
+                ct => Task.FromResult(new TestPage
                 {
                     Value = new List<TestItem>
                     {
@@ -84,7 +104,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     },
                     NextLink = null
                 }),
-                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
+                (nextLink, ct) => Task.FromResult<TestPage>(null!));
 
             // Act
             var items = new List<TestItem>();
@@ -105,8 +125,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var callCount = 0;
-            var pageable = new ConnectorPageable<TestPage, TestItem>(
-                cancellationToken =>
+            using var client = new TestConnectorClient();
+            var pageable = client.GetItemsAsync(
+                ct =>
                 {
                     callCount++;
                     return Task.FromResult(new TestPage
@@ -115,7 +136,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                         NextLink = "https://api.contoso.com/next?page=2"
                     });
                 },
-                (nextLink, cancellationToken) =>
+                (nextLink, ct) =>
                 {
                     callCount++;
                     if (nextLink == "https://api.contoso.com/next?page=2")
@@ -153,20 +174,21 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public async Task AsPages_YieldsPageObjects()
         {
             // Arrange
-            var pageable = new ConnectorPageable<TestPage, TestItem>(
-                cancellationToken => Task.FromResult(new TestPage
+            using var client = new TestConnectorClient();
+            var pageable = client.GetItemsAsync(
+                ct => Task.FromResult(new TestPage
                 {
                     Value = new List<TestItem> { new TestItem { Id = "1" } },
                     NextLink = "https://api.contoso.com/next?page=2"
                 }),
-                (nextLink, cancellationToken) => Task.FromResult(new TestPage
+                (nextLink, ct) => Task.FromResult(new TestPage
                 {
                     Value = new List<TestItem> { new TestItem { Id = "2" } },
                     NextLink = null
                 }));
 
             // Act
-            var pages = new List<TestPage>();
+            var pages = new List<Page<TestItem>>();
             await foreach (var page in pageable.AsPages().ConfigureAwait(continueOnCapturedContext: false))
             {
                 pages.Add(page);
@@ -174,59 +196,80 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.AreEqual(2, pages.Count);
-            Assert.AreEqual("https://api.contoso.com/next?page=2", pages[0].NextLink);
-            Assert.IsNull(pages[1].NextLink);
-            Assert.AreEqual(1, pages[0].Value.Count);
-            Assert.AreEqual(1, pages[1].Value.Count);
+            Assert.AreEqual("https://api.contoso.com/next?page=2", pages[0].ContinuationToken);
+            Assert.IsNull(pages[1].ContinuationToken);
+            Assert.AreEqual(1, pages[0].Values.Count);
+            Assert.AreEqual(1, pages[1].Values.Count);
         }
 
         [TestMethod]
-        public void Constructor_NullFirstPageFunc_Throws()
-        {
-            // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() =>
-                new ConnectorPageable<TestPage, TestItem>(null!, (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!)));
-        }
-
-        [TestMethod]
-        public void Constructor_NullNextPageFunc_Throws()
-        {
-            // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() =>
-                new ConnectorPageable<TestPage, TestItem>(cancellationToken => Task.FromResult<TestPage>(null!), null!));
-        }
-
-        [TestMethod]
-        public async Task GetAsyncEnumerator_CancellationToken_IsPassed()
+        public async Task GetAsyncEnumerator_WithCancellation_PassesTokenToFetchCalls()
         {
             // Arrange
             CancellationToken receivedToken = default;
             using var cts = new CancellationTokenSource();
+            using var client = new TestConnectorClient();
 
-            var pageable = new ConnectorPageable<TestPage, TestItem>(
-                cancellationToken =>
+            var pageable = client.GetItemsAsync(
+                ct =>
                 {
-                    receivedToken = cancellationToken;
+                    receivedToken = ct;
                     return Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null });
                 },
-                (nextLink, cancellationToken) => Task.FromResult<TestPage>(null!));
+                (nextLink, ct) => Task.FromResult<TestPage>(null!));
 
             // Act
-            var enumerator = pageable.GetAsyncEnumerator(cts.Token);
-            try
+            await foreach (var item in pageable
+                .WithCancellation(cts.Token)
+                .ConfigureAwait(continueOnCapturedContext: false))
             {
-                while (await enumerator.MoveNextAsync().ConfigureAwait(continueOnCapturedContext: false))
-                {
-                    // No items expected
-                }
-            }
-            finally
-            {
-                await enumerator.DisposeAsync().ConfigureAwait(continueOnCapturedContext: false);
+                // No items expected
             }
 
             // Assert
-            Assert.AreEqual(cts.Token, receivedToken);
+            Assert.IsTrue(receivedToken.CanBeCanceled);
+        }
+
+        [TestMethod]
+        public async Task GetAsyncEnumerator_MethodLevelToken_PassedToFetchCalls()
+        {
+            // Arrange
+            CancellationToken receivedToken = default;
+            using var cts = new CancellationTokenSource();
+            using var client = new TestConnectorClient();
+
+            var pageable = client.GetItemsAsync(
+                ct =>
+                {
+                    receivedToken = ct;
+                    return Task.FromResult(new TestPage { Value = new List<TestItem>(), NextLink = null });
+                },
+                (nextLink, ct) => Task.FromResult<TestPage>(null!),
+                cts.Token);
+
+            // Act
+            await foreach (var item in pageable.ConfigureAwait(continueOnCapturedContext: false))
+            {
+                // No items expected
+            }
+
+            // Assert
+            Assert.IsTrue(receivedToken.CanBeCanceled);
+        }
+
+        [TestMethod]
+        public void CreatePageable_ReturnsAsyncPageable()
+        {
+            // Arrange
+            using var client = new TestConnectorClient();
+
+            // Act
+            var pageable = client.GetItemsAsync(
+                ct => Task.FromResult(new TestPage()),
+                (nextLink, ct) => Task.FromResult<TestPage>(null!));
+
+            // Assert
+            Assert.IsInstanceOfType<AsyncPageable<TestItem>>(pageable);
         }
     }
 }

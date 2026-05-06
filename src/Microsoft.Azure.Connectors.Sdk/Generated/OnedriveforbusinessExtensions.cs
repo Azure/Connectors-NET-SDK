@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
@@ -778,12 +779,14 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
     /// <param name="folder">Folder</param>
     /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-    public virtual ConnectorPageable<BlobMetadataPage, BlobMetadata> ListFolderAsync(string folder)
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual AsyncPageable<BlobMetadata> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
-        return new ConnectorPageable<BlobMetadataPage, BlobMetadata>(
-            cancellationToken => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
+            ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
 }

@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
@@ -1713,12 +1714,14 @@ public class TeamsClient : ConnectorClientBase
     /// <param name="team">Team</param>
     /// <param name="channel">Channel</param>
     /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
-    public virtual ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel)
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual AsyncPageable<ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
-        return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
-            cancellationToken => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
+            ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1983,7 +1986,8 @@ public class TeamsClient : ConnectorClientBase
     /// <param name="orderBy">Order By</param>
     /// <param name="top">Top</param>
     /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
-    public virtual ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default)
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -1993,9 +1997,10 @@ public class TeamsClient : ConnectorClientBase
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<GetMessagesFromConversationResponse, ChatMessage>(
-            cancellationToken => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
+            ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
