@@ -70,16 +70,14 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void ResolveUrl_SameHostDifferentScheme_RewritesThroughProxy()
+        public void ResolveUrl_SameHostDifferentScheme_ThrowsInvalidOperation()
         {
             // Arrange
             using var client = new TestConnectorClientWithUrl("https://proxy.azure-apihub.net/apim/arm/conn123");
 
-            // Act — http instead of https on same host must not send credentials over http
-            var result = client.TestResolveUrl("http://proxy.azure-apihub.net/apim/arm/conn123/subscriptions");
-
-            // Assert — rewritten through the secure connection runtime URL
-            Assert.AreEqual("https://proxy.azure-apihub.net/apim/arm/conn123/apim/arm/conn123/subscriptions", result);
+            // Act & Assert — http instead of https on same host must reject (credential leak risk)
+            Assert.ThrowsExactly<InvalidOperationException>(() =>
+                client.TestResolveUrl("http://proxy.azure-apihub.net/apim/arm/conn123/subscriptions"));
         }
 
         [TestMethod]

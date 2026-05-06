@@ -253,11 +253,20 @@ namespace Microsoft.Azure.Connectors.Sdk
 
                 var baseUri = new Uri(this._connectionRuntimeUrl);
                 var nextUri = new Uri(path);
-                if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) &&
-                    baseUri.Port == nextUri.Port)
+                if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
                 {
-                    return path;
+                    if (string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) &&
+                        baseUri.Port == nextUri.Port)
+                    {
+                        return path;
+                    }
+
+                    // NOTE(daviburg): Same host but different scheme or port — reject to prevent
+                    // sending credentials over an insecure channel (e.g., http instead of https).
+                    throw new InvalidOperationException(
+                        $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}:{nextUri.Port}' has the same host as the connection " +
+                        $"but uses a different scheme or port than '{baseUri.Scheme}://{baseUri.Host}:{baseUri.Port}'. " +
+                        "Refusing to send credentials to a potentially insecure endpoint.");
                 }
 
                 // NOTE(daviburg): NextLink from a different host (e.g., codeless connector backend).
