@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Http;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
-using Microsoft.Azure.Connectors.Sdk.Authentication;
 
 namespace Microsoft.Azure.Connectors.Sdk.Http
 {
@@ -35,25 +34,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
         private readonly Uri? _baseUri;
         private readonly Func<string?>? _connectorNameProvider;
         private bool _disposed;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class.
-        /// </summary>
-        /// <param name="tokenProvider">The token provider.</param>
-        /// <param name="options">The client options (used to build the pipeline).</param>
-        /// <param name="scopes">The authentication scopes for the pipeline.</param>
-        /// <param name="connectorName">The connector name for telemetry.</param>
-        public ConnectorHttpClient(
-            ITokenProvider tokenProvider,
-            ConnectorClientOptions options,
-            string[] scopes,
-            string? connectorName = null)
-            : this(
-                ConnectorHttpClient.BuildPipeline(tokenProvider, options, scopes),
-                options.BaseUri,
-                connectorName is not null ? () => connectorName : null)
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class
@@ -239,24 +219,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Http
             {
                 this._disposed = true;
             }
-        }
-
-        private static HttpPipeline BuildPipeline(
-            ITokenProvider tokenProvider,
-            ConnectorClientOptions options,
-            string[] scopes)
-        {
-            ArgumentNullException.ThrowIfNull(tokenProvider);
-            ArgumentNullException.ThrowIfNull(options);
-            ArgumentNullException.ThrowIfNull(scopes);
-
-            var credential = new TokenProviderCredential(tokenProvider);
-            return HttpPipelineBuilder.Build(
-                options,
-                perRetryPolicies: new HttpPipelinePolicy[]
-                {
-                    new BearerTokenAuthenticationPolicy(credential, scopes)
-                });
         }
     }
 }

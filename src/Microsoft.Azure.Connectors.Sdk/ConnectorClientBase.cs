@@ -8,9 +8,6 @@ using System.Text.Json.Serialization;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using global::Azure.Identity;
-using Microsoft.Azure.Connectors.Sdk.Authentication;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Microsoft.Azure.Connectors.Sdk
 {
@@ -38,7 +35,6 @@ namespace Microsoft.Azure.Connectors.Sdk
         };
 
         private readonly HttpPipeline _pipeline;
-        private readonly ILogger _logger;
         private readonly string _connectionRuntimeUrl;
         private bool _disposed;
 
@@ -49,7 +45,6 @@ namespace Microsoft.Azure.Connectors.Sdk
         protected ConnectorClientBase()
         {
             this._pipeline = null!;
-            this._logger = NullLogger.Instance;
             this._connectionRuntimeUrl = string.Empty;
         }
 
@@ -71,7 +66,6 @@ namespace Microsoft.Azure.Connectors.Sdk
             options = ConnectorClientBase.ApplyBaseUri(options, connectionRuntimeUrl);
             credential ??= new DefaultAzureCredential();
 
-            this._logger = NullLogger.Instance;
             this._pipeline = HttpPipelineBuilder.Build(
                 options,
                 perRetryPolicies: new HttpPipelinePolicy[]
@@ -101,33 +95,6 @@ namespace Microsoft.Azure.Connectors.Sdk
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
-        /// with a custom token provider.
-        /// </summary>
-        /// <param name="tokenProvider">The token provider for authentication.</param>
-        /// <param name="options">The connector client options.</param>
-        /// <param name="logger">The logger instance.</param>
-        protected ConnectorClientBase(
-            ITokenProvider tokenProvider,
-            ConnectorClientOptions? options = null,
-            ILogger? logger = null)
-        {
-            ArgumentNullException.ThrowIfNull(tokenProvider);
-
-            options ??= new ConnectorClientOptions();
-            this._logger = logger ?? NullLogger.Instance;
-            this._connectionRuntimeUrl = options.BaseUri?.ToString().TrimEnd('/') ?? string.Empty;
-
-            var credential = new TokenProviderCredential(tokenProvider);
-            this._pipeline = HttpPipelineBuilder.Build(
-                options,
-                perRetryPolicies: new HttpPipelinePolicy[]
-                {
-                    new BearerTokenAuthenticationPolicy(credential, ApiHubScopes)
-                });
-        }
-
         /// <inheritdoc />
         public abstract string ConnectorName { get; }
 
@@ -135,11 +102,6 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// Gets the HTTP pipeline for making connector requests.
         /// </summary>
         protected HttpPipeline Pipeline => this._pipeline;
-
-        /// <summary>
-        /// Gets the logger instance.
-        /// </summary>
-        protected ILogger Logger => this._logger;
 
         /// <summary>
         /// Sends a connector API request and deserializes the JSON response.

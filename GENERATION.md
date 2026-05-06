@@ -239,7 +239,7 @@ The connector SDK spans 4 repositories with a strict data flow:
 
 The generated code depends on the runtime SDK for:
 
-- `ITokenProvider` / `ManagedIdentityTokenProvider` - Authentication
+- `ConnectorClientBase` / `TokenCredential` - Authentication via Azure.Core
 - `ConnectorHttpClient` - HTTP operations with retry
 - `ConnectorJsonSerializer` - JSON serialization helpers
 

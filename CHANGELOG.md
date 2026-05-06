@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`ConnectorClientOptions` now inherits from `Azure.Core.ClientOptions`** — retry, transport, and diagnostics are configured via the inherited `Retry`, `Transport`, and `Diagnostics` properties instead of custom properties (#88)
   - Removed `MaxRetryAttempts`, `Timeout`, `UseExponentialBackoff`, `InitialRetryDelay` — use `options.Retry.MaxRetries`, `options.Retry.NetworkTimeout`, `options.Retry.Mode`, `options.Retry.Delay` instead
   - Added `ServiceVersion` enum for API versioning
+- **Removed `ITokenProvider` interface and all implementations** — `Azure.Core.TokenCredential` is now the only authentication path. Use `DefaultAzureCredential`, `ManagedIdentityCredential`, or any other `TokenCredential` subclass directly (#95)
+  - Removed `ILogger` parameter and `Logger` property from `ConnectorClientBase` — logging and diagnostics are now handled by the Azure.Core `HttpPipeline` (configure via `ConnectorClientOptions.Diagnostics`; subscribe via `AzureEventSourceListener`) (#95)
+  - Removed `Microsoft.Extensions.Logging.Abstractions` package dependency (#95)
 - **Removed `HttpClient` parameter from all generated client constructors** — inject custom HTTP transport via `options.Transport = new HttpClientTransport(httpClient)` instead (#88)
 - **Replaced Polly retry with Azure.Core `HttpPipeline`** — retry, authentication, and diagnostics now use the standard Azure SDK pipeline (#88)
 - **Removed `Polly` and `Microsoft.Extensions.Http` package dependencies** (#88)
@@ -27,18 +30,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** Per-connector exception types (e.g., `Office365ConnectorException`, `TeamsConnectorException`) replaced with unified `ConnectorException` base type with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` properties (#88)
 - **Breaking:** Generated client constructors accept a new optional `ConnectorClientOptions` parameter for configuring retry policy, timeout, and exponential backoff — the `HttpClient` parameter moved from position 3 to position 4 (#88)
 - Generated clients now use SDK infrastructure (`ConnectorHttpClient`) for authentication, retry with exponential backoff, OpenTelemetry instrumentation, and SSRF-protected URL resolution (#88)
-- `ManagedIdentityTokenProvider` now uses `ManagedIdentityCredential` instead of `DefaultAzureCredential`, aligning with [Azure SDK best practices for deterministic credentials in production](https://learn.microsoft.com/dotnet/azure/sdk/authentication/best-practices#use-deterministic-credentials-in-production-environments) (#86)
 
 ### Added
 
 - Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results
-- `TokenCredentialTokenProvider` adapter — wraps any `Azure.Core.TokenCredential` as an `ITokenProvider` for the SDK's HTTP pipeline (#88)
-- `TokenProviderCredential` adapter — wraps an `ITokenProvider` as `Azure.Core.TokenCredential` for use with `BearerTokenAuthenticationPolicy` in the `HttpPipeline` (#88)
 - `ConnectorException` — unified exception type for all connector API failures (#88)
 - `ConnectorClientBase` now provides `CallConnectorAsync`, `ResolveUrl`, shared JSON options, and convenience constructors accepting `connectionRuntimeUrl` + `TokenCredential` (#88)
 
 ### Removed
 
+- **`ITokenProvider`** interface — replaced by `Azure.Core.TokenCredential` (#95)
+- **`ConnectionStringTokenProvider`** — no longer needed; was unused outside docs (#95)
+- **`ManagedIdentityTokenProvider`** — use `ManagedIdentityCredential` from `Azure.Identity` directly (#95)
+- **`TokenCredentialTokenProvider`** adapter — no longer needed without `ITokenProvider` (#95)
+- **`TokenProviderCredential`** adapter — no longer needed without `ITokenProvider` (#95)
+- **`ConnectorClientBase(ITokenProvider, ...)` constructor** — use `ConnectorClientBase(string connectionRuntimeUrl, TokenCredential?, ...)` instead (#95)
+- **`ConnectorHttpClient(ITokenProvider, ...)` constructor** — use the `HttpPipeline`-based constructor instead (#95)
 - Azure Log Analytics (`azureloganalytics`) connector removed — the connector and all its user-facing operations are deprecated by Microsoft (see [connector docs](https://learn.microsoft.com/en-us/connectors/azureloganalytics/)). Microsoft recommends the [Azure Monitor Logs](https://learn.microsoft.com/en-us/connectors/azuremonitorlogs/) connector as a replacement.
 
 ## [0.8.0-preview.1] - 2026-04-30

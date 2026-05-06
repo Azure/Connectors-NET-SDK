@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Http;
 using Azure.Core.Pipeline;
 using global::Azure;
-using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.Azure.Connectors.Sdk.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -35,14 +34,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             ActivitySource.AddActivityListener(listener);
 
-            var tokenProvider = CreateMockTokenProvider();
             var options = CreateOptionsWithMockTransport(HttpStatusCode.OK);
 
-            using var client = new ConnectorHttpClient(
-                tokenProvider.Object,
-                options,
-                TestScopes,
-                connectorName: "office365");
+            using var client = CreateClient(options, connectorName: "office365");
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
             request.Headers.Add("x-ms-client-request-id", "test-request-id");
@@ -68,14 +62,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public async Task SendAsync_WithoutListener_NoOverhead()
         {
             // Arrange — no ActivityListener registered
-            var tokenProvider = CreateMockTokenProvider();
             var options = CreateOptionsWithMockTransport(HttpStatusCode.OK);
 
-            using var client = new ConnectorHttpClient(
-                tokenProvider.Object,
-                options,
-                TestScopes,
-                connectorName: "office365");
+            using var client = CreateClient(options, connectorName: "office365");
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
@@ -106,15 +95,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             ActivitySource.AddActivityListener(listener);
 
-            var tokenProvider = CreateMockTokenProvider();
             var options = CreateOptionsWithMockTransport(HttpStatusCode.InternalServerError);
             options.Retry.MaxRetries = 0;
 
-            using var client = new ConnectorHttpClient(
-                tokenProvider.Object,
-                options,
-                TestScopes,
-                connectorName: "office365");
+            using var client = CreateClient(options, connectorName: "office365");
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/messages");
 
@@ -147,14 +131,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             ActivitySource.AddActivityListener(listener);
 
-            var tokenProvider = CreateMockTokenProvider();
             var options = CreateOptionsWithMockTransport(HttpStatusCode.OK);
 
-            using var client = new ConnectorHttpClient(
-                tokenProvider.Object,
-                options,
-                TestScopes,
-                connectorName: "sharepointonline");
+            using var client = CreateClient(options, connectorName: "sharepointonline");
 
             using var request = new HttpRequestMessage(HttpMethod.Post, "https://test.azure.com/api/files");
 
@@ -183,13 +162,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             ActivitySource.AddActivityListener(listener);
 
-            var tokenProvider = CreateMockTokenProvider();
             var options = CreateOptionsWithMockTransport(HttpStatusCode.OK);
 
-            using var client = new ConnectorHttpClient(
-                tokenProvider.Object,
-                options,
-                TestScopes);
+            using var client = CreateClient(options);
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/test");
 
@@ -227,17 +202,12 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<CancellationToken>())
                 .ThrowsAsync(new HttpRequestException("Connection refused"));
 
-            var tokenProvider = CreateMockTokenProvider();
             using var httpClient = new HttpClient(handler.Object);
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(httpClient);
             options.Retry.MaxRetries = 0;
 
-            using var client = new ConnectorHttpClient(
-                tokenProvider.Object,
-                options,
-                TestScopes,
-                connectorName: "teams");
+            using var client = CreateClient(options, connectorName: "teams");
 
             using var request = new HttpRequestMessage(HttpMethod.Get, "https://test.azure.com/api/chats");
 
@@ -273,15 +243,12 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             return options;
         }
 
-        private static Mock<ITokenProvider> CreateMockTokenProvider()
+        private static ConnectorHttpClient CreateClient(ConnectorClientOptions options, string? connectorName = null)
         {
-            var tokenProvider = new Mock<ITokenProvider>();
-
-            tokenProvider
-                .Setup(tp => tp.GetAccessTokenAsync(It.IsAny<string[]>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync("test-token");
-
-            return tokenProvider;
+            var pipeline = HttpPipelineBuilder.Build(options);
+            return new ConnectorHttpClient(
+                pipeline,
+                connectorNameProvider: connectorName is not null ? () => connectorName : null);
         }
     }
 }
