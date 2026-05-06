@@ -58,6 +58,7 @@ Azure-native connectors (some may overlap with existing Functions bindings).
 | 3.2a | **Azure Monitor Logs** | #7 | — | Replacement for Azure Log Analytics — query and visualize Log Analytics + App Insights data | ✅ Complete |
 | 3.3 | **Event Hubs** | #14 | — | May overlap with Functions binding | ⬜ Evaluate |
 | 3.4 | **Service Bus** | #4/#13 | — | Functions already supports | ⚠️ Skip (native) |
+| 3.5 | **Azure Resource Manager (ARM)** | — | — | Manage Azure resources, resource groups, subscriptions, deployments, tags, providers | ✅ Complete |
 
 ### Phase 4: Enterprise Systems
 

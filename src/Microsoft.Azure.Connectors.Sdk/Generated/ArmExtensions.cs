@@ -1404,7 +1404,7 @@ public class ArmClient : ConnectorClientBase
         var queryParams = new List<string>();
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{shortResourceId}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
@@ -1425,7 +1425,7 @@ public class ArmClient : ConnectorClientBase
         var queryParams = new List<string>();
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{shortResourceId}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken);
     }
 
@@ -1444,7 +1444,7 @@ public class ArmClient : ConnectorClientBase
         var queryParams = new List<string>();
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{shortResourceId}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
     }
 
@@ -1466,7 +1466,7 @@ public class ArmClient : ConnectorClientBase
         var queryParams = new List<string>();
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{shortResourceId}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 
@@ -1485,7 +1485,7 @@ public class ArmClient : ConnectorClientBase
         var queryParams = new List<string>();
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{shortResourceId}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken);
     }
 
@@ -1505,7 +1505,7 @@ public class ArmClient : ConnectorClientBase
         var queryParams = new List<string>();
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{shortResourceId}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return await this.CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken);
     }
 

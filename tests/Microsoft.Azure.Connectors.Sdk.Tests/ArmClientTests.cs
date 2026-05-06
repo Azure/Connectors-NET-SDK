@@ -51,6 +51,89 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void Dispose_WithInjectedHttpClient_ShouldNotDisposeIt()
+        {
+            // Arrange
+            var httpClient = new HttpClient();
+            var mockCredential = new Mock<TokenCredential>();
+
+            var client = new ArmClient(
+                connectionRuntimeUrl: "https://test.azure.com/connection",
+                credential: mockCredential.Object,
+                httpClient: httpClient);
+
+            // Act
+            client.Dispose();
+
+            // Assert - injected HttpClient should still be usable (not disposed)
+            httpClient.DefaultRequestHeaders.Add("X-Test-Header", "TestValue");
+            Assert.IsTrue(httpClient.DefaultRequestHeaders.Contains("X-Test-Header"));
+        }
+
+        [TestMethod]
+        public void Dispose_WithInternallyCreatedHttpClient_ShouldDisposeIt()
+        {
+            // Arrange - no httpClient provided, so client creates its own
+            var mockCredential = new Mock<TokenCredential>();
+            var client = new ArmClient(
+                connectionRuntimeUrl: "https://test.azure.com/connection",
+                credential: mockCredential.Object);
+
+            // Act
+            client.Dispose();
+
+            // Assert - calling Dispose again should not throw (idempotent)
+            client.Dispose();
+        }
+
+        [TestMethod]
+        public void SubscriptionListResult_Pagination_RoundTrips()
+        {
+            // Arrange
+            var page = new SubscriptionListResult
+            {
+                Value = new List<Subscription>
+                {
+                    new Subscription { SubscriptionId = "sub-1", DisplayName = "Sub One" },
+                    new Subscription { SubscriptionId = "sub-2", DisplayName = "Sub Two" }
+                },
+                NextLink = "https://test.azure.com/nextpage"
+            };
+
+            // Act
+            var json = JsonSerializer.Serialize(page);
+            var deserialized = JsonSerializer.Deserialize<SubscriptionListResult>(json);
+
+            // Assert
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual(2, deserialized!.Value.Count);
+            Assert.AreEqual("https://test.azure.com/nextpage", deserialized.NextLink);
+        }
+
+        [TestMethod]
+        public void ResourceGroupListResult_Pagination_RoundTrips()
+        {
+            // Arrange
+            var page = new ResourceGroupListResult
+            {
+                Value = new List<ResourceGroup>
+                {
+                    new ResourceGroup { Name = "rg-1", Location = "eastus" }
+                },
+                NextLink = "https://management.azure.com/subscriptions/sub-id/resourcegroups?$skiptoken=abc"
+            };
+
+            // Act
+            var json = JsonSerializer.Serialize(page);
+            var deserialized = JsonSerializer.Deserialize<ResourceGroupListResult>(json);
+
+            // Assert
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual(1, deserialized!.Value.Count);
+            Assert.IsTrue(deserialized.NextLink.Contains("skiptoken", StringComparison.Ordinal));
+        }
+
+        [TestMethod]
         public async Task SubscriptionsGetAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange

@@ -9,6 +9,7 @@ This folder contains pre-generated typed connector clients included in the SDK N
 
 | Connector | File | Client Class | Description |
 |-----------|------|-------------|-------------|
+| Azure Resource Manager | `ArmExtensions.cs` | `ArmClient` | Azure Resource Manager (subscriptions, resource groups, resources, deployments, tags) |
 | Kusto | `KustoExtensions.cs` | `KustoClient` | Azure Data Explorer (Kusto) queries and commands |
 | MS Graph Groups & Users | `MsgraphgroupsanduserExtensions.cs` | `MsgraphgroupsanduserClient` | Microsoft Graph groups and user operations |
 | Office 365 | `Office365Extensions.cs` | `Office365Client` | Office 365 Outlook (email, calendar, contacts) |
