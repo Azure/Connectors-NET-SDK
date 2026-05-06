@@ -209,7 +209,7 @@ The **Azure Connectors .NET SDK** (`Microsoft.Azure.Connectors.Sdk`) is a client
 | Component | Responsibility |
 |-----------|---------------|
 | **ConnectorClientBase** | Abstract base class all generated clients inherit from |
-| **ConnectorHttpClient** | HTTP client with automatic Bearer token injection and retry policy |
+| **ConnectorHttpClient** | HTTP client with Azure.Core `HttpPipeline` for retry, authentication (when pipeline includes `BearerTokenAuthenticationPolicy`), and diagnostics |
 | **TokenCredential** | Azure.Core authentication (DefaultAzureCredential, ManagedIdentityCredential, etc.) |
 | **ConnectorJsonSerializer** | JSON serialization with connector conventions |
 | **ConnectorConnectionResolver** | Resolves connection settings from Azure Functions app configuration |
@@ -263,10 +263,11 @@ The SDK authenticates using `Azure.Core.TokenCredential`, the standard Azure SDK
  Office365Client
     │
     ▼
- ConnectorClientBase ──► TokenCredential.GetTokenAsync()
+ ConnectorClientBase (builds HttpPipeline with auth policy)
     │                          │
     │                          ▼
     │                   BearerTokenAuthenticationPolicy
+    │                     calls TokenCredential.GetTokenAsync()
     │                     ├── DefaultAzureCredential (default)
     │                     └── ManagedIdentityCredential (with clientId)
     │
@@ -296,8 +297,8 @@ Here is the complete path of an SDK call from your code to the SaaS service and 
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐
-  │  3. ConnectorClientBase acquires Bearer token       │
-  │     via TokenCredential (Azure.Core pipeline)        │
+  │  3. HttpPipeline acquires Bearer token via           │
+  │     BearerTokenAuthenticationPolicy + TokenCredential │
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐

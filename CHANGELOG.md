@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed `MaxRetryAttempts`, `Timeout`, `UseExponentialBackoff`, `InitialRetryDelay` — use `options.Retry.MaxRetries`, `options.Retry.NetworkTimeout`, `options.Retry.Mode`, `options.Retry.Delay` instead
   - Added `ServiceVersion` enum for API versioning
 - **Removed `ITokenProvider` interface and all implementations** — `Azure.Core.TokenCredential` is now the only authentication path. Use `DefaultAzureCredential`, `ManagedIdentityCredential`, or any other `TokenCredential` subclass directly (#95)
+  - Removed `ILogger` parameter and `Logger` property from `ConnectorClientBase` — logging and diagnostics are now handled by the Azure.Core `HttpPipeline` (configure via `ConnectorClientOptions.Diagnostics`; subscribe via `AzureEventSourceListener`) (#95)
+  - Removed `Microsoft.Extensions.Logging.Abstractions` package dependency (#95)
 - **Removed `HttpClient` parameter from all generated client constructors** — inject custom HTTP transport via `options.Transport = new HttpClientTransport(httpClient)` instead (#88)
 - **Replaced Polly retry with Azure.Core `HttpPipeline`** — retry, authentication, and diagnostics now use the standard Azure SDK pipeline (#88)
 - **Removed `Polly` and `Microsoft.Extensions.Http` package dependencies** (#88)
