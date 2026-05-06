@@ -9,6 +9,10 @@
     <PackageVersion Include="Azure.Core" Version="1.53.0" />
     <PackageVersion Include="Azure.Identity" Version="1.21.0" />
     <PackageVersion Include="System.Text.Json" Version="10.0.7" />
+
+    <!-- Transitive pin: Azure.Identity pulls this in; pinning ensures consistent
+         resolution and avoids ADO feed auth failures for uncached versions. -->
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
     
     <!-- Test dependencies -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
