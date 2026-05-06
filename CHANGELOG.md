@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** Per-connector exception types (e.g., `Office365ConnectorException`, `TeamsConnectorException`) replaced with unified `ConnectorException` base type with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` properties (#88)
 - **Breaking:** Generated client constructors accept a new optional `ConnectorClientOptions` parameter for configuring retry policy, timeout, and exponential backoff — the `HttpClient` parameter moved from position 3 to position 4 (#88)
 - Generated clients now use SDK infrastructure (`ConnectorHttpClient`) for authentication, retry with exponential backoff, OpenTelemetry instrumentation, and SSRF-protected URL resolution (#88)
+- `ManagedIdentityTokenProvider` now uses `ManagedIdentityCredential` instead of `DefaultAzureCredential`, aligning with [Azure SDK best practices for deterministic credentials in production](https://learn.microsoft.com/dotnet/azure/sdk/authentication/best-practices#use-deterministic-credentials-in-production-environments) (#86)
 
 ### Added
 
