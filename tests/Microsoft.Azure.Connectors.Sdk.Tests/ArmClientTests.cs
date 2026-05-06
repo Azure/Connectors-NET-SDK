@@ -68,6 +68,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Assert - injected HttpClient should still be usable (not disposed)
             httpClient.DefaultRequestHeaders.Add("X-Test-Header", "TestValue");
             Assert.IsTrue(httpClient.DefaultRequestHeaders.Contains("X-Test-Header"));
+
+            // Cleanup
+            httpClient.Dispose();
         }
 
         [TestMethod]
@@ -167,7 +170,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            using var httpClient = new HttpClient(mockHandler.Object);
 
             using var client = new ArmClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
@@ -220,7 +223,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            using var httpClient = new HttpClient(mockHandler.Object);
 
             using var client = new ArmClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
@@ -267,7 +270,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
 
-            var httpClient = new HttpClient(mockHandler.Object);
+            using var httpClient = new HttpClient(mockHandler.Object);
 
             using var client = new ArmClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
