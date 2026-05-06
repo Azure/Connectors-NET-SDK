@@ -24,7 +24,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
     public class ArmClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
-        private static readonly HttpClient SharedHttpClient = new HttpClient(new MockHttpMessageHandler());
 
         private static Mock<TokenCredential> CreateMockCredential()
         {
