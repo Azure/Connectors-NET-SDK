@@ -380,7 +380,7 @@ namespace Microsoft.Azure.Connectors.Sdk
                 while (page != null)
                 {
                     var values = page.Value != null
-                        ? (IReadOnlyList<TItem>)page.Value.AsReadOnly()
+                        ? (IReadOnlyList<TItem>)page.Value
                         : (IReadOnlyList<TItem>)Array.Empty<TItem>();
 
                     yield return new ConnectorPage<TItem>(values, page.NextLink);

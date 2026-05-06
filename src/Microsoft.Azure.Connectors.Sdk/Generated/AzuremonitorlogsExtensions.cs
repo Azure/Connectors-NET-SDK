@@ -341,7 +341,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
             queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
         var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
         return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
-            cancellationToken => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, cancellationToken),
+            ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
             (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, cancellationToken: ct),
             cancellationToken);
     }
