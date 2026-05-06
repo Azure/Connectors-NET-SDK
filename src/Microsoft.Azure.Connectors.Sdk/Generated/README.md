@@ -9,11 +9,17 @@ This folder contains pre-generated typed connector clients included in the SDK N
 
 | Connector | File | Client Class | Description |
 |-----------|------|-------------|-------------|
+| Azure Blob Storage | `AzureblobExtensions.cs` | `AzureblobClient` | Azure Blob Storage file and container operations |
+| Azure Monitor Logs | `AzuremonitorlogsExtensions.cs` | `AzuremonitorlogsClient` | Azure Monitor Logs (Log Analytics) queries |
+| Azure Resource Manager | `ArmExtensions.cs` | `ArmClient` | Azure Resource Manager (subscriptions, resource groups, resources, deployments, tags) |
 | Kusto | `KustoExtensions.cs` | `KustoClient` | Azure Data Explorer (Kusto) queries and commands |
+| MQ | `MqExtensions.cs` | `MqClient` | IBM MQ message queue operations |
 | MS Graph Groups & Users | `MsgraphgroupsanduserExtensions.cs` | `MsgraphgroupsanduserClient` | Microsoft Graph groups and user operations |
 | Office 365 | `Office365Extensions.cs` | `Office365Client` | Office 365 Outlook (email, calendar, contacts) |
+| Office 365 Users | `Office365usersExtensions.cs` | `Office365usersClient` | Office 365 user profile and directory operations |
 | OneDrive for Business | `OnedriveforbusinessExtensions.cs` | `OnedriveforbusinessClient` | OneDrive for Business file operations |
 | SharePoint Online | `SharepointonlineExtensions.cs` | `SharepointonlineClient` | SharePoint Online lists, items, and files |
+| SMTP | `SmtpExtensions.cs` | `SmtpClient` | SMTP email sending |
 | Teams | `TeamsExtensions.cs` | `TeamsClient` | Microsoft Teams messaging and channel operations |
 
 ## Usage
@@ -38,7 +44,7 @@ From the BPM repo root, after building the generator:
 
 ```powershell
 $generator = ".\src\tools\CodefulSdkGenerator\LogicAppsCompiler.Cli\bin\Release\net8.0\LogicAppsCompiler.exe"
-& $generator "<path-to-Connectors-NET-SDK>\src\Microsoft.Azure.Connectors.Sdk\Generated" unused --directClient --connectors=kusto,msgraphgroupsanduser,office365,onedriveforbusiness,sharepointonline,teams
+& $generator "<path-to-Connectors-NET-SDK>\src\Microsoft.Azure.Connectors.Sdk\Generated" unused --directClient --connectors=arm,azureblob,azuremonitorlogs,kusto,mq,msgraphgroupsanduser,office365,office365users,onedriveforbusiness,sharepointonline,smtp,teams
 ```
 
 See [GENERATION.md](../../../GENERATION.md) for complete documentation including prerequisites and build steps.

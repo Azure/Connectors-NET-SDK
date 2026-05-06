@@ -232,8 +232,11 @@ namespace Microsoft.Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Resolves a relative path or validates an absolute URL against the connection runtime URL,
-        /// preventing SSRF by ensuring absolute URLs match the connection host.
+        /// Resolves a relative path or validates an absolute URL against the connection runtime URL.
+        /// When the NextLink host matches the connection URL, it's used as-is.
+        /// When it doesn't match (codeless connectors like ARM return nextLink pointing to the backend
+        /// host e.g. management.azure.com), the path+query is extracted and routed through the APIM proxy.
+        /// This is safe because the request still goes through the connection runtime URL with API Hub auth.
         /// </summary>
         /// <param name="path">The relative path or absolute URL to resolve.</param>
         /// <returns>The resolved absolute URL.</returns>
@@ -250,16 +253,25 @@ namespace Microsoft.Azure.Connectors.Sdk
 
                 var baseUri = new Uri(this._connectionRuntimeUrl);
                 var nextUri = new Uri(path);
-                if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||
-                    !string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase) ||
-                    baseUri.Port != nextUri.Port)
+                if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
                 {
+                    if (string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) &&
+                        baseUri.Port == nextUri.Port)
+                    {
+                        return path;
+                    }
+
+                    // NOTE(daviburg): Same host but different scheme or port — reject to prevent
+                    // sending credentials over an insecure channel (e.g., http instead of https).
                     throw new InvalidOperationException(
-                        $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}:{nextUri.Port}' does not match connection URI '{baseUri.Scheme}://{baseUri.Host}:{baseUri.Port}'. " +
-                        "Refusing to send credentials to an unexpected host.");
+                        $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}:{nextUri.Port}' has the same host as the connection " +
+                        $"but uses a different scheme or port than '{baseUri.Scheme}://{baseUri.Host}:{baseUri.Port}'. " +
+                        "Refusing to send credentials to a potentially insecure endpoint.");
                 }
 
-                return path;
+                // NOTE(daviburg): NextLink from a different host (e.g., codeless connector backend).
+                // Extract path+query and route through the connection runtime URL.
+                return $"{this._connectionRuntimeUrl}{nextUri.PathAndQuery}";
             }
 
             if (string.IsNullOrEmpty(this._connectionRuntimeUrl))

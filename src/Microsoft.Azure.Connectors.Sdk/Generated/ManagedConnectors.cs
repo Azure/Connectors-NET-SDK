@@ -1,6 +1,8 @@
 // Connectors SDK - Generated Connectors
 // Each connector client is used independently:
 //
+//   using Microsoft.Azure.Connectors.Sdk.Arm;
+//   var client = new ArmClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.Sdk.Azureblob;
 //   var client = new AzureblobClient(connectionRuntimeUrl);
 //   using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs;
@@ -37,6 +39,7 @@ public static class SdkConnectors
     /// The list of available connector names.
     /// </summary>
     public static readonly string[] AvailableConnectors = [
+        "arm",
         "azureblob",
         "azuremonitorlogs",
         "kusto",
