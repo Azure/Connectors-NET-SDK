@@ -61,6 +61,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         /// <summary>
+        /// Verifies that the constructor creates a valid instance with a connection runtime URL.
+        /// </summary>
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
