@@ -17,7 +17,7 @@ using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
 
-namespace Microsoft.Azure.Connectors.DirectClient.Arm;
+namespace Microsoft.Azure.Connectors.Sdk.Arm;
 
 #region Types
 
@@ -943,37 +943,18 @@ public class ArmConnectorException : Exception
 /// <summary>
 /// Typed client for arm connector.
 /// </summary>
-public class ArmClient : IDisposable
+public class ArmClient : ConnectorClientBase
 {
-    private static readonly string[] ApiHubScopes = ["https://apihub.azure.com/.default"];
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        PropertyNameCaseInsensitive = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    };
-
-    private readonly string _connectionRuntimeUrl;
-    private readonly HttpClient _httpClient;
-    private readonly bool _ownsHttpClient;
-    private readonly bool _ownsCredential;
-    private readonly TokenCredential _credential;
-    private AccessToken? _cachedToken;
-
     /// <summary>
     /// Creates a new ArmClient.
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
     /// <param name="credential">Optional credential. Defaults to <see cref="DefaultAzureCredential"/>.</param>
+    /// <param name="options">Optional client options for retry, timeout, etc.</param>
     /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
-    public ArmClient(string connectionRuntimeUrl, TokenCredential credential = null, HttpClient httpClient = null)
+    public ArmClient(string connectionRuntimeUrl, TokenCredential credential = null, ConnectorClientOptions options = null, HttpClient httpClient = null)
+        : base(connectionRuntimeUrl, credential, options, httpClient)
     {
-        this._connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/')
-            ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl));
-        this._credential = credential ?? new DefaultAzureCredential();
-        this._ownsCredential = credential == null;
-        this._ownsHttpClient = httpClient == null;
-        this._httpClient = httpClient ?? new HttpClient();
     }
 
     /// <summary>
@@ -981,121 +962,15 @@ public class ArmClient : IDisposable
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
     /// <param name="managedIdentityClientId">The client ID for user-assigned managed identity. Use null for system-assigned identity with <see cref="ManagedIdentityCredential"/>.</param>
+    /// <param name="options">Optional client options for retry, timeout, etc.</param>
     /// <param name="httpClient">Optional <see cref="HttpClient"/>. A new one will be created if not provided.</param>
-    public ArmClient(string connectionRuntimeUrl, string managedIdentityClientId, HttpClient httpClient = null)
-        : this(connectionRuntimeUrl, CreateManagedIdentityCredential(managedIdentityClientId), httpClient)
+    public ArmClient(string connectionRuntimeUrl, string managedIdentityClientId, ConnectorClientOptions options = null, HttpClient httpClient = null)
+        : base(connectionRuntimeUrl, managedIdentityClientId, options, httpClient)
     {
     }
 
-    private static TokenCredential CreateManagedIdentityCredential(string managedIdentityClientId)
-    {
-        if (string.IsNullOrEmpty(managedIdentityClientId))
-        {
-            return new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned);
-        }
-
-        return new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(managedIdentityClientId));
-    }
-
-    private async Task<string> GetTokenAsync(CancellationToken cancellationToken)
-    {
-        if (this._cachedToken.HasValue && this._cachedToken.Value.ExpiresOn > DateTimeOffset.UtcNow.AddMinutes(5))
-        {
-            return this._cachedToken.Value.Token;
-        }
-
-        this._cachedToken = await this._credential.GetTokenAsync(
-            new TokenRequestContext(ApiHubScopes), cancellationToken);
-        return this._cachedToken.Value.Token;
-    }
-
-    private string ResolveUrl(string path)
-    {
-        if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
-        {
-            var baseUri = new Uri(this._connectionRuntimeUrl);
-            var nextUri = new Uri(path);
-            if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
-            {
-                return path;
-            }
-
-            // NOTE(daviburg): NextLink from a different host (e.g., codeless connector backend).
-            // Extract path+query and route through the connection runtime URL.
-            return $"{this._connectionRuntimeUrl}{nextUri.PathAndQuery}";
-        }
-
-        return $"{this._connectionRuntimeUrl}{path}";
-    }
-
-    private async Task<TResponse> CallConnectorAsync<TResponse>(
-        HttpMethod method,
-        string path,
-        object body = null,
-        CancellationToken cancellationToken = default)
-    {
-        var token = await this.GetTokenAsync(cancellationToken);
-        var url = this.ResolveUrl(path);
-        var operation = $"{method} {path}";
-
-        using var request = new HttpRequestMessage(method, url);
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-        if (body != null)
-        {
-            var json = JsonSerializer.Serialize(body, JsonOptions);
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
-        }
-
-        using var response = await this._httpClient.SendAsync(request, cancellationToken);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            var errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
-            throw new ArmConnectorException(operation, (int)response.StatusCode, errorBody);
-        }
-
-        if (typeof(TResponse) == typeof(byte[]))
-        {
-            var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
-            return (TResponse)(object)bytes;
-        }
-
-        var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
-
-        if (string.IsNullOrEmpty(responseBody))
-            return default;
-
-        return JsonSerializer.Deserialize<TResponse>(responseBody, JsonOptions);
-    }
-
-    private async Task CallConnectorAsync(
-        HttpMethod method,
-        string path,
-        object body = null,
-        CancellationToken cancellationToken = default)
-    {
-        var token = await this.GetTokenAsync(cancellationToken);
-        var url = this.ResolveUrl(path);
-        var operation = $"{method} {path}";
-
-        using var request = new HttpRequestMessage(method, url);
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-        if (body != null)
-        {
-            var json = JsonSerializer.Serialize(body, JsonOptions);
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
-        }
-
-        using var response = await this._httpClient.SendAsync(request, cancellationToken);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
-            throw new ArmConnectorException(operation, (int)response.StatusCode, responseBody);
-        }
-    }
+    /// <inheritdoc />
+    public override string ConnectorName => "arm";
 
     /// <summary>
     /// Lists the subscription locations
@@ -1739,19 +1614,6 @@ public class ArmClient : IDisposable
         return new ConnectorPageable<TagsListResult, TagDetails>(
             cancellationToken => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
             (nextLink, cancellationToken) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
-    }
-
-    public void Dispose()
-    {
-        if (this._ownsHttpClient)
-        {
-            this._httpClient?.Dispose();
-        }
-
-        if (this._ownsCredential && this._credential is IDisposable disposableCredential)
-        {
-            disposableCredential.Dispose();
-        }
     }
 }
 

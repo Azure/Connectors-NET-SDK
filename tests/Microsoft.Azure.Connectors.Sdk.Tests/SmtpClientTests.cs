@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.DirectClient.Smtp;
+using Microsoft.Azure.Connectors.Sdk.Smtp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -130,7 +130,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task SendEmailAsync_WithErrorResponse_ThrowsSmtpConnectorException()
+        public async Task SendEmailAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -168,7 +168,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<SmtpConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .SendEmailAsync(input: email, cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))

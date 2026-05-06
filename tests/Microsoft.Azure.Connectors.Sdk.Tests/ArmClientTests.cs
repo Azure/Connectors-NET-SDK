@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.DirectClient.Arm;
+using Microsoft.Azure.Connectors.Sdk.Arm;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -193,7 +193,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<ArmConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .ResourcesGetByIdAsync(
                             subscription: "00000000-0000-0000-0000-000000000000",
@@ -210,10 +210,11 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void ArmConnectorException_ShouldContainExpectedProperties()
+        public void ConnectorException_ShouldContainExpectedProperties()
         {
             // Arrange & Act
-            var exception = new ArmConnectorException(
+            var exception = new ConnectorException(
+                connectorName: "arm",
                 operation: "GET /subscriptions/sub-id/resourceGroups/test-rg",
                 statusCode: 403,
                 responseBody: "Access denied");

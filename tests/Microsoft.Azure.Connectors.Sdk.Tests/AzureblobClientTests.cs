@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.DirectClient.Azureblob;
+using Microsoft.Azure.Connectors.Sdk.Azureblob;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -146,7 +146,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<AzureblobConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .GetFileMetadataAsync(
                             storageAccountNameOrBlobEndpoint: "mystorageaccount",
@@ -160,10 +160,10 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void AzureblobConnectorException_ShouldContainExpectedProperties()
+        public void ConnectorException_ShouldContainExpectedProperties()
         {
             // Arrange & Act
-            var exception = new AzureblobConnectorException(
+            var exception = new ConnectorException("azureblob",
                 operation: "GET /v2/datasets/mystorageaccount/files/abc",
                 statusCode: 403,
                 responseBody: "Access denied");

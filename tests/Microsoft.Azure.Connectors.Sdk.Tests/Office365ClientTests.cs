@@ -10,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.DirectClient.Office365;
+using Microsoft.Azure.Connectors.Sdk.Office365;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -171,7 +171,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Act & Assert
             var exception = await Assert
-                .ThrowsExactlyAsync<Office365ConnectorException>(async () =>
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .GetEmailAsync(messageId: "test-message-id", cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))

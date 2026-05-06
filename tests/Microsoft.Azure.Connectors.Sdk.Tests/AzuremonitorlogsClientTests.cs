@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
-using Microsoft.Azure.Connectors.Sdk.Kusto;
+using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -19,16 +19,16 @@ using Moq.Protected;
 namespace Microsoft.Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated KustoClient class.
+    /// Tests for the generated AzuremonitorlogsClient class.
     /// </summary>
     [TestClass]
-    public class KustoClientTests
+    public class AzuremonitorlogsClientTests
     {
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new KustoClient("https://test.azure.com/connection");
+            using var client = new AzuremonitorlogsClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -38,21 +38,21 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new KustoClient(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new AzuremonitorlogsClient(null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new KustoClient("https://test.azure.com/connection");
+            var client = new AzuremonitorlogsClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
         }
 
         [TestMethod]
-        public async Task ListKustoResultsAsync_WithMockedResponse_ReturnsExpectedResult()
+        public async Task QueryDataAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                     {
                         AdditionalProperties = new Dictionary<string, JsonElement>
                         {
-                            ["Timestamp"] = JsonSerializer.SerializeToElement("2026-04-03T00:00:00Z"),
+                            ["TimeGenerated"] = JsonSerializer.SerializeToElement("2026-05-01T00:00:00Z"),
                             ["Count"] = JsonSerializer.SerializeToElement(42)
                         }
                     }
@@ -92,20 +92,20 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             var httpClient = new HttpClient(mockHandler.Object);
 
-            using var client = new KustoClient(
+            using var client = new AzuremonitorlogsClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
                 httpClient: httpClient);
 
             // Act
             var result = await client
-                .ListKustoResultsAsync(
-                    input: new QueryAndListSchema
-                    {
-                        Cluster = "https://mycluster.kusto.windows.net",
-                        Db = "mydb",
-                        Csl = "StormEvents | take 10"
-                    },
+                .QueryDataAsync(
+                    input: "Heartbeat | take 10",
+                    subscription: "sub-1",
+                    resourceGroup: "rg-1",
+                    resourceType: "Microsoft.OperationalInsights/workspaces",
+                    resourceName: "my-workspace",
+                    timeRange: "Last 24 hours",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
@@ -117,7 +117,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ListKustoResultsAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task QueryDataAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
@@ -144,7 +144,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             var httpClient = new HttpClient(mockHandler.Object);
 
-            using var client = new KustoClient(
+            using var client = new AzuremonitorlogsClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
                 httpClient: httpClient);
@@ -153,13 +153,13 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var exception = await Assert
                 .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
-                        .ListKustoResultsAsync(
-                            input: new QueryAndListSchema
-                            {
-                                Cluster = "https://mycluster.kusto.windows.net",
-                                Db = "mydb",
-                                Csl = "invalid query |||"
-                            },
+                        .QueryDataAsync(
+                            input: "invalid query |||",
+                            subscription: "sub-1",
+                            resourceGroup: "rg-1",
+                            resourceType: "Microsoft.OperationalInsights/workspaces",
+                            resourceName: "my-workspace",
+                            timeRange: "Last 24 hours",
                             cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -169,18 +169,75 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task VisualizeQueryAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            var expectedResponse = new VisualizeResults
+            {
+                Body = "base64encodedchart",
+                AttachmentContent = "chartdata",
+                AttachmentName = "chart.png"
+            };
+
+            using var responseMessage = new HttpResponseMessage
+            {
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
+
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(responseMessage)
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var httpClient = new HttpClient(mockHandler.Object);
+
+            using var client = new AzuremonitorlogsClient(
+                connectionRuntimeUrl: "https://test.azure.com/connection",
+                credential: mockCredential.Object,
+                httpClient: httpClient);
+
+            // Act
+            var result = await client
+                .VisualizeQueryAsync(
+                    input: "Heartbeat | summarize count() by Computer",
+                    subscription: "sub-1",
+                    resourceGroup: "rg-1",
+                    resourceType: "Microsoft.OperationalInsights/workspaces",
+                    resourceName: "my-workspace",
+                    timeRange: "Last 24 hours",
+                    chartType: "piechart",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("base64encodedchart", result.Body);
+            Assert.AreEqual("chart.png", result.AttachmentName);
+        }
+
+        [TestMethod]
         public void ConnectorException_ShouldContainExpectedProperties()
         {
             // Arrange & Act
-            var exception = new ConnectorException("kusto",
-                operation: "POST /ListKustoResults/false",
+            var exception = new ConnectorException("azuremonitorlogs",
+                operation: "POST /queryData",
                 statusCode: 403,
                 responseBody: "Access denied");
 
             // Assert
             Assert.AreEqual(403, exception.StatusCode);
             Assert.AreEqual("Access denied", exception.ResponseBody);
-            Assert.IsTrue(exception.Message.Contains("POST /ListKustoResults/false", StringComparison.Ordinal));
+            Assert.IsTrue(exception.Message.Contains("POST /queryData", StringComparison.Ordinal));
             Assert.IsTrue(exception.Message.Contains("403", StringComparison.Ordinal));
         }
 
@@ -192,9 +249,9 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             {
                 AdditionalProperties = new Dictionary<string, JsonElement>
                 {
-                    ["Timestamp"] = JsonSerializer.SerializeToElement("2026-04-03T12:00:00Z"),
-                    ["Source"] = JsonSerializer.SerializeToElement("East US"),
-                    ["EventCount"] = JsonSerializer.SerializeToElement(100)
+                    ["TimeGenerated"] = JsonSerializer.SerializeToElement("2026-05-01T12:00:00Z"),
+                    ["Computer"] = JsonSerializer.SerializeToElement("web-server-01"),
+                    ["CounterValue"] = JsonSerializer.SerializeToElement(95.5)
                 }
             };
 
@@ -202,16 +259,16 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var json = JsonSerializer.Serialize(row);
 
             // Assert
-            Assert.IsTrue(json.Contains("Timestamp", StringComparison.Ordinal));
-            Assert.IsTrue(json.Contains("East US", StringComparison.Ordinal));
-            Assert.IsTrue(json.Contains("100", StringComparison.Ordinal));
+            Assert.IsTrue(json.Contains("TimeGenerated", StringComparison.Ordinal));
+            Assert.IsTrue(json.Contains("web-server-01", StringComparison.Ordinal));
+            Assert.IsTrue(json.Contains("95.5", StringComparison.Ordinal));
         }
 
         [TestMethod]
         public void Row_DynamicSchema_DeserializesArbitraryProperties()
         {
             // Arrange
-            var json = """{"Timestamp":"2026-04-03","Source":"West US","Count":55}""";
+            var json = """{"TimeGenerated":"2026-05-01","Computer":"db-server-02","Count":55}""";
 
             // Act
             var result = JsonSerializer.Deserialize<Row>(json);
@@ -219,7 +276,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(result!.AdditionalProperties);
             Assert.AreEqual(3, result.AdditionalProperties!.Count);
-            Assert.AreEqual("West US", result.AdditionalProperties["Source"].GetString());
+            Assert.AreEqual("db-server-02", result.AdditionalProperties["Computer"].GetString());
             Assert.AreEqual(55, result.AdditionalProperties["Count"].GetInt32());
         }
 
@@ -231,7 +288,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(attribute, message: "Row should have [DynamicSchema] attribute.");
-            Assert.AreEqual("listKustoResultsSchemaPost", attribute!.OperationId);
+            Assert.AreEqual("QuerySchema", attribute!.OperationId);
         }
 
         [TestMethod]
@@ -241,10 +298,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var results = new VisualizeResults
             {
                 Body = "base64encodedchart",
-                BodyHtml = "<img src='data:image/png;base64,...' />",
                 AttachmentContent = "chartdata",
-                AttachmentName = "chart.png",
-                LinksToKustoExplorer = "https://dataexplorer.azure.com/..."
+                AttachmentName = "chart.png"
             };
 
             // Act
@@ -255,51 +310,48 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("base64encodedchart", deserialized!.Body);
             Assert.AreEqual("chart.png", deserialized.AttachmentName);
-            Assert.AreEqual("https://dataexplorer.azure.com/...", deserialized.LinksToKustoExplorer);
         }
 
         [TestMethod]
-        public void AsyncCommandResult_JsonSerialization_RoundTrips()
+        public void QueryDataInput_JsonSerialization_RoundTrips()
         {
             // Arrange
-            var result = new AsyncCommandResult
+            var input = new QueryDataInput
             {
-                State = "Completed",
-                Status = "Success",
-                OperationID = "op-12345"
+                Query = "Heartbeat | summarize count()",
+                TimeRangeType = "Relative",
+                Timerange = "Last 24 hours"
             };
 
             // Act
-            var json = JsonSerializer.Serialize(result);
-            var deserialized = JsonSerializer.Deserialize<AsyncCommandResult>(json);
+            var json = JsonSerializer.Serialize(input);
+            var deserialized = JsonSerializer.Deserialize<QueryDataInput>(json);
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual("Completed", deserialized!.State);
-            Assert.AreEqual("Success", deserialized.Status);
-            Assert.AreEqual("op-12345", deserialized.OperationID);
+            Assert.AreEqual("Heartbeat | summarize count()", deserialized!.Query);
+            Assert.AreEqual("Relative", deserialized.TimeRangeType);
         }
 
         [TestMethod]
-        public void QueryAndListSchema_JsonSerialization_RoundTrips()
+        public void VisualizeQueryInput_JsonSerialization_RoundTrips()
         {
             // Arrange
-            var schema = new QueryAndListSchema
+            var input = new VisualizeQueryInput
             {
-                Cluster = "https://mycluster.kusto.windows.net",
-                Db = "mydb",
-                Csl = "StormEvents | take 10"
+                Query = "Heartbeat | summarize count() by Computer",
+                TimeRangeType = "Relative",
+                Timerange = "Last 7 days"
             };
 
             // Act
-            var json = JsonSerializer.Serialize(schema);
-            var deserialized = JsonSerializer.Deserialize<QueryAndListSchema>(json);
+            var json = JsonSerializer.Serialize(input);
+            var deserialized = JsonSerializer.Deserialize<VisualizeQueryInput>(json);
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual("https://mycluster.kusto.windows.net", deserialized!.Cluster);
-            Assert.AreEqual("mydb", deserialized.Db);
-            Assert.AreEqual("StormEvents | take 10", deserialized.Csl);
+            Assert.AreEqual("Heartbeat | summarize count() by Computer", deserialized!.Query);
+            Assert.AreEqual("Last 7 days", deserialized.Timerange?.ToString());
         }
 
         [TestMethod]
@@ -309,7 +361,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             var httpClient = new HttpClient();
             var mockCredential = new Mock<TokenCredential>();
 
-            var client = new KustoClient(
+            var client = new AzuremonitorlogsClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object,
                 httpClient: httpClient);
@@ -327,7 +379,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
-            var client = new KustoClient(
+            var client = new AzuremonitorlogsClient(
                 connectionRuntimeUrl: "https://test.azure.com/connection",
                 credential: mockCredential.Object);
 
