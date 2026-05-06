@@ -8,7 +8,6 @@ using System.Text.Json.Serialization;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using global::Azure.Identity;
-using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -88,33 +87,6 @@ namespace Microsoft.Azure.Connectors.Sdk
                   ConnectorClientBase.CreateManagedIdentityCredential(managedIdentityClientId),
                   options)
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
-        /// with a custom token provider.
-        /// </summary>
-        /// <param name="tokenProvider">The token provider for authentication.</param>
-        /// <param name="options">The connector client options.</param>
-        /// <param name="logger">The logger instance.</param>
-        protected ConnectorClientBase(
-            ITokenProvider tokenProvider,
-            ConnectorClientOptions? options = null,
-            ILogger? logger = null)
-        {
-            ArgumentNullException.ThrowIfNull(tokenProvider);
-
-            options ??= new ConnectorClientOptions();
-            this._logger = logger ?? NullLogger.Instance;
-            this._connectionRuntimeUrl = options.BaseUri?.ToString().TrimEnd('/') ?? string.Empty;
-
-            var credential = new TokenProviderCredential(tokenProvider);
-            this._pipeline = HttpPipelineBuilder.Build(
-                options,
-                perRetryPolicies: new HttpPipelinePolicy[]
-                {
-                    new BearerTokenAuthenticationPolicy(credential, ApiHubScopes)
-                });
         }
 
         /// <inheritdoc />

@@ -18,9 +18,9 @@ This page explains the key concepts, components, and terminology used across the
  │               CONNECTORS .NET SDK  (client library)                 │
  │                                                                     │
  │  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐   │
- │  │ Generated Client │  │ ConnectorHttp-   │  │ ITokenProvider   │   │
- │  │ Office365Client  │  │ Client (retry,   │  │ (Managed ID /    │   │
- │  │ TeamsClient      │  │  auth headers)   │  │  connection str) │   │
+ │  │ Generated Client │  │ ConnectorHttp-   │  │ TokenCredential  │   │
+ │  │ Office365Client  │  │ Client (retry,   │  │ (Azure.Core /    │   │
+ │  │ TeamsClient      │  │  auth headers)   │  │  Azure.Identity)  │   │
  │  │ SharePointClient │  │                  │  │                  │   │
  │  └────────┬─────────┘  └────────┬─────────┘  └────────┬─────────┘   │
  │           └──────────────┬──────┘                      │            │
@@ -210,7 +210,7 @@ The **Azure Connectors .NET SDK** (`Microsoft.Azure.Connectors.Sdk`) is a client
 |-----------|---------------|
 | **ConnectorClientBase** | Abstract base class all generated clients inherit from |
 | **ConnectorHttpClient** | HTTP client with automatic Bearer token injection and retry policy |
-| **ITokenProvider** | Pluggable authentication (managed identity, connection strings, custom) |
+| **TokenCredential** | Azure.Core authentication (DefaultAzureCredential, ManagedIdentityCredential, etc.) |
 | **ConnectorJsonSerializer** | JSON serialization with connector conventions |
 | **ConnectorConnectionResolver** | Resolves connection settings from Azure Functions app configuration |
 | **TriggerCallbackPayload\<T\>** | Deserializer for trigger callback envelopes |
@@ -245,15 +245,16 @@ Swagger definition (ARM)
 
 See [GENERATION.md](../GENERATION.md) for generation instructions.
 
-### Token Providers (Authentication)
+### Authentication (Azure.Core TokenCredential)
 
-The SDK supports pluggable authentication via `ITokenProvider`:
+The SDK authenticates using `Azure.Core.TokenCredential`, the standard Azure SDK authentication abstraction. Any credential from `Azure.Identity` works:
 
-| Provider | Use Case |
+| Credential | Use Case |
 |----------|----------|
-| `ManagedIdentityTokenProvider` | Azure-hosted apps — uses `ManagedIdentityCredential` (system-assigned or user-assigned managed identity) |
-| `ConnectionStringTokenProvider` | API key authentication or direct token pass-through |
-| Custom `ITokenProvider` | Any authentication scheme you implement |
+| `DefaultAzureCredential` | Local development and Azure-hosted apps (default when no credential is specified) |
+| `ManagedIdentityCredential` | Azure-hosted apps — uses system-assigned or user-assigned managed identity |
+| `ClientSecretCredential` | Service principal authentication |
+| Any `TokenCredential` | Any authentication scheme supported by Azure.Identity |
 
 ```text
   Your App
@@ -262,12 +263,12 @@ The SDK supports pluggable authentication via `ITokenProvider`:
  Office365Client
     │
     ▼
- ConnectorHttpClient ──► ITokenProvider.GetAccessTokenAsync()
+ ConnectorClientBase ──► TokenCredential.GetTokenAsync()
     │                          │
     │                          ▼
-    │                   ManagedIdentityCredential
-    │                     ├── System-assigned identity (default)
-    │                     └── User-assigned identity (with clientId)
+    │                   BearerTokenAuthenticationPolicy
+    │                     ├── DefaultAzureCredential (default)
+    │                     └── ManagedIdentityCredential (with clientId)
     │
     ▼
  HTTP request with "Authorization: Bearer {token}"
@@ -295,8 +296,8 @@ Here is the complete path of an SDK call from your code to the SaaS service and 
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐
-  │  3. ConnectorHttpClient acquires Bearer token        │
-  │     via ITokenProvider (managed identity / key)      │
+  │  3. ConnectorClientBase acquires Bearer token       │
+  │     via TokenCredential (Azure.Core pipeline)        │
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐

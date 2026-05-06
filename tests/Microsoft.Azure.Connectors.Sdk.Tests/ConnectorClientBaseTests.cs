@@ -2,36 +2,13 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
-using Microsoft.Azure.Connectors.Sdk.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Microsoft.Azure.Connectors.Sdk.Tests
 {
     [TestClass]
     public class ConnectorClientBaseTests
     {
-        [TestMethod]
-        public void Constructor_WithValidTokenProvider_ShouldCreateInstance()
-        {
-            // Arrange
-            var tokenProvider = new Mock<ITokenProvider>();
-
-            // Act
-            using var client = new TestConnectorClient(tokenProvider.Object);
-
-            // Assert
-            Assert.IsNotNull(client);
-            Assert.AreEqual("TestConnector", client.ConnectorName);
-        }
-
-        [TestMethod]
-        public void Constructor_WithNullTokenProvider_ShouldThrowArgumentNullException()
-        {
-            // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new TestConnectorClient(null!));
-        }
-
         [TestMethod]
         public void Constructor_WithConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -44,11 +21,17 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
+        {
+            // Arrange & Act & Assert
+            Assert.ThrowsExactly<ArgumentNullException>(() => new TestConnectorClientWithUrl(null!));
+        }
+
+        [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var tokenProvider = new Mock<ITokenProvider>();
-            var client = new TestConnectorClient(tokenProvider.Object);
+            var client = new TestConnectorClientWithUrl("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -122,16 +105,6 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.AreEqual(ConnectorClientOptions.ServiceVersion.V1, options.Version);
-        }
-
-        private class TestConnectorClient : ConnectorClientBase
-        {
-            public TestConnectorClient(ITokenProvider tokenProvider)
-                : base(tokenProvider)
-            {
-            }
-
-            public override string ConnectorName => "TestConnector";
         }
 
         private class TestConnectorClientWithUrl : ConnectorClientBase

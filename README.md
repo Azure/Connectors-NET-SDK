@@ -41,8 +41,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 │   Azure Connectors .NET SDK         │
 │   Microsoft.Azure.Connectors.Sdk    │
 │                                     │
-│                                     │
-│  • ManagedIdentityTokenProvider     │
+│  • Azure.Core TokenCredential auth  │
 │  • ConnectorHttpClient + retry      │
 │  • ConnectorJsonSerializer          │
 └─────────────────────────────────────┘
@@ -118,11 +117,13 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 
 ### Authentication
 
-| Provider | Use Case |
+Authentication uses Azure.Core `TokenCredential` directly — any credential from `Azure.Identity` works:
+
+| Credential | Use Case |
 |----------|----------|
-| `ManagedIdentityTokenProvider` | Azure-hosted apps (App Service, Functions) |
-| `ConnectionStringTokenProvider` | Local development with API keys |
-| `TokenCredentialTokenProvider` | Wraps any `Azure.Core.TokenCredential` (DefaultAzureCredential, etc.) |
+| `DefaultAzureCredential` | Local development and Azure-hosted apps (default when no credential is specified) |
+| `ManagedIdentityCredential` | Azure-hosted apps with system-assigned or user-assigned managed identity |
+| `ClientSecretCredential` | Service principal authentication |
 
 ### HTTP
 
