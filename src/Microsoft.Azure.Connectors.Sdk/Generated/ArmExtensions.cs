@@ -914,33 +914,6 @@ public class ExportTemplateRequest
 #region Client
 
 /// <summary>
-/// Exception thrown when arm connector operations fail.
-/// </summary>
-public class ArmConnectorException : Exception
-{
-    private const int MaxResponseBodyLength = 2000;
-
-    public string Operation { get; }
-    public int StatusCode { get; }
-    public string ResponseBody { get; }
-
-    public ArmConnectorException(string operation, int statusCode, string responseBody)
-        : base($"{operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
-    {
-        this.Operation = operation;
-        this.StatusCode = statusCode;
-        this.ResponseBody = responseBody;
-    }
-
-    private static string TruncateBody(string body)
-    {
-        if (string.IsNullOrEmpty(body) || body.Length <= MaxResponseBodyLength)
-            return body;
-        return body.Substring(0, MaxResponseBodyLength) + "...[truncated]";
-    }
-}
-
-/// <summary>
 /// Typed client for arm connector.
 /// </summary>
 public class ArmClient : ConnectorClientBase
