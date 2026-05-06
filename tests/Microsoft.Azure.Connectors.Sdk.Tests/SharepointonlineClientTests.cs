@@ -165,7 +165,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(404, exception.StatusCode);
+            Assert.AreEqual(404, exception.Status);
             Assert.IsTrue(exception.ResponseBody.Contains("Site not found", StringComparison.Ordinal));
         }
 
@@ -179,7 +179,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
                 responseBody: "Access denied");
 
             // Assert
-            Assert.AreEqual(403, exception.StatusCode);
+            Assert.AreEqual(403, exception.Status);
             Assert.AreEqual("Access denied", exception.ResponseBody);
             Assert.IsTrue(exception.Message.Contains("GET /test", StringComparison.Ordinal));
             Assert.IsTrue(exception.Message.Contains("403", StringComparison.Ordinal));
