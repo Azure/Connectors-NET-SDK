@@ -1015,16 +1015,14 @@ public class ArmClient : IDisposable
         {
             var baseUri = new Uri(this._connectionRuntimeUrl);
             var nextUri = new Uri(path);
-            if (!string.Equals(baseUri.Scheme, nextUri.Scheme, StringComparison.OrdinalIgnoreCase) ||
-                !string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase) ||
-                baseUri.Port != nextUri.Port)
+            if (string.Equals(baseUri.Host, nextUri.Host, StringComparison.OrdinalIgnoreCase))
             {
-                throw new InvalidOperationException(
-                    $"NextLink URI '{nextUri.Scheme}://{nextUri.Host}:{nextUri.Port}' does not match connection URI '{baseUri.Scheme}://{baseUri.Host}:{baseUri.Port}'. " +
-                    "Refusing to send credentials to an unexpected host.");
+                return path;
             }
 
-            return path;
+            // NOTE(daviburg): NextLink from a different host (e.g., codeless connector backend).
+            // Extract path+query and route through the connection runtime URL.
+            return $"{this._connectionRuntimeUrl}{nextUri.PathAndQuery}";
         }
 
         return $"{this._connectionRuntimeUrl}{path}";
