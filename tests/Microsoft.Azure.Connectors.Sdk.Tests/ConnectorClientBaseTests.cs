@@ -43,6 +43,58 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             client.Dispose();
         }
 
+        [TestMethod]
+        public void ResolveUrl_SameHost_ReturnsOriginalUrl()
+        {
+            // Arrange
+            using var client = new TestConnectorClientWithUrl("https://proxy.azure-apihub.net/apim/arm/conn123");
+
+            // Act
+            var result = client.TestResolveUrl("https://proxy.azure-apihub.net/apim/arm/conn123/subscriptions?page=2");
+
+            // Assert
+            Assert.AreEqual("https://proxy.azure-apihub.net/apim/arm/conn123/subscriptions?page=2", result);
+        }
+
+        [TestMethod]
+        public void ResolveUrl_ForeignHost_RewritesThroughProxy()
+        {
+            // Arrange
+            using var client = new TestConnectorClientWithUrl("https://proxy.azure-apihub.net/apim/arm/conn123");
+
+            // Act
+            var result = client.TestResolveUrl("https://management.azure.com/subscriptions/sub-id/resourceGroups?$skiptoken=abc");
+
+            // Assert — path+query extracted, routed through connection runtime URL
+            Assert.AreEqual("https://proxy.azure-apihub.net/apim/arm/conn123/subscriptions/sub-id/resourceGroups?$skiptoken=abc", result);
+        }
+
+        [TestMethod]
+        public void ResolveUrl_SameHostDifferentScheme_RewritesThroughProxy()
+        {
+            // Arrange
+            using var client = new TestConnectorClientWithUrl("https://proxy.azure-apihub.net/apim/arm/conn123");
+
+            // Act — http instead of https on same host must not send credentials over http
+            var result = client.TestResolveUrl("http://proxy.azure-apihub.net/apim/arm/conn123/subscriptions");
+
+            // Assert — rewritten through the secure connection runtime URL
+            Assert.AreEqual("https://proxy.azure-apihub.net/apim/arm/conn123/apim/arm/conn123/subscriptions", result);
+        }
+
+        [TestMethod]
+        public void ResolveUrl_RelativePath_PrependsConnectionRuntimeUrl()
+        {
+            // Arrange
+            using var client = new TestConnectorClientWithUrl("https://proxy.azure-apihub.net/apim/arm/conn123");
+
+            // Act
+            var result = client.TestResolveUrl("/subscriptions");
+
+            // Assert
+            Assert.AreEqual("https://proxy.azure-apihub.net/apim/arm/conn123/subscriptions", result);
+        }
+
         private class TestConnectorClient : ConnectorClientBase
         {
             public TestConnectorClient(ITokenProvider tokenProvider)
@@ -51,6 +103,18 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             }
 
             public override string ConnectorName => "TestConnector";
+        }
+
+        private class TestConnectorClientWithUrl : ConnectorClientBase
+        {
+            public TestConnectorClientWithUrl(string connectionRuntimeUrl)
+                : base(connectionRuntimeUrl)
+            {
+            }
+
+            public override string ConnectorName => "TestConnector";
+
+            public string TestResolveUrl(string path) => this.ResolveUrl(path);
         }
     }
 }
