@@ -124,6 +124,11 @@ public class SmtpClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected SmtpClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "smtp";
 
@@ -133,7 +138,7 @@ public class SmtpClient : ConnectorClientBase
     /// <remarks>This operation sends an email to one or more recipients.</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
+    public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
     {
         var path = $"/SendEmailV3";
         await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);

@@ -43,6 +43,17 @@ namespace Microsoft.Azure.Connectors.Sdk
         private bool _disposed;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class.
+        /// This constructor exists for mocking frameworks (e.g. Moq) and should not be used directly.
+        /// </summary>
+        protected ConnectorClientBase()
+        {
+            this._pipeline = null!;
+            this._logger = NullLogger.Instance;
+            this._connectionRuntimeUrl = string.Empty;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
         /// with a connection runtime URL and optional Azure credential.
         /// </summary>
@@ -140,7 +151,7 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// <param name="body">Optional request body (will be JSON-serialized).</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The deserialized response.</returns>
-        protected async Task<TResponse> CallConnectorAsync<TResponse>(
+        protected virtual async Task<TResponse> CallConnectorAsync<TResponse>(
             HttpMethod method,
             string path,
             object? body = null,
@@ -197,7 +208,7 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// <param name="path">The relative path or absolute URL.</param>
         /// <param name="body">Optional request body (will be JSON-serialized).</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        protected async Task CallConnectorAsync(
+        protected virtual async Task CallConnectorAsync(
             HttpMethod method,
             string path,
             object? body = null,

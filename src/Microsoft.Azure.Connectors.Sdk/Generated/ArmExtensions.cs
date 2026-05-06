@@ -941,6 +941,11 @@ public class ArmClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected ArmClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "arm";
 
@@ -951,7 +956,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Lists the subscription locations response.</returns>
-    public async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
+    public virtual async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -966,7 +971,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read a subscription response.</returns>
-    public async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
+    public virtual async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -979,7 +984,7 @@ public class ArmClient : ConnectorClientBase
     /// </summary>
     /// <remarks>Gets a list of all the subscriptions to which the principal has access.</remarks>
     /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-    public ConnectorPageable<SubscriptionListResult, Subscription> SubscriptionsListAsync()
+    public virtual ConnectorPageable<SubscriptionListResult, Subscription> SubscriptionsListAsync()
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -999,7 +1004,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="waitForDeployment">Wait for Deployment</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read a template deployment response.</returns>
-    public async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool waitForDeployment = default, CancellationToken cancellationToken = default)
+    public virtual async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool waitForDeployment = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (waitForDeployment != default)
@@ -1020,7 +1025,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="waitForDeployment">Wait for Deployment</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create or update a template deployment response.</returns>
-    public async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool waitForDeployment = default, CancellationToken cancellationToken = default)
+    public virtual async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool waitForDeployment = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (waitForDeployment != default)
@@ -1038,7 +1043,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="deploymentName">Deployment Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
+    public virtual async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1054,7 +1059,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="deploymentName">Deployment Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
+    public virtual async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1072,7 +1077,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Validate a template deployment response.</returns>
-    public async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
+    public virtual async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1089,7 +1094,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="deploymentName">Deployment Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Export deployment template response.</returns>
-    public async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
+    public virtual async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1106,7 +1111,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="filter">Filter</param>
     /// <param name="top">Top</param>
     /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
-    public ConnectorPageable<DeploymentListResult, DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default)
+    public virtual ConnectorPageable<DeploymentListResult, DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1130,7 +1135,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="operationId">Operation Id</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read a template deployment operation response.</returns>
-    public async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
+    public virtual async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1147,7 +1152,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="deploymentName">Deployment Name</param>
     /// <param name="top">Top</param>
     /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
-    public ConnectorPageable<DeploymentOperationsListResult, DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default)
+    public virtual ConnectorPageable<DeploymentOperationsListResult, DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default)
     {
         var queryParams = new List<string>();
         if (top != default)
@@ -1167,7 +1172,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceProvider">Resource Provider</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Unregister resource provider response.</returns>
-    public async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
+    public virtual async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1183,7 +1188,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceProvider">Resource Provider</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Register resource provider response.</returns>
-    public async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
+    public virtual async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1199,7 +1204,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="top">Top</param>
     /// <param name="expand">Expand</param>
     /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
-    public ConnectorPageable<ProviderListResult, Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default)
+    public virtual ConnectorPageable<ProviderListResult, Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default)
     {
         var queryParams = new List<string>();
         if (top != default)
@@ -1222,7 +1227,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="expand">Expand</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read resource provider response.</returns>
-    public async Task<Provider> ProvidersGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string expand = default, CancellationToken cancellationToken = default)
+    public virtual async Task<Provider> ProvidersGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string expand = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (expand != default)
@@ -1242,7 +1247,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="expand">Expand</param>
     /// <param name="top">Top</param>
     /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-    public ConnectorPageable<ResourceListResult, GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default)
+    public virtual ConnectorPageable<ResourceListResult, GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1266,7 +1271,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read a resource group response.</returns>
-    public async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+    public virtual async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1283,7 +1288,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create or update a resource group response.</returns>
-    public async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
+    public virtual async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1298,7 +1303,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+    public virtual async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1315,7 +1320,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update an existing resource group response.</returns>
-    public async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
+    public virtual async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1332,7 +1337,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Export a resource group template response.</returns>
-    public async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
+    public virtual async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1348,7 +1353,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="filter">Filter</param>
     /// <param name="top">Top</param>
     /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-    public ConnectorPageable<ResourceGroupListResult, ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default)
+    public virtual ConnectorPageable<ResourceGroupListResult, ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1371,7 +1376,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="expand">Expand</param>
     /// <param name="top">Top</param>
     /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-    public ConnectorPageable<ResourceListResult, GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default)
+    public virtual ConnectorPageable<ResourceListResult, GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1398,7 +1403,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="clientApiVersion">Client Api Version</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read a resource response.</returns>
-    public async Task<GenericResource> ResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
+    public virtual async Task<GenericResource> ResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (clientApiVersion != default)
@@ -1419,7 +1424,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="clientApiVersion">Client Api Version</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create or update a resource response.</returns>
-    public async Task<GenericResource> ResourcesCreateOrUpdateByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, GenericResource input, string clientApiVersion, CancellationToken cancellationToken = default)
+    public virtual async Task<GenericResource> ResourcesCreateOrUpdateByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, GenericResource input, string clientApiVersion, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (clientApiVersion != default)
@@ -1438,7 +1443,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="shortResourceId">Short Resource Id</param>
     /// <param name="clientApiVersion">Client Api Version</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ResourcesDeleteByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
+    public virtual async Task ResourcesDeleteByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (clientApiVersion != default)
@@ -1460,7 +1465,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="clientApiVersion">Client Api Version</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Invoke resource operation response.</returns>
-    public async Task<ResourcesInvokeResponse> ResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string actionName, ResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
+    public virtual async Task<ResourcesInvokeResponse> ResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string actionName, ResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (clientApiVersion != default)
@@ -1479,7 +1484,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="clientApiVersion">Client Api Version</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Read a resource in provider response.</returns>
-    public async Task<GenericResource> ProviderResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
+    public virtual async Task<GenericResource> ProviderResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (clientApiVersion != default)
@@ -1499,7 +1504,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="clientApiVersion">Client Api Version</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Invoke resource operation in provider response.</returns>
-    public async Task<ProviderResourcesInvokeResponse> ProviderResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, ProviderResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
+    public virtual async Task<ProviderResourcesInvokeResponse> ProviderResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, ProviderResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (clientApiVersion != default)
@@ -1517,7 +1522,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="tagValue">Tag Value</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create or update a subscription resource tag value response.</returns>
-    public async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
+    public virtual async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1533,7 +1538,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="tagName">Tag Name</param>
     /// <param name="tagValue">Tag Value</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
+    public virtual async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1549,7 +1554,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="tagName">Tag Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create or update a subscription resource tag name response.</returns>
-    public async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
+    public virtual async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1564,7 +1569,7 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="tagName">Tag Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
+    public virtual async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
@@ -1578,7 +1583,7 @@ public class ArmClient : ConnectorClientBase
     /// <remarks>Lists all the subscription resource tags.</remarks>
     /// <param name="subscription">Subscription</param>
     /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
-    public ConnectorPageable<TagsListResult, TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription)
+    public virtual ConnectorPageable<TagsListResult, TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");

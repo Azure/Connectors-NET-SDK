@@ -370,6 +370,11 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected OnedriveforbusinessClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "onedriveforbusiness";
 
@@ -380,7 +385,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="file">File</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file metadata response.</returns>
-    public async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
         return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -394,7 +399,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Update file response.</returns>
-    public async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
         return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken);
@@ -406,7 +411,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <remarks>This operation deletes a file.</remarks>
     /// <param name="file">File</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
         await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
@@ -419,7 +424,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="filePath">File Path</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file metadata using path response.</returns>
-    public async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -436,7 +441,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="inferContentType">Infer Content Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file content using path response.</returns>
-    public async Task<byte[]> GetFileContentByPathAsync(string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetFileContentByPathAsync(string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -455,7 +460,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="inferContentType">Infer Content Type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file content response.</returns>
-    public async Task<byte[]> GetFileContentAsync(string file, bool inferContentType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> GetFileContentAsync(string file, bool inferContentType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (inferContentType != default)
@@ -473,7 +478,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="fileName">File Name</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create file response.</returns>
-    public async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (folderPath != default)
@@ -493,7 +498,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Upload file from URL response.</returns>
-    public async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sourceURL != default)
@@ -515,7 +520,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Copy file response.</returns>
-    public async Task<BlobMetadata> CopyDriveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CopyDriveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (destinationFilePath != default)
@@ -535,7 +540,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Copy file using path response.</returns>
-    public async Task<BlobMetadata> CopyDriveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> CopyDriveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -557,7 +562,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Move or rename a file response.</returns>
-    public async Task<BlobMetadata> MoveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> MoveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (destinationFilePath != default)
@@ -577,7 +582,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Move or rename a file using path response.</returns>
-    public async Task<BlobMetadata> MoveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<BlobMetadata> MoveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -598,7 +603,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="targetType">Target type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Convert file response.</returns>
-    public async Task<byte[]> ConvertFileAsync(string file, string targetType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> ConvertFileAsync(string file, string targetType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (targetType != default)
@@ -615,7 +620,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="targetType">Target type</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Convert file using path response.</returns>
-    public async Task<byte[]> ConvertFileByPathAsync(string filePath, string targetType = default, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> ConvertFileByPathAsync(string filePath, string targetType = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -634,7 +639,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="thumbnailSize">Thumbnail Size</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get file thumbnail response.</returns>
-    public async Task<Thumbnail> GetFileThumbnailAsync(string file, string thumbnailSize, CancellationToken cancellationToken = default)
+    public virtual async Task<Thumbnail> GetFileThumbnailAsync(string file, string thumbnailSize, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (thumbnailSize != default)
@@ -649,7 +654,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <remarks>This operation gets the list of files and subfolders in the root folder.</remarks>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The List files in root folder response.</returns>
-    public async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/folders";
         return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -665,7 +670,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="numberOfFilesToReturn">Number of files to return</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Find files in folder response.</returns>
-    public async Task<List<BlobMetadata>> FindFilesAsync(string folder, string searchQuery, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> FindFilesAsync(string folder, string searchQuery, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (searchQuery != default)
@@ -688,7 +693,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="numberOfFilesToReturn">Number of files to return</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Find files in folder by path response.</returns>
-    public async Task<List<BlobMetadata>> FindFilesByPathAsync(string searchQuery, string folderPath, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> FindFilesByPathAsync(string searchQuery, string folderPath, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (searchQuery != default)
@@ -712,7 +717,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="linkScope">Link scope</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create share link response.</returns>
-    public async Task<SharingLink> CreateShareLinkAsync(string file, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
+    public virtual async Task<SharingLink> CreateShareLinkAsync(string file, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (linkType != default)
@@ -732,7 +737,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="linkScope">Link scope</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Create share link by path response.</returns>
-    public async Task<SharingLink> CreateShareLinkByPathAsync(string filePath, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
+    public virtual async Task<SharingLink> CreateShareLinkByPathAsync(string filePath, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filePath != default)
@@ -754,7 +759,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <param name="overwrite">Overwrite</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Extract archive to folder response.</returns>
-    public async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
+    public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sourceArchiveFilePath != default)
@@ -773,7 +778,7 @@ public class OnedriveforbusinessClient : ConnectorClientBase
     /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
     /// <param name="folder">Folder</param>
     /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-    public ConnectorPageable<BlobMetadataPage, BlobMetadata> ListFolderAsync(string folder)
+    public virtual ConnectorPageable<BlobMetadataPage, BlobMetadata> ListFolderAsync(string folder)
     {
         var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
         return new ConnectorPageable<BlobMetadataPage, BlobMetadata>(

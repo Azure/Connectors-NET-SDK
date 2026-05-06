@@ -702,6 +702,11 @@ public class Office365usersClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected Office365usersClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "office365users";
 
@@ -711,7 +716,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <remarks>Updates the profile of the current user</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task UpdateMyProfileAsync(GraphUserUpdateable input, CancellationToken cancellationToken = default)
+    public virtual async Task UpdateMyProfileAsync(GraphUserUpdateable input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me";
         await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
@@ -723,7 +728,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <remarks>Updates the profile photo of the current user. The size of the photo must be less than 4 MB.</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task UpdateMyPhotoAsync(byte[] input, CancellationToken cancellationToken = default)
+    public virtual async Task UpdateMyPhotoAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/photo/$value";
         await this.CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken);
@@ -738,7 +743,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get my trending documents response.</returns>
-    public async Task<MyTrendingDocumentsResponse> MyTrendingDocumentsAsync(string filterQuery = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+    public virtual async Task<MyTrendingDocumentsResponse> MyTrendingDocumentsAsync(string filterQuery = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -758,7 +763,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="userUPN">User (UPN)</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get relevant people response.</returns>
-    public async Task<LinklessEntityListResponseListPerson> RelevantPeopleAsync(string userUPN, CancellationToken cancellationToken = default)
+    public virtual async Task<LinklessEntityListResponseListPerson> RelevantPeopleAsync(string userUPN, CancellationToken cancellationToken = default)
     {
         var path = $"/users/{Uri.EscapeDataString(userUPN.ToString())}/relevantpeople";
         return await this.CallConnectorAsync<LinklessEntityListResponseListPerson>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -771,7 +776,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="userUPN">User (UPN)</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get user photo metadata response.</returns>
-    public async Task<ClientPhotoMetadata> UserPhotoMetadataAsync(string userUPN, CancellationToken cancellationToken = default)
+    public virtual async Task<ClientPhotoMetadata> UserPhotoMetadataAsync(string userUPN, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (userUPN != default)
@@ -790,7 +795,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get trending documents response.</returns>
-    public async Task<TrendingDocumentsResponse> TrendingDocumentsAsync(string userUPN, string filterQuery = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+    public virtual async Task<TrendingDocumentsResponse> TrendingDocumentsAsync(string userUPN, string filterQuery = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filterQuery != default)
@@ -810,7 +815,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Send an HTTP request response.</returns>
-    public async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/httprequest";
         return await this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
@@ -825,7 +830,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="top">Top</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get direct reports (V2) response.</returns>
-    public async Task<DirectReportsResponse> DirectReportsAsync(string userUPN, string selectFields = default, int top = default, CancellationToken cancellationToken = default)
+    public virtual async Task<DirectReportsResponse> DirectReportsAsync(string userUPN, string selectFields = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (selectFields != default)
@@ -844,7 +849,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="selectFields">Select fields</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get manager (V2) response.</returns>
-    public async Task<GraphUser> ManagerAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
+    public virtual async Task<GraphUser> ManagerAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (selectFields != default)
@@ -860,7 +865,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="selectFields">Select fields</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get my profile (V2) response.</returns>
-    public async Task<GraphUser> MyProfileAsync(string selectFields = default, CancellationToken cancellationToken = default)
+    public virtual async Task<GraphUser> MyProfileAsync(string selectFields = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (selectFields != default)
@@ -877,7 +882,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="top">Top</param>
     /// <param name="isSearchTermRequired">Is search term required</param>
     /// <returns>An async enumerable of <see cref="User"/> items across all pages.</returns>
-    public ConnectorPageable<EntityListResponseIReadOnlyListUser, User> SearchUserAsync(string searchTerm = default, int top = default, bool isSearchTermRequired = default)
+    public virtual ConnectorPageable<EntityListResponseIReadOnlyListUser, User> SearchUserAsync(string searchTerm = default, int top = default, bool isSearchTermRequired = default)
     {
         var queryParams = new List<string>();
         if (searchTerm != default)
@@ -899,7 +904,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="userUPN">User (UPN)</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get user photo (V2) response.</returns>
-    public async Task<byte[]> UserPhotoAsync(string userUPN, CancellationToken cancellationToken = default)
+    public virtual async Task<byte[]> UserPhotoAsync(string userUPN, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/photo/$value";
         return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
@@ -913,7 +918,7 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="selectFields">Select fields</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Get user profile (V2) response.</returns>
-    public async Task<GraphUser> UserProfileAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
+    public virtual async Task<GraphUser> UserProfileAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (selectFields != default)

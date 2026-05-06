@@ -276,6 +276,11 @@ public class KustoClient : ConnectorClientBase
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance for mocking.
+    /// </summary>
+    protected KustoClient() { }
+
     /// <inheritdoc />
     public override string ConnectorName => "kusto";
 
@@ -286,7 +291,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run KQL query response.</returns>
-    public async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+    public virtual async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoResults/false";
         return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
@@ -299,7 +304,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run show control command response.</returns>
-    public async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
+    public virtual async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoShowCommandResults";
         return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
@@ -312,7 +317,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Query schema response.</returns>
-    public async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+    public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoResultsSchema";
         return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
@@ -325,7 +330,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run KQL query and render a chart response.</returns>
-    public async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
+    public virtual async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunKustoAndVisualizeResults/false";
         return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
@@ -338,7 +343,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run control command and render a chart response.</returns>
-    public async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
+    public virtual async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunKustoAndVisualizeResults/true";
         return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
@@ -351,7 +356,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="input">The request body.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Run async control command response.</returns>
-    public async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
+    public virtual async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunAsyncControlCommandAndWait";
         return await this.CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken);
@@ -365,7 +370,7 @@ public class KustoClient : ConnectorClientBase
     /// <param name="sessionId">sessionId</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Kusto Query MCP Server response.</returns>
-    public async Task<MCPQueryResponse> McpKustoQueryManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+    public virtual async Task<MCPQueryResponse> McpKustoQueryManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (sessionId != default)
