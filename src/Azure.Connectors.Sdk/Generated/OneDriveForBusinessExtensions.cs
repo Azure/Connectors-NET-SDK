@@ -148,6 +148,10 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     }
 
     #endregion Trigger Payloads
+}
+
+namespace Azure.Connectors.Sdk.OneDriveForBusiness
+{
 
     #region Trigger Operation Constants
 
@@ -346,10 +350,6 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
 
     #endregion Trigger Parameter Metadata
 
-}
-
-namespace Azure.Connectors.Sdk.OneDriveForBusiness
-{
 
     #region Client
 

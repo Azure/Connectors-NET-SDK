@@ -266,6 +266,10 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     #endregion Trigger Payloads
+}
+
+namespace Azure.Connectors.Sdk.AzureBlob
+{
 
     #region Trigger Operation Constants
 
@@ -323,10 +327,6 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
     #endregion Trigger Parameter Metadata
 
-}
-
-namespace Azure.Connectors.Sdk.AzureBlob
-{
 
     #region Client
 

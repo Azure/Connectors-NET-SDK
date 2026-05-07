@@ -2123,6 +2123,10 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     #endregion Trigger Payloads
+}
+
+namespace Azure.Connectors.Sdk.Office365
+{
 
     #region Trigger Operation Constants
 
@@ -2543,10 +2547,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
     #endregion Trigger Parameter Metadata
 
-}
-
-namespace Azure.Connectors.Sdk.Office365
-{
 
     #region Client
 

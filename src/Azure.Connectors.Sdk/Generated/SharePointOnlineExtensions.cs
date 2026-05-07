@@ -992,6 +992,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     #endregion Trigger Payloads
+}
+
+namespace Azure.Connectors.Sdk.SharePointOnline
+{
 
     #region Trigger Operation Constants
 
@@ -1242,10 +1246,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     #endregion Trigger Parameter Metadata
 
-}
-
-namespace Azure.Connectors.Sdk.SharePointOnline
-{
 
     #region Client
 

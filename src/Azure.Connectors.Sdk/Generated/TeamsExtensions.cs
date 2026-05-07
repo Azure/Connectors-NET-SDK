@@ -1270,6 +1270,10 @@ namespace Azure.Connectors.Sdk.Teams.Models
     #region Trigger Payloads
 
     #endregion Trigger Payloads
+}
+
+namespace Azure.Connectors.Sdk.Teams
+{
 
     #region Trigger Operation Constants
 
@@ -1447,10 +1451,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
     #endregion Trigger Parameter Metadata
 
-}
-
-namespace Azure.Connectors.Sdk.Teams
-{
 
     #region Client
 
