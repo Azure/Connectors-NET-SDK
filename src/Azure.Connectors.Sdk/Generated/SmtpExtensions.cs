@@ -14,6 +14,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Smtp.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -100,7 +101,6 @@ namespace Azure.Connectors.Sdk.Smtp.Models
 
 namespace Azure.Connectors.Sdk.Smtp
 {
-    using Azure.Connectors.Sdk.Smtp.Models;
 
     #region Client
 

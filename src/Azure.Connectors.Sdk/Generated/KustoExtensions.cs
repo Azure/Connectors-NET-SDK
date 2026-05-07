@@ -14,6 +14,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Kusto.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -252,7 +253,6 @@ namespace Azure.Connectors.Sdk.Kusto.Models
 
 namespace Azure.Connectors.Sdk.Kusto
 {
-    using Azure.Connectors.Sdk.Kusto.Models;
 
     #region Client
 

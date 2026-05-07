@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Teams.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -1450,7 +1451,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
 namespace Azure.Connectors.Sdk.Teams
 {
-    using Azure.Connectors.Sdk.Teams.Models;
 
     #region Client
 

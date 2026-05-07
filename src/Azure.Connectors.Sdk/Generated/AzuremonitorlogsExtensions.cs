@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -235,7 +236,6 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
 
 namespace Azure.Connectors.Sdk.Azuremonitorlogs
 {
-    using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
 
     #region Client
 

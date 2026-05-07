@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Arm.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -920,7 +921,6 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
 namespace Azure.Connectors.Sdk.Arm
 {
-    using Azure.Connectors.Sdk.Arm.Models;
 
     #region Client
 

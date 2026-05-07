@@ -14,6 +14,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Mq.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -228,7 +229,6 @@ namespace Azure.Connectors.Sdk.Mq.Models
 
 namespace Azure.Connectors.Sdk.Mq
 {
-    using Azure.Connectors.Sdk.Mq.Models;
 
     #region Client
 

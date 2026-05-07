@@ -15,6 +15,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Office365.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -2546,7 +2547,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
 namespace Azure.Connectors.Sdk.Office365
 {
-    using Azure.Connectors.Sdk.Office365.Models;
 
     #region Client
 

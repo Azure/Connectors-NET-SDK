@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Office365users.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -679,7 +680,6 @@ namespace Azure.Connectors.Sdk.Office365users.Models
 
 namespace Azure.Connectors.Sdk.Office365users
 {
-    using Azure.Connectors.Sdk.Office365users.Models;
 
     #region Client
 

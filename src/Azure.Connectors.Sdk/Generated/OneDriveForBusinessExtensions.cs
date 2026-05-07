@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -349,7 +350,6 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
 
 namespace Azure.Connectors.Sdk.OneDriveForBusiness
 {
-    using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 
     #region Client
 
