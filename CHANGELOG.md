@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Extensible enum types for swagger enum properties** (#115)
+  - String properties with swagger `enum` arrays are now generated as `readonly struct` types following the Azure SDK extensible enum pattern
+  - Each struct provides static members for known values (IntelliSense discoverability), implicit string conversion (forward-compatible with new API values), case-insensitive equality, and a nested `JsonConverter` for `System.Text.Json` serialization
+  - Examples: `Importance` (low, normal, high), `ShowAs` (free, tentative, busy, oof, workingElsewhere, unknown), `Sensitivity` (normal, personal, private, confidential)
+  - Existing `string` assignments continue to compile via `implicit operator`
+
 ### Breaking Changes
 
 - **Constructor overhaul: `Uri` primary + `string` convenience + `ManagedIdentityCredential` default** (#111)
