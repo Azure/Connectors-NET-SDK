@@ -11,7 +11,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Http;
 /// <summary>
 /// Extension methods for HTTP operations.
 /// </summary>
-public static class HttpExtensions
+internal static class HttpExtensions
 {
     private const string JsonMediaType = "application/json";
 
