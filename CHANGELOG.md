@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **Output-only model properties now have `internal set`** — service-generated properties (ETag, LastModified, *DateTime timestamps) are no longer publicly settable. Use the new per-connector model factory classes to construct instances with these properties in tests (#106)
+
+### Changed
+
 - **Removed `ConnectorResponse<T>` class** and `ConnectorHttpClient.GetAsync<T>`, `PostAsync<TRequest, TResponse>`, `ParseResponseAsync<T>` methods — all generated clients use `ConnectorClientBase.CallConnectorAsync<T>` which returns `Task<T>` directly; no callers referenced these APIs (#99)
 - Renamed all generated connector namespaces from `Microsoft.Azure.Connectors.DirectClient.*` to `Microsoft.Azure.Connectors.Sdk.*` for consistency with the package name and cross-language SDKs (#87)
   - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
@@ -33,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Per-connector model factory classes** (`Office365ModelFactory`, `TeamsModelFactory`, etc.) — static factory methods for constructing model instances with output-only properties, following the [Azure SDK mocking guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-mocking-factory) (#106)
 - Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results
 - `ConnectorException` — unified exception type for all connector API failures (#88)
 - `ConnectorClientBase` now provides `CallConnectorAsync`, `ResolveUrl`, shared JSON options, and convenience constructors accepting `connectionRuntimeUrl` + `TokenCredential` (#88)
