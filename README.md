@@ -39,7 +39,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
                ▼
 ┌─────────────────────────────────────┐
 │   Azure Connectors .NET SDK         │
-│   Azure.Connectors.Sdk    │
+│   Azure.Connectors.Sdk              │
 │                                     │
 │  • Azure.Core TokenCredential auth  │
 │  • ConnectorHttpClient + retry      │

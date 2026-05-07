@@ -23,7 +23,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Assert — constant is registered in SdkConnectors.AvailableConnectors
             CollectionAssert.Contains(
-                Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors,
+                SdkConnectors.AvailableConnectors,
                 ConnectorNames.Office365);
         }
 
@@ -31,7 +31,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void ConnectorNames_SharePointOnline_MatchesRegisteredConnector()
         {
             CollectionAssert.Contains(
-                Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors,
+                SdkConnectors.AvailableConnectors,
                 ConnectorNames.Sharepointonline);
         }
 
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void ConnectorNames_Teams_MatchesRegisteredConnector()
         {
             CollectionAssert.Contains(
-                Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors,
+                SdkConnectors.AvailableConnectors,
                 ConnectorNames.Teams);
         }
 
@@ -54,7 +54,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ToHashSet();
 
             // Assert — every registered connector has a constant
-            foreach (var connector in Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors)
+            foreach (var connector in SdkConnectors.AvailableConnectors)
             {
                 Assert.IsTrue(
                     constants.Contains(connector),
@@ -72,7 +72,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .Select(field => (string)field.GetRawConstantValue()!)
                 .ToList();
 
-            var registered = Azure.Connectors.Sdk.SdkConnectors.AvailableConnectors;
+            var registered = SdkConnectors.AvailableConnectors;
 
             // Assert — every constant in ConnectorNames maps to a registered connector
             foreach (var constant in constants)
