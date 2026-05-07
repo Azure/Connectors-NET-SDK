@@ -77,6 +77,7 @@ Copy the generated `*Extensions.cs` files to your project.
 using System;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Identity;
 
 // Get connection runtime URL from Azure Portal
 var connectionRuntimeUrl = "https://...";
