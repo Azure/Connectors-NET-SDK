@@ -45,7 +45,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(received, message.LastModifiedDateTime);
             Assert.AreEqual(false, message.HasAttachments);
             Assert.AreEqual(true, message.IsRead);
-            Assert.AreEqual("normal", message.Importance.ToString());
+            Assert.AreEqual("normal", message.Importance);
         }
 
         [TestMethod]

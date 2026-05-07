@@ -96,7 +96,7 @@ public class OutlookReceiveMessage
     public Recipient From { get; set; }
 
     /// <summary>Importance</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Internet message headers</summary>
     public List<InternetMessageHeader> InternetMessageHeaders { get; set; }
@@ -121,7 +121,7 @@ public class OutlookReceiveAttachment
     public string ContentBytes { get; set; }
 
     /// <summary>Attachment content type</summary>
-    public ContentType ContentType { get; set; }
+    public string ContentType { get; set; }
 
     /// <summary>Attachment size in bytes</summary>
     public long? Size { get; set; }
@@ -379,7 +379,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The importance of the event: low, normal, or high</summary>
     [JsonPropertyName("importance")]
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Set to true if the event lasts all day</summary>
     [JsonPropertyName("isAllDay")]
@@ -509,7 +509,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>Time zone of the event</summary>
     [JsonPropertyName("timeZone")]
-    public TimeZone TimeZone { get; set; }
+    public string TimeZone { get; set; }
 
     /// <summary>Unique identifier for Series Master event type</summary>
     [JsonPropertyName("seriesMasterId")]
@@ -545,7 +545,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The importance of the event: low, normal, or high</summary>
     [JsonPropertyName("importance")]
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Set to true if the event lasts all day</summary>
     [JsonPropertyName("isAllDay")]
@@ -1035,7 +1035,7 @@ public class GetAttachmentResponse
 
     /// <summary>Content type of attachment.</summary>
     [JsonPropertyName("contentType")]
-    public ContentType ContentType { get; set; }
+    public string ContentType { get; set; }
 
     /// <summary>Size of attachment.</summary>
     [JsonPropertyName("size")]
@@ -1144,7 +1144,7 @@ public class GraphClientReceiveMessage
 
     /// <summary>The importance of the message (low, normal, high)</summary>
     [JsonPropertyName("importance")]
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>The preview of the message</summary>
     [JsonPropertyName("bodyPreview")]
@@ -1206,7 +1206,7 @@ public class GraphClientReceiveFileAttachment
 
     /// <summary>Attachment content type</summary>
     [JsonPropertyName("contentType")]
-    public ContentType ContentType { get; set; }
+    public string ContentType { get; set; }
 
     /// <summary>The size in bytes of the attachment</summary>
     [JsonPropertyName("size")]
@@ -1452,13 +1452,13 @@ public class SendEmailInput
     public List<ClientSendAttachment> Attachments { get; set; }
 
     /// <summary>Sensitivity</summary>
-    public Sensitivity Sensitivity { get; set; }
+    public string Sensitivity { get; set; }
 
     /// <summary>The email addresses to use when replying</summary>
     public string ReplyTo { get; set; }
 
     /// <summary>Importance</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 }
 
 /// <summary>
@@ -1491,13 +1491,13 @@ public class DraftEmailInput
     public List<ClientSendAttachment> Attachments { get; set; }
 
     /// <summary>Sensitivity</summary>
-    public Sensitivity Sensitivity { get; set; }
+    public string Sensitivity { get; set; }
 
     /// <summary>The email addresses to use when replying</summary>
     public string ReplyTo { get; set; }
 
     /// <summary>Importance</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 }
 
 /// <summary>
@@ -1526,7 +1526,7 @@ public class ReplyEmailInput
     public bool? ReplyAll { get; set; }
 
     /// <summary>Pick an importance. (default: Low)</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Details of attachments to be sent along with the reply.</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
@@ -1569,7 +1569,7 @@ public class MessageWithOptions
     public string Body { get; set; }
 
     /// <summary>Importance</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Attachments</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
@@ -1624,7 +1624,7 @@ public class ApprovalMessage
     public string Body { get; set; }
 
     /// <summary>Importance</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Attachments</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
@@ -1669,13 +1669,13 @@ public class SharedMailboxSendEmailInput
     public List<ClientSendAttachment> Attachments { get; set; }
 
     /// <summary>Sensitivity</summary>
-    public Sensitivity Sensitivity { get; set; }
+    public string Sensitivity { get; set; }
 
     /// <summary>The email addresses to use when replying</summary>
     public string ReplyTo { get; set; }
 
     /// <summary>Importance</summary>
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 }
 
 /// <summary>
@@ -1697,7 +1697,7 @@ public class GraphCalendarEventClient
 
     /// <summary>Time zone of the event</summary>
     [JsonPropertyName("timeZone")]
-    public TimeZone TimeZone { get; set; }
+    public string TimeZone { get; set; }
 
     /// <summary>Required attendees for the event separated by semicolons</summary>
     [JsonPropertyName("requiredAttendees")]
@@ -1725,7 +1725,7 @@ public class GraphCalendarEventClient
 
     /// <summary>The importance of the event: low, normal, or high</summary>
     [JsonPropertyName("importance")]
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Set to true if the event lasts all day</summary>
     [JsonPropertyName("isAllDay")]
@@ -1844,7 +1844,7 @@ public class DateTimeTimeZone
 
     /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
     [JsonPropertyName("timeZone")]
-    public TimeZone TimeZone { get; set; }
+    public string TimeZone { get; set; }
 }
 
 /// <summary>
@@ -2076,7 +2076,7 @@ public readonly struct ActionType : IEquatable<ActionType>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(ActionType left, ActionType right) => !left.Equals(right);
 
-    public sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
+    internal sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
     {
         public ActionTypeJsonConverter() { }
         public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2134,7 +2134,7 @@ public readonly struct ActivityDomain : IEquatable<ActivityDomain>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(ActivityDomain left, ActivityDomain right) => !left.Equals(right);
 
-    public sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
+    internal sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
     {
         public ActivityDomainJsonConverter() { }
         public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2186,7 +2186,7 @@ public readonly struct ContentType : IEquatable<ContentType>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(ContentType left, ContentType right) => !left.Equals(right);
 
-    public sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
+    internal sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
     {
         public ContentTypeJsonConverter() { }
         public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2241,66 +2241,11 @@ public readonly struct ExternalAudience : IEquatable<ExternalAudience>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(ExternalAudience left, ExternalAudience right) => !left.Equals(right);
 
-    public sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
+    internal sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
     {
         public ExternalAudienceJsonConverter() { }
         public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
         public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-    }
-}
-
-/// <summary>
-/// Extensible enum for known Importance values.
-/// </summary>
-[JsonConverter(typeof(Importance.ImportanceJsonConverter))]
-public readonly struct Importance : IEquatable<Importance>
-{
-    private readonly string _value;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Importance"/> struct.
-    /// </summary>
-    /// <param name="value">The string value.</param>
-    public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-    /// <summary>Low</summary>
-    public static Importance Low { get; } = new("Low");
-
-    /// <summary>Normal</summary>
-    public static Importance Normal { get; } = new("Normal");
-
-    /// <summary>High</summary>
-    public static Importance High { get; } = new("High");
-
-    /// <summary>Converts a string to <see cref="Importance"/>.</summary>
-    public static implicit operator Importance(string value) => value != null ? new(value) : default;
-
-    /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
-    public static implicit operator string(Importance value) => value.ToString();
-
-    /// <inheritdoc/>
-    public override string ToString() => this._value;
-
-    /// <inheritdoc/>
-    public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-    /// <summary>Equality operator.</summary>
-    public static bool operator ==(Importance left, Importance right) => left.Equals(right);
-
-    /// <summary>Inequality operator.</summary>
-    public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
-
-    public sealed class ImportanceJsonConverter : JsonConverter<Importance>
-    {
-        public ImportanceJsonConverter() { }
-        public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-        public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
 }
 
@@ -2357,7 +2302,7 @@ public readonly struct Recurrence : IEquatable<Recurrence>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Recurrence left, Recurrence right) => !left.Equals(right);
 
-    public sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
+    internal sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
     {
         public RecurrenceJsonConverter() { }
         public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2421,7 +2366,7 @@ public readonly struct ResponseType : IEquatable<ResponseType>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(ResponseType left, ResponseType right) => !left.Equals(right);
 
-    public sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
+    internal sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
     {
         public ResponseTypeJsonConverter() { }
         public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2479,7 +2424,7 @@ public readonly struct Sensitivity : IEquatable<Sensitivity>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Sensitivity left, Sensitivity right) => !left.Equals(right);
 
-    public sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
+    internal sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
     {
         public SensitivityJsonConverter() { }
         public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2543,7 +2488,7 @@ public readonly struct ShowAs : IEquatable<ShowAs>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
 
-    public sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+    internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
     {
         public ShowAsJsonConverter() { }
         public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -2598,7 +2543,7 @@ public readonly struct Status : IEquatable<Status>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Status left, Status right) => !left.Equals(right);
 
-    public sealed class StatusJsonConverter : JsonConverter<Status>
+    internal sealed class StatusJsonConverter : JsonConverter<Status>
     {
         public StatusJsonConverter() { }
         public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -3052,7 +2997,7 @@ public readonly struct TimeZone : IEquatable<TimeZone>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(TimeZone left, TimeZone right) => !left.Equals(right);
 
-    public sealed class TimeZoneJsonConverter : JsonConverter<TimeZone>
+    internal sealed class TimeZoneJsonConverter : JsonConverter<TimeZone>
     {
         public TimeZoneJsonConverter() { }
         public override TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }

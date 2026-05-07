@@ -951,7 +951,7 @@ public readonly struct Method : IEquatable<Method>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Method left, Method right) => !left.Equals(right);
 
-    public sealed class MethodJsonConverter : JsonConverter<Method>
+    internal sealed class MethodJsonConverter : JsonConverter<Method>
     {
         public MethodJsonConverter() { }
         public override Method Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }

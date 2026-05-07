@@ -84,7 +84,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("sender@microsoft.com", email.From);
             Assert.AreEqual("recipient1@microsoft.com;recipient2@microsoft.com", email.To);
             Assert.AreEqual("cc@microsoft.com", email.CC);
-            Assert.AreEqual("normal", email.Importance.ToString());
+            Assert.AreEqual("normal", email.Importance);
             Assert.AreEqual("This is a test email preview.", email.BodyPreview);
             Assert.AreEqual(false, email.HasAttachment);
             Assert.AreEqual(false, email.IsRead);
@@ -191,7 +191,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(email.Attachments);
             Assert.AreEqual(1, email.Attachments.Count);
             Assert.AreEqual("document.pdf", email.Attachments[0].Name);
-            Assert.AreEqual("application/pdf", email.Attachments[0].ContentType.ToString());
+            Assert.AreEqual("application/pdf", email.Attachments[0].ContentType);
             Assert.AreEqual(12345L, email.Attachments[0].Size);
         }
 

@@ -126,7 +126,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("AAMkADlmOTA3NWNm", email.MessageId);
             Assert.AreEqual("Test email for trigger callback", email.Subject);
             Assert.AreEqual("sender@microsoft.com", email.From);
-            Assert.AreEqual("normal", email.Importance.ToString());
+            Assert.AreEqual("normal", email.Importance);
             Assert.AreEqual(false, email.IsRead);
         }
 

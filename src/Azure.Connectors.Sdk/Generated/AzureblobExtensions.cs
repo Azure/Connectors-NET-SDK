@@ -300,7 +300,7 @@ public readonly struct Permissions : IEquatable<Permissions>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Permissions left, Permissions right) => !left.Equals(right);
 
-    public sealed class PermissionsJsonConverter : JsonConverter<Permissions>
+    internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
     {
         public PermissionsJsonConverter() { }
         public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -352,7 +352,7 @@ public readonly struct SharedAccessProtocol : IEquatable<SharedAccessProtocol>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(SharedAccessProtocol left, SharedAccessProtocol right) => !left.Equals(right);
 
-    public sealed class SharedAccessProtocolJsonConverter : JsonConverter<SharedAccessProtocol>
+    internal sealed class SharedAccessProtocolJsonConverter : JsonConverter<SharedAccessProtocol>
     {
         public SharedAccessProtocolJsonConverter() { }
         public override SharedAccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }

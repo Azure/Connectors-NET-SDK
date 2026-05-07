@@ -957,7 +957,7 @@ public readonly struct DeploymentMode : IEquatable<DeploymentMode>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(DeploymentMode left, DeploymentMode right) => !left.Equals(right);
 
-    public sealed class DeploymentModeJsonConverter : JsonConverter<DeploymentMode>
+    internal sealed class DeploymentModeJsonConverter : JsonConverter<DeploymentMode>
     {
         public DeploymentModeJsonConverter() { }
         public override DeploymentMode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -1012,7 +1012,7 @@ public readonly struct Options : IEquatable<Options>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Options left, Options right) => !left.Equals(right);
 
-    public sealed class OptionsJsonConverter : JsonConverter<Options>
+    internal sealed class OptionsJsonConverter : JsonConverter<Options>
     {
         public OptionsJsonConverter() { }
         public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -1067,7 +1067,7 @@ public readonly struct SpendingLimit : IEquatable<SpendingLimit>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(SpendingLimit left, SpendingLimit right) => !left.Equals(right);
 
-    public sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
+    internal sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
     {
         public SpendingLimitJsonConverter() { }
         public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -1128,7 +1128,7 @@ public readonly struct State : IEquatable<State>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(State left, State right) => !left.Equals(right);
 
-    public sealed class StateJsonConverter : JsonConverter<State>
+    internal sealed class StateJsonConverter : JsonConverter<State>
     {
         public StateJsonConverter() { }
         public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }

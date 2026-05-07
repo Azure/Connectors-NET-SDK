@@ -1139,7 +1139,7 @@ public class ChatMessage
 
     /// <summary>The importance of the message. The possible values are: normal, high, urgent.</summary>
     [JsonPropertyName("importance")]
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
     [JsonPropertyName("lastModifiedDateTime")]
@@ -1228,7 +1228,7 @@ public class NewMeeting
 
     /// <summary>The importance of the event: low, normal or high</summary>
     [JsonPropertyName("importance")]
-    public Importance Importance { get; set; }
+    public string Importance { get; set; }
 
     /// <summary>The recurrence pattern for the meeting</summary>
     [JsonPropertyName("recurrence")]
@@ -1310,7 +1310,7 @@ public readonly struct Importance : IEquatable<Importance>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
 
-    public sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
     {
         public ImportanceJsonConverter() { }
         public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -1374,7 +1374,7 @@ public readonly struct StatusShowAs : IEquatable<StatusShowAs>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(StatusShowAs left, StatusShowAs right) => !left.Equals(right);
 
-    public sealed class StatusShowAsJsonConverter : JsonConverter<StatusShowAs>
+    internal sealed class StatusShowAsJsonConverter : JsonConverter<StatusShowAs>
     {
         public StatusShowAsJsonConverter() { }
         public override StatusShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -1432,7 +1432,7 @@ public readonly struct TheTypeOfTheChannel : IEquatable<TheTypeOfTheChannel>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(TheTypeOfTheChannel left, TheTypeOfTheChannel right) => !left.Equals(right);
 
-    public sealed class TheTypeOfTheChannelJsonConverter : JsonConverter<TheTypeOfTheChannel>
+    internal sealed class TheTypeOfTheChannelJsonConverter : JsonConverter<TheTypeOfTheChannel>
     {
         public TheTypeOfTheChannelJsonConverter() { }
         public override TheTypeOfTheChannel Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -1484,7 +1484,7 @@ public readonly struct Visibility : IEquatable<Visibility>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Visibility left, Visibility right) => !left.Equals(right);
 
-    public sealed class VisibilityJsonConverter : JsonConverter<Visibility>
+    internal sealed class VisibilityJsonConverter : JsonConverter<Visibility>
     {
         public VisibilityJsonConverter() { }
         public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }

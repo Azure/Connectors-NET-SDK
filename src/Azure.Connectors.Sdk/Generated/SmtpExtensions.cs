@@ -140,7 +140,7 @@ public readonly struct Importance : IEquatable<Importance>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
 
-    public sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
     {
         public ImportanceJsonConverter() { }
         public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }

@@ -67,7 +67,7 @@ public class Item
     public int? LogicalSequenceNumber { get; set; }
 
     /// <summary>MessageType</summary>
-    public MessageType MessageType { get; set; }
+    public string MessageType { get; set; }
 
     /// <summary>Offset</summary>
     public int? Offset { get; set; }
@@ -265,7 +265,7 @@ public readonly struct IncludeInfo : IEquatable<IncludeInfo>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(IncludeInfo left, IncludeInfo right) => !left.Equals(right);
 
-    public sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
+    internal sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
     {
         public IncludeInfoJsonConverter() { }
         public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
@@ -320,7 +320,7 @@ public readonly struct MessageType : IEquatable<MessageType>
     /// <summary>Inequality operator.</summary>
     public static bool operator !=(MessageType left, MessageType right) => !left.Equals(right);
 
-    public sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
+    internal sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
     {
         public MessageTypeJsonConverter() { }
         public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
