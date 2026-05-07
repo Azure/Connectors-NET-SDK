@@ -5,9 +5,9 @@
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
+using Azure.Connectors.Sdk.Http;
 using Azure.Core.Pipeline;
 using global::Azure;
-using Azure.Connectors.Sdk.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;

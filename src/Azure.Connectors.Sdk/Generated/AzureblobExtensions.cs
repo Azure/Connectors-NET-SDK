@@ -15,9 +15,9 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
+using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
-using Azure.Connectors.Sdk;
 
 namespace Azure.Connectors.Sdk.Azureblob;
 
