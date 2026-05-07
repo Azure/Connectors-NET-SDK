@@ -96,7 +96,7 @@ public class OutlookReceiveMessage
     public Recipient From { get; set; }
 
     /// <summary>Importance</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Internet message headers</summary>
     public List<InternetMessageHeader> InternetMessageHeaders { get; set; }
@@ -121,7 +121,7 @@ public class OutlookReceiveAttachment
     public string ContentBytes { get; set; }
 
     /// <summary>Attachment content type</summary>
-    public string ContentType { get; set; }
+    public ContentType ContentType { get; set; }
 
     /// <summary>Attachment size in bytes</summary>
     public long? Size { get; set; }
@@ -173,7 +173,7 @@ public class EmailAddress
 public class ItemBody
 {
     /// <summary>ContentType</summary>
-    public string ContentType { get; set; }
+    public ContentType ContentType { get; set; }
 
     /// <summary>Content</summary>
     public string Content { get; set; }
@@ -316,7 +316,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
     [JsonPropertyName("responseType")]
-    public string ResponseType { get; set; }
+    public ResponseType ResponseType { get; set; }
 
     /// <summary>The response time of the event</summary>
     [JsonPropertyName("responseTime")]
@@ -343,7 +343,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>Time zone of the event</summary>
     [JsonPropertyName("timeZone")]
-    public string TimeZone { get; set; }
+    public TimeZone TimeZone { get; set; }
 
     /// <summary>Unique identifier for Series Master event type</summary>
     [JsonPropertyName("seriesMasterId")]
@@ -379,7 +379,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The importance of the event: low, normal, or high</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Set to true if the event lasts all day</summary>
     [JsonPropertyName("isAllDay")]
@@ -387,7 +387,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
     [JsonPropertyName("recurrence")]
-    public string Recurrence { get; set; }
+    public Recurrence Recurrence { get; set; }
 
     /// <summary>End Date of the recurrence</summary>
     [JsonPropertyName("recurrenceEnd")]
@@ -407,7 +407,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
     [JsonPropertyName("showAs")]
-    public string ShowAs { get; set; }
+    public ShowAs ShowAs { get; set; }
 
     /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
     [JsonPropertyName("responseRequested")]
@@ -415,7 +415,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The possible values are: normal, personal, private, confidential</summary>
     [JsonPropertyName("sensitivity")]
-    public string Sensitivity { get; set; }
+    public Sensitivity Sensitivity { get; set; }
 }
 
 /// <summary>
@@ -444,7 +444,7 @@ public class GraphCalendarEventListWithActionType
 public class GraphCalendarEventClientWithActionType
 {
     /// <summary>Changed action type of the event - added, updated or deleted.</summary>
-    public string ActionType { get; set; }
+    public ActionType ActionType { get; set; }
 
     /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
     public bool? IsAdded { get; set; }
@@ -482,7 +482,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
     [JsonPropertyName("responseType")]
-    public string ResponseType { get; set; }
+    public ResponseType ResponseType { get; set; }
 
     /// <summary>The response time of the event</summary>
     [JsonPropertyName("responseTime")]
@@ -509,7 +509,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>Time zone of the event</summary>
     [JsonPropertyName("timeZone")]
-    public string TimeZone { get; set; }
+    public TimeZone TimeZone { get; set; }
 
     /// <summary>Unique identifier for Series Master event type</summary>
     [JsonPropertyName("seriesMasterId")]
@@ -545,7 +545,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The importance of the event: low, normal, or high</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Set to true if the event lasts all day</summary>
     [JsonPropertyName("isAllDay")]
@@ -553,7 +553,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
     [JsonPropertyName("recurrence")]
-    public string Recurrence { get; set; }
+    public Recurrence Recurrence { get; set; }
 
     /// <summary>End Date of the recurrence</summary>
     [JsonPropertyName("recurrenceEnd")]
@@ -573,7 +573,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
     [JsonPropertyName("showAs")]
-    public string ShowAs { get; set; }
+    public ShowAs ShowAs { get; set; }
 
     /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
     [JsonPropertyName("responseRequested")]
@@ -581,7 +581,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The possible values are: normal, personal, private, confidential</summary>
     [JsonPropertyName("sensitivity")]
-    public string Sensitivity { get; set; }
+    public Sensitivity Sensitivity { get; set; }
 }
 
 /// <summary>
@@ -1003,7 +1003,7 @@ public class FindMeetingTimesInput
     public bool? IsOrganizerOptional { get; set; }
 
     /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
-    public string ActivityDomain { get; set; }
+    public ActivityDomain ActivityDomain { get; set; }
 }
 
 /// <summary>
@@ -1035,7 +1035,7 @@ public class GetAttachmentResponse
 
     /// <summary>Content type of attachment.</summary>
     [JsonPropertyName("contentType")]
-    public string ContentType { get; set; }
+    public ContentType ContentType { get; set; }
 
     /// <summary>Size of attachment.</summary>
     [JsonPropertyName("size")]
@@ -1144,7 +1144,7 @@ public class GraphClientReceiveMessage
 
     /// <summary>The importance of the message (low, normal, high)</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>The preview of the message</summary>
     [JsonPropertyName("bodyPreview")]
@@ -1206,7 +1206,7 @@ public class GraphClientReceiveFileAttachment
 
     /// <summary>Attachment content type</summary>
     [JsonPropertyName("contentType")]
-    public string ContentType { get; set; }
+    public ContentType ContentType { get; set; }
 
     /// <summary>The size in bytes of the attachment</summary>
     [JsonPropertyName("size")]
@@ -1376,11 +1376,11 @@ public class AutomaticRepliesSettingClient
 {
     /// <summary>Automatic reply setting status</summary>
     [JsonPropertyName("status")]
-    public string Status { get; set; }
+    public Status Status { get; set; }
 
     /// <summary>The audience that will see the external reply message</summary>
     [JsonPropertyName("externalAudience")]
-    public string ExternalAudience { get; set; }
+    public ExternalAudience ExternalAudience { get; set; }
 
     /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
     [JsonPropertyName("scheduledStartDateTime")]
@@ -1452,13 +1452,13 @@ public class SendEmailInput
     public List<ClientSendAttachment> Attachments { get; set; }
 
     /// <summary>Sensitivity</summary>
-    public string Sensitivity { get; set; }
+    public Sensitivity Sensitivity { get; set; }
 
     /// <summary>The email addresses to use when replying</summary>
     public string ReplyTo { get; set; }
 
     /// <summary>Importance</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 }
 
 /// <summary>
@@ -1491,13 +1491,13 @@ public class DraftEmailInput
     public List<ClientSendAttachment> Attachments { get; set; }
 
     /// <summary>Sensitivity</summary>
-    public string Sensitivity { get; set; }
+    public Sensitivity Sensitivity { get; set; }
 
     /// <summary>The email addresses to use when replying</summary>
     public string ReplyTo { get; set; }
 
     /// <summary>Importance</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 }
 
 /// <summary>
@@ -1526,7 +1526,7 @@ public class ReplyEmailInput
     public bool? ReplyAll { get; set; }
 
     /// <summary>Pick an importance. (default: Low)</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Details of attachments to be sent along with the reply.</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
@@ -1569,7 +1569,7 @@ public class MessageWithOptions
     public string Body { get; set; }
 
     /// <summary>Importance</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Attachments</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
@@ -1624,7 +1624,7 @@ public class ApprovalMessage
     public string Body { get; set; }
 
     /// <summary>Importance</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Attachments</summary>
     public List<ClientSendAttachment> Attachments { get; set; }
@@ -1669,13 +1669,13 @@ public class SharedMailboxSendEmailInput
     public List<ClientSendAttachment> Attachments { get; set; }
 
     /// <summary>Sensitivity</summary>
-    public string Sensitivity { get; set; }
+    public Sensitivity Sensitivity { get; set; }
 
     /// <summary>The email addresses to use when replying</summary>
     public string ReplyTo { get; set; }
 
     /// <summary>Importance</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 }
 
 /// <summary>
@@ -1697,7 +1697,7 @@ public class GraphCalendarEventClient
 
     /// <summary>Time zone of the event</summary>
     [JsonPropertyName("timeZone")]
-    public string TimeZone { get; set; }
+    public TimeZone TimeZone { get; set; }
 
     /// <summary>Required attendees for the event separated by semicolons</summary>
     [JsonPropertyName("requiredAttendees")]
@@ -1725,7 +1725,7 @@ public class GraphCalendarEventClient
 
     /// <summary>The importance of the event: low, normal, or high</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Set to true if the event lasts all day</summary>
     [JsonPropertyName("isAllDay")]
@@ -1733,7 +1733,7 @@ public class GraphCalendarEventClient
 
     /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
     [JsonPropertyName("recurrence")]
-    public string Recurrence { get; set; }
+    public Recurrence Recurrence { get; set; }
 
     /// <summary>Days of week for weekly recurrence</summary>
     [JsonPropertyName("selectedDaysOfWeek")]
@@ -1757,7 +1757,7 @@ public class GraphCalendarEventClient
 
     /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
     [JsonPropertyName("showAs")]
-    public string ShowAs { get; set; }
+    public ShowAs ShowAs { get; set; }
 
     /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
     [JsonPropertyName("responseRequested")]
@@ -1765,7 +1765,7 @@ public class GraphCalendarEventClient
 
     /// <summary>The possible values are: normal, personal, private, confidential</summary>
     [JsonPropertyName("sensitivity")]
-    public string Sensitivity { get; set; }
+    public Sensitivity Sensitivity { get; set; }
 }
 
 /// <summary>
@@ -1844,7 +1844,7 @@ public class DateTimeTimeZone
 
     /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
     [JsonPropertyName("timeZone")]
-    public string TimeZone { get; set; }
+    public TimeZone TimeZone { get; set; }
 }
 
 /// <summary>
@@ -2027,6 +2027,1037 @@ public class MCPQueryRequest
     /// <summary>callbackEndpoint</summary>
     [JsonPropertyName("callbackEndpoint")]
     public string CallbackEndpoint { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known ActionType values.
+/// </summary>
+[JsonConverter(typeof(ActionType.ActionTypeJsonConverter))]
+public readonly struct ActionType : IEquatable<ActionType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActionType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ActionType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>added</summary>
+    public static ActionType Added { get; } = new("added");
+
+    /// <summary>updated</summary>
+    public static ActionType Updated { get; } = new("updated");
+
+    /// <summary>deleted</summary>
+    public static ActionType Deleted { get; } = new("deleted");
+
+    /// <summary>Converts a string to <see cref="ActionType"/>.</summary>
+    public static implicit operator ActionType(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="ActionType"/> to its string representation.</summary>
+    public static implicit operator string(ActionType value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(ActionType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ActionType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ActionType left, ActionType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ActionType left, ActionType right) => !left.Equals(right);
+
+    public sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
+    {
+        public ActionTypeJsonConverter() { }
+        public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, ActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ActivityDomain values.
+/// </summary>
+[JsonConverter(typeof(ActivityDomain.ActivityDomainJsonConverter))]
+public readonly struct ActivityDomain : IEquatable<ActivityDomain>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityDomain"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ActivityDomain(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Work</summary>
+    public static ActivityDomain Work { get; } = new("Work");
+
+    /// <summary>Personal</summary>
+    public static ActivityDomain Personal { get; } = new("Personal");
+
+    /// <summary>Unrestricted</summary>
+    public static ActivityDomain Unrestricted { get; } = new("Unrestricted");
+
+    /// <summary>Unknown</summary>
+    public static ActivityDomain Unknown { get; } = new("Unknown");
+
+    /// <summary>Converts a string to <see cref="ActivityDomain"/>.</summary>
+    public static implicit operator ActivityDomain(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="ActivityDomain"/> to its string representation.</summary>
+    public static implicit operator string(ActivityDomain value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(ActivityDomain other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ActivityDomain other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ActivityDomain left, ActivityDomain right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ActivityDomain left, ActivityDomain right) => !left.Equals(right);
+
+    public sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
+    {
+        public ActivityDomainJsonConverter() { }
+        public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, ActivityDomain value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ContentType values.
+/// </summary>
+[JsonConverter(typeof(ContentType.ContentTypeJsonConverter))]
+public readonly struct ContentType : IEquatable<ContentType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ContentType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Text</summary>
+    public static ContentType Text { get; } = new("Text");
+
+    /// <summary>HTML</summary>
+    public static ContentType HTML { get; } = new("HTML");
+
+    /// <summary>Converts a string to <see cref="ContentType"/>.</summary>
+    public static implicit operator ContentType(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="ContentType"/> to its string representation.</summary>
+    public static implicit operator string(ContentType value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(ContentType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ContentType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ContentType left, ContentType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ContentType left, ContentType right) => !left.Equals(right);
+
+    public sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
+    {
+        public ContentTypeJsonConverter() { }
+        public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, ContentType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ExternalAudience values.
+/// </summary>
+[JsonConverter(typeof(ExternalAudience.ExternalAudienceJsonConverter))]
+public readonly struct ExternalAudience : IEquatable<ExternalAudience>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExternalAudience"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ExternalAudience(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>none</summary>
+    public static ExternalAudience None { get; } = new("none");
+
+    /// <summary>contactsOnly</summary>
+    public static ExternalAudience ContactsOnly { get; } = new("contactsOnly");
+
+    /// <summary>all</summary>
+    public static ExternalAudience All { get; } = new("all");
+
+    /// <summary>Converts a string to <see cref="ExternalAudience"/>.</summary>
+    public static implicit operator ExternalAudience(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="ExternalAudience"/> to its string representation.</summary>
+    public static implicit operator string(ExternalAudience value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(ExternalAudience other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ExternalAudience other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ExternalAudience left, ExternalAudience right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ExternalAudience left, ExternalAudience right) => !left.Equals(right);
+
+    public sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
+    {
+        public ExternalAudienceJsonConverter() { }
+        public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Importance values.
+/// </summary>
+[JsonConverter(typeof(Importance.ImportanceJsonConverter))]
+public readonly struct Importance : IEquatable<Importance>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Importance"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Importance(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Low</summary>
+    public static Importance Low { get; } = new("Low");
+
+    /// <summary>Normal</summary>
+    public static Importance Normal { get; } = new("Normal");
+
+    /// <summary>High</summary>
+    public static Importance High { get; } = new("High");
+
+    /// <summary>Converts a string to <see cref="Importance"/>.</summary>
+    public static implicit operator Importance(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
+    public static implicit operator string(Importance value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Importance other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Importance other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Importance left, Importance right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
+
+    public sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    {
+        public ImportanceJsonConverter() { }
+        public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Recurrence values.
+/// </summary>
+[JsonConverter(typeof(Recurrence.RecurrenceJsonConverter))]
+public readonly struct Recurrence : IEquatable<Recurrence>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Recurrence"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Recurrence(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>none</summary>
+    public static Recurrence None { get; } = new("none");
+
+    /// <summary>daily</summary>
+    public static Recurrence Daily { get; } = new("daily");
+
+    /// <summary>weekly</summary>
+    public static Recurrence Weekly { get; } = new("weekly");
+
+    /// <summary>monthly</summary>
+    public static Recurrence Monthly { get; } = new("monthly");
+
+    /// <summary>yearly</summary>
+    public static Recurrence Yearly { get; } = new("yearly");
+
+    /// <summary>Converts a string to <see cref="Recurrence"/>.</summary>
+    public static implicit operator Recurrence(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Recurrence"/> to its string representation.</summary>
+    public static implicit operator string(Recurrence value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Recurrence other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Recurrence other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Recurrence left, Recurrence right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Recurrence left, Recurrence right) => !left.Equals(right);
+
+    public sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
+    {
+        public RecurrenceJsonConverter() { }
+        public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Recurrence value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ResponseType values.
+/// </summary>
+[JsonConverter(typeof(ResponseType.ResponseTypeJsonConverter))]
+public readonly struct ResponseType : IEquatable<ResponseType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ResponseType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ResponseType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>none</summary>
+    public static ResponseType None { get; } = new("none");
+
+    /// <summary>organizer</summary>
+    public static ResponseType Organizer { get; } = new("organizer");
+
+    /// <summary>tentativelyAccepted</summary>
+    public static ResponseType TentativelyAccepted { get; } = new("tentativelyAccepted");
+
+    /// <summary>accepted</summary>
+    public static ResponseType Accepted { get; } = new("accepted");
+
+    /// <summary>declined</summary>
+    public static ResponseType Declined { get; } = new("declined");
+
+    /// <summary>notResponded</summary>
+    public static ResponseType NotResponded { get; } = new("notResponded");
+
+    /// <summary>Converts a string to <see cref="ResponseType"/>.</summary>
+    public static implicit operator ResponseType(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="ResponseType"/> to its string representation.</summary>
+    public static implicit operator string(ResponseType value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(ResponseType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ResponseType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ResponseType left, ResponseType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ResponseType left, ResponseType right) => !left.Equals(right);
+
+    public sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
+    {
+        public ResponseTypeJsonConverter() { }
+        public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, ResponseType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Sensitivity values.
+/// </summary>
+[JsonConverter(typeof(Sensitivity.SensitivityJsonConverter))]
+public readonly struct Sensitivity : IEquatable<Sensitivity>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Sensitivity"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Sensitivity(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>normal</summary>
+    public static Sensitivity Normal { get; } = new("normal");
+
+    /// <summary>personal</summary>
+    public static Sensitivity Personal { get; } = new("personal");
+
+    /// <summary>private</summary>
+    public static Sensitivity Private { get; } = new("private");
+
+    /// <summary>confidential</summary>
+    public static Sensitivity Confidential { get; } = new("confidential");
+
+    /// <summary>Converts a string to <see cref="Sensitivity"/>.</summary>
+    public static implicit operator Sensitivity(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Sensitivity"/> to its string representation.</summary>
+    public static implicit operator string(Sensitivity value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Sensitivity other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Sensitivity other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Sensitivity left, Sensitivity right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Sensitivity left, Sensitivity right) => !left.Equals(right);
+
+    public sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
+    {
+        public SensitivityJsonConverter() { }
+        public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Sensitivity value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ShowAs values.
+/// </summary>
+[JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
+public readonly struct ShowAs : IEquatable<ShowAs>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShowAs"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ShowAs(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>free</summary>
+    public static ShowAs Free { get; } = new("free");
+
+    /// <summary>tentative</summary>
+    public static ShowAs Tentative { get; } = new("tentative");
+
+    /// <summary>busy</summary>
+    public static ShowAs Busy { get; } = new("busy");
+
+    /// <summary>oof</summary>
+    public static ShowAs Oof { get; } = new("oof");
+
+    /// <summary>workingElsewhere</summary>
+    public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
+
+    /// <summary>unknown</summary>
+    public static ShowAs Unknown { get; } = new("unknown");
+
+    /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
+    public static implicit operator ShowAs(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
+    public static implicit operator string(ShowAs value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(ShowAs other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ShowAs other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
+
+    public sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+    {
+        public ShowAsJsonConverter() { }
+        public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Status values.
+/// </summary>
+[JsonConverter(typeof(Status.StatusJsonConverter))]
+public readonly struct Status : IEquatable<Status>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Status"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Status(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>disabled</summary>
+    public static Status Disabled { get; } = new("disabled");
+
+    /// <summary>alwaysEnabled</summary>
+    public static Status AlwaysEnabled { get; } = new("alwaysEnabled");
+
+    /// <summary>scheduled</summary>
+    public static Status Scheduled { get; } = new("scheduled");
+
+    /// <summary>Converts a string to <see cref="Status"/>.</summary>
+    public static implicit operator Status(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
+    public static implicit operator string(Status value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Status other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Status other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Status left, Status right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Status left, Status right) => !left.Equals(right);
+
+    public sealed class StatusJsonConverter : JsonConverter<Status>
+    {
+        public StatusJsonConverter() { }
+        public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known TimeZone values.
+/// </summary>
+[JsonConverter(typeof(TimeZone.TimeZoneJsonConverter))]
+public readonly struct TimeZone : IEquatable<TimeZone>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TimeZone"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public TimeZone(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>(UTC-12:00) International Date Line West</summary>
+    public static TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
+
+    /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
+    public static TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
+
+    /// <summary>(UTC-10:00) Aleutian Islands</summary>
+    public static TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
+
+    /// <summary>(UTC-10:00) Hawaii</summary>
+    public static TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
+
+    /// <summary>(UTC-09:30) Marquesas Islands</summary>
+    public static TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
+
+    /// <summary>(UTC-09:00) Alaska</summary>
+    public static TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
+
+    /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
+    public static TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
+
+    /// <summary>(UTC-08:00) Baja California</summary>
+    public static TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
+
+    /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
+    public static TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
+
+    /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
+    public static TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
+
+    /// <summary>(UTC-07:00) Arizona</summary>
+    public static TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
+
+    /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
+    public static TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
+
+    /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
+    public static TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
+
+    /// <summary>(UTC-06:00) Central America</summary>
+    public static TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
+
+    /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
+    public static TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
+
+    /// <summary>(UTC-06:00) Easter Island</summary>
+    public static TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
+
+    /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
+    public static TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
+
+    /// <summary>(UTC-06:00) Saskatchewan</summary>
+    public static TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
+
+    /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
+    public static TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
+
+    /// <summary>(UTC-05:00) Chetumal</summary>
+    public static TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
+
+    /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
+    public static TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
+
+    /// <summary>(UTC-05:00) Haiti</summary>
+    public static TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
+
+    /// <summary>(UTC-05:00) Havana</summary>
+    public static TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
+
+    /// <summary>(UTC-05:00) Indiana (East)</summary>
+    public static TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
+
+    /// <summary>(UTC-04:00) Asuncion</summary>
+    public static TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
+
+    /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
+    public static TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
+
+    /// <summary>(UTC-04:00) Caracas</summary>
+    public static TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
+
+    /// <summary>(UTC-04:00) Cuiaba</summary>
+    public static TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
+
+    /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
+    public static TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
+
+    /// <summary>(UTC-04:00) Santiago</summary>
+    public static TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
+
+    /// <summary>(UTC-04:00) Turks and Caicos</summary>
+    public static TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
+
+    /// <summary>(UTC-03:30) Newfoundland</summary>
+    public static TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
+
+    /// <summary>(UTC-03:00) Araguaina</summary>
+    public static TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
+
+    /// <summary>(UTC-03:00) Brasilia</summary>
+    public static TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
+
+    /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
+    public static TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
+
+    /// <summary>(UTC-03:00) City of Buenos Aires</summary>
+    public static TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
+
+    /// <summary>(UTC-03:00) Greenland</summary>
+    public static TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
+
+    /// <summary>(UTC-03:00) Montevideo</summary>
+    public static TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
+
+    /// <summary>(UTC-03:00) Punta Arenas</summary>
+    public static TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
+
+    /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
+    public static TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
+
+    /// <summary>(UTC-03:00) Salvador</summary>
+    public static TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
+
+    /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
+    public static TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
+
+    /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
+    public static TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
+
+    /// <summary>(UTC-01:00) Azores</summary>
+    public static TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
+
+    /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
+    public static TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
+
+    /// <summary>(UTC) Coordinated Universal Time</summary>
+    public static TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
+
+    /// <summary>(UTC+00:00) Casablanca</summary>
+    public static TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
+
+    /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
+    public static TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
+
+    /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
+    public static TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
+
+    /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
+    public static TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
+
+    /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
+    public static TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
+
+    /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
+    public static TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
+
+    /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
+    public static TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
+
+    /// <summary>(UTC+01:00) West Central Africa</summary>
+    public static TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
+
+    /// <summary>(UTC+01:00) Windhoek</summary>
+    public static TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
+
+    /// <summary>(UTC+02:00) Amman</summary>
+    public static TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
+
+    /// <summary>(UTC+02:00) Athens, Bucharest</summary>
+    public static TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
+
+    /// <summary>(UTC+02:00) Beirut</summary>
+    public static TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
+
+    /// <summary>(UTC+02:00) Cairo</summary>
+    public static TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
+
+    /// <summary>(UTC+02:00) Chisinau</summary>
+    public static TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
+
+    /// <summary>(UTC+02:00) Damascus</summary>
+    public static TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
+
+    /// <summary>(UTC+02:00) Gaza, Hebron</summary>
+    public static TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
+
+    /// <summary>(UTC+02:00) Harare, Pretoria</summary>
+    public static TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
+
+    /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
+    public static TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
+
+    /// <summary>(UTC+02:00) Jerusalem</summary>
+    public static TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
+
+    /// <summary>(UTC+02:00) Kaliningrad</summary>
+    public static TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
+
+    /// <summary>(UTC+02:00) Tripoli</summary>
+    public static TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
+
+    /// <summary>(UTC+03:00) Baghdad</summary>
+    public static TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
+
+    /// <summary>(UTC+03:00) Istanbul</summary>
+    public static TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
+
+    /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
+    public static TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
+
+    /// <summary>(UTC+03:00) Minsk</summary>
+    public static TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
+
+    /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
+    public static TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
+
+    /// <summary>(UTC+03:00) Nairobi</summary>
+    public static TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
+
+    /// <summary>(UTC+03:30) Tehran</summary>
+    public static TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
+
+    /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
+    public static TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
+
+    /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
+    public static TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
+
+    /// <summary>(UTC+04:00) Baku</summary>
+    public static TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
+
+    /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
+    public static TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
+
+    /// <summary>(UTC+04:00) Port Louis</summary>
+    public static TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
+
+    /// <summary>(UTC+04:00) Saratov</summary>
+    public static TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
+
+    /// <summary>(UTC+04:00) Tbilisi</summary>
+    public static TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
+
+    /// <summary>(UTC+04:00) Volgograd</summary>
+    public static TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
+
+    /// <summary>(UTC+04:00) Yerevan</summary>
+    public static TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
+
+    /// <summary>(UTC+04:30) Kabul</summary>
+    public static TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
+
+    /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
+    public static TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
+
+    /// <summary>(UTC+05:00) Ekaterinburg</summary>
+    public static TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
+
+    /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
+    public static TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
+
+    /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
+    public static TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
+
+    /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
+    public static TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
+
+    /// <summary>(UTC+05:45) Kathmandu</summary>
+    public static TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
+
+    /// <summary>(UTC+06:00) Astana</summary>
+    public static TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
+
+    /// <summary>(UTC+06:00) Dhaka</summary>
+    public static TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
+
+    /// <summary>(UTC+06:00) Omsk</summary>
+    public static TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
+
+    /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
+    public static TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
+
+    /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
+    public static TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
+
+    /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
+    public static TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
+
+    /// <summary>(UTC+07:00) Hovd</summary>
+    public static TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
+
+    /// <summary>(UTC+07:00) Krasnoyarsk</summary>
+    public static TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
+
+    /// <summary>(UTC+07:00) Novosibirsk</summary>
+    public static TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
+
+    /// <summary>(UTC+07:00) Tomsk</summary>
+    public static TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
+
+    /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
+    public static TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
+
+    /// <summary>(UTC+08:00) Irkutsk</summary>
+    public static TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
+
+    /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
+    public static TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
+
+    /// <summary>(UTC+08:00) Perth</summary>
+    public static TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
+
+    /// <summary>(UTC+08:00) Taipei</summary>
+    public static TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
+
+    /// <summary>(UTC+08:00) Ulaanbaatar</summary>
+    public static TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
+
+    /// <summary>(UTC+08:30) Pyongyang</summary>
+    public static TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
+
+    /// <summary>(UTC+08:45) Eucla</summary>
+    public static TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
+
+    /// <summary>(UTC+09:00) Chita</summary>
+    public static TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
+
+    /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
+    public static TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
+
+    /// <summary>(UTC+09:00) Seoul</summary>
+    public static TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
+
+    /// <summary>(UTC+09:00) Yakutsk</summary>
+    public static TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
+
+    /// <summary>(UTC+09:30) Adelaide</summary>
+    public static TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
+
+    /// <summary>(UTC+09:30) Darwin</summary>
+    public static TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
+
+    /// <summary>(UTC+10:00) Brisbane</summary>
+    public static TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
+
+    /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
+    public static TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
+
+    /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
+    public static TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
+
+    /// <summary>(UTC+10:00) Hobart</summary>
+    public static TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
+
+    /// <summary>(UTC+10:00) Vladivostok</summary>
+    public static TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
+
+    /// <summary>(UTC+10:30) Lord Howe Island</summary>
+    public static TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
+
+    /// <summary>(UTC+11:00) Bougainville Island</summary>
+    public static TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
+
+    /// <summary>(UTC+11:00) Chokurdakh</summary>
+    public static TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
+
+    /// <summary>(UTC+11:00) Magadan</summary>
+    public static TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
+
+    /// <summary>(UTC+11:00) Norfolk Island</summary>
+    public static TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
+
+    /// <summary>(UTC+11:00) Sakhalin</summary>
+    public static TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
+
+    /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
+    public static TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
+
+    /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
+    public static TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
+
+    /// <summary>(UTC+12:00) Auckland, Wellington</summary>
+    public static TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
+
+    /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
+    public static TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
+
+    /// <summary>(UTC+12:00) Fiji</summary>
+    public static TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
+
+    /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
+    public static TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
+
+    /// <summary>(UTC+12:45) Chatham Islands</summary>
+    public static TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
+
+    /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
+    public static TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
+
+    /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
+    public static TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
+
+    /// <summary>(UTC+13:00) Samoa</summary>
+    public static TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
+
+    /// <summary>(UTC+14:00) Kiritimati Island</summary>
+    public static TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
+
+    /// <summary>Converts a string to <see cref="TimeZone"/>.</summary>
+    public static implicit operator TimeZone(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="TimeZone"/> to its string representation.</summary>
+    public static implicit operator string(TimeZone value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(TimeZone other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is TimeZone other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(TimeZone left, TimeZone right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(TimeZone left, TimeZone right) => !left.Equals(right);
+
+    public sealed class TimeZoneJsonConverter : JsonConverter<TimeZone>
+    {
+        public TimeZoneJsonConverter() { }
+        public override TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
 }
 
 #endregion Types

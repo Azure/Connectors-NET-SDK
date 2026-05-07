@@ -126,7 +126,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("AAMkADlmOTA3NWNm", email.MessageId);
             Assert.AreEqual("Test email for trigger callback", email.Subject);
             Assert.AreEqual("sender@microsoft.com", email.From);
-            Assert.AreEqual("normal", email.Importance);
+            Assert.AreEqual("normal", email.Importance.ToString());
             Assert.AreEqual(false, email.IsRead);
         }
 
@@ -193,7 +193,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.AreEqual("Team standup", calendarEvent.Subject);
             Assert.AreEqual("Daily sync", calendarEvent.Body);
-            Assert.AreEqual("accepted", calendarEvent.ResponseType);
+            Assert.AreEqual("accepted", calendarEvent.ResponseType.ToString());
             Assert.AreEqual("manager@microsoft.com", calendarEvent.Organizer);
         }
 
@@ -243,7 +243,7 @@ namespace Azure.Connectors.Sdk.Tests
             var calendarEvent = result.Body.Value[0];
 
             // Assert
-            Assert.AreEqual("updated", calendarEvent.ActionType);
+            Assert.AreEqual("updated", calendarEvent.ActionType.ToString());
             Assert.AreEqual(false, calendarEvent.IsAdded);
             Assert.AreEqual(true, calendarEvent.IsUpdated);
             Assert.AreEqual("Rescheduled meeting", calendarEvent.Subject);

@@ -883,7 +883,7 @@ public class SharePointHttpRequestBodyParameters
 {
     /// <summary>Http Method</summary>
     [JsonPropertyName("method")]
-    public string Method { get; set; }
+    public Method Method { get; set; }
 
     /// <summary>Example: _api/web/lists/getbytitle(&apos;Documents&apos;)</summary>
     [JsonPropertyName("uri")]
@@ -896,6 +896,67 @@ public class SharePointHttpRequestBodyParameters
     /// <summary>Enter request content in JSON</summary>
     [JsonPropertyName("body")]
     public string Body { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known Method values.
+/// </summary>
+[JsonConverter(typeof(Method.MethodJsonConverter))]
+public readonly struct Method : IEquatable<Method>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Method"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Method(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>GET</summary>
+    public static Method GET { get; } = new("GET");
+
+    /// <summary>PUT</summary>
+    public static Method PUT { get; } = new("PUT");
+
+    /// <summary>POST</summary>
+    public static Method POST { get; } = new("POST");
+
+    /// <summary>PATCH</summary>
+    public static Method PATCH { get; } = new("PATCH");
+
+    /// <summary>DELETE</summary>
+    public static Method DELETE { get; } = new("DELETE");
+
+    /// <summary>Converts a string to <see cref="Method"/>.</summary>
+    public static implicit operator Method(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Method"/> to its string representation.</summary>
+    public static implicit operator string(Method value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Method other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Method other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Method left, Method right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Method left, Method right) => !left.Equals(right);
+
+    public sealed class MethodJsonConverter : JsonConverter<Method>
+    {
+        public MethodJsonConverter() { }
+        public override Method Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Method value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
 }
 
 #endregion Types
