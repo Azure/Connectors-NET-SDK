@@ -15,9 +15,9 @@ This repository contains the lightweight SDK for Azure Logic Apps connectors. Co
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk;
 
-namespace Microsoft.Azure.Connectors.Sdk
+namespace Azure.Connectors.Sdk
 {
     public class YourClass
     {
@@ -432,7 +432,7 @@ The official build pipeline (1718) triggers automatically on `v*` tags in the AD
 az pipelines run --id 1718 --org https://dev.azure.com/azfunc --project internal --branch refs/tags/vX.Y.Z-preview.N
 ```
 
-Wait for it to complete. The build produces `Microsoft.Azure.Connectors.Sdk.X.Y.Z-preview.N.nupkg`.
+Wait for it to complete. The build produces `Azure.Connectors.Sdk.X.Y.Z-preview.N.nupkg`.
 
 #### 5. Run the release pipeline
 
@@ -499,10 +499,10 @@ When adding a new generated connector client to the SDK:
    LogicAppsCompiler <outputDir> unused --directClient --connectors=<connector-name>
    ```
 
-2. **Copy the generated file** (`{Connector}Extensions.cs`) to `src/Microsoft.Azure.Connectors.Sdk/Generated/`
+2. **Copy the generated file** (`{Connector}Extensions.cs`) to `src/Azure.Connectors.Sdk/Generated/`
 3. **Update `ConnectorNames.cs`** — add the new connector constant in alphabetical order
 4. **Update `ManagedConnectors.cs`** — add the connector name to `AvailableConnectors` and a usage example in the header comment, both in alphabetical order
-5. **Add unit tests** — create `{Connector}ClientTests.cs` in `tests/Microsoft.Azure.Connectors.Sdk.Tests/` following the pattern of existing tests (constructor, dispose, mocked API call, error handling, serialization round-trips)
+5. **Add unit tests** — create `{Connector}ClientTests.cs` in `tests/Azure.Connectors.Sdk.Tests/` following the pattern of existing tests (constructor, dispose, mocked API call, error handling, serialization round-trips)
 6. **Update `ROADMAP.md`** — mark the connector as complete in the appropriate phase
 7. **Update the connection setup skill** — add the connector's API name to the supported list in `.github/skills/connection-setup/SKILL.md` (Step 2)
 8. **Run all tests** — `dotnet test` must pass with zero failures before committing

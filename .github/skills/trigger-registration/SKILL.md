@@ -23,7 +23,7 @@ Registers polling trigger configs on a Connector Gateway so that connector event
 - **Supported regions** for Connector Gateway: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the Function App can be in any region.
 - For .NET: the Function App project must reference:
   - `Microsoft.Azure.Functions.Worker.Extensions.Connector` — provides the `[ConnectorTrigger]` attribute
-  - `Microsoft.Azure.Connectors.Sdk` — provides typed connector clients and trigger payload types
+  - `Azure.Connectors.Sdk` — provides typed connector clients and trigger payload types
 
 ## Key Concepts
 
@@ -94,13 +94,13 @@ There is no `ConnectorTrigger` template yet. Use `azd` with an HTTP trigger temp
    For SDK typed payloads, also add:
 
    ```xml
-   <PackageReference Include="Microsoft.Azure.Connectors.Sdk" Version="*" />
+   <PackageReference Include="Azure.Connectors.Sdk" Version="*" />
    ```
 
-   > **Note:** If `Microsoft.Azure.Connectors.Sdk` is not yet published on NuGet, use a project reference to the local SDK repo instead:
+   > **Note:** If `Azure.Connectors.Sdk` is not yet published on NuGet, use a project reference to the local SDK repo instead:
    >
    > ```xml
-   > <ProjectReference Include="..\..\Connectors-NET-SDK\src\Microsoft.Azure.Connectors.Sdk\Microsoft.Azure.Connectors.Sdk.csproj" />
+   > <ProjectReference Include="..\..\Connectors-NET-SDK\src\Azure.Connectors.Sdk\Azure.Connectors.Sdk.csproj" />
    > ```
 
 4. **Build and deploy**:
@@ -112,14 +112,14 @@ There is no `ConnectorTrigger` template yet. Use `azd` with an HTTP trigger temp
 ### Packages
 
 - `Microsoft.Azure.Functions.Worker.Extensions.Connector` — provides the `[ConnectorTrigger]` attribute and POCO converter. See [azure-functions-connector-extension](https://github.com/Azure/azure-functions-connector-extension).
-- `Microsoft.Azure.Connectors.Sdk` — typed connector clients and trigger payload types (e.g., `Office365OnNewEmailTriggerPayload`, `TeamsClient`)
+- `Azure.Connectors.Sdk` — typed connector clients and trigger payload types (e.g., `Office365OnNewEmailTriggerPayload`, `TeamsClient`)
 
 ### Example: ConnectorTrigger Function
 
-Use the `[ConnectorTrigger]` attribute with SDK typed payloads for POCO binding. Payload types are in the `Microsoft.Azure.Connectors.Sdk.<Connector>` namespace:
+Use the `[ConnectorTrigger]` attribute with SDK typed payloads for POCO binding. Payload types are in the `Azure.Connectors.Sdk.<Connector>` namespace:
 
 ```csharp
-using Microsoft.Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk.Office365;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 

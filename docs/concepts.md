@@ -204,7 +204,7 @@ Your Azure Function receives this as an HTTP POST body.
 
 ### Connectors .NET SDK (NuGet Package)
 
-The **Azure Connectors .NET SDK** (`Microsoft.Azure.Connectors.Sdk`) is a client-side .NET library that provides the infrastructure for calling connectors:
+The **Azure Connectors .NET SDK** (`Azure.Connectors.Sdk`) is a client-side .NET library that provides the infrastructure for calling connectors:
 
 | Component | Responsibility |
 |-----------|---------------|
