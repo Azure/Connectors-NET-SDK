@@ -162,7 +162,8 @@ public class DeploymentPropertiesExtended
 
     /// <summary>The timestamp of the template deployment.</summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    [JsonInclude]
+    public DateTime? Timestamp { get; internal set; }
 
     /// <summary>Key/value pairs that represent deploymentoutput.</summary>
     [JsonPropertyName("outputs")]
@@ -456,7 +457,8 @@ public class DeploymentOperationProperties
 
     /// <summary>The date and time of the operation.</summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    [JsonInclude]
+    public DateTime? Timestamp { get; internal set; }
 
     /// <summary>Deployment operation service request id.</summary>
     [JsonPropertyName("serviceRequestId")]

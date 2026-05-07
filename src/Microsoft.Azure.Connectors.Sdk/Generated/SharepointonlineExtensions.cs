@@ -261,7 +261,8 @@ public class BlobMetadata
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -273,7 +274,8 @@ public class BlobMetadata
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -300,7 +302,8 @@ public class SPBlobMetadataResponse
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -312,7 +315,8 @@ public class SPBlobMetadataResponse
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -336,7 +340,8 @@ public class BlobMetadataResponse
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -348,7 +353,8 @@ public class BlobMetadataResponse
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -591,7 +597,8 @@ public class PatchFileItemResponse
 public class SetApprovalStatusOutput
 {
     /// <summary>ETag of the item after the approval status was set</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>A link to the item that needs approval</summary>
     public string ApprovalLink { get; set; }
@@ -651,7 +658,8 @@ public class DeletedItem
     public string DeletedBy { get; set; }
 
     /// <summary>When this item was deleted</summary>
-    public DateTime? TimeDeleted { get; set; }
+    [JsonInclude]
+    public DateTime? TimeDeleted { get; internal set; }
 
     /// <summary>A true/false value to indicate if the item is a folder</summary>
     public bool? IsFolder { get; set; }

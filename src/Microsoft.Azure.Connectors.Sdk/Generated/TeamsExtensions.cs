@@ -34,11 +34,13 @@ public class NewMeetingResponse
 
     /// <summary>Timestamp the event was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public string CreatedTimestamp { get; set; }
+    [JsonInclude]
+    public string CreatedTimestamp { get; internal set; }
 
     /// <summary>Timestamp the event was last modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public string LastModifiedTimestamp { get; set; }
+    [JsonInclude]
+    public string LastModifiedTimestamp { get; internal set; }
 
     /// <summary>The categories associated with the event</summary>
     [JsonPropertyName("categories")]
@@ -244,7 +246,8 @@ public class GetChannelResponse
 
     /// <summary>Timestamp at which the channel was created. Read only</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? ChannelCreationTime { get; set; }
+    [JsonInclude]
+    public DateTime? ChannelCreationTime { get; internal set; }
 
     /// <summary>The channel membership type</summary>
     [JsonPropertyName("membershipType")]
@@ -332,7 +335,8 @@ public class ChannelWithOwnerTeamId
 
     /// <summary>Timestamp at which the channel was created. Read only</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? ChannelCreationTime { get; set; }
+    [JsonInclude]
+    public DateTime? ChannelCreationTime { get; internal set; }
 
     /// <summary>The channel membership type</summary>
     [JsonPropertyName("membershipType")]
@@ -1114,7 +1118,8 @@ public class ChatMessage
 
     /// <summary>Timestamp of when the chat message was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreationTimestamp { get; set; }
+    [JsonInclude]
+    public DateTime? CreationTimestamp { get; internal set; }
 
     /// <summary>deleted</summary>
     [JsonPropertyName("deleted")]
@@ -1138,7 +1143,8 @@ public class ChatMessage
 
     /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public string LastModifiedTimestamp { get; set; }
+    [JsonInclude]
+    public string LastModifiedTimestamp { get; internal set; }
 
     /// <summary>Locale of the chat message set by the client.</summary>
     [JsonPropertyName("locale")]

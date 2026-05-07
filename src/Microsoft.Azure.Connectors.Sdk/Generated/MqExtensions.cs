@@ -39,7 +39,8 @@ public class Item
     public string CorrelationId { get; set; }
 
     /// <summary>PutDateTime</summary>
-    public DateTime? PutDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? PutDateTime { get; internal set; }
 
     /// <summary>UserIdentifier</summary>
     public string UserIdentifier { get; set; }
