@@ -9,7 +9,7 @@ namespace Microsoft.Azure.Connectors.Sdk;
 /// <summary>
 /// Extension methods for exception handling.
 /// </summary>
-public static class ExceptionExtensions
+internal static class ExceptionExtensions
 {
     /// <summary>
     /// Determines whether the exception is fatal and should not be caught.

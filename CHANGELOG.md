@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking Changes
 
 - **Output-only model properties now have `internal set`** — service-generated properties (ETag, LastModified, *DateTime timestamps) are no longer publicly settable. Use the new per-connector model factory classes to construct instances with these properties in tests (#106)
-
-### Changed
-
+- **Made `ExceptionExtensions` internal** — `IsFatal()` is only used internally in `ConnectorClientBase` and was never intended as a public API (#108)
+- **Made `HttpExtensions` internal** — `ToJsonContent`, `ReadAsAsync`, `AddCorrelationId`, `AddClientRequestId` are internal HTTP utilities, not consumer-facing (#108)
+- **Removed `RetryPolicy` class** — dead code; retry configuration moved to `ClientOptions.Retry` in PR #94 (#108)
 - **Removed `ConnectorResponse<T>` class** and `ConnectorHttpClient.GetAsync<T>`, `PostAsync<TRequest, TResponse>`, `ParseResponseAsync<T>` methods — all generated clients use `ConnectorClientBase.CallConnectorAsync<T>` which returns `Task<T>` directly; no callers referenced these APIs (#99)
 - Renamed all generated connector namespaces from `Microsoft.Azure.Connectors.DirectClient.*` to `Microsoft.Azure.Connectors.Sdk.*` for consistency with the package name and cross-language SDKs (#87)
   - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
