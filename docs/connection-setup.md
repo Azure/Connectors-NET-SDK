@@ -310,7 +310,7 @@ Add the runtime URL to your application settings:
 
 ## Authentication Modes
 
-The generated connector clients (e.g., `Office365Client`, `TeamsClient`) authenticate to API Hub using Azure credentials. Each client provides overloaded constructors: a `Uri`-only overload that defaults to `ManagedIdentityCredential`, and a `Uri` + `TokenCredential` overload for explicit credentials:
+The generated connector clients (e.g., `Office365Client`, `TeamsClient`) authenticate to API Hub using Azure credentials. Each client provides overloaded constructors: a `Uri`-only overload that defaults to `ManagedIdentityCredential`, a `Uri` + `TokenCredential` overload for explicit credentials, and a `string` convenience overload that delegates to the `Uri` overload (validating the URL with `Uri.TryCreate`):
 
 ### Mode 1: ManagedIdentityCredential (Default)
 
@@ -362,7 +362,7 @@ Use this when multiple apps share a single identity, or when you need the identi
 
 ### Custom Credentials
 
-The primary constructor also accepts any `TokenCredential` directly, enabling advanced scenarios (e.g., certificate-based auth, chained credentials):
+The `Uri` + `TokenCredential` constructor overload accepts any `TokenCredential`, enabling advanced scenarios (e.g., certificate-based auth, chained credentials):
 
 ```csharp
 var credential = new ChainedTokenCredential(
