@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
         /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
         [JsonPropertyName("AccessProtocol")]
-        public SharedAccessProtocol SharedAccessProtocol { get; set; }
+        public AccessProtocol SharedAccessProtocol { get; set; }
 
         /// <summary>The allowed IP address or IP address range. Null if you don&apos;t want to restrict based on IP address.</summary>
         [JsonPropertyName("IpAddressOrRange")]
@@ -238,6 +238,58 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
+    /// Extensible enum for known AccessProtocol values.
+    /// </summary>
+    [JsonConverter(typeof(AccessProtocol.AccessProtocolJsonConverter))]
+    public readonly struct AccessProtocol : IEquatable<AccessProtocol>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccessProtocol"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public AccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>HttpsOnly</summary>
+        public static AccessProtocol HttpsOnly { get; } = new("HttpsOnly");
+
+        /// <summary>HttpsOrHttp</summary>
+        public static AccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
+
+        /// <summary>Converts a string to <see cref="AccessProtocol"/>.</summary>
+        public static implicit operator AccessProtocol(string value) => value != null ? new(value) : default;
+
+        /// <summary>Converts a <see cref="AccessProtocol"/> to its string representation.</summary>
+        public static implicit operator string(AccessProtocol value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(AccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is AccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(AccessProtocol left, AccessProtocol right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(AccessProtocol left, AccessProtocol right) => !left.Equals(right);
+
+        internal sealed class AccessProtocolJsonConverter : JsonConverter<AccessProtocol>
+        {
+            public AccessProtocolJsonConverter() { }
+            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override void Write(Utf8JsonWriter writer, AccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known Permissions values.
     /// </summary>
     [JsonConverter(typeof(Permissions.PermissionsJsonConverter))]
@@ -307,58 +359,6 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
             public PermissionsJsonConverter() { }
             public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
             public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known SharedAccessProtocol values.
-    /// </summary>
-    [JsonConverter(typeof(SharedAccessProtocol.SharedAccessProtocolJsonConverter))]
-    public readonly struct SharedAccessProtocol : IEquatable<SharedAccessProtocol>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SharedAccessProtocol"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public SharedAccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>HttpsOnly</summary>
-        public static SharedAccessProtocol HttpsOnly { get; } = new("HttpsOnly");
-
-        /// <summary>HttpsOrHttp</summary>
-        public static SharedAccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
-
-        /// <summary>Converts a string to <see cref="SharedAccessProtocol"/>.</summary>
-        public static implicit operator SharedAccessProtocol(string value) => value != null ? new(value) : default;
-
-        /// <summary>Converts a <see cref="SharedAccessProtocol"/> to its string representation.</summary>
-        public static implicit operator string(SharedAccessProtocol value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(SharedAccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is SharedAccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(SharedAccessProtocol left, SharedAccessProtocol right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(SharedAccessProtocol left, SharedAccessProtocol right) => !left.Equals(right);
-
-        internal sealed class SharedAccessProtocolJsonConverter : JsonConverter<SharedAccessProtocol>
-        {
-            public SharedAccessProtocolJsonConverter() { }
-            public override SharedAccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-            public override void Write(Utf8JsonWriter writer, SharedAccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 

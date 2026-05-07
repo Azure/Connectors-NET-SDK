@@ -915,19 +915,19 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public Method(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>GET</summary>
-        public static Method GET { get; } = new("GET");
+        public static Method Get { get; } = new("GET");
 
         /// <summary>PUT</summary>
-        public static Method PUT { get; } = new("PUT");
+        public static Method Put { get; } = new("PUT");
 
         /// <summary>POST</summary>
-        public static Method POST { get; } = new("POST");
+        public static Method Post { get; } = new("POST");
 
         /// <summary>PATCH</summary>
-        public static Method PATCH { get; } = new("PATCH");
+        public static Method Patch { get; } = new("PATCH");
 
         /// <summary>DELETE</summary>
-        public static Method DELETE { get; } = new("DELETE");
+        public static Method Delete { get; } = new("DELETE");
 
         /// <summary>Converts a string to <see cref="Method"/>.</summary>
         public static implicit operator Method(string value) => value != null ? new(value) : default;

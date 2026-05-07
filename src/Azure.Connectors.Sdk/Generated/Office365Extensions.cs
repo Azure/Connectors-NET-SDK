@@ -2162,7 +2162,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ContentType Text { get; } = new("Text");
 
         /// <summary>HTML</summary>
-        public static ContentType HTML { get; } = new("HTML");
+        public static ContentType Html { get; } = new("HTML");
 
         /// <summary>Converts a string to <see cref="ContentType"/>.</summary>
         public static implicit operator ContentType(string value) => value != null ? new(value) : default;

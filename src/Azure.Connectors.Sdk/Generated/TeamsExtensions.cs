@@ -253,7 +253,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public TheTypeOfTheChannel TheTypeOfTheChannel { get; set; }
+        public MembershipType TheTypeOfTheChannel { get; set; }
     }
 
     /// <summary>
@@ -342,7 +342,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public TheTypeOfTheChannel TheTypeOfTheChannel { get; set; }
+        public MembershipType TheTypeOfTheChannel { get; set; }
 
         /// <summary>The ID of the team that owns the channel</summary>
         [JsonPropertyName("ownerTeamId")]
@@ -1250,7 +1250,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>Status to show during the event</summary>
         [JsonPropertyName("showAs")]
-        public StatusShowAs StatusShowAs { get; set; }
+        public ShowAs StatusShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted</summary>
         [JsonPropertyName("responseRequested")]
@@ -1321,124 +1321,124 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Extensible enum for known StatusShowAs values.
+    /// Extensible enum for known MembershipType values.
     /// </summary>
-    [JsonConverter(typeof(StatusShowAs.StatusShowAsJsonConverter))]
-    public readonly struct StatusShowAs : IEquatable<StatusShowAs>
+    [JsonConverter(typeof(MembershipType.MembershipTypeJsonConverter))]
+    public readonly struct MembershipType : IEquatable<MembershipType>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StatusShowAs"/> struct.
+        /// Initializes a new instance of the <see cref="MembershipType"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public StatusShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public MembershipType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
-        /// <summary>free</summary>
-        public static StatusShowAs Free { get; } = new("free");
+        /// <summary>standard</summary>
+        public static MembershipType Standard { get; } = new("standard");
 
-        /// <summary>tentative</summary>
-        public static StatusShowAs Tentative { get; } = new("tentative");
+        /// <summary>private</summary>
+        public static MembershipType Private { get; } = new("private");
 
-        /// <summary>busy</summary>
-        public static StatusShowAs Busy { get; } = new("busy");
+        /// <summary>unknownFutureValue</summary>
+        public static MembershipType UnknownFutureValue { get; } = new("unknownFutureValue");
 
-        /// <summary>oof</summary>
-        public static StatusShowAs Oof { get; } = new("oof");
+        /// <summary>shared</summary>
+        public static MembershipType Shared { get; } = new("shared");
 
-        /// <summary>workingElsewhere</summary>
-        public static StatusShowAs WorkingElsewhere { get; } = new("workingElsewhere");
+        /// <summary>Converts a string to <see cref="MembershipType"/>.</summary>
+        public static implicit operator MembershipType(string value) => value != null ? new(value) : default;
 
-        /// <summary>unknown</summary>
-        public static StatusShowAs Unknown { get; } = new("unknown");
-
-        /// <summary>Converts a string to <see cref="StatusShowAs"/>.</summary>
-        public static implicit operator StatusShowAs(string value) => value != null ? new(value) : default;
-
-        /// <summary>Converts a <see cref="StatusShowAs"/> to its string representation.</summary>
-        public static implicit operator string(StatusShowAs value) => value.ToString();
+        /// <summary>Converts a <see cref="MembershipType"/> to its string representation.</summary>
+        public static implicit operator string(MembershipType value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(StatusShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(MembershipType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is StatusShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is MembershipType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(StatusShowAs left, StatusShowAs right) => left.Equals(right);
+        public static bool operator ==(MembershipType left, MembershipType right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(StatusShowAs left, StatusShowAs right) => !left.Equals(right);
+        public static bool operator !=(MembershipType left, MembershipType right) => !left.Equals(right);
 
-        internal sealed class StatusShowAsJsonConverter : JsonConverter<StatusShowAs>
+        internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
         {
-            public StatusShowAsJsonConverter() { }
-            public override StatusShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-            public override void Write(Utf8JsonWriter writer, StatusShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public MembershipTypeJsonConverter() { }
+            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
     /// <summary>
-    /// Extensible enum for known TheTypeOfTheChannel values.
+    /// Extensible enum for known ShowAs values.
     /// </summary>
-    [JsonConverter(typeof(TheTypeOfTheChannel.TheTypeOfTheChannelJsonConverter))]
-    public readonly struct TheTypeOfTheChannel : IEquatable<TheTypeOfTheChannel>
+    [JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
+    public readonly struct ShowAs : IEquatable<ShowAs>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TheTypeOfTheChannel"/> struct.
+        /// Initializes a new instance of the <see cref="ShowAs"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public TheTypeOfTheChannel(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
-        /// <summary>standard</summary>
-        public static TheTypeOfTheChannel Standard { get; } = new("standard");
+        /// <summary>free</summary>
+        public static ShowAs Free { get; } = new("free");
 
-        /// <summary>private</summary>
-        public static TheTypeOfTheChannel Private { get; } = new("private");
+        /// <summary>tentative</summary>
+        public static ShowAs Tentative { get; } = new("tentative");
 
-        /// <summary>unknownFutureValue</summary>
-        public static TheTypeOfTheChannel UnknownFutureValue { get; } = new("unknownFutureValue");
+        /// <summary>busy</summary>
+        public static ShowAs Busy { get; } = new("busy");
 
-        /// <summary>shared</summary>
-        public static TheTypeOfTheChannel Shared { get; } = new("shared");
+        /// <summary>oof</summary>
+        public static ShowAs Oof { get; } = new("oof");
 
-        /// <summary>Converts a string to <see cref="TheTypeOfTheChannel"/>.</summary>
-        public static implicit operator TheTypeOfTheChannel(string value) => value != null ? new(value) : default;
+        /// <summary>workingElsewhere</summary>
+        public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
 
-        /// <summary>Converts a <see cref="TheTypeOfTheChannel"/> to its string representation.</summary>
-        public static implicit operator string(TheTypeOfTheChannel value) => value.ToString();
+        /// <summary>unknown</summary>
+        public static ShowAs Unknown { get; } = new("unknown");
+
+        /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
+        public static implicit operator ShowAs(string value) => value != null ? new(value) : default;
+
+        /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
+        public static implicit operator string(ShowAs value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(TheTypeOfTheChannel other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is TheTypeOfTheChannel other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(TheTypeOfTheChannel left, TheTypeOfTheChannel right) => left.Equals(right);
+        public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(TheTypeOfTheChannel left, TheTypeOfTheChannel right) => !left.Equals(right);
+        public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
 
-        internal sealed class TheTypeOfTheChannelJsonConverter : JsonConverter<TheTypeOfTheChannel>
+        internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
         {
-            public TheTypeOfTheChannelJsonConverter() { }
-            public override TheTypeOfTheChannel Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-            public override void Write(Utf8JsonWriter writer, TheTypeOfTheChannel value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public ShowAsJsonConverter() { }
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 

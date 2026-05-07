@@ -197,7 +197,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The deployment mode.</summary>
         [JsonPropertyName("mode")]
-        public DeploymentMode DeploymentMode { get; set; }
+        public Mode DeploymentMode { get; set; }
 
         /// <summary>debugSetting</summary>
         [JsonPropertyName("debugSetting")]
@@ -884,7 +884,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The deployment mode.</summary>
         [JsonPropertyName("mode")]
-        public DeploymentMode DeploymentMode { get; set; }
+        public Mode DeploymentMode { get; set; }
 
         /// <summary>debugSetting</summary>
         [JsonPropertyName("debugSetting")]
@@ -916,54 +916,54 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Extensible enum for known DeploymentMode values.
+    /// Extensible enum for known Mode values.
     /// </summary>
-    [JsonConverter(typeof(DeploymentMode.DeploymentModeJsonConverter))]
-    public readonly struct DeploymentMode : IEquatable<DeploymentMode>
+    [JsonConverter(typeof(Mode.ModeJsonConverter))]
+    public readonly struct Mode : IEquatable<Mode>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeploymentMode"/> struct.
+        /// Initializes a new instance of the <see cref="Mode"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public DeploymentMode(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public Mode(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>Incremental</summary>
-        public static DeploymentMode Incremental { get; } = new("Incremental");
+        public static Mode Incremental { get; } = new("Incremental");
 
         /// <summary>Complete</summary>
-        public static DeploymentMode Complete { get; } = new("Complete");
+        public static Mode Complete { get; } = new("Complete");
 
-        /// <summary>Converts a string to <see cref="DeploymentMode"/>.</summary>
-        public static implicit operator DeploymentMode(string value) => value != null ? new(value) : default;
+        /// <summary>Converts a string to <see cref="Mode"/>.</summary>
+        public static implicit operator Mode(string value) => value != null ? new(value) : default;
 
-        /// <summary>Converts a <see cref="DeploymentMode"/> to its string representation.</summary>
-        public static implicit operator string(DeploymentMode value) => value.ToString();
+        /// <summary>Converts a <see cref="Mode"/> to its string representation.</summary>
+        public static implicit operator string(Mode value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(DeploymentMode other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(Mode other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is DeploymentMode other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is Mode other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(DeploymentMode left, DeploymentMode right) => left.Equals(right);
+        public static bool operator ==(Mode left, Mode right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(DeploymentMode left, DeploymentMode right) => !left.Equals(right);
+        public static bool operator !=(Mode left, Mode right) => !left.Equals(right);
 
-        internal sealed class DeploymentModeJsonConverter : JsonConverter<DeploymentMode>
+        internal sealed class ModeJsonConverter : JsonConverter<Mode>
         {
-            public DeploymentModeJsonConverter() { }
-            public override DeploymentMode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-            public override void Write(Utf8JsonWriter writer, DeploymentMode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public ModeJsonConverter() { }
+            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
