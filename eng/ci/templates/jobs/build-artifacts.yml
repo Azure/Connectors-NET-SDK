@@ -102,14 +102,14 @@ jobs:
           - template: ci/sign-files.yml@eng
             parameters:
               displayName: Sign assemblies
-              folderPath: out/bin/Microsoft.Azure.Connectors.Sdk/
-              pattern: Microsoft.Azure.Connectors.Sdk.dll
+              folderPath: out/bin/Azure.Connectors.Sdk/
+              pattern: Azure.Connectors.Sdk.dll
               signType: dll
 
           - task: DeleteFiles@1
             displayName: Delete CodeSignSummary files
             inputs:
-              sourceFolder: out/bin/Microsoft.Azure.Connectors.Sdk/
+              sourceFolder: out/bin/Azure.Connectors.Sdk/
               contents: '**/CodeSignSummary-*.md'
 
           - task: DotNetCoreCLI@2

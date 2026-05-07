@@ -36,11 +36,11 @@ extends:
             steps:
               - download: build
                 artifact: ${{ parameters.artifactName }}
-                patterns: '**/Microsoft.Azure.Connectors.Sdk.*.nupkg'
+                patterns: '**/Azure.Connectors.Sdk.*.nupkg'
                 displayName: Download SDK package
               - template: /eng/ci/templates/steps/get-package-version.yml@self
                 parameters:
-                  packageName: Microsoft.Azure.Connectors.Sdk
+                  packageName: Azure.Connectors.Sdk
                   buildTag: connector-sdk
                   dropPath: $(Pipeline.Workspace)/build/${{ parameters.artifactName }}
 
@@ -84,7 +84,7 @@ extends:
               isProduction: true
               approvers: '[TEAM FOUNDATION]\David Burg,[TEAM FOUNDATION]\Rama Krishna Rayudu,[TEAM FOUNDATION]\Varad Meru''s Team'
               stagingFeed: public/pre-release
-              packages: '**/Microsoft.Azure.Connectors.Sdk.*.nupkg'
+              packages: '**/Azure.Connectors.Sdk.*.nupkg'
               artifact:
                 name: ${{ parameters.artifactName }}
                 pipeline: build

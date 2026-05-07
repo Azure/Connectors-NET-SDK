@@ -14,10 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Made `HttpExtensions` internal** — `ToJsonContent`, `ReadAsAsync`, `AddCorrelationId`, `AddClientRequestId` are internal HTTP utilities, not consumer-facing (#108)
 - **Removed `RetryPolicy` class** — dead code; retry configuration moved to `ClientOptions.Retry` in PR #94 (#108)
 - **Removed `ConnectorResponse<T>` class** and `ConnectorHttpClient.GetAsync<T>`, `PostAsync<TRequest, TResponse>`, `ParseResponseAsync<T>` methods — all generated clients use `ConnectorClientBase.CallConnectorAsync<T>` which returns `Task<T>` directly; no callers referenced these APIs (#99)
-- Renamed all generated connector namespaces from `Microsoft.Azure.Connectors.DirectClient.*` to `Microsoft.Azure.Connectors.Sdk.*` for consistency with the package name and cross-language SDKs (#87)
-  - e.g., `using Microsoft.Azure.Connectors.DirectClient.Office365;` → `using Microsoft.Azure.Connectors.Sdk.Office365;`
-- Renamed `DirectClientConnectors` class to `SdkConnectors` (#87)
-  - e.g., `DirectClientConnectors.AvailableConnectors` → `SdkConnectors.AvailableConnectors`
+- Renamed all namespaces from `Microsoft.Azure.Connectors.*` to `Azure.Connectors.Sdk.*`, dropping the `Microsoft.` prefix for consistency with modern Azure SDK conventions and cross-language SDKs (#87)
+  - e.g., `using Microsoft.Azure.Connectors.Sdk.Office365;` → `using Azure.Connectors.Sdk.Office365;`
+  - NuGet package renamed from `Microsoft.Azure.Connectors.Sdk` to `Azure.Connectors.Sdk`
+  - Project/assembly renamed from `Microsoft.Azure.Connectors.Sdk` to `Azure.Connectors.Sdk`
 - **`ConnectorClientOptions` now inherits from `Azure.Core.ClientOptions`** — retry, transport, and diagnostics are configured via the inherited `Retry`, `Transport`, and `Diagnostics` properties instead of custom properties (#88)
   - Removed `MaxRetryAttempts`, `Timeout`, `UseExponentialBackoff`, `InitialRetryDelay` — use `options.Retry.MaxRetries`, `options.Retry.NetworkTimeout`, `options.Retry.Mode`, `options.Retry.Delay` instead
   - Added `ServiceVersion` enum for API versioning

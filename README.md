@@ -1,5 +1,5 @@
 [![Build Status](https://dev.azure.com/azfunc/public/_apis/build/status%2Fazure%2Fconnectors-sdk%2Fconnectors-sdk.public?repoName=Azure%2FConnectors-NET-SDK&branchName=main)](https://dev.azure.com/azfunc/public/_build/latest?definitionId=1716&repoName=Azure%2FConnectors-NET-SDK&branchName=main)
-[![NuGet](https://img.shields.io/nuget/v/Microsoft.Azure.Connectors.Sdk.svg)](https://www.nuget.org/packages/Microsoft.Azure.Connectors.Sdk)
+[![NuGet](https://img.shields.io/nuget/v/Azure.Connectors.Sdk.svg)](https://www.nuget.org/packages/Azure.Connectors.Sdk)
 
 # Azure Connectors .NET SDK
 
@@ -39,7 +39,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
                ▼
 ┌─────────────────────────────────────┐
 │   Azure Connectors .NET SDK         │
-│   Microsoft.Azure.Connectors.Sdk    │
+│   Azure.Connectors.Sdk              │
 │                                     │
 │  • Azure.Core TokenCredential auth  │
 │  • ConnectorHttpClient + retry      │
@@ -52,7 +52,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 ### From NuGet.org
 
 ```bash
-dotnet add package Microsoft.Azure.Connectors.Sdk --prerelease
+dotnet add package Azure.Connectors.Sdk --prerelease
 ```
 
 ## Quick Start
@@ -75,8 +75,8 @@ Copy the generated `*Extensions.cs` files to your project.
 
 ```csharp
 using System;
-using Microsoft.Azure.Connectors.Sdk;
-using Microsoft.Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Office365;
 
 // Get connection runtime URL from Azure Portal
 var connectionRuntimeUrl = "https://...";
