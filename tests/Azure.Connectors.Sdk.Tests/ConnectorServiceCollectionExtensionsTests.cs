@@ -92,15 +92,12 @@ namespace Azure.Connectors.Sdk.Tests
             var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
                 connectionRuntimeUrl: null);
 
-            // Act
-            services.AddOffice365Client(configuration);
-            var provider = services.BuildServiceProvider();
-
-            // Assert
+            // Act & Assert — validation now happens eagerly at registration time.
             var exception = Assert.ThrowsExactly<InvalidOperationException>(
-                () => provider.GetRequiredService<Office365Client>());
+                () => services.AddOffice365Client(configuration));
             StringAssert.Contains(exception.Message, "ConnectionRuntimeUrl");
             StringAssert.Contains(exception.Message, "office365");
+            StringAssert.Contains(exception.Message, "missing or empty");
         }
 
         [TestMethod]
@@ -111,13 +108,9 @@ namespace Azure.Connectors.Sdk.Tests
             var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
                 connectionRuntimeUrl: "   ");
 
-            // Act
-            services.AddOffice365Client(configuration);
-            var provider = services.BuildServiceProvider();
-
-            // Assert
+            // Act & Assert — validation now happens eagerly at registration time.
             var exception = Assert.ThrowsExactly<InvalidOperationException>(
-                () => provider.GetRequiredService<Office365Client>());
+                () => services.AddOffice365Client(configuration));
             StringAssert.Contains(exception.Message, "ConnectionRuntimeUrl");
         }
 
@@ -248,13 +241,9 @@ namespace Azure.Connectors.Sdk.Tests
             var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
                 connectionRuntimeUrl: "not-a-valid-uri");
 
-            // Act
-            services.AddOffice365Client(configuration);
-            var provider = services.BuildServiceProvider();
-
-            // Assert
+            // Act & Assert — validation now happens eagerly at registration time.
             var exception = Assert.ThrowsExactly<InvalidOperationException>(
-                () => provider.GetRequiredService<Office365Client>());
+                () => services.AddOffice365Client(configuration));
             StringAssert.Contains(exception.Message, "not a valid absolute URI");
             StringAssert.Contains(exception.Message, "office365");
         }

@@ -69,20 +69,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<ArmClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Arm);
-
-                return new ArmClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ArmClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Arm,
+                factory: (connectionRuntimeUrl, credential) => new ArmClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -94,20 +85,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<AzureblobClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Azureblob);
-
-                return new AzureblobClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureblobClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Azureblob,
+                factory: (connectionRuntimeUrl, credential) => new AzureblobClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -119,20 +101,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<AzuremonitorlogsClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Azuremonitorlogs);
-
-                return new AzuremonitorlogsClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzuremonitorlogsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Azuremonitorlogs,
+                factory: (connectionRuntimeUrl, credential) => new AzuremonitorlogsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -144,20 +117,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<KustoClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Kusto);
-
-                return new KustoClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<KustoClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Kusto,
+                factory: (connectionRuntimeUrl, credential) => new KustoClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -169,20 +133,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<MqClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Mq);
-
-                return new MqClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MqClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Mq,
+                factory: (connectionRuntimeUrl, credential) => new MqClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -194,20 +149,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<MsgraphgroupsanduserClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Msgraphgroupsanduser);
-
-                return new MsgraphgroupsanduserClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MsgraphgroupsanduserClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Msgraphgroupsanduser,
+                factory: (connectionRuntimeUrl, credential) => new MsgraphgroupsanduserClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -219,20 +165,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<Office365Client>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Office365);
-
-                return new Office365Client(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365Client>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Office365,
+                factory: (connectionRuntimeUrl, credential) => new Office365Client(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -244,20 +181,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<Office365usersClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Office365users);
-
-                return new Office365usersClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365usersClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Office365users,
+                factory: (connectionRuntimeUrl, credential) => new Office365usersClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -269,20 +197,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<OnedriveforbusinessClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Onedriveforbusiness);
-
-                return new OnedriveforbusinessClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OnedriveforbusinessClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Onedriveforbusiness,
+                factory: (connectionRuntimeUrl, credential) => new OnedriveforbusinessClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -294,20 +213,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<SharepointonlineClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Sharepointonline);
-
-                return new SharepointonlineClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SharepointonlineClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Sharepointonline,
+                factory: (connectionRuntimeUrl, credential) => new SharepointonlineClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -319,20 +229,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            ArgumentNullException.ThrowIfNull(services);
-            ArgumentNullException.ThrowIfNull(configurationSection);
-
-            services.AddSingleton<SmtpClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Smtp);
-
-                return new SmtpClient(connectionRuntimeUrl, credential);
-            });
-
-            return services;
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SmtpClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Smtp,
+                factory: (connectionRuntimeUrl, credential) => new SmtpClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -344,29 +245,45 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TeamsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Teams,
+                factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Common helper that validates configuration eagerly and registers a connector client singleton.
+        /// </summary>
+        private static IServiceCollection AddConnectorClient<TClient>(
+            IServiceCollection services,
+            IConfiguration configurationSection,
+            string connectorName,
+            Func<Uri, TokenCredential, TClient> factory)
+            where TClient : class
+        {
             ArgumentNullException.ThrowIfNull(services);
             ArgumentNullException.ThrowIfNull(configurationSection);
 
-            services.AddSingleton<TeamsClient>(serviceProvider =>
-            {
-                var (connectionRuntimeUrl, credential) = ConnectorServiceCollectionExtensions.ResolveSettings(
-                    serviceProvider,
-                    configurationSection,
-                    connectorName: ConnectorNames.Teams);
+            // NOTE(daviburg): Validate ConnectionRuntimeUrl eagerly at registration time so
+            // misconfiguration is caught at startup, not at first client resolution.
+            var connectionRuntimeUrl = ConnectorServiceCollectionExtensions.ParseConnectionRuntimeUrl(configurationSection, connectorName);
+            var managedIdentityClientId = configurationSection[ConnectorServiceCollectionExtensions.ManagedIdentityClientIdKey];
 
-                return new TeamsClient(connectionRuntimeUrl, credential);
+            services.AddSingleton<TClient>(serviceProvider =>
+            {
+                var credential = ConnectorServiceCollectionExtensions.ResolveCredential(serviceProvider, managedIdentityClientId);
+                return factory(connectionRuntimeUrl, credential);
             });
 
             return services;
         }
 
         /// <summary>
-        /// Resolves the connection runtime URL and credential from configuration and DI.
+        /// Parses and validates the connection runtime URL from configuration.
+        /// Called at registration time for fail-fast behavior.
         /// </summary>
-        private static (Uri ConnectionRuntimeUrl, TokenCredential Credential) ResolveSettings(
-            IServiceProvider serviceProvider,
-            IConfiguration configurationSection,
-            string connectorName)
+        private static Uri ParseConnectionRuntimeUrl(IConfiguration configurationSection, string connectorName)
         {
             var connectionRuntimeUrl = configurationSection[ConnectorServiceCollectionExtensions.ConnectionRuntimeUrlKey]?.Trim();
 
@@ -374,7 +291,7 @@ namespace Azure.Connectors.Sdk
             {
                 throw new InvalidOperationException(
                     message: $"Configuration value '{ConnectorServiceCollectionExtensions.ConnectionRuntimeUrlKey}' " +
-                             $"is required for the '{connectorName}' connector but was not found in the provided configuration section.");
+                             $"is required for the '{connectorName}' connector but was missing or empty in the provided configuration section.");
             }
 
             if (!Uri.TryCreate(connectionRuntimeUrl, UriKind.Absolute, out var parsedUri))
@@ -384,10 +301,7 @@ namespace Azure.Connectors.Sdk
                              $"for the '{connectorName}' connector is not a valid absolute URI: '{connectionRuntimeUrl}'.");
             }
 
-            var managedIdentityClientId = configurationSection[ConnectorServiceCollectionExtensions.ManagedIdentityClientIdKey];
-            var credential = ConnectorServiceCollectionExtensions.ResolveCredential(serviceProvider, managedIdentityClientId);
-
-            return (parsedUri, credential);
+            return parsedUri;
         }
 
         /// <summary>
@@ -415,7 +329,7 @@ namespace Azure.Connectors.Sdk
                     : new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(trimmedClientId));
             }
 
-            return serviceProvider.GetService(typeof(TokenCredential)) as TokenCredential
+            return serviceProvider.GetService<TokenCredential>()
                 ?? new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned);
         }
     }
