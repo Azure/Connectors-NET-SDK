@@ -885,7 +885,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     {
         /// <summary>Http Method</summary>
         [JsonPropertyName("method")]
-        public Method Method { get; set; }
+        public Method? Method { get; set; }
 
         /// <summary>Example: _api/web/lists/getbytitle(&apos;Documents&apos;)</summary>
         [JsonPropertyName("uri")]

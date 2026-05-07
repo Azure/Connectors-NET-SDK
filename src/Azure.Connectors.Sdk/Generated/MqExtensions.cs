@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public double? LogicalSequenceNumber { get; set; }
 
         /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-        public IncludeInfo IncludeInfo { get; set; }
+        public IncludeInfo? IncludeInfo { get; set; }
 
         /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
         public string Timeout { get; set; }
@@ -178,7 +178,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public double? LogicalSequenceNumber { get; set; }
 
         /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-        public IncludeInfo IncludeInfo { get; set; }
+        public IncludeInfo? IncludeInfo { get; set; }
 
         /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
         public string Timeout { get; set; }
@@ -199,7 +199,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public string Message { get; set; }
 
         /// <summary>Message type</summary>
-        public MessageType MessageType { get; set; }
+        public MessageType? MessageType { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
         public string CorrelationId { get; set; }

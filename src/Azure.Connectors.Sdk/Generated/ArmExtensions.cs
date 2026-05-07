@@ -88,7 +88,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The subscription state.</summary>
         [JsonPropertyName("state")]
-        public State State { get; set; }
+        public State? State { get; set; }
 
         /// <summary>subscriptionPolicies</summary>
         [JsonPropertyName("subscriptionPolicies")]
@@ -114,7 +114,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The subscription spending limit.</summary>
         [JsonPropertyName("spendingLimit")]
-        public SpendingLimit SpendingLimit { get; set; }
+        public SpendingLimit? SpendingLimit { get; set; }
     }
 
     /// <summary>
@@ -197,7 +197,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The deployment mode.</summary>
         [JsonPropertyName("mode")]
-        public Mode DeploymentMode { get; set; }
+        public Mode? DeploymentMode { get; set; }
 
         /// <summary>debugSetting</summary>
         [JsonPropertyName("debugSetting")]
@@ -884,7 +884,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The deployment mode.</summary>
         [JsonPropertyName("mode")]
-        public Mode DeploymentMode { get; set; }
+        public Mode? DeploymentMode { get; set; }
 
         /// <summary>debugSetting</summary>
         [JsonPropertyName("debugSetting")]
@@ -912,7 +912,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The export template options. Supported values include &apos;IncludeParameterDefaultValue&apos;, &apos;IncludeComments&apos; or &apos;IncludeParameterDefaultValue, IncludeComments</summary>
         [JsonPropertyName("options")]
-        public Options Options { get; set; }
+        public Options? Options { get; set; }
     }
 
     /// <summary>

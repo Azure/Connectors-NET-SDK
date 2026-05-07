@@ -74,7 +74,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The importance of the event. The possible values are: low, normal, high</summary>
         [JsonPropertyName("importance")]
-        public Importance Importance { get; set; }
+        public Importance? Importance { get; set; }
 
         /// <summary>Sensitivity of the event</summary>
         [JsonPropertyName("sensitivity")]
@@ -253,7 +253,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public MembershipType TheTypeOfTheChannel { get; set; }
+        public MembershipType? TheTypeOfTheChannel { get; set; }
     }
 
     /// <summary>
@@ -342,7 +342,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public MembershipType TheTypeOfTheChannel { get; set; }
+        public MembershipType? TheTypeOfTheChannel { get; set; }
 
         /// <summary>The ID of the team that owns the channel</summary>
         [JsonPropertyName("ownerTeamId")]
@@ -802,7 +802,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The visibility of the the team</summary>
         [JsonPropertyName("visibility")]
-        public Visibility Visibility { get; set; }
+        public Visibility? Visibility { get; set; }
     }
 
     /// <summary>
@@ -1250,7 +1250,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>Status to show during the event</summary>
         [JsonPropertyName("showAs")]
-        public ShowAs StatusShowAs { get; set; }
+        public ShowAs? StatusShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted</summary>
         [JsonPropertyName("responseRequested")]

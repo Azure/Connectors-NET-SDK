@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
         public string Bcc { get; set; }
 
         /// <summary>Importance of the email (High, Normal, or Low)</summary>
-        public Importance Importance { get; set; }
+        public Importance? Importance { get; set; }
 
         /// <summary>Specify email address for Read receipt</summary>
         public string ReadReceipt { get; set; }

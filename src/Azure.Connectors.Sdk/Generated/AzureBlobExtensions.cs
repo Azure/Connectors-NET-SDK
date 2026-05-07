@@ -105,7 +105,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         public string GroupPolicyIdentifier { get; set; }
 
         /// <summary>The permissions specified on the SAS (Values separated by comma).</summary>
-        public Permissions Permissions { get; set; }
+        public Permissions? Permissions { get; set; }
 
         /// <summary>The date and time at which the SAS becomes valid (example: &apos;2017-11-01T15:30:00+00:00&apos;). Default = now().</summary>
         public DateTime? StartTime { get; set; }
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
         /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
         [JsonPropertyName("AccessProtocol")]
-        public AccessProtocol SharedAccessProtocol { get; set; }
+        public AccessProtocol? SharedAccessProtocol { get; set; }
 
         /// <summary>The allowed IP address or IP address range. Null if you don&apos;t want to restrict based on IP address.</summary>
         [JsonPropertyName("IpAddressOrRange")]

@@ -175,7 +175,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ItemBody
     {
         /// <summary>ContentType</summary>
-        public ContentType ContentType { get; set; }
+        public ContentType? ContentType { get; set; }
 
         /// <summary>Content</summary>
         public string Content { get; set; }
@@ -318,7 +318,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
         [JsonPropertyName("responseType")]
-        public ResponseType ResponseType { get; set; }
+        public ResponseType? ResponseType { get; set; }
 
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("responseTime")]
@@ -345,7 +345,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Time zone of the event</summary>
         [JsonPropertyName("timeZone")]
-        public TimeZone TimeZone { get; set; }
+        public TimeZone? TimeZone { get; set; }
 
         /// <summary>Unique identifier for Series Master event type</summary>
         [JsonPropertyName("seriesMasterId")]
@@ -389,7 +389,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
         [JsonPropertyName("recurrence")]
-        public Recurrence Recurrence { get; set; }
+        public Recurrence? Recurrence { get; set; }
 
         /// <summary>End Date of the recurrence</summary>
         [JsonPropertyName("recurrenceEnd")]
@@ -409,7 +409,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
         [JsonPropertyName("showAs")]
-        public ShowAs ShowAs { get; set; }
+        public ShowAs? ShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
         [JsonPropertyName("responseRequested")]
@@ -417,7 +417,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
-        public Sensitivity Sensitivity { get; set; }
+        public Sensitivity? Sensitivity { get; set; }
     }
 
     /// <summary>
@@ -446,7 +446,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class GraphCalendarEventClientWithActionType
     {
         /// <summary>Changed action type of the event - added, updated or deleted.</summary>
-        public ActionType ActionType { get; set; }
+        public ActionType? ActionType { get; set; }
 
         /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
         public bool? IsAdded { get; set; }
@@ -484,7 +484,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
         [JsonPropertyName("responseType")]
-        public ResponseType ResponseType { get; set; }
+        public ResponseType? ResponseType { get; set; }
 
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("responseTime")]
@@ -555,7 +555,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
         [JsonPropertyName("recurrence")]
-        public Recurrence Recurrence { get; set; }
+        public Recurrence? Recurrence { get; set; }
 
         /// <summary>End Date of the recurrence</summary>
         [JsonPropertyName("recurrenceEnd")]
@@ -575,7 +575,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
         [JsonPropertyName("showAs")]
-        public ShowAs ShowAs { get; set; }
+        public ShowAs? ShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
         [JsonPropertyName("responseRequested")]
@@ -583,7 +583,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
-        public Sensitivity Sensitivity { get; set; }
+        public Sensitivity? Sensitivity { get; set; }
     }
 
     /// <summary>
@@ -1005,7 +1005,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public bool? IsOrganizerOptional { get; set; }
 
         /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
-        public ActivityDomain ActivityDomain { get; set; }
+        public ActivityDomain? ActivityDomain { get; set; }
     }
 
     /// <summary>
@@ -1378,11 +1378,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     {
         /// <summary>Automatic reply setting status</summary>
         [JsonPropertyName("status")]
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
 
         /// <summary>The audience that will see the external reply message</summary>
         [JsonPropertyName("externalAudience")]
-        public ExternalAudience ExternalAudience { get; set; }
+        public ExternalAudience? ExternalAudience { get; set; }
 
         /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
         [JsonPropertyName("scheduledStartDateTime")]
@@ -1735,7 +1735,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
         [JsonPropertyName("recurrence")]
-        public Recurrence Recurrence { get; set; }
+        public Recurrence? Recurrence { get; set; }
 
         /// <summary>Days of week for weekly recurrence</summary>
         [JsonPropertyName("selectedDaysOfWeek")]
@@ -1759,7 +1759,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
         [JsonPropertyName("showAs")]
-        public ShowAs ShowAs { get; set; }
+        public ShowAs? ShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
         [JsonPropertyName("responseRequested")]
@@ -1767,7 +1767,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
-        public Sensitivity Sensitivity { get; set; }
+        public Sensitivity? Sensitivity { get; set; }
     }
 
     /// <summary>
