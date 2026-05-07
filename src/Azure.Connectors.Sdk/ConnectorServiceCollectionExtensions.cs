@@ -368,7 +368,7 @@ namespace Azure.Connectors.Sdk
             IConfiguration configurationSection,
             string connectorName)
         {
-            var connectionRuntimeUrl = configurationSection[ConnectorServiceCollectionExtensions.ConnectionRuntimeUrlKey];
+            var connectionRuntimeUrl = configurationSection[ConnectorServiceCollectionExtensions.ConnectionRuntimeUrlKey]?.Trim();
 
             if (string.IsNullOrWhiteSpace(connectionRuntimeUrl))
             {
@@ -377,10 +377,17 @@ namespace Azure.Connectors.Sdk
                              $"is required for the '{connectorName}' connector but was not found in the provided configuration section.");
             }
 
+            if (!Uri.TryCreate(connectionRuntimeUrl, UriKind.Absolute, out var parsedUri))
+            {
+                throw new InvalidOperationException(
+                    message: $"Configuration value '{ConnectorServiceCollectionExtensions.ConnectionRuntimeUrlKey}' " +
+                             $"for the '{connectorName}' connector is not a valid absolute URI: '{connectionRuntimeUrl}'.");
+            }
+
             var managedIdentityClientId = configurationSection[ConnectorServiceCollectionExtensions.ManagedIdentityClientIdKey];
             var credential = ConnectorServiceCollectionExtensions.ResolveCredential(serviceProvider, managedIdentityClientId);
 
-            return (new Uri(connectionRuntimeUrl), credential);
+            return (parsedUri, credential);
         }
 
         /// <summary>
@@ -401,9 +408,11 @@ namespace Azure.Connectors.Sdk
         {
             if (managedIdentityClientId != null)
             {
-                return string.IsNullOrEmpty(managedIdentityClientId)
+                var trimmedClientId = managedIdentityClientId.Trim();
+
+                return string.IsNullOrEmpty(trimmedClientId)
                     ? new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned)
-                    : new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(managedIdentityClientId));
+                    : new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(trimmedClientId));
             }
 
             return serviceProvider.GetService(typeof(TokenCredential)) as TokenCredential

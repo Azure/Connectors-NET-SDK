@@ -2,7 +2,17 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using Azure.Connectors.Sdk.Arm;
+using Azure.Connectors.Sdk.Azureblob;
+using Azure.Connectors.Sdk.Azuremonitorlogs;
+using Azure.Connectors.Sdk.Kusto;
+using Azure.Connectors.Sdk.Mq;
+using Azure.Connectors.Sdk.Msgraphgroupsanduser;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk.Office365users;
+using Azure.Connectors.Sdk.Onedriveforbusiness;
+using Azure.Connectors.Sdk.Sharepointonline;
+using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Teams;
 using global::Azure.Core;
 using Microsoft.Extensions.Configuration;
@@ -228,6 +238,82 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(teamsClient);
             Assert.AreEqual("office365", office365Client.ConnectorName);
             Assert.AreEqual("teams", teamsClient.ConnectorName);
+        }
+
+        [TestMethod]
+        public void AddOffice365Client_WithInvalidUri_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
+                connectionRuntimeUrl: "not-a-valid-uri");
+
+            // Act
+            services.AddOffice365Client(configuration);
+            var provider = services.BuildServiceProvider();
+
+            // Assert
+            var exception = Assert.ThrowsExactly<InvalidOperationException>(
+                () => provider.GetRequiredService<Office365Client>());
+            StringAssert.Contains(exception.Message, "not a valid absolute URI");
+            StringAssert.Contains(exception.Message, "office365");
+        }
+
+        [TestMethod]
+        public void AddOffice365Client_WithWhitespaceManagedIdentityClientId_TreatsAsSystemAssigned()
+        {
+            // Arrange
+            var services = new ServiceCollection();
+            var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
+                ConnectorServiceCollectionExtensionsTests.TestConnectionRuntimeUrl,
+                managedIdentityClientId: "   ");
+
+            // Act
+            services.AddOffice365Client(configuration);
+            var provider = services.BuildServiceProvider();
+            var client = provider.GetRequiredService<Office365Client>();
+
+            // Assert — whitespace should be treated as empty (system-assigned).
+            Assert.IsNotNull(client);
+        }
+
+        [TestMethod]
+        public void AllConnectorExtensionMethods_RegisterCorrectClientAndConnectorName()
+        {
+            // Arrange — register all 12 connectors.
+            var services = new ServiceCollection();
+            var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
+                "https://test.azure.com/apim/connector/abc123");
+
+            services
+                .AddArmClient(configuration)
+                .AddAzureblobClient(configuration)
+                .AddAzuremonitorlogsClient(configuration)
+                .AddKustoClient(configuration)
+                .AddMqClient(configuration)
+                .AddMsgraphgroupsanduserClient(configuration)
+                .AddOffice365Client(configuration)
+                .AddOffice365usersClient(configuration)
+                .AddOnedriveforbusinessClient(configuration)
+                .AddSharepointonlineClient(configuration)
+                .AddSmtpClient(configuration)
+                .AddTeamsClient(configuration);
+
+            var provider = services.BuildServiceProvider();
+
+            // Act & Assert — verify each client resolves with the correct ConnectorName.
+            Assert.AreEqual("arm", provider.GetRequiredService<ArmClient>().ConnectorName);
+            Assert.AreEqual("azureblob", provider.GetRequiredService<AzureblobClient>().ConnectorName);
+            Assert.AreEqual("azuremonitorlogs", provider.GetRequiredService<AzuremonitorlogsClient>().ConnectorName);
+            Assert.AreEqual("kusto", provider.GetRequiredService<KustoClient>().ConnectorName);
+            Assert.AreEqual("mq", provider.GetRequiredService<MqClient>().ConnectorName);
+            Assert.AreEqual("msgraphgroupsanduser", provider.GetRequiredService<MsgraphgroupsanduserClient>().ConnectorName);
+            Assert.AreEqual("office365", provider.GetRequiredService<Office365Client>().ConnectorName);
+            Assert.AreEqual("office365users", provider.GetRequiredService<Office365usersClient>().ConnectorName);
+            Assert.AreEqual("onedriveforbusiness", provider.GetRequiredService<OnedriveforbusinessClient>().ConnectorName);
+            Assert.AreEqual("sharepointonline", provider.GetRequiredService<SharepointonlineClient>().ConnectorName);
+            Assert.AreEqual("smtp", provider.GetRequiredService<SmtpClient>().ConnectorName);
+            Assert.AreEqual("teams", provider.GetRequiredService<TeamsClient>().ConnectorName);
         }
 
         private static IConfiguration BuildMockConfiguration(
