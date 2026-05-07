@@ -34,7 +34,7 @@ namespace Azure.Connectors.Sdk
     /// <list type="bullet">
     ///   <item><description>Not set (null) — resolves <see cref="TokenCredential"/> from DI, or defaults to system-assigned managed identity.</description></item>
     ///   <item><description>Empty string — system-assigned managed identity.</description></item>
-    ///   <item><description>GUID value — user-assigned managed identity with that client ID.</description></item>
+    ///   <item><description>Non-empty string — user-assigned managed identity with that client ID.</description></item>
     /// </list>
     /// <para>
     /// Example configuration:
