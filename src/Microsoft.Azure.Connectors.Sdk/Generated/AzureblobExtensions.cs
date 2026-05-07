@@ -53,8 +53,7 @@ public class StorageAccount
 public class BlobMetadata
 {
     /// <summary>The unique id of the file or folder.</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -127,8 +126,7 @@ public class SharedAccessSignatureBlobPolicy
 public class DataWithSensitivityLabelInfo
 {
     /// <summary>The unique id of the file or folder.</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }

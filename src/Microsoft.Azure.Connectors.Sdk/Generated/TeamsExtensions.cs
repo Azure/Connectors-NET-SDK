@@ -30,8 +30,7 @@ public class NewMeetingResponse
 {
     /// <summary>Unique identifier for the event</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string ID { get; internal set; }
+    public string ID { get; set; }
 
     /// <summary>Timestamp the event was created</summary>
     [JsonPropertyName("createdDateTime")]
@@ -284,8 +283,7 @@ public class CreateChannelResponse
 
     /// <summary>The channel&apos;s unique identifier</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string ID { get; internal set; }
+    public string ID { get; set; }
 }
 
 /// <summary>
@@ -402,8 +400,7 @@ public class CreateTagResponseSchema
 
     /// <summary>Unique identifier of the tag</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string ID { get; internal set; }
+    public string ID { get; set; }
 
     /// <summary>ID of the team in which the tag is defined</summary>
     [JsonPropertyName("teamId")]
@@ -435,8 +432,7 @@ public class AddMemberToTagResponseSchema
 {
     /// <summary>User ID of the member added to the tag</summary>
     [JsonPropertyName("userId")]
-    [JsonInclude]
-    public string ID { get; internal set; }
+    public string ID { get; set; }
 }
 
 /// <summary>
@@ -1131,8 +1127,7 @@ public class ChatMessage
 
     /// <summary>Version number of the chat message.</summary>
     [JsonPropertyName("etag")]
-    [JsonInclude]
-    public string Etag { get; internal set; }
+    public string Etag { get; set; }
 
     /// <summary>The message sender</summary>
     [JsonPropertyName("from")]
@@ -1140,8 +1135,7 @@ public class ChatMessage
 
     /// <summary>Unique ID of the message</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The importance of the message. The possible values are: normal, high, urgent.</summary>
     [JsonPropertyName("importance")]

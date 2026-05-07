@@ -131,7 +131,7 @@ public static class Office365usersModelFactory
         string officeLocation = default,
         string profession = default,
         string userPrincipalNameUPN = default,
-        string iMAddress = default,
+        string imAddress = default,
         List<ScoredEmailAddress> scoredEmailAddresses = default,
         List<Phone> phones = default)
     {
@@ -150,7 +150,7 @@ public static class Office365usersModelFactory
             OfficeLocation = officeLocation,
             Profession = profession,
             UserPrincipalNameUPN = userPrincipalNameUPN,
-            IMAddress = iMAddress,
+            IMAddress = imAddress,
             ScoredEmailAddresses = scoredEmailAddresses,
             Phones = phones,
         };

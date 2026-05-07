@@ -93,7 +93,7 @@ public static class AzureblobModelFactory
         DateTime? startTime = default,
         DateTime? expiryTime = default,
         string sharedAccessProtocol = default,
-        string iPAddressOrIPAddressRange = default)
+        string ipAddressOrIPAddressRange = default)
     {
         return new SharedAccessSignatureBlobPolicy
         {
@@ -102,7 +102,7 @@ public static class AzureblobModelFactory
             StartTime = startTime,
             ExpiryTime = expiryTime,
             SharedAccessProtocol = sharedAccessProtocol,
-            IPAddressOrIPAddressRange = iPAddressOrIPAddressRange,
+            IPAddressOrIPAddressRange = ipAddressOrIPAddressRange,
         };
     }
 

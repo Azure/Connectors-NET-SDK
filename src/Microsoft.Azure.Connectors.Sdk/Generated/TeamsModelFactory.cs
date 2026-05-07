@@ -20,7 +20,7 @@ public static class TeamsModelFactory
     /// Creates a new instance of <see cref="NewMeetingResponse"/>.
     /// </summary>
     public static NewMeetingResponse NewMeetingResponse(
-        string iD = default,
+        string id = default,
         string createdTimestamp = default,
         string lastModifiedTimestamp = default,
         List<object> categories = default,
@@ -53,7 +53,7 @@ public static class TeamsModelFactory
     {
         return new NewMeetingResponse
         {
-            ID = iD,
+            ID = id,
             CreatedTimestamp = createdTimestamp,
             LastModifiedTimestamp = lastModifiedTimestamp,
             Categories = categories,
@@ -192,13 +192,13 @@ public static class TeamsModelFactory
     public static CreateChannelResponse CreateChannelResponse(
         string description = default,
         string displayName = default,
-        string iD = default)
+        string id = default)
     {
         return new CreateChannelResponse
         {
             Description = description,
             DisplayName = displayName,
-            ID = iD,
+            ID = id,
         };
     }
 
@@ -293,7 +293,7 @@ public static class TeamsModelFactory
     /// </summary>
     public static CreateTagResponseSchema CreateTagResponseSchema(
         string type = default,
-        string iD = default,
+        string id = default,
         string teamID = default,
         string displayName = default,
         int? memberCount = default)
@@ -301,7 +301,7 @@ public static class TeamsModelFactory
         return new CreateTagResponseSchema
         {
             Type = type,
-            ID = iD,
+            ID = id,
             TeamID = teamID,
             DisplayName = displayName,
             MemberCount = memberCount,
@@ -324,11 +324,11 @@ public static class TeamsModelFactory
     /// Creates a new instance of <see cref="AddMemberToTagResponseSchema"/>.
     /// </summary>
     public static AddMemberToTagResponseSchema AddMemberToTagResponseSchema(
-        string iD = default)
+        string id = default)
     {
         return new AddMemberToTagResponseSchema
         {
-            ID = iD,
+            ID = id,
         };
     }
 

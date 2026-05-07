@@ -40,7 +40,7 @@ public static class SmtpModelFactory
     public static Email Email(
         string from = default,
         string to = default,
-        string cC = default,
+        string cc = default,
         string subject = default,
         string body = default,
         string bcc = default,
@@ -53,7 +53,7 @@ public static class SmtpModelFactory
         {
             From = from,
             To = to,
-            CC = cC,
+            CC = cc,
             Subject = subject,
             Body = body,
             Bcc = bcc,

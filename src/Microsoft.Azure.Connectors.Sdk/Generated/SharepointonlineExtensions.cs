@@ -249,8 +249,7 @@ public class SharingLink
 public class BlobMetadata
 {
     /// <summary>The unique id of the file or folder.</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -291,8 +290,7 @@ public class SPBlobMetadataResponse
     public long? ItemId { get; set; }
 
     /// <summary>The unique id of the file or folder.</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -330,8 +328,7 @@ public class SPBlobMetadataResponse
 public class BlobMetadataResponse
 {
     /// <summary>The unique id of the file or folder.</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -425,8 +422,7 @@ public class SPListExpandedUser
 public class SPListEntity
 {
     /// <summary>The Id of the SPField</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>What type of entity (field) this is</summary>
     public string EntityType { get; set; }
@@ -623,8 +619,7 @@ public class SetApprovalStatusOutput
 public class SPListItemAttachment
 {
     /// <summary>File identifier</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>Link to attachment</summary>
     public string AbsoluteUri { get; set; }
@@ -649,8 +644,7 @@ public class DeletedItemList
 public class DeletedItem
 {
     /// <summary>List item id</summary>
-    [JsonInclude]
-    public long? ID { get; internal set; }
+    public long? ID { get; set; }
 
     /// <summary>File name of the item in document libraries, display name of the item in lists</summary>
     public string Name { get; set; }

@@ -29,8 +29,7 @@ public class GraphOutlookCategory
 {
     /// <summary>The ID of the Outlook Category.</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The display name of the Outlook Category.</summary>
     [JsonPropertyName("displayName")]
@@ -49,8 +48,7 @@ public class OutlookReceiveMessage
     public string BodyPreview { get; set; }
 
     /// <summary>Id</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>Conversation Id</summary>
     public string ConversationId { get; set; }
@@ -114,8 +112,7 @@ public class OutlookReceiveAttachment
     public string Type { get; set; }
 
     /// <summary>Attachment Id</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>Attachment name</summary>
     public string Name { get; set; }
@@ -227,8 +224,7 @@ public class SubscriptionResponse
 {
     /// <summary>Id of the subscription</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>Resource of the subscription request</summary>
     [JsonPropertyName("resource")]
@@ -266,8 +262,7 @@ public class MCPQueryResponse
 
     /// <summary>id</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>method</summary>
     [JsonPropertyName("method")]
@@ -330,8 +325,7 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The event&apos;s unique identifier</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The date and time that the event was created</summary>
     [JsonPropertyName("createdDateTime")]
@@ -497,8 +491,7 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The event&apos;s unique identifier</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The date and time that the event was created</summary>
     [JsonPropertyName("createdDateTime")]
@@ -608,8 +601,7 @@ public class ContactResponse
 {
     /// <summary>The contact&apos;s unique identifier.</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The ID of the contact&apos;s parent folder</summary>
     [JsonPropertyName("parentFolderId")]
@@ -807,8 +799,7 @@ public class ContactResponseV2
 {
     /// <summary>The contact&apos;s unique identifier.</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The ID of the contact&apos;s parent folder</summary>
     [JsonPropertyName("parentFolderId")]
@@ -966,8 +957,7 @@ public class GraphContactFolder
 {
     /// <summary>The ID of the contacts folder</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string ID { get; internal set; }
+    public string ID { get; set; }
 
     /// <summary>The name of the contacts folder</summary>
     [JsonPropertyName("displayName")]
@@ -1037,8 +1027,7 @@ public class GetAttachmentResponse
 {
     /// <summary>Id of the attachment.</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>Name of attachment.</summary>
     [JsonPropertyName("name")]
@@ -1851,8 +1840,7 @@ public class DateTimeTimeZone
 {
     /// <summary>DateTime (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
     [JsonPropertyName("dateTime")]
-    [JsonInclude]
-    public string DateTime { get; internal set; }
+    public string DateTime { get; set; }
 
     /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
     [JsonPropertyName("timeZone")]
@@ -1866,8 +1854,7 @@ public class Contact
 {
     /// <summary>The contact&apos;s unique identifier.</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The ID of the contact&apos;s parent folder</summary>
     [JsonPropertyName("parentFolderId")]
@@ -2019,8 +2006,7 @@ public class MCPQueryRequest
 
     /// <summary>id</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>method</summary>
     [JsonPropertyName("method")]

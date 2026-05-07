@@ -110,8 +110,7 @@ public class GetGroupPropertiesResponse
 
     /// <summary>Object id of the group</summary>
     [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>Group&apos;s deletion date time</summary>
     [JsonPropertyName("deletedDateTime")]

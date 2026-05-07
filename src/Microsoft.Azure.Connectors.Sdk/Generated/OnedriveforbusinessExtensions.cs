@@ -29,8 +29,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Onedriveforbusiness;
 public class BlobMetadata
 {
     /// <summary>The unique identifier of the file or folder.</summary>
-    [JsonInclude]
-    public string Id { get; internal set; }
+    public string Id { get; set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }

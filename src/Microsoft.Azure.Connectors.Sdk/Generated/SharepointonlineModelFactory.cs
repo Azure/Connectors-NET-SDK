@@ -440,7 +440,7 @@ public static class SharepointonlineModelFactory
     /// Creates a new instance of <see cref="DeletedItem"/>.
     /// </summary>
     public static DeletedItem DeletedItem(
-        long? iD = default,
+        long? id = default,
         string name = default,
         string filenameWithExtension = default,
         string deletedBy = default,
@@ -449,7 +449,7 @@ public static class SharepointonlineModelFactory
     {
         return new DeletedItem
         {
-            ID = iD,
+            ID = id,
             Name = name,
             FilenameWithExtension = filenameWithExtension,
             DeletedBy = deletedBy,
