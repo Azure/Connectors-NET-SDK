@@ -118,7 +118,7 @@ LogicAppsCompiler.exe <output-directory> unused --managedConnectors
 using System.Text.Json.Serialization;
 // ... other usings
 
-namespace Microsoft.Azure.Connectors.Sdk.Office365;
+namespace Azure.Connectors.Sdk.Office365;
 
 #region Types
 
@@ -246,7 +246,7 @@ The generated code depends on the runtime SDK for:
 Install the SDK NuGet package in your project:
 
 ```xml
-<PackageReference Include="Microsoft.Azure.Connectors.Sdk" Version="1.0.0" />
+<PackageReference Include="Azure.Connectors.Sdk" Version="1.0.0" />
 ```
 
 ## Regeneration Schedule
