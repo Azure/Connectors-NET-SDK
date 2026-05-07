@@ -1248,24 +1248,33 @@ public static class SharepointonlineTriggerParameters
 public class SharepointonlineClient : ConnectorClientBase
 {
     /// <summary>
-    /// Creates a new SharepointonlineClient.
+    /// Creates a new SharepointonlineClient with the specified connection runtime URL.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">Optional credential. Defaults to <see cref="DefaultAzureCredential"/>.</param>
+    public SharepointonlineClient(Uri connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new SharepointonlineClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
     /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public SharepointonlineClient(string connectionRuntimeUrl, TokenCredential credential = null, ConnectorClientOptions options = null)
+    public SharepointonlineClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
         : base(connectionRuntimeUrl, credential, options)
     {
     }
 
     /// <summary>
-    /// Creates a new SharepointonlineClient with managed identity support.
+    /// Creates a new SharepointonlineClient with the specified connection runtime URL string.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="managedIdentityClientId">The client ID for user-assigned managed identity. Use null for system-assigned identity with <see cref="ManagedIdentityCredential"/>.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public SharepointonlineClient(string connectionRuntimeUrl, string managedIdentityClientId, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, managedIdentityClientId, options)
+    public SharepointonlineClient(string connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
     {
     }
 

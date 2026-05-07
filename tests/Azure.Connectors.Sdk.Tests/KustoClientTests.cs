@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new KustoClient(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new KustoClient((string)null!));
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new KustoClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
 
@@ -158,7 +158,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new KustoClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
 
@@ -321,7 +321,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
             var client = new KustoClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
             // Act & Assert - calling Dispose twice should not throw (idempotent)
@@ -335,7 +335,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
             var client = new KustoClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
             // Act

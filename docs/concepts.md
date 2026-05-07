@@ -251,8 +251,8 @@ The SDK authenticates using `Azure.Core.TokenCredential`, the standard Azure SDK
 
 | Credential | Use Case |
 |----------|----------|
-| `DefaultAzureCredential` | Local development and Azure-hosted apps (default when no credential is specified) |
-| `ManagedIdentityCredential` | Azure-hosted apps — uses system-assigned or user-assigned managed identity |
+| `ManagedIdentityCredential` | Azure-hosted apps — system-assigned by default when no credential is specified |
+| `AzureCliCredential` | Local development — pass explicitly (default no longer probes CLI) |
 | `ClientSecretCredential` | Service principal authentication |
 | Any `TokenCredential` | Any authentication scheme supported by Azure.Identity |
 
@@ -268,8 +268,8 @@ The SDK authenticates using `Azure.Core.TokenCredential`, the standard Azure SDK
     │                          ▼
     │                   BearerTokenAuthenticationPolicy
     │                     calls TokenCredential.GetTokenAsync()
-    │                     ├── DefaultAzureCredential (default)
-    │                     └── ManagedIdentityCredential (with clientId)
+    │                     ├── ManagedIdentityCredential (default)
+    │                     └── AzureCliCredential (for local dev)
     │
     ▼
  HTTP request with "Authorization: Bearer {token}"

@@ -77,22 +77,24 @@ Copy the generated `*Extensions.cs` files to your project.
 using System;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Identity;
 
 // Get connection runtime URL from Azure Portal
 var connectionRuntimeUrl = "https://...";
 
-// Create client with default settings (uses DefaultAzureCredential)
+// Create client — defaults to ManagedIdentityCredential (system-assigned)
 using var client = new Office365Client(connectionRuntimeUrl);
 
-// Or configure retry, timeout, and backoff
+// For local development, pass AzureCliCredential explicitly
+using var localClient = new Office365Client(
+    new Uri(connectionRuntimeUrl),
+    new AzureCliCredential());
+
+// Or configure retry and diagnostics via ConnectorClientOptions
 using var clientWithOptions = new Office365Client(
-    connectionRuntimeUrl,
-    options: new ConnectorClientOptions
-    {
-        MaxRetryAttempts = 5,
-        Timeout = TimeSpan.FromSeconds(60),
-        UseExponentialBackoff = true
-    });
+    new Uri(connectionRuntimeUrl),
+    new AzureCliCredential(),
+    new ConnectorClientOptions());
 
 // Call typed operations
 await client.SendEmailAsync(new SendEmailInput
@@ -121,8 +123,8 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 
 | Credential | Use Case |
 |----------|----------|
-| `DefaultAzureCredential` | Local development and Azure-hosted apps (default when no credential is specified) |
-| `ManagedIdentityCredential` | Azure-hosted apps with system-assigned or user-assigned managed identity |
+| `ManagedIdentityCredential` | Azure-hosted apps — system-assigned by default when no credential is specified |
+| `AzureCliCredential` | Local development — pass explicitly (default no longer probes CLI) |
 | `ClientSecretCredential` | Service principal authentication |
 
 ### HTTP

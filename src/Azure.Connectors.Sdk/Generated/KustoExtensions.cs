@@ -255,24 +255,33 @@ public class MCPQueryRequest
 public class KustoClient : ConnectorClientBase
 {
     /// <summary>
-    /// Creates a new KustoClient.
+    /// Creates a new KustoClient with the specified connection runtime URL.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">Optional credential. Defaults to <see cref="DefaultAzureCredential"/>.</param>
+    public KustoClient(Uri connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new KustoClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
     /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public KustoClient(string connectionRuntimeUrl, TokenCredential credential = null, ConnectorClientOptions options = null)
+    public KustoClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
         : base(connectionRuntimeUrl, credential, options)
     {
     }
 
     /// <summary>
-    /// Creates a new KustoClient with managed identity support.
+    /// Creates a new KustoClient with the specified connection runtime URL string.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="managedIdentityClientId">The client ID for user-assigned managed identity. Use null for system-assigned identity with <see cref="ManagedIdentityCredential"/>.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public KustoClient(string connectionRuntimeUrl, string managedIdentityClientId, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, managedIdentityClientId, options)
+    public KustoClient(string connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
     {
     }
 
