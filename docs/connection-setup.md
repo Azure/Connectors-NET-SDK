@@ -204,7 +204,7 @@ Open the returned `link` URL in your browser to complete OAuth authorization.
 
 ### Step 5: Add Access Policy for CLI/Local Testing
 
-The Connectors SDK uses `DefaultAzureCredential` which authenticates as your Azure CLI identity. You must grant your identity access to the connection.
+The Connectors SDK defaults to `ManagedIdentityCredential` which authenticates as the app's system-assigned managed identity. For local development, pass `AzureCliCredential` explicitly. Your Azure CLI identity (`az login`) must have an [access policy](#step-5-add-access-policy-for-clilocal-testing) on the connection.
 
 #### Get Your Identity Information
 
@@ -310,38 +310,42 @@ Add the runtime URL to your application settings:
 
 ## Authentication Modes
 
-The generated connector clients (e.g., `Office365Client`, `TeamsClient`) authenticate to API Hub using Azure credentials. Each client offers two constructors that cover three authentication modes:
+The generated connector clients (e.g., `Office365Client`, `TeamsClient`) authenticate to API Hub using Azure credentials. The primary constructor accepts a `Uri` and optional `TokenCredential`:
 
-### Mode 1: DefaultAzureCredential (Recommended for Local Development)
+### Mode 1: ManagedIdentityCredential (Default)
 
-Uses the [DefaultAzureCredential](https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication/?tabs=command-line#defaultazurecredential) chain, which tries multiple sources automatically — Azure CLI, Visual Studio, environment variables, and managed identity.
+When no credential is specified, the client defaults to `ManagedIdentityCredential` with system-assigned identity. This is deterministic and production-ready.
 
 ```csharp
+// System-assigned managed identity (default)
 var client = new Office365Client(connectionRuntimeUrl);
 ```
 
-This is the simplest setup. Locally, it authenticates as your Azure CLI identity (`az login`), which must have an [access policy](#step-5-add-access-policy-for-clilocal-testing) on the connection for local testing. When deployed to Azure, it falls through to the app's managed identity, which must have an [access policy](#a5-add-access-policy-for-function-app-msi) on the connection.
+The Function App must have system-assigned managed identity enabled, and the identity must have an [access policy](#a5-add-access-policy-for-function-app-msi) on the connection.
 
-### Mode 2: System-Assigned Managed Identity
+### Mode 2: AzureCliCredential (Recommended for Local Development)
 
-Uses `ManagedIdentityCredential` with no client ID, targeting the app's system-assigned identity.
+For local development, pass `AzureCliCredential` explicitly. This authenticates as your Azure CLI identity (`az login`).
 
 ```csharp
 var client = new Office365Client(
-    connectionRuntimeUrl,
-    managedIdentityClientId: null);
+    new Uri(connectionRuntimeUrl),
+    new AzureCliCredential());
 ```
 
-Pass `null` (or an empty string) for `managedIdentityClientId`. The Function App must have system-assigned managed identity enabled, and the identity must have an [access policy](#a5-add-access-policy-for-function-app-msi) on the connection.
+Your CLI identity must have an [access policy](#step-5-add-access-policy-for-clilocal-testing) on the connection for local testing.
 
 ### Mode 3: User-Assigned Managed Identity
 
-Uses `ManagedIdentityCredential` with a specific client ID, targeting a user-assigned managed identity attached to the app.
+Construct a `ManagedIdentityCredential` with a specific client ID and pass it explicitly.
 
 ```csharp
+var credential = new ManagedIdentityCredential(
+    ManagedIdentityId.FromUserAssignedClientId("<client-id-of-user-assigned-msi>"));
+
 var client = new Office365Client(
-    connectionRuntimeUrl,
-    managedIdentityClientId: "<client-id-of-user-assigned-msi>");
+    new Uri(connectionRuntimeUrl),
+    credential);
 ```
 
 Use this when multiple apps share a single identity, or when you need the identity to outlive any single app deployment.
@@ -350,8 +354,8 @@ Use this when multiple apps share a single identity, or when you need the identi
 
 | Mode | When to use | Access policy identity |
 |------|-------------|------------------------|
-| DefaultAzureCredential | Local development, quick prototyping | Your Azure CLI user object ID |
-| System-assigned MSI | Production deployment, single-app scenarios | Function App's system-assigned MSI object ID |
+| ManagedIdentityCredential (default) | Production deployment, single-app scenarios | Function App's system-assigned MSI object ID |
+| AzureCliCredential | Local development, quick prototyping | Your Azure CLI user object ID |
 | User-assigned MSI | Production deployment, shared identity across apps | User-assigned MSI object ID |
 
 > **Note:** All three modes require an access policy granting the identity permission to use the connection. The only difference is *which* identity's object ID goes into the policy.
@@ -362,8 +366,8 @@ The primary constructor also accepts any `TokenCredential` directly, enabling ad
 
 ```csharp
 var credential = new ChainedTokenCredential(
-    new ManagedIdentityCredential(),
-    new AzurePowerShellCredential());
+    new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned),
+    new AzureCliCredential());
 
 var client = new Office365Client(connectionRuntimeUrl, credential);
 ```

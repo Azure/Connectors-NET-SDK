@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **Constructor overhaul: `Uri` primary + `string` convenience + `ManagedIdentityCredential` default** (#111)
+  - `Uri` is now the primary constructor parameter type for all generated clients and `ConnectorClientBase`
+  - `string` convenience overload delegates to `Uri` constructor with `Uri.TryCreate` validation (throws `ArgumentException` for invalid/relative URLs instead of `UriFormatException`)
+  - Default credential changed from `DefaultAzureCredential` to `ManagedIdentityCredential(SystemAssigned)` — deterministic, fails fast on dev machines (CodeQL SM05137)
+  - `credential` parameter is no longer optional — pass an explicit `TokenCredential` or omit for `ManagedIdentityCredential` default
+  - Removed `managedIdentityClientId` constructor overload — construct `ManagedIdentityCredential` directly and pass it as the `credential` parameter
 - **Output-only model properties now have `internal set`** — service-generated properties (ETag, LastModified, *DateTime timestamps) are no longer publicly settable. Use the new per-connector model factory classes to construct instances with these properties in tests (#106)
 - **Made `ExceptionExtensions` internal** — `IsFatal()` is only used internally in `ConnectorClientBase` and was never intended as a public API (#108)
 - **Made `HttpExtensions` internal** — `ToJsonContent`, `ReadAsAsync`, `AddCorrelationId`, `AddClientRequestId` are internal HTTP utilities, not consumer-facing (#108)
