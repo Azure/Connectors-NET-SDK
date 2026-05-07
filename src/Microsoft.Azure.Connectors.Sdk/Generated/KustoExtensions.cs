@@ -112,7 +112,8 @@ public class MCPQueryResponse
 
     /// <summary>id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>method</summary>
     [JsonPropertyName("method")]
@@ -222,7 +223,8 @@ public class MCPQueryRequest
 
     /// <summary>id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>method</summary>
     [JsonPropertyName("method")]

@@ -43,7 +43,8 @@ public class Subscription
 {
     /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000. </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The subscription Id. </summary>
     [JsonPropertyName("subscriptionId")]
@@ -75,7 +76,8 @@ public class ResourceGroup
 {
     /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY). </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The Name of the resource group. </summary>
     [JsonPropertyName("name")]
@@ -103,7 +105,8 @@ public class ResourceItem
 {
     /// <summary>The ID of the resource. </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The Name of the resource .</summary>
     [JsonPropertyName("name")]
@@ -131,7 +134,8 @@ public class TimeRangeItem
 {
     /// <summary>The ID of the item. </summary>
     [JsonPropertyName("id")]
-    public int? Id { get; set; }
+    [JsonInclude]
+    public int? Id { get; internal set; }
 
     /// <summary>The Name of the item. </summary>
     [JsonPropertyName("name")]

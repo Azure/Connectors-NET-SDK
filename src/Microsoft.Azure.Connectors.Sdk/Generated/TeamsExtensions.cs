@@ -30,15 +30,18 @@ public class NewMeetingResponse
 {
     /// <summary>Unique identifier for the event</summary>
     [JsonPropertyName("id")]
-    public string ID { get; set; }
+    [JsonInclude]
+    public string ID { get; internal set; }
 
     /// <summary>Timestamp the event was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public string CreatedTimestamp { get; set; }
+    [JsonInclude]
+    public string CreatedTimestamp { get; internal set; }
 
     /// <summary>Timestamp the event was last modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public string LastModifiedTimestamp { get; set; }
+    [JsonInclude]
+    public string LastModifiedTimestamp { get; internal set; }
 
     /// <summary>The categories associated with the event</summary>
     [JsonPropertyName("categories")]
@@ -244,7 +247,8 @@ public class GetChannelResponse
 
     /// <summary>Timestamp at which the channel was created. Read only</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? ChannelCreationTime { get; set; }
+    [JsonInclude]
+    public DateTime? ChannelCreationTime { get; internal set; }
 
     /// <summary>The channel membership type</summary>
     [JsonPropertyName("membershipType")]
@@ -280,7 +284,8 @@ public class CreateChannelResponse
 
     /// <summary>The channel&apos;s unique identifier</summary>
     [JsonPropertyName("id")]
-    public string ID { get; set; }
+    [JsonInclude]
+    public string ID { get; internal set; }
 }
 
 /// <summary>
@@ -332,7 +337,8 @@ public class ChannelWithOwnerTeamId
 
     /// <summary>Timestamp at which the channel was created. Read only</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? ChannelCreationTime { get; set; }
+    [JsonInclude]
+    public DateTime? ChannelCreationTime { get; internal set; }
 
     /// <summary>The channel membership type</summary>
     [JsonPropertyName("membershipType")]
@@ -396,7 +402,8 @@ public class CreateTagResponseSchema
 
     /// <summary>Unique identifier of the tag</summary>
     [JsonPropertyName("id")]
-    public string ID { get; set; }
+    [JsonInclude]
+    public string ID { get; internal set; }
 
     /// <summary>ID of the team in which the tag is defined</summary>
     [JsonPropertyName("teamId")]
@@ -428,7 +435,8 @@ public class AddMemberToTagResponseSchema
 {
     /// <summary>User ID of the member added to the tag</summary>
     [JsonPropertyName("userId")]
-    public string ID { get; set; }
+    [JsonInclude]
+    public string ID { get; internal set; }
 }
 
 /// <summary>
@@ -1114,7 +1122,8 @@ public class ChatMessage
 
     /// <summary>Timestamp of when the chat message was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreationTimestamp { get; set; }
+    [JsonInclude]
+    public DateTime? CreationTimestamp { get; internal set; }
 
     /// <summary>deleted</summary>
     [JsonPropertyName("deleted")]
@@ -1122,7 +1131,8 @@ public class ChatMessage
 
     /// <summary>Version number of the chat message.</summary>
     [JsonPropertyName("etag")]
-    public string Etag { get; set; }
+    [JsonInclude]
+    public string Etag { get; internal set; }
 
     /// <summary>The message sender</summary>
     [JsonPropertyName("from")]
@@ -1130,7 +1140,8 @@ public class ChatMessage
 
     /// <summary>Unique ID of the message</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The importance of the message. The possible values are: normal, high, urgent.</summary>
     [JsonPropertyName("importance")]
@@ -1138,7 +1149,8 @@ public class ChatMessage
 
     /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public string LastModifiedTimestamp { get; set; }
+    [JsonInclude]
+    public string LastModifiedTimestamp { get; internal set; }
 
     /// <summary>Locale of the chat message set by the client.</summary>
     [JsonPropertyName("locale")]

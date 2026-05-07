@@ -39,7 +39,8 @@ public class GraphTrending
 {
     /// <summary>Unique identifier of the relationship</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Value indicating how much the document is currently trending</summary>
     [JsonPropertyName("weight")]
@@ -350,7 +351,8 @@ public class GraphUserV1
 
     /// <summary>Id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Interests</summary>
     [JsonPropertyName("interests")]
@@ -480,7 +482,8 @@ public class GraphUser
 
     /// <summary>Id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Interests</summary>
     [JsonPropertyName("interests")]

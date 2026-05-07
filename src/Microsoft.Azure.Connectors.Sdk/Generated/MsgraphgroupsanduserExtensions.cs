@@ -110,11 +110,13 @@ public class GetGroupPropertiesResponse
 
     /// <summary>Object id of the group</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Group&apos;s deletion date time</summary>
     [JsonPropertyName("deletedDateTime")]
-    public string DeletedDateTime { get; set; }
+    [JsonInclude]
+    public string DeletedDateTime { get; internal set; }
 
     /// <summary>classification</summary>
     [JsonPropertyName("classification")]
@@ -122,7 +124,8 @@ public class GetGroupPropertiesResponse
 
     /// <summary>Group&apos;s creation date time</summary>
     [JsonPropertyName("createdDateTime")]
-    public string CreatedDateTime { get; set; }
+    [JsonInclude]
+    public string CreatedDateTime { get; internal set; }
 
     /// <summary>Created options of the group.</summary>
     [JsonPropertyName("creationOptions")]
@@ -138,7 +141,8 @@ public class GetGroupPropertiesResponse
 
     /// <summary>Group&apos;s expiration date time</summary>
     [JsonPropertyName("expirationDateTime")]
-    public string ExpirationDateTime { get; set; }
+    [JsonInclude]
+    public string ExpirationDateTime { get; internal set; }
 
     /// <summary>Group types for the group.</summary>
     [JsonPropertyName("groupTypes")]
@@ -174,7 +178,8 @@ public class GetGroupPropertiesResponse
 
     /// <summary>The time and date at which the tenant was last synced with the on-premise directory.</summary>
     [JsonPropertyName("onPremisesLastSyncDateTime")]
-    public string OnPremisesLastSyncDateTime { get; set; }
+    [JsonInclude]
+    public string OnPremisesLastSyncDateTime { get; internal set; }
 
     /// <summary>Name of networking service for on-premise server.</summary>
     [JsonPropertyName("onPremisesNetBiosName")]
@@ -206,7 +211,8 @@ public class GetGroupPropertiesResponse
 
     /// <summary>Renewed date time of the group.</summary>
     [JsonPropertyName("renewedDateTime")]
-    public string RenewedDateTime { get; set; }
+    [JsonInclude]
+    public string RenewedDateTime { get; internal set; }
 
     /// <summary>Resource behavior options of the group.</summary>
     [JsonPropertyName("resourceBehaviorOptions")]

@@ -40,7 +40,8 @@ public class Location
 {
     /// <summary>The fully qualified Id of the location. For example, /subscriptions/00000000-0000-0000-0000-000000000000/locations/westus.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The subscription Id.</summary>
     [JsonPropertyName("subscriptionId")]
@@ -70,7 +71,8 @@ public class Subscription
 {
     /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The subscription Id.</summary>
     [JsonPropertyName("subscriptionId")]
@@ -136,7 +138,8 @@ public class DeploymentExtended
 {
     /// <summary>The ID of the deployment.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the deployment.</summary>
     [JsonPropertyName("name")]
@@ -162,7 +165,8 @@ public class DeploymentPropertiesExtended
 
     /// <summary>The timestamp of the template deployment.</summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    [JsonInclude]
+    public DateTime? Timestamp { get; internal set; }
 
     /// <summary>Key/value pairs that represent deploymentoutput.</summary>
     [JsonPropertyName("outputs")]
@@ -208,7 +212,8 @@ public class Provider
 {
     /// <summary>The provider id.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The namespace of the provider.</summary>
     [JsonPropertyName("namespace")]
@@ -300,7 +305,8 @@ public class Dependency
 
     /// <summary>The ID of the dependency.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The dependency resource type.</summary>
     [JsonPropertyName("resourceType")]
@@ -318,7 +324,8 @@ public class BasicDependency
 {
     /// <summary>The ID of the dependency.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The dependency resource type.</summary>
     [JsonPropertyName("resourceType")]
@@ -434,7 +441,8 @@ public class DeploymentOperation
 {
     /// <summary>Full deployment operation id.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Deployment operation id.</summary>
     [JsonPropertyName("operationId")]
@@ -456,7 +464,8 @@ public class DeploymentOperationProperties
 
     /// <summary>The date and time of the operation.</summary>
     [JsonPropertyName("timestamp")]
-    public DateTime? Timestamp { get; set; }
+    [JsonInclude]
+    public DateTime? Timestamp { get; internal set; }
 
     /// <summary>Deployment operation service request id.</summary>
     [JsonPropertyName("serviceRequestId")]
@@ -490,7 +499,8 @@ public class TargetResource
 {
     /// <summary>The ID of the resource.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the resource.</summary>
     [JsonPropertyName("resourceName")]
@@ -560,7 +570,8 @@ public class GenericResource
 {
     /// <summary>Resource Id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Resource name</summary>
     [JsonPropertyName("name")]
@@ -610,7 +621,8 @@ public class Plan
 {
     /// <summary>The plan ID.</summary>
     [JsonPropertyName("name")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The publisher ID.</summary>
     [JsonPropertyName("publisher")]
@@ -680,7 +692,8 @@ public class ResourceGroup
 {
     /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY).</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The Name of the resource group.</summary>
     [JsonPropertyName("name")]
@@ -828,7 +841,8 @@ public class TagDetails
 {
     /// <summary>The tag ID.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The tag name.</summary>
     [JsonPropertyName("tagName")]

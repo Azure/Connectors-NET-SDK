@@ -249,7 +249,8 @@ public class SharingLink
 public class BlobMetadata
 {
     /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -261,7 +262,8 @@ public class BlobMetadata
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -273,7 +275,8 @@ public class BlobMetadata
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -288,7 +291,8 @@ public class SPBlobMetadataResponse
     public long? ItemId { get; set; }
 
     /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -300,7 +304,8 @@ public class SPBlobMetadataResponse
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -312,7 +317,8 @@ public class SPBlobMetadataResponse
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -324,7 +330,8 @@ public class SPBlobMetadataResponse
 public class BlobMetadataResponse
 {
     /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -336,7 +343,8 @@ public class BlobMetadataResponse
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -348,7 +356,8 @@ public class BlobMetadataResponse
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -416,7 +425,8 @@ public class SPListExpandedUser
 public class SPListEntity
 {
     /// <summary>The Id of the SPField</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>What type of entity (field) this is</summary>
     public string EntityType { get; set; }
@@ -591,7 +601,8 @@ public class PatchFileItemResponse
 public class SetApprovalStatusOutput
 {
     /// <summary>ETag of the item after the approval status was set</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>A link to the item that needs approval</summary>
     public string ApprovalLink { get; set; }
@@ -612,7 +623,8 @@ public class SetApprovalStatusOutput
 public class SPListItemAttachment
 {
     /// <summary>File identifier</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Link to attachment</summary>
     public string AbsoluteUri { get; set; }
@@ -637,7 +649,8 @@ public class DeletedItemList
 public class DeletedItem
 {
     /// <summary>List item id</summary>
-    public long? ID { get; set; }
+    [JsonInclude]
+    public long? ID { get; internal set; }
 
     /// <summary>File name of the item in document libraries, display name of the item in lists</summary>
     public string Name { get; set; }
@@ -651,7 +664,8 @@ public class DeletedItem
     public string DeletedBy { get; set; }
 
     /// <summary>When this item was deleted</summary>
-    public DateTime? TimeDeleted { get; set; }
+    [JsonInclude]
+    public DateTime? TimeDeleted { get; internal set; }
 
     /// <summary>A true/false value to indicate if the item is a folder</summary>
     public bool? IsFolder { get; set; }

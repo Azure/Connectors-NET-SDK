@@ -53,7 +53,8 @@ public class StorageAccount
 public class BlobMetadata
 {
     /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -65,7 +66,8 @@ public class BlobMetadata
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -77,7 +79,8 @@ public class BlobMetadata
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }
@@ -124,7 +127,8 @@ public class SharedAccessSignatureBlobPolicy
 public class DataWithSensitivityLabelInfo
 {
     /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -136,7 +140,8 @@ public class DataWithSensitivityLabelInfo
     public string Path { get; set; }
 
     /// <summary>The date and time the file or folder was last modified.</summary>
-    public DateTime? LastModified { get; set; }
+    [JsonInclude]
+    public DateTime? LastModified { get; internal set; }
 
     /// <summary>The size of the file or folder.</summary>
     public long? Size { get; set; }
@@ -148,7 +153,8 @@ public class DataWithSensitivityLabelInfo
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The filelocator of the file or folder.</summary>
     public string FileLocator { get; set; }

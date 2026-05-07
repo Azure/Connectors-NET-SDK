@@ -29,7 +29,8 @@ public class GraphOutlookCategory
 {
     /// <summary>The ID of the Outlook Category.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The display name of the Outlook Category.</summary>
     [JsonPropertyName("displayName")]
@@ -48,7 +49,8 @@ public class OutlookReceiveMessage
     public string BodyPreview { get; set; }
 
     /// <summary>Id</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Conversation Id</summary>
     public string ConversationId { get; set; }
@@ -60,13 +62,16 @@ public class OutlookReceiveMessage
     public bool? IsRead { get; set; }
 
     /// <summary>Created date and time</summary>
-    public DateTime? CreatedDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? CreatedDateTime { get; internal set; }
 
     /// <summary>Received date and time</summary>
-    public DateTime? ReceivedDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? ReceivedDateTime { get; internal set; }
 
     /// <summary>Last modified date and time</summary>
-    public DateTime? LastModifiedDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
 
     /// <summary>Attachments</summary>
     public List<OutlookReceiveAttachment> Attachments { get; set; }
@@ -109,7 +114,8 @@ public class OutlookReceiveAttachment
     public string Type { get; set; }
 
     /// <summary>Attachment Id</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Attachment name</summary>
     public string Name { get; set; }
@@ -136,7 +142,8 @@ public class OutlookReceiveAttachment
     public bool? IsInline { get; set; }
 
     /// <summary>The date and time when the attachment was last modified</summary>
-    public DateTime? LastModifiedDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
 
     /// <summary>Content Id</summary>
     public string ContentId { get; set; }
@@ -220,7 +227,8 @@ public class SubscriptionResponse
 {
     /// <summary>Id of the subscription</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Resource of the subscription request</summary>
     [JsonPropertyName("resource")]
@@ -258,7 +266,8 @@ public class MCPQueryResponse
 
     /// <summary>id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>method</summary>
     [JsonPropertyName("method")]
@@ -316,19 +325,23 @@ public class GraphCalendarEventClientReceive
 
     /// <summary>The response time of the event</summary>
     [JsonPropertyName("responseTime")]
-    public DateTime? ResponseTime { get; set; }
+    [JsonInclude]
+    public DateTime? ResponseTime { get; internal set; }
 
     /// <summary>The event&apos;s unique identifier</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The date and time that the event was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
 
     /// <summary>The date and time that the event was last modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
 
     /// <summary>The organizer of the event</summary>
     [JsonPropertyName("organizer")]
@@ -479,19 +492,23 @@ public class GraphCalendarEventClientWithActionType
 
     /// <summary>The response time of the event</summary>
     [JsonPropertyName("responseTime")]
-    public DateTime? ResponseTime { get; set; }
+    [JsonInclude]
+    public DateTime? ResponseTime { get; internal set; }
 
     /// <summary>The event&apos;s unique identifier</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The date and time that the event was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
 
     /// <summary>The date and time that the event was last modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
 
     /// <summary>The organizer of the event</summary>
     [JsonPropertyName("organizer")]
@@ -591,7 +608,8 @@ public class ContactResponse
 {
     /// <summary>The contact&apos;s unique identifier.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The ID of the contact&apos;s parent folder</summary>
     [JsonPropertyName("parentFolderId")]
@@ -723,11 +741,13 @@ public class ContactResponse
 
     /// <summary>The time the contact was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
 
     /// <summary>The time the contact was modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
 }
 
 /// <summary>
@@ -787,7 +807,8 @@ public class ContactResponseV2
 {
     /// <summary>The contact&apos;s unique identifier.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The ID of the contact&apos;s parent folder</summary>
     [JsonPropertyName("parentFolderId")]
@@ -919,11 +940,13 @@ public class ContactResponseV2
 
     /// <summary>The time the contact was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
 
     /// <summary>The time the contact was modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
 }
 
 /// <summary>
@@ -943,7 +966,8 @@ public class GraphContactFolder
 {
     /// <summary>The ID of the contacts folder</summary>
     [JsonPropertyName("id")]
-    public string ID { get; set; }
+    [JsonInclude]
+    public string ID { get; internal set; }
 
     /// <summary>The name of the contacts folder</summary>
     [JsonPropertyName("displayName")]
@@ -1013,7 +1037,8 @@ public class GetAttachmentResponse
 {
     /// <summary>Id of the attachment.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>Name of attachment.</summary>
     [JsonPropertyName("name")]
@@ -1037,7 +1062,8 @@ public class GetAttachmentResponse
 
     /// <summary>The date and time when the attachment was last modified.</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
 
     /// <summary>Content Id</summary>
     [JsonPropertyName("contentId")]
@@ -1203,7 +1229,8 @@ public class GraphClientReceiveFileAttachment
 
     /// <summary>The date and time when the attachment was last modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedDateTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
 
     /// <summary>Content Id</summary>
     [JsonPropertyName("contentId")]
@@ -1824,7 +1851,8 @@ public class DateTimeTimeZone
 {
     /// <summary>DateTime (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
     [JsonPropertyName("dateTime")]
-    public string DateTime { get; set; }
+    [JsonInclude]
+    public string DateTime { get; internal set; }
 
     /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
     [JsonPropertyName("timeZone")]
@@ -1838,7 +1866,8 @@ public class Contact
 {
     /// <summary>The contact&apos;s unique identifier.</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The ID of the contact&apos;s parent folder</summary>
     [JsonPropertyName("parentFolderId")]
@@ -1970,11 +1999,13 @@ public class Contact
 
     /// <summary>The time the contact was created</summary>
     [JsonPropertyName("createdDateTime")]
-    public DateTime? CreatedTime { get; set; }
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
 
     /// <summary>The time the contact was modified</summary>
     [JsonPropertyName("lastModifiedDateTime")]
-    public DateTime? LastModifiedTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
 }
 
 /// <summary>
@@ -1988,7 +2019,8 @@ public class MCPQueryRequest
 
     /// <summary>id</summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>method</summary>
     [JsonPropertyName("method")]

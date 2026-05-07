@@ -29,7 +29,8 @@ namespace Microsoft.Azure.Connectors.Sdk.Onedriveforbusiness;
 public class BlobMetadata
 {
     /// <summary>The unique identifier of the file or folder.</summary>
-    public string Id { get; set; }
+    [JsonInclude]
+    public string Id { get; internal set; }
 
     /// <summary>The name of the file or folder.</summary>
     public string Name { get; set; }
@@ -46,7 +47,8 @@ public class BlobMetadata
 
     /// <summary>The date and time the file or folder was last modified.</summary>
     [JsonPropertyName("LastModified")]
-    public DateTime? LastModifiedTime { get; set; }
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
 
     /// <summary>The file or folder size in bytes.</summary>
     public long? Size { get; set; }
@@ -58,7 +60,8 @@ public class BlobMetadata
     public bool? IsFolder { get; set; }
 
     /// <summary>The etag of the file or folder.</summary>
-    public string ETag { get; set; }
+    [JsonInclude]
+    public string ETag { get; internal set; }
 
     /// <summary>The file locator of the file or folder.</summary>
     public string FileLocator { get; set; }
