@@ -193,7 +193,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         {
             // Act
             var meeting = TeamsModelFactory.NewMeetingResponse(
-                iD: "meeting-001",
+                id: "meeting-001",
                 createdTimestamp: "2025-06-01T10:00:00Z",
                 lastModifiedTimestamp: "2025-06-01T10:05:00Z");
 
