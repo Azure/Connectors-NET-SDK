@@ -38,7 +38,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new SmtpClient(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new SmtpClient((string)null!));
         }
 
         [TestMethod]
@@ -57,8 +57,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
             var client = new SmtpClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object);
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object);
 
             // Act & Assert - calling Dispose twice should not throw (idempotent)
             client.Dispose();
@@ -91,8 +90,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new SmtpClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             var email = new Email
@@ -135,8 +133,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new SmtpClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             var email = new Email

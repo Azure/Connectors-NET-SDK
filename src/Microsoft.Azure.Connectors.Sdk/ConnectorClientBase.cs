@@ -53,21 +53,32 @@ namespace Microsoft.Azure.Connectors.Sdk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
-        /// with a connection runtime URL and optional Azure credential.
+        /// with a connection runtime URL. Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="credential">Optional Azure credential. Defaults to <see cref="DefaultAzureCredential"/>.</param>
+        protected ConnectorClientBase(Uri connectionRuntimeUrl)
+            : this(connectionRuntimeUrl, credential: new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
+        /// with a connection runtime URL and explicit Azure credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, transport, diagnostics, etc.</param>
         protected ConnectorClientBase(
-            string connectionRuntimeUrl,
-            TokenCredential? credential = null,
+            Uri connectionRuntimeUrl,
+            TokenCredential credential,
             ConnectorClientOptions? options = null)
         {
-            this._connectionRuntimeUrl = connectionRuntimeUrl?.TrimEnd('/')
-                ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl));
+            ArgumentNullException.ThrowIfNull(connectionRuntimeUrl);
+            ArgumentNullException.ThrowIfNull(credential);
 
-            options = ConnectorClientBase.ApplyBaseUri(options, connectionRuntimeUrl);
-            credential ??= new DefaultAzureCredential();
+            this._connectionRuntimeUrl = connectionRuntimeUrl.AbsoluteUri.TrimEnd('/');
+
+            options = ConnectorClientBase.ApplyBaseUri(options, this._connectionRuntimeUrl);
 
             this._pipeline = HttpPipelineBuilder.Build(
                 options,
@@ -79,22 +90,11 @@ namespace Microsoft.Azure.Connectors.Sdk
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
-        /// with a connection runtime URL and managed identity.
+        /// with a string connection runtime URL. Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="managedIdentityClientId">
-        /// The client ID for user-assigned managed identity.
-        /// Use null or empty string for system-assigned identity.
-        /// </param>
-        /// <param name="options">Optional client options for retry, transport, diagnostics, etc.</param>
-        protected ConnectorClientBase(
-            string connectionRuntimeUrl,
-            string? managedIdentityClientId,
-            ConnectorClientOptions? options = null)
-            : this(
-                  connectionRuntimeUrl,
-                  ConnectorClientBase.CreateManagedIdentityCredential(managedIdentityClientId),
-                  options)
+        protected ConnectorClientBase(string connectionRuntimeUrl)
+            : this(new Uri(connectionRuntimeUrl ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl))))
         {
         }
 
@@ -319,16 +319,6 @@ namespace Microsoft.Azure.Connectors.Sdk
             options.BaseUri ??= uri;
 
             return options;
-        }
-
-        private static TokenCredential CreateManagedIdentityCredential(string? managedIdentityClientId)
-        {
-            if (string.IsNullOrEmpty(managedIdentityClientId))
-            {
-                return new ManagedIdentityCredential(ManagedIdentityId.SystemAssigned);
-            }
-
-            return new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(managedIdentityClientId));
         }
 
         /// <summary>

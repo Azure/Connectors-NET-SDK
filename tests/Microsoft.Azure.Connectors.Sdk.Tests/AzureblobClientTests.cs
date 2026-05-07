@@ -38,7 +38,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureblobClient(null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureblobClient((string)null!));
         }
 
         [TestMethod]
@@ -97,8 +97,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             // Act
@@ -153,8 +152,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             // Act & Assert
@@ -389,8 +387,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
             var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object);
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object);
 
             // Act & Assert - calling Dispose twice should not throw (idempotent)
             client.Dispose();
@@ -403,8 +400,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
             var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object);
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object);
 
             // Act
             client.Dispose();
@@ -447,8 +443,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             // Act & Assert - should not throw
@@ -496,8 +491,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             // Act
@@ -556,8 +550,7 @@ namespace Microsoft.Azure.Connectors.Sdk.Tests
             options.Retry.MaxRetries = 0;
 
             using var client = new AzureblobClient(
-                connectionRuntimeUrl: "https://test.azure.com/connection",
-                credential: mockCredential.Object,
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),                credential: mockCredential.Object,
                 options: options);
 
             // Act
