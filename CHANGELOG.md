@@ -7,14 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- **Extensible enum types for swagger enum properties** (#115)
-  - String properties with swagger `enum` arrays are now generated as `readonly struct` types following the Azure SDK extensible enum pattern
-  - Each struct provides static members for known values (IntelliSense discoverability), implicit string conversion (forward-compatible with new API values), case-insensitive equality, and a nested `JsonConverter` for `System.Text.Json` serialization
-  - Examples: `Importance` (low, normal, high), `ShowAs` (free, tentative, busy, oof, workingElsewhere, unknown), `Sensitivity` (normal, personal, private, confidential)
-  - Existing `string` assignments continue to compile via `implicit operator`
-
 ### Breaking Changes
 
 - **Constructor overhaul: `Uri` primary + `string` convenience + `ManagedIdentityCredential` default** (#111)
@@ -51,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Extensible enum types for swagger enum properties** (#115) — the upstream BPM CodefulSdkGenerator now detects string properties with swagger `enum` arrays and generates `readonly struct` types following the Azure SDK extensible enum pattern; generated connector clients will be regenerated with typed enums in a follow-up commit
 - **Per-connector model factory classes** (`Office365ModelFactory`, `TeamsModelFactory`, etc.) — static factory methods for constructing model instances with output-only properties, following the [Azure SDK mocking guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-mocking-factory) (#106)
 - Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results
 - `ConnectorException` — unified exception type for all connector API failures (#88)
