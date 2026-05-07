@@ -17,7 +17,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Smtp;
+namespace Azure.Connectors.Sdk.Smtp.Models
+{
 
 #region Types
 
@@ -95,6 +96,12 @@ public class AttachmentV2
 
 #endregion Types
 
+}
+
+namespace Azure.Connectors.Sdk.Smtp
+{
+    using Azure.Connectors.Sdk.Smtp.Models;
+
 #region Client
 
 /// <summary>
@@ -156,3 +163,4 @@ public class SmtpClient : ConnectorClientBase
 }
 
 #endregion Client
+}

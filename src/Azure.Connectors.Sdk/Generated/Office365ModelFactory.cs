@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Office365;
+namespace Azure.Connectors.Sdk.Office365.Models;
 
 /// <summary>
 /// Model factory for creating instances of Office365 models.

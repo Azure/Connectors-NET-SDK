@@ -9,7 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Msgraphgroupsanduser;
+using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
+using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,16 +20,16 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated MsgraphgroupsanduserClient class.
+    /// Tests for the generated MsGraphGroupsAndUsersClient class.
     /// </summary>
     [TestClass]
-    public class MsgraphgroupsanduserClientTests
+    public class MsGraphGroupsAndUsersClientTests
     {
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new MsgraphgroupsanduserClient("https://test.azure.com/connection");
+            using var client = new MsGraphGroupsAndUsersClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -38,14 +39,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MsgraphgroupsanduserClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MsGraphGroupsAndUsersClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new MsgraphgroupsanduserClient("https://test.azure.com/connection");
+            var client = new MsGraphGroupsAndUsersClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -56,7 +57,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
-            var client = new MsgraphgroupsanduserClient(
+            var client = new MsGraphGroupsAndUsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -70,7 +71,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
-            var client = new MsgraphgroupsanduserClient(
+            var client = new MsGraphGroupsAndUsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -118,7 +119,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new MsgraphgroupsanduserClient(
+            using var client = new MsGraphGroupsAndUsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -165,7 +166,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new MsgraphgroupsanduserClient(
+            using var client = new MsGraphGroupsAndUsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.Teams.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Azure.Connectors.Sdk.Tests

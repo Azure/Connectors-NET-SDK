@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Kusto;
+namespace Azure.Connectors.Sdk.Kusto.Models;
 
 /// <summary>
 /// Model factory for creating instances of Kusto models.

@@ -24,7 +24,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azureblob</c> connector.
     /// </summary>
-    public const string Azureblob = "azureblob";
+    public const string AzureBlob = "azureblob";
 
     /// <summary>
     /// The <c>azuremonitorlogs</c> connector.
@@ -44,7 +44,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>msgraphgroupsanduser</c> connector.
     /// </summary>
-    public const string Msgraphgroupsanduser = "msgraphgroupsanduser";
+    public const string MsGraphGroupsAndUsers = "msgraphgroupsanduser";
 
     /// <summary>
     /// The <c>office365</c> connector.
@@ -59,12 +59,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>onedriveforbusiness</c> connector.
     /// </summary>
-    public const string Onedriveforbusiness = "onedriveforbusiness";
+    public const string OneDriveForBusiness = "onedriveforbusiness";
 
     /// <summary>
     /// The <c>sharepointonline</c> connector.
     /// </summary>
-    public const string Sharepointonline = "sharepointonline";
+    public const string SharePointOnline = "sharepointonline";
 
     /// <summary>
     /// The <c>smtp</c> connector.

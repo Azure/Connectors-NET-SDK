@@ -17,7 +17,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Kusto;
+namespace Azure.Connectors.Sdk.Kusto.Models
+{
 
 #region Types
 
@@ -247,6 +248,12 @@ public class MCPQueryRequest
 
 #endregion Types
 
+}
+
+namespace Azure.Connectors.Sdk.Kusto
+{
+    using Azure.Connectors.Sdk.Kusto.Models;
+
 #region Client
 
 /// <summary>
@@ -391,3 +398,4 @@ public class KustoClient : ConnectorClientBase
 }
 
 #endregion Client
+}

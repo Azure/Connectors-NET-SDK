@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk.Office365.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Azure.Connectors.Sdk.Tests

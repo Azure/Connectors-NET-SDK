@@ -17,7 +17,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Mq;
+namespace Azure.Connectors.Sdk.Mq.Models
+{
 
 #region Types
 
@@ -223,6 +224,12 @@ public class SendValidDataOptions
 
 #endregion Types
 
+}
+
+namespace Azure.Connectors.Sdk.Mq
+{
+    using Azure.Connectors.Sdk.Mq.Models;
+
 #region Client
 
 /// <summary>
@@ -363,3 +370,4 @@ public class MqClient : ConnectorClientBase
 }
 
 #endregion Client
+}

@@ -19,7 +19,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Arm;
+namespace Azure.Connectors.Sdk.Arm.Models
+{
 
 #region Types
 
@@ -915,6 +916,12 @@ public class ExportTemplateRequest
 
 #endregion Types
 
+}
+
+namespace Azure.Connectors.Sdk.Arm
+{
+    using Azure.Connectors.Sdk.Arm.Models;
+
 #region Client
 
 /// <summary>
@@ -1623,3 +1630,4 @@ public class ArmClient : ConnectorClientBase
 }
 
 #endregion Client
+}

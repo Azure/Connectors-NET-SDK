@@ -18,7 +18,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Office365users;
+namespace Azure.Connectors.Sdk.Office365users.Models
+{
 
 #region Types
 
@@ -674,6 +675,12 @@ public class GraphUserUpdateable
 
 #endregion Types
 
+}
+
+namespace Azure.Connectors.Sdk.Office365users
+{
+    using Azure.Connectors.Sdk.Office365users.Models;
+
 #region Client
 
 /// <summary>
@@ -942,3 +949,4 @@ public class Office365usersClient : ConnectorClientBase
 }
 
 #endregion Client
+}

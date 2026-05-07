@@ -18,7 +18,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Azuremonitorlogs;
+namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
+{
 
 #region Types
 
@@ -229,6 +230,12 @@ public class VisualizeQueryInput
 }
 
 #endregion Types
+
+}
+
+namespace Azure.Connectors.Sdk.Azuremonitorlogs
+{
+    using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
 
 #region Client
 
@@ -529,3 +536,4 @@ public class AzuremonitorlogsClient : ConnectorClientBase
 }
 
 #endregion Client
+}

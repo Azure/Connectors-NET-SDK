@@ -19,7 +19,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Teams;
+namespace Azure.Connectors.Sdk.Teams.Models
+{
 
 #region Types
 
@@ -1445,6 +1446,12 @@ public static class TeamsTriggerParameters
 
 #endregion Trigger Parameter Metadata
 
+}
+
+namespace Azure.Connectors.Sdk.Teams
+{
+    using Azure.Connectors.Sdk.Teams.Models;
+
 #region Client
 
 /// <summary>
@@ -2272,3 +2279,4 @@ public class TeamsClient : ConnectorClientBase
 }
 
 #endregion Client
+}

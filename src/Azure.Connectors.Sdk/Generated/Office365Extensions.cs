@@ -18,7 +18,8 @@ using Azure.Connectors.Sdk;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Office365;
+namespace Azure.Connectors.Sdk.Office365.Models
+{
 
 #region Types
 
@@ -2541,6 +2542,12 @@ public static class Office365TriggerParameters
 
 #endregion Trigger Parameter Metadata
 
+}
+
+namespace Azure.Connectors.Sdk.Office365
+{
+    using Azure.Connectors.Sdk.Office365.Models;
+
 #region Client
 
 /// <summary>
@@ -3354,3 +3361,4 @@ public class Office365Client : ConnectorClientBase
 }
 
 #endregion Client
+}
