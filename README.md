@@ -130,8 +130,6 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Component | Description |
 |-----------|-------------|
 | `ConnectorHttpClient` | HTTP client with built-in authentication |
-| `RetryPolicy` | Configurable retry behavior for transient failures |
-| `HttpExtensions` | Helper methods for HTTP operations |
 
 ### Serialization
 
