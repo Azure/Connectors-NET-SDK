@@ -86,7 +86,7 @@ public class Subscription
 
     /// <summary>The subscription state.</summary>
     [JsonPropertyName("state")]
-    public string State { get; set; }
+    public State State { get; set; }
 
     /// <summary>subscriptionPolicies</summary>
     [JsonPropertyName("subscriptionPolicies")]
@@ -112,7 +112,7 @@ public class SubscriptionPolicies
 
     /// <summary>The subscription spending limit.</summary>
     [JsonPropertyName("spendingLimit")]
-    public string SpendingLimit { get; set; }
+    public SpendingLimit SpendingLimit { get; set; }
 }
 
 /// <summary>
@@ -195,7 +195,7 @@ public class DeploymentPropertiesExtended
 
     /// <summary>The deployment mode.</summary>
     [JsonPropertyName("mode")]
-    public string DeploymentMode { get; set; }
+    public DeploymentMode DeploymentMode { get; set; }
 
     /// <summary>debugSetting</summary>
     [JsonPropertyName("debugSetting")]
@@ -882,7 +882,7 @@ public class DeploymentProperties
 
     /// <summary>The deployment mode.</summary>
     [JsonPropertyName("mode")]
-    public string DeploymentMode { get; set; }
+    public DeploymentMode DeploymentMode { get; set; }
 
     /// <summary>debugSetting</summary>
     [JsonPropertyName("debugSetting")]
@@ -910,7 +910,230 @@ public class ExportTemplateRequest
 
     /// <summary>The export template options. Supported values include &apos;IncludeParameterDefaultValue&apos;, &apos;IncludeComments&apos; or &apos;IncludeParameterDefaultValue, IncludeComments</summary>
     [JsonPropertyName("options")]
-    public string Options { get; set; }
+    public Options Options { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known DeploymentMode values.
+/// </summary>
+[JsonConverter(typeof(DeploymentMode.DeploymentModeJsonConverter))]
+public readonly struct DeploymentMode : IEquatable<DeploymentMode>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DeploymentMode"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public DeploymentMode(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Incremental</summary>
+    public static DeploymentMode Incremental { get; } = new("Incremental");
+
+    /// <summary>Complete</summary>
+    public static DeploymentMode Complete { get; } = new("Complete");
+
+    /// <summary>Converts a string to <see cref="DeploymentMode"/>.</summary>
+    public static implicit operator DeploymentMode(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="DeploymentMode"/> to its string representation.</summary>
+    public static implicit operator string(DeploymentMode value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(DeploymentMode other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is DeploymentMode other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(DeploymentMode left, DeploymentMode right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(DeploymentMode left, DeploymentMode right) => !left.Equals(right);
+
+    public sealed class DeploymentModeJsonConverter : JsonConverter<DeploymentMode>
+    {
+        public DeploymentModeJsonConverter() { }
+        public override DeploymentMode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, DeploymentMode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Options values.
+/// </summary>
+[JsonConverter(typeof(Options.OptionsJsonConverter))]
+public readonly struct Options : IEquatable<Options>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Options"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Options(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>IncludeParameterDefaultValue</summary>
+    public static Options IncludeParameterDefaultValue { get; } = new("IncludeParameterDefaultValue");
+
+    /// <summary>IncludeComments</summary>
+    public static Options IncludeComments { get; } = new("IncludeComments");
+
+    /// <summary>IncludeParameterDefaultValue, IncludeComments</summary>
+    public static Options IncludeParameterDefaultValueIncludeComments { get; } = new("IncludeParameterDefaultValue, IncludeComments");
+
+    /// <summary>Converts a string to <see cref="Options"/>.</summary>
+    public static implicit operator Options(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Options"/> to its string representation.</summary>
+    public static implicit operator string(Options value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Options other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Options other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Options left, Options right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Options left, Options right) => !left.Equals(right);
+
+    public sealed class OptionsJsonConverter : JsonConverter<Options>
+    {
+        public OptionsJsonConverter() { }
+        public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Options value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known SpendingLimit values.
+/// </summary>
+[JsonConverter(typeof(SpendingLimit.SpendingLimitJsonConverter))]
+public readonly struct SpendingLimit : IEquatable<SpendingLimit>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpendingLimit"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public SpendingLimit(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>On</summary>
+    public static SpendingLimit On { get; } = new("On");
+
+    /// <summary>Off</summary>
+    public static SpendingLimit Off { get; } = new("Off");
+
+    /// <summary>CurrentPeriodOff</summary>
+    public static SpendingLimit CurrentPeriodOff { get; } = new("CurrentPeriodOff");
+
+    /// <summary>Converts a string to <see cref="SpendingLimit"/>.</summary>
+    public static implicit operator SpendingLimit(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="SpendingLimit"/> to its string representation.</summary>
+    public static implicit operator string(SpendingLimit value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(SpendingLimit other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is SpendingLimit other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(SpendingLimit left, SpendingLimit right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(SpendingLimit left, SpendingLimit right) => !left.Equals(right);
+
+    public sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
+    {
+        public SpendingLimitJsonConverter() { }
+        public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, SpendingLimit value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known State values.
+/// </summary>
+[JsonConverter(typeof(State.StateJsonConverter))]
+public readonly struct State : IEquatable<State>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="State"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public State(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Enabled</summary>
+    public static State Enabled { get; } = new("Enabled");
+
+    /// <summary>Warned</summary>
+    public static State Warned { get; } = new("Warned");
+
+    /// <summary>PastDue</summary>
+    public static State PastDue { get; } = new("PastDue");
+
+    /// <summary>Disabled</summary>
+    public static State Disabled { get; } = new("Disabled");
+
+    /// <summary>Deleted</summary>
+    public static State Deleted { get; } = new("Deleted");
+
+    /// <summary>Converts a string to <see cref="State"/>.</summary>
+    public static implicit operator State(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="State"/> to its string representation.</summary>
+    public static implicit operator string(State value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(State other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is State other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(State left, State right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(State left, State right) => !left.Equals(right);
+
+    public sealed class StateJsonConverter : JsonConverter<State>
+    {
+        public StateJsonConverter() { }
+        public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, State value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
 }
 
 #endregion Types

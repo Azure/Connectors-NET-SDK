@@ -72,7 +72,7 @@ public class NewMeetingResponse
 
     /// <summary>The importance of the event. The possible values are: low, normal, high</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Sensitivity of the event</summary>
     [JsonPropertyName("sensitivity")]
@@ -251,7 +251,7 @@ public class GetChannelResponse
 
     /// <summary>The channel membership type</summary>
     [JsonPropertyName("membershipType")]
-    public string TheTypeOfTheChannel { get; set; }
+    public TheTypeOfTheChannel TheTypeOfTheChannel { get; set; }
 }
 
 /// <summary>
@@ -340,7 +340,7 @@ public class ChannelWithOwnerTeamId
 
     /// <summary>The channel membership type</summary>
     [JsonPropertyName("membershipType")]
-    public string TheTypeOfTheChannel { get; set; }
+    public TheTypeOfTheChannel TheTypeOfTheChannel { get; set; }
 
     /// <summary>The ID of the team that owns the channel</summary>
     [JsonPropertyName("ownerTeamId")]
@@ -800,7 +800,7 @@ public class CreateATeamInput
 
     /// <summary>The visibility of the the team</summary>
     [JsonPropertyName("visibility")]
-    public string Visibility { get; set; }
+    public Visibility Visibility { get; set; }
 }
 
 /// <summary>
@@ -1139,7 +1139,7 @@ public class ChatMessage
 
     /// <summary>The importance of the message. The possible values are: normal, high, urgent.</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
     [JsonPropertyName("lastModifiedDateTime")]
@@ -1228,7 +1228,7 @@ public class NewMeeting
 
     /// <summary>The importance of the event: low, normal or high</summary>
     [JsonPropertyName("importance")]
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>The recurrence pattern for the meeting</summary>
     [JsonPropertyName("recurrence")]
@@ -1248,7 +1248,7 @@ public class NewMeeting
 
     /// <summary>Status to show during the event</summary>
     [JsonPropertyName("showAs")]
-    public string StatusShowAs { get; set; }
+    public StatusShowAs StatusShowAs { get; set; }
 
     /// <summary>Set to true if the sender would like a response when the event is accepted</summary>
     [JsonPropertyName("responseRequested")]
@@ -1261,6 +1261,235 @@ public class NewMeeting
     /// <summary>Represents the online meeting service provider</summary>
     [JsonPropertyName("onlineMeetingProvider")]
     public string OnlineMeetingProvider { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known Importance values.
+/// </summary>
+[JsonConverter(typeof(Importance.ImportanceJsonConverter))]
+public readonly struct Importance : IEquatable<Importance>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Importance"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Importance(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>low</summary>
+    public static Importance Low { get; } = new("low");
+
+    /// <summary>normal</summary>
+    public static Importance Normal { get; } = new("normal");
+
+    /// <summary>high</summary>
+    public static Importance High { get; } = new("high");
+
+    /// <summary>Converts a string to <see cref="Importance"/>.</summary>
+    public static implicit operator Importance(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
+    public static implicit operator string(Importance value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Importance other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Importance other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Importance left, Importance right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
+
+    public sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    {
+        public ImportanceJsonConverter() { }
+        public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known StatusShowAs values.
+/// </summary>
+[JsonConverter(typeof(StatusShowAs.StatusShowAsJsonConverter))]
+public readonly struct StatusShowAs : IEquatable<StatusShowAs>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StatusShowAs"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public StatusShowAs(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>free</summary>
+    public static StatusShowAs Free { get; } = new("free");
+
+    /// <summary>tentative</summary>
+    public static StatusShowAs Tentative { get; } = new("tentative");
+
+    /// <summary>busy</summary>
+    public static StatusShowAs Busy { get; } = new("busy");
+
+    /// <summary>oof</summary>
+    public static StatusShowAs Oof { get; } = new("oof");
+
+    /// <summary>workingElsewhere</summary>
+    public static StatusShowAs WorkingElsewhere { get; } = new("workingElsewhere");
+
+    /// <summary>unknown</summary>
+    public static StatusShowAs Unknown { get; } = new("unknown");
+
+    /// <summary>Converts a string to <see cref="StatusShowAs"/>.</summary>
+    public static implicit operator StatusShowAs(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="StatusShowAs"/> to its string representation.</summary>
+    public static implicit operator string(StatusShowAs value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(StatusShowAs other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is StatusShowAs other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(StatusShowAs left, StatusShowAs right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(StatusShowAs left, StatusShowAs right) => !left.Equals(right);
+
+    public sealed class StatusShowAsJsonConverter : JsonConverter<StatusShowAs>
+    {
+        public StatusShowAsJsonConverter() { }
+        public override StatusShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, StatusShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known TheTypeOfTheChannel values.
+/// </summary>
+[JsonConverter(typeof(TheTypeOfTheChannel.TheTypeOfTheChannelJsonConverter))]
+public readonly struct TheTypeOfTheChannel : IEquatable<TheTypeOfTheChannel>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TheTypeOfTheChannel"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public TheTypeOfTheChannel(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>standard</summary>
+    public static TheTypeOfTheChannel Standard { get; } = new("standard");
+
+    /// <summary>private</summary>
+    public static TheTypeOfTheChannel Private { get; } = new("private");
+
+    /// <summary>unknownFutureValue</summary>
+    public static TheTypeOfTheChannel UnknownFutureValue { get; } = new("unknownFutureValue");
+
+    /// <summary>shared</summary>
+    public static TheTypeOfTheChannel Shared { get; } = new("shared");
+
+    /// <summary>Converts a string to <see cref="TheTypeOfTheChannel"/>.</summary>
+    public static implicit operator TheTypeOfTheChannel(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="TheTypeOfTheChannel"/> to its string representation.</summary>
+    public static implicit operator string(TheTypeOfTheChannel value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(TheTypeOfTheChannel other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is TheTypeOfTheChannel other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(TheTypeOfTheChannel left, TheTypeOfTheChannel right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(TheTypeOfTheChannel left, TheTypeOfTheChannel right) => !left.Equals(right);
+
+    public sealed class TheTypeOfTheChannelJsonConverter : JsonConverter<TheTypeOfTheChannel>
+    {
+        public TheTypeOfTheChannelJsonConverter() { }
+        public override TheTypeOfTheChannel Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, TheTypeOfTheChannel value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Visibility values.
+/// </summary>
+[JsonConverter(typeof(Visibility.VisibilityJsonConverter))]
+public readonly struct Visibility : IEquatable<Visibility>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Visibility"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Visibility(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Private</summary>
+    public static Visibility Private { get; } = new("Private");
+
+    /// <summary>Public</summary>
+    public static Visibility Public { get; } = new("Public");
+
+    /// <summary>Converts a string to <see cref="Visibility"/>.</summary>
+    public static implicit operator Visibility(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Visibility"/> to its string representation.</summary>
+    public static implicit operator string(Visibility value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Visibility other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Visibility other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Visibility left, Visibility right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Visibility left, Visibility right) => !left.Equals(right);
+
+    public sealed class VisibilityJsonConverter : JsonConverter<Visibility>
+    {
+        public VisibilityJsonConverter() { }
+        public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Visibility value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
 }
 
 #endregion Types

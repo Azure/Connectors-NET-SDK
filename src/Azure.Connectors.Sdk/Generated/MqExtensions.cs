@@ -67,7 +67,7 @@ public class Item
     public int? LogicalSequenceNumber { get; set; }
 
     /// <summary>MessageType</summary>
-    public string MessageType { get; set; }
+    public MessageType MessageType { get; set; }
 
     /// <summary>Offset</summary>
     public int? Offset { get; set; }
@@ -143,7 +143,7 @@ public class SingleGetValidOptions
     public double? LogicalSequenceNumber { get; set; }
 
     /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-    public string IncludeInfo { get; set; }
+    public IncludeInfo IncludeInfo { get; set; }
 
     /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
     public string Timeout { get; set; }
@@ -176,7 +176,7 @@ public class MultipleGetValidOptions
     public double? LogicalSequenceNumber { get; set; }
 
     /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-    public string IncludeInfo { get; set; }
+    public IncludeInfo IncludeInfo { get; set; }
 
     /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
     public string Timeout { get; set; }
@@ -197,7 +197,7 @@ public class SendValidDataOptions
     public string Message { get; set; }
 
     /// <summary>Message type</summary>
-    public string MessageType { get; set; }
+    public MessageType MessageType { get; set; }
 
     /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
     public string CorrelationId { get; set; }
@@ -219,6 +219,113 @@ public class SendValidDataOptions
 
     /// <summary>Format field for the message.</summary>
     public string Format { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known IncludeInfo values.
+/// </summary>
+[JsonConverter(typeof(IncludeInfo.IncludeInfoJsonConverter))]
+public readonly struct IncludeInfo : IEquatable<IncludeInfo>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="IncludeInfo"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public IncludeInfo(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>false</summary>
+    public static IncludeInfo False { get; } = new("false");
+
+    /// <summary>true</summary>
+    public static IncludeInfo True { get; } = new("true");
+
+    /// <summary>Converts a string to <see cref="IncludeInfo"/>.</summary>
+    public static implicit operator IncludeInfo(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="IncludeInfo"/> to its string representation.</summary>
+    public static implicit operator string(IncludeInfo value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(IncludeInfo other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is IncludeInfo other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(IncludeInfo left, IncludeInfo right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(IncludeInfo left, IncludeInfo right) => !left.Equals(right);
+
+    public sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
+    {
+        public IncludeInfoJsonConverter() { }
+        public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, IncludeInfo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known MessageType values.
+/// </summary>
+[JsonConverter(typeof(MessageType.MessageTypeJsonConverter))]
+public readonly struct MessageType : IEquatable<MessageType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MessageType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public MessageType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Datagram</summary>
+    public static MessageType Datagram { get; } = new("Datagram");
+
+    /// <summary>Reply</summary>
+    public static MessageType Reply { get; } = new("Reply");
+
+    /// <summary>Request</summary>
+    public static MessageType Request { get; } = new("Request");
+
+    /// <summary>Converts a string to <see cref="MessageType"/>.</summary>
+    public static implicit operator MessageType(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="MessageType"/> to its string representation.</summary>
+    public static implicit operator string(MessageType value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(MessageType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is MessageType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(MessageType left, MessageType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(MessageType left, MessageType right) => !left.Equals(right);
+
+    public sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
+    {
+        public MessageTypeJsonConverter() { }
+        public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, MessageType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
 }
 
 #endregion Types

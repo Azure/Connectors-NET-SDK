@@ -193,7 +193,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("bcc@example.com", email.Bcc);
             Assert.AreEqual("Test Subject", email.Subject);
             Assert.AreEqual("Test Body", email.Body);
-            Assert.AreEqual("High", email.Importance);
+            Assert.AreEqual("High", email.Importance.ToString());
             Assert.AreEqual(1, email.Attachments.Count);
             Assert.AreEqual("test.txt", email.Attachments[0].FileName);
         }

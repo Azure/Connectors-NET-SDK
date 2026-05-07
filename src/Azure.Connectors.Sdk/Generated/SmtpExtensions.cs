@@ -63,7 +63,7 @@ public class Email
     public string Bcc { get; set; }
 
     /// <summary>Importance of the email (High, Normal, or Low)</summary>
-    public string Importance { get; set; }
+    public Importance Importance { get; set; }
 
     /// <summary>Specify email address for Read receipt</summary>
     public string ReadReceipt { get; set; }
@@ -91,6 +91,61 @@ public class AttachmentV2
 
     /// <summary>Content id</summary>
     public string ContentId { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known Importance values.
+/// </summary>
+[JsonConverter(typeof(Importance.ImportanceJsonConverter))]
+public readonly struct Importance : IEquatable<Importance>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Importance"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Importance(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Normal</summary>
+    public static Importance Normal { get; } = new("Normal");
+
+    /// <summary>Low</summary>
+    public static Importance Low { get; } = new("Low");
+
+    /// <summary>High</summary>
+    public static Importance High { get; } = new("High");
+
+    /// <summary>Converts a string to <see cref="Importance"/>.</summary>
+    public static implicit operator Importance(string value) => value != null ? new(value) : default;
+
+    /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
+    public static implicit operator string(Importance value) => value._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => _value;
+
+    /// <inheritdoc/>
+    public bool Equals(Importance other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Importance other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Importance left, Importance right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
+
+    public sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    {
+        public ImportanceJsonConverter() { }
+        public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+        public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
 }
 
 #endregion Types
