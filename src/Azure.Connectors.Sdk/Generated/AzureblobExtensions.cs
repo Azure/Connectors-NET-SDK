@@ -247,7 +247,7 @@ public readonly struct Permissions : IEquatable<Permissions>
     /// Initializes a new instance of the <see cref="Permissions"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Permissions(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Permissions(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>Read</summary>
     public static Permissions Read { get; } = new("Read");
@@ -280,19 +280,19 @@ public readonly struct Permissions : IEquatable<Permissions>
     public static implicit operator Permissions(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Permissions"/> to its string representation.</summary>
-    public static implicit operator string(Permissions value) => value._value;
+    public static implicit operator string(Permissions value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Permissions other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Permissions other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Permissions other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Permissions other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Permissions left, Permissions right) => left.Equals(right);
@@ -320,7 +320,7 @@ public readonly struct SharedAccessProtocol : IEquatable<SharedAccessProtocol>
     /// Initializes a new instance of the <see cref="SharedAccessProtocol"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public SharedAccessProtocol(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public SharedAccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>HttpsOnly</summary>
     public static SharedAccessProtocol HttpsOnly { get; } = new("HttpsOnly");
@@ -332,19 +332,19 @@ public readonly struct SharedAccessProtocol : IEquatable<SharedAccessProtocol>
     public static implicit operator SharedAccessProtocol(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="SharedAccessProtocol"/> to its string representation.</summary>
-    public static implicit operator string(SharedAccessProtocol value) => value._value;
+    public static implicit operator string(SharedAccessProtocol value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(SharedAccessProtocol other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(SharedAccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is SharedAccessProtocol other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is SharedAccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(SharedAccessProtocol left, SharedAccessProtocol right) => left.Equals(right);

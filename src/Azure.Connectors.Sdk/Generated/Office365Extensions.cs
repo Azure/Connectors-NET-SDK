@@ -2041,7 +2041,7 @@ public readonly struct ActionType : IEquatable<ActionType>
     /// Initializes a new instance of the <see cref="ActionType"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public ActionType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public ActionType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>added</summary>
     public static ActionType Added { get; } = new("added");
@@ -2056,19 +2056,19 @@ public readonly struct ActionType : IEquatable<ActionType>
     public static implicit operator ActionType(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="ActionType"/> to its string representation.</summary>
-    public static implicit operator string(ActionType value) => value._value;
+    public static implicit operator string(ActionType value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(ActionType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(ActionType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is ActionType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is ActionType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(ActionType left, ActionType right) => left.Equals(right);
@@ -2096,7 +2096,7 @@ public readonly struct ActivityDomain : IEquatable<ActivityDomain>
     /// Initializes a new instance of the <see cref="ActivityDomain"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public ActivityDomain(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public ActivityDomain(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>Work</summary>
     public static ActivityDomain Work { get; } = new("Work");
@@ -2114,19 +2114,19 @@ public readonly struct ActivityDomain : IEquatable<ActivityDomain>
     public static implicit operator ActivityDomain(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="ActivityDomain"/> to its string representation.</summary>
-    public static implicit operator string(ActivityDomain value) => value._value;
+    public static implicit operator string(ActivityDomain value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(ActivityDomain other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(ActivityDomain other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is ActivityDomain other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is ActivityDomain other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(ActivityDomain left, ActivityDomain right) => left.Equals(right);
@@ -2154,7 +2154,7 @@ public readonly struct ContentType : IEquatable<ContentType>
     /// Initializes a new instance of the <see cref="ContentType"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public ContentType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public ContentType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>Text</summary>
     public static ContentType Text { get; } = new("Text");
@@ -2166,19 +2166,19 @@ public readonly struct ContentType : IEquatable<ContentType>
     public static implicit operator ContentType(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="ContentType"/> to its string representation.</summary>
-    public static implicit operator string(ContentType value) => value._value;
+    public static implicit operator string(ContentType value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(ContentType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(ContentType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is ContentType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is ContentType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(ContentType left, ContentType right) => left.Equals(right);
@@ -2206,7 +2206,7 @@ public readonly struct ExternalAudience : IEquatable<ExternalAudience>
     /// Initializes a new instance of the <see cref="ExternalAudience"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public ExternalAudience(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public ExternalAudience(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>none</summary>
     public static ExternalAudience None { get; } = new("none");
@@ -2221,19 +2221,19 @@ public readonly struct ExternalAudience : IEquatable<ExternalAudience>
     public static implicit operator ExternalAudience(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="ExternalAudience"/> to its string representation.</summary>
-    public static implicit operator string(ExternalAudience value) => value._value;
+    public static implicit operator string(ExternalAudience value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(ExternalAudience other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(ExternalAudience other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is ExternalAudience other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is ExternalAudience other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(ExternalAudience left, ExternalAudience right) => left.Equals(right);
@@ -2261,7 +2261,7 @@ public readonly struct Importance : IEquatable<Importance>
     /// Initializes a new instance of the <see cref="Importance"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Importance(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>Low</summary>
     public static Importance Low { get; } = new("Low");
@@ -2276,19 +2276,19 @@ public readonly struct Importance : IEquatable<Importance>
     public static implicit operator Importance(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
-    public static implicit operator string(Importance value) => value._value;
+    public static implicit operator string(Importance value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Importance other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Importance other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Importance left, Importance right) => left.Equals(right);
@@ -2316,7 +2316,7 @@ public readonly struct Recurrence : IEquatable<Recurrence>
     /// Initializes a new instance of the <see cref="Recurrence"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Recurrence(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Recurrence(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>none</summary>
     public static Recurrence None { get; } = new("none");
@@ -2337,19 +2337,19 @@ public readonly struct Recurrence : IEquatable<Recurrence>
     public static implicit operator Recurrence(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Recurrence"/> to its string representation.</summary>
-    public static implicit operator string(Recurrence value) => value._value;
+    public static implicit operator string(Recurrence value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Recurrence other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Recurrence other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Recurrence other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Recurrence other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Recurrence left, Recurrence right) => left.Equals(right);
@@ -2377,7 +2377,7 @@ public readonly struct ResponseType : IEquatable<ResponseType>
     /// Initializes a new instance of the <see cref="ResponseType"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public ResponseType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public ResponseType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>none</summary>
     public static ResponseType None { get; } = new("none");
@@ -2401,19 +2401,19 @@ public readonly struct ResponseType : IEquatable<ResponseType>
     public static implicit operator ResponseType(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="ResponseType"/> to its string representation.</summary>
-    public static implicit operator string(ResponseType value) => value._value;
+    public static implicit operator string(ResponseType value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(ResponseType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(ResponseType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is ResponseType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is ResponseType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(ResponseType left, ResponseType right) => left.Equals(right);
@@ -2441,7 +2441,7 @@ public readonly struct Sensitivity : IEquatable<Sensitivity>
     /// Initializes a new instance of the <see cref="Sensitivity"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Sensitivity(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Sensitivity(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>normal</summary>
     public static Sensitivity Normal { get; } = new("normal");
@@ -2459,19 +2459,19 @@ public readonly struct Sensitivity : IEquatable<Sensitivity>
     public static implicit operator Sensitivity(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Sensitivity"/> to its string representation.</summary>
-    public static implicit operator string(Sensitivity value) => value._value;
+    public static implicit operator string(Sensitivity value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Sensitivity other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Sensitivity other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Sensitivity other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Sensitivity other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Sensitivity left, Sensitivity right) => left.Equals(right);
@@ -2499,7 +2499,7 @@ public readonly struct ShowAs : IEquatable<ShowAs>
     /// Initializes a new instance of the <see cref="ShowAs"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public ShowAs(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>free</summary>
     public static ShowAs Free { get; } = new("free");
@@ -2523,19 +2523,19 @@ public readonly struct ShowAs : IEquatable<ShowAs>
     public static implicit operator ShowAs(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
-    public static implicit operator string(ShowAs value) => value._value;
+    public static implicit operator string(ShowAs value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(ShowAs other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is ShowAs other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
@@ -2563,7 +2563,7 @@ public readonly struct Status : IEquatable<Status>
     /// Initializes a new instance of the <see cref="Status"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Status(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Status(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>disabled</summary>
     public static Status Disabled { get; } = new("disabled");
@@ -2578,19 +2578,19 @@ public readonly struct Status : IEquatable<Status>
     public static implicit operator Status(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
-    public static implicit operator string(Status value) => value._value;
+    public static implicit operator string(Status value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Status other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Status other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Status other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Status other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Status left, Status right) => left.Equals(right);
@@ -2618,7 +2618,7 @@ public readonly struct TimeZone : IEquatable<TimeZone>
     /// Initializes a new instance of the <see cref="TimeZone"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public TimeZone(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>(UTC-12:00) International Date Line West</summary>
     public static TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
@@ -3032,19 +3032,19 @@ public readonly struct TimeZone : IEquatable<TimeZone>
     public static implicit operator TimeZone(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="TimeZone"/> to its string representation.</summary>
-    public static implicit operator string(TimeZone value) => value._value;
+    public static implicit operator string(TimeZone value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(TimeZone other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(TimeZone other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is TimeZone other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is TimeZone other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(TimeZone left, TimeZone right) => left.Equals(right);

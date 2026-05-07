@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Extensible enum types for swagger enum properties** (#115) — the upstream BPM CodefulSdkGenerator now detects string properties with swagger `enum` arrays and generates `readonly struct` types following the Azure SDK extensible enum pattern; generated connector clients will be regenerated with typed enums in a follow-up commit
+- **Extensible enum types for Swagger enum properties** (#115) — string properties with Swagger `enum` arrays are now generated as `readonly struct` types following the Azure SDK extensible enum pattern. Each struct provides static members for known values, implicit `string` conversion, case-insensitive equality, and a nested `JsonConverter` for `System.Text.Json` serialization.
 - **Per-connector model factory classes** (`Office365ModelFactory`, `TeamsModelFactory`, etc.) — static factory methods for constructing model instances with output-only properties, following the [Azure SDK mocking guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-mocking-factory) (#106)
 - Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results
 - `ConnectorException` — unified exception type for all connector API failures (#88)

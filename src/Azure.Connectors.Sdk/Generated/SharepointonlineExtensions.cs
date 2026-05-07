@@ -910,7 +910,7 @@ public readonly struct Method : IEquatable<Method>
     /// Initializes a new instance of the <see cref="Method"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Method(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Method(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>GET</summary>
     public static Method GET { get; } = new("GET");
@@ -931,19 +931,19 @@ public readonly struct Method : IEquatable<Method>
     public static implicit operator Method(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Method"/> to its string representation.</summary>
-    public static implicit operator string(Method value) => value._value;
+    public static implicit operator string(Method value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Method other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Method other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Method other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Method other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Method left, Method right) => left.Equals(right);

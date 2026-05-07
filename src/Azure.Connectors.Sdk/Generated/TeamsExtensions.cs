@@ -1275,7 +1275,7 @@ public readonly struct Importance : IEquatable<Importance>
     /// Initializes a new instance of the <see cref="Importance"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Importance(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>low</summary>
     public static Importance Low { get; } = new("low");
@@ -1290,19 +1290,19 @@ public readonly struct Importance : IEquatable<Importance>
     public static implicit operator Importance(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
-    public static implicit operator string(Importance value) => value._value;
+    public static implicit operator string(Importance value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Importance other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Importance other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Importance left, Importance right) => left.Equals(right);
@@ -1330,7 +1330,7 @@ public readonly struct StatusShowAs : IEquatable<StatusShowAs>
     /// Initializes a new instance of the <see cref="StatusShowAs"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public StatusShowAs(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public StatusShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>free</summary>
     public static StatusShowAs Free { get; } = new("free");
@@ -1354,19 +1354,19 @@ public readonly struct StatusShowAs : IEquatable<StatusShowAs>
     public static implicit operator StatusShowAs(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="StatusShowAs"/> to its string representation.</summary>
-    public static implicit operator string(StatusShowAs value) => value._value;
+    public static implicit operator string(StatusShowAs value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(StatusShowAs other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(StatusShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is StatusShowAs other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is StatusShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(StatusShowAs left, StatusShowAs right) => left.Equals(right);
@@ -1394,7 +1394,7 @@ public readonly struct TheTypeOfTheChannel : IEquatable<TheTypeOfTheChannel>
     /// Initializes a new instance of the <see cref="TheTypeOfTheChannel"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public TheTypeOfTheChannel(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public TheTypeOfTheChannel(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>standard</summary>
     public static TheTypeOfTheChannel Standard { get; } = new("standard");
@@ -1412,19 +1412,19 @@ public readonly struct TheTypeOfTheChannel : IEquatable<TheTypeOfTheChannel>
     public static implicit operator TheTypeOfTheChannel(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="TheTypeOfTheChannel"/> to its string representation.</summary>
-    public static implicit operator string(TheTypeOfTheChannel value) => value._value;
+    public static implicit operator string(TheTypeOfTheChannel value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(TheTypeOfTheChannel other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(TheTypeOfTheChannel other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is TheTypeOfTheChannel other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is TheTypeOfTheChannel other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(TheTypeOfTheChannel left, TheTypeOfTheChannel right) => left.Equals(right);
@@ -1452,7 +1452,7 @@ public readonly struct Visibility : IEquatable<Visibility>
     /// Initializes a new instance of the <see cref="Visibility"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public Visibility(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public Visibility(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>Private</summary>
     public static Visibility Private { get; } = new("Private");
@@ -1464,19 +1464,19 @@ public readonly struct Visibility : IEquatable<Visibility>
     public static implicit operator Visibility(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="Visibility"/> to its string representation.</summary>
-    public static implicit operator string(Visibility value) => value._value;
+    public static implicit operator string(Visibility value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(Visibility other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(Visibility other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Visibility other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is Visibility other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(Visibility left, Visibility right) => left.Equals(right);

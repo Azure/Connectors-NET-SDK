@@ -233,7 +233,7 @@ public readonly struct IncludeInfo : IEquatable<IncludeInfo>
     /// Initializes a new instance of the <see cref="IncludeInfo"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public IncludeInfo(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public IncludeInfo(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>false</summary>
     public static IncludeInfo False { get; } = new("false");
@@ -245,19 +245,19 @@ public readonly struct IncludeInfo : IEquatable<IncludeInfo>
     public static implicit operator IncludeInfo(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="IncludeInfo"/> to its string representation.</summary>
-    public static implicit operator string(IncludeInfo value) => value._value;
+    public static implicit operator string(IncludeInfo value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(IncludeInfo other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(IncludeInfo other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is IncludeInfo other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is IncludeInfo other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(IncludeInfo left, IncludeInfo right) => left.Equals(right);
@@ -285,7 +285,7 @@ public readonly struct MessageType : IEquatable<MessageType>
     /// Initializes a new instance of the <see cref="MessageType"/> struct.
     /// </summary>
     /// <param name="value">The string value.</param>
-    public MessageType(string value) => _value = value ?? throw new ArgumentNullException(nameof(value));
+    public MessageType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
     /// <summary>Datagram</summary>
     public static MessageType Datagram { get; } = new("Datagram");
@@ -300,19 +300,19 @@ public readonly struct MessageType : IEquatable<MessageType>
     public static implicit operator MessageType(string value) => value != null ? new(value) : default;
 
     /// <summary>Converts a <see cref="MessageType"/> to its string representation.</summary>
-    public static implicit operator string(MessageType value) => value._value;
+    public static implicit operator string(MessageType value) => value.ToString();
 
     /// <inheritdoc/>
-    public override string ToString() => _value;
+    public override string ToString() => this._value;
 
     /// <inheritdoc/>
-    public bool Equals(MessageType other) => string.Equals(_value, other._value, StringComparison.OrdinalIgnoreCase);
+    public bool Equals(MessageType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is MessageType other ? Equals(other) : obj is string text && string.Equals(_value, text, StringComparison.OrdinalIgnoreCase);
+    public override bool Equals(object obj) => obj is MessageType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
     /// <inheritdoc/>
-    public override int GetHashCode() => _value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
     /// <summary>Equality operator.</summary>
     public static bool operator ==(MessageType left, MessageType right) => left.Equals(right);
