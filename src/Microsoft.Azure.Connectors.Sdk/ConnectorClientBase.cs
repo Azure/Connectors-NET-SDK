@@ -76,6 +76,13 @@ namespace Microsoft.Azure.Connectors.Sdk
             ArgumentNullException.ThrowIfNull(connectionRuntimeUrl);
             ArgumentNullException.ThrowIfNull(credential);
 
+            if (!connectionRuntimeUrl.IsAbsoluteUri)
+            {
+                throw new ArgumentException(
+                    message: $"The connection runtime URL '{connectionRuntimeUrl}' is not a valid absolute URI.",
+                    paramName: nameof(connectionRuntimeUrl));
+            }
+
             this._connectionRuntimeUrl = connectionRuntimeUrl.AbsoluteUri.TrimEnd('/');
 
             options = ConnectorClientBase.ApplyBaseUri(options, this._connectionRuntimeUrl);
@@ -94,7 +101,7 @@ namespace Microsoft.Azure.Connectors.Sdk
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         protected ConnectorClientBase(string connectionRuntimeUrl)
-            : this(new Uri(connectionRuntimeUrl ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl))))
+            : this(ConnectorClientBase.ParseConnectionRuntimeUrl(connectionRuntimeUrl))
         {
         }
 
@@ -319,6 +326,20 @@ namespace Microsoft.Azure.Connectors.Sdk
             options.BaseUri ??= uri;
 
             return options;
+        }
+
+        private static Uri ParseConnectionRuntimeUrl(string connectionRuntimeUrl)
+        {
+            ArgumentNullException.ThrowIfNull(connectionRuntimeUrl);
+
+            if (!Uri.TryCreate(connectionRuntimeUrl, UriKind.Absolute, out var uri))
+            {
+                throw new ArgumentException(
+                    message: $"The connection runtime URL '{connectionRuntimeUrl}' is not a valid absolute URI.",
+                    paramName: nameof(connectionRuntimeUrl));
+            }
+
+            return uri;
         }
 
         /// <summary>

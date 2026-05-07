@@ -3,7 +3,6 @@
 //------------------------------------------------------------
 
 using global::Azure.Core;
-using global::Azure.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

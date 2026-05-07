@@ -264,7 +264,7 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
     public AzuremonitorlogsClient(string connectionRuntimeUrl)
-        : this(new Uri(connectionRuntimeUrl ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl))))
+        : base(connectionRuntimeUrl)
     {
     }
 

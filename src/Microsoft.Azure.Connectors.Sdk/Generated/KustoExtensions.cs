@@ -281,7 +281,7 @@ public class KustoClient : ConnectorClientBase
     /// </summary>
     /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
     public KustoClient(string connectionRuntimeUrl)
-        : this(new Uri(connectionRuntimeUrl ?? throw new ArgumentNullException(nameof(connectionRuntimeUrl))))
+        : base(connectionRuntimeUrl)
     {
     }
 
