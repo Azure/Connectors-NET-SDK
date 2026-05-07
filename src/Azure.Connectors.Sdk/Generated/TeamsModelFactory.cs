@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Teams;
+namespace Azure.Connectors.Sdk.Teams.Models;
 
 /// <summary>
 /// Model factory for creating instances of Teams models.

@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Mq;
+namespace Azure.Connectors.Sdk.Mq.Models;
 
 /// <summary>
 /// Model factory for creating instances of Mq models.

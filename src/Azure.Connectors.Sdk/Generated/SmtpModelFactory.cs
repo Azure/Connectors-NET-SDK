@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Smtp;
+namespace Azure.Connectors.Sdk.Smtp.Models;
 
 /// <summary>
 /// Model factory for creating instances of Smtp models.

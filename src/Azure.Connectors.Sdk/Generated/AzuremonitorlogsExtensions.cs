@@ -15,517 +15,525 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Azuremonitorlogs;
-
-#region Types
-
-/// <summary>
-/// Response for List subscriptions
-/// </summary>
-public class SubscriptionListResult : IPageable<Subscription>
+namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
 {
-    /// <summary>The subscriptions .</summary>
-    [JsonPropertyName("value")]
-    public List<Subscription> Value { get; set; }
 
-    /// <summary>The URL to get the next set of results. </summary>
-    [JsonPropertyName("nextLink")]
-    public string NextLink { get; set; }
-}
+    #region Types
 
-/// <summary>
-/// Item in The subscriptions .
-/// </summary>
-public class Subscription
-{
-    /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000. </summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>The subscription Id. </summary>
-    [JsonPropertyName("subscriptionId")]
-    public string SubscriptionId { get; set; }
-
-    /// <summary>The authorization source of the request. Valid values are one or more combinations of Legacy, RoleBased, Bypassed, Direct and Management. For example, &apos;Legacy, RoleBased&apos;. </summary>
-    [JsonPropertyName("authorizationSource")]
-    public string AuthorizationSource { get; set; }
-}
-
-/// <summary>
-/// Response for List resource groups
-/// </summary>
-public class ResourceGroupListResult : IPageable<ResourceGroup>
-{
-    /// <summary>The list of resource groups. </summary>
-    [JsonPropertyName("value")]
-    public List<ResourceGroup> Value { get; set; }
-
-    /// <summary>The URL to get the next set of results. </summary>
-    [JsonPropertyName("nextLink")]
-    public string NextLink { get; set; }
-}
-
-/// <summary>
-/// Item in The list of resource groups. 
-/// </summary>
-public class ResourceGroup
-{
-    /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY). </summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>The Name of the resource group. </summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-/// <summary>
-/// Response for List resources
-/// </summary>
-public class ResourceItemListResult : IPageable<ResourceItem>
-{
-    /// <summary>The list of resource items. </summary>
-    [JsonPropertyName("value")]
-    public List<ResourceItem> Value { get; set; }
-
-    /// <summary>The URL to get the next set of results. </summary>
-    [JsonPropertyName("nextLink")]
-    public string NextLink { get; set; }
-}
-
-/// <summary>
-/// Item in The list of resource items. 
-/// </summary>
-public class ResourceItem
-{
-    /// <summary>The ID of the resource. </summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>The Name of the resource .</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-/// <summary>
-/// Response for List time range types
-/// </summary>
-public class TimeRangeListResult : IPageable<TimeRangeItem>
-{
-    /// <summary>The list of time range. </summary>
-    [JsonPropertyName("value")]
-    public List<TimeRangeItem> Value { get; set; }
-
-    /// <summary>The URL to get the next set of results. </summary>
-    [JsonPropertyName("nextLink")]
-    public string NextLink { get; set; }
-}
-
-/// <summary>
-/// Item in The list of time range. 
-/// </summary>
-public class TimeRangeItem
-{
-    /// <summary>The ID of the item. </summary>
-    [JsonPropertyName("id")]
-    public int? Id { get; set; }
-
-    /// <summary>The Name of the item. </summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-/// <summary>
-/// Response for Run query and list results
-/// </summary>
-public class Table
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<Row> Value { get; set; }
-}
-
-/// <summary>
-/// Item in value
-/// </summary>
-[DynamicSchema("QuerySchema")]
-public class Row
-{
     /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
+    /// Response for List subscriptions
     /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// Response for Get query schema
-/// </summary>
-public class ObjectEntity
-{
-    /// <summary>
-    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// Response for Run query and visualize results
-/// </summary>
-public class VisualizeResults
-{
-    /// <summary>body</summary>
-    [JsonPropertyName("body")]
-    public string Body { get; set; }
-
-    /// <summary>attachmentContent</summary>
-    [JsonPropertyName("attachmentContent")]
-    public string AttachmentContent { get; set; }
-
-    /// <summary>attachmentName</summary>
-    [JsonPropertyName("attachmentName")]
-    public string AttachmentName { get; set; }
-}
-
-/// <summary>
-/// Run query and list results V2
-/// </summary>
-public class QueryDataInput
-{
-    /// <summary>Specify the query you would like to run. </summary>
-    [JsonPropertyName("query")]
-    public string Query { get; set; }
-
-    /// <summary>Select Time Range type. </summary>
-    [JsonPropertyName("timerangetype")]
-    public string TimeRangeType { get; set; }
-
-    /// <summary>Time Range</summary>
-    [JsonPropertyName("timerange")]
-    public object Timerange { get; set; }
-}
-
-/// <summary>
-/// Run query and visualize results V2
-/// </summary>
-public class VisualizeQueryInput
-{
-    /// <summary>Specify the query you would like to run. </summary>
-    [JsonPropertyName("query")]
-    public string Query { get; set; }
-
-    /// <summary>Select Time Range type. </summary>
-    [JsonPropertyName("timerangetype")]
-    public string TimeRangeType { get; set; }
-
-    /// <summary>Time Range</summary>
-    [JsonPropertyName("timerange")]
-    public object Timerange { get; set; }
-}
-
-#endregion Types
-
-#region Client
-
-/// <summary>
-/// Typed client for azuremonitorlogs connector.
-/// </summary>
-public class AzuremonitorlogsClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new AzuremonitorlogsClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public AzuremonitorlogsClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
+    public class SubscriptionListResult : IPageable<Subscription>
     {
+        /// <summary>The subscriptions .</summary>
+        [JsonPropertyName("value")]
+        public List<Subscription> Value { get; set; }
+
+        /// <summary>The URL to get the next set of results. </summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
-    /// Creates a new AzuremonitorlogsClient with the specified connection runtime URL and credential.
+    /// Item in The subscriptions .
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public AzuremonitorlogsClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class Subscription
     {
+        /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000. </summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>The subscription Id. </summary>
+        [JsonPropertyName("subscriptionId")]
+        public string SubscriptionId { get; set; }
+
+        /// <summary>The authorization source of the request. Valid values are one or more combinations of Legacy, RoleBased, Bypassed, Direct and Management. For example, &apos;Legacy, RoleBased&apos;. </summary>
+        [JsonPropertyName("authorizationSource")]
+        public string AuthorizationSource { get; set; }
     }
 
     /// <summary>
-    /// Creates a new AzuremonitorlogsClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// Response for List resource groups
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public AzuremonitorlogsClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
+    public class ResourceGroupListResult : IPageable<ResourceGroup>
     {
+        /// <summary>The list of resource groups. </summary>
+        [JsonPropertyName("value")]
+        public List<ResourceGroup> Value { get; set; }
+
+        /// <summary>The URL to get the next set of results. </summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
-    /// Initializes a new instance for mocking.
+    /// Item in The list of resource groups. 
     /// </summary>
-    protected AzuremonitorlogsClient() { }
-
-    /// <inheritdoc />
-    public override string ConnectorName => "azuremonitorlogs";
-
-    /// <summary>
-    /// List subscriptions
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-    public virtual AsyncPageable<Subscription> ListSubscriptionsAsync(CancellationToken cancellationToken = default)
+    public class ResourceGroup
     {
-        var path = $"/listSubscriptions";
-        return this.CreatePageable<SubscriptionListResult, Subscription>(
-            ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
-            (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-            cancellationToken);
+        /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY). </summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>The Name of the resource group. </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 
     /// <summary>
-    /// List resource groups
+    /// Response for List resources
     /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-    public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
+    public class ResourceItemListResult : IPageable<ResourceItem>
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
-            ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
-            (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-            cancellationToken);
+        /// <summary>The list of resource items. </summary>
+        [JsonPropertyName("value")]
+        public List<ResourceItem> Value { get; set; }
+
+        /// <summary>The URL to get the next set of results. </summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
-    /// List resources
+    /// Item in The list of resource items. 
     /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>An async enumerable of <see cref="ResourceItem"/> items across all pages.</returns>
-    public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
+    public class ResourceItem
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return this.CreatePageable<ResourceItemListResult, ResourceItem>(
-            ct => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, path, cancellationToken: ct),
-            (nextLink, ct) => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-            cancellationToken);
+        /// <summary>The ID of the resource. </summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>The Name of the resource .</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 
     /// <summary>
-    /// List time range types
+    /// Response for List time range types
     /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
-    public virtual AsyncPageable<TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType, CancellationToken cancellationToken = default)
+    public class TimeRangeListResult : IPageable<TimeRangeItem>
     {
-        var queryParams = new List<string>();
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
-            ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
-            (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, cancellationToken: ct),
-            cancellationToken);
+        /// <summary>The list of time range. </summary>
+        [JsonPropertyName("value")]
+        public List<TimeRangeItem> Value { get; set; }
+
+        /// <summary>The URL to get the next set of results. </summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
-    /// Run query and list results
+    /// Item in The list of time range. 
     /// </summary>
-    /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="resourceName">Resource Name</param>
-    /// <param name="timeRange">Time Range</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run query and list results response.</returns>
-    public virtual async Task<Table> QueryDataAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
+    public class TimeRangeItem
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        if (resourceName != default)
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-        if (timeRange != default)
-            queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-        var path = $"/queryData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+        /// <summary>The ID of the item. </summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>The Name of the item. </summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 
     /// <summary>
-    /// Get query schema
+    /// Response for Run query and list results
     /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="resourceName">Resource Name</param>
-    /// <param name="timeRange">Time Range</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get query schema response.</returns>
-    public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
+    public class Table
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        if (resourceName != default)
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-        if (timeRange != default)
-            queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-        var path = $"/querySchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<Row> Value { get; set; }
     }
 
     /// <summary>
-    /// Run query and visualize results
+    /// Item in value
     /// </summary>
-    /// <remarks>Returns all rows in the result set as a single formatted object. Use this action when you want to use the result set together in the rest of the workflow. </remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="resourceName">Resource Name</param>
-    /// <param name="timeRange">Time Range</param>
-    /// <param name="chartType">Chart Type</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run query and visualize results response.</returns>
-    public virtual async Task<VisualizeResults> VisualizeQueryAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, string chartType, CancellationToken cancellationToken = default)
+    [DynamicSchema("QuerySchema")]
+    public class Row
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        if (resourceName != default)
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-        if (timeRange != default)
-            queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-        if (chartType != default)
-            queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
-        var path = $"/visualizeQuery" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Get query schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Run query and visualize results
+    /// </summary>
+    public class VisualizeResults
+    {
+        /// <summary>body</summary>
+        [JsonPropertyName("body")]
+        public string Body { get; set; }
+
+        /// <summary>attachmentContent</summary>
+        [JsonPropertyName("attachmentContent")]
+        public string AttachmentContent { get; set; }
+
+        /// <summary>attachmentName</summary>
+        [JsonPropertyName("attachmentName")]
+        public string AttachmentName { get; set; }
     }
 
     /// <summary>
     /// Run query and list results V2
     /// </summary>
-    /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="resourceName">Resource Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run query and list results V2 response.</returns>
-    public virtual async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
+    public class QueryDataInput
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        if (resourceName != default)
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-        var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
-    }
+        /// <summary>Specify the query you would like to run. </summary>
+        [JsonPropertyName("query")]
+        public string Query { get; set; }
 
-    /// <summary>
-    /// Get query schema
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="resourceName">Resource Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get query schema response.</returns>
-    public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        if (resourceName != default)
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-        var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+        /// <summary>Select Time Range type. </summary>
+        [JsonPropertyName("timerangetype")]
+        public string TimeRangeType { get; set; }
+
+        /// <summary>Time Range</summary>
+        [JsonPropertyName("timerange")]
+        public object Timerange { get; set; }
     }
 
     /// <summary>
     /// Run query and visualize results V2
     /// </summary>
-    /// <remarks>Returns all rows in the result set as a single formatted object. Use this action when you want to use the result set together in the rest of the workflow. </remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="subscription">Subscription</param>
-    /// <param name="resourceGroup">Resource Group</param>
-    /// <param name="resourceType">Resource Type</param>
-    /// <param name="resourceName">Resource Name</param>
-    /// <param name="chartType">Chart Type</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run query and visualize results V2 response.</returns>
-    public virtual async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
+    public class VisualizeQueryInput
     {
-        var queryParams = new List<string>();
-        if (subscription != default)
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-        if (resourceGroup != default)
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-        if (resourceType != default)
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-        if (resourceName != default)
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-        if (chartType != default)
-            queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
-        var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+        /// <summary>Specify the query you would like to run. </summary>
+        [JsonPropertyName("query")]
+        public string Query { get; set; }
+
+        /// <summary>Select Time Range type. </summary>
+        [JsonPropertyName("timerangetype")]
+        public string TimeRangeType { get; set; }
+
+        /// <summary>Time Range</summary>
+        [JsonPropertyName("timerange")]
+        public object Timerange { get; set; }
     }
+
+    #endregion Types
 
 }
 
-#endregion Client
+namespace Azure.Connectors.Sdk.Azuremonitorlogs
+{
+
+    #region Client
+
+    /// <summary>
+    /// Typed client for azuremonitorlogs connector.
+    /// </summary>
+    public class AzuremonitorlogsClient : ConnectorClientBase
+    {
+        /// <summary>
+        /// Creates a new AzuremonitorlogsClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public AzuremonitorlogsClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new AzuremonitorlogsClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public AzuremonitorlogsClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new AzuremonitorlogsClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public AzuremonitorlogsClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance for mocking.
+        /// </summary>
+        protected AzuremonitorlogsClient() { }
+
+        /// <inheritdoc />
+        public override string ConnectorName => "azuremonitorlogs";
+
+        /// <summary>
+        /// List subscriptions
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
+        public virtual AsyncPageable<Subscription> ListSubscriptionsAsync(CancellationToken cancellationToken = default)
+        {
+            var path = $"/listSubscriptions";
+            return this.CreatePageable<SubscriptionListResult, Subscription>(
+                ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List resource groups
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
+        public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
+                ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List resources
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="ResourceItem"/> items across all pages.</returns>
+        public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ResourceItemListResult, ResourceItem>(
+                ct => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List time range types
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
+        public virtual AsyncPageable<TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
+                ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
+                (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Run query and list results
+        /// </summary>
+        /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="resourceName">Resource Name</param>
+        /// <param name="timeRange">Time Range</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run query and list results response.</returns>
+        public virtual async Task<Table> QueryDataAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            if (resourceName != default)
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            if (timeRange != default)
+                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
+            var path = $"/queryData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get query schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="resourceName">Resource Name</param>
+        /// <param name="timeRange">Time Range</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get query schema response.</returns>
+        public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            if (resourceName != default)
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            if (timeRange != default)
+                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
+            var path = $"/querySchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+        /// <summary>
+        /// Run query and visualize results
+        /// </summary>
+        /// <remarks>Returns all rows in the result set as a single formatted object. Use this action when you want to use the result set together in the rest of the workflow. </remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="resourceName">Resource Name</param>
+        /// <param name="timeRange">Time Range</param>
+        /// <param name="chartType">Chart Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run query and visualize results response.</returns>
+        public virtual async Task<VisualizeResults> VisualizeQueryAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, string chartType, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            if (resourceName != default)
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            if (timeRange != default)
+                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
+            if (chartType != default)
+                queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
+            var path = $"/visualizeQuery" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+        /// <summary>
+        /// Run query and list results V2
+        /// </summary>
+        /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="resourceName">Resource Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run query and list results V2 response.</returns>
+        public virtual async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            if (resourceName != default)
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get query schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="resourceName">Resource Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get query schema response.</returns>
+        public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            if (resourceName != default)
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+        /// <summary>
+        /// Run query and visualize results V2
+        /// </summary>
+        /// <remarks>Returns all rows in the result set as a single formatted object. Use this action when you want to use the result set together in the rest of the workflow. </remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="resourceType">Resource Type</param>
+        /// <param name="resourceName">Resource Name</param>
+        /// <param name="chartType">Chart Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run query and visualize results V2 response.</returns>
+        public virtual async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (subscription != default)
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup != default)
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType != default)
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            if (resourceName != default)
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            if (chartType != default)
+                queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
+            var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+    }
+
+    #endregion Client
+}

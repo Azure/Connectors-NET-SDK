@@ -105,7 +105,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         public string GroupPolicyIdentifier { get; set; }
 
         /// <summary>The permissions specified on the SAS (Values separated by comma).</summary>
-        public Permissions Permissions { get; set; }
+        public string Permissions { get; set; }
 
         /// <summary>The date and time at which the SAS becomes valid (example: &apos;2017-11-01T15:30:00+00:00&apos;). Default = now().</summary>
         public DateTime? StartTime { get; set; }
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
         /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
         [JsonPropertyName("AccessProtocol")]
-        public SharedAccessProtocol SharedAccessProtocol { get; set; }
+        public string SharedAccessProtocol { get; set; }
 
         /// <summary>The allowed IP address or IP address range. Null if you don&apos;t want to restrict based on IP address.</summary>
         [JsonPropertyName("IpAddressOrRange")]
@@ -235,131 +235,6 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>A marker which can be used to retrieve the next page.</summary>
         [JsonPropertyName("nextPageMarker")]
         public string NextPageMarker { get; set; }
-    }
-
-    /// <summary>
-    /// Extensible enum for known Permissions values.
-    /// </summary>
-    [JsonConverter(typeof(Permissions.PermissionsJsonConverter))]
-    public readonly struct Permissions : IEquatable<Permissions>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Permissions"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Permissions(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>Read</summary>
-        public static Permissions Read { get; } = new("Read");
-
-        /// <summary>Write</summary>
-        public static Permissions Write { get; } = new("Write");
-
-        /// <summary>Add</summary>
-        public static Permissions Add { get; } = new("Add");
-
-        /// <summary>Create</summary>
-        public static Permissions Create { get; } = new("Create");
-
-        /// <summary>Delete</summary>
-        public static Permissions Delete { get; } = new("Delete");
-
-        /// <summary>List</summary>
-        public static Permissions List { get; } = new("List");
-
-        /// <summary>Read,Write</summary>
-        public static Permissions ReadWrite { get; } = new("Read,Write");
-
-        /// <summary>Read,Write,List</summary>
-        public static Permissions ReadWriteList { get; } = new("Read,Write,List");
-
-        /// <summary>Read,Write,List,Delete</summary>
-        public static Permissions ReadWriteListDelete { get; } = new("Read,Write,List,Delete");
-
-        /// <summary>Converts a string to <see cref="Permissions"/>.</summary>
-        public static implicit operator Permissions(string value) => value != null ? new(value) : default;
-
-        /// <summary>Converts a <see cref="Permissions"/> to its string representation.</summary>
-        public static implicit operator string(Permissions value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Permissions other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Permissions other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Permissions left, Permissions right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Permissions left, Permissions right) => !left.Equals(right);
-
-        internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
-        {
-            public PermissionsJsonConverter() { }
-            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-            public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known SharedAccessProtocol values.
-    /// </summary>
-    [JsonConverter(typeof(SharedAccessProtocol.SharedAccessProtocolJsonConverter))]
-    public readonly struct SharedAccessProtocol : IEquatable<SharedAccessProtocol>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SharedAccessProtocol"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public SharedAccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>HttpsOnly</summary>
-        public static SharedAccessProtocol HttpsOnly { get; } = new("HttpsOnly");
-
-        /// <summary>HttpsOrHttp</summary>
-        public static SharedAccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
-
-        /// <summary>Converts a string to <see cref="SharedAccessProtocol"/>.</summary>
-        public static implicit operator SharedAccessProtocol(string value) => value != null ? new(value) : default;
-
-        /// <summary>Converts a <see cref="SharedAccessProtocol"/> to its string representation.</summary>
-        public static implicit operator string(SharedAccessProtocol value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(SharedAccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is SharedAccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(SharedAccessProtocol left, SharedAccessProtocol right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(SharedAccessProtocol left, SharedAccessProtocol right) => !left.Equals(right);
-
-        internal sealed class SharedAccessProtocolJsonConverter : JsonConverter<SharedAccessProtocol>
-        {
-            public SharedAccessProtocolJsonConverter() { }
-            public override SharedAccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
-            public override void Write(Utf8JsonWriter writer, SharedAccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
     }
 
     #endregion Types
