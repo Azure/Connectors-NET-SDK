@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Office365users;
+namespace Azure.Connectors.Sdk.Office365users.Models;
 
 /// <summary>
 /// Model factory for creating instances of Office365users models.

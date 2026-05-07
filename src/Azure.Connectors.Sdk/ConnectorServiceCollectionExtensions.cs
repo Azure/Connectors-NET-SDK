@@ -3,15 +3,15 @@
 //------------------------------------------------------------
 
 using Azure.Connectors.Sdk.Arm;
-using Azure.Connectors.Sdk.Azureblob;
+using Azure.Connectors.Sdk.AzureBlob;
 using Azure.Connectors.Sdk.Azuremonitorlogs;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.Mq;
-using Azure.Connectors.Sdk.Msgraphgroupsanduser;
+using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365users;
-using Azure.Connectors.Sdk.Onedriveforbusiness;
-using Azure.Connectors.Sdk.Sharepointonline;
+using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Core;
@@ -77,19 +77,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="AzureblobClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddAzureblobClient(
+        public static IServiceCollection AddAzureBlobClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureblobClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureBlobClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Azureblob,
-                factory: (connectionRuntimeUrl, credential) => new AzureblobClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.AzureBlob,
+                factory: (connectionRuntimeUrl, credential) => new AzureBlobClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -141,19 +141,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="MsgraphgroupsanduserClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="MsGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddMsgraphgroupsanduserClient(
+        public static IServiceCollection AddMsGraphGroupsAndUsersClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<MsgraphgroupsanduserClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MsGraphGroupsAndUsersClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Msgraphgroupsanduser,
-                factory: (connectionRuntimeUrl, credential) => new MsgraphgroupsanduserClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.MsGraphGroupsAndUsers,
+                factory: (connectionRuntimeUrl, credential) => new MsGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -189,35 +189,35 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="OnedriveforbusinessClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="OneDriveForBusinessClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddOnedriveforbusinessClient(
+        public static IServiceCollection AddOneDriveForBusinessClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<OnedriveforbusinessClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OneDriveForBusinessClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Onedriveforbusiness,
-                factory: (connectionRuntimeUrl, credential) => new OnedriveforbusinessClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.OneDriveForBusiness,
+                factory: (connectionRuntimeUrl, credential) => new OneDriveForBusinessClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="SharepointonlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="SharePointOnlineClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddSharepointonlineClient(
+        public static IServiceCollection AddSharePointOnlineClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<SharepointonlineClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SharePointOnlineClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Sharepointonline,
-                factory: (connectionRuntimeUrl, credential) => new SharepointonlineClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.SharePointOnline,
+                factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

@@ -14,145 +14,153 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Smtp.Models;
 using Azure.Core;
 using Azure.Identity;
 
-namespace Azure.Connectors.Sdk.Smtp;
-
-#region Types
-
-/// <summary>
-/// AttachmentV2
-/// </summary>
-public class Attachment
+namespace Azure.Connectors.Sdk.Smtp.Models
 {
-    /// <summary>Content data</summary>
-    public string ContentData { get; set; }
 
-    /// <summary>Content type</summary>
-    public string ContentType { get; set; }
+    #region Types
 
-    /// <summary>File name</summary>
-    public string FileName { get; set; }
-
-    /// <summary>Content id</summary>
-    public string ContentId { get; set; }
-}
-
-/// <summary>
-/// EmailV3
-/// </summary>
-public class Email
-{
-    /// <summary>Email address of sender like sender@domain.com</summary>
-    public string From { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
-    public string To { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
-    public string CC { get; set; }
-
-    /// <summary>Email subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Email body</summary>
-    public string Body { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com.</summary>
-    public string Bcc { get; set; }
-
-    /// <summary>Importance of the email (High, Normal, or Low)</summary>
-    public string Importance { get; set; }
-
-    /// <summary>Specify email address for Read receipt</summary>
-    public string ReadReceipt { get; set; }
-
-    /// <summary>Specify email address for Delivery receipt</summary>
-    public string DeliveryReceipt { get; set; }
-
-    /// <summary>Attachments to be sent along with the email</summary>
-    public List<Attachment> Attachments { get; set; }
-}
-
-/// <summary>
-/// Item in Attachments to be sent along with the email
-/// </summary>
-public class AttachmentV2
-{
-    /// <summary>Content data</summary>
-    public string ContentData { get; set; }
-
-    /// <summary>Content type</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>File name</summary>
-    public string FileName { get; set; }
-
-    /// <summary>Content id</summary>
-    public string ContentId { get; set; }
-}
-
-#endregion Types
-
-#region Client
-
-/// <summary>
-/// Typed client for smtp connector.
-/// </summary>
-public class SmtpClient : ConnectorClientBase
-{
     /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// AttachmentV2
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public SmtpClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
+    public class Attachment
     {
+        /// <summary>Content data</summary>
+        public string ContentData { get; set; }
+
+        /// <summary>Content type</summary>
+        public string ContentType { get; set; }
+
+        /// <summary>File name</summary>
+        public string FileName { get; set; }
+
+        /// <summary>Content id</summary>
+        public string ContentId { get; set; }
     }
 
     /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL and credential.
+    /// EmailV3
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class Email
     {
+        /// <summary>Email address of sender like sender@domain.com</summary>
+        public string From { get; set; }
+
+        /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
+        public string To { get; set; }
+
+        /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
+        public string CC { get; set; }
+
+        /// <summary>Email subject</summary>
+        public string Subject { get; set; }
+
+        /// <summary>Email body</summary>
+        public string Body { get; set; }
+
+        /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com.</summary>
+        public string Bcc { get; set; }
+
+        /// <summary>Importance of the email (High, Normal, or Low)</summary>
+        public string Importance { get; set; }
+
+        /// <summary>Specify email address for Read receipt</summary>
+        public string ReadReceipt { get; set; }
+
+        /// <summary>Specify email address for Delivery receipt</summary>
+        public string DeliveryReceipt { get; set; }
+
+        /// <summary>Attachments to be sent along with the email</summary>
+        public List<Attachment> Attachments { get; set; }
     }
 
     /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// Item in Attachments to be sent along with the email
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public SmtpClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
+    public class AttachmentV2
     {
+        /// <summary>Content data</summary>
+        public string ContentData { get; set; }
+
+        /// <summary>Content type</summary>
+        public string ContentType { get; set; }
+
+        /// <summary>File name</summary>
+        public string FileName { get; set; }
+
+        /// <summary>Content id</summary>
+        public string ContentId { get; set; }
     }
 
-    /// <summary>
-    /// Initializes a new instance for mocking.
-    /// </summary>
-    protected SmtpClient() { }
-
-    /// <inheritdoc />
-    public override string ConnectorName => "smtp";
-
-    /// <summary>
-    /// Send Email (V3)
-    /// </summary>
-    /// <remarks>This operation sends an email to one or more recipients.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/SendEmailV3";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
-    }
+    #endregion Types
 
 }
 
-#endregion Client
+namespace Azure.Connectors.Sdk.Smtp
+{
+
+    #region Client
+
+    /// <summary>
+    /// Typed client for smtp connector.
+    /// </summary>
+    public class SmtpClient : ConnectorClientBase
+    {
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public SmtpClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public SmtpClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance for mocking.
+        /// </summary>
+        protected SmtpClient() { }
+
+        /// <inheritdoc />
+        public override string ConnectorName => "smtp";
+
+        /// <summary>
+        /// Send Email (V3)
+        /// </summary>
+        /// <remarks>This operation sends an email to one or more recipients.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/SendEmailV3";
+            await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        }
+
+    }
+
+    #endregion Client
+}

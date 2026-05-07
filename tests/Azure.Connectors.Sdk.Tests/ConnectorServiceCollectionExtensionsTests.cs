@@ -3,15 +3,15 @@
 //------------------------------------------------------------
 
 using Azure.Connectors.Sdk.Arm;
-using Azure.Connectors.Sdk.Azureblob;
+using Azure.Connectors.Sdk.AzureBlob;
 using Azure.Connectors.Sdk.Azuremonitorlogs;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.Mq;
-using Azure.Connectors.Sdk.Msgraphgroupsanduser;
+using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365users;
-using Azure.Connectors.Sdk.Onedriveforbusiness;
-using Azure.Connectors.Sdk.Sharepointonline;
+using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Teams;
 using global::Azure.Core;
@@ -276,15 +276,15 @@ namespace Azure.Connectors.Sdk.Tests
 
             services
                 .AddArmClient(configuration)
-                .AddAzureblobClient(configuration)
+                .AddAzureBlobClient(configuration)
                 .AddAzuremonitorlogsClient(configuration)
                 .AddKustoClient(configuration)
                 .AddMqClient(configuration)
-                .AddMsgraphgroupsanduserClient(configuration)
+                .AddMsGraphGroupsAndUsersClient(configuration)
                 .AddOffice365Client(configuration)
                 .AddOffice365usersClient(configuration)
-                .AddOnedriveforbusinessClient(configuration)
-                .AddSharepointonlineClient(configuration)
+                .AddOneDriveForBusinessClient(configuration)
+                .AddSharePointOnlineClient(configuration)
                 .AddSmtpClient(configuration)
                 .AddTeamsClient(configuration);
 
@@ -292,15 +292,15 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act & Assert — verify each client resolves with the correct ConnectorName.
             Assert.AreEqual("arm", provider.GetRequiredService<ArmClient>().ConnectorName);
-            Assert.AreEqual("azureblob", provider.GetRequiredService<AzureblobClient>().ConnectorName);
+            Assert.AreEqual("azureblob", provider.GetRequiredService<AzureBlobClient>().ConnectorName);
             Assert.AreEqual("azuremonitorlogs", provider.GetRequiredService<AzuremonitorlogsClient>().ConnectorName);
             Assert.AreEqual("kusto", provider.GetRequiredService<KustoClient>().ConnectorName);
             Assert.AreEqual("mq", provider.GetRequiredService<MqClient>().ConnectorName);
-            Assert.AreEqual("msgraphgroupsanduser", provider.GetRequiredService<MsgraphgroupsanduserClient>().ConnectorName);
+            Assert.AreEqual("msgraphgroupsanduser", provider.GetRequiredService<MsGraphGroupsAndUsersClient>().ConnectorName);
             Assert.AreEqual("office365", provider.GetRequiredService<Office365Client>().ConnectorName);
             Assert.AreEqual("office365users", provider.GetRequiredService<Office365usersClient>().ConnectorName);
-            Assert.AreEqual("onedriveforbusiness", provider.GetRequiredService<OnedriveforbusinessClient>().ConnectorName);
-            Assert.AreEqual("sharepointonline", provider.GetRequiredService<SharepointonlineClient>().ConnectorName);
+            Assert.AreEqual("onedriveforbusiness", provider.GetRequiredService<OneDriveForBusinessClient>().ConnectorName);
+            Assert.AreEqual("sharepointonline", provider.GetRequiredService<SharePointOnlineClient>().ConnectorName);
             Assert.AreEqual("smtp", provider.GetRequiredService<SmtpClient>().ConnectorName);
             Assert.AreEqual("teams", provider.GetRequiredService<TeamsClient>().ConnectorName);
         }

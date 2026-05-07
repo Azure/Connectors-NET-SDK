@@ -9,7 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Onedriveforbusiness;
+using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,16 +20,16 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated OnedriveforbusinessClient class.
+    /// Tests for the generated OneDriveForBusinessClient class.
     /// </summary>
     [TestClass]
-    public class OnedriveforbusinessClientTests
+    public class OneDriveForBusinessClientTests
     {
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new OnedriveforbusinessClient("https://test.azure.com/connection");
+            using var client = new OneDriveForBusinessClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -38,14 +39,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new OnedriveforbusinessClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new OneDriveForBusinessClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new OnedriveforbusinessClient("https://test.azure.com/connection");
+            var client = new OneDriveForBusinessClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -97,7 +98,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new OnedriveforbusinessClient(
+            using var client = new OneDriveForBusinessClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -152,7 +153,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new OnedriveforbusinessClient(
+            using var client = new OneDriveForBusinessClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -321,7 +322,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
-            var client = new OnedriveforbusinessClient(
+            var client = new OneDriveForBusinessClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -335,7 +336,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
-            var client = new OnedriveforbusinessClient(
+            var client = new OneDriveForBusinessClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 

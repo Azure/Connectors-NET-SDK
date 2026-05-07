@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Arm;
+namespace Azure.Connectors.Sdk.Arm.Models;
 
 /// <summary>
 /// Model factory for creating instances of Arm models.

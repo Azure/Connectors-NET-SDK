@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.Connectors.Sdk.Azuremonitorlogs;
+namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models;
 
 /// <summary>
 /// Model factory for creating instances of Azuremonitorlogs models.

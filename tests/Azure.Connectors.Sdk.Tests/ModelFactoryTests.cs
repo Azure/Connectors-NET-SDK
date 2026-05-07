@@ -4,10 +4,14 @@
 
 using System;
 using System.Text.Json;
-using Azure.Connectors.Sdk.Azureblob;
+using Azure.Connectors.Sdk.AzureBlob;
+using Azure.Connectors.Sdk.AzureBlob.Models;
 using Azure.Connectors.Sdk.Office365;
-using Azure.Connectors.Sdk.Sharepointonline;
+using Azure.Connectors.Sdk.Office365.Models;
+using Azure.Connectors.Sdk.SharePointOnline;
+using Azure.Connectors.Sdk.SharePointOnline.Models;
 using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.Teams.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Azure.Connectors.Sdk.Tests
@@ -107,13 +111,13 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void AzureblobModelFactory_BlobMetadata_SetsOutputOnlyProperties()
+        public void AzureBlobModelFactory_BlobMetadata_SetsOutputOnlyProperties()
         {
             // Arrange
             var lastModified = new DateTime(2025, 5, 20, 14, 30, 0, DateTimeKind.Utc);
 
             // Act
-            var blob = AzureblobModelFactory.BlobMetadata(
+            var blob = AzureBlobModelFactory.BlobMetadata(
                 id: "/container/test-blob.txt",
                 name: "test-blob.txt",
                 eTag: "\"0x8D9F3A4B5C6D7E8\"",
@@ -128,13 +132,13 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void SharepointonlineModelFactory_BlobMetadata_SetsETagAndLastModified()
+        public void SharePointOnlineModelFactory_BlobMetadata_SetsETagAndLastModified()
         {
             // Arrange
             var lastModified = new DateTime(2025, 4, 10, 8, 0, 0, DateTimeKind.Utc);
 
             // Act
-            var blob = SharepointonlineModelFactory.BlobMetadata(
+            var blob = SharePointOnlineModelFactory.BlobMetadata(
                 id: "/sites/test/file.docx",
                 eTag: "\"etag-value\"",
                 lastModified: lastModified);

@@ -5,6 +5,7 @@
 using System.Linq;
 using System.Reflection;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk.Office365.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Azure.Connectors.Sdk.Tests
@@ -32,7 +33,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             CollectionAssert.Contains(
                 SdkConnectors.AvailableConnectors,
-                ConnectorNames.Sharepointonline);
+                ConnectorNames.SharePointOnline);
         }
 
         [TestMethod]
@@ -90,7 +91,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert — connector API names are lowercase identifiers
             Assert.AreEqual(ConnectorNames.Kusto, ConnectorNames.Kusto.ToLowerInvariant());
             Assert.AreEqual(ConnectorNames.Office365, ConnectorNames.Office365.ToLowerInvariant());
-            Assert.AreEqual(ConnectorNames.Sharepointonline, ConnectorNames.Sharepointonline.ToLowerInvariant());
+            Assert.AreEqual(ConnectorNames.SharePointOnline, ConnectorNames.SharePointOnline.ToLowerInvariant());
             Assert.AreEqual(ConnectorNames.Teams, ConnectorNames.Teams.ToLowerInvariant());
         }
 
