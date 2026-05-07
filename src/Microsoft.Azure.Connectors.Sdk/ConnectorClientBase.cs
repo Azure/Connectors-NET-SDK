@@ -2,9 +2,12 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using global::Azure;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using global::Azure.Identity;
@@ -258,6 +261,25 @@ namespace Microsoft.Azure.Connectors.Sdk
             return $"{this._connectionRuntimeUrl}{path}";
         }
 
+        /// <summary>
+        /// Creates an <see cref="AsyncPageable{T}"/> that automatically follows pagination links
+        /// to yield all items across multiple pages.
+        /// </summary>
+        /// <typeparam name="TPage">The page response type implementing <see cref="IPageable{TItem}"/>.</typeparam>
+        /// <typeparam name="TItem">The type of items in each page.</typeparam>
+        /// <param name="firstPageFunc">Function that fetches the first page.</param>
+        /// <param name="nextPageFunc">Function that fetches subsequent pages given a NextLink URL.</param>
+        /// <param name="cancellationToken">Cancellation token for the page fetch operations.</param>
+        protected AsyncPageable<TItem> CreatePageable<TPage, TItem>(
+            Func<CancellationToken, Task<TPage>> firstPageFunc,
+            Func<string, CancellationToken, Task<TPage>> nextPageFunc,
+            CancellationToken cancellationToken = default)
+            where TPage : class, IPageable<TItem>
+            where TItem : notnull
+        {
+            return new ConnectorAsyncPageable<TPage, TItem>(firstPageFunc, nextPageFunc, cancellationToken);
+        }
+
         /// <inheritdoc />
         public void Dispose()
         {
@@ -307,6 +329,130 @@ namespace Microsoft.Azure.Connectors.Sdk
             }
 
             return new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(managedIdentityClientId));
+        }
+
+        /// <summary>
+        /// An <see cref="AsyncPageable{T}"/> implementation that fetches pages on demand
+        /// using first-page and next-page delegate functions.
+        /// </summary>
+        private sealed class ConnectorAsyncPageable<TPage, TItem> : AsyncPageable<TItem>
+            where TPage : class, IPageable<TItem>
+            where TItem : notnull
+        {
+            private readonly Func<CancellationToken, Task<TPage>> _firstPageFunc;
+            private readonly Func<string, CancellationToken, Task<TPage>> _nextPageFunc;
+            private readonly CancellationToken _cancellationToken;
+
+            internal ConnectorAsyncPageable(
+                Func<CancellationToken, Task<TPage>> firstPageFunc,
+                Func<string, CancellationToken, Task<TPage>> nextPageFunc,
+                CancellationToken cancellationToken)
+            {
+                this._firstPageFunc = firstPageFunc ?? throw new ArgumentNullException(nameof(firstPageFunc));
+                this._nextPageFunc = nextPageFunc ?? throw new ArgumentNullException(nameof(nextPageFunc));
+                this._cancellationToken = cancellationToken;
+            }
+
+            public override IAsyncEnumerable<Page<TItem>> AsPages(
+                string? continuationToken = null,
+                int? pageSizeHint = null)
+            {
+                return this.EnumeratePages(continuationToken);
+            }
+
+            private async IAsyncEnumerable<Page<TItem>> EnumeratePages(
+                string? continuationToken = null,
+                [EnumeratorCancellation] CancellationToken enumeratorCancellation = default)
+            {
+                using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
+                    this._cancellationToken, enumeratorCancellation);
+                var cancellationToken = linkedCts.Token;
+
+                // NOTE(daviburg): When a continuationToken is provided, resume from that page
+                // instead of starting over. This supports callers who persist a ContinuationToken
+                // from a previous AsPages() enumeration and resume later.
+                var page = string.IsNullOrEmpty(continuationToken)
+                    ? await this._firstPageFunc(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false)
+                    : await this._nextPageFunc(continuationToken!, cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+
+                while (page != null)
+                {
+                    var values = page.Value != null
+                        ? (IReadOnlyList<TItem>)page.Value
+                        : (IReadOnlyList<TItem>)Array.Empty<TItem>();
+
+                    yield return new ConnectorPage<TItem>(values, page.NextLink);
+
+                    if (string.IsNullOrEmpty(page.NextLink))
+                    {
+                        break;
+                    }
+
+                    page = await this._nextPageFunc(page.NextLink!, cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// A <see cref="Page{T}"/> implementation for connector pagination responses.
+        /// </summary>
+        private sealed class ConnectorPage<T> : Page<T>
+            where T : notnull
+        {
+            private readonly IReadOnlyList<T> _values;
+            private readonly string? _continuationToken;
+
+            internal ConnectorPage(IReadOnlyList<T> values, string? continuationToken)
+            {
+                this._values = values;
+                this._continuationToken = continuationToken;
+            }
+
+            public override IReadOnlyList<T> Values => this._values;
+
+            public override string? ContinuationToken => this._continuationToken;
+
+            public override Response GetRawResponse() => ConnectorClientBase.NoOpResponse.Instance;
+        }
+
+        /// <summary>
+        /// A minimal <see cref="Response"/> implementation for connector pagination.
+        /// Connector SDK requests go through <see cref="HttpPipeline"/> which owns the real
+        /// response lifecycle — page objects don't retain the transport response, so this
+        /// provides a non-null placeholder that satisfies the <see cref="Page{T}"/> contract.
+        /// </summary>
+        private sealed class NoOpResponse : Response
+        {
+            internal static readonly NoOpResponse Instance = new();
+
+            public override int Status => 200;
+
+            public override string ReasonPhrase => "OK";
+
+            public override Stream? ContentStream { get; set; }
+
+            public override string ClientRequestId { get; set; } = string.Empty;
+
+            public override void Dispose() { }
+
+            protected override bool TryGetHeader(string name, [NotNullWhen(true)] out string? value)
+            {
+                value = null;
+                return false;
+            }
+
+            protected override bool TryGetHeaderValues(string name, [NotNullWhen(true)] out IEnumerable<string>? values)
+            {
+                values = null;
+                return false;
+            }
+
+            protected override bool ContainsHeader(string name) => false;
+
+            protected override IEnumerable<HttpHeader> EnumerateHeaders() => [];
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
@@ -270,13 +271,15 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// List subscriptions
     /// </summary>
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-    public virtual ConnectorPageable<SubscriptionListResult, Subscription> ListSubscriptionsAsync()
+    public virtual AsyncPageable<Subscription> ListSubscriptionsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/listSubscriptions";
-        return new ConnectorPageable<SubscriptionListResult, Subscription>(
-            cancellationToken => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<SubscriptionListResult, Subscription>(
+            ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -284,16 +287,18 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// </summary>
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="subscription">Subscription</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-    public virtual ConnectorPageable<ResourceGroupListResult, ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription)
+    public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
             queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
         var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<ResourceGroupListResult, ResourceGroup>(
-            cancellationToken => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
+            ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -303,8 +308,9 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="resourceType">Resource Type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="ResourceItem"/> items across all pages.</returns>
-    public virtual ConnectorPageable<ResourceItemListResult, ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType)
+    public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (subscription != default)
@@ -314,9 +320,10 @@ public class AzuremonitorlogsClient : ConnectorClientBase
         if (resourceType != default)
             queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
         var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<ResourceItemListResult, ResourceItem>(
-            cancellationToken => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<ResourceItemListResult, ResourceItem>(
+            ct => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -325,16 +332,18 @@ public class AzuremonitorlogsClient : ConnectorClientBase
     /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
     /// <param name="input">The request body.</param>
     /// <param name="resourceType">Resource Type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
-    public virtual ConnectorPageable<TimeRangeListResult, TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType)
+    public virtual AsyncPageable<TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (resourceType != default)
             queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
         var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<TimeRangeListResult, TimeRangeItem>(
-            cancellationToken => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
+            ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
+            (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>

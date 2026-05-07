@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
@@ -983,15 +984,17 @@ public class ArmClient : ConnectorClientBase
     /// List subscriptions
     /// </summary>
     /// <remarks>Gets a list of all the subscriptions to which the principal has access.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-    public virtual ConnectorPageable<SubscriptionListResult, Subscription> SubscriptionsListAsync()
+    public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<SubscriptionListResult, Subscription>(
-            cancellationToken => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<SubscriptionListResult, Subscription>(
+            ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1110,8 +1113,9 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="filter">Filter</param>
     /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
-    public virtual ConnectorPageable<DeploymentListResult, DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default)
+    public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1120,9 +1124,10 @@ public class ArmClient : ConnectorClientBase
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<DeploymentListResult, DeploymentExtended>(
-            cancellationToken => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<DeploymentListResult, DeploymentExtended>(
+            ct => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1151,17 +1156,19 @@ public class ArmClient : ConnectorClientBase
     /// <param name="resourceGroup">Resource Group</param>
     /// <param name="deploymentName">Deployment Name</param>
     /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
-    public virtual ConnectorPageable<DeploymentOperationsListResult, DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default)
+    public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<DeploymentOperationsListResult, DeploymentOperation>(
-            cancellationToken => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<DeploymentOperationsListResult, DeploymentOperation>(
+            ct => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1203,8 +1210,9 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="top">Top</param>
     /// <param name="expand">Expand</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
-    public virtual ConnectorPageable<ProviderListResult, Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default)
+    public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (top != default)
@@ -1213,9 +1221,10 @@ public class ArmClient : ConnectorClientBase
             queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<ProviderListResult, Provider>(
-            cancellationToken => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<ProviderListResult, Provider>(
+            ct => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1246,8 +1255,9 @@ public class ArmClient : ConnectorClientBase
     /// <param name="filter">Filter</param>
     /// <param name="expand">Expand</param>
     /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-    public virtual ConnectorPageable<ResourceListResult, GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default)
+    public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1258,9 +1268,10 @@ public class ArmClient : ConnectorClientBase
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<ResourceListResult, GenericResource>(
-            cancellationToken => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<ResourceListResult, GenericResource>(
+            ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1352,8 +1363,9 @@ public class ArmClient : ConnectorClientBase
     /// <param name="subscription">Subscription</param>
     /// <param name="filter">Filter</param>
     /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-    public virtual ConnectorPageable<ResourceGroupListResult, ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default)
+    public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1362,9 +1374,10 @@ public class ArmClient : ConnectorClientBase
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<ResourceGroupListResult, ResourceGroup>(
-            cancellationToken => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
+            ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1375,8 +1388,9 @@ public class ArmClient : ConnectorClientBase
     /// <param name="filter">Filter</param>
     /// <param name="expand">Expand</param>
     /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-    public virtual ConnectorPageable<ResourceListResult, GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default)
+    public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (filter != default)
@@ -1387,9 +1401,10 @@ public class ArmClient : ConnectorClientBase
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<ResourceListResult, GenericResource>(
-            cancellationToken => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<ResourceListResult, GenericResource>(
+            ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
@@ -1582,15 +1597,17 @@ public class ArmClient : ConnectorClientBase
     /// </summary>
     /// <remarks>Lists all the subscription resource tags.</remarks>
     /// <param name="subscription">Subscription</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
-    public virtual ConnectorPageable<TagsListResult, TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription)
+    public virtual AsyncPageable<TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         queryParams.Add("x-ms-api-version=2016-06-01");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<TagsListResult, TagDetails>(
-            cancellationToken => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<TagsListResult, TagDetails>(
+            ct => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 }
 

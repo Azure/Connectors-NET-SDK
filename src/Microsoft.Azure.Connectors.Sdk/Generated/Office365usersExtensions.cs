@@ -13,6 +13,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Azure.Connectors.Sdk;
@@ -881,8 +882,9 @@ public class Office365usersClient : ConnectorClientBase
     /// <param name="searchTerm">Search term</param>
     /// <param name="top">Top</param>
     /// <param name="isSearchTermRequired">Is search term required</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An async enumerable of <see cref="User"/> items across all pages.</returns>
-    public virtual ConnectorPageable<EntityListResponseIReadOnlyListUser, User> SearchUserAsync(string searchTerm = default, int top = default, bool isSearchTermRequired = default)
+    public virtual AsyncPageable<User> SearchUserAsync(string searchTerm = default, int top = default, bool isSearchTermRequired = default, CancellationToken cancellationToken = default)
     {
         var queryParams = new List<string>();
         if (searchTerm != default)
@@ -892,9 +894,10 @@ public class Office365usersClient : ConnectorClientBase
         if (isSearchTermRequired != default)
             queryParams.Add($"isSearchTermRequired={Uri.EscapeDataString(isSearchTermRequired.ToString())}");
         var path = $"/v2/users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return new ConnectorPageable<EntityListResponseIReadOnlyListUser, User>(
-            cancellationToken => this.CallConnectorAsync<EntityListResponseIReadOnlyListUser>(HttpMethod.Get, path, cancellationToken: cancellationToken),
-            (nextLink, cancellationToken) => this.CallConnectorAsync<EntityListResponseIReadOnlyListUser>(HttpMethod.Get, nextLink, cancellationToken: cancellationToken));
+        return this.CreatePageable<EntityListResponseIReadOnlyListUser, User>(
+            ct => this.CallConnectorAsync<EntityListResponseIReadOnlyListUser>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<EntityListResponseIReadOnlyListUser>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
     }
 
     /// <summary>
