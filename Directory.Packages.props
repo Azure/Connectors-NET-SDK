@@ -8,6 +8,8 @@
     <!-- Core dependencies -->
     <PackageVersion Include="Azure.Core" Version="1.53.0" />
     <PackageVersion Include="Azure.Identity" Version="1.21.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.7" />
     <PackageVersion Include="System.Text.Json" Version="10.0.7" />
 
     <!-- Transitive pin: Azure.Identity pulls this in; pinning ensures consistent
@@ -15,6 +17,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
     
     <!-- Test dependencies -->
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
     <PackageVersion Include="MSTest.TestAdapter" Version="4.2.1" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.2.1" />
