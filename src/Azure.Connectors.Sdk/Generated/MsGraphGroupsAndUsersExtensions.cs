@@ -20,254 +20,254 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 {
 
-#region Types
+    #region Types
 
-/// <summary>
-/// Response for List Users
-/// </summary>
-public class ListUsersResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for List Users
+    /// </summary>
+    public class ListUsersResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
+    }
 
-/// <summary>
-/// Response for List Groups By Display Name Search
-/// </summary>
-public class ListGroupsByDisplayNameSearchResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for List Groups By Display Name Search
+    /// </summary>
+    public class ListGroupsByDisplayNameSearchResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>@odata.count</summary>
-    [JsonPropertyName("@odata.count")]
-    public int? Count { get; set; }
+        /// <summary>@odata.count</summary>
+        [JsonPropertyName("@odata.count")]
+        public int? Count { get; set; }
 
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
+    }
 
-/// <summary>
-/// Response for List Subscribed Skus
-/// </summary>
-public class ListSubscribedSkusResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for List Subscribed Skus
+    /// </summary>
+    public class ListSubscribedSkusResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
+    }
 
-/// <summary>
-/// Response for List Direct Group Members
-/// </summary>
-public class ListDirectGroupMembersResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for List Direct Group Members
+    /// </summary>
+    public class ListDirectGroupMembersResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>@odata.count</summary>
-    [JsonPropertyName("@odata.count")]
-    public int? Count { get; set; }
+        /// <summary>@odata.count</summary>
+        [JsonPropertyName("@odata.count")]
+        public int? Count { get; set; }
 
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
+    }
 
-/// <summary>
-/// Response for Get Member License Details
-/// </summary>
-public class GetMemberLicenseDetailsResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for Get Member License Details
+    /// </summary>
+    public class GetMemberLicenseDetailsResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
+    }
 
-/// <summary>
-/// Response for Get Group Properties
-/// </summary>
-public class GetGroupPropertiesResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for Get Group Properties
+    /// </summary>
+    public class GetGroupPropertiesResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>Object id of the group</summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
+        /// <summary>Object id of the group</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
 
-    /// <summary>Group&apos;s deletion date time</summary>
-    [JsonPropertyName("deletedDateTime")]
-    [JsonInclude]
-    public string DeletedDateTime { get; internal set; }
+        /// <summary>Group&apos;s deletion date time</summary>
+        [JsonPropertyName("deletedDateTime")]
+        [JsonInclude]
+        public string DeletedDateTime { get; internal set; }
 
-    /// <summary>classification</summary>
-    [JsonPropertyName("classification")]
-    public string Classification { get; set; }
+        /// <summary>classification</summary>
+        [JsonPropertyName("classification")]
+        public string Classification { get; set; }
 
-    /// <summary>Group&apos;s creation date time</summary>
-    [JsonPropertyName("createdDateTime")]
-    [JsonInclude]
-    public string CreatedDateTime { get; internal set; }
+        /// <summary>Group&apos;s creation date time</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public string CreatedDateTime { get; internal set; }
 
-    /// <summary>Created options of the group.</summary>
-    [JsonPropertyName("creationOptions")]
-    public List<string> CreationOptions { get; set; }
+        /// <summary>Created options of the group.</summary>
+        [JsonPropertyName("creationOptions")]
+        public List<string> CreationOptions { get; set; }
 
-    /// <summary>description</summary>
-    [JsonPropertyName("description")]
-    public string Description { get; set; }
+        /// <summary>description</summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
 
-    /// <summary>Group&apos;s display name</summary>
-    [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
+        /// <summary>Group&apos;s display name</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
 
-    /// <summary>Group&apos;s expiration date time</summary>
-    [JsonPropertyName("expirationDateTime")]
-    [JsonInclude]
-    public string ExpirationDateTime { get; internal set; }
+        /// <summary>Group&apos;s expiration date time</summary>
+        [JsonPropertyName("expirationDateTime")]
+        [JsonInclude]
+        public string ExpirationDateTime { get; internal set; }
 
-    /// <summary>Group types for the group.</summary>
-    [JsonPropertyName("groupTypes")]
-    public List<string> GroupTypes { get; set; }
+        /// <summary>Group types for the group.</summary>
+        [JsonPropertyName("groupTypes")]
+        public List<string> GroupTypes { get; set; }
 
-    /// <summary>Can a role be assigned to this group?</summary>
-    [JsonPropertyName("isAssignableToRole")]
-    public string IsAssignableToRole { get; set; }
+        /// <summary>Can a role be assigned to this group?</summary>
+        [JsonPropertyName("isAssignableToRole")]
+        public string IsAssignableToRole { get; set; }
 
-    /// <summary>Group&apos;s email</summary>
-    [JsonPropertyName("mail")]
-    public string Mail { get; set; }
+        /// <summary>Group&apos;s email</summary>
+        [JsonPropertyName("mail")]
+        public string Mail { get; set; }
 
-    /// <summary>Is group email enabled?</summary>
-    [JsonPropertyName("mailEnabled")]
-    public bool? MailEnabled { get; set; }
+        /// <summary>Is group email enabled?</summary>
+        [JsonPropertyName("mailEnabled")]
+        public bool? MailEnabled { get; set; }
 
-    /// <summary>Group&apos;s email nick name</summary>
-    [JsonPropertyName("mailNickname")]
-    public string MailNickname { get; set; }
+        /// <summary>Group&apos;s email nick name</summary>
+        [JsonPropertyName("mailNickname")]
+        public string MailNickname { get; set; }
 
-    /// <summary>The rule that is used for membership evaluation.</summary>
-    [JsonPropertyName("membershipRule")]
-    public string MembershipRule { get; set; }
+        /// <summary>The rule that is used for membership evaluation.</summary>
+        [JsonPropertyName("membershipRule")]
+        public string MembershipRule { get; set; }
 
-    /// <summary>The processing state of the rule that is used for membership evaluation.</summary>
-    [JsonPropertyName("membershipRuleProcessingState")]
-    public string MembershipRuleProcessingState { get; set; }
+        /// <summary>The processing state of the rule that is used for membership evaluation.</summary>
+        [JsonPropertyName("membershipRuleProcessingState")]
+        public string MembershipRuleProcessingState { get; set; }
 
-    /// <summary>Contains the on-premises domainFQDN, also called dnsDomainName synchronized from the on-premises directory.</summary>
-    [JsonPropertyName("onPremisesDomainName")]
-    public string OnPremisesDomainName { get; set; }
+        /// <summary>Contains the on-premises domainFQDN, also called dnsDomainName synchronized from the on-premises directory.</summary>
+        [JsonPropertyName("onPremisesDomainName")]
+        public string OnPremisesDomainName { get; set; }
 
-    /// <summary>The time and date at which the tenant was last synced with the on-premise directory.</summary>
-    [JsonPropertyName("onPremisesLastSyncDateTime")]
-    [JsonInclude]
-    public string OnPremisesLastSyncDateTime { get; internal set; }
+        /// <summary>The time and date at which the tenant was last synced with the on-premise directory.</summary>
+        [JsonPropertyName("onPremisesLastSyncDateTime")]
+        [JsonInclude]
+        public string OnPremisesLastSyncDateTime { get; internal set; }
 
-    /// <summary>Name of networking service for on-premise server.</summary>
-    [JsonPropertyName("onPremisesNetBiosName")]
-    public string OnPremisesNetBiosName { get; set; }
+        /// <summary>Name of networking service for on-premise server.</summary>
+        [JsonPropertyName("onPremisesNetBiosName")]
+        public string OnPremisesNetBiosName { get; set; }
 
-    /// <summary>Sam account name for on-premise directory.</summary>
-    [JsonPropertyName("onPremisesSamAccountName")]
-    public string OnPremisesSamAccountName { get; set; }
+        /// <summary>Sam account name for on-premise directory.</summary>
+        [JsonPropertyName("onPremisesSamAccountName")]
+        public string OnPremisesSamAccountName { get; set; }
 
-    /// <summary>The on-premises security identifier.</summary>
-    [JsonPropertyName("onPremisesSecurityIdentifier")]
-    public string OnPremisesSecurityIdentifier { get; set; }
+        /// <summary>The on-premises security identifier.</summary>
+        [JsonPropertyName("onPremisesSecurityIdentifier")]
+        public string OnPremisesSecurityIdentifier { get; set; }
 
-    /// <summary>True if on-premises sync is enabled for the group.</summary>
-    [JsonPropertyName("onPremisesSyncEnabled")]
-    public bool? OnPremisesSyncEnabled { get; set; }
+        /// <summary>True if on-premises sync is enabled for the group.</summary>
+        [JsonPropertyName("onPremisesSyncEnabled")]
+        public bool? OnPremisesSyncEnabled { get; set; }
 
-    /// <summary>Preferred data location of the group.</summary>
-    [JsonPropertyName("preferredDataLocation")]
-    public string PreferredDataLocation { get; set; }
+        /// <summary>Preferred data location of the group.</summary>
+        [JsonPropertyName("preferredDataLocation")]
+        public string PreferredDataLocation { get; set; }
 
-    /// <summary>Preferred language as configured in Microsoft Entra ID.</summary>
-    [JsonPropertyName("preferredLanguage")]
-    public string PreferredLanguage { get; set; }
+        /// <summary>Preferred language as configured in Microsoft Entra ID.</summary>
+        [JsonPropertyName("preferredLanguage")]
+        public string PreferredLanguage { get; set; }
 
-    /// <summary>Proxy addresses of the group.</summary>
-    [JsonPropertyName("proxyAddresses")]
-    public List<string> ProxyAddresses { get; set; }
+        /// <summary>Proxy addresses of the group.</summary>
+        [JsonPropertyName("proxyAddresses")]
+        public List<string> ProxyAddresses { get; set; }
 
-    /// <summary>Renewed date time of the group.</summary>
-    [JsonPropertyName("renewedDateTime")]
-    [JsonInclude]
-    public string RenewedDateTime { get; internal set; }
+        /// <summary>Renewed date time of the group.</summary>
+        [JsonPropertyName("renewedDateTime")]
+        [JsonInclude]
+        public string RenewedDateTime { get; internal set; }
 
-    /// <summary>Resource behavior options of the group.</summary>
-    [JsonPropertyName("resourceBehaviorOptions")]
-    public List<string> ResourceBehaviorOptions { get; set; }
+        /// <summary>Resource behavior options of the group.</summary>
+        [JsonPropertyName("resourceBehaviorOptions")]
+        public List<string> ResourceBehaviorOptions { get; set; }
 
-    /// <summary>Resource provisioning options of the group.</summary>
-    [JsonPropertyName("resourceProvisioningOptions")]
-    public List<string> ResourceProvisioningOptions { get; set; }
+        /// <summary>Resource provisioning options of the group.</summary>
+        [JsonPropertyName("resourceProvisioningOptions")]
+        public List<string> ResourceProvisioningOptions { get; set; }
 
-    /// <summary>Indicates if the group is security enabled.</summary>
-    [JsonPropertyName("securityEnabled")]
-    public bool? SecurityEnabled { get; set; }
+        /// <summary>Indicates if the group is security enabled.</summary>
+        [JsonPropertyName("securityEnabled")]
+        public bool? SecurityEnabled { get; set; }
 
-    /// <summary>Security identifier of the group.</summary>
-    [JsonPropertyName("securityIdentifier")]
-    public string SecurityIdentifier { get; set; }
+        /// <summary>Security identifier of the group.</summary>
+        [JsonPropertyName("securityIdentifier")]
+        public string SecurityIdentifier { get; set; }
 
-    /// <summary>Theme of Microsoft Entra ID group.</summary>
-    [JsonPropertyName("theme")]
-    public string Theme { get; set; }
+        /// <summary>Theme of Microsoft Entra ID group.</summary>
+        [JsonPropertyName("theme")]
+        public string Theme { get; set; }
 
-    /// <summary>Visibility of the group.</summary>
-    [JsonPropertyName("visibility")]
-    public string Visibility { get; set; }
+        /// <summary>Visibility of the group.</summary>
+        [JsonPropertyName("visibility")]
+        public string Visibility { get; set; }
 
-    /// <summary>On premise provisioning errors of the group.</summary>
-    [JsonPropertyName("onPremisesProvisioningErrors")]
-    public List<string> OnPremisesProvisioningErrors { get; set; }
-}
+        /// <summary>On premise provisioning errors of the group.</summary>
+        [JsonPropertyName("onPremisesProvisioningErrors")]
+        public List<string> OnPremisesProvisioningErrors { get; set; }
+    }
 
-/// <summary>
-/// Get Member Groups
-/// </summary>
-public class GetMemberGroupsInput
-{
-    /// <summary>Do you want to retrieve security enabled groups only?</summary>
-    [JsonPropertyName("securityEnabledOnly")]
-    public bool? SecurityEnabledOnly { get; set; }
-}
+    /// <summary>
+    /// Get Member Groups
+    /// </summary>
+    public class GetMemberGroupsInput
+    {
+        /// <summary>Do you want to retrieve security enabled groups only?</summary>
+        [JsonPropertyName("securityEnabledOnly")]
+        public bool? SecurityEnabledOnly { get; set; }
+    }
 
-/// <summary>
-/// Response for Get Member Groups
-/// </summary>
-public class GetMemberGroupsResponse
-{
-    /// <summary>The Odata.context link.</summary>
-    [JsonPropertyName("@odata.context")]
-    public string Context { get; set; }
+    /// <summary>
+    /// Response for Get Member Groups
+    /// </summary>
+    public class GetMemberGroupsResponse
+    {
+        /// <summary>The Odata.context link.</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
 
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<string> Value { get; set; }
-}
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<string> Value { get; set; }
+    }
 
-#endregion Types
+    #endregion Types
 
 }
 
@@ -275,157 +275,157 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
 {
     using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 
-#region Client
+    #region Client
 
-/// <summary>
-/// Typed client for msgraphgroupsanduser connector.
-/// </summary>
-public class MsGraphGroupsAndUsersClient : ConnectorClientBase
-{
     /// <summary>
-    /// Creates a new MsGraphGroupsAndUsersClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// Typed client for msgraphgroupsanduser connector.
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public MsGraphGroupsAndUsersClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
+    public class MsGraphGroupsAndUsersClient : ConnectorClientBase
     {
+        /// <summary>
+        /// Creates a new MsGraphGroupsAndUsersClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public MsGraphGroupsAndUsersClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new MsGraphGroupsAndUsersClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public MsGraphGroupsAndUsersClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new MsGraphGroupsAndUsersClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public MsGraphGroupsAndUsersClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance for mocking.
+        /// </summary>
+        protected MsGraphGroupsAndUsersClient() { }
+
+        /// <inheritdoc />
+        public override string ConnectorName => "msgraphgroupsanduser";
+
+        /// <summary>
+        /// List Users
+        /// </summary>
+        /// <remarks>Retrieve all users in the organization (Microsoft Entra ID Tenant)</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Users response.</returns>
+        public virtual async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
+        {
+            var path = $"/v1.0/users";
+            return await this.CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// List Groups By Display Name Search
+        /// </summary>
+        /// <remarks>Retrieve groups by searching group&apos;s display name</remarks>
+        /// <param name="searchByDisplayName">Search by display name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Groups By Display Name Search response.</returns>
+        public virtual async Task<ListGroupsByDisplayNameSearchResponse> ListGroupsByDisplayNameSearchAsync(string searchByDisplayName = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (searchByDisplayName != default)
+                queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
+            var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// List Subscribed Skus
+        /// </summary>
+        /// <remarks>Details of organization&apos;s subscribed license plan SKUs</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Subscribed Skus response.</returns>
+        public virtual async Task<ListSubscribedSkusResponse> ListSubscribedSkusAsync(CancellationToken cancellationToken = default)
+        {
+            var path = $"/v1.0/subscribedSkus";
+            return await this.CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// List Direct Group Members
+        /// </summary>
+        /// <remarks>Retrieve direct members of a group with count</remarks>
+        /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
+        /// <param name="filterBy">Filter By</param>
+        /// <param name="dataPointColumnSelection">Data point (column) selection</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Direct Group Members response.</returns>
+        public virtual async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIDOfTheMicrosoftEntraIDGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (filterBy != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterBy.ToString())}");
+            if (dataPointColumnSelection != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Get Member License Details
+        /// </summary>
+        /// <remarks>Retrieve group member(user)&apos;s license details</remarks>
+        /// <param name="objectIDOfTheMicrosoftEntraIDMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
+        /// <param name="selectionOfDataPointsColumns">Selection of data points(columns)</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Member License Details response.</returns>
+        public virtual async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (selectionOfDataPointsColumns != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
+            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this.CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Get Group Properties
+        /// </summary>
+        /// <remarks>Retrieve properties and relationships of an Microsoft Entra ID group</remarks>
+        /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Group Properties response.</returns>
+        public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIDOfTheMicrosoftEntraIDGroup, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}";
+            return await this.CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// Get Member Groups
+        /// </summary>
+        /// <remarks>Group memberships for a user (member)</remarks>
+        /// <param name="objectIDOfTheMicrosoftEntraIDMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Member Groups response.</returns>
+        public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/getMemberGroups";
+            return await this.CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken);
+        }
+
     }
 
-    /// <summary>
-    /// Creates a new MsGraphGroupsAndUsersClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public MsGraphGroupsAndUsersClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new MsGraphGroupsAndUsersClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public MsGraphGroupsAndUsersClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance for mocking.
-    /// </summary>
-    protected MsGraphGroupsAndUsersClient() { }
-
-    /// <inheritdoc />
-    public override string ConnectorName => "msgraphgroupsanduser";
-
-    /// <summary>
-    /// List Users
-    /// </summary>
-    /// <remarks>Retrieve all users in the organization (Microsoft Entra ID Tenant)</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List Users response.</returns>
-    public virtual async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
-    {
-        var path = $"/v1.0/users";
-        return await this.CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// List Groups By Display Name Search
-    /// </summary>
-    /// <remarks>Retrieve groups by searching group&apos;s display name</remarks>
-    /// <param name="searchByDisplayName">Search by display name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List Groups By Display Name Search response.</returns>
-    public virtual async Task<ListGroupsByDisplayNameSearchResponse> ListGroupsByDisplayNameSearchAsync(string searchByDisplayName = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (searchByDisplayName != default)
-            queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
-        var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// List Subscribed Skus
-    /// </summary>
-    /// <remarks>Details of organization&apos;s subscribed license plan SKUs</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List Subscribed Skus response.</returns>
-    public virtual async Task<ListSubscribedSkusResponse> ListSubscribedSkusAsync(CancellationToken cancellationToken = default)
-    {
-        var path = $"/v1.0/subscribedSkus";
-        return await this.CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// List Direct Group Members
-    /// </summary>
-    /// <remarks>Retrieve direct members of a group with count</remarks>
-    /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
-    /// <param name="filterBy">Filter By</param>
-    /// <param name="dataPointColumnSelection">Data point (column) selection</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List Direct Group Members response.</returns>
-    public virtual async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIDOfTheMicrosoftEntraIDGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (filterBy != default)
-            queryParams.Add($"$filter={Uri.EscapeDataString(filterBy.ToString())}");
-        if (dataPointColumnSelection != default)
-            queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
-        var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Get Member License Details
-    /// </summary>
-    /// <remarks>Retrieve group member(user)&apos;s license details</remarks>
-    /// <param name="objectIDOfTheMicrosoftEntraIDMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
-    /// <param name="selectionOfDataPointsColumns">Selection of data points(columns)</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get Member License Details response.</returns>
-    public virtual async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (selectionOfDataPointsColumns != default)
-            queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
-        var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Get Group Properties
-    /// </summary>
-    /// <remarks>Retrieve properties and relationships of an Microsoft Entra ID group</remarks>
-    /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get Group Properties response.</returns>
-    public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIDOfTheMicrosoftEntraIDGroup, CancellationToken cancellationToken = default)
-    {
-        var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}";
-        return await this.CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
-    }
-
-    /// <summary>
-    /// Get Member Groups
-    /// </summary>
-    /// <remarks>Group memberships for a user (member)</remarks>
-    /// <param name="objectIDOfTheMicrosoftEntraIDMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get Member Groups response.</returns>
-    public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/getMemberGroups";
-        return await this.CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }
