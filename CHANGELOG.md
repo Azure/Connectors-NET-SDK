@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **DI integration extension methods** (`AddOffice365Client`, `AddTeamsClient`, etc.) — register connector clients as singletons from an `IConfiguration` section, eliminating ~15 lines of boilerplate per connector in Azure Functions `Program.cs`. Resolves `TokenCredential` from DI or defaults to system-assigned managed identity. (#116)
+
 ### Breaking Changes
 
 - **Constructor overhaul: `Uri` primary + `string` convenience + `ManagedIdentityCredential` default** (#111)
