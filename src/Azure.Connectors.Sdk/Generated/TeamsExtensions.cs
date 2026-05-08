@@ -1493,7 +1493,7 @@ namespace Azure.Connectors.Sdk.Teams
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected TeamsClient() { }
+        protected TeamsClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "teams";

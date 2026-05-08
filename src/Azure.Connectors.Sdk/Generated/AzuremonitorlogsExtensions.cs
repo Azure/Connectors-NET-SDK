@@ -278,7 +278,7 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected AzuremonitorlogsClient() { }
+        protected AzuremonitorlogsClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "azuremonitorlogs";

@@ -963,7 +963,7 @@ namespace Azure.Connectors.Sdk.Arm
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected ArmClient() { }
+        protected ArmClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "arm";

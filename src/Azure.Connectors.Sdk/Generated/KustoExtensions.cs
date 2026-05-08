@@ -295,7 +295,7 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected KustoClient() { }
+        protected KustoClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "kusto";

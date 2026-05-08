@@ -316,7 +316,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected MsGraphGroupsAndUsersClient() { }
+        protected MsGraphGroupsAndUsersClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "msgraphgroupsanduser";

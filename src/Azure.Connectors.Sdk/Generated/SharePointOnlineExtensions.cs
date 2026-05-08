@@ -1288,7 +1288,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected SharePointOnlineClient() { }
+        protected SharePointOnlineClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "sharepointonline";
