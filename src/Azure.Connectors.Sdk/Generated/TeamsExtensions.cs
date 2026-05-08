@@ -16,9 +16,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Teams.Models;
 using Azure.Core;
 using Azure.Identity;
-using Azure.Connectors.Sdk.Teams.Models;
 
 namespace Azure.Connectors.Sdk.Teams.Models
 {

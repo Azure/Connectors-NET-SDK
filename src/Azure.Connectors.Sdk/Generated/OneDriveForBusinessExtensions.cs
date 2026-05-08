@@ -16,9 +16,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 using Azure.Core;
 using Azure.Identity;
-using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 
 namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
 {
@@ -220,13 +220,17 @@ public class OneDriveForBusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPa
 }
 
 /// <summary>
-/// Static registry of available trigger operations for the OneDriveForBusiness connector.
+/// Static registry of trigger operations for the OneDriveForBusiness connector that have typed payloads.
 /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+/// Triggers that return binary content (e.g., file downloads) are not included here
+/// because they have no JSON-deserializable payload type. See <see cref="OneDriveForBusinessTriggerOperations"/>
+/// for the complete list of trigger operation name constants.
 /// </summary>
 public static class OneDriveForBusinessTriggers
 {
     /// <summary>
-    /// Available trigger operations for the OneDriveForBusiness connector.
+    /// Trigger operations with typed payloads for the OneDriveForBusiness connector.
+    /// This is a subset of all triggers — see <see cref="OneDriveForBusinessTriggerOperations"/> for the full list.
     /// </summary>
     public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
         new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)

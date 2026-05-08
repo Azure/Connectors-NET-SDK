@@ -15,9 +15,9 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.SharePointOnline.Models;
 using Azure.Core;
 using Azure.Identity;
-using Azure.Connectors.Sdk.SharePointOnline.Models;
 
 namespace Azure.Connectors.Sdk.SharePointOnline.Models
 {
@@ -1666,13 +1666,17 @@ public class SharePointOnlineOnUpdatedItemsTriggerPayload : TriggerCallbackPaylo
 }
 
 /// <summary>
-/// Static registry of available trigger operations for the SharePointOnline connector.
+/// Static registry of trigger operations for the SharePointOnline connector that have typed payloads.
 /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+/// Triggers that return binary content (e.g., file downloads) are not included here
+/// because they have no JSON-deserializable payload type. See <see cref="SharePointOnlineTriggerOperations"/>
+/// for the complete list of trigger operation name constants.
 /// </summary>
 public static class SharePointOnlineTriggers
 {
     /// <summary>
-    /// Available trigger operations for the SharePointOnline connector.
+    /// Trigger operations with typed payloads for the SharePointOnline connector.
+    /// This is a subset of all triggers — see <see cref="SharePointOnlineTriggerOperations"/> for the full list.
     /// </summary>
     public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
         new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)

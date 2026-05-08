@@ -14,9 +14,9 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 using Azure.Core;
 using Azure.Identity;
-using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 
 namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 {
