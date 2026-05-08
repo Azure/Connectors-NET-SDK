@@ -244,7 +244,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public static IncludeInfo True { get; } = new("true");
 
         /// <summary>Converts a string to <see cref="IncludeInfo"/>.</summary>
-        public static implicit operator IncludeInfo(string value) => value != null ? new(value) : default;
+        public static implicit operator IncludeInfo(string value) => new(value);
 
         /// <summary>Converts a <see cref="IncludeInfo"/> to its string representation.</summary>
         public static implicit operator string(IncludeInfo value) => value.ToString();
@@ -270,7 +270,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         internal sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
         {
             public IncludeInfoJsonConverter() { }
-            public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, IncludeInfo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -299,7 +299,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public static MessageType Request { get; } = new("Request");
 
         /// <summary>Converts a string to <see cref="MessageType"/>.</summary>
-        public static implicit operator MessageType(string value) => value != null ? new(value) : default;
+        public static implicit operator MessageType(string value) => new(value);
 
         /// <summary>Converts a <see cref="MessageType"/> to its string representation.</summary>
         public static implicit operator string(MessageType value) => value.ToString();
@@ -325,7 +325,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         internal sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
         {
             public MessageTypeJsonConverter() { }
-            public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, MessageType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

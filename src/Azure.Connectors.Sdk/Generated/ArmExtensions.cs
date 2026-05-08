@@ -936,7 +936,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         public static Mode Complete { get; } = new("Complete");
 
         /// <summary>Converts a string to <see cref="Mode"/>.</summary>
-        public static implicit operator Mode(string value) => value != null ? new(value) : default;
+        public static implicit operator Mode(string value) => new(value);
 
         /// <summary>Converts a <see cref="Mode"/> to its string representation.</summary>
         public static implicit operator string(Mode value) => value.ToString();
@@ -962,7 +962,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class ModeJsonConverter : JsonConverter<Mode>
         {
             public ModeJsonConverter() { }
-            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -991,7 +991,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         public static Options IncludeParameterDefaultValueIncludeComments { get; } = new("IncludeParameterDefaultValue, IncludeComments");
 
         /// <summary>Converts a string to <see cref="Options"/>.</summary>
-        public static implicit operator Options(string value) => value != null ? new(value) : default;
+        public static implicit operator Options(string value) => new(value);
 
         /// <summary>Converts a <see cref="Options"/> to its string representation.</summary>
         public static implicit operator string(Options value) => value.ToString();
@@ -1017,7 +1017,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class OptionsJsonConverter : JsonConverter<Options>
         {
             public OptionsJsonConverter() { }
-            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Options value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1046,7 +1046,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         public static SpendingLimit CurrentPeriodOff { get; } = new("CurrentPeriodOff");
 
         /// <summary>Converts a string to <see cref="SpendingLimit"/>.</summary>
-        public static implicit operator SpendingLimit(string value) => value != null ? new(value) : default;
+        public static implicit operator SpendingLimit(string value) => new(value);
 
         /// <summary>Converts a <see cref="SpendingLimit"/> to its string representation.</summary>
         public static implicit operator string(SpendingLimit value) => value.ToString();
@@ -1072,7 +1072,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
         {
             public SpendingLimitJsonConverter() { }
-            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, SpendingLimit value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1107,7 +1107,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         public static State Deleted { get; } = new("Deleted");
 
         /// <summary>Converts a string to <see cref="State"/>.</summary>
-        public static implicit operator State(string value) => value != null ? new(value) : default;
+        public static implicit operator State(string value) => new(value);
 
         /// <summary>Converts a <see cref="State"/> to its string representation.</summary>
         public static implicit operator string(State value) => value.ToString();
@@ -1133,7 +1133,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class StateJsonConverter : JsonConverter<State>
         {
             public StateJsonConverter() { }
-            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, State value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

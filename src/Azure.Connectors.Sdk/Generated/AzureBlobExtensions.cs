@@ -258,7 +258,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         public static AccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
 
         /// <summary>Converts a string to <see cref="AccessProtocol"/>.</summary>
-        public static implicit operator AccessProtocol(string value) => value != null ? new(value) : default;
+        public static implicit operator AccessProtocol(string value) => new(value);
 
         /// <summary>Converts a <see cref="AccessProtocol"/> to its string representation.</summary>
         public static implicit operator string(AccessProtocol value) => value.ToString();
@@ -284,7 +284,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         internal sealed class AccessProtocolJsonConverter : JsonConverter<AccessProtocol>
         {
             public AccessProtocolJsonConverter() { }
-            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, AccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -331,7 +331,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         public static Permissions ReadWriteListDelete { get; } = new("Read,Write,List,Delete");
 
         /// <summary>Converts a string to <see cref="Permissions"/>.</summary>
-        public static implicit operator Permissions(string value) => value != null ? new(value) : default;
+        public static implicit operator Permissions(string value) => new(value);
 
         /// <summary>Converts a <see cref="Permissions"/> to its string representation.</summary>
         public static implicit operator string(Permissions value) => value.ToString();
@@ -357,7 +357,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
         {
             public PermissionsJsonConverter() { }
-            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

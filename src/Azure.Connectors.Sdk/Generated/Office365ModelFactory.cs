@@ -86,7 +86,7 @@ public static class Office365ModelFactory
         string id = default,
         string name = default,
         string contentBytes = default,
-        string contentType = default,
+        ContentType? contentType = default,
         long? size = default,
         string permission = default,
         string providerType = default,
@@ -142,7 +142,7 @@ public static class Office365ModelFactory
     /// Creates a new instance of <see cref="ItemBody"/>.
     /// </summary>
     public static ItemBody ItemBody(
-        string contentType = default,
+        ContentType? contentType = default,
         string content = default)
     {
         return new ItemBody
@@ -245,13 +245,13 @@ public static class Office365ModelFactory
         DateTime? endTimeWithTimeZone = default,
         string body = default,
         bool? isHTML = default,
-        string responseType = default,
+        ResponseType? responseType = default,
         DateTime? responseTime = default,
         string id = default,
         DateTime? createdTime = default,
         DateTime? lastModifiedTime = default,
         string organizer = default,
-        string timeZone = default,
+        TimeZone? timeZone = default,
         string seriesMasterId = default,
         string iCalUId = default,
         List<string> categories = default,
@@ -262,14 +262,14 @@ public static class Office365ModelFactory
         string location = default,
         string importance = default,
         bool? isAllDayEvent = default,
-        string recurrence = default,
+        Recurrence? recurrence = default,
         DateTime? recurrenceEndDate = default,
         int? numberOfOccurrences = default,
         int? reminder = default,
         bool? isReminderOn = default,
-        string showAs = default,
+        ShowAs? showAs = default,
         bool? responseRequested = default,
-        string sensitivity = default)
+        Sensitivity? sensitivity = default)
     {
         return new GraphCalendarEventClientReceive
         {
@@ -336,7 +336,7 @@ public static class Office365ModelFactory
     /// Creates a new instance of <see cref="GraphCalendarEventClientWithActionType"/>.
     /// </summary>
     public static GraphCalendarEventClientWithActionType GraphCalendarEventClientWithActionType(
-        string actionType = default,
+        ActionType? actionType = default,
         bool? isAdded = default,
         bool? isUpdated = default,
         string subject = default,
@@ -346,13 +346,13 @@ public static class Office365ModelFactory
         DateTime? endTimeWithTimeZone = default,
         string body = default,
         bool? isHTML = default,
-        string responseType = default,
+        ResponseType? responseType = default,
         DateTime? responseTime = default,
         string id = default,
         DateTime? createdTime = default,
         DateTime? lastModifiedTime = default,
         string organizer = default,
-        string timeZone = default,
+        TimeZone? timeZone = default,
         string seriesMasterId = default,
         string iCalUId = default,
         List<string> categories = default,
@@ -363,14 +363,14 @@ public static class Office365ModelFactory
         string location = default,
         string importance = default,
         bool? isAllDayEvent = default,
-        string recurrence = default,
+        Recurrence? recurrence = default,
         DateTime? recurrenceEndDate = default,
         int? numberOfOccurrences = default,
         int? reminder = default,
         bool? isReminderOn = default,
-        string showAs = default,
+        ShowAs? showAs = default,
         bool? responseRequested = default,
-        string sensitivity = default)
+        Sensitivity? sensitivity = default)
     {
         return new GraphCalendarEventClientWithActionType
         {
@@ -708,7 +708,7 @@ public static class Office365ModelFactory
     public static GetAttachmentResponse GetAttachmentResponse(
         string id = default,
         string name = default,
-        string contentType = default,
+        ContentType? contentType = default,
         int? size = default,
         string contentBytes = default,
         bool? isInline = default,
@@ -813,7 +813,7 @@ public static class Office365ModelFactory
         string attachmentId = default,
         string name = default,
         string content = default,
-        string contentType = default,
+        ContentType? contentType = default,
         long? size = default,
         bool? isInline = default,
         DateTime? lastModifiedDateTime = default,
@@ -992,8 +992,8 @@ public static class Office365ModelFactory
     /// Creates a new instance of <see cref="AutomaticRepliesSettingClient"/>.
     /// </summary>
     public static AutomaticRepliesSettingClient AutomaticRepliesSettingClient(
-        string status = default,
-        string externalAudience = default,
+        Status? status = default,
+        ExternalAudience? externalAudience = default,
         object startTime = default,
         object endTime = default,
         string internalReplyMessage = default,
@@ -1047,7 +1047,7 @@ public static class Office365ModelFactory
         string cc = default,
         string bcc = default,
         List<ClientSendAttachment> attachments = default,
-        string sensitivity = default,
+        Sensitivity? sensitivity = default,
         string replyTo = default,
         string importance = default)
     {
@@ -1077,7 +1077,7 @@ public static class Office365ModelFactory
         string cc = default,
         string bcc = default,
         List<ClientSendAttachment> attachments = default,
-        string sensitivity = default,
+        Sensitivity? sensitivity = default,
         string replyTo = default,
         string importance = default)
     {
@@ -1227,7 +1227,7 @@ public static class Office365ModelFactory
         string cc = default,
         string bcc = default,
         List<ClientSendAttachment> attachments = default,
-        string sensitivity = default,
+        Sensitivity? sensitivity = default,
         string replyTo = default,
         string importance = default)
     {
@@ -1253,7 +1253,7 @@ public static class Office365ModelFactory
         string subject = default,
         string startTime = default,
         string endTime = default,
-        string timeZone = default,
+        TimeZone? timeZone = default,
         string requiredAttendees = default,
         string optionalAttendees = default,
         string resourceAttendees = default,
@@ -1262,15 +1262,15 @@ public static class Office365ModelFactory
         string location = default,
         string importance = default,
         bool? isAllDayEvent = default,
-        string recurrence = default,
+        Recurrence? recurrence = default,
         List<string> selectedDaysOfWeek = default,
         DateTime? recurrenceEndDate = default,
         int? numberOfOccurrences = default,
         int? reminder = default,
         bool? isReminderOn = default,
-        string showAs = default,
+        ShowAs? showAs = default,
         bool? responseRequested = default,
-        string sensitivity = default)
+        Sensitivity? sensitivity = default)
     {
         return new GraphCalendarEventClient
         {

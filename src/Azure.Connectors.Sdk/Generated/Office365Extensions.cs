@@ -2055,7 +2055,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ActionType Deleted { get; } = new("deleted");
 
         /// <summary>Converts a string to <see cref="ActionType"/>.</summary>
-        public static implicit operator ActionType(string value) => value != null ? new(value) : default;
+        public static implicit operator ActionType(string value) => new(value);
 
         /// <summary>Converts a <see cref="ActionType"/> to its string representation.</summary>
         public static implicit operator string(ActionType value) => value.ToString();
@@ -2081,7 +2081,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
         {
             public ActionTypeJsonConverter() { }
-            public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2113,7 +2113,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ActivityDomain Unknown { get; } = new("Unknown");
 
         /// <summary>Converts a string to <see cref="ActivityDomain"/>.</summary>
-        public static implicit operator ActivityDomain(string value) => value != null ? new(value) : default;
+        public static implicit operator ActivityDomain(string value) => new(value);
 
         /// <summary>Converts a <see cref="ActivityDomain"/> to its string representation.</summary>
         public static implicit operator string(ActivityDomain value) => value.ToString();
@@ -2139,7 +2139,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
         {
             public ActivityDomainJsonConverter() { }
-            public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ActivityDomain value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2165,7 +2165,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ContentType Html { get; } = new("HTML");
 
         /// <summary>Converts a string to <see cref="ContentType"/>.</summary>
-        public static implicit operator ContentType(string value) => value != null ? new(value) : default;
+        public static implicit operator ContentType(string value) => new(value);
 
         /// <summary>Converts a <see cref="ContentType"/> to its string representation.</summary>
         public static implicit operator string(ContentType value) => value.ToString();
@@ -2191,7 +2191,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
         {
             public ContentTypeJsonConverter() { }
-            public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ContentType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2220,7 +2220,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ExternalAudience All { get; } = new("all");
 
         /// <summary>Converts a string to <see cref="ExternalAudience"/>.</summary>
-        public static implicit operator ExternalAudience(string value) => value != null ? new(value) : default;
+        public static implicit operator ExternalAudience(string value) => new(value);
 
         /// <summary>Converts a <see cref="ExternalAudience"/> to its string representation.</summary>
         public static implicit operator string(ExternalAudience value) => value.ToString();
@@ -2246,7 +2246,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
         {
             public ExternalAudienceJsonConverter() { }
-            public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2281,7 +2281,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static Recurrence Yearly { get; } = new("yearly");
 
         /// <summary>Converts a string to <see cref="Recurrence"/>.</summary>
-        public static implicit operator Recurrence(string value) => value != null ? new(value) : default;
+        public static implicit operator Recurrence(string value) => new(value);
 
         /// <summary>Converts a <see cref="Recurrence"/> to its string representation.</summary>
         public static implicit operator string(Recurrence value) => value.ToString();
@@ -2307,7 +2307,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
         {
             public RecurrenceJsonConverter() { }
-            public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Recurrence value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2345,7 +2345,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ResponseType NotResponded { get; } = new("notResponded");
 
         /// <summary>Converts a string to <see cref="ResponseType"/>.</summary>
-        public static implicit operator ResponseType(string value) => value != null ? new(value) : default;
+        public static implicit operator ResponseType(string value) => new(value);
 
         /// <summary>Converts a <see cref="ResponseType"/> to its string representation.</summary>
         public static implicit operator string(ResponseType value) => value.ToString();
@@ -2371,7 +2371,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
         {
             public ResponseTypeJsonConverter() { }
-            public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ResponseType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2403,7 +2403,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static Sensitivity Confidential { get; } = new("confidential");
 
         /// <summary>Converts a string to <see cref="Sensitivity"/>.</summary>
-        public static implicit operator Sensitivity(string value) => value != null ? new(value) : default;
+        public static implicit operator Sensitivity(string value) => new(value);
 
         /// <summary>Converts a <see cref="Sensitivity"/> to its string representation.</summary>
         public static implicit operator string(Sensitivity value) => value.ToString();
@@ -2429,7 +2429,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
         {
             public SensitivityJsonConverter() { }
-            public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Sensitivity value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2467,7 +2467,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static ShowAs Unknown { get; } = new("unknown");
 
         /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
-        public static implicit operator ShowAs(string value) => value != null ? new(value) : default;
+        public static implicit operator ShowAs(string value) => new(value);
 
         /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
         public static implicit operator string(ShowAs value) => value.ToString();
@@ -2493,7 +2493,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
         {
             public ShowAsJsonConverter() { }
-            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2522,7 +2522,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static Status Scheduled { get; } = new("scheduled");
 
         /// <summary>Converts a string to <see cref="Status"/>.</summary>
-        public static implicit operator Status(string value) => value != null ? new(value) : default;
+        public static implicit operator Status(string value) => new(value);
 
         /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
         public static implicit operator string(Status value) => value.ToString();
@@ -2548,7 +2548,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class StatusJsonConverter : JsonConverter<Status>
         {
             public StatusJsonConverter() { }
-            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2976,7 +2976,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
 
         /// <summary>Converts a string to <see cref="TimeZone"/>.</summary>
-        public static implicit operator TimeZone(string value) => value != null ? new(value) : default;
+        public static implicit operator TimeZone(string value) => new(value);
 
         /// <summary>Converts a <see cref="TimeZone"/> to its string representation.</summary>
         public static implicit operator string(TimeZone value) => value.ToString();
@@ -3002,7 +3002,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class TimeZoneJsonConverter : JsonConverter<TimeZone>
         {
             public TimeZoneJsonConverter() { }
-            public override TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

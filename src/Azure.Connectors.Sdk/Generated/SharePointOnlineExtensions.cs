@@ -930,7 +930,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static Method Delete { get; } = new("DELETE");
 
         /// <summary>Converts a string to <see cref="Method"/>.</summary>
-        public static implicit operator Method(string value) => value != null ? new(value) : default;
+        public static implicit operator Method(string value) => new(value);
 
         /// <summary>Converts a <see cref="Method"/> to its string representation.</summary>
         public static implicit operator string(Method value) => value.ToString();
@@ -956,7 +956,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         internal sealed class MethodJsonConverter : JsonConverter<Method>
         {
             public MethodJsonConverter() { }
-            public override Method Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Method Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Method value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

@@ -119,7 +119,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
         public static Importance High { get; } = new("High");
 
         /// <summary>Converts a string to <see cref="Importance"/>.</summary>
-        public static implicit operator Importance(string value) => value != null ? new(value) : default;
+        public static implicit operator Importance(string value) => new(value);
 
         /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
         public static implicit operator string(Importance value) => value.ToString();
@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
         internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
         {
             public ImportanceJsonConverter() { }
-            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

@@ -1289,7 +1289,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static Importance High { get; } = new("high");
 
         /// <summary>Converts a string to <see cref="Importance"/>.</summary>
-        public static implicit operator Importance(string value) => value != null ? new(value) : default;
+        public static implicit operator Importance(string value) => new(value);
 
         /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
         public static implicit operator string(Importance value) => value.ToString();
@@ -1315,7 +1315,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
         {
             public ImportanceJsonConverter() { }
-            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1347,7 +1347,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static MembershipType Shared { get; } = new("shared");
 
         /// <summary>Converts a string to <see cref="MembershipType"/>.</summary>
-        public static implicit operator MembershipType(string value) => value != null ? new(value) : default;
+        public static implicit operator MembershipType(string value) => new(value);
 
         /// <summary>Converts a <see cref="MembershipType"/> to its string representation.</summary>
         public static implicit operator string(MembershipType value) => value.ToString();
@@ -1373,7 +1373,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
         {
             public MembershipTypeJsonConverter() { }
-            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1411,7 +1411,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static ShowAs Unknown { get; } = new("unknown");
 
         /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
-        public static implicit operator ShowAs(string value) => value != null ? new(value) : default;
+        public static implicit operator ShowAs(string value) => new(value);
 
         /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
         public static implicit operator string(ShowAs value) => value.ToString();
@@ -1437,7 +1437,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
         {
             public ShowAsJsonConverter() { }
-            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1463,7 +1463,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static Visibility Public { get; } = new("Public");
 
         /// <summary>Converts a string to <see cref="Visibility"/>.</summary>
-        public static implicit operator Visibility(string value) => value != null ? new(value) : default;
+        public static implicit operator Visibility(string value) => new(value);
 
         /// <summary>Converts a <see cref="Visibility"/> to its string representation.</summary>
         public static implicit operator string(Visibility value) => value.ToString();
@@ -1489,7 +1489,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class VisibilityJsonConverter : JsonConverter<Visibility>
         {
             public VisibilityJsonConverter() { }
-            public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) { var text = reader.GetString(); return text != null ? new(text) : default; }
+            public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Visibility value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

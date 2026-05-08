@@ -30,13 +30,13 @@ public static class TeamsModelFactory
         bool? hasAttachments = default,
         string subject = default,
         string bodyPreview = default,
-        string importance = default,
+        Importance? importance = default,
         string sensitivity = default,
         bool? isAllDay = default,
         bool? isCancelled = default,
         bool? isOrganizer = default,
         bool? responseRequested = default,
-        string showAs = default,
+        ShowAs? showAs = default,
         string type = default,
         string webLast = default,
         string onlineMeetingURL = default,
@@ -156,7 +156,7 @@ public static class TeamsModelFactory
         string aHyperlinkForTheChannelInMicrosoftTeams = default,
         string sharePointFolderURLForChannel = default,
         DateTime? channelCreationTime = default,
-        string theTypeOfTheChannel = default)
+        MembershipType? theTypeOfTheChannel = default)
     {
         return new GetChannelResponse
         {
@@ -801,7 +801,7 @@ public static class TeamsModelFactory
         string etag = default,
         object from = default,
         string id = default,
-        string importance = default,
+        Importance? importance = default,
         string lastModifiedTimestamp = default,
         string locale = default,
         List<object> mentions = default,
@@ -858,7 +858,7 @@ public static class TeamsModelFactory
         string requiredAttendees = default,
         string optionalAttendees = default,
         object location = default,
-        string importance = default,
+        Importance? importance = default,
         object recurrence = default,
         bool? allDayEvent = default,
         int? preEventReminderTime = default,
