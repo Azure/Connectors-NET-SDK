@@ -1315,7 +1315,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
         {
             public ImportanceJsonConverter() { }
-            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got {reader.TokenType}");
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1373,7 +1373,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
         {
             public MembershipTypeJsonConverter() { }
-            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MembershipType, got {reader.TokenType}");
+            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MembershipType, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1437,7 +1437,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
         {
             public ShowAsJsonConverter() { }
-            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got {reader.TokenType}");
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1489,7 +1489,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         internal sealed class VisibilityJsonConverter : JsonConverter<Visibility>
         {
             public VisibilityJsonConverter() { }
-            public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Visibility, got {reader.TokenType}");
+            public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Visibility, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Visibility value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

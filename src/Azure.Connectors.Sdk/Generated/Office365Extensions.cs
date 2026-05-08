@@ -2086,7 +2086,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
         {
             public ActionTypeJsonConverter() { }
-            public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActionType, got {reader.TokenType}");
+            public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActionType, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2144,7 +2144,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
         {
             public ActivityDomainJsonConverter() { }
-            public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActivityDomain, got {reader.TokenType}");
+            public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActivityDomain, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ActivityDomain value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2196,7 +2196,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
         {
             public ContentTypeJsonConverter() { }
-            public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ContentType, got {reader.TokenType}");
+            public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ContentType, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ContentType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2251,7 +2251,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
         {
             public ExternalAudienceJsonConverter() { }
-            public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ExternalAudience, got {reader.TokenType}");
+            public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ExternalAudience, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2705,7 +2705,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class Office365TimeZoneJsonConverter : JsonConverter<Office365TimeZone>
         {
             public Office365TimeZoneJsonConverter() { }
-            public override Office365TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Office365TimeZone, got {reader.TokenType}");
+            public override Office365TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Office365TimeZone, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Office365TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2766,7 +2766,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
         {
             public RecurrenceJsonConverter() { }
-            public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Recurrence, got {reader.TokenType}");
+            public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Recurrence, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Recurrence value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2830,7 +2830,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
         {
             public ResponseTypeJsonConverter() { }
-            public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ResponseType, got {reader.TokenType}");
+            public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ResponseType, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ResponseType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2888,7 +2888,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
         {
             public SensitivityJsonConverter() { }
-            public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Sensitivity, got {reader.TokenType}");
+            public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Sensitivity, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Sensitivity value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -2952,7 +2952,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
         {
             public ShowAsJsonConverter() { }
-            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got {reader.TokenType}");
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -3007,7 +3007,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         internal sealed class StatusJsonConverter : JsonConverter<Status>
         {
             public StatusJsonConverter() { }
-            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Status, got {reader.TokenType}");
+            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Status, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

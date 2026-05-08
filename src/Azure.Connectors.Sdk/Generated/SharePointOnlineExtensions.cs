@@ -958,7 +958,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         internal sealed class MethodJsonConverter : JsonConverter<Method>
         {
             public MethodJsonConverter() { }
-            public override Method Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Method, got {reader.TokenType}");
+            public override Method Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Method, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Method value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

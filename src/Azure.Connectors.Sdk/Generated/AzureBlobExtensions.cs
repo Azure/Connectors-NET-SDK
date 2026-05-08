@@ -285,7 +285,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         internal sealed class AccessProtocolJsonConverter : JsonConverter<AccessProtocol>
         {
             public AccessProtocolJsonConverter() { }
-            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AccessProtocol, got {reader.TokenType}");
+            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AccessProtocol, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, AccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -358,7 +358,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
         {
             public PermissionsJsonConverter() { }
-            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Permissions, got {reader.TokenType}");
+            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Permissions, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

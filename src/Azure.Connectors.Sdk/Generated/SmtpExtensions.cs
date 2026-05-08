@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
         internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
         {
             public ImportanceJsonConverter() { }
-            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got {reader.TokenType}");
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

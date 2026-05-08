@@ -1,41 +1,41 @@
 // Connectors SDK - Generated Connectors
 // Each connector client is used independently:
 //
-//   using Azure.Connectors.Sdk.Arm;
-//   using Azure.Connectors.Sdk.Arm.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Arm;
+//   using Microsoft.Azure.Connectors.Sdk.Arm.Models;
 //   var client = new ArmClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.AzureBlob;
-//   using Azure.Connectors.Sdk.AzureBlob.Models;
+//   using Microsoft.Azure.Connectors.Sdk.AzureBlob;
+//   using Microsoft.Azure.Connectors.Sdk.AzureBlob.Models;
 //   var client = new AzureBlobClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Azuremonitorlogs;
-//   using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs;
+//   using Microsoft.Azure.Connectors.Sdk.Azuremonitorlogs.Models;
 //   var client = new AzuremonitorlogsClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Kusto;
-//   using Azure.Connectors.Sdk.Kusto.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Kusto;
+//   using Microsoft.Azure.Connectors.Sdk.Kusto.Models;
 //   var client = new KustoClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Mq;
-//   using Azure.Connectors.Sdk.Mq.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Mq;
+//   using Microsoft.Azure.Connectors.Sdk.Mq.Models;
 //   var client = new MqClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
-//   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
+//   using Microsoft.Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
+//   using Microsoft.Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 //   var client = new MsGraphGroupsAndUsersClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Office365;
-//   using Azure.Connectors.Sdk.Office365.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Office365;
+//   using Microsoft.Azure.Connectors.Sdk.Office365.Models;
 //   var client = new Office365Client(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Office365users;
-//   using Azure.Connectors.Sdk.Office365users.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Office365users;
+//   using Microsoft.Azure.Connectors.Sdk.Office365users.Models;
 //   var client = new Office365usersClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.OneDriveForBusiness;
-//   using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
+//   using Microsoft.Azure.Connectors.Sdk.OneDriveForBusiness;
+//   using Microsoft.Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 //   var client = new OneDriveForBusinessClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.SharePointOnline;
-//   using Azure.Connectors.Sdk.SharePointOnline.Models;
+//   using Microsoft.Azure.Connectors.Sdk.SharePointOnline;
+//   using Microsoft.Azure.Connectors.Sdk.SharePointOnline.Models;
 //   var client = new SharePointOnlineClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Smtp;
-//   using Azure.Connectors.Sdk.Smtp.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Smtp;
+//   using Microsoft.Azure.Connectors.Sdk.Smtp.Models;
 //   var client = new SmtpClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Teams;
-//   using Azure.Connectors.Sdk.Teams.Models;
+//   using Microsoft.Azure.Connectors.Sdk.Teams;
+//   using Microsoft.Azure.Connectors.Sdk.Teams.Models;
 //   var client = new TeamsClient(connectionRuntimeUrl);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

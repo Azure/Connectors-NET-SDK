@@ -1011,7 +1011,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class ModeJsonConverter : JsonConverter<Mode>
         {
             public ModeJsonConverter() { }
-            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Mode, got {reader.TokenType}");
+            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Mode, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1066,7 +1066,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class OptionsJsonConverter : JsonConverter<Options>
         {
             public OptionsJsonConverter() { }
-            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Options, got {reader.TokenType}");
+            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Options, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Options value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1121,7 +1121,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
         {
             public SpendingLimitJsonConverter() { }
-            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SpendingLimit, got {reader.TokenType}");
+            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SpendingLimit, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, SpendingLimit value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1182,7 +1182,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class StateJsonConverter : JsonConverter<State>
         {
             public StateJsonConverter() { }
-            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for State, got {reader.TokenType}");
+            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for State, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, State value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }

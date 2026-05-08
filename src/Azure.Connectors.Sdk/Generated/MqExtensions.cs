@@ -270,7 +270,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         internal sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
         {
             public IncludeInfoJsonConverter() { }
-            public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for IncludeInfo, got {reader.TokenType}");
+            public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for IncludeInfo, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, IncludeInfo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -325,7 +325,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         internal sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
         {
             public MessageTypeJsonConverter() { }
-            public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MessageType, got {reader.TokenType}");
+            public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MessageType, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, MessageType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
