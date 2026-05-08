@@ -204,39 +204,44 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnNewFiles trigger (Onedriveforbusiness "When a file is created (properties only)", operationId: OnNewFilesV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnedriveforbusinessOnNewFilesTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnNewFiles trigger (OneDriveForBusiness "When a file is created (properties only)", operationId: OnNewFilesV2).
+    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnNewFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class OnedriveforbusinessOnNewFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
+    public class OneDriveForBusinessOnNewFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnUpdatedFiles trigger (Onedriveforbusiness "When a file is modified (properties only)", operationId: OnUpdatedFilesV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnedriveforbusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnUpdatedFiles trigger (OneDriveForBusiness "When a file is modified (properties only)", operationId: OnUpdatedFilesV2).
+    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class OnedriveforbusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
+    public class OneDriveForBusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
     }
 
     /// <summary>
-    /// Static registry of available trigger operations for the Onedriveforbusiness connector.
+    /// Static registry of trigger operations for the OneDriveForBusiness connector that have typed payloads.
     /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="OneDriveForBusinessTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
     /// </summary>
     public static class OneDriveForBusinessTriggers
     {
         /// <summary>
-        /// Available trigger operations for the Onedriveforbusiness connector.
+        /// Trigger operations with typed payloads for the OneDriveForBusiness connector.
+        /// This is a subset of all triggers — see <see cref="OneDriveForBusinessTriggerOperations"/> for the full list.
         /// </summary>
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["OnNewFilesV2"] = typeof(OnedriveforbusinessOnNewFilesTriggerPayload),
-                ["OnUpdatedFilesV2"] = typeof(OnedriveforbusinessOnUpdatedFilesTriggerPayload),
+                ["OnNewFilesV2"] = typeof(OneDriveForBusinessOnNewFilesTriggerPayload),
+                ["OnUpdatedFilesV2"] = typeof(OneDriveForBusinessOnUpdatedFilesTriggerPayload),
             });
     }
 
     #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.OneDriveForBusiness
@@ -245,7 +250,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
     #region Trigger Operation Constants
 
     /// <summary>
-    /// Trigger operation name constants for the Onedriveforbusiness connector.
+    /// Trigger operation name constants for the OneDriveForBusiness connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
     /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
     /// </summary>
@@ -258,7 +263,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
 
         /// <summary>
         /// When a file is created (properties only).
-        /// Payload type: <see cref="OnedriveforbusinessOnNewFilesTriggerPayload"/>.
+        /// Payload type: <see cref="OneDriveForBusinessOnNewFilesTriggerPayload"/>.
         /// </summary>
         public const string OnNewFiles = "OnNewFilesV2";
 
@@ -269,7 +274,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
 
         /// <summary>
         /// When a file is modified (properties only).
-        /// Payload type: <see cref="OnedriveforbusinessOnUpdatedFilesTriggerPayload"/>.
+        /// Payload type: <see cref="OneDriveForBusinessOnUpdatedFilesTriggerPayload"/>.
         /// </summary>
         public const string OnUpdatedFiles = "OnUpdatedFilesV2";
 
@@ -280,7 +285,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
     #region Trigger Parameter Metadata
 
     /// <summary>
-    /// Trigger input parameter name constants for the Onedriveforbusiness connector.
+    /// Trigger input parameter name constants for the OneDriveForBusiness connector.
     /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class OneDriveForBusinessTriggerParameters
@@ -439,7 +444,6 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
 
     #endregion Trigger Parameter Metadata
 
-
     #region Client
 
     /// <summary>
@@ -478,12 +482,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance for mocking.
-        /// </summary>
         protected OneDriveForBusinessClient() : this(new Uri("https://localhost")) { }
 
-        /// <inheritdoc />
         public override string ConnectorName => "onedriveforbusiness";
 
         /// <summary>
@@ -496,7 +496,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         public virtual async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
         {
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -510,7 +512,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         public virtual async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
         {
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -522,7 +526,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         public virtual async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
         {
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-            await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+            await this
+                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -538,7 +544,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (filePath != default)
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
             var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -557,7 +565,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (inferContentType != default)
                 queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
             var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -574,7 +584,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (inferContentType != default)
                 queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -594,7 +606,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (fileName != default)
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
             var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -616,7 +630,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
             var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -636,7 +652,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -658,7 +676,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
             var path = $"/datasets/default/CopyFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -678,7 +698,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -700,7 +722,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
             var path = $"/datasets/default/MoveFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -717,7 +741,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (targetType != default)
                 queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -736,7 +762,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (targetType != default)
                 queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
             var path = $"/datasets/default/ConvertFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -753,7 +781,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (thumbnailSize != default)
                 queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -765,7 +795,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
         {
             var path = $"/datasets/default/folders";
-            return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -788,7 +820,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (numberOfFilesToReturn != default)
                 queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
             var path = $"/datasets/default/folders/{Uri.EscapeDataString(folder.ToString())}/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -813,7 +847,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (numberOfFilesToReturn != default)
                 queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
             var path = $"/datasets/default/findFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -833,7 +869,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (linkScope != default)
                 queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
             var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -855,7 +893,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (linkScope != default)
                 queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
             var path = $"/datasets/default/CreateShareLinkByPathV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -877,7 +917,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
             var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+            return await this
+                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>

@@ -273,12 +273,8 @@ namespace Azure.Connectors.Sdk.Smtp
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance for mocking.
-        /// </summary>
         protected SmtpClient() : this(new Uri("https://localhost")) { }
 
-        /// <inheritdoc />
         public override string ConnectorName => "smtp";
 
         /// <summary>
@@ -290,7 +286,9 @@ namespace Azure.Connectors.Sdk.Smtp
         public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
         {
             var path = $"/SendEmailV3";
-            await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+            await this
+                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
     }

@@ -466,12 +466,8 @@ namespace Azure.Connectors.Sdk.Kusto
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance for mocking.
-        /// </summary>
         protected KustoClient() : this(new Uri("https://localhost")) { }
 
-        /// <inheritdoc />
         public override string ConnectorName => "kusto";
 
         /// <summary>
@@ -484,7 +480,9 @@ namespace Azure.Connectors.Sdk.Kusto
         public virtual async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
         {
             var path = $"/ListKustoResults/false";
-            return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -497,7 +495,9 @@ namespace Azure.Connectors.Sdk.Kusto
         public virtual async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
         {
             var path = $"/ListKustoShowCommandResults";
-            return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -510,7 +510,9 @@ namespace Azure.Connectors.Sdk.Kusto
         public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
         {
             var path = $"/ListKustoResultsSchema";
-            return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -523,7 +525,9 @@ namespace Azure.Connectors.Sdk.Kusto
         public virtual async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
         {
             var path = $"/RunKustoAndVisualizeResults/false";
-            return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -536,7 +540,9 @@ namespace Azure.Connectors.Sdk.Kusto
         public virtual async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
         {
             var path = $"/RunKustoAndVisualizeResults/true";
-            return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -549,7 +555,9 @@ namespace Azure.Connectors.Sdk.Kusto
         public virtual async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
         {
             var path = $"/RunAsyncControlCommandAndWait";
-            return await this.CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -566,7 +574,9 @@ namespace Azure.Connectors.Sdk.Kusto
             if (sessionId != default)
                 queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
             var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
     }

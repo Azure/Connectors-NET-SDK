@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0-preview.1] - 2026-05-08
+
 ### Breaking Changes
 
 - **Constructor overhaul: `Uri` primary + `string` convenience + `ManagedIdentityCredential` default** (#111)
@@ -40,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** Per-connector exception types (e.g., `Office365ConnectorException`, `TeamsConnectorException`) replaced with unified `ConnectorException` base type with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` properties (#88)
 - **Breaking:** Generated client constructors accept a new optional `ConnectorClientOptions` parameter for configuring retry policy, timeout, and exponential backoff — the `HttpClient` parameter moved from position 3 to position 4 (#88)
 - Generated clients now use SDK infrastructure (`ConnectorHttpClient`) for authentication, retry with exponential backoff, OpenTelemetry instrumentation, and SSRF-protected URL resolution (#88)
+- **Regenerated all 12 connector clients** from CodefulSdkGenerator to ensure consistency with Azure SDK design changes — no manual edits remain in generated files
 
 ### Added
 
@@ -163,7 +166,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.8.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...HEAD
+[0.9.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.8.0-preview.1...v0.9.0-preview.1
 [0.8.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...v0.8.0-preview.1
 [0.7.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.6.0-preview.1...v0.7.0-preview.1
 [0.6.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.5.0-preview.1...v0.6.0-preview.1

@@ -472,12 +472,8 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance for mocking.
-        /// </summary>
         protected AzuremonitorlogsClient() : this(new Uri("https://localhost")) { }
 
-        /// <inheritdoc />
         public override string ConnectorName => "azuremonitorlogs";
 
         /// <summary>
@@ -555,7 +551,7 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
                 ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
-                (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, input, cancellationToken: ct),
                 cancellationToken);
         }
 
@@ -585,7 +581,9 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             if (timeRange != default)
                 queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
             var path = $"/queryData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -614,7 +612,9 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             if (timeRange != default)
                 queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
             var path = $"/querySchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -646,7 +646,9 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             if (chartType != default)
                 queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
             var path = $"/visualizeQuery" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -672,7 +674,9 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             if (resourceName != default)
                 queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
             var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -698,7 +702,9 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             if (resourceName != default)
                 queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
             var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
@@ -727,7 +733,9 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs
             if (chartType != default)
                 queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
             var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+            return await this
+                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
     }
