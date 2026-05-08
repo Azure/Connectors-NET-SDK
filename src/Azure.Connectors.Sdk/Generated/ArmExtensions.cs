@@ -42,27 +42,33 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The fully qualified Id of the location. For example, /subscriptions/00000000-0000-0000-0000-000000000000/locations/westus.</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The subscription Id.</summary>
         [JsonPropertyName("subscriptionId")]
-        public string SubscriptionId { get; set; }
+        [JsonInclude]
+        public string SubscriptionId { get; internal set; }
 
         /// <summary>The location name.</summary>
         [JsonPropertyName("name")]
-        public string LocationName { get; set; }
+        [JsonInclude]
+        public string LocationName { get; internal set; }
 
         /// <summary>The display name of the location.</summary>
         [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
+        [JsonInclude]
+        public string DisplayName { get; internal set; }
 
         /// <summary>The latitude of the location.</summary>
         [JsonPropertyName("latitude")]
-        public string Latitude { get; set; }
+        [JsonInclude]
+        public string Latitude { get; internal set; }
 
         /// <summary>The longitude of the location.</summary>
         [JsonPropertyName("longitude")]
-        public string Longitude { get; set; }
+        [JsonInclude]
+        public string Longitude { get; internal set; }
     }
 
     /// <summary>
@@ -72,23 +78,28 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The subscription Id.</summary>
         [JsonPropertyName("subscriptionId")]
-        public string SubscriptionId { get; set; }
+        [JsonInclude]
+        public string SubscriptionId { get; internal set; }
 
         /// <summary>The tenant Id.</summary>
         [JsonPropertyName("tenantId")]
-        public string TenantId { get; set; }
+        [JsonInclude]
+        public string TenantId { get; internal set; }
 
         /// <summary>The subscription display name.</summary>
         [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
+        [JsonInclude]
+        public string DisplayName { get; internal set; }
 
         /// <summary>The subscription state.</summary>
         [JsonPropertyName("state")]
-        public string State { get; set; }
+        [JsonInclude]
+        public State? State { get; internal set; }
 
         /// <summary>subscriptionPolicies</summary>
         [JsonPropertyName("subscriptionPolicies")]
@@ -106,15 +117,18 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The subscription location placement Id. The Id indicates which regions are visible for a subscription. For example, a subscription with a location placement Id of Public_2014-09-01 has access to Azure public regions.</summary>
         [JsonPropertyName("locationPlacementId")]
-        public string LocationPlacementId { get; set; }
+        [JsonInclude]
+        public string LocationPlacementId { get; internal set; }
 
         /// <summary>The subscription quota Id.</summary>
         [JsonPropertyName("quotaId")]
-        public string QuotaId { get; set; }
+        [JsonInclude]
+        public string QuotaId { get; internal set; }
 
         /// <summary>The subscription spending limit.</summary>
         [JsonPropertyName("spendingLimit")]
-        public string SpendingLimit { get; set; }
+        [JsonInclude]
+        public SpendingLimit? SpendingLimit { get; internal set; }
     }
 
     /// <summary>
@@ -138,7 +152,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The ID of the deployment.</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The name of the deployment.</summary>
         [JsonPropertyName("name")]
@@ -156,11 +171,13 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The state of the provisioning.</summary>
         [JsonPropertyName("provisioningState")]
-        public string ProvisioningState { get; set; }
+        [JsonInclude]
+        public string ProvisioningState { get; internal set; }
 
         /// <summary>The correlation ID of the deployment.</summary>
         [JsonPropertyName("correlationId")]
-        public string CorrelationId { get; set; }
+        [JsonInclude]
+        public string CorrelationId { get; internal set; }
 
         /// <summary>The timestamp of the template deployment.</summary>
         [JsonPropertyName("timestamp")]
@@ -169,15 +186,18 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Key/value pairs that represent deploymentoutput.</summary>
         [JsonPropertyName("outputs")]
-        public object Outputs { get; set; }
+        [JsonInclude]
+        public object Outputs { get; internal set; }
 
         /// <summary>The list of resource providers needed for the deployment.</summary>
         [JsonPropertyName("providers")]
-        public List<Provider> Providers { get; set; }
+        [JsonInclude]
+        public List<Provider> Providers { get; internal set; }
 
         /// <summary>The list of deployment dependencies.</summary>
         [JsonPropertyName("dependencies")]
-        public List<Dependency> Dependencies { get; set; }
+        [JsonInclude]
+        public List<Dependency> Dependencies { get; internal set; }
 
         /// <summary>The template content. Use only one of Template or TemplateLink.</summary>
         [JsonPropertyName("template")]
@@ -211,7 +231,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The provider id.</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The namespace of the provider.</summary>
         [JsonPropertyName("namespace")]
@@ -219,11 +240,13 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The registration state of the provider.</summary>
         [JsonPropertyName("registrationState")]
-        public string RegistrationState { get; set; }
+        [JsonInclude]
+        public string RegistrationState { get; internal set; }
 
         /// <summary>The collection of provider resource types.</summary>
         [JsonPropertyName("resourceTypes")]
-        public List<ProviderResourceType> ResourceType { get; set; }
+        [JsonInclude]
+        public List<ProviderResourceType> ResourceType { get; internal set; }
     }
 
     /// <summary>
@@ -391,19 +414,23 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The error code returned from the server.</summary>
         [JsonPropertyName("code")]
-        public string Code { get; set; }
+        [JsonInclude]
+        public string Code { get; internal set; }
 
         /// <summary>The error message returned from the server.</summary>
         [JsonPropertyName("message")]
-        public string Message { get; set; }
+        [JsonInclude]
+        public string Message { get; internal set; }
 
         /// <summary>The target of the error.</summary>
         [JsonPropertyName("target")]
-        public string Target { get; set; }
+        [JsonInclude]
+        public string Target { get; internal set; }
 
         /// <summary>Validation error.</summary>
         [JsonPropertyName("details")]
-        public List<object> Details { get; set; }
+        [JsonInclude]
+        public List<object> Details { get; internal set; }
     }
 
     /// <summary>
@@ -427,7 +454,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -437,11 +465,13 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>Full deployment operation id.</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>Deployment operation id.</summary>
         [JsonPropertyName("operationId")]
-        public string OperationId { get; set; }
+        [JsonInclude]
+        public string OperationId { get; internal set; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -455,7 +485,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The state of the provisioning.</summary>
         [JsonPropertyName("provisioningState")]
-        public string ProvisioningState { get; set; }
+        [JsonInclude]
+        public string ProvisioningState { get; internal set; }
 
         /// <summary>The date and time of the operation.</summary>
         [JsonPropertyName("timestamp")]
@@ -464,15 +495,18 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Deployment operation service request id.</summary>
         [JsonPropertyName("serviceRequestId")]
-        public string ServiceRequestId { get; set; }
+        [JsonInclude]
+        public string ServiceRequestId { get; internal set; }
 
         /// <summary>Operation status code.</summary>
         [JsonPropertyName("statusCode")]
-        public string StatusCode { get; set; }
+        [JsonInclude]
+        public string StatusCode { get; internal set; }
 
         /// <summary>Operation status message.</summary>
         [JsonPropertyName("statusMessage")]
-        public object StatusMessage { get; set; }
+        [JsonInclude]
+        public object StatusMessage { get; internal set; }
 
         /// <summary>targetResource</summary>
         [JsonPropertyName("targetResource")]
@@ -526,7 +560,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -540,7 +575,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -554,7 +590,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -564,15 +601,18 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>Resource Id</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>Resource name</summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        [JsonInclude]
+        public string Name { get; internal set; }
 
         /// <summary>Resource type</summary>
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        [JsonInclude]
+        public string Type { get; internal set; }
 
         /// <summary>Resource location</summary>
         [JsonPropertyName("location")]
@@ -592,7 +632,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Id of the resource that manages this resource.</summary>
         [JsonPropertyName("managedBy")]
-        public string ManagedBy { get; set; }
+        [JsonInclude]
+        public string ManagedBy { get; internal set; }
 
         /// <summary>sku</summary>
         [JsonPropertyName("sku")]
@@ -666,11 +707,13 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The principal id of resource identity.</summary>
         [JsonPropertyName("principalId")]
-        public string PrincipalId { get; set; }
+        [JsonInclude]
+        public string PrincipalId { get; internal set; }
 
         /// <summary>The tenant id of resource.</summary>
         [JsonPropertyName("tenantId")]
-        public string TenantId { get; set; }
+        [JsonInclude]
+        public string TenantId { get; internal set; }
 
         /// <summary>The identity type.</summary>
         [JsonPropertyName("type")]
@@ -684,11 +727,13 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY).</summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The Name of the resource group.</summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        [JsonInclude]
+        public string Name { get; internal set; }
 
         /// <summary>The location of the resource group. It cannot be changed after the resource group has been created. Has to be one of the supported Azure Locations, such as West US, East US, West Europe, East Asia, etc.</summary>
         [JsonPropertyName("location")]
@@ -696,7 +741,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Id of the resource that manages this resource group.</summary>
         [JsonPropertyName("managedBy")]
-        public string ManagedBy { get; set; }
+        [JsonInclude]
+        public string ManagedBy { get; internal set; }
 
         /// <summary>The tags attached to the resource group.</summary>
         [JsonPropertyName("tags")]
@@ -714,7 +760,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The provisioning state.</summary>
         [JsonPropertyName("provisioningState")]
-        public string ProvisioningState { get; set; }
+        [JsonInclude]
+        public string ProvisioningState { get; internal set; }
     }
 
     /// <summary>
@@ -742,7 +789,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -858,7 +906,8 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -962,7 +1011,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class ModeJsonConverter : JsonConverter<Mode>
         {
             public ModeJsonConverter() { }
-            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
+            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Mode, got {reader.TokenType}");
             public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1017,7 +1066,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class OptionsJsonConverter : JsonConverter<Options>
         {
             public OptionsJsonConverter() { }
-            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
+            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Options, got {reader.TokenType}");
             public override void Write(Utf8JsonWriter writer, Options value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1072,7 +1121,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
         {
             public SpendingLimitJsonConverter() { }
-            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
+            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SpendingLimit, got {reader.TokenType}");
             public override void Write(Utf8JsonWriter writer, SpendingLimit value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
@@ -1133,12 +1182,732 @@ namespace Azure.Connectors.Sdk.Arm.Models
         internal sealed class StateJsonConverter : JsonConverter<State>
         {
             public StateJsonConverter() { }
-            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
+            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for State, got {reader.TokenType}");
             public override void Write(Utf8JsonWriter writer, State value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Arm models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class ArmModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="LocationListResult"/>.
+        /// </summary>
+        public static LocationListResult LocationListResult(
+            List<Location> value = default)
+        {
+            return new LocationListResult
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Location"/>.
+        /// </summary>
+        public static Location Location(
+            string id = default,
+            string subscriptionId = default,
+            string locationName = default,
+            string displayName = default,
+            string latitude = default,
+            string longitude = default)
+        {
+            return new Location
+            {
+                Id = id,
+                SubscriptionId = subscriptionId,
+                LocationName = locationName,
+                DisplayName = displayName,
+                Latitude = latitude,
+                Longitude = longitude,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Subscription"/>.
+        /// </summary>
+        public static Subscription Subscription(
+            string id = default,
+            string subscriptionId = default,
+            string tenantId = default,
+            string displayName = default,
+            State? state = default,
+            SubscriptionPolicies subscriptionPolicies = default,
+            string authorizationSource = default)
+        {
+            return new Subscription
+            {
+                Id = id,
+                SubscriptionId = subscriptionId,
+                TenantId = tenantId,
+                DisplayName = displayName,
+                State = state,
+                SubscriptionPolicies = subscriptionPolicies,
+                AuthorizationSource = authorizationSource,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SubscriptionPolicies"/>.
+        /// </summary>
+        public static SubscriptionPolicies SubscriptionPolicies(
+            string locationPlacementId = default,
+            string quotaId = default,
+            SpendingLimit? spendingLimit = default)
+        {
+            return new SubscriptionPolicies
+            {
+                LocationPlacementId = locationPlacementId,
+                QuotaId = quotaId,
+                SpendingLimit = spendingLimit,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SubscriptionListResult"/>.
+        /// </summary>
+        public static SubscriptionListResult SubscriptionListResult(
+            List<Subscription> value = default,
+            string nextLink = default)
+        {
+            return new SubscriptionListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentExtended"/>.
+        /// </summary>
+        public static DeploymentExtended DeploymentExtended(
+            string id = default,
+            string name = default,
+            DeploymentPropertiesExtended properties = default)
+        {
+            return new DeploymentExtended
+            {
+                Id = id,
+                Name = name,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentPropertiesExtended"/>.
+        /// </summary>
+        public static DeploymentPropertiesExtended DeploymentPropertiesExtended(
+            string provisioningState = default,
+            string correlationId = default,
+            DateTime? timestamp = default,
+            object outputs = default,
+            List<Provider> providers = default,
+            List<Dependency> dependencies = default,
+            object template = default,
+            TemplateLink templateLink = default,
+            object parameters = default,
+            ParametersLink parametersLink = default,
+            Mode? deploymentMode = default,
+            DebugSetting debugSetting = default)
+        {
+            return new DeploymentPropertiesExtended
+            {
+                ProvisioningState = provisioningState,
+                CorrelationId = correlationId,
+                Timestamp = timestamp,
+                Outputs = outputs,
+                Providers = providers,
+                Dependencies = dependencies,
+                Template = template,
+                TemplateLink = templateLink,
+                Parameters = parameters,
+                ParametersLink = parametersLink,
+                DeploymentMode = deploymentMode,
+                DebugSetting = debugSetting,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Provider"/>.
+        /// </summary>
+        public static Provider Provider(
+            string id = default,
+            string @namespace = default,
+            string registrationState = default,
+            List<ProviderResourceType> resourceType = default)
+        {
+            return new Provider
+            {
+                Id = id,
+                Namespace = @namespace,
+                RegistrationState = registrationState,
+                ResourceType = resourceType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProviderResourceType"/>.
+        /// </summary>
+        public static ProviderResourceType ProviderResourceType(
+            string resourceType = default,
+            List<ObjectWithoutType> locations = default,
+            List<AliasType> aliases = default,
+            List<string> apiVersions = default,
+            object properties = default)
+        {
+            return new ProviderResourceType
+            {
+                ResourceType = resourceType,
+                Locations = locations,
+                Aliases = aliases,
+                ApiVersions = apiVersions,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AliasType"/>.
+        /// </summary>
+        public static AliasType AliasType(
+            string name = default,
+            List<AliasPathType> paths = default)
+        {
+            return new AliasType
+            {
+                Name = name,
+                Paths = paths,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AliasPathType"/>.
+        /// </summary>
+        public static AliasPathType AliasPathType(
+            string path = default,
+            List<string> apiVersions = default)
+        {
+            return new AliasPathType
+            {
+                Path = path,
+                ApiVersions = apiVersions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Dependency"/>.
+        /// </summary>
+        public static Dependency Dependency(
+            List<BasicDependency> dependsOn = default,
+            string id = default,
+            string resourceType = default,
+            string resourceName = default)
+        {
+            return new Dependency
+            {
+                DependsOn = dependsOn,
+                Id = id,
+                ResourceType = resourceType,
+                ResourceName = resourceName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BasicDependency"/>.
+        /// </summary>
+        public static BasicDependency BasicDependency(
+            string id = default,
+            string resourceType = default,
+            string resourceName = default)
+        {
+            return new BasicDependency
+            {
+                Id = id,
+                ResourceType = resourceType,
+                ResourceName = resourceName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TemplateLink"/>.
+        /// </summary>
+        public static TemplateLink TemplateLink(
+            string templateURI = default,
+            string templateContentVersion = default)
+        {
+            return new TemplateLink
+            {
+                TemplateURI = templateURI,
+                TemplateContentVersion = templateContentVersion,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ParametersLink"/>.
+        /// </summary>
+        public static ParametersLink ParametersLink(
+            string parametersURI = default,
+            string parametersContentVersion = default)
+        {
+            return new ParametersLink
+            {
+                ParametersURI = parametersURI,
+                ParametersContentVersion = parametersContentVersion,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DebugSetting"/>.
+        /// </summary>
+        public static DebugSetting DebugSetting(
+            string detailLevel = default)
+        {
+            return new DebugSetting
+            {
+                DetailLevel = detailLevel,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentValidateResult"/>.
+        /// </summary>
+        public static DeploymentValidateResult DeploymentValidateResult(
+            ResourceManagementErrorWithDetails error = default,
+            DeploymentPropertiesExtended properties = default)
+        {
+            return new DeploymentValidateResult
+            {
+                Error = error,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceManagementErrorWithDetails"/>.
+        /// </summary>
+        public static ResourceManagementErrorWithDetails ResourceManagementErrorWithDetails(
+            string code = default,
+            string message = default,
+            string target = default,
+            List<object> details = default)
+        {
+            return new ResourceManagementErrorWithDetails
+            {
+                Code = code,
+                Message = message,
+                Target = target,
+                Details = details,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentExportResult"/>.
+        /// </summary>
+        public static DeploymentExportResult DeploymentExportResult(
+            object template = default)
+        {
+            return new DeploymentExportResult
+            {
+                Template = template,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentListResult"/>.
+        /// </summary>
+        public static DeploymentListResult DeploymentListResult(
+            List<DeploymentExtended> value = default,
+            string nextLink = default)
+        {
+            return new DeploymentListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentOperation"/>.
+        /// </summary>
+        public static DeploymentOperation DeploymentOperation(
+            string id = default,
+            string operationId = default,
+            DeploymentOperationProperties properties = default)
+        {
+            return new DeploymentOperation
+            {
+                Id = id,
+                OperationId = operationId,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentOperationProperties"/>.
+        /// </summary>
+        public static DeploymentOperationProperties DeploymentOperationProperties(
+            string provisioningState = default,
+            DateTime? timestamp = default,
+            string serviceRequestId = default,
+            string statusCode = default,
+            object statusMessage = default,
+            TargetResource targetResource = default,
+            HttpMessage request = default,
+            HttpMessage response = default)
+        {
+            return new DeploymentOperationProperties
+            {
+                ProvisioningState = provisioningState,
+                Timestamp = timestamp,
+                ServiceRequestId = serviceRequestId,
+                StatusCode = statusCode,
+                StatusMessage = statusMessage,
+                TargetResource = targetResource,
+                Request = request,
+                Response = response,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TargetResource"/>.
+        /// </summary>
+        public static TargetResource TargetResource(
+            string id = default,
+            string name = default,
+            string type = default)
+        {
+            return new TargetResource
+            {
+                Id = id,
+                Name = name,
+                Type = type,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HttpMessage"/>.
+        /// </summary>
+        public static HttpMessage HttpMessage(
+            object content = default)
+        {
+            return new HttpMessage
+            {
+                Content = content,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentOperationsListResult"/>.
+        /// </summary>
+        public static DeploymentOperationsListResult DeploymentOperationsListResult(
+            List<DeploymentOperation> value = default,
+            string nextLink = default)
+        {
+            return new DeploymentOperationsListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProviderListResult"/>.
+        /// </summary>
+        public static ProviderListResult ProviderListResult(
+            List<Provider> value = default,
+            string nextLink = default)
+        {
+            return new ProviderListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceListResult"/>.
+        /// </summary>
+        public static ResourceListResult ResourceListResult(
+            List<GenericResource> value = default,
+            string nextLink = default)
+        {
+            return new ResourceListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GenericResource"/>.
+        /// </summary>
+        public static GenericResource GenericResource(
+            string id = default,
+            string name = default,
+            string type = default,
+            string location = default,
+            object tags = default,
+            Plan plan = default,
+            string kind = default,
+            string managedBy = default,
+            Sku sku = default,
+            Identity identity = default,
+            object properties = default)
+        {
+            return new GenericResource
+            {
+                Id = id,
+                Name = name,
+                Type = type,
+                Location = location,
+                Tags = tags,
+                Plan = plan,
+                Kind = kind,
+                ManagedBy = managedBy,
+                Sku = sku,
+                Identity = identity,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Plan"/>.
+        /// </summary>
+        public static Plan Plan(
+            string id = default,
+            string publisher = default,
+            string product = default,
+            string promotionCode = default)
+        {
+            return new Plan
+            {
+                Id = id,
+                Publisher = publisher,
+                Product = product,
+                PromotionCode = promotionCode,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Sku"/>.
+        /// </summary>
+        public static Sku Sku(
+            string name = default,
+            string tier = default,
+            string size = default,
+            string family = default,
+            string model = default,
+            int? capacity = default)
+        {
+            return new Sku
+            {
+                Name = name,
+                Tier = tier,
+                Size = size,
+                Family = family,
+                Model = model,
+                Capacity = capacity,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Identity"/>.
+        /// </summary>
+        public static Identity Identity(
+            string principalId = default,
+            string tenantId = default,
+            string type = default)
+        {
+            return new Identity
+            {
+                PrincipalId = principalId,
+                TenantId = tenantId,
+                Type = type,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceGroup"/>.
+        /// </summary>
+        public static ResourceGroup ResourceGroup(
+            string id = default,
+            string name = default,
+            string location = default,
+            string managedBy = default,
+            object tags = default,
+            ResourceGroupProperties properties = default)
+        {
+            return new ResourceGroup
+            {
+                Id = id,
+                Name = name,
+                Location = location,
+                ManagedBy = managedBy,
+                Tags = tags,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceGroupProperties"/>.
+        /// </summary>
+        public static ResourceGroupProperties ResourceGroupProperties(
+            string provisioningState = default)
+        {
+            return new ResourceGroupProperties
+            {
+                ProvisioningState = provisioningState,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceGroupExportResult"/>.
+        /// </summary>
+        public static ResourceGroupExportResult ResourceGroupExportResult(
+            object template = default,
+            ResourceManagementErrorWithDetails error = default)
+        {
+            return new ResourceGroupExportResult
+            {
+                Template = template,
+                Error = error,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceGroupListResult"/>.
+        /// </summary>
+        public static ResourceGroupListResult ResourceGroupListResult(
+            List<ResourceGroup> value = default,
+            string nextLink = default)
+        {
+            return new ResourceGroupListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TagValue"/>.
+        /// </summary>
+        public static TagValue TagValue(
+            string tagId = default,
+            string tagValueValue = default,
+            TagCount count = default)
+        {
+            return new TagValue
+            {
+                TagId = tagId,
+                TagValueValue = tagValueValue,
+                Count = count,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TagCount"/>.
+        /// </summary>
+        public static TagCount TagCount(
+            string type = default,
+            int? value = default)
+        {
+            return new TagCount
+            {
+                Type = type,
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TagDetails"/>.
+        /// </summary>
+        public static TagDetails TagDetails(
+            string id = default,
+            string name = default,
+            TagCount count = default,
+            List<TagValue> values = default)
+        {
+            return new TagDetails
+            {
+                Id = id,
+                Name = name,
+                Count = count,
+                Values = values,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TagsListResult"/>.
+        /// </summary>
+        public static TagsListResult TagsListResult(
+            List<TagDetails> value = default,
+            string nextLink = default)
+        {
+            return new TagsListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeploymentProperties"/>.
+        /// </summary>
+        public static DeploymentProperties DeploymentProperties(
+            object templateContent = default,
+            TemplateLink templateLink = default,
+            object parameters = default,
+            ParametersLink parametersLink = default,
+            Mode? deploymentMode = default,
+            DebugSetting debugSetting = default)
+        {
+            return new DeploymentProperties
+            {
+                TemplateContent = templateContent,
+                TemplateLink = templateLink,
+                Parameters = parameters,
+                ParametersLink = parametersLink,
+                DeploymentMode = deploymentMode,
+                DebugSetting = debugSetting,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Deployment"/>.
+        /// </summary>
+        public static Deployment Deployment(
+            DeploymentProperties properties = default)
+        {
+            return new Deployment
+            {
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ExportTemplateRequest"/>.
+        /// </summary>
+        public static ExportTemplateRequest ExportTemplateRequest(
+            List<string> resources = default,
+            Options? options = default)
+        {
+            return new ExportTemplateRequest
+            {
+                Resources = resources,
+                Options = options,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 

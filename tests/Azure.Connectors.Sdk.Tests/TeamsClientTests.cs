@@ -203,7 +203,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.AreEqual("meeting-123", meeting.ID);
             Assert.AreEqual("Team Standup", meeting.Subject);
-            Assert.AreEqual("normal", meeting.Importance.ToString());
+            Assert.AreEqual("normal", meeting.Importance);
             Assert.AreEqual(true, meeting.IsOrganizer);
             Assert.AreEqual("https://teams.microsoft.com/meet/123", meeting.OnlineMeetingURL);
         }

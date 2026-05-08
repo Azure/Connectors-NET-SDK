@@ -145,12 +145,90 @@ namespace Azure.Connectors.Sdk.Smtp.Models
         internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
         {
             public ImportanceJsonConverter() { }
-            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got {reader.TokenType}");
             public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Smtp models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class SmtpModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="Attachment"/>.
+        /// </summary>
+        public static Attachment Attachment(
+            string contentData = default,
+            string contentType = default,
+            string fileName = default,
+            string contentId = default)
+        {
+            return new Attachment
+            {
+                ContentData = contentData,
+                ContentType = contentType,
+                FileName = fileName,
+                ContentId = contentId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Email"/>.
+        /// </summary>
+        public static Email Email(
+            string from = default,
+            string to = default,
+            string cc = default,
+            string subject = default,
+            string body = default,
+            string bcc = default,
+            Importance? importance = default,
+            string readReceipt = default,
+            string deliveryReceipt = default,
+            List<Attachment> attachments = default)
+        {
+            return new Email
+            {
+                From = from,
+                To = to,
+                CC = cc,
+                Subject = subject,
+                Body = body,
+                Bcc = bcc,
+                Importance = importance,
+                ReadReceipt = readReceipt,
+                DeliveryReceipt = deliveryReceipt,
+                Attachments = attachments,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AttachmentV2"/>.
+        /// </summary>
+        public static AttachmentV2 AttachmentV2(
+            string contentData = default,
+            string contentType = default,
+            string fileName = default,
+            string contentId = default)
+        {
+            return new AttachmentV2
+            {
+                ContentData = contentData,
+                ContentType = contentType,
+                FileName = fileName,
+                ContentId = contentId,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 
