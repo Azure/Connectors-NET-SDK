@@ -5,6 +5,17 @@
 
 Type-safe .NET clients for [Azure connectors](https://learn.microsoft.com/connectors/connector-reference/) — call Office 365, SharePoint, Teams, Dataverse, and 1,000+ connectors directly from Azure Functions and other .NET apps.
 
+> [!CAUTION]
+> **Early Preview — Not for Production Use**
+>
+> This SDK is currently in early preview and is under active development. It is intended for evaluation, experimentation, and feedback purposes only.
+>
+> - **Do not use this SDK in production environments.**
+> - **Breaking changes should be expected** across APIs, data models, and behavior in future releases.
+> - Features may be added, modified, or removed without prior notice.
+>
+> We welcome feedback and contributions — please [open an issue](https://github.com/Azure/Connectors-NET-SDK/issues) with questions, suggestions, or bug reports.
+
 ## Why This SDK?
 
 Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.com/connectors/connector-reference/) that bridge your code to SaaS services, PaaS resources, and on-premises systems. Originally powering Azure Logic Apps and Power Automate, these connectors are now available as **standalone, strongly-typed C# clients** for any .NET application — no workflow service required.
