@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public double? LogicalSequenceNumber { get; set; }
 
         /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-        public string IncludeInfo { get; set; }
+        public IncludeInfo? IncludeInfo { get; set; }
 
         /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
         public string Timeout { get; set; }
@@ -178,7 +178,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public double? LogicalSequenceNumber { get; set; }
 
         /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-        public string IncludeInfo { get; set; }
+        public IncludeInfo? IncludeInfo { get; set; }
 
         /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
         public string Timeout { get; set; }
@@ -199,7 +199,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public string Message { get; set; }
 
         /// <summary>Message type</summary>
-        public string MessageType { get; set; }
+        public MessageType? MessageType { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
         public string CorrelationId { get; set; }
@@ -223,7 +223,294 @@ namespace Azure.Connectors.Sdk.Mq.Models
         public string Format { get; set; }
     }
 
+    /// <summary>
+    /// Extensible enum for known IncludeInfo values.
+    /// </summary>
+    [JsonConverter(typeof(IncludeInfo.IncludeInfoJsonConverter))]
+    public readonly struct IncludeInfo : IEquatable<IncludeInfo>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IncludeInfo"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public IncludeInfo(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>false</summary>
+        public static IncludeInfo False { get; } = new("false");
+
+        /// <summary>true</summary>
+        public static IncludeInfo True { get; } = new("true");
+
+        /// <summary>Converts a string to <see cref="IncludeInfo"/>.</summary>
+        public static implicit operator IncludeInfo(string value) => new(value);
+
+        /// <summary>Converts a <see cref="IncludeInfo"/> to its string representation.</summary>
+        public static implicit operator string(IncludeInfo value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(IncludeInfo other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is IncludeInfo other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(IncludeInfo left, IncludeInfo right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(IncludeInfo left, IncludeInfo right) => !left.Equals(right);
+
+        internal sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
+        {
+            public IncludeInfoJsonConverter() { }
+            public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for IncludeInfo, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, IncludeInfo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known MessageType values.
+    /// </summary>
+    [JsonConverter(typeof(MessageType.MessageTypeJsonConverter))]
+    public readonly struct MessageType : IEquatable<MessageType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public MessageType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Datagram</summary>
+        public static MessageType Datagram { get; } = new("Datagram");
+
+        /// <summary>Reply</summary>
+        public static MessageType Reply { get; } = new("Reply");
+
+        /// <summary>Request</summary>
+        public static MessageType Request { get; } = new("Request");
+
+        /// <summary>Converts a string to <see cref="MessageType"/>.</summary>
+        public static implicit operator MessageType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="MessageType"/> to its string representation.</summary>
+        public static implicit operator string(MessageType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(MessageType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is MessageType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(MessageType left, MessageType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(MessageType left, MessageType right) => !left.Equals(right);
+
+        internal sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
+        {
+            public MessageTypeJsonConverter() { }
+            public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MessageType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, MessageType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Mq models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class MqModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="Item"/>.
+        /// </summary>
+        public static Item Item(
+            string itemInternalId = default,
+            string messageData = default,
+            string messageId = default,
+            string correlationId = default,
+            DateTime? putDateTime = default,
+            string userIdentifier = default,
+            string putApplicationName = default,
+            string putApplicationType = default,
+            string format = default,
+            string accountingToken = default,
+            int? ccsid = default,
+            string groupId = default,
+            int? logicalSequenceNumber = default,
+            string messageType = default,
+            int? offset = default,
+            int? originalLength = default,
+            string persistence = default,
+            int? priority = default,
+            string replyToQueue = default,
+            string replyToQueueManager = default)
+        {
+            return new Item
+            {
+                ItemInternalId = itemInternalId,
+                MessageData = messageData,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+                PutDateTime = putDateTime,
+                UserIdentifier = userIdentifier,
+                PutApplicationName = putApplicationName,
+                PutApplicationType = putApplicationType,
+                Format = format,
+                AccountingToken = accountingToken,
+                Ccsid = ccsid,
+                GroupId = groupId,
+                LogicalSequenceNumber = logicalSequenceNumber,
+                MessageType = messageType,
+                Offset = offset,
+                OriginalLength = originalLength,
+                Persistence = persistence,
+                Priority = priority,
+                ReplyToQueue = replyToQueue,
+                ReplyToQueueManager = replyToQueueManager,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ItemsList"/>.
+        /// </summary>
+        public static ItemsList ItemsList(
+            List<Item> value = default)
+        {
+            return new ItemsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SendResponse"/>.
+        /// </summary>
+        public static SendResponse SendResponse(
+            string itemInternalId = default,
+            string messageData = default,
+            string messageId = default,
+            string correlationId = default)
+        {
+            return new SendResponse
+            {
+                ItemInternalId = itemInternalId,
+                MessageData = messageData,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SingleGetValidOptions"/>.
+        /// </summary>
+        public static SingleGetValidOptions SingleGetValidOptions(
+            string queue = default,
+            string messageId = default,
+            string correlationId = default,
+            string groupId = default,
+            string messageToken = default,
+            double? offset = default,
+            double? logicalSequenceNumber = default,
+            IncludeInfo? includeInfo = default,
+            string timeout = default)
+        {
+            return new SingleGetValidOptions
+            {
+                Queue = queue,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+                GroupId = groupId,
+                MessageToken = messageToken,
+                Offset = offset,
+                LogicalSequenceNumber = logicalSequenceNumber,
+                IncludeInfo = includeInfo,
+                Timeout = timeout,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MultipleGetValidOptions"/>.
+        /// </summary>
+        public static MultipleGetValidOptions MultipleGetValidOptions(
+            string queue = default,
+            string messageId = default,
+            string correlationId = default,
+            string groupId = default,
+            string messageToken = default,
+            double? offset = default,
+            double? logicalSequenceNumber = default,
+            IncludeInfo? includeInfo = default,
+            string timeout = default,
+            double? batchSize = default)
+        {
+            return new MultipleGetValidOptions
+            {
+                Queue = queue,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+                GroupId = groupId,
+                MessageToken = messageToken,
+                Offset = offset,
+                LogicalSequenceNumber = logicalSequenceNumber,
+                IncludeInfo = includeInfo,
+                Timeout = timeout,
+                BatchSize = batchSize,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SendValidDataOptions"/>.
+        /// </summary>
+        public static SendValidDataOptions SendValidDataOptions(
+            string queue = default,
+            string message = default,
+            MessageType? messageType = default,
+            string correlationId = default,
+            string messageId = default,
+            string replyToQueue = default,
+            string replyToQueueManager = default,
+            double? codeCharSetId = default,
+            double? offset = default,
+            string format = default)
+        {
+            return new SendValidDataOptions
+            {
+                Queue = queue,
+                Message = message,
+                MessageType = messageType,
+                CorrelationId = correlationId,
+                MessageId = messageId,
+                ReplyToQueue = replyToQueue,
+                ReplyToQueueManager = replyToQueueManager,
+                CodeCharSetId = codeCharSetId,
+                Offset = offset,
+                Format = format,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 

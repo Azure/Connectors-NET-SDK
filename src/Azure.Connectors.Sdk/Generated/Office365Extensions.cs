@@ -175,7 +175,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ItemBody
     {
         /// <summary>ContentType</summary>
-        public string ContentType { get; set; }
+        public ContentType? ContentType { get; set; }
 
         /// <summary>Content</summary>
         public string Content { get; set; }
@@ -302,11 +302,13 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Start time of the event with time zone (example: &apos;2017-08-29T04:00:00.0000000+00:00&apos;)</summary>
         [JsonPropertyName("startWithTimeZone")]
-        public DateTime? StartTimeWithTimeZone { get; set; }
+        [JsonInclude]
+        public DateTime? StartTimeWithTimeZone { get; internal set; }
 
         /// <summary>End time of the event with time zone (example: &apos;2017-08-29T05:00:00.0000000+00:00&apos;)</summary>
         [JsonPropertyName("endWithTimeZone")]
-        public DateTime? EndTimeWithTimeZone { get; set; }
+        [JsonInclude]
+        public DateTime? EndTimeWithTimeZone { get; internal set; }
 
         /// <summary>Body of the message associated with the event</summary>
         [JsonPropertyName("body")]
@@ -318,7 +320,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
         [JsonPropertyName("responseType")]
-        public string ResponseType { get; set; }
+        public ResponseType? ResponseType { get; set; }
 
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("responseTime")]
@@ -389,7 +391,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
         [JsonPropertyName("recurrence")]
-        public string Recurrence { get; set; }
+        public Recurrence? Recurrence { get; set; }
 
         /// <summary>End Date of the recurrence</summary>
         [JsonPropertyName("recurrenceEnd")]
@@ -409,7 +411,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
         [JsonPropertyName("showAs")]
-        public string ShowAs { get; set; }
+        public ShowAs? ShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
         [JsonPropertyName("responseRequested")]
@@ -417,7 +419,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
-        public string Sensitivity { get; set; }
+        public Sensitivity? Sensitivity { get; set; }
     }
 
     /// <summary>
@@ -446,7 +448,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class GraphCalendarEventClientWithActionType
     {
         /// <summary>Changed action type of the event - added, updated or deleted.</summary>
-        public string ActionType { get; set; }
+        public ActionType? ActionType { get; set; }
 
         /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
         public bool? IsAdded { get; set; }
@@ -468,11 +470,13 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Start time of the event with time zone (example: &apos;2017-08-29T04:00:00.0000000+00:00&apos;)</summary>
         [JsonPropertyName("startWithTimeZone")]
-        public DateTime? StartTimeWithTimeZone { get; set; }
+        [JsonInclude]
+        public DateTime? StartTimeWithTimeZone { get; internal set; }
 
         /// <summary>End time of the event with time zone (example: &apos;2017-08-29T05:00:00.0000000+00:00&apos;)</summary>
         [JsonPropertyName("endWithTimeZone")]
-        public DateTime? EndTimeWithTimeZone { get; set; }
+        [JsonInclude]
+        public DateTime? EndTimeWithTimeZone { get; internal set; }
 
         /// <summary>Body of the message associated with the event</summary>
         [JsonPropertyName("body")]
@@ -484,7 +488,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
         [JsonPropertyName("responseType")]
-        public string ResponseType { get; set; }
+        public ResponseType? ResponseType { get; set; }
 
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("responseTime")]
@@ -555,7 +559,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
         [JsonPropertyName("recurrence")]
-        public string Recurrence { get; set; }
+        public Recurrence? Recurrence { get; set; }
 
         /// <summary>End Date of the recurrence</summary>
         [JsonPropertyName("recurrenceEnd")]
@@ -575,7 +579,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
         [JsonPropertyName("showAs")]
-        public string ShowAs { get; set; }
+        public ShowAs? ShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
         [JsonPropertyName("responseRequested")]
@@ -583,7 +587,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
-        public string Sensitivity { get; set; }
+        public Sensitivity? Sensitivity { get; set; }
     }
 
     /// <summary>
@@ -1005,7 +1009,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public bool? IsOrganizerOptional { get; set; }
 
         /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
-        public string ActivityDomain { get; set; }
+        public ActivityDomain? ActivityDomain { get; set; }
     }
 
     /// <summary>
@@ -1235,7 +1239,8 @@ namespace Azure.Connectors.Sdk.Office365.Models
     {
         /// <summary>A list of the response objects</summary>
         [JsonPropertyName("value")]
-        public List<GraphClientReceiveMessage> Value { get; set; }
+        [JsonInclude]
+        public List<GraphClientReceiveMessage> Value { get; internal set; }
     }
 
     /// <summary>
@@ -1378,11 +1383,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     {
         /// <summary>Automatic reply setting status</summary>
         [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public Status? Status { get; set; }
 
         /// <summary>The audience that will see the external reply message</summary>
         [JsonPropertyName("externalAudience")]
-        public string ExternalAudience { get; set; }
+        public ExternalAudience? ExternalAudience { get; set; }
 
         /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
         [JsonPropertyName("scheduledStartDateTime")]
@@ -1699,7 +1704,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Time zone of the event</summary>
         [JsonPropertyName("timeZone")]
-        public string TimeZone { get; set; }
+        public Office365TimeZone? TimeZone { get; set; }
 
         /// <summary>Required attendees for the event separated by semicolons</summary>
         [JsonPropertyName("requiredAttendees")]
@@ -1735,7 +1740,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
         [JsonPropertyName("recurrence")]
-        public string Recurrence { get; set; }
+        public Recurrence? Recurrence { get; set; }
 
         /// <summary>Days of week for weekly recurrence</summary>
         [JsonPropertyName("selectedDaysOfWeek")]
@@ -1759,7 +1764,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
         [JsonPropertyName("showAs")]
-        public string ShowAs { get; set; }
+        public ShowAs? ShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
         [JsonPropertyName("responseRequested")]
@@ -1767,7 +1772,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
-        public string Sensitivity { get; set; }
+        public Sensitivity? Sensitivity { get; set; }
     }
 
     /// <summary>
@@ -2031,7 +2036,2457 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string CallbackEndpoint { get; set; }
     }
 
+    /// <summary>
+    /// Extensible enum for known ActionType values.
+    /// </summary>
+    [JsonConverter(typeof(ActionType.ActionTypeJsonConverter))]
+    public readonly struct ActionType : IEquatable<ActionType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ActionType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>added</summary>
+        public static ActionType Added { get; } = new("added");
+
+        /// <summary>updated</summary>
+        public static ActionType Updated { get; } = new("updated");
+
+        /// <summary>deleted</summary>
+        public static ActionType Deleted { get; } = new("deleted");
+
+        /// <summary>Converts a string to <see cref="ActionType"/>.</summary>
+        public static implicit operator ActionType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ActionType"/> to its string representation.</summary>
+        public static implicit operator string(ActionType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ActionType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ActionType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ActionType left, ActionType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ActionType left, ActionType right) => !left.Equals(right);
+
+        internal sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
+        {
+            public ActionTypeJsonConverter() { }
+            public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActionType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known ActivityDomain values.
+    /// </summary>
+    [JsonConverter(typeof(ActivityDomain.ActivityDomainJsonConverter))]
+    public readonly struct ActivityDomain : IEquatable<ActivityDomain>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActivityDomain"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ActivityDomain(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Work</summary>
+        public static ActivityDomain Work { get; } = new("Work");
+
+        /// <summary>Personal</summary>
+        public static ActivityDomain Personal { get; } = new("Personal");
+
+        /// <summary>Unrestricted</summary>
+        public static ActivityDomain Unrestricted { get; } = new("Unrestricted");
+
+        /// <summary>Unknown</summary>
+        public static ActivityDomain Unknown { get; } = new("Unknown");
+
+        /// <summary>Converts a string to <see cref="ActivityDomain"/>.</summary>
+        public static implicit operator ActivityDomain(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ActivityDomain"/> to its string representation.</summary>
+        public static implicit operator string(ActivityDomain value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ActivityDomain other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ActivityDomain other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ActivityDomain left, ActivityDomain right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ActivityDomain left, ActivityDomain right) => !left.Equals(right);
+
+        internal sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
+        {
+            public ActivityDomainJsonConverter() { }
+            public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActivityDomain, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ActivityDomain value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known ContentType values.
+    /// </summary>
+    [JsonConverter(typeof(ContentType.ContentTypeJsonConverter))]
+    public readonly struct ContentType : IEquatable<ContentType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ContentType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Text</summary>
+        public static ContentType Text { get; } = new("Text");
+
+        /// <summary>HTML</summary>
+        public static ContentType Html { get; } = new("HTML");
+
+        /// <summary>Converts a string to <see cref="ContentType"/>.</summary>
+        public static implicit operator ContentType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ContentType"/> to its string representation.</summary>
+        public static implicit operator string(ContentType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ContentType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ContentType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ContentType left, ContentType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ContentType left, ContentType right) => !left.Equals(right);
+
+        internal sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
+        {
+            public ContentTypeJsonConverter() { }
+            public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ContentType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ContentType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known ExternalAudience values.
+    /// </summary>
+    [JsonConverter(typeof(ExternalAudience.ExternalAudienceJsonConverter))]
+    public readonly struct ExternalAudience : IEquatable<ExternalAudience>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExternalAudience"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ExternalAudience(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>none</summary>
+        public static ExternalAudience None { get; } = new("none");
+
+        /// <summary>contactsOnly</summary>
+        public static ExternalAudience ContactsOnly { get; } = new("contactsOnly");
+
+        /// <summary>all</summary>
+        public static ExternalAudience All { get; } = new("all");
+
+        /// <summary>Converts a string to <see cref="ExternalAudience"/>.</summary>
+        public static implicit operator ExternalAudience(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ExternalAudience"/> to its string representation.</summary>
+        public static implicit operator string(ExternalAudience value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ExternalAudience other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ExternalAudience other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ExternalAudience left, ExternalAudience right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ExternalAudience left, ExternalAudience right) => !left.Equals(right);
+
+        internal sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
+        {
+            public ExternalAudienceJsonConverter() { }
+            public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ExternalAudience, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Office365TimeZone values.
+    /// </summary>
+    [JsonConverter(typeof(Office365TimeZone.Office365TimeZoneJsonConverter))]
+    public readonly struct Office365TimeZone : IEquatable<Office365TimeZone>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Office365TimeZone"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Office365TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>(UTC-12:00) International Date Line West</summary>
+        public static Office365TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
+
+        /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
+        public static Office365TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
+
+        /// <summary>(UTC-10:00) Aleutian Islands</summary>
+        public static Office365TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
+
+        /// <summary>(UTC-10:00) Hawaii</summary>
+        public static Office365TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
+
+        /// <summary>(UTC-09:30) Marquesas Islands</summary>
+        public static Office365TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
+
+        /// <summary>(UTC-09:00) Alaska</summary>
+        public static Office365TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
+
+        /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
+        public static Office365TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
+
+        /// <summary>(UTC-08:00) Baja California</summary>
+        public static Office365TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
+
+        /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
+        public static Office365TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
+
+        /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
+
+        /// <summary>(UTC-07:00) Arizona</summary>
+        public static Office365TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
+
+        /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
+        public static Office365TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
+
+        /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
+
+        /// <summary>(UTC-06:00) Central America</summary>
+        public static Office365TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
+
+        /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
+
+        /// <summary>(UTC-06:00) Easter Island</summary>
+        public static Office365TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
+
+        /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
+        public static Office365TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
+
+        /// <summary>(UTC-06:00) Saskatchewan</summary>
+        public static Office365TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
+
+        /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
+        public static Office365TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
+
+        /// <summary>(UTC-05:00) Chetumal</summary>
+        public static Office365TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
+
+        /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
+
+        /// <summary>(UTC-05:00) Haiti</summary>
+        public static Office365TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
+
+        /// <summary>(UTC-05:00) Havana</summary>
+        public static Office365TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
+
+        /// <summary>(UTC-05:00) Indiana (East)</summary>
+        public static Office365TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
+
+        /// <summary>(UTC-04:00) Asuncion</summary>
+        public static Office365TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
+
+        /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
+        public static Office365TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
+
+        /// <summary>(UTC-04:00) Caracas</summary>
+        public static Office365TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
+
+        /// <summary>(UTC-04:00) Cuiaba</summary>
+        public static Office365TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
+
+        /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
+        public static Office365TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
+
+        /// <summary>(UTC-04:00) Santiago</summary>
+        public static Office365TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
+
+        /// <summary>(UTC-04:00) Turks and Caicos</summary>
+        public static Office365TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
+
+        /// <summary>(UTC-03:30) Newfoundland</summary>
+        public static Office365TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
+
+        /// <summary>(UTC-03:00) Araguaina</summary>
+        public static Office365TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
+
+        /// <summary>(UTC-03:00) Brasilia</summary>
+        public static Office365TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
+
+        /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
+        public static Office365TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
+
+        /// <summary>(UTC-03:00) City of Buenos Aires</summary>
+        public static Office365TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
+
+        /// <summary>(UTC-03:00) Greenland</summary>
+        public static Office365TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
+
+        /// <summary>(UTC-03:00) Montevideo</summary>
+        public static Office365TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
+
+        /// <summary>(UTC-03:00) Punta Arenas</summary>
+        public static Office365TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
+
+        /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
+        public static Office365TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
+
+        /// <summary>(UTC-03:00) Salvador</summary>
+        public static Office365TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
+
+        /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
+        public static Office365TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
+
+        /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
+        public static Office365TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
+
+        /// <summary>(UTC-01:00) Azores</summary>
+        public static Office365TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
+
+        /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
+        public static Office365TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
+
+        /// <summary>(UTC) Coordinated Universal Time</summary>
+        public static Office365TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
+
+        /// <summary>(UTC+00:00) Casablanca</summary>
+        public static Office365TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
+
+        /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
+        public static Office365TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
+
+        /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
+        public static Office365TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
+
+        /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
+        public static Office365TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
+
+        /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
+        public static Office365TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
+
+        /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
+        public static Office365TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
+
+        /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
+        public static Office365TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
+
+        /// <summary>(UTC+01:00) West Central Africa</summary>
+        public static Office365TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
+
+        /// <summary>(UTC+01:00) Windhoek</summary>
+        public static Office365TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
+
+        /// <summary>(UTC+02:00) Amman</summary>
+        public static Office365TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
+
+        /// <summary>(UTC+02:00) Athens, Bucharest</summary>
+        public static Office365TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
+
+        /// <summary>(UTC+02:00) Beirut</summary>
+        public static Office365TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
+
+        /// <summary>(UTC+02:00) Cairo</summary>
+        public static Office365TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
+
+        /// <summary>(UTC+02:00) Chisinau</summary>
+        public static Office365TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
+
+        /// <summary>(UTC+02:00) Damascus</summary>
+        public static Office365TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
+
+        /// <summary>(UTC+02:00) Gaza, Hebron</summary>
+        public static Office365TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
+
+        /// <summary>(UTC+02:00) Harare, Pretoria</summary>
+        public static Office365TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
+
+        /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
+        public static Office365TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
+
+        /// <summary>(UTC+02:00) Jerusalem</summary>
+        public static Office365TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
+
+        /// <summary>(UTC+02:00) Kaliningrad</summary>
+        public static Office365TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
+
+        /// <summary>(UTC+02:00) Tripoli</summary>
+        public static Office365TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
+
+        /// <summary>(UTC+03:00) Baghdad</summary>
+        public static Office365TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
+
+        /// <summary>(UTC+03:00) Istanbul</summary>
+        public static Office365TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
+
+        /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
+        public static Office365TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
+
+        /// <summary>(UTC+03:00) Minsk</summary>
+        public static Office365TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
+
+        /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
+        public static Office365TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
+
+        /// <summary>(UTC+03:00) Nairobi</summary>
+        public static Office365TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
+
+        /// <summary>(UTC+03:30) Tehran</summary>
+        public static Office365TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
+
+        /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
+        public static Office365TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
+
+        /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
+        public static Office365TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
+
+        /// <summary>(UTC+04:00) Baku</summary>
+        public static Office365TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
+
+        /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
+        public static Office365TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
+
+        /// <summary>(UTC+04:00) Port Louis</summary>
+        public static Office365TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
+
+        /// <summary>(UTC+04:00) Saratov</summary>
+        public static Office365TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
+
+        /// <summary>(UTC+04:00) Tbilisi</summary>
+        public static Office365TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
+
+        /// <summary>(UTC+04:00) Volgograd</summary>
+        public static Office365TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
+
+        /// <summary>(UTC+04:00) Yerevan</summary>
+        public static Office365TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
+
+        /// <summary>(UTC+04:30) Kabul</summary>
+        public static Office365TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
+
+        /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
+        public static Office365TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
+
+        /// <summary>(UTC+05:00) Ekaterinburg</summary>
+        public static Office365TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
+
+        /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
+        public static Office365TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
+
+        /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
+        public static Office365TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
+
+        /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
+        public static Office365TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
+
+        /// <summary>(UTC+05:45) Kathmandu</summary>
+        public static Office365TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
+
+        /// <summary>(UTC+06:00) Astana</summary>
+        public static Office365TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
+
+        /// <summary>(UTC+06:00) Dhaka</summary>
+        public static Office365TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
+
+        /// <summary>(UTC+06:00) Omsk</summary>
+        public static Office365TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
+
+        /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
+        public static Office365TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
+
+        /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
+        public static Office365TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
+
+        /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
+        public static Office365TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
+
+        /// <summary>(UTC+07:00) Hovd</summary>
+        public static Office365TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
+
+        /// <summary>(UTC+07:00) Krasnoyarsk</summary>
+        public static Office365TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
+
+        /// <summary>(UTC+07:00) Novosibirsk</summary>
+        public static Office365TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
+
+        /// <summary>(UTC+07:00) Tomsk</summary>
+        public static Office365TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
+
+        /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
+        public static Office365TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
+
+        /// <summary>(UTC+08:00) Irkutsk</summary>
+        public static Office365TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
+
+        /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
+        public static Office365TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
+
+        /// <summary>(UTC+08:00) Perth</summary>
+        public static Office365TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
+
+        /// <summary>(UTC+08:00) Taipei</summary>
+        public static Office365TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
+
+        /// <summary>(UTC+08:00) Ulaanbaatar</summary>
+        public static Office365TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
+
+        /// <summary>(UTC+08:30) Pyongyang</summary>
+        public static Office365TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
+
+        /// <summary>(UTC+08:45) Eucla</summary>
+        public static Office365TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
+
+        /// <summary>(UTC+09:00) Chita</summary>
+        public static Office365TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
+
+        /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
+        public static Office365TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
+
+        /// <summary>(UTC+09:00) Seoul</summary>
+        public static Office365TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
+
+        /// <summary>(UTC+09:00) Yakutsk</summary>
+        public static Office365TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
+
+        /// <summary>(UTC+09:30) Adelaide</summary>
+        public static Office365TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
+
+        /// <summary>(UTC+09:30) Darwin</summary>
+        public static Office365TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
+
+        /// <summary>(UTC+10:00) Brisbane</summary>
+        public static Office365TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
+
+        /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
+        public static Office365TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
+
+        /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
+        public static Office365TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
+
+        /// <summary>(UTC+10:00) Hobart</summary>
+        public static Office365TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
+
+        /// <summary>(UTC+10:00) Vladivostok</summary>
+        public static Office365TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
+
+        /// <summary>(UTC+10:30) Lord Howe Island</summary>
+        public static Office365TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
+
+        /// <summary>(UTC+11:00) Bougainville Island</summary>
+        public static Office365TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
+
+        /// <summary>(UTC+11:00) Chokurdakh</summary>
+        public static Office365TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
+
+        /// <summary>(UTC+11:00) Magadan</summary>
+        public static Office365TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
+
+        /// <summary>(UTC+11:00) Norfolk Island</summary>
+        public static Office365TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
+
+        /// <summary>(UTC+11:00) Sakhalin</summary>
+        public static Office365TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
+
+        /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
+        public static Office365TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
+
+        /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
+        public static Office365TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
+
+        /// <summary>(UTC+12:00) Auckland, Wellington</summary>
+        public static Office365TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
+
+        /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
+        public static Office365TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
+
+        /// <summary>(UTC+12:00) Fiji</summary>
+        public static Office365TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
+
+        /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
+        public static Office365TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
+
+        /// <summary>(UTC+12:45) Chatham Islands</summary>
+        public static Office365TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
+
+        /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
+        public static Office365TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
+
+        /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
+        public static Office365TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
+
+        /// <summary>(UTC+13:00) Samoa</summary>
+        public static Office365TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
+
+        /// <summary>(UTC+14:00) Kiritimati Island</summary>
+        public static Office365TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
+
+        /// <summary>Converts a string to <see cref="Office365TimeZone"/>.</summary>
+        public static implicit operator Office365TimeZone(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Office365TimeZone"/> to its string representation.</summary>
+        public static implicit operator string(Office365TimeZone value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Office365TimeZone other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Office365TimeZone other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Office365TimeZone left, Office365TimeZone right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Office365TimeZone left, Office365TimeZone right) => !left.Equals(right);
+
+        internal sealed class Office365TimeZoneJsonConverter : JsonConverter<Office365TimeZone>
+        {
+            public Office365TimeZoneJsonConverter() { }
+            public override Office365TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Office365TimeZone, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Office365TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Recurrence values.
+    /// </summary>
+    [JsonConverter(typeof(Recurrence.RecurrenceJsonConverter))]
+    public readonly struct Recurrence : IEquatable<Recurrence>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Recurrence"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Recurrence(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>none</summary>
+        public static Recurrence None { get; } = new("none");
+
+        /// <summary>daily</summary>
+        public static Recurrence Daily { get; } = new("daily");
+
+        /// <summary>weekly</summary>
+        public static Recurrence Weekly { get; } = new("weekly");
+
+        /// <summary>monthly</summary>
+        public static Recurrence Monthly { get; } = new("monthly");
+
+        /// <summary>yearly</summary>
+        public static Recurrence Yearly { get; } = new("yearly");
+
+        /// <summary>Converts a string to <see cref="Recurrence"/>.</summary>
+        public static implicit operator Recurrence(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Recurrence"/> to its string representation.</summary>
+        public static implicit operator string(Recurrence value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Recurrence other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Recurrence other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Recurrence left, Recurrence right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Recurrence left, Recurrence right) => !left.Equals(right);
+
+        internal sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
+        {
+            public RecurrenceJsonConverter() { }
+            public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Recurrence, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Recurrence value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known ResponseType values.
+    /// </summary>
+    [JsonConverter(typeof(ResponseType.ResponseTypeJsonConverter))]
+    public readonly struct ResponseType : IEquatable<ResponseType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponseType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ResponseType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>none</summary>
+        public static ResponseType None { get; } = new("none");
+
+        /// <summary>organizer</summary>
+        public static ResponseType Organizer { get; } = new("organizer");
+
+        /// <summary>tentativelyAccepted</summary>
+        public static ResponseType TentativelyAccepted { get; } = new("tentativelyAccepted");
+
+        /// <summary>accepted</summary>
+        public static ResponseType Accepted { get; } = new("accepted");
+
+        /// <summary>declined</summary>
+        public static ResponseType Declined { get; } = new("declined");
+
+        /// <summary>notResponded</summary>
+        public static ResponseType NotResponded { get; } = new("notResponded");
+
+        /// <summary>Converts a string to <see cref="ResponseType"/>.</summary>
+        public static implicit operator ResponseType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ResponseType"/> to its string representation.</summary>
+        public static implicit operator string(ResponseType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ResponseType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ResponseType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ResponseType left, ResponseType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ResponseType left, ResponseType right) => !left.Equals(right);
+
+        internal sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
+        {
+            public ResponseTypeJsonConverter() { }
+            public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ResponseType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ResponseType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Sensitivity values.
+    /// </summary>
+    [JsonConverter(typeof(Sensitivity.SensitivityJsonConverter))]
+    public readonly struct Sensitivity : IEquatable<Sensitivity>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sensitivity"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Sensitivity(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>normal</summary>
+        public static Sensitivity Normal { get; } = new("normal");
+
+        /// <summary>personal</summary>
+        public static Sensitivity Personal { get; } = new("personal");
+
+        /// <summary>private</summary>
+        public static Sensitivity Private { get; } = new("private");
+
+        /// <summary>confidential</summary>
+        public static Sensitivity Confidential { get; } = new("confidential");
+
+        /// <summary>Converts a string to <see cref="Sensitivity"/>.</summary>
+        public static implicit operator Sensitivity(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Sensitivity"/> to its string representation.</summary>
+        public static implicit operator string(Sensitivity value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Sensitivity other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Sensitivity other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Sensitivity left, Sensitivity right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Sensitivity left, Sensitivity right) => !left.Equals(right);
+
+        internal sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
+        {
+            public SensitivityJsonConverter() { }
+            public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Sensitivity, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Sensitivity value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known ShowAs values.
+    /// </summary>
+    [JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
+    public readonly struct ShowAs : IEquatable<ShowAs>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShowAs"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>free</summary>
+        public static ShowAs Free { get; } = new("free");
+
+        /// <summary>tentative</summary>
+        public static ShowAs Tentative { get; } = new("tentative");
+
+        /// <summary>busy</summary>
+        public static ShowAs Busy { get; } = new("busy");
+
+        /// <summary>oof</summary>
+        public static ShowAs Oof { get; } = new("oof");
+
+        /// <summary>workingElsewhere</summary>
+        public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
+
+        /// <summary>unknown</summary>
+        public static ShowAs Unknown { get; } = new("unknown");
+
+        /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
+        public static implicit operator ShowAs(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
+        public static implicit operator string(ShowAs value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
+
+        internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+        {
+            public ShowAsJsonConverter() { }
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Status values.
+    /// </summary>
+    [JsonConverter(typeof(Status.StatusJsonConverter))]
+    public readonly struct Status : IEquatable<Status>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Status"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Status(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>disabled</summary>
+        public static Status Disabled { get; } = new("disabled");
+
+        /// <summary>alwaysEnabled</summary>
+        public static Status AlwaysEnabled { get; } = new("alwaysEnabled");
+
+        /// <summary>scheduled</summary>
+        public static Status Scheduled { get; } = new("scheduled");
+
+        /// <summary>Converts a string to <see cref="Status"/>.</summary>
+        public static implicit operator Status(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
+        public static implicit operator string(Status value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Status other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Status other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Status left, Status right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Status left, Status right) => !left.Equals(right);
+
+        internal sealed class StatusJsonConverter : JsonConverter<Status>
+        {
+            public StatusJsonConverter() { }
+            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Status, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Office365 models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class Office365ModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphOutlookCategory"/>.
+        /// </summary>
+        public static GraphOutlookCategory GraphOutlookCategory(
+            string id = default,
+            string displayName = default)
+        {
+            return new GraphOutlookCategory
+            {
+                Id = id,
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="OutlookReceiveMessage"/>.
+        /// </summary>
+        public static OutlookReceiveMessage OutlookReceiveMessage(
+            string internetMessageId = default,
+            string bodyPreview = default,
+            string id = default,
+            string conversationId = default,
+            bool? hasAttachments = default,
+            bool? isRead = default,
+            DateTime? createdDateTime = default,
+            DateTime? receivedDateTime = default,
+            DateTime? lastModifiedDateTime = default,
+            List<OutlookReceiveAttachment> attachments = default,
+            List<Recipient> toRecipients = default,
+            List<Recipient> ccRecipients = default,
+            List<Recipient> bccRecipients = default,
+            List<Recipient> replyTo = default,
+            string subject = default,
+            ItemBody body = default,
+            Recipient from = default,
+            string importance = default,
+            List<InternetMessageHeader> internetMessageHeaders = default)
+        {
+            return new OutlookReceiveMessage
+            {
+                InternetMessageId = internetMessageId,
+                BodyPreview = bodyPreview,
+                Id = id,
+                ConversationId = conversationId,
+                HasAttachments = hasAttachments,
+                IsRead = isRead,
+                CreatedDateTime = createdDateTime,
+                ReceivedDateTime = receivedDateTime,
+                LastModifiedDateTime = lastModifiedDateTime,
+                Attachments = attachments,
+                ToRecipients = toRecipients,
+                CcRecipients = ccRecipients,
+                BccRecipients = bccRecipients,
+                ReplyTo = replyTo,
+                Subject = subject,
+                Body = body,
+                From = from,
+                Importance = importance,
+                InternetMessageHeaders = internetMessageHeaders,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="OutlookReceiveAttachment"/>.
+        /// </summary>
+        public static OutlookReceiveAttachment OutlookReceiveAttachment(
+            string type = default,
+            string id = default,
+            string name = default,
+            string contentBytes = default,
+            string contentType = default,
+            long? size = default,
+            string permission = default,
+            string providerType = default,
+            string sourceUrl = default,
+            bool? isInline = default,
+            DateTime? lastModifiedDateTime = default,
+            string contentId = default)
+        {
+            return new OutlookReceiveAttachment
+            {
+                Type = type,
+                Id = id,
+                Name = name,
+                ContentBytes = contentBytes,
+                ContentType = contentType,
+                Size = size,
+                Permission = permission,
+                ProviderType = providerType,
+                SourceUrl = sourceUrl,
+                IsInline = isInline,
+                LastModifiedDateTime = lastModifiedDateTime,
+                ContentId = contentId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Recipient"/>.
+        /// </summary>
+        public static Recipient Recipient(
+            EmailAddress emailAddress = default)
+        {
+            return new Recipient
+            {
+                EmailAddress = emailAddress,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailAddress"/>.
+        /// </summary>
+        public static EmailAddress EmailAddress(
+            string name = default,
+            string address = default)
+        {
+            return new EmailAddress
+            {
+                Name = name,
+                Address = address,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ItemBody"/>.
+        /// </summary>
+        public static ItemBody ItemBody(
+            ContentType? contentType = default,
+            string content = default)
+        {
+            return new ItemBody
+            {
+                ContentType = contentType,
+                Content = content,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="InternetMessageHeader"/>.
+        /// </summary>
+        public static InternetMessageHeader InternetMessageHeader(
+            string name = default,
+            string value = default)
+        {
+            return new InternetMessageHeader
+            {
+                Name = name,
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BatchOperationResult"/>.
+        /// </summary>
+        public static BatchOperationResult BatchOperationResult(
+            int? successCount = default,
+            List<BatchItemFailureResult> failures = default)
+        {
+            return new BatchOperationResult
+            {
+                SuccessCount = successCount,
+                Failures = failures,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BatchItemFailureResult"/>.
+        /// </summary>
+        public static BatchItemFailureResult BatchItemFailureResult(
+            string messageId = default,
+            string error = default)
+        {
+            return new BatchItemFailureResult
+            {
+                MessageId = messageId,
+                Error = error,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SubscriptionResponse"/>.
+        /// </summary>
+        public static SubscriptionResponse SubscriptionResponse(
+            string id = default,
+            string resource = default,
+            string notificationType = default,
+            string notificationUrl = default)
+        {
+            return new SubscriptionResponse
+            {
+                Id = id,
+                Resource = resource,
+                NotificationType = notificationType,
+                NotificationUrl = notificationUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+        /// </summary>
+        public static MCPQueryResponse MCPQueryResponse(
+            string jsonrpc = default,
+            string id = default,
+            string method = default,
+            object @params = default,
+            object result = default,
+            object error = default)
+        {
+            return new MCPQueryResponse
+            {
+                Jsonrpc = jsonrpc,
+                Id = id,
+                Method = method,
+                Params = @params,
+                Result = result,
+                Error = error,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphCalendarEventClientReceive"/>.
+        /// </summary>
+        public static GraphCalendarEventClientReceive GraphCalendarEventClientReceive(
+            string subject = default,
+            string startTime = default,
+            string endTime = default,
+            DateTime? startTimeWithTimeZone = default,
+            DateTime? endTimeWithTimeZone = default,
+            string body = default,
+            bool? isHTML = default,
+            ResponseType? responseType = default,
+            DateTime? responseTime = default,
+            string id = default,
+            DateTime? createdTime = default,
+            DateTime? lastModifiedTime = default,
+            string organizer = default,
+            string timeZone = default,
+            string seriesMasterId = default,
+            string iCalUId = default,
+            List<string> categories = default,
+            string webLink = default,
+            string requiredAttendees = default,
+            string optionalAttendees = default,
+            string resourceAttendees = default,
+            string location = default,
+            string importance = default,
+            bool? isAllDayEvent = default,
+            Recurrence? recurrence = default,
+            DateTime? recurrenceEndDate = default,
+            int? numberOfOccurrences = default,
+            int? reminder = default,
+            bool? isReminderOn = default,
+            ShowAs? showAs = default,
+            bool? responseRequested = default,
+            Sensitivity? sensitivity = default)
+        {
+            return new GraphCalendarEventClientReceive
+            {
+                Subject = subject,
+                StartTime = startTime,
+                EndTime = endTime,
+                StartTimeWithTimeZone = startTimeWithTimeZone,
+                EndTimeWithTimeZone = endTimeWithTimeZone,
+                Body = body,
+                IsHTML = isHTML,
+                ResponseType = responseType,
+                ResponseTime = responseTime,
+                Id = id,
+                CreatedTime = createdTime,
+                LastModifiedTime = lastModifiedTime,
+                Organizer = organizer,
+                TimeZone = timeZone,
+                SeriesMasterId = seriesMasterId,
+                ICalUId = iCalUId,
+                Categories = categories,
+                WebLink = webLink,
+                RequiredAttendees = requiredAttendees,
+                OptionalAttendees = optionalAttendees,
+                ResourceAttendees = resourceAttendees,
+                Location = location,
+                Importance = importance,
+                IsAllDayEvent = isAllDayEvent,
+                Recurrence = recurrence,
+                RecurrenceEndDate = recurrenceEndDate,
+                NumberOfOccurrences = numberOfOccurrences,
+                Reminder = reminder,
+                IsReminderOn = isReminderOn,
+                ShowAs = showAs,
+                ResponseRequested = responseRequested,
+                Sensitivity = sensitivity,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphCalendarEventListClientReceive"/>.
+        /// </summary>
+        public static GraphCalendarEventListClientReceive GraphCalendarEventListClientReceive(
+            List<GraphCalendarEventClientReceive> value = default)
+        {
+            return new GraphCalendarEventListClientReceive
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphCalendarEventListWithActionType"/>.
+        /// </summary>
+        public static GraphCalendarEventListWithActionType GraphCalendarEventListWithActionType(
+            List<GraphCalendarEventClientWithActionType> value = default)
+        {
+            return new GraphCalendarEventListWithActionType
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphCalendarEventClientWithActionType"/>.
+        /// </summary>
+        public static GraphCalendarEventClientWithActionType GraphCalendarEventClientWithActionType(
+            ActionType? actionType = default,
+            bool? isAdded = default,
+            bool? isUpdated = default,
+            string subject = default,
+            string startTime = default,
+            string endTime = default,
+            DateTime? startTimeWithTimeZone = default,
+            DateTime? endTimeWithTimeZone = default,
+            string body = default,
+            bool? isHTML = default,
+            ResponseType? responseType = default,
+            DateTime? responseTime = default,
+            string id = default,
+            DateTime? createdTime = default,
+            DateTime? lastModifiedTime = default,
+            string organizer = default,
+            string timeZone = default,
+            string seriesMasterId = default,
+            string iCalUId = default,
+            List<string> categories = default,
+            string webLink = default,
+            string requiredAttendees = default,
+            string optionalAttendees = default,
+            string resourceAttendees = default,
+            string location = default,
+            string importance = default,
+            bool? isAllDayEvent = default,
+            Recurrence? recurrence = default,
+            DateTime? recurrenceEndDate = default,
+            int? numberOfOccurrences = default,
+            int? reminder = default,
+            bool? isReminderOn = default,
+            ShowAs? showAs = default,
+            bool? responseRequested = default,
+            Sensitivity? sensitivity = default)
+        {
+            return new GraphCalendarEventClientWithActionType
+            {
+                ActionType = actionType,
+                IsAdded = isAdded,
+                IsUpdated = isUpdated,
+                Subject = subject,
+                StartTime = startTime,
+                EndTime = endTime,
+                StartTimeWithTimeZone = startTimeWithTimeZone,
+                EndTimeWithTimeZone = endTimeWithTimeZone,
+                Body = body,
+                IsHTML = isHTML,
+                ResponseType = responseType,
+                ResponseTime = responseTime,
+                Id = id,
+                CreatedTime = createdTime,
+                LastModifiedTime = lastModifiedTime,
+                Organizer = organizer,
+                TimeZone = timeZone,
+                SeriesMasterId = seriesMasterId,
+                ICalUId = iCalUId,
+                Categories = categories,
+                WebLink = webLink,
+                RequiredAttendees = requiredAttendees,
+                OptionalAttendees = optionalAttendees,
+                ResourceAttendees = resourceAttendees,
+                Location = location,
+                Importance = importance,
+                IsAllDayEvent = isAllDayEvent,
+                Recurrence = recurrence,
+                RecurrenceEndDate = recurrenceEndDate,
+                NumberOfOccurrences = numberOfOccurrences,
+                Reminder = reminder,
+                IsReminderOn = isReminderOn,
+                ShowAs = showAs,
+                ResponseRequested = responseRequested,
+                Sensitivity = sensitivity,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CalendarGetTablesResponse"/>.
+        /// </summary>
+        public static CalendarGetTablesResponse CalendarGetTablesResponse(
+            List<object> value = default)
+        {
+            return new CalendarGetTablesResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ContactResponse"/>.
+        /// </summary>
+        public static ContactResponse ContactResponse(
+            string id = default,
+            string parentFolderId = default,
+            DateTime? birthday = default,
+            string fileAs = default,
+            string displayName = default,
+            string givenName = default,
+            string initials = default,
+            string middleName = default,
+            string nickname = default,
+            string surname = default,
+            string title = default,
+            string generation = default,
+            List<EmailAddress> emailAddresses = default,
+            List<string> imAddresses = default,
+            string jobTitle = default,
+            string companyName = default,
+            string department = default,
+            string officeLocation = default,
+            string profession = default,
+            string businessHomePage = default,
+            string assistantName = default,
+            string manager = default,
+            List<string> homePhones = default,
+            List<string> businessPhones = default,
+            string mobilePhone = default,
+            PhysicalAddress homeAddress = default,
+            PhysicalAddress businessAddress = default,
+            PhysicalAddress otherAddress = default,
+            string yomiCompanyName = default,
+            string yomiGivenName = default,
+            string yomiSurname = default,
+            List<string> categories = default,
+            string changeKey = default,
+            DateTime? createdTime = default,
+            DateTime? lastModifiedTime = default)
+        {
+            return new ContactResponse
+            {
+                Id = id,
+                ParentFolderId = parentFolderId,
+                Birthday = birthday,
+                FileAs = fileAs,
+                DisplayName = displayName,
+                GivenName = givenName,
+                Initials = initials,
+                MiddleName = middleName,
+                Nickname = nickname,
+                Surname = surname,
+                Title = title,
+                Generation = generation,
+                EmailAddresses = emailAddresses,
+                IMAddresses = imAddresses,
+                JobTitle = jobTitle,
+                CompanyName = companyName,
+                Department = department,
+                OfficeLocation = officeLocation,
+                Profession = profession,
+                BusinessHomePage = businessHomePage,
+                AssistantName = assistantName,
+                Manager = manager,
+                HomePhones = homePhones,
+                BusinessPhones = businessPhones,
+                MobilePhone = mobilePhone,
+                HomeAddress = homeAddress,
+                BusinessAddress = businessAddress,
+                OtherAddress = otherAddress,
+                YomiCompanyName = yomiCompanyName,
+                YomiGivenName = yomiGivenName,
+                YomiSurname = yomiSurname,
+                Categories = categories,
+                ChangeKey = changeKey,
+                CreatedTime = createdTime,
+                LastModifiedTime = lastModifiedTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailAddressV2"/>.
+        /// </summary>
+        public static EmailAddressV2 EmailAddressV2(
+            string name = default,
+            string address = default)
+        {
+            return new EmailAddressV2
+            {
+                Name = name,
+                Address = address,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PhysicalAddress"/>.
+        /// </summary>
+        public static PhysicalAddress PhysicalAddress(
+            string street = default,
+            string city = default,
+            string state = default,
+            string countryOrRegion = default,
+            string postalCode = default)
+        {
+            return new PhysicalAddress
+            {
+                Street = street,
+                City = city,
+                State = state,
+                CountryOrRegion = countryOrRegion,
+                PostalCode = postalCode,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EntityListResponseContactResponse"/>.
+        /// </summary>
+        public static EntityListResponseContactResponse EntityListResponseContactResponse(
+            List<ContactResponse> value = default)
+        {
+            return new EntityListResponseContactResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ContactResponseV2"/>.
+        /// </summary>
+        public static ContactResponseV2 ContactResponseV2(
+            string id = default,
+            string parentFolderId = default,
+            DateTime? birthday = default,
+            string fileAs = default,
+            string displayName = default,
+            string givenName = default,
+            string initials = default,
+            string middleName = default,
+            string nickname = default,
+            string surname = default,
+            string title = default,
+            string generation = default,
+            List<EmailAddress> emailAddresses = default,
+            List<string> imAddresses = default,
+            string jobTitle = default,
+            string companyName = default,
+            string department = default,
+            string officeLocation = default,
+            string profession = default,
+            string businessHomePage = default,
+            string assistantName = default,
+            string manager = default,
+            List<string> homePhones = default,
+            List<string> businessPhones = default,
+            string mobilePhone = default,
+            PhysicalAddress homeAddress = default,
+            PhysicalAddress businessAddress = default,
+            PhysicalAddress otherAddress = default,
+            string yomiCompanyName = default,
+            string yomiGivenName = default,
+            string yomiSurname = default,
+            List<string> categories = default,
+            string changeKey = default,
+            DateTime? createdTime = default,
+            DateTime? lastModifiedTime = default)
+        {
+            return new ContactResponseV2
+            {
+                Id = id,
+                ParentFolderId = parentFolderId,
+                Birthday = birthday,
+                FileAs = fileAs,
+                DisplayName = displayName,
+                GivenName = givenName,
+                Initials = initials,
+                MiddleName = middleName,
+                Nickname = nickname,
+                Surname = surname,
+                Title = title,
+                Generation = generation,
+                EmailAddresses = emailAddresses,
+                IMAddresses = imAddresses,
+                JobTitle = jobTitle,
+                CompanyName = companyName,
+                Department = department,
+                OfficeLocation = officeLocation,
+                Profession = profession,
+                BusinessHomePage = businessHomePage,
+                AssistantName = assistantName,
+                Manager = manager,
+                HomePhones = homePhones,
+                BusinessPhones = businessPhones,
+                MobilePhone = mobilePhone,
+                HomeAddress = homeAddress,
+                BusinessAddress = businessAddress,
+                OtherAddress = otherAddress,
+                YomiCompanyName = yomiCompanyName,
+                YomiGivenName = yomiGivenName,
+                YomiSurname = yomiSurname,
+                Categories = categories,
+                ChangeKey = changeKey,
+                CreatedTime = createdTime,
+                LastModifiedTime = lastModifiedTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EntityListResponseGraphContactFolder"/>.
+        /// </summary>
+        public static EntityListResponseGraphContactFolder EntityListResponseGraphContactFolder(
+            List<GraphContactFolder> value = default)
+        {
+            return new EntityListResponseGraphContactFolder
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphContactFolder"/>.
+        /// </summary>
+        public static GraphContactFolder GraphContactFolder(
+            string id = default,
+            string displayName = default,
+            string parentFolderID = default)
+        {
+            return new GraphContactFolder
+            {
+                ID = id,
+                DisplayName = displayName,
+                ParentFolderID = parentFolderID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FindMeetingTimesInput"/>.
+        /// </summary>
+        public static FindMeetingTimesInput FindMeetingTimesInput(
+            string requiredAttendees = default,
+            string optionalAttendees = default,
+            string resourceAttendees = default,
+            int? meetingDuration = default,
+            DateTime? startTime = default,
+            DateTime? endTime = default,
+            int? maxCandidates = default,
+            string minimumAttendeePercentage = default,
+            bool? isOrganizerOptional = default,
+            ActivityDomain? activityDomain = default)
+        {
+            return new FindMeetingTimesInput
+            {
+                RequiredAttendees = requiredAttendees,
+                OptionalAttendees = optionalAttendees,
+                ResourceAttendees = resourceAttendees,
+                MeetingDuration = meetingDuration,
+                StartTime = startTime,
+                EndTime = endTime,
+                MaxCandidates = maxCandidates,
+                MinimumAttendeePercentage = minimumAttendeePercentage,
+                IsOrganizerOptional = isOrganizerOptional,
+                ActivityDomain = activityDomain,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FindMeetingTimesResponse"/>.
+        /// </summary>
+        public static FindMeetingTimesResponse FindMeetingTimesResponse(
+            string emptySuggestionsReason = default,
+            List<object> meetingTimeSuggestions = default)
+        {
+            return new FindMeetingTimesResponse
+            {
+                EmptySuggestionsReason = emptySuggestionsReason,
+                MeetingTimeSuggestions = meetingTimeSuggestions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetAttachmentResponse"/>.
+        /// </summary>
+        public static GetAttachmentResponse GetAttachmentResponse(
+            string id = default,
+            string name = default,
+            string contentType = default,
+            int? size = default,
+            string contentBytes = default,
+            bool? isInline = default,
+            DateTime? lastModifiedDateTime = default,
+            string contentId = default,
+            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+        {
+            return new GetAttachmentResponse
+            {
+                Id = id,
+                Name = name,
+                ContentType = contentType,
+                Size = size,
+                ContentBytes = contentBytes,
+                IsInline = isInline,
+                LastModifiedDateTime = lastModifiedDateTime,
+                ContentId = contentId,
+                SensitivityLabelInfo = sensitivityLabelInfo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SensitivityLabelMetadata"/>.
+        /// </summary>
+        public static SensitivityLabelMetadata SensitivityLabelMetadata(
+            string sensitivityLabelId = default,
+            string name = default,
+            string sensitivityLabelDisplayNameInfo = default,
+            string tooltipInfo = default,
+            int? priorityOfSensitivityLabel = default,
+            string colorToBeDisplayedForSensitivityLabel = default,
+            bool? isEncryptedStatusOfSensitivityLabel = default,
+            bool? whetherSensitivityLabelIsEnabled = default,
+            bool? whetherSensitivityLabelIsParent = default,
+            string parentSensitivityLabelId = default)
+        {
+            return new SensitivityLabelMetadata
+            {
+                SensitivityLabelId = sensitivityLabelId,
+                Name = name,
+                SensitivityLabelDisplayNameInfo = sensitivityLabelDisplayNameInfo,
+                TooltipInfo = tooltipInfo,
+                PriorityOfSensitivityLabel = priorityOfSensitivityLabel,
+                ColorToBeDisplayedForSensitivityLabel = colorToBeDisplayedForSensitivityLabel,
+                IsEncryptedStatusOfSensitivityLabel = isEncryptedStatusOfSensitivityLabel,
+                WhetherSensitivityLabelIsEnabled = whetherSensitivityLabelIsEnabled,
+                WhetherSensitivityLabelIsParent = whetherSensitivityLabelIsParent,
+                ParentSensitivityLabelId = parentSensitivityLabelId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphClientReceiveMessage"/>.
+        /// </summary>
+        public static GraphClientReceiveMessage GraphClientReceiveMessage(
+            string from = default,
+            string to = default,
+            string cc = default,
+            string bcc = default,
+            string replyTo = default,
+            string subject = default,
+            string body = default,
+            string importance = default,
+            string bodyPreview = default,
+            bool? hasAttachment = default,
+            string messageId = default,
+            string internetMessageId = default,
+            string conversationId = default,
+            DateTime? receivedTime = default,
+            bool? isRead = default,
+            List<GraphClientReceiveFileAttachment> attachments = default,
+            bool? isHTML = default,
+            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+        {
+            return new GraphClientReceiveMessage
+            {
+                From = from,
+                To = to,
+                CC = cc,
+                BCC = bcc,
+                ReplyTo = replyTo,
+                Subject = subject,
+                Body = body,
+                Importance = importance,
+                BodyPreview = bodyPreview,
+                HasAttachment = hasAttachment,
+                MessageId = messageId,
+                InternetMessageId = internetMessageId,
+                ConversationId = conversationId,
+                ReceivedTime = receivedTime,
+                IsRead = isRead,
+                Attachments = attachments,
+                IsHTML = isHTML,
+                SensitivityLabelInfo = sensitivityLabelInfo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphClientReceiveFileAttachment"/>.
+        /// </summary>
+        public static GraphClientReceiveFileAttachment GraphClientReceiveFileAttachment(
+            string attachmentId = default,
+            string name = default,
+            string content = default,
+            string contentType = default,
+            long? size = default,
+            bool? isInline = default,
+            DateTime? lastModifiedDateTime = default,
+            string contentId = default)
+        {
+            return new GraphClientReceiveFileAttachment
+            {
+                AttachmentId = attachmentId,
+                Name = name,
+                Content = content,
+                ContentType = contentType,
+                Size = size,
+                IsInline = isInline,
+                LastModifiedDateTime = lastModifiedDateTime,
+                ContentId = contentId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BatchResponseGraphClientReceiveMessage"/>.
+        /// </summary>
+        public static BatchResponseGraphClientReceiveMessage BatchResponseGraphClientReceiveMessage(
+            List<GraphClientReceiveMessage> value = default)
+        {
+            return new BatchResponseGraphClientReceiveMessage
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EntityListResponseGraphCalendarEventClientReceive"/>.
+        /// </summary>
+        public static EntityListResponseGraphCalendarEventClientReceive EntityListResponseGraphCalendarEventClientReceive(
+            List<GraphCalendarEventClientReceive> value = default)
+        {
+            return new EntityListResponseGraphCalendarEventClientReceive
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMailTipsInput"/>.
+        /// </summary>
+        public static GetMailTipsInput GetMailTipsInput(
+            string flagsThatRepresentsTheMailtips = default,
+            List<string> emailAddresses = default)
+        {
+            return new GetMailTipsInput
+            {
+                FlagsThatRepresentsTheMailtips = flagsThatRepresentsTheMailtips,
+                EmailAddresses = emailAddresses,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMailTipsResponse"/>.
+        /// </summary>
+        public static GetMailTipsResponse GetMailTipsResponse(
+            List<MailTipsClientReceive> value = default)
+        {
+            return new GetMailTipsResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MailTipsClientReceiveV2"/>.
+        /// </summary>
+        public static MailTipsClientReceiveV2 MailTipsClientReceiveV2(
+            MailTipsAutomaticReplies automaticReplies = default,
+            bool? isDeliveryRestricted = default,
+            int? isModerated = default,
+            bool? isMailboxFull = default,
+            long? maximumMessageSize = default,
+            long? totalMemberCount = default)
+        {
+            return new MailTipsClientReceiveV2
+            {
+                AutomaticReplies = automaticReplies,
+                IsDeliveryRestricted = isDeliveryRestricted,
+                IsModerated = isModerated,
+                IsMailboxFull = isMailboxFull,
+                MaximumMessageSize = maximumMessageSize,
+                TotalMemberCount = totalMemberCount,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MailTipsAutomaticReplies"/>.
+        /// </summary>
+        public static MailTipsAutomaticReplies MailTipsAutomaticReplies(
+            string automaticRepliesMessage = default)
+        {
+            return new MailTipsAutomaticReplies
+            {
+                AutomaticRepliesMessage = automaticRepliesMessage,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetRoomListsResponse"/>.
+        /// </summary>
+        public static GetRoomListsResponse GetRoomListsResponse(
+            List<object> value = default)
+        {
+            return new GetRoomListsResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetRoomsResponse"/>.
+        /// </summary>
+        public static GetRoomsResponse GetRoomsResponse(
+            List<object> value = default)
+        {
+            return new GetRoomsResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetRoomsInRoomListResponse"/>.
+        /// </summary>
+        public static GetRoomsInRoomListResponse GetRoomsInRoomListResponse(
+            List<object> value = default)
+        {
+            return new GetRoomsInRoomListResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MarkAsReadInput"/>.
+        /// </summary>
+        public static MarkAsReadInput MarkAsReadInput(
+            bool? markAs = default)
+        {
+            return new MarkAsReadInput
+            {
+                MarkAs = markAs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TriggerBatchResponseGraphClientReceiveMessage"/>.
+        /// </summary>
+        public static TriggerBatchResponseGraphClientReceiveMessage TriggerBatchResponseGraphClientReceiveMessage(
+            List<GraphClientReceiveMessage> value = default)
+        {
+            return new TriggerBatchResponseGraphClientReceiveMessage
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SetAutomaticRepliesSettingInput"/>.
+        /// </summary>
+        public static SetAutomaticRepliesSettingInput SetAutomaticRepliesSettingInput(
+            AutomaticRepliesSettingClient automaticRepliesSetting = default)
+        {
+            return new SetAutomaticRepliesSettingInput
+            {
+                AutomaticRepliesSetting = automaticRepliesSetting,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AutomaticRepliesSettingClient"/>.
+        /// </summary>
+        public static AutomaticRepliesSettingClient AutomaticRepliesSettingClient(
+            Status? status = default,
+            ExternalAudience? externalAudience = default,
+            object startTime = default,
+            object endTime = default,
+            string internalReplyMessage = default,
+            string externalReplyMessage = default)
+        {
+            return new AutomaticRepliesSettingClient
+            {
+                Status = status,
+                ExternalAudience = externalAudience,
+                StartTime = startTime,
+                EndTime = endTime,
+                InternalReplyMessage = internalReplyMessage,
+                ExternalReplyMessage = externalReplyMessage,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SetAutomaticRepliesSettingResponse"/>.
+        /// </summary>
+        public static SetAutomaticRepliesSettingResponse SetAutomaticRepliesSettingResponse(
+            AutomaticRepliesSettingClient automaticRepliesSetting = default)
+        {
+            return new SetAutomaticRepliesSettingResponse
+            {
+                AutomaticRepliesSetting = automaticRepliesSetting,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ClientSendAttachment"/>.
+        /// </summary>
+        public static ClientSendAttachment ClientSendAttachment(
+            string name = default,
+            string content = default)
+        {
+            return new ClientSendAttachment
+            {
+                Name = name,
+                Content = content,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SendEmailInput"/>.
+        /// </summary>
+        public static SendEmailInput SendEmailInput(
+            string to = default,
+            string subject = default,
+            string body = default,
+            string fromSendAs = default,
+            string cc = default,
+            string bcc = default,
+            List<ClientSendAttachment> attachments = default,
+            string sensitivity = default,
+            string replyTo = default,
+            string importance = default)
+        {
+            return new SendEmailInput
+            {
+                To = to,
+                Subject = subject,
+                Body = body,
+                FromSendAs = fromSendAs,
+                CC = cc,
+                BCC = bcc,
+                Attachments = attachments,
+                Sensitivity = sensitivity,
+                ReplyTo = replyTo,
+                Importance = importance,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DraftEmailInput"/>.
+        /// </summary>
+        public static DraftEmailInput DraftEmailInput(
+            string to = default,
+            string subject = default,
+            string body = default,
+            string fromSendAs = default,
+            string cc = default,
+            string bcc = default,
+            List<ClientSendAttachment> attachments = default,
+            string sensitivity = default,
+            string replyTo = default,
+            string importance = default)
+        {
+            return new DraftEmailInput
+            {
+                To = to,
+                Subject = subject,
+                Body = body,
+                FromSendAs = fromSendAs,
+                CC = cc,
+                BCC = bcc,
+                Attachments = attachments,
+                Sensitivity = sensitivity,
+                ReplyTo = replyTo,
+                Importance = importance,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ReplyEmailInput"/>.
+        /// </summary>
+        public static ReplyEmailInput ReplyEmailInput(
+            string to = default,
+            string cc = default,
+            string bcc = default,
+            string subject = default,
+            string body = default,
+            bool? replyAll = default,
+            string importance = default,
+            List<ClientSendAttachment> attachments = default)
+        {
+            return new ReplyEmailInput
+            {
+                To = to,
+                CC = cc,
+                BCC = bcc,
+                Subject = subject,
+                Body = body,
+                ReplyAll = replyAll,
+                Importance = importance,
+                Attachments = attachments,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="OptionsEmailSubscription"/>.
+        /// </summary>
+        public static OptionsEmailSubscription OptionsEmailSubscription(
+            string notificationUrl = default,
+            MessageWithOptions message = default)
+        {
+            return new OptionsEmailSubscription
+            {
+                NotificationUrl = notificationUrl,
+                Message = message,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageWithOptions"/>.
+        /// </summary>
+        public static MessageWithOptions MessageWithOptions(
+            string to = default,
+            string subject = default,
+            string userOptions = default,
+            string headerText = default,
+            string selectionText = default,
+            string body = default,
+            string importance = default,
+            List<ClientSendAttachment> attachments = default,
+            bool? useOnlyHTMLMessage = default,
+            bool? hideHTMLMessage = default,
+            bool? showHTMLConfirmationDialog = default,
+            bool? hideMicrosoftFooter = default)
+        {
+            return new MessageWithOptions
+            {
+                To = to,
+                Subject = subject,
+                UserOptions = userOptions,
+                HeaderText = headerText,
+                SelectionText = selectionText,
+                Body = body,
+                Importance = importance,
+                Attachments = attachments,
+                UseOnlyHTMLMessage = useOnlyHTMLMessage,
+                HideHTMLMessage = hideHTMLMessage,
+                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+                HideMicrosoftFooter = hideMicrosoftFooter,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ApprovalEmailSubscription"/>.
+        /// </summary>
+        public static ApprovalEmailSubscription ApprovalEmailSubscription(
+            string notificationUrl = default,
+            ApprovalMessage message = default)
+        {
+            return new ApprovalEmailSubscription
+            {
+                NotificationUrl = notificationUrl,
+                Message = message,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ApprovalMessage"/>.
+        /// </summary>
+        public static ApprovalMessage ApprovalMessage(
+            string to = default,
+            string subject = default,
+            string userOptions = default,
+            string headerText = default,
+            string selectionText = default,
+            string body = default,
+            string importance = default,
+            List<ClientSendAttachment> attachments = default,
+            bool? useOnlyHTMLMessage = default,
+            bool? hideHTMLMessage = default,
+            bool? showHTMLConfirmationDialog = default)
+        {
+            return new ApprovalMessage
+            {
+                To = to,
+                Subject = subject,
+                UserOptions = userOptions,
+                HeaderText = headerText,
+                SelectionText = selectionText,
+                Body = body,
+                Importance = importance,
+                Attachments = attachments,
+                UseOnlyHTMLMessage = useOnlyHTMLMessage,
+                HideHTMLMessage = hideHTMLMessage,
+                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SharedMailboxSendEmailInput"/>.
+        /// </summary>
+        public static SharedMailboxSendEmailInput SharedMailboxSendEmailInput(
+            string originalMailboxAddress = default,
+            string to = default,
+            string subject = default,
+            string body = default,
+            string cc = default,
+            string bcc = default,
+            List<ClientSendAttachment> attachments = default,
+            string sensitivity = default,
+            string replyTo = default,
+            string importance = default)
+        {
+            return new SharedMailboxSendEmailInput
+            {
+                OriginalMailboxAddress = originalMailboxAddress,
+                To = to,
+                Subject = subject,
+                Body = body,
+                CC = cc,
+                BCC = bcc,
+                Attachments = attachments,
+                Sensitivity = sensitivity,
+                ReplyTo = replyTo,
+                Importance = importance,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GraphCalendarEventClient"/>.
+        /// </summary>
+        public static GraphCalendarEventClient GraphCalendarEventClient(
+            string subject = default,
+            string startTime = default,
+            string endTime = default,
+            Office365TimeZone? timeZone = default,
+            string requiredAttendees = default,
+            string optionalAttendees = default,
+            string resourceAttendees = default,
+            string body = default,
+            List<string> categories = default,
+            string location = default,
+            string importance = default,
+            bool? isAllDayEvent = default,
+            Recurrence? recurrence = default,
+            List<string> selectedDaysOfWeek = default,
+            DateTime? recurrenceEndDate = default,
+            int? numberOfOccurrences = default,
+            int? reminder = default,
+            bool? isReminderOn = default,
+            ShowAs? showAs = default,
+            bool? responseRequested = default,
+            Sensitivity? sensitivity = default)
+        {
+            return new GraphCalendarEventClient
+            {
+                Subject = subject,
+                StartTime = startTime,
+                EndTime = endTime,
+                TimeZone = timeZone,
+                RequiredAttendees = requiredAttendees,
+                OptionalAttendees = optionalAttendees,
+                ResourceAttendees = resourceAttendees,
+                Body = body,
+                Categories = categories,
+                Location = location,
+                Importance = importance,
+                IsAllDayEvent = isAllDayEvent,
+                Recurrence = recurrence,
+                SelectedDaysOfWeek = selectedDaysOfWeek,
+                RecurrenceEndDate = recurrenceEndDate,
+                NumberOfOccurrences = numberOfOccurrences,
+                Reminder = reminder,
+                IsReminderOn = isReminderOn,
+                ShowAs = showAs,
+                ResponseRequested = responseRequested,
+                Sensitivity = sensitivity,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MailTipsClientReceive"/>.
+        /// </summary>
+        public static MailTipsClientReceive MailTipsClientReceive(
+            MailTipsAutomaticReplies automaticReplies = default,
+            bool? isDeliveryRestricted = default,
+            int? isModerated = default,
+            bool? isMailboxFull = default,
+            long? maximumMessageSize = default,
+            long? totalMemberCount = default)
+        {
+            return new MailTipsClientReceive
+            {
+                AutomaticReplies = automaticReplies,
+                IsDeliveryRestricted = isDeliveryRestricted,
+                IsModerated = isModerated,
+                IsMailboxFull = isMailboxFull,
+                MaximumMessageSize = maximumMessageSize,
+                TotalMemberCount = totalMemberCount,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UpdateEmailFlag"/>.
+        /// </summary>
+        public static UpdateEmailFlag UpdateEmailFlag(
+            object flag = default)
+        {
+            return new UpdateEmailFlag
+            {
+                Flag = flag,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResponseToEventInvite"/>.
+        /// </summary>
+        public static ResponseToEventInvite ResponseToEventInvite(
+            string comment = default,
+            bool? sendResponse = default)
+        {
+            return new ResponseToEventInvite
+            {
+                Comment = comment,
+                SendResponse = sendResponse,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DirectForwardMessage"/>.
+        /// </summary>
+        public static DirectForwardMessage DirectForwardMessage(
+            string comment = default,
+            string to = default)
+        {
+            return new DirectForwardMessage
+            {
+                Comment = comment,
+                To = to,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DateTimeTimeZone"/>.
+        /// </summary>
+        public static DateTimeTimeZone DateTimeTimeZone(
+            string dateTime = default,
+            string timeZone = default)
+        {
+            return new DateTimeTimeZone
+            {
+                DateTime = dateTime,
+                TimeZone = timeZone,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Contact"/>.
+        /// </summary>
+        public static Contact Contact(
+            string id = default,
+            string parentFolderId = default,
+            DateTime? birthday = default,
+            string fileAs = default,
+            string displayName = default,
+            string givenName = default,
+            string initials = default,
+            string middleName = default,
+            string nickname = default,
+            string surname = default,
+            string title = default,
+            string generation = default,
+            List<EmailAddress> emailAddresses = default,
+            List<string> imAddresses = default,
+            string jobTitle = default,
+            string companyName = default,
+            string department = default,
+            string officeLocation = default,
+            string profession = default,
+            string businessHomePage = default,
+            string assistantName = default,
+            string manager = default,
+            List<string> homePhones = default,
+            List<string> businessPhones = default,
+            string mobilePhone = default,
+            PhysicalAddress homeAddress = default,
+            PhysicalAddress businessAddress = default,
+            PhysicalAddress otherAddress = default,
+            string yomiCompanyName = default,
+            string yomiGivenName = default,
+            string yomiSurname = default,
+            List<string> categories = default,
+            string changeKey = default,
+            DateTime? createdTime = default,
+            DateTime? lastModifiedTime = default)
+        {
+            return new Contact
+            {
+                Id = id,
+                ParentFolderId = parentFolderId,
+                Birthday = birthday,
+                FileAs = fileAs,
+                DisplayName = displayName,
+                GivenName = givenName,
+                Initials = initials,
+                MiddleName = middleName,
+                Nickname = nickname,
+                Surname = surname,
+                Title = title,
+                Generation = generation,
+                EmailAddresses = emailAddresses,
+                IMAddresses = imAddresses,
+                JobTitle = jobTitle,
+                CompanyName = companyName,
+                Department = department,
+                OfficeLocation = officeLocation,
+                Profession = profession,
+                BusinessHomePage = businessHomePage,
+                AssistantName = assistantName,
+                Manager = manager,
+                HomePhones = homePhones,
+                BusinessPhones = businessPhones,
+                MobilePhone = mobilePhone,
+                HomeAddress = homeAddress,
+                BusinessAddress = businessAddress,
+                OtherAddress = otherAddress,
+                YomiCompanyName = yomiCompanyName,
+                YomiGivenName = yomiGivenName,
+                YomiSurname = yomiSurname,
+                Categories = categories,
+                ChangeKey = changeKey,
+                CreatedTime = createdTime,
+                LastModifiedTime = lastModifiedTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+        /// </summary>
+        public static MCPQueryRequest MCPQueryRequest(
+            string jsonrpc = default,
+            string id = default,
+            string method = default,
+            object @params = default,
+            object result = default,
+            object error = default,
+            string callbackEndpoint = default)
+        {
+            return new MCPQueryRequest
+            {
+                Jsonrpc = jsonrpc,
+                Id = id,
+                Method = method,
+                Params = @params,
+                Result = result,
+                Error = error,
+                CallbackEndpoint = callbackEndpoint,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
     #region Trigger Payloads
 

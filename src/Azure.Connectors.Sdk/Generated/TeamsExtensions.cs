@@ -253,7 +253,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public string TheTypeOfTheChannel { get; set; }
+        public MembershipType? TheTypeOfTheChannel { get; set; }
     }
 
     /// <summary>
@@ -342,7 +342,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public string TheTypeOfTheChannel { get; set; }
+        public MembershipType? TheTypeOfTheChannel { get; set; }
 
         /// <summary>The ID of the team that owns the channel</summary>
         [JsonPropertyName("ownerTeamId")]
@@ -802,7 +802,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The visibility of the the team</summary>
         [JsonPropertyName("visibility")]
-        public string Visibility { get; set; }
+        public Visibility? Visibility { get; set; }
     }
 
     /// <summary>
@@ -1230,7 +1230,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The importance of the event: low, normal or high</summary>
         [JsonPropertyName("importance")]
-        public string Importance { get; set; }
+        public Importance? Importance { get; set; }
 
         /// <summary>The recurrence pattern for the meeting</summary>
         [JsonPropertyName("recurrence")]
@@ -1250,7 +1250,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>Status to show during the event</summary>
         [JsonPropertyName("showAs")]
-        public string StatusShowAs { get; set; }
+        public ShowAs? StatusShowAs { get; set; }
 
         /// <summary>Set to true if the sender would like a response when the event is accepted</summary>
         [JsonPropertyName("responseRequested")]
@@ -1265,7 +1265,1122 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public string OnlineMeetingProvider { get; set; }
     }
 
+    /// <summary>
+    /// Extensible enum for known Importance values.
+    /// </summary>
+    [JsonConverter(typeof(Importance.ImportanceJsonConverter))]
+    public readonly struct Importance : IEquatable<Importance>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Importance"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>low</summary>
+        public static Importance Low { get; } = new("low");
+
+        /// <summary>normal</summary>
+        public static Importance Normal { get; } = new("normal");
+
+        /// <summary>high</summary>
+        public static Importance High { get; } = new("high");
+
+        /// <summary>Converts a string to <see cref="Importance"/>.</summary>
+        public static implicit operator Importance(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
+        public static implicit operator string(Importance value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Importance left, Importance right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
+
+        internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
+        {
+            public ImportanceJsonConverter() { }
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known MembershipType values.
+    /// </summary>
+    [JsonConverter(typeof(MembershipType.MembershipTypeJsonConverter))]
+    public readonly struct MembershipType : IEquatable<MembershipType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MembershipType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public MembershipType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>standard</summary>
+        public static MembershipType Standard { get; } = new("standard");
+
+        /// <summary>private</summary>
+        public static MembershipType Private { get; } = new("private");
+
+        /// <summary>unknownFutureValue</summary>
+        public static MembershipType UnknownFutureValue { get; } = new("unknownFutureValue");
+
+        /// <summary>shared</summary>
+        public static MembershipType Shared { get; } = new("shared");
+
+        /// <summary>Converts a string to <see cref="MembershipType"/>.</summary>
+        public static implicit operator MembershipType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="MembershipType"/> to its string representation.</summary>
+        public static implicit operator string(MembershipType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(MembershipType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is MembershipType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(MembershipType left, MembershipType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(MembershipType left, MembershipType right) => !left.Equals(right);
+
+        internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
+        {
+            public MembershipTypeJsonConverter() { }
+            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MembershipType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known ShowAs values.
+    /// </summary>
+    [JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
+    public readonly struct ShowAs : IEquatable<ShowAs>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShowAs"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>free</summary>
+        public static ShowAs Free { get; } = new("free");
+
+        /// <summary>tentative</summary>
+        public static ShowAs Tentative { get; } = new("tentative");
+
+        /// <summary>busy</summary>
+        public static ShowAs Busy { get; } = new("busy");
+
+        /// <summary>oof</summary>
+        public static ShowAs Oof { get; } = new("oof");
+
+        /// <summary>workingElsewhere</summary>
+        public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
+
+        /// <summary>unknown</summary>
+        public static ShowAs Unknown { get; } = new("unknown");
+
+        /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
+        public static implicit operator ShowAs(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
+        public static implicit operator string(ShowAs value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
+
+        internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+        {
+            public ShowAsJsonConverter() { }
+            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Visibility values.
+    /// </summary>
+    [JsonConverter(typeof(Visibility.VisibilityJsonConverter))]
+    public readonly struct Visibility : IEquatable<Visibility>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Visibility"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Visibility(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Private</summary>
+        public static Visibility Private { get; } = new("Private");
+
+        /// <summary>Public</summary>
+        public static Visibility Public { get; } = new("Public");
+
+        /// <summary>Converts a string to <see cref="Visibility"/>.</summary>
+        public static implicit operator Visibility(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Visibility"/> to its string representation.</summary>
+        public static implicit operator string(Visibility value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Visibility other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Visibility other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Visibility left, Visibility right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Visibility left, Visibility right) => !left.Equals(right);
+
+        internal sealed class VisibilityJsonConverter : JsonConverter<Visibility>
+        {
+            public VisibilityJsonConverter() { }
+            public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Visibility, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Visibility value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Teams models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class TeamsModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="NewMeetingResponse"/>.
+        /// </summary>
+        public static NewMeetingResponse NewMeetingResponse(
+            string id = default,
+            string createdTimestamp = default,
+            string lastModifiedTimestamp = default,
+            List<object> categories = default,
+            string timeZone = default,
+            int? preEventReminderTime = default,
+            bool? remindersEnabled = default,
+            bool? hasAttachments = default,
+            string subject = default,
+            string bodyPreview = default,
+            string importance = default,
+            string sensitivity = default,
+            bool? isAllDay = default,
+            bool? isCancelled = default,
+            bool? isOrganizer = default,
+            bool? responseRequested = default,
+            string showAs = default,
+            string type = default,
+            string webLast = default,
+            string onlineMeetingURL = default,
+            bool? allowNewTimeProposals = default,
+            object recurrence = default,
+            object responseStatus = default,
+            object body = default,
+            object start = default,
+            object end = default,
+            object location = default,
+            List<object> attendee = default,
+            object organizer = default,
+            object onlineMeeting = default)
+        {
+            return new NewMeetingResponse
+            {
+                ID = id,
+                CreatedTimestamp = createdTimestamp,
+                LastModifiedTimestamp = lastModifiedTimestamp,
+                Categories = categories,
+                TimeZone = timeZone,
+                PreEventReminderTime = preEventReminderTime,
+                RemindersEnabled = remindersEnabled,
+                HasAttachments = hasAttachments,
+                Subject = subject,
+                BodyPreview = bodyPreview,
+                Importance = importance,
+                Sensitivity = sensitivity,
+                IsAllDay = isAllDay,
+                IsCancelled = isCancelled,
+                IsOrganizer = isOrganizer,
+                ResponseRequested = responseRequested,
+                ShowAs = showAs,
+                Type = type,
+                WebLast = webLast,
+                OnlineMeetingURL = onlineMeetingURL,
+                AllowNewTimeProposals = allowNewTimeProposals,
+                Recurrence = recurrence,
+                ResponseStatus = responseStatus,
+                Body = body,
+                Start = start,
+                End = end,
+                Location = location,
+                Attendee = attendee,
+                Organizer = organizer,
+                OnlineMeeting = onlineMeeting,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetAllTeamsResponse"/>.
+        /// </summary>
+        public static GetAllTeamsResponse GetAllTeamsResponse(
+            string context = default,
+            List<object> teamsList = default)
+        {
+            return new GetAllTeamsResponse
+            {
+                Context = context,
+                TeamsList = teamsList,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetAllAssociatedTeamsResponse"/>.
+        /// </summary>
+        public static GetAllAssociatedTeamsResponse GetAllAssociatedTeamsResponse(
+            string context = default,
+            List<AssociatedTeamInfo> teamsList = default)
+        {
+            return new GetAllAssociatedTeamsResponse
+            {
+                Context = context,
+                TeamsList = teamsList,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssociatedTeamInfo"/>.
+        /// </summary>
+        public static AssociatedTeamInfo AssociatedTeamInfo(
+            string teamID = default,
+            string displayName = default,
+            string tenantID = default)
+        {
+            return new AssociatedTeamInfo
+            {
+                TeamID = teamID,
+                DisplayName = displayName,
+                TenantID = tenantID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetChannelsForGroupResponse"/>.
+        /// </summary>
+        public static GetChannelsForGroupResponse GetChannelsForGroupResponse(
+            string context = default,
+            List<GetChannelResponse> channelList = default)
+        {
+            return new GetChannelsForGroupResponse
+            {
+                Context = context,
+                ChannelList = channelList,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetChannelResponse"/>.
+        /// </summary>
+        public static GetChannelResponse GetChannelResponse(
+            string channelID = default,
+            string displayName = default,
+            string descriptionOfChannel = default,
+            string theEmailAddressForTheChannel = default,
+            string teamTenantId = default,
+            string aHyperlinkForTheChannelInMicrosoftTeams = default,
+            string sharePointFolderURLForChannel = default,
+            DateTime? channelCreationTime = default,
+            MembershipType? theTypeOfTheChannel = default)
+        {
+            return new GetChannelResponse
+            {
+                ChannelID = channelID,
+                DisplayName = displayName,
+                DescriptionOfChannel = descriptionOfChannel,
+                TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
+                TeamTenantId = teamTenantId,
+                AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
+                SharePointFolderURLForChannel = sharePointFolderURLForChannel,
+                ChannelCreationTime = channelCreationTime,
+                TheTypeOfTheChannel = theTypeOfTheChannel,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateChannelInput"/>.
+        /// </summary>
+        public static CreateChannelInput CreateChannelInput(
+            string description = default,
+            string name = default)
+        {
+            return new CreateChannelInput
+            {
+                Description = description,
+                Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateChannelResponse"/>.
+        /// </summary>
+        public static CreateChannelResponse CreateChannelResponse(
+            string description = default,
+            string displayName = default,
+            string id = default)
+        {
+            return new CreateChannelResponse
+            {
+                Description = description,
+                DisplayName = displayName,
+                ID = id,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetAllChannelsForTeamResponse"/>.
+        /// </summary>
+        public static GetAllChannelsForTeamResponse GetAllChannelsForTeamResponse(
+            string context = default,
+            List<ChannelWithOwnerTeamId> channelList = default)
+        {
+            return new GetAllChannelsForTeamResponse
+            {
+                Context = context,
+                ChannelList = channelList,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChannelWithOwnerTeamId"/>.
+        /// </summary>
+        public static ChannelWithOwnerTeamId ChannelWithOwnerTeamId(
+            string channelID = default,
+            string displayName = default,
+            string descriptionOfChannel = default,
+            string theEmailAddressForTheChannel = default,
+            string teamTenantId = default,
+            string aHyperlinkForTheChannelInMicrosoftTeams = default,
+            string sharePointFolderURLForChannel = default,
+            DateTime? channelCreationTime = default,
+            MembershipType? theTypeOfTheChannel = default,
+            string ownerTeamID = default)
+        {
+            return new ChannelWithOwnerTeamId
+            {
+                ChannelID = channelID,
+                DisplayName = displayName,
+                DescriptionOfChannel = descriptionOfChannel,
+                TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
+                TeamTenantId = teamTenantId,
+                AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
+                SharePointFolderURLForChannel = sharePointFolderURLForChannel,
+                ChannelCreationTime = channelCreationTime,
+                TheTypeOfTheChannel = theTypeOfTheChannel,
+                OwnerTeamID = ownerTeamID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetChatsResponse"/>.
+        /// </summary>
+        public static GetChatsResponse GetChatsResponse(
+            string context = default,
+            List<object> chatsList = default)
+        {
+            return new GetChatsResponse
+            {
+                Context = context,
+                ChatsList = chatsList,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetTagsResponseSchema"/>.
+        /// </summary>
+        public static GetTagsResponseSchema GetTagsResponseSchema(
+            string context = default,
+            List<object> value = default)
+        {
+            return new GetTagsResponseSchema
+            {
+                Context = context,
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateTagInput"/>.
+        /// </summary>
+        public static CreateTagInput CreateTagInput(
+            string displayName = default,
+            string membersIDs = default)
+        {
+            return new CreateTagInput
+            {
+                DisplayName = displayName,
+                MembersIDs = membersIDs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateTagResponseSchema"/>.
+        /// </summary>
+        public static CreateTagResponseSchema CreateTagResponseSchema(
+            string type = default,
+            string id = default,
+            string teamID = default,
+            string displayName = default,
+            int? memberCount = default)
+        {
+            return new CreateTagResponseSchema
+            {
+                Type = type,
+                ID = id,
+                TeamID = teamID,
+                DisplayName = displayName,
+                MemberCount = memberCount,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
+        /// </summary>
+        public static AddMemberToTagInput AddMemberToTagInput(
+            string userSID = default)
+        {
+            return new AddMemberToTagInput
+            {
+                UserSID = userSID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToTagResponseSchema"/>.
+        /// </summary>
+        public static AddMemberToTagResponseSchema AddMemberToTagResponseSchema(
+            string id = default)
+        {
+            return new AddMemberToTagResponseSchema
+            {
+                ID = id,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetTagMembersResponseSchema"/>.
+        /// </summary>
+        public static GetTagMembersResponseSchema GetTagMembersResponseSchema(
+            List<object> value = default)
+        {
+            return new GetTagMembersResponseSchema
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AtMentionTagResponse"/>.
+        /// </summary>
+        public static AtMentionTagResponse AtMentionTagResponse(
+            string mentionTag = default)
+        {
+            return new AtMentionTagResponse
+            {
+                MentionTag = mentionTag,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMessagesFromConversationResponse"/>.
+        /// </summary>
+        public static GetMessagesFromConversationResponse GetMessagesFromConversationResponse(
+            string context = default,
+            int? count = default,
+            string nextLink = default,
+            List<ChatMessage> value = default)
+        {
+            return new GetMessagesFromConversationResponse
+            {
+                Context = context,
+                Count = count,
+                NextLink = nextLink,
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListRepliesResponseSchema"/>.
+        /// </summary>
+        public static ListRepliesResponseSchema ListRepliesResponseSchema(
+            List<object> listOfMessageReplies = default)
+        {
+            return new ListRepliesResponseSchema
+            {
+                ListOfMessageReplies = listOfMessageReplies,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListMembersResponseSchema"/>.
+        /// </summary>
+        public static ListMembersResponseSchema ListMembersResponseSchema(
+            List<object> listOfMembers = default)
+        {
+            return new ListMembersResponseSchema
+            {
+                ListOfMembers = listOfMembers,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookChatMessageTriggerInput"/>.
+        /// </summary>
+        public static WebhookChatMessageTriggerInput WebhookChatMessageTriggerInput(
+            string notificationUrl = default)
+        {
+            return new WebhookChatMessageTriggerInput
+            {
+                NotificationUrl = notificationUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UnifiedActionSchema"/>.
+        /// </summary>
+        public static UnifiedActionSchema UnifiedActionSchema(
+            ObjectEntity schema = default)
+        {
+            return new UnifiedActionSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DynamicResponseSchema"/>.
+        /// </summary>
+        public static DynamicResponseSchema DynamicResponseSchema(
+            ObjectEntity schema = default)
+        {
+            return new DynamicResponseSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ConnectorMetadata"/>.
+        /// </summary>
+        public static ConnectorMetadata ConnectorMetadata(
+            string metadatatype = default,
+            string activitytype = default,
+            ObjectEntity schema = default)
+        {
+            return new ConnectorMetadata
+            {
+                Metadatatype = metadatatype,
+                Activitytype = activitytype,
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SelectedMessageTriggerMetadata"/>.
+        /// </summary>
+        public static SelectedMessageTriggerMetadata SelectedMessageTriggerMetadata(
+            ObjectEntity teamsFlowRunContext = default,
+            ObjectEntity cardOutputs = default)
+        {
+            return new SelectedMessageTriggerMetadata
+            {
+                TeamsFlowRunContext = teamsFlowRunContext,
+                CardOutputs = cardOutputs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ComposeMessageTriggerMetadata"/>.
+        /// </summary>
+        public static ComposeMessageTriggerMetadata ComposeMessageTriggerMetadata(
+            ObjectEntity teamsFlowRunContext = default,
+            ObjectEntity cardOutputs = default)
+        {
+            return new ComposeMessageTriggerMetadata
+            {
+                TeamsFlowRunContext = teamsFlowRunContext,
+                CardOutputs = cardOutputs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CardResponseTriggerMetadata"/>.
+        /// </summary>
+        public static CardResponseTriggerMetadata CardResponseTriggerMetadata(
+            ObjectEntity teamsFlowRunContext = default,
+            ObjectEntity cardOutputs = default)
+        {
+            return new CardResponseTriggerMetadata
+            {
+                TeamsFlowRunContext = teamsFlowRunContext,
+                CardOutputs = cardOutputs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetTeamResponse"/>.
+        /// </summary>
+        public static GetTeamResponse GetTeamResponse(
+            string teamID = default,
+            string displayName = default,
+            string descriptionOfTeam = default,
+            string internalID = default,
+            string teamSWebUrl = default,
+            bool? archived = default,
+            MemberSettings memberSettings = default,
+            GuestSettings guestSettings = default,
+            MessagingSettings messagingSettings = default,
+            FunSettings funSettings = default,
+            DiscoverySettings discoverySettings = default)
+        {
+            return new GetTeamResponse
+            {
+                TeamID = teamID,
+                DisplayName = displayName,
+                DescriptionOfTeam = descriptionOfTeam,
+                InternalID = internalID,
+                TeamSWebUrl = teamSWebUrl,
+                Archived = archived,
+                MemberSettings = memberSettings,
+                GuestSettings = guestSettings,
+                MessagingSettings = messagingSettings,
+                FunSettings = funSettings,
+                DiscoverySettings = discoverySettings,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MemberSettings"/>.
+        /// </summary>
+        public static MemberSettings MemberSettings(
+            bool? membersAreAllowedCreateUpdateChannels = default,
+            bool? membersAreAllowedDeleteChannels = default,
+            bool? membersAreAllowedAddRemoveApps = default,
+            bool? membersAreAllowedCreateUpdateRemoveTabs = default,
+            bool? membersAreAllowedCreateUpdateRemoveConnectors = default)
+        {
+            return new MemberSettings
+            {
+                MembersAreAllowedCreateUpdateChannels = membersAreAllowedCreateUpdateChannels,
+                MembersAreAllowedDeleteChannels = membersAreAllowedDeleteChannels,
+                MembersAreAllowedAddRemoveApps = membersAreAllowedAddRemoveApps,
+                MembersAreAllowedCreateUpdateRemoveTabs = membersAreAllowedCreateUpdateRemoveTabs,
+                MembersAreAllowedCreateUpdateRemoveConnectors = membersAreAllowedCreateUpdateRemoveConnectors,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GuestSettings"/>.
+        /// </summary>
+        public static GuestSettings GuestSettings(
+            bool? guestsAreAllowedCreateUpdateChannels = default,
+            bool? guestsAreAllowedDeleteChannels = default)
+        {
+            return new GuestSettings
+            {
+                GuestsAreAllowedCreateUpdateChannels = guestsAreAllowedCreateUpdateChannels,
+                GuestsAreAllowedDeleteChannels = guestsAreAllowedDeleteChannels,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessagingSettings"/>.
+        /// </summary>
+        public static MessagingSettings MessagingSettings(
+            bool? allowUserToEditMessages = default,
+            bool? allowUserToDeleteMessages = default,
+            bool? allowOwnerToDeleteMessages = default,
+            bool? allowTeamMentions = default,
+            bool? allowChannelMentions = default)
+        {
+            return new MessagingSettings
+            {
+                AllowUserToEditMessages = allowUserToEditMessages,
+                AllowUserToDeleteMessages = allowUserToDeleteMessages,
+                AllowOwnerToDeleteMessages = allowOwnerToDeleteMessages,
+                AllowTeamMentions = allowTeamMentions,
+                AllowChannelMentions = allowChannelMentions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FunSettings"/>.
+        /// </summary>
+        public static FunSettings FunSettings(
+            bool? allowGiphy = default,
+            string giphyContentRating = default,
+            bool? allowStickersAndMemes = default,
+            bool? allowCustomMemes = default)
+        {
+            return new FunSettings
+            {
+                AllowGiphy = allowGiphy,
+                GiphyContentRating = giphyContentRating,
+                AllowStickersAndMemes = allowStickersAndMemes,
+                AllowCustomMemes = allowCustomMemes,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DiscoverySettings"/>.
+        /// </summary>
+        public static DiscoverySettings DiscoverySettings(
+            bool? showInTeamSSearchAndSuggestions = default)
+        {
+            return new DiscoverySettings
+            {
+                ShowInTeamSSearchAndSuggestions = showInTeamSSearchAndSuggestions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AtMentionUser"/>.
+        /// </summary>
+        public static AtMentionUser AtMentionUser(
+            string mention = default)
+        {
+            return new AtMentionUser
+            {
+                Mention = mention,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="OnGroupMemberChangeResponseItem"/>.
+        /// </summary>
+        public static OnGroupMemberChangeResponseItem OnGroupMemberChangeResponseItem(
+            string userID = default)
+        {
+            return new OnGroupMemberChangeResponseItem
+            {
+                UserID = userID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="NewChatResponse"/>.
+        /// </summary>
+        public static NewChatResponse NewChatResponse(
+            string conversationID = default)
+        {
+            return new NewChatResponse
+            {
+                ConversationID = conversationID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateATeamInput"/>.
+        /// </summary>
+        public static CreateATeamInput CreateATeamInput(
+            string teamName = default,
+            string description = default,
+            Visibility? visibility = default)
+        {
+            return new CreateATeamInput
+            {
+                TeamName = teamName,
+                Description = description,
+                Visibility = visibility,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateATeamResponse"/>.
+        /// </summary>
+        public static CreateATeamResponse CreateATeamResponse(
+            string newTeamID = default)
+        {
+            return new CreateATeamResponse
+            {
+                NewTeamID = newTeamID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToTeamInput"/>.
+        /// </summary>
+        public static AddMemberToTeamInput AddMemberToTeamInput(
+            string user = default,
+            bool? setUserAsTeamOwner = default)
+        {
+            return new AddMemberToTeamInput
+            {
+                User = user,
+                SetUserAsTeamOwner = setUserAsTeamOwner,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToChannelInput"/>.
+        /// </summary>
+        public static AddMemberToChannelInput AddMemberToChannelInput(
+            string user = default,
+            bool? setUserAsChannelOwner = default)
+        {
+            return new AddMemberToChannelInput
+            {
+                User = user,
+                SetUserAsChannelOwner = setUserAsChannelOwner,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostToConversationResponse"/>.
+        /// </summary>
+        public static PostToConversationResponse PostToConversationResponse(
+            string messageID = default,
+            string messageLink = default,
+            string conversationID = default)
+        {
+            return new PostToConversationResponse
+            {
+                MessageID = messageID,
+                MessageLink = messageLink,
+                ConversationID = conversationID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostCardAndWaitForResponseInput"/>.
+        /// </summary>
+        public static PostCardAndWaitForResponseInput PostCardAndWaitForResponseInput(
+            string notificationUrl = default,
+            object body = default)
+        {
+            return new PostCardAndWaitForResponseInput
+            {
+                NotificationUrl = notificationUrl,
+                Body = body,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMessageDetailsSchema"/>.
+        /// </summary>
+        public static GetMessageDetailsSchema GetMessageDetailsSchema(
+            ObjectEntity schema = default)
+        {
+            return new GetMessageDetailsSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListMembersSchema"/>.
+        /// </summary>
+        public static ListMembersSchema ListMembersSchema(
+            ObjectEntity schema = default)
+        {
+            return new ListMembersSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookTriggerSchema"/>.
+        /// </summary>
+        public static WebhookTriggerSchema WebhookTriggerSchema(
+            ObjectEntity schema = default)
+        {
+            return new WebhookTriggerSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMessageLocationsResponse"/>.
+        /// </summary>
+        public static GetMessageLocationsResponse GetMessageLocationsResponse(
+            List<object> locations = default)
+        {
+            return new GetMessageLocationsResponse
+            {
+                Locations = locations,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostFeedSchema"/>.
+        /// </summary>
+        public static PostFeedSchema PostFeedSchema(
+            ObjectEntity schema = default)
+        {
+            return new PostFeedSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChatMessage"/>.
+        /// </summary>
+        public static ChatMessage ChatMessage(
+            List<object> attachments = default,
+            object body = default,
+            DateTime? creationTimestamp = default,
+            bool? deleted = default,
+            string etag = default,
+            object from = default,
+            string id = default,
+            string importance = default,
+            string lastModifiedTimestamp = default,
+            string locale = default,
+            List<object> mentions = default,
+            string messageType = default,
+            List<object> reactions = default,
+            string replyToId = default,
+            string subject = default,
+            string summary = default)
+        {
+            return new ChatMessage
+            {
+                Attachments = attachments,
+                Body = body,
+                CreationTimestamp = creationTimestamp,
+                Deleted = deleted,
+                Etag = etag,
+                From = from,
+                Id = id,
+                Importance = importance,
+                LastModifiedTimestamp = lastModifiedTimestamp,
+                Locale = locale,
+                Mentions = mentions,
+                MessageType = messageType,
+                Reactions = reactions,
+                ReplyToId = replyToId,
+                Subject = subject,
+                Summary = summary,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="NewChat"/>.
+        /// </summary>
+        public static NewChat NewChat(
+            string title = default,
+            string membersToAdd = default)
+        {
+            return new NewChat
+            {
+                Title = title,
+                MembersToAdd = membersToAdd,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="NewMeeting"/>.
+        /// </summary>
+        public static NewMeeting NewMeeting(
+            string subject = default,
+            object body = default,
+            string timeZone = default,
+            object start = default,
+            object end = default,
+            string requiredAttendees = default,
+            string optionalAttendees = default,
+            object location = default,
+            Importance? importance = default,
+            object recurrence = default,
+            bool? allDayEvent = default,
+            int? preEventReminderTime = default,
+            bool? enableReminders = default,
+            ShowAs? statusShowAs = default,
+            bool? requestResponse = default,
+            bool? onlineMeetingEnabled = default,
+            string onlineMeetingProvider = default)
+        {
+            return new NewMeeting
+            {
+                Subject = subject,
+                Body = body,
+                TimeZone = timeZone,
+                Start = start,
+                End = end,
+                RequiredAttendees = requiredAttendees,
+                OptionalAttendees = optionalAttendees,
+                Location = location,
+                Importance = importance,
+                Recurrence = recurrence,
+                AllDayEvent = allDayEvent,
+                PreEventReminderTime = preEventReminderTime,
+                EnableReminders = enableReminders,
+                StatusShowAs = statusShowAs,
+                RequestResponse = requestResponse,
+                OnlineMeetingEnabled = onlineMeetingEnabled,
+                OnlineMeetingProvider = onlineMeetingProvider,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
     #region Trigger Payloads
 

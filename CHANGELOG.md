@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Extensible enum types for Swagger enum properties** (#115) — string properties with Swagger `enum` arrays are now generated as `readonly struct` types following the Azure SDK extensible enum pattern. Each struct provides static members for known values, implicit `string` conversion, case-insensitive equality, and a nested `JsonConverter` for `System.Text.Json` serialization.
 - **DI integration extension methods** (`AddOffice365Client`, `AddTeamsClient`, etc.) — register connector clients as singletons from an `IConfiguration` section, eliminating ~15 lines of boilerplate per connector in Azure Functions `Program.cs`. Resolves `TokenCredential` from DI or defaults to system-assigned managed identity. (#116)
 - **Per-connector model factory classes** (`Office365ModelFactory`, `TeamsModelFactory`, etc.) — static factory methods for constructing model instances with output-only properties, following the [Azure SDK mocking guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-mocking-factory) (#106)
 - Azure Monitor Logs (`azuremonitorlogs`) generated typed client for querying Log Analytics workspaces and Application Insights — includes QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 operations with dynamic schema support for query results

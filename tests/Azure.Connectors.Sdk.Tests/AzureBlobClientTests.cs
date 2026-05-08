@@ -300,8 +300,8 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("policy-1", deserialized!.GroupPolicyIdentifier);
-            Assert.AreEqual("r,w", deserialized.Permissions);
-            Assert.AreEqual("https", deserialized.SharedAccessProtocol);
+            Assert.AreEqual("r,w", deserialized.Permissions.ToString());
+            Assert.AreEqual("https", deserialized.SharedAccessProtocol.ToString());
             Assert.AreEqual("10.0.0.0/24", deserialized.IPAddressOrIPAddressRange);
         }
 
@@ -316,7 +316,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("https", result!.SharedAccessProtocol);
+            Assert.AreEqual("https", result!.SharedAccessProtocol.ToString());
             Assert.AreEqual("10.0.0.1", result.IPAddressOrIPAddressRange);
         }
 

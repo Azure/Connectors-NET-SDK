@@ -194,7 +194,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.AreEqual("Team standup", calendarEvent.Subject);
             Assert.AreEqual("Daily sync", calendarEvent.Body);
-            Assert.AreEqual("accepted", calendarEvent.ResponseType);
+            Assert.AreEqual("accepted", calendarEvent.ResponseType.ToString());
             Assert.AreEqual("manager@microsoft.com", calendarEvent.Organizer);
         }
 
@@ -244,7 +244,7 @@ namespace Azure.Connectors.Sdk.Tests
             var calendarEvent = result.Body.Value[0];
 
             // Assert
-            Assert.AreEqual("updated", calendarEvent.ActionType);
+            Assert.AreEqual("updated", calendarEvent.ActionType.ToString());
             Assert.AreEqual(false, calendarEvent.IsAdded);
             Assert.AreEqual(true, calendarEvent.IsUpdated);
             Assert.AreEqual("Rescheduled meeting", calendarEvent.Subject);
