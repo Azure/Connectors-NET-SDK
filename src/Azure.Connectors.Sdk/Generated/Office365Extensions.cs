@@ -345,7 +345,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Time zone of the event</summary>
         [JsonPropertyName("timeZone")]
-        public TimeZone? TimeZone { get; set; }
+        public Office365TimeZone? TimeZone { get; set; }
 
         /// <summary>Unique identifier for Series Master event type</summary>
         [JsonPropertyName("seriesMasterId")]
@@ -2252,6 +2252,460 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
+    /// Extensible enum for known Office365TimeZone values.
+    /// </summary>
+    [JsonConverter(typeof(Office365TimeZone.Office365TimeZoneJsonConverter))]
+    public readonly struct Office365TimeZone : IEquatable<Office365TimeZone>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Office365TimeZone"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Office365TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>(UTC-12:00) International Date Line West</summary>
+        public static Office365TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
+
+        /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
+        public static Office365TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
+
+        /// <summary>(UTC-10:00) Aleutian Islands</summary>
+        public static Office365TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
+
+        /// <summary>(UTC-10:00) Hawaii</summary>
+        public static Office365TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
+
+        /// <summary>(UTC-09:30) Marquesas Islands</summary>
+        public static Office365TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
+
+        /// <summary>(UTC-09:00) Alaska</summary>
+        public static Office365TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
+
+        /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
+        public static Office365TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
+
+        /// <summary>(UTC-08:00) Baja California</summary>
+        public static Office365TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
+
+        /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
+        public static Office365TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
+
+        /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
+
+        /// <summary>(UTC-07:00) Arizona</summary>
+        public static Office365TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
+
+        /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
+        public static Office365TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
+
+        /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
+
+        /// <summary>(UTC-06:00) Central America</summary>
+        public static Office365TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
+
+        /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
+
+        /// <summary>(UTC-06:00) Easter Island</summary>
+        public static Office365TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
+
+        /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
+        public static Office365TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
+
+        /// <summary>(UTC-06:00) Saskatchewan</summary>
+        public static Office365TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
+
+        /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
+        public static Office365TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
+
+        /// <summary>(UTC-05:00) Chetumal</summary>
+        public static Office365TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
+
+        /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
+        public static Office365TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
+
+        /// <summary>(UTC-05:00) Haiti</summary>
+        public static Office365TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
+
+        /// <summary>(UTC-05:00) Havana</summary>
+        public static Office365TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
+
+        /// <summary>(UTC-05:00) Indiana (East)</summary>
+        public static Office365TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
+
+        /// <summary>(UTC-04:00) Asuncion</summary>
+        public static Office365TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
+
+        /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
+        public static Office365TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
+
+        /// <summary>(UTC-04:00) Caracas</summary>
+        public static Office365TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
+
+        /// <summary>(UTC-04:00) Cuiaba</summary>
+        public static Office365TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
+
+        /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
+        public static Office365TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
+
+        /// <summary>(UTC-04:00) Santiago</summary>
+        public static Office365TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
+
+        /// <summary>(UTC-04:00) Turks and Caicos</summary>
+        public static Office365TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
+
+        /// <summary>(UTC-03:30) Newfoundland</summary>
+        public static Office365TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
+
+        /// <summary>(UTC-03:00) Araguaina</summary>
+        public static Office365TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
+
+        /// <summary>(UTC-03:00) Brasilia</summary>
+        public static Office365TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
+
+        /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
+        public static Office365TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
+
+        /// <summary>(UTC-03:00) City of Buenos Aires</summary>
+        public static Office365TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
+
+        /// <summary>(UTC-03:00) Greenland</summary>
+        public static Office365TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
+
+        /// <summary>(UTC-03:00) Montevideo</summary>
+        public static Office365TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
+
+        /// <summary>(UTC-03:00) Punta Arenas</summary>
+        public static Office365TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
+
+        /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
+        public static Office365TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
+
+        /// <summary>(UTC-03:00) Salvador</summary>
+        public static Office365TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
+
+        /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
+        public static Office365TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
+
+        /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
+        public static Office365TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
+
+        /// <summary>(UTC-01:00) Azores</summary>
+        public static Office365TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
+
+        /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
+        public static Office365TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
+
+        /// <summary>(UTC) Coordinated Universal Time</summary>
+        public static Office365TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
+
+        /// <summary>(UTC+00:00) Casablanca</summary>
+        public static Office365TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
+
+        /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
+        public static Office365TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
+
+        /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
+        public static Office365TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
+
+        /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
+        public static Office365TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
+
+        /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
+        public static Office365TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
+
+        /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
+        public static Office365TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
+
+        /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
+        public static Office365TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
+
+        /// <summary>(UTC+01:00) West Central Africa</summary>
+        public static Office365TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
+
+        /// <summary>(UTC+01:00) Windhoek</summary>
+        public static Office365TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
+
+        /// <summary>(UTC+02:00) Amman</summary>
+        public static Office365TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
+
+        /// <summary>(UTC+02:00) Athens, Bucharest</summary>
+        public static Office365TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
+
+        /// <summary>(UTC+02:00) Beirut</summary>
+        public static Office365TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
+
+        /// <summary>(UTC+02:00) Cairo</summary>
+        public static Office365TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
+
+        /// <summary>(UTC+02:00) Chisinau</summary>
+        public static Office365TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
+
+        /// <summary>(UTC+02:00) Damascus</summary>
+        public static Office365TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
+
+        /// <summary>(UTC+02:00) Gaza, Hebron</summary>
+        public static Office365TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
+
+        /// <summary>(UTC+02:00) Harare, Pretoria</summary>
+        public static Office365TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
+
+        /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
+        public static Office365TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
+
+        /// <summary>(UTC+02:00) Jerusalem</summary>
+        public static Office365TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
+
+        /// <summary>(UTC+02:00) Kaliningrad</summary>
+        public static Office365TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
+
+        /// <summary>(UTC+02:00) Tripoli</summary>
+        public static Office365TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
+
+        /// <summary>(UTC+03:00) Baghdad</summary>
+        public static Office365TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
+
+        /// <summary>(UTC+03:00) Istanbul</summary>
+        public static Office365TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
+
+        /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
+        public static Office365TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
+
+        /// <summary>(UTC+03:00) Minsk</summary>
+        public static Office365TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
+
+        /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
+        public static Office365TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
+
+        /// <summary>(UTC+03:00) Nairobi</summary>
+        public static Office365TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
+
+        /// <summary>(UTC+03:30) Tehran</summary>
+        public static Office365TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
+
+        /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
+        public static Office365TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
+
+        /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
+        public static Office365TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
+
+        /// <summary>(UTC+04:00) Baku</summary>
+        public static Office365TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
+
+        /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
+        public static Office365TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
+
+        /// <summary>(UTC+04:00) Port Louis</summary>
+        public static Office365TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
+
+        /// <summary>(UTC+04:00) Saratov</summary>
+        public static Office365TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
+
+        /// <summary>(UTC+04:00) Tbilisi</summary>
+        public static Office365TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
+
+        /// <summary>(UTC+04:00) Volgograd</summary>
+        public static Office365TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
+
+        /// <summary>(UTC+04:00) Yerevan</summary>
+        public static Office365TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
+
+        /// <summary>(UTC+04:30) Kabul</summary>
+        public static Office365TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
+
+        /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
+        public static Office365TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
+
+        /// <summary>(UTC+05:00) Ekaterinburg</summary>
+        public static Office365TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
+
+        /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
+        public static Office365TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
+
+        /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
+        public static Office365TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
+
+        /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
+        public static Office365TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
+
+        /// <summary>(UTC+05:45) Kathmandu</summary>
+        public static Office365TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
+
+        /// <summary>(UTC+06:00) Astana</summary>
+        public static Office365TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
+
+        /// <summary>(UTC+06:00) Dhaka</summary>
+        public static Office365TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
+
+        /// <summary>(UTC+06:00) Omsk</summary>
+        public static Office365TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
+
+        /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
+        public static Office365TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
+
+        /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
+        public static Office365TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
+
+        /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
+        public static Office365TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
+
+        /// <summary>(UTC+07:00) Hovd</summary>
+        public static Office365TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
+
+        /// <summary>(UTC+07:00) Krasnoyarsk</summary>
+        public static Office365TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
+
+        /// <summary>(UTC+07:00) Novosibirsk</summary>
+        public static Office365TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
+
+        /// <summary>(UTC+07:00) Tomsk</summary>
+        public static Office365TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
+
+        /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
+        public static Office365TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
+
+        /// <summary>(UTC+08:00) Irkutsk</summary>
+        public static Office365TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
+
+        /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
+        public static Office365TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
+
+        /// <summary>(UTC+08:00) Perth</summary>
+        public static Office365TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
+
+        /// <summary>(UTC+08:00) Taipei</summary>
+        public static Office365TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
+
+        /// <summary>(UTC+08:00) Ulaanbaatar</summary>
+        public static Office365TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
+
+        /// <summary>(UTC+08:30) Pyongyang</summary>
+        public static Office365TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
+
+        /// <summary>(UTC+08:45) Eucla</summary>
+        public static Office365TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
+
+        /// <summary>(UTC+09:00) Chita</summary>
+        public static Office365TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
+
+        /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
+        public static Office365TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
+
+        /// <summary>(UTC+09:00) Seoul</summary>
+        public static Office365TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
+
+        /// <summary>(UTC+09:00) Yakutsk</summary>
+        public static Office365TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
+
+        /// <summary>(UTC+09:30) Adelaide</summary>
+        public static Office365TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
+
+        /// <summary>(UTC+09:30) Darwin</summary>
+        public static Office365TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
+
+        /// <summary>(UTC+10:00) Brisbane</summary>
+        public static Office365TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
+
+        /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
+        public static Office365TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
+
+        /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
+        public static Office365TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
+
+        /// <summary>(UTC+10:00) Hobart</summary>
+        public static Office365TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
+
+        /// <summary>(UTC+10:00) Vladivostok</summary>
+        public static Office365TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
+
+        /// <summary>(UTC+10:30) Lord Howe Island</summary>
+        public static Office365TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
+
+        /// <summary>(UTC+11:00) Bougainville Island</summary>
+        public static Office365TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
+
+        /// <summary>(UTC+11:00) Chokurdakh</summary>
+        public static Office365TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
+
+        /// <summary>(UTC+11:00) Magadan</summary>
+        public static Office365TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
+
+        /// <summary>(UTC+11:00) Norfolk Island</summary>
+        public static Office365TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
+
+        /// <summary>(UTC+11:00) Sakhalin</summary>
+        public static Office365TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
+
+        /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
+        public static Office365TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
+
+        /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
+        public static Office365TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
+
+        /// <summary>(UTC+12:00) Auckland, Wellington</summary>
+        public static Office365TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
+
+        /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
+        public static Office365TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
+
+        /// <summary>(UTC+12:00) Fiji</summary>
+        public static Office365TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
+
+        /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
+        public static Office365TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
+
+        /// <summary>(UTC+12:45) Chatham Islands</summary>
+        public static Office365TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
+
+        /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
+        public static Office365TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
+
+        /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
+        public static Office365TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
+
+        /// <summary>(UTC+13:00) Samoa</summary>
+        public static Office365TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
+
+        /// <summary>(UTC+14:00) Kiritimati Island</summary>
+        public static Office365TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
+
+        /// <summary>Converts a string to <see cref="Office365TimeZone"/>.</summary>
+        public static implicit operator Office365TimeZone(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Office365TimeZone"/> to its string representation.</summary>
+        public static implicit operator string(Office365TimeZone value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Office365TimeZone other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Office365TimeZone other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Office365TimeZone left, Office365TimeZone right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Office365TimeZone left, Office365TimeZone right) => !left.Equals(right);
+
+        internal sealed class Office365TimeZoneJsonConverter : JsonConverter<Office365TimeZone>
+        {
+            public Office365TimeZoneJsonConverter() { }
+            public override Office365TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
+            public override void Write(Utf8JsonWriter writer, Office365TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known Recurrence values.
     /// </summary>
     [JsonConverter(typeof(Recurrence.RecurrenceJsonConverter))]
@@ -2550,460 +3004,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
             public StatusJsonConverter() { }
             public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
             public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known TimeZone values.
-    /// </summary>
-    [JsonConverter(typeof(TimeZone.TimeZoneJsonConverter))]
-    public readonly struct TimeZone : IEquatable<TimeZone>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TimeZone"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>(UTC-12:00) International Date Line West</summary>
-        public static TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
-
-        /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
-        public static TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
-
-        /// <summary>(UTC-10:00) Aleutian Islands</summary>
-        public static TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
-
-        /// <summary>(UTC-10:00) Hawaii</summary>
-        public static TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
-
-        /// <summary>(UTC-09:30) Marquesas Islands</summary>
-        public static TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
-
-        /// <summary>(UTC-09:00) Alaska</summary>
-        public static TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
-
-        /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
-        public static TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
-
-        /// <summary>(UTC-08:00) Baja California</summary>
-        public static TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
-
-        /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
-        public static TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
-
-        /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
-        public static TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
-
-        /// <summary>(UTC-07:00) Arizona</summary>
-        public static TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
-
-        /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
-        public static TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
-
-        /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
-        public static TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
-
-        /// <summary>(UTC-06:00) Central America</summary>
-        public static TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
-
-        /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
-        public static TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
-
-        /// <summary>(UTC-06:00) Easter Island</summary>
-        public static TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
-
-        /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
-        public static TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
-
-        /// <summary>(UTC-06:00) Saskatchewan</summary>
-        public static TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
-
-        /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
-        public static TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
-
-        /// <summary>(UTC-05:00) Chetumal</summary>
-        public static TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
-
-        /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
-        public static TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
-
-        /// <summary>(UTC-05:00) Haiti</summary>
-        public static TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
-
-        /// <summary>(UTC-05:00) Havana</summary>
-        public static TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
-
-        /// <summary>(UTC-05:00) Indiana (East)</summary>
-        public static TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
-
-        /// <summary>(UTC-04:00) Asuncion</summary>
-        public static TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
-
-        /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
-        public static TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
-
-        /// <summary>(UTC-04:00) Caracas</summary>
-        public static TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
-
-        /// <summary>(UTC-04:00) Cuiaba</summary>
-        public static TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
-
-        /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
-        public static TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
-
-        /// <summary>(UTC-04:00) Santiago</summary>
-        public static TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
-
-        /// <summary>(UTC-04:00) Turks and Caicos</summary>
-        public static TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
-
-        /// <summary>(UTC-03:30) Newfoundland</summary>
-        public static TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
-
-        /// <summary>(UTC-03:00) Araguaina</summary>
-        public static TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
-
-        /// <summary>(UTC-03:00) Brasilia</summary>
-        public static TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
-
-        /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
-        public static TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
-
-        /// <summary>(UTC-03:00) City of Buenos Aires</summary>
-        public static TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
-
-        /// <summary>(UTC-03:00) Greenland</summary>
-        public static TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
-
-        /// <summary>(UTC-03:00) Montevideo</summary>
-        public static TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
-
-        /// <summary>(UTC-03:00) Punta Arenas</summary>
-        public static TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
-
-        /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
-        public static TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
-
-        /// <summary>(UTC-03:00) Salvador</summary>
-        public static TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
-
-        /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
-        public static TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
-
-        /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
-        public static TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
-
-        /// <summary>(UTC-01:00) Azores</summary>
-        public static TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
-
-        /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
-        public static TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
-
-        /// <summary>(UTC) Coordinated Universal Time</summary>
-        public static TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
-
-        /// <summary>(UTC+00:00) Casablanca</summary>
-        public static TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
-
-        /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
-        public static TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
-
-        /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
-        public static TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
-
-        /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
-        public static TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
-
-        /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
-        public static TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
-
-        /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
-        public static TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
-
-        /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
-        public static TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
-
-        /// <summary>(UTC+01:00) West Central Africa</summary>
-        public static TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
-
-        /// <summary>(UTC+01:00) Windhoek</summary>
-        public static TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
-
-        /// <summary>(UTC+02:00) Amman</summary>
-        public static TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
-
-        /// <summary>(UTC+02:00) Athens, Bucharest</summary>
-        public static TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
-
-        /// <summary>(UTC+02:00) Beirut</summary>
-        public static TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
-
-        /// <summary>(UTC+02:00) Cairo</summary>
-        public static TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
-
-        /// <summary>(UTC+02:00) Chisinau</summary>
-        public static TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
-
-        /// <summary>(UTC+02:00) Damascus</summary>
-        public static TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
-
-        /// <summary>(UTC+02:00) Gaza, Hebron</summary>
-        public static TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
-
-        /// <summary>(UTC+02:00) Harare, Pretoria</summary>
-        public static TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
-
-        /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
-        public static TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
-
-        /// <summary>(UTC+02:00) Jerusalem</summary>
-        public static TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
-
-        /// <summary>(UTC+02:00) Kaliningrad</summary>
-        public static TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
-
-        /// <summary>(UTC+02:00) Tripoli</summary>
-        public static TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
-
-        /// <summary>(UTC+03:00) Baghdad</summary>
-        public static TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
-
-        /// <summary>(UTC+03:00) Istanbul</summary>
-        public static TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
-
-        /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
-        public static TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
-
-        /// <summary>(UTC+03:00) Minsk</summary>
-        public static TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
-
-        /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
-        public static TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
-
-        /// <summary>(UTC+03:00) Nairobi</summary>
-        public static TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
-
-        /// <summary>(UTC+03:30) Tehran</summary>
-        public static TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
-
-        /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
-        public static TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
-
-        /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
-        public static TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
-
-        /// <summary>(UTC+04:00) Baku</summary>
-        public static TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
-
-        /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
-        public static TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
-
-        /// <summary>(UTC+04:00) Port Louis</summary>
-        public static TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
-
-        /// <summary>(UTC+04:00) Saratov</summary>
-        public static TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
-
-        /// <summary>(UTC+04:00) Tbilisi</summary>
-        public static TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
-
-        /// <summary>(UTC+04:00) Volgograd</summary>
-        public static TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
-
-        /// <summary>(UTC+04:00) Yerevan</summary>
-        public static TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
-
-        /// <summary>(UTC+04:30) Kabul</summary>
-        public static TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
-
-        /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
-        public static TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
-
-        /// <summary>(UTC+05:00) Ekaterinburg</summary>
-        public static TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
-
-        /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
-        public static TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
-
-        /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
-        public static TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
-
-        /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
-        public static TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
-
-        /// <summary>(UTC+05:45) Kathmandu</summary>
-        public static TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
-
-        /// <summary>(UTC+06:00) Astana</summary>
-        public static TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
-
-        /// <summary>(UTC+06:00) Dhaka</summary>
-        public static TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
-
-        /// <summary>(UTC+06:00) Omsk</summary>
-        public static TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
-
-        /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
-        public static TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
-
-        /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
-        public static TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
-
-        /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
-        public static TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
-
-        /// <summary>(UTC+07:00) Hovd</summary>
-        public static TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
-
-        /// <summary>(UTC+07:00) Krasnoyarsk</summary>
-        public static TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
-
-        /// <summary>(UTC+07:00) Novosibirsk</summary>
-        public static TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
-
-        /// <summary>(UTC+07:00) Tomsk</summary>
-        public static TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
-
-        /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
-        public static TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
-
-        /// <summary>(UTC+08:00) Irkutsk</summary>
-        public static TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
-
-        /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
-        public static TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
-
-        /// <summary>(UTC+08:00) Perth</summary>
-        public static TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
-
-        /// <summary>(UTC+08:00) Taipei</summary>
-        public static TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
-
-        /// <summary>(UTC+08:00) Ulaanbaatar</summary>
-        public static TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
-
-        /// <summary>(UTC+08:30) Pyongyang</summary>
-        public static TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
-
-        /// <summary>(UTC+08:45) Eucla</summary>
-        public static TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
-
-        /// <summary>(UTC+09:00) Chita</summary>
-        public static TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
-
-        /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
-        public static TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
-
-        /// <summary>(UTC+09:00) Seoul</summary>
-        public static TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
-
-        /// <summary>(UTC+09:00) Yakutsk</summary>
-        public static TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
-
-        /// <summary>(UTC+09:30) Adelaide</summary>
-        public static TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
-
-        /// <summary>(UTC+09:30) Darwin</summary>
-        public static TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
-
-        /// <summary>(UTC+10:00) Brisbane</summary>
-        public static TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
-
-        /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
-        public static TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
-
-        /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
-        public static TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
-
-        /// <summary>(UTC+10:00) Hobart</summary>
-        public static TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
-
-        /// <summary>(UTC+10:00) Vladivostok</summary>
-        public static TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
-
-        /// <summary>(UTC+10:30) Lord Howe Island</summary>
-        public static TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
-
-        /// <summary>(UTC+11:00) Bougainville Island</summary>
-        public static TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
-
-        /// <summary>(UTC+11:00) Chokurdakh</summary>
-        public static TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
-
-        /// <summary>(UTC+11:00) Magadan</summary>
-        public static TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
-
-        /// <summary>(UTC+11:00) Norfolk Island</summary>
-        public static TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
-
-        /// <summary>(UTC+11:00) Sakhalin</summary>
-        public static TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
-
-        /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
-        public static TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
-
-        /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
-        public static TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
-
-        /// <summary>(UTC+12:00) Auckland, Wellington</summary>
-        public static TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
-
-        /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
-        public static TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
-
-        /// <summary>(UTC+12:00) Fiji</summary>
-        public static TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
-
-        /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
-        public static TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
-
-        /// <summary>(UTC+12:45) Chatham Islands</summary>
-        public static TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
-
-        /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
-        public static TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
-
-        /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
-        public static TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
-
-        /// <summary>(UTC+13:00) Samoa</summary>
-        public static TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
-
-        /// <summary>(UTC+14:00) Kiritimati Island</summary>
-        public static TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
-
-        /// <summary>Converts a string to <see cref="TimeZone"/>.</summary>
-        public static implicit operator TimeZone(string value) => new(value);
-
-        /// <summary>Converts a <see cref="TimeZone"/> to its string representation.</summary>
-        public static implicit operator string(TimeZone value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(TimeZone other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is TimeZone other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(TimeZone left, TimeZone right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(TimeZone left, TimeZone right) => !left.Equals(right);
-
-        internal sealed class TimeZoneJsonConverter : JsonConverter<TimeZone>
-        {
-            public TimeZoneJsonConverter() { }
-            public override TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => new(reader.GetString());
-            public override void Write(Utf8JsonWriter writer, TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 

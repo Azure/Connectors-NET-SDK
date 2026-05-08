@@ -36,7 +36,7 @@ public static class TeamsModelFactory
         bool? isCancelled = default,
         bool? isOrganizer = default,
         bool? responseRequested = default,
-        ShowAs? showAs = default,
+        string showAs = default,
         string type = default,
         string webLast = default,
         string onlineMeetingURL = default,

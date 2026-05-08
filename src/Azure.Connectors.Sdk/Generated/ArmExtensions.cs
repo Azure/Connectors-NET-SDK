@@ -88,7 +88,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The subscription state.</summary>
         [JsonPropertyName("state")]
-        public State? State { get; set; }
+        public string State { get; set; }
 
         /// <summary>subscriptionPolicies</summary>
         [JsonPropertyName("subscriptionPolicies")]
@@ -114,7 +114,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The subscription spending limit.</summary>
         [JsonPropertyName("spendingLimit")]
-        public SpendingLimit? SpendingLimit { get; set; }
+        public string SpendingLimit { get; set; }
     }
 
     /// <summary>
