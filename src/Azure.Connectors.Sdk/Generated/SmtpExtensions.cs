@@ -286,7 +286,9 @@ public class SmtpClient : ConnectorClientBase
     public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
     {
         var path = $"/SendEmailV3";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
 }

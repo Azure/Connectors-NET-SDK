@@ -1965,7 +1965,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations";
-        return await this.CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1978,7 +1980,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}";
-        return await this.CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2012,7 +2016,9 @@ public class ArmClient : ConnectorClientBase
         if (waitForDeployment != default)
             queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2032,7 +2038,9 @@ public class ArmClient : ConnectorClientBase
         if (waitForDeployment != default)
             queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2046,7 +2054,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2060,7 +2070,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel";
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2076,7 +2088,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate";
-        return await this.CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2091,7 +2105,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate";
-        return await this.CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2131,7 +2147,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}";
-        return await this.CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2167,7 +2185,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister";
-        return await this.CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2181,7 +2201,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register";
-        return await this.CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2222,7 +2244,9 @@ public class ArmClient : ConnectorClientBase
         if (expand != default)
             queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2263,7 +2287,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
-        return await this.CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2278,7 +2304,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}";
-        return await this.CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2291,7 +2319,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2306,7 +2336,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
-        return await this.CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2321,7 +2353,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate";
-        return await this.CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2390,7 +2424,9 @@ public class ArmClient : ConnectorClientBase
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2411,7 +2447,9 @@ public class ArmClient : ConnectorClientBase
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2430,7 +2468,9 @@ public class ArmClient : ConnectorClientBase
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2452,7 +2492,9 @@ public class ArmClient : ConnectorClientBase
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2471,7 +2513,9 @@ public class ArmClient : ConnectorClientBase
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2491,7 +2535,9 @@ public class ArmClient : ConnectorClientBase
         if (clientApiVersion != default)
             queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2506,7 +2552,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}";
-        return await this.CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2520,7 +2568,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2534,7 +2584,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}";
-        return await this.CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2547,7 +2599,9 @@ public class ArmClient : ConnectorClientBase
     public virtual async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
     {
         var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>

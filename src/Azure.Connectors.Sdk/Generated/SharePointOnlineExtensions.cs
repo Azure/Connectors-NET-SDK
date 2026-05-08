@@ -2008,7 +2008,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByContentType != default)
             queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
         var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2022,7 +2024,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
     {
         var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
-        return await this.CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2034,7 +2038,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/datasets";
-        return await this.CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2047,7 +2053,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TablesList> GetAllTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
-        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2064,7 +2072,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (requestingSiteId != default)
             queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(hubSiteAddress.ToString())}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2080,7 +2090,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (approvalCorrelationId != default)
             queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2096,7 +2108,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<SharingLinkPermission> CreateSharingLinkAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int itemId, ItemPermissionCreateLinkBody input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
-        return await this.CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2119,7 +2133,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (overwriteFlag != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2133,7 +2149,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<SPBlobMetadataResponse> CopyFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFileParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2147,7 +2165,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<SPBlobMetadataResponse> CopyFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFolderParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2168,7 +2188,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (fileName != default)
             queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2182,7 +2204,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<SPBlobMetadataResponse> GetFileMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2197,7 +2221,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<BlobMetadataResponse> UpdateFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        return await this.CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2210,7 +2236,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2228,7 +2256,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (inferContentType != default)
             queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2241,7 +2271,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<BlobMetadata>> ListRootFolderAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders";
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2255,7 +2287,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<BlobMetadata>> ListFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2272,7 +2306,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (filePath != default)
             queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2292,7 +2328,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (inferContentType != default)
             queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2309,7 +2347,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (fileIdentifier != default)
             queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2326,7 +2366,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (folderPath != default)
             queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2339,7 +2381,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task HttpRequestAsync([DynamicValues("GetDataSets")] string siteAddress, SharePointHttpRequestBodyParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2361,7 +2405,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (approvalCorrelationId != default)
             queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2375,7 +2421,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<SPBlobMetadataResponse> MoveFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFileParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2389,7 +2437,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<SPBlobMetadataResponse> MoveFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFolderParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2405,7 +2455,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (approvalCorrelationId != default)
             queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2418,7 +2470,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
-        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2433,7 +2487,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<CreateNewDocumentSetResponse> CreateNewDocumentSetAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string library, CreateNewDocumentSetParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
-        return await this.CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2452,7 +2508,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2474,7 +2532,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/entities/{Uri.EscapeDataString(column.ToString())}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2492,7 +2552,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2525,7 +2587,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2539,7 +2603,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<Table>> GetListImageFieldsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
-        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2572,7 +2638,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2591,7 +2659,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2610,7 +2680,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2624,7 +2696,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task DeleteItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2644,7 +2718,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2664,7 +2740,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (approvalType != default)
             queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2692,7 +2770,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2707,7 +2787,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task CheckInFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, FileCheckInParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2721,7 +2803,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task CheckOutFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2735,7 +2819,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task DiscardFileCheckOutAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2754,7 +2840,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2769,7 +2857,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task GrantAccessAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, ItemGrantAccessBody input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2789,7 +2879,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (limitColumnsByView != default)
             queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2805,7 +2897,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<Item> PatchFileItemWithPredictedValuesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemWithPredictedValuesParameters input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
-        return await this.CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2830,7 +2924,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (eTag != default)
             queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2844,7 +2940,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task UnshareItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
-        await this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2859,7 +2957,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<SPListItemAttachment>> GetItemAttachmentsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string id, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
-        return await this.CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2879,7 +2979,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (fileName != default)
             queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2894,7 +2996,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task DeleteAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2910,7 +3014,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<byte[]> GetAttachmentContentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2924,7 +3030,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
-        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2950,7 +3058,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (viewNoEffect != default)
             queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2965,7 +3075,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
-        return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2979,7 +3091,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<Table>> GetTableViewsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
-        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2992,7 +3106,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
-        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3005,7 +3121,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
-        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3018,7 +3136,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
-        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3031,7 +3151,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
-        return await this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3044,7 +3166,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
-        return await this.CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3069,7 +3193,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (viewNoEffect != default)
             queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(agreementsSolutionWorkspace.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3083,7 +3209,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
-        return await this.CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3099,7 +3227,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (approvalType != default)
             queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
         var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3111,7 +3241,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/getApprovalTypes";
-        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3123,7 +3255,9 @@ public class SharePointOnlineClient : ConnectorClientBase
     public virtual async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/getViewScopeOptions";
-        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3146,7 +3280,9 @@ public class SharePointOnlineClient : ConnectorClientBase
         if (overwriteFlag != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.ToString())}");
         var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
 }

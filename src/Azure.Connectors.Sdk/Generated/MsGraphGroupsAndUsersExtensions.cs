@@ -514,7 +514,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
     public virtual async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users";
-        return await this.CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -530,7 +532,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
         if (searchByDisplayName != default)
             queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
         var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -542,7 +546,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
     public virtual async Task<ListSubscribedSkusResponse> ListSubscribedSkusAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/subscribedSkus";
-        return await this.CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -562,7 +568,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
         if (dataPointColumnSelection != default)
             queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
         var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -579,7 +587,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
         if (selectionOfDataPointsColumns != default)
             queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
         var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -592,7 +602,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
     public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIDOfTheMicrosoftEntraIDGroup, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}";
-        return await this.CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -606,7 +618,9 @@ public class MsGraphGroupsAndUsersClient : ConnectorClientBase
     public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/getMemberGroups";
-        return await this.CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
 }

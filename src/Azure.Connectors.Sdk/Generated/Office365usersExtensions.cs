@@ -1186,7 +1186,9 @@ public class Office365usersClient : ConnectorClientBase
     public virtual async Task UpdateMyProfileAsync(GraphUserUpdateable input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me";
-        await this.CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1198,7 +1200,9 @@ public class Office365usersClient : ConnectorClientBase
     public virtual async Task UpdateMyPhotoAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/me/photo/$value";
-        await this.CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1220,7 +1224,9 @@ public class Office365usersClient : ConnectorClientBase
         if (sensitivityLabelMetadata != default)
             queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
         var path = $"/codeless/beta/me/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<MyTrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<MyTrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1233,7 +1239,9 @@ public class Office365usersClient : ConnectorClientBase
     public virtual async Task<LinklessEntityListResponseListPerson> RelevantPeopleAsync(string userUPN, CancellationToken cancellationToken = default)
     {
         var path = $"/users/{Uri.EscapeDataString(userUPN.ToString())}/relevantpeople";
-        return await this.CallConnectorAsync<LinklessEntityListResponseListPerson>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<LinklessEntityListResponseListPerson>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1249,7 +1257,9 @@ public class Office365usersClient : ConnectorClientBase
         if (userUPN != default)
             queryParams.Add($"userId={Uri.EscapeDataString(userUPN.ToString())}");
         var path = $"/users/photo" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ClientPhotoMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ClientPhotoMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1272,7 +1282,9 @@ public class Office365usersClient : ConnectorClientBase
         if (sensitivityLabelMetadata != default)
             queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
         var path = $"/codeless/beta/users/{Uri.EscapeDataString(userUPN.ToString())}/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<TrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<TrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1285,7 +1297,9 @@ public class Office365usersClient : ConnectorClientBase
     public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/httprequest";
-        return await this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1305,7 +1319,9 @@ public class Office365usersClient : ConnectorClientBase
         if (top != default)
             queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
         var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/directReports" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<DirectReportsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<DirectReportsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1322,7 +1338,9 @@ public class Office365usersClient : ConnectorClientBase
         if (selectFields != default)
             queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
         var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/manager" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1338,7 +1356,9 @@ public class Office365usersClient : ConnectorClientBase
         if (selectFields != default)
             queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
         var path = $"/codeless/v1.0/me" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1376,7 +1396,9 @@ public class Office365usersClient : ConnectorClientBase
     public virtual async Task<byte[]> UserPhotoAsync(string userUPN, CancellationToken cancellationToken = default)
     {
         var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/photo/$value";
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -1393,7 +1415,9 @@ public class Office365usersClient : ConnectorClientBase
         if (selectFields != default)
             queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
         var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
 }

@@ -496,7 +496,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
     public virtual async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -510,7 +512,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
     public virtual async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -522,7 +526,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
     public virtual async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -538,7 +544,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (filePath != default)
             queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
         var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -557,7 +565,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (inferContentType != default)
             queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
         var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -574,7 +584,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (inferContentType != default)
             queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -594,7 +606,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (fileName != default)
             queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
         var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -616,7 +630,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (overwrite != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
         var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -636,7 +652,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (overwrite != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -658,7 +676,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (overwrite != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
         var path = $"/datasets/default/CopyFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -678,7 +698,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (overwrite != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -700,7 +722,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (overwrite != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
         var path = $"/datasets/default/MoveFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -717,7 +741,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (targetType != default)
             queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -736,7 +762,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (targetType != default)
             queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
         var path = $"/datasets/default/ConvertFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -753,7 +781,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (thumbnailSize != default)
             queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -765,7 +795,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
     public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/datasets/default/folders";
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -788,7 +820,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (numberOfFilesToReturn != default)
             queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
         var path = $"/datasets/default/folders/{Uri.EscapeDataString(folder.ToString())}/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -813,7 +847,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (numberOfFilesToReturn != default)
             queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
         var path = $"/datasets/default/findFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -833,7 +869,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (linkScope != default)
             queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
         var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -855,7 +893,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (linkScope != default)
             queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
         var path = $"/datasets/default/CreateShareLinkByPathV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -877,7 +917,9 @@ public class OneDriveForBusinessClient : ConnectorClientBase
         if (overwrite != default)
             queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
         var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>

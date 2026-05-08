@@ -480,7 +480,9 @@ public class KustoClient : ConnectorClientBase
     public virtual async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoResults/false";
-        return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -493,7 +495,9 @@ public class KustoClient : ConnectorClientBase
     public virtual async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoShowCommandResults";
-        return await this.CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -506,7 +510,9 @@ public class KustoClient : ConnectorClientBase
     public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/ListKustoResultsSchema";
-        return await this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -519,7 +525,9 @@ public class KustoClient : ConnectorClientBase
     public virtual async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunKustoAndVisualizeResults/false";
-        return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -532,7 +540,9 @@ public class KustoClient : ConnectorClientBase
     public virtual async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunKustoAndVisualizeResults/true";
-        return await this.CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -545,7 +555,9 @@ public class KustoClient : ConnectorClientBase
     public virtual async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/RunAsyncControlCommandAndWait";
-        return await this.CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -562,7 +574,9 @@ public class KustoClient : ConnectorClientBase
         if (sessionId != default)
             queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
         var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
 }

@@ -2620,7 +2620,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<NewMeetingResponse> CreateTeamsMeetingAsync(string calendarId, NewMeeting input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
-        return await this.CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2632,7 +2634,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/beta/me/joinedTeams";
-        return await this.CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2644,7 +2648,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetAllAssociatedTeamsResponse> GetAllAssociatedTeamsAsync(CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/me/teamwork/associatedTeams";
-        return await this.CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2664,7 +2670,9 @@ public class TeamsClient : ConnectorClientBase
         if (orderBy != default)
             queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
         var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2678,7 +2686,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<CreateChannelResponse> CreateChannelAsync([DynamicValues("GetAllTeams")] string team, CreateChannelInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
-        return await this.CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2692,7 +2702,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetChannelResponse> GetChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
-        return await this.CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2712,7 +2724,9 @@ public class TeamsClient : ConnectorClientBase
         if (orderBy != default)
             queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/allChannels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2726,7 +2740,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetChatsResponse> GetChatsAsync(string chatTypes, string topic, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
-        return await this.CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2739,7 +2755,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetTagsResponseSchema> GetTagsAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-        return await this.CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2753,7 +2771,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<CreateTagResponseSchema> CreateTagAsync([DynamicValues("GetAllTeams")] string team, CreateTagInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-        return await this.CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2768,7 +2788,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<AddMemberToTagResponseSchema> AddMemberToTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, AddMemberToTagInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-        return await this.CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2782,7 +2804,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetTagMembersResponseSchema> GetTagMembersAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-        return await this.CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2796,7 +2820,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberID, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberID.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2810,7 +2836,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task PostFeedNotificationAsync(string postAs, string notificationType, DynamicPostFeedNotificationRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2824,7 +2852,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<AtMentionTagResponse> AtMentionTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-        return await this.CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2837,7 +2867,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task DeleteTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2869,7 +2901,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<DynamicGetMessageDetailsResponseSchema> GetMessageDetailsAsync(string message, string messageType, DynamicGetMessageDetailsSchema input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await this.CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2888,7 +2922,9 @@ public class TeamsClient : ConnectorClientBase
         if (latestRepliesCount != default)
             queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.ToString())}");
         var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages/{Uri.EscapeDataString(message.ToString())}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2906,7 +2942,9 @@ public class TeamsClient : ConnectorClientBase
         if (filterQuery != default)
             queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
         var path = $"/v1.0/teams/listmembers/threadType/{Uri.EscapeDataString(threadType.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this.CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2921,7 +2959,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<UnifiedActionSchema> GetUnifiedActionSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
-        return await this.CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2936,7 +2976,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<DynamicResponseSchema> GetPostToConversationResponseSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
-        return await this.CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2949,7 +2991,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ConnectorMetadata> GetAdaptiveCardInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-        return await this.CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2962,7 +3006,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ConnectorMetadata> GetNotificationInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-        return await this.CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2974,7 +3020,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task SubscribeUserMessageWithOptionsAsync(DynamicUserMessageWithOptionsSubscriptionRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -2987,7 +3035,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
-        return await this.CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3000,7 +3050,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-        return await this.CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3014,7 +3066,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-        return await this.CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3029,7 +3083,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync(string postAs, string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-        return await this.CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3042,7 +3098,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<SelectedMessageTriggerMetadata> GetSelectedMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
-        return await this.CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3055,7 +3113,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ComposeMessageTriggerMetadata> GetComposeMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
-        return await this.CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3068,7 +3128,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<CardResponseTriggerMetadata> GetCardResponseTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
-        return await this.CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3081,7 +3143,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetTeamResponse> GetTeamAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
-        return await this.CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3094,7 +3158,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<AtMentionUser> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
-        return await this.CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3107,7 +3173,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<NewChatResponse> CreateChatAsync(NewChat input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/chats";
-        return await this.CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3146,7 +3214,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<CreateATeamResponse> CreateATeamAsync(CreateATeamInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams";
-        return await this.CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3159,7 +3229,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task AddMemberToTeamAsync([DynamicValues("GetAllTeams")] string team, AddMemberToTeamInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/members";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3173,7 +3245,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task AddMemberToChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, AddMemberToChannelInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
-        await this.CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3187,7 +3261,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipID, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipID.ToString())}";
-        await this.CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken);
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3202,7 +3278,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<PostToConversationResponse> PostMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostMessageRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3217,7 +3295,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<PostToConversationResponse> ReplyWithMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyMessageRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3232,7 +3312,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<PostToConversationResponse> PostCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostCardRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3247,7 +3329,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<DynamicPostGatherInputToConversationResponse> PostCardAndWaitForResponseAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, PostCardAndWaitForResponseInput input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
-        return await this.CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3262,7 +3346,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<PostToConversationResponse> ReplyWithCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyCardRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3277,7 +3363,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<PostToConversationResponse> UpdateCardInConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicUpdateCardRequest input, CancellationToken cancellationToken = default)
     {
         var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-        return await this.CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3290,7 +3378,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await this.CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3303,7 +3393,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsResponseSchemaAsync(string messageType, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await this.CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3316,7 +3408,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ListMembersSchema> ListMembersInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await this.CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3329,7 +3423,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerRequestSchemaAsync(string messageType, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await this.CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3343,7 +3439,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerResponseSchemaAsync(string triggerType, string messageType, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-        return await this.CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3357,7 +3455,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
-        return await this.CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3371,7 +3471,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<PostFeedSchema> GetFeedNotificationInputSchemaAsync(string postAs, string notificationType, CancellationToken cancellationToken = default)
     {
         var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-        return await this.CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken);
+        return await this
+            .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -3384,7 +3486,9 @@ public class TeamsClient : ConnectorClientBase
     public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
     {
         var path = $"/httprequest";
-        return await this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken);
+        return await this
+            .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
 }
