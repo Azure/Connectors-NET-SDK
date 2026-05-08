@@ -86,7 +86,7 @@ public static class Office365ModelFactory
         string id = default,
         string name = default,
         string contentBytes = default,
-        ContentType? contentType = default,
+        string contentType = default,
         long? size = default,
         string permission = default,
         string providerType = default,
@@ -142,7 +142,7 @@ public static class Office365ModelFactory
     /// Creates a new instance of <see cref="ItemBody"/>.
     /// </summary>
     public static ItemBody ItemBody(
-        ContentType? contentType = default,
+        string contentType = default,
         string content = default)
     {
         return new ItemBody
@@ -708,7 +708,7 @@ public static class Office365ModelFactory
     public static GetAttachmentResponse GetAttachmentResponse(
         string id = default,
         string name = default,
-        ContentType? contentType = default,
+        string contentType = default,
         int? size = default,
         string contentBytes = default,
         bool? isInline = default,
@@ -813,7 +813,7 @@ public static class Office365ModelFactory
         string attachmentId = default,
         string name = default,
         string content = default,
-        ContentType? contentType = default,
+        string contentType = default,
         long? size = default,
         bool? isInline = default,
         DateTime? lastModifiedDateTime = default,
