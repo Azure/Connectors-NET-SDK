@@ -558,7 +558,7 @@ namespace Azure.Connectors.Sdk.Mq
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected MqClient() { }
+        protected MqClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "mq";

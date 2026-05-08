@@ -687,7 +687,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected AzureBlobClient() { }
+        protected AzureBlobClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "azureblob";

@@ -1176,7 +1176,7 @@ namespace Azure.Connectors.Sdk.Office365users
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected Office365usersClient() { }
+        protected Office365usersClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "office365users";

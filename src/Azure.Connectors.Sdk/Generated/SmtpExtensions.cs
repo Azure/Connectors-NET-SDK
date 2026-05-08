@@ -276,7 +276,7 @@ namespace Azure.Connectors.Sdk.Smtp
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected SmtpClient() { }
+        protected SmtpClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "smtp";

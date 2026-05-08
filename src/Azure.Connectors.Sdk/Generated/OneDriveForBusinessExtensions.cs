@@ -481,7 +481,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <summary>
         /// Initializes a new instance for mocking.
         /// </summary>
-        protected OneDriveForBusinessClient() { }
+        protected OneDriveForBusinessClient() : this(new Uri("https://localhost")) { }
 
         /// <inheritdoc />
         public override string ConnectorName => "onedriveforbusiness";
