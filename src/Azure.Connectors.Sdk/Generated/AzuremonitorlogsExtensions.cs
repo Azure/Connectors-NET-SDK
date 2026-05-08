@@ -45,11 +45,13 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
     {
         /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000. </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The subscription Id. </summary>
         [JsonPropertyName("subscriptionId")]
-        public string SubscriptionId { get; set; }
+        [JsonInclude]
+        public string SubscriptionId { get; internal set; }
 
         /// <summary>The authorization source of the request. Valid values are one or more combinations of Legacy, RoleBased, Bypassed, Direct and Management. For example, &apos;Legacy, RoleBased&apos;. </summary>
         [JsonPropertyName("authorizationSource")]
@@ -67,7 +69,8 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
 
         /// <summary>The URL to get the next set of results. </summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -77,11 +80,13 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
     {
         /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY). </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The Name of the resource group. </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        [JsonInclude]
+        public string Name { get; internal set; }
     }
 
     /// <summary>
@@ -95,7 +100,8 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
 
         /// <summary>The URL to get the next set of results. </summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -105,11 +111,13 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
     {
         /// <summary>The ID of the resource. </summary>
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonInclude]
+        public string Id { get; internal set; }
 
         /// <summary>The Name of the resource .</summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        [JsonInclude]
+        public string Name { get; internal set; }
     }
 
     /// <summary>
@@ -123,7 +131,8 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
 
         /// <summary>The URL to get the next set of results. </summary>
         [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
+        [JsonInclude]
+        public string NextLink { get; internal set; }
     }
 
     /// <summary>
@@ -133,11 +142,13 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
     {
         /// <summary>The ID of the item. </summary>
         [JsonPropertyName("id")]
-        public int? Id { get; set; }
+        [JsonInclude]
+        public int? Id { get; internal set; }
 
         /// <summary>The Name of the item. </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        [JsonInclude]
+        public string Name { get; internal set; }
     }
 
     /// <summary>
@@ -231,6 +242,192 @@ namespace Azure.Connectors.Sdk.Azuremonitorlogs.Models
     }
 
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Azuremonitorlogs models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class AzuremonitorlogsModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="SubscriptionListResult"/>.
+        /// </summary>
+        public static SubscriptionListResult SubscriptionListResult(
+            List<Subscription> value = default,
+            string nextLink = default)
+        {
+            return new SubscriptionListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Subscription"/>.
+        /// </summary>
+        public static Subscription Subscription(
+            string id = default,
+            string subscriptionId = default,
+            string authorizationSource = default)
+        {
+            return new Subscription
+            {
+                Id = id,
+                SubscriptionId = subscriptionId,
+                AuthorizationSource = authorizationSource,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceGroupListResult"/>.
+        /// </summary>
+        public static ResourceGroupListResult ResourceGroupListResult(
+            List<ResourceGroup> value = default,
+            string nextLink = default)
+        {
+            return new ResourceGroupListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceGroup"/>.
+        /// </summary>
+        public static ResourceGroup ResourceGroup(
+            string id = default,
+            string name = default)
+        {
+            return new ResourceGroup
+            {
+                Id = id,
+                Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceItemListResult"/>.
+        /// </summary>
+        public static ResourceItemListResult ResourceItemListResult(
+            List<ResourceItem> value = default,
+            string nextLink = default)
+        {
+            return new ResourceItemListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ResourceItem"/>.
+        /// </summary>
+        public static ResourceItem ResourceItem(
+            string id = default,
+            string name = default)
+        {
+            return new ResourceItem
+            {
+                Id = id,
+                Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TimeRangeListResult"/>.
+        /// </summary>
+        public static TimeRangeListResult TimeRangeListResult(
+            List<TimeRangeItem> value = default,
+            string nextLink = default)
+        {
+            return new TimeRangeListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TimeRangeItem"/>.
+        /// </summary>
+        public static TimeRangeItem TimeRangeItem(
+            int? id = default,
+            string name = default)
+        {
+            return new TimeRangeItem
+            {
+                Id = id,
+                Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Table"/>.
+        /// </summary>
+        public static Table Table(
+            List<Row> value = default)
+        {
+            return new Table
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="VisualizeResults"/>.
+        /// </summary>
+        public static VisualizeResults VisualizeResults(
+            string body = default,
+            string attachmentContent = default,
+            string attachmentName = default)
+        {
+            return new VisualizeResults
+            {
+                Body = body,
+                AttachmentContent = attachmentContent,
+                AttachmentName = attachmentName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="QueryDataInput"/>.
+        /// </summary>
+        public static QueryDataInput QueryDataInput(
+            string query = default,
+            string timeRangeType = default,
+            object timerange = default)
+        {
+            return new QueryDataInput
+            {
+                Query = query,
+                TimeRangeType = timeRangeType,
+                Timerange = timerange,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="VisualizeQueryInput"/>.
+        /// </summary>
+        public static VisualizeQueryInput VisualizeQueryInput(
+            string query = default,
+            string timeRangeType = default,
+            object timerange = default)
+        {
+            return new VisualizeQueryInput
+            {
+                Query = query,
+                TimeRangeType = timeRangeType,
+                Timerange = timerange,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 

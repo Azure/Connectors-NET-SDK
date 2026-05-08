@@ -385,7 +385,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.AreEqual("TEST.QUEUE", options.Queue);
             Assert.AreEqual("Hello from MQ", options.Message);
-            Assert.AreEqual("MQMT_DATAGRAM", options.MessageType);
+            Assert.AreEqual("MQMT_DATAGRAM", options.MessageType.ToString());
             Assert.AreEqual("corr-001", options.CorrelationId);
             Assert.AreEqual("REPLY.QUEUE", options.ReplyToQueue);
             Assert.AreEqual("QM1", options.ReplyToQueueManager);
@@ -409,7 +409,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("TEST.QUEUE", options.Queue);
             Assert.AreEqual("bXNnLWlk", options.MessageId);
             Assert.AreEqual("Y29yci1pZA==", options.CorrelationId);
-            Assert.AreEqual("true", options.IncludeInfo);
+            Assert.AreEqual("true", options.IncludeInfo.ToString());
             Assert.AreEqual("00:00:30", options.Timeout);
         }
     }

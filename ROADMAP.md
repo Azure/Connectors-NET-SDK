@@ -9,6 +9,7 @@ This document tracks the progress of generating Connectors SDK code for Logic Ap
 | Component | Status | Notes |
 |-----------|--------|-------|
 | BPM Generator | ⏳ Feature branch awaiting human review | Fixes for WhenWritingNull, nullable types, SharePoint fixes |
+| Extensible Enums | ✅ Complete | Swagger enum properties → `readonly struct` types ([BPM PR #15659590](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/15659590), #115) |
 | SDK (Office365) | ✅ Complete | WhenWritingNull fix merged |
 | SDK (SharePoint) | ✅ Complete | Validated end-to-end |
 | SDK (Kusto / ADX) | ✅ Complete | KQL queries, control commands, chart rendering, MCP server |

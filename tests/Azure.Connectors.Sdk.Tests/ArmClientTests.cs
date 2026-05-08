@@ -201,7 +201,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual("00000000-0000-0000-0000-000000000000", result.SubscriptionId);
             Assert.AreEqual("Test Subscription", result.DisplayName);
-            Assert.AreEqual("Enabled", result.State);
+            Assert.AreEqual("Enabled", result.State.ToString());
         }
 
         [TestMethod]
@@ -306,7 +306,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("00000000-0000-0000-0000-000000000000", deserialized!.SubscriptionId);
             Assert.AreEqual("My Subscription", deserialized.DisplayName);
-            Assert.AreEqual("Enabled", deserialized.State);
+            Assert.AreEqual("Enabled", deserialized.State.ToString());
             Assert.AreEqual("11111111-1111-1111-1111-111111111111", deserialized.TenantId);
         }
 

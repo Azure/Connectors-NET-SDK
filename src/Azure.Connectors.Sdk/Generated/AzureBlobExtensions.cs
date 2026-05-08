@@ -105,7 +105,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         public string GroupPolicyIdentifier { get; set; }
 
         /// <summary>The permissions specified on the SAS (Values separated by comma).</summary>
-        public string Permissions { get; set; }
+        public Permissions? Permissions { get; set; }
 
         /// <summary>The date and time at which the SAS becomes valid (example: &apos;2017-11-01T15:30:00+00:00&apos;). Default = now().</summary>
         public DateTime? StartTime { get; set; }
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
         /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
         [JsonPropertyName("AccessProtocol")]
-        public string SharedAccessProtocol { get; set; }
+        public AccessProtocol? SharedAccessProtocol { get; set; }
 
         /// <summary>The allowed IP address or IP address range. Null if you don&apos;t want to restrict based on IP address.</summary>
         [JsonPropertyName("IpAddressOrRange")]
@@ -226,7 +226,8 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     {
         /// <summary>Blob metadata collection.</summary>
         [JsonPropertyName("value")]
-        public List<BlobMetadata> Value { get; set; }
+        [JsonInclude]
+        public List<BlobMetadata> Value { get; internal set; }
 
         /// <summary>An Url which can be used to retrieve the next page.</summary>
         [JsonPropertyName("nextLink")]
@@ -237,7 +238,324 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         public string NextPageMarker { get; set; }
     }
 
+    /// <summary>
+    /// Extensible enum for known AccessProtocol values.
+    /// </summary>
+    [JsonConverter(typeof(AccessProtocol.AccessProtocolJsonConverter))]
+    public readonly struct AccessProtocol : IEquatable<AccessProtocol>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccessProtocol"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public AccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>HttpsOnly</summary>
+        public static AccessProtocol HttpsOnly { get; } = new("HttpsOnly");
+
+        /// <summary>HttpsOrHttp</summary>
+        public static AccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
+
+        /// <summary>Converts a string to <see cref="AccessProtocol"/>.</summary>
+        public static implicit operator AccessProtocol(string value) => new(value);
+
+        /// <summary>Converts a <see cref="AccessProtocol"/> to its string representation.</summary>
+        public static implicit operator string(AccessProtocol value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(AccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is AccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(AccessProtocol left, AccessProtocol right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(AccessProtocol left, AccessProtocol right) => !left.Equals(right);
+
+        internal sealed class AccessProtocolJsonConverter : JsonConverter<AccessProtocol>
+        {
+            public AccessProtocolJsonConverter() { }
+            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AccessProtocol, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, AccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Permissions values.
+    /// </summary>
+    [JsonConverter(typeof(Permissions.PermissionsJsonConverter))]
+    public readonly struct Permissions : IEquatable<Permissions>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Permissions"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Permissions(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Read</summary>
+        public static Permissions Read { get; } = new("Read");
+
+        /// <summary>Write</summary>
+        public static Permissions Write { get; } = new("Write");
+
+        /// <summary>Add</summary>
+        public static Permissions Add { get; } = new("Add");
+
+        /// <summary>Create</summary>
+        public static Permissions Create { get; } = new("Create");
+
+        /// <summary>Delete</summary>
+        public static Permissions Delete { get; } = new("Delete");
+
+        /// <summary>List</summary>
+        public static Permissions List { get; } = new("List");
+
+        /// <summary>Read,Write</summary>
+        public static Permissions ReadWrite { get; } = new("Read,Write");
+
+        /// <summary>Read,Write,List</summary>
+        public static Permissions ReadWriteList { get; } = new("Read,Write,List");
+
+        /// <summary>Read,Write,List,Delete</summary>
+        public static Permissions ReadWriteListDelete { get; } = new("Read,Write,List,Delete");
+
+        /// <summary>Converts a string to <see cref="Permissions"/>.</summary>
+        public static implicit operator Permissions(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Permissions"/> to its string representation.</summary>
+        public static implicit operator string(Permissions value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Permissions other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Permissions other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Permissions left, Permissions right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Permissions left, Permissions right) => !left.Equals(right);
+
+        internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
+        {
+            public PermissionsJsonConverter() { }
+            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Permissions, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
     #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of AzureBlob models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class AzureBlobModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccountList"/>.
+        /// </summary>
+        public static StorageAccountList StorageAccountList(
+            List<StorageAccount> value = default)
+        {
+            return new StorageAccountList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccount"/>.
+        /// </summary>
+        public static StorageAccount StorageAccount(
+            string storageAccountName = default,
+            string storageAccountDisplayName = default)
+        {
+            return new StorageAccount
+            {
+                StorageAccountName = storageAccountName,
+                StorageAccountDisplayName = storageAccountDisplayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BlobMetadata"/>.
+        /// </summary>
+        public static BlobMetadata BlobMetadata(
+            string id = default,
+            string name = default,
+            string displayName = default,
+            string path = default,
+            DateTime? lastModified = default,
+            long? size = default,
+            string mediaType = default,
+            bool? isFolder = default,
+            string eTag = default,
+            string fileLocator = default)
+        {
+            return new BlobMetadata
+            {
+                Id = id,
+                Name = name,
+                DisplayName = displayName,
+                Path = path,
+                LastModified = lastModified,
+                Size = size,
+                MediaType = mediaType,
+                IsFolder = isFolder,
+                ETag = eTag,
+                FileLocator = fileLocator,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SharedAccessSignature"/>.
+        /// </summary>
+        public static SharedAccessSignature SharedAccessSignature(
+            string webUrl = default)
+        {
+            return new SharedAccessSignature
+            {
+                WebUrl = webUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SharedAccessSignatureBlobPolicy"/>.
+        /// </summary>
+        public static SharedAccessSignatureBlobPolicy SharedAccessSignatureBlobPolicy(
+            string groupPolicyIdentifier = default,
+            Permissions? permissions = default,
+            DateTime? startTime = default,
+            DateTime? expiryTime = default,
+            AccessProtocol? sharedAccessProtocol = default,
+            string ipAddressOrIPAddressRange = default)
+        {
+            return new SharedAccessSignatureBlobPolicy
+            {
+                GroupPolicyIdentifier = groupPolicyIdentifier,
+                Permissions = permissions,
+                StartTime = startTime,
+                ExpiryTime = expiryTime,
+                SharedAccessProtocol = sharedAccessProtocol,
+                IPAddressOrIPAddressRange = ipAddressOrIPAddressRange,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataWithSensitivityLabelInfo"/>.
+        /// </summary>
+        public static DataWithSensitivityLabelInfo DataWithSensitivityLabelInfo(
+            string id = default,
+            string name = default,
+            string displayName = default,
+            string path = default,
+            DateTime? lastModified = default,
+            long? size = default,
+            string mediaType = default,
+            bool? isFolder = default,
+            string eTag = default,
+            string fileLocator = default,
+            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+        {
+            return new DataWithSensitivityLabelInfo
+            {
+                Id = id,
+                Name = name,
+                DisplayName = displayName,
+                Path = path,
+                LastModified = lastModified,
+                Size = size,
+                MediaType = mediaType,
+                IsFolder = isFolder,
+                ETag = eTag,
+                FileLocator = fileLocator,
+                SensitivityLabelInfo = sensitivityLabelInfo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SensitivityLabelMetadata"/>.
+        /// </summary>
+        public static SensitivityLabelMetadata SensitivityLabelMetadata(
+            string sensitivityLabelId = default,
+            string name = default,
+            string sensitivityLabelDisplayNameInfo = default,
+            string tooltipInfo = default,
+            int? priorityOfSensitivityLabel = default,
+            string colorToBeDisplayedForSensitivityLabel = default,
+            bool? isEncryptedStatusOfSensitivityLabel = default,
+            bool? whetherSensitivityLabelIsEnabled = default,
+            bool? whetherSensitivityLabelIsParent = default,
+            string parentSensitivityLabelId = default)
+        {
+            return new SensitivityLabelMetadata
+            {
+                SensitivityLabelId = sensitivityLabelId,
+                Name = name,
+                SensitivityLabelDisplayNameInfo = sensitivityLabelDisplayNameInfo,
+                TooltipInfo = tooltipInfo,
+                PriorityOfSensitivityLabel = priorityOfSensitivityLabel,
+                ColorToBeDisplayedForSensitivityLabel = colorToBeDisplayedForSensitivityLabel,
+                IsEncryptedStatusOfSensitivityLabel = isEncryptedStatusOfSensitivityLabel,
+                WhetherSensitivityLabelIsEnabled = whetherSensitivityLabelIsEnabled,
+                WhetherSensitivityLabelIsParent = whetherSensitivityLabelIsParent,
+                ParentSensitivityLabelId = parentSensitivityLabelId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListOfBlobsWithSensitivityLabels"/>.
+        /// </summary>
+        public static ListOfBlobsWithSensitivityLabels ListOfBlobsWithSensitivityLabels(
+            List<DataWithSensitivityLabelInfo> value = default)
+        {
+            return new ListOfBlobsWithSensitivityLabels
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BlobMetadataPage"/>.
+        /// </summary>
+        public static BlobMetadataPage BlobMetadataPage(
+            List<BlobMetadata> value = default,
+            string nextLink = default,
+            string nextPageMarker = default)
+        {
+            return new BlobMetadataPage
+            {
+                Value = value,
+                NextLink = nextLink,
+                NextPageMarker = nextPageMarker,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
     #region Trigger Payloads
 
