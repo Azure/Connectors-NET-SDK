@@ -21,660 +21,660 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Mq.Models
 {
 
-#region Types
-
-/// <summary>
-/// Response for Browse message
-/// </summary>
-public class Item
-{
-    /// <summary>ItemInternalId</summary>
-    public string ItemInternalId { get; set; }
-
-    /// <summary>MessageData</summary>
-    public string MessageData { get; set; }
-
-    /// <summary>MessageId</summary>
-    public string MessageId { get; set; }
-
-    /// <summary>CorrelationId</summary>
-    public string CorrelationId { get; set; }
-
-    /// <summary>PutDateTime</summary>
-    [JsonInclude]
-    public DateTime? PutDateTime { get; internal set; }
-
-    /// <summary>UserIdentifier</summary>
-    public string UserIdentifier { get; set; }
-
-    /// <summary>PutApplicationName</summary>
-    public string PutApplicationName { get; set; }
-
-    /// <summary>PutApplicationType</summary>
-    public string PutApplicationType { get; set; }
-
-    /// <summary>Format</summary>
-    public string Format { get; set; }
-
-    /// <summary>AccountingToken</summary>
-    public string AccountingToken { get; set; }
-
-    /// <summary>Ccsid</summary>
-    public int? Ccsid { get; set; }
-
-    /// <summary>GroupId</summary>
-    public string GroupId { get; set; }
-
-    /// <summary>LogicalSequenceNumber</summary>
-    public int? LogicalSequenceNumber { get; set; }
-
-    /// <summary>MessageType</summary>
-    public string MessageType { get; set; }
-
-    /// <summary>Offset</summary>
-    public int? Offset { get; set; }
-
-    /// <summary>OriginalLength</summary>
-    public int? OriginalLength { get; set; }
-
-    /// <summary>Persistence</summary>
-    public string Persistence { get; set; }
-
-    /// <summary>Priority</summary>
-    public int? Priority { get; set; }
-
-    /// <summary>ReplyToQueue</summary>
-    public string ReplyToQueue { get; set; }
-
-    /// <summary>ReplyToQueueManager</summary>
-    public string ReplyToQueueManager { get; set; }
-}
-
-/// <summary>
-/// Response for Browse messages
-/// </summary>
-public class ItemsList
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<Item> Value { get; set; }
-}
-
-/// <summary>
-/// Response for Send message
-/// </summary>
-public class SendResponse
-{
-    /// <summary>ItemInternalId</summary>
-    public string ItemInternalId { get; set; }
-
-    /// <summary>MessageData</summary>
-    public string MessageData { get; set; }
-
-    /// <summary>MessageId</summary>
-    public string MessageId { get; set; }
-
-    /// <summary>CorrelationId</summary>
-    public string CorrelationId { get; set; }
-}
-
-/// <summary>
-/// SingleGetValidOptions
-/// </summary>
-public class SingleGetValidOptions
-{
-    /// <summary>When specified, overrides the queue defined in the connection.</summary>
-    public string Queue { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string MessageId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string CorrelationId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string GroupId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 16 bytes.</summary>
-    public string MessageToken { get; set; }
-
-    /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
-    public double? Offset { get; set; }
-
-    /// <summary>Sequence number of a logical message within a group.</summary>
-    public double? LogicalSequenceNumber { get; set; }
-
-    /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-    public IncludeInfo? IncludeInfo { get; set; }
-
-    /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
-    public string Timeout { get; set; }
-}
-
-/// <summary>
-/// MultipleGetValidOptions
-/// </summary>
-public class MultipleGetValidOptions
-{
-    /// <summary>When specified, overrides the queue defined in the connection.</summary>
-    public string Queue { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string MessageId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string CorrelationId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string GroupId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 16 bytes.</summary>
-    public string MessageToken { get; set; }
-
-    /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
-    public double? Offset { get; set; }
-
-    /// <summary>Sequence number of a logical message within a group.</summary>
-    public double? LogicalSequenceNumber { get; set; }
-
-    /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
-    public IncludeInfo? IncludeInfo { get; set; }
-
-    /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
-    public string Timeout { get; set; }
-
-    /// <summary>Maximum number of messages to be retrieved from the queue.</summary>
-    public double? BatchSize { get; set; }
-}
-
-/// <summary>
-/// SendValidDataOptions
-/// </summary>
-public class SendValidDataOptions
-{
-    /// <summary>When specified, overrides the queue defined in the connection.</summary>
-    public string Queue { get; set; }
-
-    /// <summary>Message data</summary>
-    public string Message { get; set; }
-
-    /// <summary>Message type</summary>
-    public MessageType? MessageType { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string CorrelationId { get; set; }
-
-    /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
-    public string MessageId { get; set; }
-
-    /// <summary>Reply-to queue</summary>
-    public string ReplyToQueue { get; set; }
-
-    /// <summary>Reply-to queue manager</summary>
-    public string ReplyToQueueManager { get; set; }
-
-    /// <summary>Character set for the message.</summary>
-    public double? CodeCharSetId { get; set; }
-
-    /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
-    public double? Offset { get; set; }
-
-    /// <summary>Format field for the message.</summary>
-    public string Format { get; set; }
-}
-
-/// <summary>
-/// Extensible enum for known IncludeInfo values.
-/// </summary>
-[JsonConverter(typeof(IncludeInfo.IncludeInfoJsonConverter))]
-public readonly struct IncludeInfo : IEquatable<IncludeInfo>
-{
-    private readonly string _value;
+    #region Types
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IncludeInfo"/> struct.
+    /// Response for Browse message
     /// </summary>
-    /// <param name="value">The string value.</param>
-    public IncludeInfo(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-    /// <summary>false</summary>
-    public static IncludeInfo False { get; } = new("false");
-
-    /// <summary>true</summary>
-    public static IncludeInfo True { get; } = new("true");
-
-    /// <summary>Converts a string to <see cref="IncludeInfo"/>.</summary>
-    public static implicit operator IncludeInfo(string value) => new(value);
-
-    /// <summary>Converts a <see cref="IncludeInfo"/> to its string representation.</summary>
-    public static implicit operator string(IncludeInfo value) => value.ToString();
-
-    /// <inheritdoc/>
-    public override string ToString() => this._value;
-
-    /// <inheritdoc/>
-    public bool Equals(IncludeInfo other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is IncludeInfo other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-    /// <summary>Equality operator.</summary>
-    public static bool operator ==(IncludeInfo left, IncludeInfo right) => left.Equals(right);
-
-    /// <summary>Inequality operator.</summary>
-    public static bool operator !=(IncludeInfo left, IncludeInfo right) => !left.Equals(right);
-
-    internal sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
+    public class Item
     {
-        public IncludeInfoJsonConverter() { }
-        public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for IncludeInfo, got '{reader.TokenType}'.");
-        public override void Write(Utf8JsonWriter writer, IncludeInfo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        /// <summary>ItemInternalId</summary>
+        public string ItemInternalId { get; set; }
+
+        /// <summary>MessageData</summary>
+        public string MessageData { get; set; }
+
+        /// <summary>MessageId</summary>
+        public string MessageId { get; set; }
+
+        /// <summary>CorrelationId</summary>
+        public string CorrelationId { get; set; }
+
+        /// <summary>PutDateTime</summary>
+        [JsonInclude]
+        public DateTime? PutDateTime { get; internal set; }
+
+        /// <summary>UserIdentifier</summary>
+        public string UserIdentifier { get; set; }
+
+        /// <summary>PutApplicationName</summary>
+        public string PutApplicationName { get; set; }
+
+        /// <summary>PutApplicationType</summary>
+        public string PutApplicationType { get; set; }
+
+        /// <summary>Format</summary>
+        public string Format { get; set; }
+
+        /// <summary>AccountingToken</summary>
+        public string AccountingToken { get; set; }
+
+        /// <summary>Ccsid</summary>
+        public int? Ccsid { get; set; }
+
+        /// <summary>GroupId</summary>
+        public string GroupId { get; set; }
+
+        /// <summary>LogicalSequenceNumber</summary>
+        public int? LogicalSequenceNumber { get; set; }
+
+        /// <summary>MessageType</summary>
+        public string MessageType { get; set; }
+
+        /// <summary>Offset</summary>
+        public int? Offset { get; set; }
+
+        /// <summary>OriginalLength</summary>
+        public int? OriginalLength { get; set; }
+
+        /// <summary>Persistence</summary>
+        public string Persistence { get; set; }
+
+        /// <summary>Priority</summary>
+        public int? Priority { get; set; }
+
+        /// <summary>ReplyToQueue</summary>
+        public string ReplyToQueue { get; set; }
+
+        /// <summary>ReplyToQueueManager</summary>
+        public string ReplyToQueueManager { get; set; }
     }
-}
-
-/// <summary>
-/// Extensible enum for known MessageType values.
-/// </summary>
-[JsonConverter(typeof(MessageType.MessageTypeJsonConverter))]
-public readonly struct MessageType : IEquatable<MessageType>
-{
-    private readonly string _value;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MessageType"/> struct.
+    /// Response for Browse messages
     /// </summary>
-    /// <param name="value">The string value.</param>
-    public MessageType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-    /// <summary>Datagram</summary>
-    public static MessageType Datagram { get; } = new("Datagram");
-
-    /// <summary>Reply</summary>
-    public static MessageType Reply { get; } = new("Reply");
-
-    /// <summary>Request</summary>
-    public static MessageType Request { get; } = new("Request");
-
-    /// <summary>Converts a string to <see cref="MessageType"/>.</summary>
-    public static implicit operator MessageType(string value) => new(value);
-
-    /// <summary>Converts a <see cref="MessageType"/> to its string representation.</summary>
-    public static implicit operator string(MessageType value) => value.ToString();
-
-    /// <inheritdoc/>
-    public override string ToString() => this._value;
-
-    /// <inheritdoc/>
-    public bool Equals(MessageType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is MessageType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-    /// <summary>Equality operator.</summary>
-    public static bool operator ==(MessageType left, MessageType right) => left.Equals(right);
-
-    /// <summary>Inequality operator.</summary>
-    public static bool operator !=(MessageType left, MessageType right) => !left.Equals(right);
-
-    internal sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
+    public class ItemsList
     {
-        public MessageTypeJsonConverter() { }
-        public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MessageType, got '{reader.TokenType}'.");
-        public override void Write(Utf8JsonWriter writer, MessageType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<Item> Value { get; set; }
     }
-}
 
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of Mq models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class MqModelFactory
-{
     /// <summary>
-    /// Creates a new instance of <see cref="Item"/>.
+    /// Response for Send message
     /// </summary>
-    public static Item Item(
-        string itemInternalId = default,
-        string messageData = default,
-        string messageId = default,
-        string correlationId = default,
-        DateTime? putDateTime = default,
-        string userIdentifier = default,
-        string putApplicationName = default,
-        string putApplicationType = default,
-        string format = default,
-        string accountingToken = default,
-        int? ccsid = default,
-        string groupId = default,
-        int? logicalSequenceNumber = default,
-        string messageType = default,
-        int? offset = default,
-        int? originalLength = default,
-        string persistence = default,
-        int? priority = default,
-        string replyToQueue = default,
-        string replyToQueueManager = default)
+    public class SendResponse
     {
-        return new Item
+        /// <summary>ItemInternalId</summary>
+        public string ItemInternalId { get; set; }
+
+        /// <summary>MessageData</summary>
+        public string MessageData { get; set; }
+
+        /// <summary>MessageId</summary>
+        public string MessageId { get; set; }
+
+        /// <summary>CorrelationId</summary>
+        public string CorrelationId { get; set; }
+    }
+
+    /// <summary>
+    /// SingleGetValidOptions
+    /// </summary>
+    public class SingleGetValidOptions
+    {
+        /// <summary>When specified, overrides the queue defined in the connection.</summary>
+        public string Queue { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string MessageId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string CorrelationId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string GroupId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 16 bytes.</summary>
+        public string MessageToken { get; set; }
+
+        /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
+        public double? Offset { get; set; }
+
+        /// <summary>Sequence number of a logical message within a group.</summary>
+        public double? LogicalSequenceNumber { get; set; }
+
+        /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
+        public IncludeInfo? IncludeInfo { get; set; }
+
+        /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
+        public string Timeout { get; set; }
+    }
+
+    /// <summary>
+    /// MultipleGetValidOptions
+    /// </summary>
+    public class MultipleGetValidOptions
+    {
+        /// <summary>When specified, overrides the queue defined in the connection.</summary>
+        public string Queue { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string MessageId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string CorrelationId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string GroupId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 16 bytes.</summary>
+        public string MessageToken { get; set; }
+
+        /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
+        public double? Offset { get; set; }
+
+        /// <summary>Sequence number of a logical message within a group.</summary>
+        public double? LogicalSequenceNumber { get; set; }
+
+        /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
+        public IncludeInfo? IncludeInfo { get; set; }
+
+        /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
+        public string Timeout { get; set; }
+
+        /// <summary>Maximum number of messages to be retrieved from the queue.</summary>
+        public double? BatchSize { get; set; }
+    }
+
+    /// <summary>
+    /// SendValidDataOptions
+    /// </summary>
+    public class SendValidDataOptions
+    {
+        /// <summary>When specified, overrides the queue defined in the connection.</summary>
+        public string Queue { get; set; }
+
+        /// <summary>Message data</summary>
+        public string Message { get; set; }
+
+        /// <summary>Message type</summary>
+        public MessageType? MessageType { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string CorrelationId { get; set; }
+
+        /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        public string MessageId { get; set; }
+
+        /// <summary>Reply-to queue</summary>
+        public string ReplyToQueue { get; set; }
+
+        /// <summary>Reply-to queue manager</summary>
+        public string ReplyToQueueManager { get; set; }
+
+        /// <summary>Character set for the message.</summary>
+        public double? CodeCharSetId { get; set; }
+
+        /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
+        public double? Offset { get; set; }
+
+        /// <summary>Format field for the message.</summary>
+        public string Format { get; set; }
+    }
+
+    /// <summary>
+    /// Extensible enum for known IncludeInfo values.
+    /// </summary>
+    [JsonConverter(typeof(IncludeInfo.IncludeInfoJsonConverter))]
+    public readonly struct IncludeInfo : IEquatable<IncludeInfo>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IncludeInfo"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public IncludeInfo(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>false</summary>
+        public static IncludeInfo False { get; } = new("false");
+
+        /// <summary>true</summary>
+        public static IncludeInfo True { get; } = new("true");
+
+        /// <summary>Converts a string to <see cref="IncludeInfo"/>.</summary>
+        public static implicit operator IncludeInfo(string value) => new(value);
+
+        /// <summary>Converts a <see cref="IncludeInfo"/> to its string representation.</summary>
+        public static implicit operator string(IncludeInfo value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(IncludeInfo other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is IncludeInfo other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(IncludeInfo left, IncludeInfo right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(IncludeInfo left, IncludeInfo right) => !left.Equals(right);
+
+        internal sealed class IncludeInfoJsonConverter : JsonConverter<IncludeInfo>
         {
-            ItemInternalId = itemInternalId,
-            MessageData = messageData,
-            MessageId = messageId,
-            CorrelationId = correlationId,
-            PutDateTime = putDateTime,
-            UserIdentifier = userIdentifier,
-            PutApplicationName = putApplicationName,
-            PutApplicationType = putApplicationType,
-            Format = format,
-            AccountingToken = accountingToken,
-            Ccsid = ccsid,
-            GroupId = groupId,
-            LogicalSequenceNumber = logicalSequenceNumber,
-            MessageType = messageType,
-            Offset = offset,
-            OriginalLength = originalLength,
-            Persistence = persistence,
-            Priority = priority,
-            ReplyToQueue = replyToQueue,
-            ReplyToQueueManager = replyToQueueManager,
-        };
+            public IncludeInfoJsonConverter() { }
+            public override IncludeInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for IncludeInfo, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, IncludeInfo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="ItemsList"/>.
+    /// Extensible enum for known MessageType values.
     /// </summary>
-    public static ItemsList ItemsList(
-        List<Item> value = default)
+    [JsonConverter(typeof(MessageType.MessageTypeJsonConverter))]
+    public readonly struct MessageType : IEquatable<MessageType>
     {
-        return new ItemsList
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public MessageType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Datagram</summary>
+        public static MessageType Datagram { get; } = new("Datagram");
+
+        /// <summary>Reply</summary>
+        public static MessageType Reply { get; } = new("Reply");
+
+        /// <summary>Request</summary>
+        public static MessageType Request { get; } = new("Request");
+
+        /// <summary>Converts a string to <see cref="MessageType"/>.</summary>
+        public static implicit operator MessageType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="MessageType"/> to its string representation.</summary>
+        public static implicit operator string(MessageType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(MessageType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is MessageType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(MessageType left, MessageType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(MessageType left, MessageType right) => !left.Equals(right);
+
+        internal sealed class MessageTypeJsonConverter : JsonConverter<MessageType>
         {
-            Value = value,
-        };
+            public MessageTypeJsonConverter() { }
+            public override MessageType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MessageType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, MessageType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
     }
+
+    #endregion Types
+
+    #region Model Factory
 
     /// <summary>
-    /// Creates a new instance of <see cref="SendResponse"/>.
+    /// Model factory for creating instances of Mq models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static SendResponse SendResponse(
-        string itemInternalId = default,
-        string messageData = default,
-        string messageId = default,
-        string correlationId = default)
+    public static class MqModelFactory
     {
-        return new SendResponse
+        /// <summary>
+        /// Creates a new instance of <see cref="Item"/>.
+        /// </summary>
+        public static Item Item(
+            string itemInternalId = default,
+            string messageData = default,
+            string messageId = default,
+            string correlationId = default,
+            DateTime? putDateTime = default,
+            string userIdentifier = default,
+            string putApplicationName = default,
+            string putApplicationType = default,
+            string format = default,
+            string accountingToken = default,
+            int? ccsid = default,
+            string groupId = default,
+            int? logicalSequenceNumber = default,
+            string messageType = default,
+            int? offset = default,
+            int? originalLength = default,
+            string persistence = default,
+            int? priority = default,
+            string replyToQueue = default,
+            string replyToQueueManager = default)
         {
-            ItemInternalId = itemInternalId,
-            MessageData = messageData,
-            MessageId = messageId,
-            CorrelationId = correlationId,
-        };
+            return new Item
+            {
+                ItemInternalId = itemInternalId,
+                MessageData = messageData,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+                PutDateTime = putDateTime,
+                UserIdentifier = userIdentifier,
+                PutApplicationName = putApplicationName,
+                PutApplicationType = putApplicationType,
+                Format = format,
+                AccountingToken = accountingToken,
+                Ccsid = ccsid,
+                GroupId = groupId,
+                LogicalSequenceNumber = logicalSequenceNumber,
+                MessageType = messageType,
+                Offset = offset,
+                OriginalLength = originalLength,
+                Persistence = persistence,
+                Priority = priority,
+                ReplyToQueue = replyToQueue,
+                ReplyToQueueManager = replyToQueueManager,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ItemsList"/>.
+        /// </summary>
+        public static ItemsList ItemsList(
+            List<Item> value = default)
+        {
+            return new ItemsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SendResponse"/>.
+        /// </summary>
+        public static SendResponse SendResponse(
+            string itemInternalId = default,
+            string messageData = default,
+            string messageId = default,
+            string correlationId = default)
+        {
+            return new SendResponse
+            {
+                ItemInternalId = itemInternalId,
+                MessageData = messageData,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SingleGetValidOptions"/>.
+        /// </summary>
+        public static SingleGetValidOptions SingleGetValidOptions(
+            string queue = default,
+            string messageId = default,
+            string correlationId = default,
+            string groupId = default,
+            string messageToken = default,
+            double? offset = default,
+            double? logicalSequenceNumber = default,
+            IncludeInfo? includeInfo = default,
+            string timeout = default)
+        {
+            return new SingleGetValidOptions
+            {
+                Queue = queue,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+                GroupId = groupId,
+                MessageToken = messageToken,
+                Offset = offset,
+                LogicalSequenceNumber = logicalSequenceNumber,
+                IncludeInfo = includeInfo,
+                Timeout = timeout,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MultipleGetValidOptions"/>.
+        /// </summary>
+        public static MultipleGetValidOptions MultipleGetValidOptions(
+            string queue = default,
+            string messageId = default,
+            string correlationId = default,
+            string groupId = default,
+            string messageToken = default,
+            double? offset = default,
+            double? logicalSequenceNumber = default,
+            IncludeInfo? includeInfo = default,
+            string timeout = default,
+            double? batchSize = default)
+        {
+            return new MultipleGetValidOptions
+            {
+                Queue = queue,
+                MessageId = messageId,
+                CorrelationId = correlationId,
+                GroupId = groupId,
+                MessageToken = messageToken,
+                Offset = offset,
+                LogicalSequenceNumber = logicalSequenceNumber,
+                IncludeInfo = includeInfo,
+                Timeout = timeout,
+                BatchSize = batchSize,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SendValidDataOptions"/>.
+        /// </summary>
+        public static SendValidDataOptions SendValidDataOptions(
+            string queue = default,
+            string message = default,
+            MessageType? messageType = default,
+            string correlationId = default,
+            string messageId = default,
+            string replyToQueue = default,
+            string replyToQueueManager = default,
+            double? codeCharSetId = default,
+            double? offset = default,
+            string format = default)
+        {
+            return new SendValidDataOptions
+            {
+                Queue = queue,
+                Message = message,
+                MessageType = messageType,
+                CorrelationId = correlationId,
+                MessageId = messageId,
+                ReplyToQueue = replyToQueue,
+                ReplyToQueueManager = replyToQueueManager,
+                CodeCharSetId = codeCharSetId,
+                Offset = offset,
+                Format = format,
+            };
+        }
     }
 
-    /// <summary>
-    /// Creates a new instance of <see cref="SingleGetValidOptions"/>.
-    /// </summary>
-    public static SingleGetValidOptions SingleGetValidOptions(
-        string queue = default,
-        string messageId = default,
-        string correlationId = default,
-        string groupId = default,
-        string messageToken = default,
-        double? offset = default,
-        double? logicalSequenceNumber = default,
-        IncludeInfo? includeInfo = default,
-        string timeout = default)
-    {
-        return new SingleGetValidOptions
-        {
-            Queue = queue,
-            MessageId = messageId,
-            CorrelationId = correlationId,
-            GroupId = groupId,
-            MessageToken = messageToken,
-            Offset = offset,
-            LogicalSequenceNumber = logicalSequenceNumber,
-            IncludeInfo = includeInfo,
-            Timeout = timeout,
-        };
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="MultipleGetValidOptions"/>.
-    /// </summary>
-    public static MultipleGetValidOptions MultipleGetValidOptions(
-        string queue = default,
-        string messageId = default,
-        string correlationId = default,
-        string groupId = default,
-        string messageToken = default,
-        double? offset = default,
-        double? logicalSequenceNumber = default,
-        IncludeInfo? includeInfo = default,
-        string timeout = default,
-        double? batchSize = default)
-    {
-        return new MultipleGetValidOptions
-        {
-            Queue = queue,
-            MessageId = messageId,
-            CorrelationId = correlationId,
-            GroupId = groupId,
-            MessageToken = messageToken,
-            Offset = offset,
-            LogicalSequenceNumber = logicalSequenceNumber,
-            IncludeInfo = includeInfo,
-            Timeout = timeout,
-            BatchSize = batchSize,
-        };
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="SendValidDataOptions"/>.
-    /// </summary>
-    public static SendValidDataOptions SendValidDataOptions(
-        string queue = default,
-        string message = default,
-        MessageType? messageType = default,
-        string correlationId = default,
-        string messageId = default,
-        string replyToQueue = default,
-        string replyToQueueManager = default,
-        double? codeCharSetId = default,
-        double? offset = default,
-        string format = default)
-    {
-        return new SendValidDataOptions
-        {
-            Queue = queue,
-            Message = message,
-            MessageType = messageType,
-            CorrelationId = correlationId,
-            MessageId = messageId,
-            ReplyToQueue = replyToQueue,
-            ReplyToQueueManager = replyToQueueManager,
-            CodeCharSetId = codeCharSetId,
-            Offset = offset,
-            Format = format,
-        };
-    }
-}
-
-#endregion Model Factory
+    #endregion Model Factory
 
 }
 
 namespace Azure.Connectors.Sdk.Mq
 {
 
-#region Client
-
-/// <summary>
-/// Typed client for mq connector.
-/// </summary>
-public class MqClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new MqClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public MqClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
+    #region Client
 
     /// <summary>
-    /// Creates a new MqClient with the specified connection runtime URL and credential.
+    /// Typed client for mq connector.
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public MqClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class MqClient : ConnectorClientBase
     {
+        /// <summary>
+        /// Creates a new MqClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public MqClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new MqClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public MqClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new MqClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public MqClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new MqClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public MqClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected MqClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "mq";
+
+        /// <summary>
+        /// Browse message
+        /// </summary>
+        /// <remarks>Browse one message from the queue.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Browse message response.</returns>
+        public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/read";
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Browse messages
+        /// </summary>
+        /// <remarks>Browse messages in a queue.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Browse messages response.</returns>
+        public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/readall";
+            return await this
+                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Receive message
+        /// </summary>
+        /// <remarks>Returns one message from the queue, by doing a destructive get.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Receive message response.</returns>
+        public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/receive";
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Receive messages
+        /// </summary>
+        /// <remarks>Returns messages from the queue, by doing a destructive get.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Receive messages response.</returns>
+        public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/receiveall";
+            return await this
+                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Delete message
+        /// </summary>
+        /// <remarks>Deletes one message from the queue, by doing a destructive get.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Delete message response.</returns>
+        public virtual async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/delete";
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Delete messages
+        /// </summary>
+        /// <remarks>Deletes messages from the queue, by doing a destructive get.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Delete messages response.</returns>
+        public virtual async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/deleteall";
+            return await this
+                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Send message
+        /// </summary>
+        /// <remarks>Send a message to a queue.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Send message response.</returns>
+        public virtual async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/send";
+            return await this
+                .CallConnectorAsync<SendResponse>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 
-    /// <summary>
-    /// Creates a new MqClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    public MqClient(Uri connectionRuntimeUrl, TokenCredential credential)
-        : base(connectionRuntimeUrl, credential)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new MqClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public MqClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected MqClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "mq";
-
-    /// <summary>
-    /// Browse message
-    /// </summary>
-    /// <remarks>Browse one message from the queue.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Browse message response.</returns>
-    public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/read";
-        return await this
-            .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Browse messages
-    /// </summary>
-    /// <remarks>Browse messages in a queue.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Browse messages response.</returns>
-    public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/readall";
-        return await this
-            .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Receive message
-    /// </summary>
-    /// <remarks>Returns one message from the queue, by doing a destructive get.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Receive message response.</returns>
-    public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/receive";
-        return await this
-            .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Receive messages
-    /// </summary>
-    /// <remarks>Returns messages from the queue, by doing a destructive get.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Receive messages response.</returns>
-    public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/receiveall";
-        return await this
-            .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Delete message
-    /// </summary>
-    /// <remarks>Deletes one message from the queue, by doing a destructive get.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Delete message response.</returns>
-    public virtual async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/delete";
-        return await this
-            .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Delete messages
-    /// </summary>
-    /// <remarks>Deletes messages from the queue, by doing a destructive get.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Delete messages response.</returns>
-    public virtual async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/deleteall";
-        return await this
-            .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Send message
-    /// </summary>
-    /// <remarks>Send a message to a queue.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Send message response.</returns>
-    public virtual async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/send";
-        return await this
-            .CallConnectorAsync<SendResponse>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }

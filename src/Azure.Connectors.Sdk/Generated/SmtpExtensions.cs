@@ -21,287 +21,287 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Smtp.Models
 {
 
-#region Types
-
-/// <summary>
-/// AttachmentV2
-/// </summary>
-public class Attachment
-{
-    /// <summary>Content data</summary>
-    public string ContentData { get; set; }
-
-    /// <summary>Content type</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>File name</summary>
-    public string FileName { get; set; }
-
-    /// <summary>Content id</summary>
-    public string ContentId { get; set; }
-}
-
-/// <summary>
-/// EmailV3
-/// </summary>
-public class Email
-{
-    /// <summary>Email address of sender like sender@domain.com</summary>
-    public string From { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
-    public string To { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
-    public string CC { get; set; }
-
-    /// <summary>Email subject</summary>
-    public string Subject { get; set; }
-
-    /// <summary>Email body</summary>
-    public string Body { get; set; }
-
-    /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com.</summary>
-    public string Bcc { get; set; }
-
-    /// <summary>Importance of the email (High, Normal, or Low)</summary>
-    public Importance? Importance { get; set; }
-
-    /// <summary>Specify email address for Read receipt</summary>
-    public string ReadReceipt { get; set; }
-
-    /// <summary>Specify email address for Delivery receipt</summary>
-    public string DeliveryReceipt { get; set; }
-
-    /// <summary>Attachments to be sent along with the email</summary>
-    public List<Attachment> Attachments { get; set; }
-}
-
-/// <summary>
-/// Item in Attachments to be sent along with the email
-/// </summary>
-public class AttachmentV2
-{
-    /// <summary>Content data</summary>
-    public string ContentData { get; set; }
-
-    /// <summary>Content type</summary>
-    public string ContentType { get; set; }
-
-    /// <summary>File name</summary>
-    public string FileName { get; set; }
-
-    /// <summary>Content id</summary>
-    public string ContentId { get; set; }
-}
-
-/// <summary>
-/// Extensible enum for known Importance values.
-/// </summary>
-[JsonConverter(typeof(Importance.ImportanceJsonConverter))]
-public readonly struct Importance : IEquatable<Importance>
-{
-    private readonly string _value;
+    #region Types
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Importance"/> struct.
+    /// AttachmentV2
     /// </summary>
-    /// <param name="value">The string value.</param>
-    public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-    /// <summary>Normal</summary>
-    public static Importance Normal { get; } = new("Normal");
-
-    /// <summary>Low</summary>
-    public static Importance Low { get; } = new("Low");
-
-    /// <summary>High</summary>
-    public static Importance High { get; } = new("High");
-
-    /// <summary>Converts a string to <see cref="Importance"/>.</summary>
-    public static implicit operator Importance(string value) => new(value);
-
-    /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
-    public static implicit operator string(Importance value) => value.ToString();
-
-    /// <inheritdoc/>
-    public override string ToString() => this._value;
-
-    /// <inheritdoc/>
-    public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-    /// <summary>Equality operator.</summary>
-    public static bool operator ==(Importance left, Importance right) => left.Equals(right);
-
-    /// <summary>Inequality operator.</summary>
-    public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
-
-    internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    public class Attachment
     {
-        public ImportanceJsonConverter() { }
-        public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
-        public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        /// <summary>Content data</summary>
+        public string ContentData { get; set; }
+
+        /// <summary>Content type</summary>
+        public string ContentType { get; set; }
+
+        /// <summary>File name</summary>
+        public string FileName { get; set; }
+
+        /// <summary>Content id</summary>
+        public string ContentId { get; set; }
     }
-}
 
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of Smtp models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class SmtpModelFactory
-{
     /// <summary>
-    /// Creates a new instance of <see cref="Attachment"/>.
+    /// EmailV3
     /// </summary>
-    public static Attachment Attachment(
-        string contentData = default,
-        string contentType = default,
-        string fileName = default,
-        string contentId = default)
+    public class Email
     {
-        return new Attachment
+        /// <summary>Email address of sender like sender@domain.com</summary>
+        public string From { get; set; }
+
+        /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
+        public string To { get; set; }
+
+        /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
+        public string CC { get; set; }
+
+        /// <summary>Email subject</summary>
+        public string Subject { get; set; }
+
+        /// <summary>Email body</summary>
+        public string Body { get; set; }
+
+        /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com.</summary>
+        public string Bcc { get; set; }
+
+        /// <summary>Importance of the email (High, Normal, or Low)</summary>
+        public Importance? Importance { get; set; }
+
+        /// <summary>Specify email address for Read receipt</summary>
+        public string ReadReceipt { get; set; }
+
+        /// <summary>Specify email address for Delivery receipt</summary>
+        public string DeliveryReceipt { get; set; }
+
+        /// <summary>Attachments to be sent along with the email</summary>
+        public List<Attachment> Attachments { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Attachments to be sent along with the email
+    /// </summary>
+    public class AttachmentV2
+    {
+        /// <summary>Content data</summary>
+        public string ContentData { get; set; }
+
+        /// <summary>Content type</summary>
+        public string ContentType { get; set; }
+
+        /// <summary>File name</summary>
+        public string FileName { get; set; }
+
+        /// <summary>Content id</summary>
+        public string ContentId { get; set; }
+    }
+
+    /// <summary>
+    /// Extensible enum for known Importance values.
+    /// </summary>
+    [JsonConverter(typeof(Importance.ImportanceJsonConverter))]
+    public readonly struct Importance : IEquatable<Importance>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Importance"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Normal</summary>
+        public static Importance Normal { get; } = new("Normal");
+
+        /// <summary>Low</summary>
+        public static Importance Low { get; } = new("Low");
+
+        /// <summary>High</summary>
+        public static Importance High { get; } = new("High");
+
+        /// <summary>Converts a string to <see cref="Importance"/>.</summary>
+        public static implicit operator Importance(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
+        public static implicit operator string(Importance value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Importance left, Importance right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
+
+        internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
         {
-            ContentData = contentData,
-            ContentType = contentType,
-            FileName = fileName,
-            ContentId = contentId,
-        };
+            public ImportanceJsonConverter() { }
+            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
     }
+
+    #endregion Types
+
+    #region Model Factory
 
     /// <summary>
-    /// Creates a new instance of <see cref="Email"/>.
+    /// Model factory for creating instances of Smtp models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static Email Email(
-        string from = default,
-        string to = default,
-        string cc = default,
-        string subject = default,
-        string body = default,
-        string bcc = default,
-        Importance? importance = default,
-        string readReceipt = default,
-        string deliveryReceipt = default,
-        List<Attachment> attachments = default)
+    public static class SmtpModelFactory
     {
-        return new Email
+        /// <summary>
+        /// Creates a new instance of <see cref="Attachment"/>.
+        /// </summary>
+        public static Attachment Attachment(
+            string contentData = default,
+            string contentType = default,
+            string fileName = default,
+            string contentId = default)
         {
-            From = from,
-            To = to,
-            CC = cc,
-            Subject = subject,
-            Body = body,
-            Bcc = bcc,
-            Importance = importance,
-            ReadReceipt = readReceipt,
-            DeliveryReceipt = deliveryReceipt,
-            Attachments = attachments,
-        };
+            return new Attachment
+            {
+                ContentData = contentData,
+                ContentType = contentType,
+                FileName = fileName,
+                ContentId = contentId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Email"/>.
+        /// </summary>
+        public static Email Email(
+            string from = default,
+            string to = default,
+            string cc = default,
+            string subject = default,
+            string body = default,
+            string bcc = default,
+            Importance? importance = default,
+            string readReceipt = default,
+            string deliveryReceipt = default,
+            List<Attachment> attachments = default)
+        {
+            return new Email
+            {
+                From = from,
+                To = to,
+                CC = cc,
+                Subject = subject,
+                Body = body,
+                Bcc = bcc,
+                Importance = importance,
+                ReadReceipt = readReceipt,
+                DeliveryReceipt = deliveryReceipt,
+                Attachments = attachments,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AttachmentV2"/>.
+        /// </summary>
+        public static AttachmentV2 AttachmentV2(
+            string contentData = default,
+            string contentType = default,
+            string fileName = default,
+            string contentId = default)
+        {
+            return new AttachmentV2
+            {
+                ContentData = contentData,
+                ContentType = contentType,
+                FileName = fileName,
+                ContentId = contentId,
+            };
+        }
     }
 
-    /// <summary>
-    /// Creates a new instance of <see cref="AttachmentV2"/>.
-    /// </summary>
-    public static AttachmentV2 AttachmentV2(
-        string contentData = default,
-        string contentType = default,
-        string fileName = default,
-        string contentId = default)
-    {
-        return new AttachmentV2
-        {
-            ContentData = contentData,
-            ContentType = contentType,
-            FileName = fileName,
-            ContentId = contentId,
-        };
-    }
-}
-
-#endregion Model Factory
+    #endregion Model Factory
 
 }
 
 namespace Azure.Connectors.Sdk.Smtp
 {
 
-#region Client
-
-/// <summary>
-/// Typed client for smtp connector.
-/// </summary>
-public class SmtpClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public SmtpClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
+    #region Client
 
     /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL and credential.
+    /// Typed client for smtp connector.
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class SmtpClient : ConnectorClientBase
     {
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public SmtpClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public SmtpClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected SmtpClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "smtp";
+
+        /// <summary>
+        /// Send Email (V3)
+        /// </summary>
+        /// <remarks>This operation sends an email to one or more recipients.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/SendEmailV3";
+            await this
+                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 
-    /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential)
-        : base(connectionRuntimeUrl, credential)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new SmtpClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public SmtpClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected SmtpClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "smtp";
-
-    /// <summary>
-    /// Send Email (V3)
-    /// </summary>
-    /// <remarks>This operation sends an email to one or more recipients.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/SendEmailV3";
-        await this
-            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }

@@ -23,1038 +23,1038 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.AzureBlob.Models
 {
 
-#region Types
-
-/// <summary>
-/// Response for Get storage accounts
-/// </summary>
-public class StorageAccountList
-{
-    /// <summary>List of storage account names</summary>
-    [JsonPropertyName("value")]
-    public List<StorageAccount> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of storage account names
-/// </summary>
-public class StorageAccount
-{
-    /// <summary>The name of the storage account.</summary>
-    [JsonPropertyName("Name")]
-    public string StorageAccountName { get; set; }
-
-    /// <summary>The display name of the storage account.</summary>
-    [JsonPropertyName("DisplayName")]
-    public string StorageAccountDisplayName { get; set; }
-}
-
-/// <summary>
-/// Response for Copy blob (V2)
-/// </summary>
-public class BlobMetadata
-{
-    /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
-
-    /// <summary>The name of the file or folder.</summary>
-    public string Name { get; set; }
-
-    /// <summary>The display name of the file or folder.</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>The path of the file or folder.</summary>
-    public string Path { get; set; }
-
-    /// <summary>The date and time the file or folder was last modified.</summary>
-    [JsonInclude]
-    public DateTime? LastModified { get; internal set; }
-
-    /// <summary>The size of the file or folder.</summary>
-    public long? Size { get; set; }
-
-    /// <summary>The media type of the file or folder.</summary>
-    public string MediaType { get; set; }
-
-    /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
-    public bool? IsFolder { get; set; }
-
-    /// <summary>The etag of the file or folder.</summary>
-    [JsonInclude]
-    public string ETag { get; internal set; }
-
-    /// <summary>The filelocator of the file or folder.</summary>
-    public string FileLocator { get; set; }
-}
-
-/// <summary>
-/// Response for Create SAS URI by path (V2)
-/// </summary>
-public class SharedAccessSignature
-{
-    /// <summary>A URL to an object with access token.</summary>
-    public string WebUrl { get; set; }
-}
-
-/// <summary>
-/// Response for Get available access policies (V2)
-/// </summary>
-public class SharedAccessSignatureBlobPolicy
-{
-    /// <summary>The string identifying a stored access policy. The Group policy parameters (e.g. Start time and End time) have precedence over input parameters mentioned in actions.</summary>
-    public string GroupPolicyIdentifier { get; set; }
-
-    /// <summary>The permissions specified on the SAS (Values separated by comma).</summary>
-    public Permissions? Permissions { get; set; }
-
-    /// <summary>The date and time at which the SAS becomes valid (example: &apos;2017-11-01T15:30:00+00:00&apos;). Default = now().</summary>
-    public DateTime? StartTime { get; set; }
-
-    /// <summary>The date and time after which the SAS is no longer valid (example: &apos;2017-12-01T15:30:00+00:00&apos;). Default = now() + 24h.</summary>
-    public DateTime? ExpiryTime { get; set; }
-
-    /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
-    [JsonPropertyName("AccessProtocol")]
-    public AccessProtocol? SharedAccessProtocol { get; set; }
-
-    /// <summary>The allowed IP address or IP address range. Null if you don&apos;t want to restrict based on IP address.</summary>
-    [JsonPropertyName("IpAddressOrRange")]
-    public string IPAddressOrIPAddressRange { get; set; }
-}
-
-/// <summary>
-/// Response for Get Blob Metadata (V2)
-/// </summary>
-public class DataWithSensitivityLabelInfo
-{
-    /// <summary>The unique id of the file or folder.</summary>
-    public string Id { get; set; }
-
-    /// <summary>The name of the file or folder.</summary>
-    public string Name { get; set; }
-
-    /// <summary>The display name of the file or folder.</summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>The path of the file or folder.</summary>
-    public string Path { get; set; }
-
-    /// <summary>The date and time the file or folder was last modified.</summary>
-    [JsonInclude]
-    public DateTime? LastModified { get; internal set; }
-
-    /// <summary>The size of the file or folder.</summary>
-    public long? Size { get; set; }
-
-    /// <summary>The media type of the file or folder.</summary>
-    public string MediaType { get; set; }
-
-    /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
-    public bool? IsFolder { get; set; }
-
-    /// <summary>The etag of the file or folder.</summary>
-    [JsonInclude]
-    public string ETag { get; internal set; }
-
-    /// <summary>The filelocator of the file or folder.</summary>
-    public string FileLocator { get; set; }
-
-    /// <summary>Sensitivity label metadata info list</summary>
-    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
-}
-
-/// <summary>
-/// Item in Sensitivity label metadata info list
-/// </summary>
-public class SensitivityLabelMetadata
-{
-    /// <summary>SensitivityLabel Id.</summary>
-    [JsonPropertyName("sensitivityLabelId")]
-    public string SensitivityLabelId { get; set; }
-
-    /// <summary>SensitivityLabel name.</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>SensitivityLabel displayName info</summary>
-    [JsonPropertyName("displayName")]
-    public string SensitivityLabelDisplayNameInfo { get; set; }
-
-    /// <summary>SensitivityLabel details on tooltip.</summary>
-    [JsonPropertyName("tooltip")]
-    public string TooltipInfo { get; set; }
-
-    /// <summary>SensitivityLabel priority.</summary>
-    [JsonPropertyName("priority")]
-    public int? PriorityOfSensitivityLabel { get; set; }
-
-    /// <summary>SensitivityLabel color.</summary>
-    [JsonPropertyName("color")]
-    public string ColorToBeDisplayedForSensitivityLabel { get; set; }
-
-    /// <summary> is  SensitivityLabel Encrypted.</summary>
-    [JsonPropertyName("isEncrypted")]
-    public bool? IsEncryptedStatusOfSensitivityLabel { get; set; }
-
-    /// <summary>Whether  SensitivityLabel is Enabled.</summary>
-    [JsonPropertyName("isEnabled")]
-    public bool? WhetherSensitivityLabelIsEnabled { get; set; }
-
-    /// <summary>Whether  SensitivityLabel is Parent.</summary>
-    [JsonPropertyName("isParent")]
-    public bool? WhetherSensitivityLabelIsParent { get; set; }
-
-    /// <summary>Parent  SensitivityLabel Id.</summary>
-    [JsonPropertyName("parentSensitivityLabelId")]
-    public string ParentSensitivityLabelId { get; set; }
-}
-
-/// <summary>
-/// Response for Lists blobs (V2)
-/// </summary>
-public class ListOfBlobsWithSensitivityLabels
-{
-    /// <summary>List of Blobs</summary>
-    [JsonPropertyName("value")]
-    public List<DataWithSensitivityLabelInfo> Value { get; set; }
-}
-
-/// <summary>
-/// Response for Lists blobs in the root folder  (V2)
-/// </summary>
-public class BlobMetadataPage : IPageable<BlobMetadata>
-{
-    /// <summary>Blob metadata collection.</summary>
-    [JsonPropertyName("value")]
-    [JsonInclude]
-    public List<BlobMetadata> Value { get; internal set; }
-
-    /// <summary>An Url which can be used to retrieve the next page.</summary>
-    [JsonPropertyName("nextLink")]
-    public string NextLink { get; set; }
-
-    /// <summary>A marker which can be used to retrieve the next page.</summary>
-    [JsonPropertyName("nextPageMarker")]
-    public string NextPageMarker { get; set; }
-}
-
-/// <summary>
-/// Extensible enum for known AccessProtocol values.
-/// </summary>
-[JsonConverter(typeof(AccessProtocol.AccessProtocolJsonConverter))]
-public readonly struct AccessProtocol : IEquatable<AccessProtocol>
-{
-    private readonly string _value;
+    #region Types
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AccessProtocol"/> struct.
+    /// Response for Get storage accounts
     /// </summary>
-    /// <param name="value">The string value.</param>
-    public AccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-    /// <summary>HttpsOnly</summary>
-    public static AccessProtocol HttpsOnly { get; } = new("HttpsOnly");
-
-    /// <summary>HttpsOrHttp</summary>
-    public static AccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
-
-    /// <summary>Converts a string to <see cref="AccessProtocol"/>.</summary>
-    public static implicit operator AccessProtocol(string value) => new(value);
-
-    /// <summary>Converts a <see cref="AccessProtocol"/> to its string representation.</summary>
-    public static implicit operator string(AccessProtocol value) => value.ToString();
-
-    /// <inheritdoc/>
-    public override string ToString() => this._value;
-
-    /// <inheritdoc/>
-    public bool Equals(AccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is AccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-    /// <summary>Equality operator.</summary>
-    public static bool operator ==(AccessProtocol left, AccessProtocol right) => left.Equals(right);
-
-    /// <summary>Inequality operator.</summary>
-    public static bool operator !=(AccessProtocol left, AccessProtocol right) => !left.Equals(right);
-
-    internal sealed class AccessProtocolJsonConverter : JsonConverter<AccessProtocol>
+    public class StorageAccountList
     {
-        public AccessProtocolJsonConverter() { }
-        public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AccessProtocol, got '{reader.TokenType}'.");
-        public override void Write(Utf8JsonWriter writer, AccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        /// <summary>List of storage account names</summary>
+        [JsonPropertyName("value")]
+        public List<StorageAccount> Value { get; set; }
     }
-}
-
-/// <summary>
-/// Extensible enum for known Permissions values.
-/// </summary>
-[JsonConverter(typeof(Permissions.PermissionsJsonConverter))]
-public readonly struct Permissions : IEquatable<Permissions>
-{
-    private readonly string _value;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Permissions"/> struct.
+    /// Item in List of storage account names
     /// </summary>
-    /// <param name="value">The string value.</param>
-    public Permissions(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-    /// <summary>Read</summary>
-    public static Permissions Read { get; } = new("Read");
-
-    /// <summary>Write</summary>
-    public static Permissions Write { get; } = new("Write");
-
-    /// <summary>Add</summary>
-    public static Permissions Add { get; } = new("Add");
-
-    /// <summary>Create</summary>
-    public static Permissions Create { get; } = new("Create");
-
-    /// <summary>Delete</summary>
-    public static Permissions Delete { get; } = new("Delete");
-
-    /// <summary>List</summary>
-    public static Permissions List { get; } = new("List");
-
-    /// <summary>Read,Write</summary>
-    public static Permissions ReadWrite { get; } = new("Read,Write");
-
-    /// <summary>Read,Write,List</summary>
-    public static Permissions ReadWriteList { get; } = new("Read,Write,List");
-
-    /// <summary>Read,Write,List,Delete</summary>
-    public static Permissions ReadWriteListDelete { get; } = new("Read,Write,List,Delete");
-
-    /// <summary>Converts a string to <see cref="Permissions"/>.</summary>
-    public static implicit operator Permissions(string value) => new(value);
-
-    /// <summary>Converts a <see cref="Permissions"/> to its string representation.</summary>
-    public static implicit operator string(Permissions value) => value.ToString();
-
-    /// <inheritdoc/>
-    public override string ToString() => this._value;
-
-    /// <inheritdoc/>
-    public bool Equals(Permissions other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override bool Equals(object obj) => obj is Permissions other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-    /// <inheritdoc/>
-    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-    /// <summary>Equality operator.</summary>
-    public static bool operator ==(Permissions left, Permissions right) => left.Equals(right);
-
-    /// <summary>Inequality operator.</summary>
-    public static bool operator !=(Permissions left, Permissions right) => !left.Equals(right);
-
-    internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
+    public class StorageAccount
     {
-        public PermissionsJsonConverter() { }
-        public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Permissions, got '{reader.TokenType}'.");
-        public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        /// <summary>The name of the storage account.</summary>
+        [JsonPropertyName("Name")]
+        public string StorageAccountName { get; set; }
+
+        /// <summary>The display name of the storage account.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string StorageAccountDisplayName { get; set; }
     }
-}
 
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of AzureBlob models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class AzureBlobModelFactory
-{
     /// <summary>
-    /// Creates a new instance of <see cref="StorageAccountList"/>.
+    /// Response for Copy blob (V2)
     /// </summary>
-    public static StorageAccountList StorageAccountList(
-        List<StorageAccount> value = default)
+    public class BlobMetadata
     {
-        return new StorageAccountList
+        /// <summary>The unique id of the file or folder.</summary>
+        public string Id { get; set; }
+
+        /// <summary>The name of the file or folder.</summary>
+        public string Name { get; set; }
+
+        /// <summary>The display name of the file or folder.</summary>
+        public string DisplayName { get; set; }
+
+        /// <summary>The path of the file or folder.</summary>
+        public string Path { get; set; }
+
+        /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonInclude]
+        public DateTime? LastModified { get; internal set; }
+
+        /// <summary>The size of the file or folder.</summary>
+        public long? Size { get; set; }
+
+        /// <summary>The media type of the file or folder.</summary>
+        public string MediaType { get; set; }
+
+        /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        public bool? IsFolder { get; set; }
+
+        /// <summary>The etag of the file or folder.</summary>
+        [JsonInclude]
+        public string ETag { get; internal set; }
+
+        /// <summary>The filelocator of the file or folder.</summary>
+        public string FileLocator { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Create SAS URI by path (V2)
+    /// </summary>
+    public class SharedAccessSignature
+    {
+        /// <summary>A URL to an object with access token.</summary>
+        public string WebUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get available access policies (V2)
+    /// </summary>
+    public class SharedAccessSignatureBlobPolicy
+    {
+        /// <summary>The string identifying a stored access policy. The Group policy parameters (e.g. Start time and End time) have precedence over input parameters mentioned in actions.</summary>
+        public string GroupPolicyIdentifier { get; set; }
+
+        /// <summary>The permissions specified on the SAS (Values separated by comma).</summary>
+        public Permissions? Permissions { get; set; }
+
+        /// <summary>The date and time at which the SAS becomes valid (example: &apos;2017-11-01T15:30:00+00:00&apos;). Default = now().</summary>
+        public DateTime? StartTime { get; set; }
+
+        /// <summary>The date and time after which the SAS is no longer valid (example: &apos;2017-12-01T15:30:00+00:00&apos;). Default = now() + 24h.</summary>
+        public DateTime? ExpiryTime { get; set; }
+
+        /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
+        [JsonPropertyName("AccessProtocol")]
+        public AccessProtocol? SharedAccessProtocol { get; set; }
+
+        /// <summary>The allowed IP address or IP address range. Null if you don&apos;t want to restrict based on IP address.</summary>
+        [JsonPropertyName("IpAddressOrRange")]
+        public string IPAddressOrIPAddressRange { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get Blob Metadata (V2)
+    /// </summary>
+    public class DataWithSensitivityLabelInfo
+    {
+        /// <summary>The unique id of the file or folder.</summary>
+        public string Id { get; set; }
+
+        /// <summary>The name of the file or folder.</summary>
+        public string Name { get; set; }
+
+        /// <summary>The display name of the file or folder.</summary>
+        public string DisplayName { get; set; }
+
+        /// <summary>The path of the file or folder.</summary>
+        public string Path { get; set; }
+
+        /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonInclude]
+        public DateTime? LastModified { get; internal set; }
+
+        /// <summary>The size of the file or folder.</summary>
+        public long? Size { get; set; }
+
+        /// <summary>The media type of the file or folder.</summary>
+        public string MediaType { get; set; }
+
+        /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        public bool? IsFolder { get; set; }
+
+        /// <summary>The etag of the file or folder.</summary>
+        [JsonInclude]
+        public string ETag { get; internal set; }
+
+        /// <summary>The filelocator of the file or folder.</summary>
+        public string FileLocator { get; set; }
+
+        /// <summary>Sensitivity label metadata info list</summary>
+        public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Sensitivity label metadata info list
+    /// </summary>
+    public class SensitivityLabelMetadata
+    {
+        /// <summary>SensitivityLabel Id.</summary>
+        [JsonPropertyName("sensitivityLabelId")]
+        public string SensitivityLabelId { get; set; }
+
+        /// <summary>SensitivityLabel name.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>SensitivityLabel displayName info</summary>
+        [JsonPropertyName("displayName")]
+        public string SensitivityLabelDisplayNameInfo { get; set; }
+
+        /// <summary>SensitivityLabel details on tooltip.</summary>
+        [JsonPropertyName("tooltip")]
+        public string TooltipInfo { get; set; }
+
+        /// <summary>SensitivityLabel priority.</summary>
+        [JsonPropertyName("priority")]
+        public int? PriorityOfSensitivityLabel { get; set; }
+
+        /// <summary>SensitivityLabel color.</summary>
+        [JsonPropertyName("color")]
+        public string ColorToBeDisplayedForSensitivityLabel { get; set; }
+
+        /// <summary> is  SensitivityLabel Encrypted.</summary>
+        [JsonPropertyName("isEncrypted")]
+        public bool? IsEncryptedStatusOfSensitivityLabel { get; set; }
+
+        /// <summary>Whether  SensitivityLabel is Enabled.</summary>
+        [JsonPropertyName("isEnabled")]
+        public bool? WhetherSensitivityLabelIsEnabled { get; set; }
+
+        /// <summary>Whether  SensitivityLabel is Parent.</summary>
+        [JsonPropertyName("isParent")]
+        public bool? WhetherSensitivityLabelIsParent { get; set; }
+
+        /// <summary>Parent  SensitivityLabel Id.</summary>
+        [JsonPropertyName("parentSensitivityLabelId")]
+        public string ParentSensitivityLabelId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Lists blobs (V2)
+    /// </summary>
+    public class ListOfBlobsWithSensitivityLabels
+    {
+        /// <summary>List of Blobs</summary>
+        [JsonPropertyName("value")]
+        public List<DataWithSensitivityLabelInfo> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Lists blobs in the root folder  (V2)
+    /// </summary>
+    public class BlobMetadataPage : IPageable<BlobMetadata>
+    {
+        /// <summary>Blob metadata collection.</summary>
+        [JsonPropertyName("value")]
+        [JsonInclude]
+        public List<BlobMetadata> Value { get; internal set; }
+
+        /// <summary>An Url which can be used to retrieve the next page.</summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
+
+        /// <summary>A marker which can be used to retrieve the next page.</summary>
+        [JsonPropertyName("nextPageMarker")]
+        public string NextPageMarker { get; set; }
+    }
+
+    /// <summary>
+    /// Extensible enum for known AccessProtocol values.
+    /// </summary>
+    [JsonConverter(typeof(AccessProtocol.AccessProtocolJsonConverter))]
+    public readonly struct AccessProtocol : IEquatable<AccessProtocol>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccessProtocol"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public AccessProtocol(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>HttpsOnly</summary>
+        public static AccessProtocol HttpsOnly { get; } = new("HttpsOnly");
+
+        /// <summary>HttpsOrHttp</summary>
+        public static AccessProtocol HttpsOrHttp { get; } = new("HttpsOrHttp");
+
+        /// <summary>Converts a string to <see cref="AccessProtocol"/>.</summary>
+        public static implicit operator AccessProtocol(string value) => new(value);
+
+        /// <summary>Converts a <see cref="AccessProtocol"/> to its string representation.</summary>
+        public static implicit operator string(AccessProtocol value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(AccessProtocol other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is AccessProtocol other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(AccessProtocol left, AccessProtocol right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(AccessProtocol left, AccessProtocol right) => !left.Equals(right);
+
+        internal sealed class AccessProtocolJsonConverter : JsonConverter<AccessProtocol>
         {
-            Value = value,
-        };
+            public AccessProtocolJsonConverter() { }
+            public override AccessProtocol Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AccessProtocol, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, AccessProtocol value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="StorageAccount"/>.
+    /// Extensible enum for known Permissions values.
     /// </summary>
-    public static StorageAccount StorageAccount(
-        string storageAccountName = default,
-        string storageAccountDisplayName = default)
+    [JsonConverter(typeof(Permissions.PermissionsJsonConverter))]
+    public readonly struct Permissions : IEquatable<Permissions>
     {
-        return new StorageAccount
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Permissions"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Permissions(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>Read</summary>
+        public static Permissions Read { get; } = new("Read");
+
+        /// <summary>Write</summary>
+        public static Permissions Write { get; } = new("Write");
+
+        /// <summary>Add</summary>
+        public static Permissions Add { get; } = new("Add");
+
+        /// <summary>Create</summary>
+        public static Permissions Create { get; } = new("Create");
+
+        /// <summary>Delete</summary>
+        public static Permissions Delete { get; } = new("Delete");
+
+        /// <summary>List</summary>
+        public static Permissions List { get; } = new("List");
+
+        /// <summary>Read,Write</summary>
+        public static Permissions ReadWrite { get; } = new("Read,Write");
+
+        /// <summary>Read,Write,List</summary>
+        public static Permissions ReadWriteList { get; } = new("Read,Write,List");
+
+        /// <summary>Read,Write,List,Delete</summary>
+        public static Permissions ReadWriteListDelete { get; } = new("Read,Write,List,Delete");
+
+        /// <summary>Converts a string to <see cref="Permissions"/>.</summary>
+        public static implicit operator Permissions(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Permissions"/> to its string representation.</summary>
+        public static implicit operator string(Permissions value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Permissions other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Permissions other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Permissions left, Permissions right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Permissions left, Permissions right) => !left.Equals(right);
+
+        internal sealed class PermissionsJsonConverter : JsonConverter<Permissions>
         {
-            StorageAccountName = storageAccountName,
-            StorageAccountDisplayName = storageAccountDisplayName,
-        };
+            public PermissionsJsonConverter() { }
+            public override Permissions Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Permissions, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Permissions value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
     }
 
+    #endregion Types
+
+    #region Model Factory
+
     /// <summary>
-    /// Creates a new instance of <see cref="BlobMetadata"/>.
+    /// Model factory for creating instances of AzureBlob models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static BlobMetadata BlobMetadata(
-        string id = default,
-        string name = default,
-        string displayName = default,
-        string path = default,
-        DateTime? lastModified = default,
-        long? size = default,
-        string mediaType = default,
-        bool? isFolder = default,
-        string eTag = default,
-        string fileLocator = default)
+    public static class AzureBlobModelFactory
     {
-        return new BlobMetadata
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccountList"/>.
+        /// </summary>
+        public static StorageAccountList StorageAccountList(
+            List<StorageAccount> value = default)
         {
-            Id = id,
-            Name = name,
-            DisplayName = displayName,
-            Path = path,
-            LastModified = lastModified,
-            Size = size,
-            MediaType = mediaType,
-            IsFolder = isFolder,
-            ETag = eTag,
-            FileLocator = fileLocator,
-        };
+            return new StorageAccountList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccount"/>.
+        /// </summary>
+        public static StorageAccount StorageAccount(
+            string storageAccountName = default,
+            string storageAccountDisplayName = default)
+        {
+            return new StorageAccount
+            {
+                StorageAccountName = storageAccountName,
+                StorageAccountDisplayName = storageAccountDisplayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BlobMetadata"/>.
+        /// </summary>
+        public static BlobMetadata BlobMetadata(
+            string id = default,
+            string name = default,
+            string displayName = default,
+            string path = default,
+            DateTime? lastModified = default,
+            long? size = default,
+            string mediaType = default,
+            bool? isFolder = default,
+            string eTag = default,
+            string fileLocator = default)
+        {
+            return new BlobMetadata
+            {
+                Id = id,
+                Name = name,
+                DisplayName = displayName,
+                Path = path,
+                LastModified = lastModified,
+                Size = size,
+                MediaType = mediaType,
+                IsFolder = isFolder,
+                ETag = eTag,
+                FileLocator = fileLocator,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SharedAccessSignature"/>.
+        /// </summary>
+        public static SharedAccessSignature SharedAccessSignature(
+            string webUrl = default)
+        {
+            return new SharedAccessSignature
+            {
+                WebUrl = webUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SharedAccessSignatureBlobPolicy"/>.
+        /// </summary>
+        public static SharedAccessSignatureBlobPolicy SharedAccessSignatureBlobPolicy(
+            string groupPolicyIdentifier = default,
+            Permissions? permissions = default,
+            DateTime? startTime = default,
+            DateTime? expiryTime = default,
+            AccessProtocol? sharedAccessProtocol = default,
+            string ipAddressOrIPAddressRange = default)
+        {
+            return new SharedAccessSignatureBlobPolicy
+            {
+                GroupPolicyIdentifier = groupPolicyIdentifier,
+                Permissions = permissions,
+                StartTime = startTime,
+                ExpiryTime = expiryTime,
+                SharedAccessProtocol = sharedAccessProtocol,
+                IPAddressOrIPAddressRange = ipAddressOrIPAddressRange,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataWithSensitivityLabelInfo"/>.
+        /// </summary>
+        public static DataWithSensitivityLabelInfo DataWithSensitivityLabelInfo(
+            string id = default,
+            string name = default,
+            string displayName = default,
+            string path = default,
+            DateTime? lastModified = default,
+            long? size = default,
+            string mediaType = default,
+            bool? isFolder = default,
+            string eTag = default,
+            string fileLocator = default,
+            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+        {
+            return new DataWithSensitivityLabelInfo
+            {
+                Id = id,
+                Name = name,
+                DisplayName = displayName,
+                Path = path,
+                LastModified = lastModified,
+                Size = size,
+                MediaType = mediaType,
+                IsFolder = isFolder,
+                ETag = eTag,
+                FileLocator = fileLocator,
+                SensitivityLabelInfo = sensitivityLabelInfo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SensitivityLabelMetadata"/>.
+        /// </summary>
+        public static SensitivityLabelMetadata SensitivityLabelMetadata(
+            string sensitivityLabelId = default,
+            string name = default,
+            string sensitivityLabelDisplayNameInfo = default,
+            string tooltipInfo = default,
+            int? priorityOfSensitivityLabel = default,
+            string colorToBeDisplayedForSensitivityLabel = default,
+            bool? isEncryptedStatusOfSensitivityLabel = default,
+            bool? whetherSensitivityLabelIsEnabled = default,
+            bool? whetherSensitivityLabelIsParent = default,
+            string parentSensitivityLabelId = default)
+        {
+            return new SensitivityLabelMetadata
+            {
+                SensitivityLabelId = sensitivityLabelId,
+                Name = name,
+                SensitivityLabelDisplayNameInfo = sensitivityLabelDisplayNameInfo,
+                TooltipInfo = tooltipInfo,
+                PriorityOfSensitivityLabel = priorityOfSensitivityLabel,
+                ColorToBeDisplayedForSensitivityLabel = colorToBeDisplayedForSensitivityLabel,
+                IsEncryptedStatusOfSensitivityLabel = isEncryptedStatusOfSensitivityLabel,
+                WhetherSensitivityLabelIsEnabled = whetherSensitivityLabelIsEnabled,
+                WhetherSensitivityLabelIsParent = whetherSensitivityLabelIsParent,
+                ParentSensitivityLabelId = parentSensitivityLabelId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListOfBlobsWithSensitivityLabels"/>.
+        /// </summary>
+        public static ListOfBlobsWithSensitivityLabels ListOfBlobsWithSensitivityLabels(
+            List<DataWithSensitivityLabelInfo> value = default)
+        {
+            return new ListOfBlobsWithSensitivityLabels
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BlobMetadataPage"/>.
+        /// </summary>
+        public static BlobMetadataPage BlobMetadataPage(
+            List<BlobMetadata> value = default,
+            string nextLink = default,
+            string nextPageMarker = default)
+        {
+            return new BlobMetadataPage
+            {
+                Value = value,
+                NextLink = nextLink,
+                NextPageMarker = nextPageMarker,
+            };
+        }
     }
 
+    #endregion Model Factory
+
+    #region Trigger Payloads
+
     /// <summary>
-    /// Creates a new instance of <see cref="SharedAccessSignature"/>.
+    /// Typed trigger payload for the OnUpdatedFiles trigger (AzureBlob "When a blob is added or modified (properties only) (V2)", operationId: OnUpdatedFiles_V2).
+    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureBlobOnUpdatedFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public static SharedAccessSignature SharedAccessSignature(
-        string webUrl = default)
+    public class AzureBlobOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
-        return new SharedAccessSignature
-        {
-            WebUrl = webUrl,
-        };
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="SharedAccessSignatureBlobPolicy"/>.
+    /// Static registry of trigger operations for the AzureBlob connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="AzureBlobTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
     /// </summary>
-    public static SharedAccessSignatureBlobPolicy SharedAccessSignatureBlobPolicy(
-        string groupPolicyIdentifier = default,
-        Permissions? permissions = default,
-        DateTime? startTime = default,
-        DateTime? expiryTime = default,
-        AccessProtocol? sharedAccessProtocol = default,
-        string ipAddressOrIPAddressRange = default)
+    public static class AzureBlobTriggers
     {
-        return new SharedAccessSignatureBlobPolicy
-        {
-            GroupPolicyIdentifier = groupPolicyIdentifier,
-            Permissions = permissions,
-            StartTime = startTime,
-            ExpiryTime = expiryTime,
-            SharedAccessProtocol = sharedAccessProtocol,
-            IPAddressOrIPAddressRange = ipAddressOrIPAddressRange,
-        };
+        /// <summary>
+        /// Trigger operations with typed payloads for the AzureBlob connector.
+        /// This is a subset of all triggers — see <see cref="AzureBlobTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["OnUpdatedFiles_V2"] = typeof(AzureBlobOnUpdatedFilesTriggerPayload),
+            });
     }
 
-    /// <summary>
-    /// Creates a new instance of <see cref="DataWithSensitivityLabelInfo"/>.
-    /// </summary>
-    public static DataWithSensitivityLabelInfo DataWithSensitivityLabelInfo(
-        string id = default,
-        string name = default,
-        string displayName = default,
-        string path = default,
-        DateTime? lastModified = default,
-        long? size = default,
-        string mediaType = default,
-        bool? isFolder = default,
-        string eTag = default,
-        string fileLocator = default,
-        List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
-    {
-        return new DataWithSensitivityLabelInfo
-        {
-            Id = id,
-            Name = name,
-            DisplayName = displayName,
-            Path = path,
-            LastModified = lastModified,
-            Size = size,
-            MediaType = mediaType,
-            IsFolder = isFolder,
-            ETag = eTag,
-            FileLocator = fileLocator,
-            SensitivityLabelInfo = sensitivityLabelInfo,
-        };
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="SensitivityLabelMetadata"/>.
-    /// </summary>
-    public static SensitivityLabelMetadata SensitivityLabelMetadata(
-        string sensitivityLabelId = default,
-        string name = default,
-        string sensitivityLabelDisplayNameInfo = default,
-        string tooltipInfo = default,
-        int? priorityOfSensitivityLabel = default,
-        string colorToBeDisplayedForSensitivityLabel = default,
-        bool? isEncryptedStatusOfSensitivityLabel = default,
-        bool? whetherSensitivityLabelIsEnabled = default,
-        bool? whetherSensitivityLabelIsParent = default,
-        string parentSensitivityLabelId = default)
-    {
-        return new SensitivityLabelMetadata
-        {
-            SensitivityLabelId = sensitivityLabelId,
-            Name = name,
-            SensitivityLabelDisplayNameInfo = sensitivityLabelDisplayNameInfo,
-            TooltipInfo = tooltipInfo,
-            PriorityOfSensitivityLabel = priorityOfSensitivityLabel,
-            ColorToBeDisplayedForSensitivityLabel = colorToBeDisplayedForSensitivityLabel,
-            IsEncryptedStatusOfSensitivityLabel = isEncryptedStatusOfSensitivityLabel,
-            WhetherSensitivityLabelIsEnabled = whetherSensitivityLabelIsEnabled,
-            WhetherSensitivityLabelIsParent = whetherSensitivityLabelIsParent,
-            ParentSensitivityLabelId = parentSensitivityLabelId,
-        };
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="ListOfBlobsWithSensitivityLabels"/>.
-    /// </summary>
-    public static ListOfBlobsWithSensitivityLabels ListOfBlobsWithSensitivityLabels(
-        List<DataWithSensitivityLabelInfo> value = default)
-    {
-        return new ListOfBlobsWithSensitivityLabels
-        {
-            Value = value,
-        };
-    }
-
-    /// <summary>
-    /// Creates a new instance of <see cref="BlobMetadataPage"/>.
-    /// </summary>
-    public static BlobMetadataPage BlobMetadataPage(
-        List<BlobMetadata> value = default,
-        string nextLink = default,
-        string nextPageMarker = default)
-    {
-        return new BlobMetadataPage
-        {
-            Value = value,
-            NextLink = nextLink,
-            NextPageMarker = nextPageMarker,
-        };
-    }
-}
-
-#endregion Model Factory
-
-#region Trigger Payloads
-
-/// <summary>
-/// Typed trigger payload for the OnUpdatedFiles trigger (AzureBlob "When a blob is added or modified (properties only) (V2)", operationId: OnUpdatedFiles_V2).
-/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureBlobOnUpdatedFilesTriggerPayload&gt;(body)</c>.
-/// </summary>
-public class AzureBlobOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
-{
-}
-
-/// <summary>
-/// Static registry of trigger operations for the AzureBlob connector that have typed payloads.
-/// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
-/// Triggers that return binary content (e.g., file downloads) are not included here
-/// because they have no JSON-deserializable payload type. See <see cref="AzureBlobTriggerOperations"/>
-/// for the complete list of trigger operation name constants.
-/// </summary>
-public static class AzureBlobTriggers
-{
-    /// <summary>
-    /// Trigger operations with typed payloads for the AzureBlob connector.
-    /// This is a subset of all triggers — see <see cref="AzureBlobTriggerOperations"/> for the full list.
-    /// </summary>
-    public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
-        new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
-        {
-            ["OnUpdatedFiles_V2"] = typeof(AzureBlobOnUpdatedFilesTriggerPayload),
-        });
-}
-
-#endregion Trigger Payloads
+    #endregion Trigger Payloads
 
 }
 
 namespace Azure.Connectors.Sdk.AzureBlob
 {
 
-#region Trigger Operation Constants
+    #region Trigger Operation Constants
 
-/// <summary>
-/// Trigger operation name constants for the AzureBlob connector.
-/// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
-/// </summary>
-public static class AzureBlobTriggerOperations
-{
     /// <summary>
-    /// When a blob is added or modified (properties only) (V2).
-    /// Payload type: <see cref="AzureBlobOnUpdatedFilesTriggerPayload"/>.
+    /// Trigger operation name constants for the AzureBlob connector.
+    /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
+    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
     /// </summary>
-    public const string OnUpdatedFiles = "OnUpdatedFiles_V2";
-
-}
-
-#endregion Trigger Operation Constants
-
-#region Trigger Parameter Metadata
-
-/// <summary>
-/// Trigger input parameter name constants for the AzureBlob connector.
-/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
-/// </summary>
-public static class AzureBlobTriggerParameters
-{
-    /// <summary>
-    /// Input parameters for the OnUpdatedFiles trigger operation (operationId: OnUpdatedFiles_V2).
-    /// </summary>
-    public static class OnUpdatedFiles
+    public static class AzureBlobTriggerOperations
     {
         /// <summary>
-        /// Select a container.
-        /// Required.
+        /// When a blob is added or modified (properties only) (V2).
+        /// Payload type: <see cref="AzureBlobOnUpdatedFilesTriggerPayload"/>.
         /// </summary>
-        public const string FolderId = "folderId";
+        public const string OnUpdatedFiles = "OnUpdatedFiles_V2";
+
+    }
+
+    #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the AzureBlob connector.
+    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class AzureBlobTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnUpdatedFiles trigger operation (operationId: OnUpdatedFiles_V2).
+        /// </summary>
+        public static class OnUpdatedFiles
+        {
+            /// <summary>
+            /// Select a container.
+            /// Required.
+            /// </summary>
+            public const string FolderId = "folderId";
+
+            /// <summary>
+            /// Maximum number of blobs to return from the trigger (1-100).
+            /// Default: 10.
+            /// </summary>
+            public const string MaxFileCount = "maxFileCount";
+
+            /// <summary>
+            /// If the flag is set to true, the trigger will check the file&apos;s created date and time and the file&apos;s last modified date and time. If the flag is set to false, the trigger will only check the file&apos;s last modified date and time.
+            /// Default: false.
+            /// </summary>
+            public const string CheckBothCreatedAndModifiedDateTime = "checkBothCreatedAndModifiedDateTime";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
+    #region Client
+
+    /// <summary>
+    /// Typed client for azureblob connector.
+    /// </summary>
+    public class AzureBlobClient : ConnectorClientBase
+    {
+        /// <summary>
+        /// Creates a new AzureBlobClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public AzureBlobClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
 
         /// <summary>
-        /// Maximum number of blobs to return from the trigger (1-100).
-        /// Default: 10.
+        /// Creates a new AzureBlobClient with the specified connection runtime URL and credential.
         /// </summary>
-        public const string MaxFileCount = "maxFileCount";
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public AzureBlobClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
 
         /// <summary>
-        /// If the flag is set to true, the trigger will check the file&apos;s created date and time and the file&apos;s last modified date and time. If the flag is set to false, the trigger will only check the file&apos;s last modified date and time.
-        /// Default: false.
+        /// Creates a new AzureBlobClient with the specified connection runtime URL and credential.
         /// </summary>
-        public const string CheckBothCreatedAndModifiedDateTime = "checkBothCreatedAndModifiedDateTime";
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public AzureBlobClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new AzureBlobClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public AzureBlobClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected AzureBlobClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "azureblob";
+
+        /// <summary>
+        /// Get storage accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get storage accounts response.</returns>
+        public virtual async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/codeless/GetDataSets";
+            return await this
+                .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Copy blob (V2)
+        /// </summary>
+        /// <remarks>This operation copies a blob. If blob is being deleted/renamed on server right after it was copied, connector may return HTTP 404 error by it&apos;s design. Please use a delay for 1 minute before deleting or renaming newly created blob. Chunk transfer is not supported in this action. If source and destination are present in same storage account, please use relative path. Otherwise, maximum size of a source for copy blob operation is 50 MB.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="sourceUrl">Source url</param>
+        /// <param name="destinationBlobPath">Destination blob path</param>
+        /// <param name="overwrite">Overwrite?</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Copy blob (V2) response.</returns>
+        public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool overwrite = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (sourceUrl != default)
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
+            if (destinationBlobPath != default)
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationBlobPath.ToString())}");
+            if (overwrite != default)
+                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Create block blob (V2)
+        /// </summary>
+        /// <remarks>This operation uploads a block blob to Azure Blob Storage.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="specifyFolderPathToUpload">Specify folder path to upload</param>
+        /// <param name="specifyNameOfTheBlobToCreate">Specify name of the blob to create</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task CreateBlockBlobAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string specifyFolderPathToUpload, string specifyNameOfTheBlobToCreate, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (specifyFolderPathToUpload != default)
+                queryParams.Add($"folderPath={Uri.EscapeDataString(specifyFolderPathToUpload.ToString())}");
+            if (specifyNameOfTheBlobToCreate != default)
+                queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate.ToString())}");
+            var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            await this
+                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Create blob (V2)
+        /// </summary>
+        /// <remarks>This operation uploads a blob to Azure Blob Storage.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="folderPath">Folder path</param>
+        /// <param name="blobName">Blob name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create blob (V2) response.</returns>
+        public virtual async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (folderPath != default)
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+            if (blobName != default)
+                queryParams.Add($"name={Uri.EscapeDataString(blobName.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Create SAS URI by path (V2)
+        /// </summary>
+        /// <remarks>This operation creates a SAS link for a blob using the path.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="blobPath">Blob path</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create SAS URI by path (V2) response.</returns>
+        public virtual async Task<SharedAccessSignature> CreateShareLinkByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, SharedAccessSignatureBlobPolicy input, string blobPath, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (blobPath != default)
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<SharedAccessSignature>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Delete blob (V2)
+        /// </summary>
+        /// <remarks>This operation deletes a blob.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blob">Blob</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
+            await this
+                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Extract archive to folder (V2)
+        /// </summary>
+        /// <remarks>This operation extracts an archive blob into a folder (example: .zip).</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="sourceArchiveBlobPath">Source archive blob path</param>
+        /// <param name="destinationFolderPath">Destination folder path</param>
+        /// <param name="overwrite">Overwrite?</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Extract archive to folder (V2) response.</returns>
+        public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (sourceArchiveBlobPath != default)
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath.ToString())}");
+            if (destinationFolderPath != default)
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+            if (overwrite != default)
+                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get available access policies (V2)
+        /// </summary>
+        /// <remarks>This operation gets available shared access policies for a blob.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blobPath">Blob path</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get available access policies (V2) response.</returns>
+        public virtual async Task<List<SharedAccessSignatureBlobPolicy>> GetAccessPoliciesAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (blobPath != default)
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<List<SharedAccessSignatureBlobPolicy>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get blob content (V2)
+        /// </summary>
+        /// <remarks>This operation retrieves blob contents using id.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blob">Blob</param>
+        /// <param name="inferContentType">Infer content type</param>
+        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get blob content (V2) response.</returns>
+        public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (inferContentType != default)
+                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
+            if (extractMIPLabels != default)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
+            if (purviewAcccountName != default)
+                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get blob content using path (V2)
+        /// </summary>
+        /// <remarks>This operation retrieves blob contents using path.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blobPath">Blob path</param>
+        /// <param name="inferContentType">Infer content type</param>
+        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get blob content using path (V2) response.</returns>
+        public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (blobPath != default)
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+            if (inferContentType != default)
+                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
+            if (extractMIPLabels != default)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
+            if (purviewAcccountName != default)
+                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get Blob Metadata (V2)
+        /// </summary>
+        /// <remarks>This operation retrieves blob metadata using blob id.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blob">Blob</param>
+        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Blob Metadata (V2) response.</returns>
+        public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (extractMIPLabels != default)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
+            if (purviewAcccountName != default)
+                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get Blob Metadata using path (V2)
+        /// </summary>
+        /// <remarks>This operation retrieves blob metadata using path.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blobPath">Blob path</param>
+        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Blob Metadata using path (V2) response.</returns>
+        public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (blobPath != default)
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+            if (extractMIPLabels != default)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
+            if (purviewAcccountName != default)
+                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Lists blobs (V2)
+        /// </summary>
+        /// <remarks>This operation lists blobs in a container.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="folder">Folder</param>
+        /// <param name="pagingMarker">Paging Marker</param>
+        /// <param name="flatListing">Flat Listing</param>
+        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Lists blobs (V2) response.</returns>
+        public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool flatListing = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (pagingMarker != default)
+                queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
+            if (flatListing != default)
+                queryParams.Add($"useFlatListing={Uri.EscapeDataString(flatListing.ToString())}");
+            if (extractMIPLabels != default)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
+            if (purviewAcccountName != default)
+                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2/{Uri.EscapeDataString(folder.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<ListOfBlobsWithSensitivityLabels>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Lists blobs in the root folder  (V2)
+        /// </summary>
+        /// <remarks>This operation lists blobs in the Azure Blob Storage root folder.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="pagingMarker">Paging Marker</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
+        public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (pagingMarker != default)
+                queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
+                ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Set blob tier by path (V2)
+        /// </summary>
+        /// <remarks>This operation sets a tier for a block blob on a standard storage account using the path.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blobPath">Blob path</param>
+        /// <param name="blobTier">Blob Tier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task SetBlobTierByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, string blobTier, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (blobPath != default)
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+            if (blobTier != default)
+                queryParams.Add($"newTier={Uri.EscapeDataString(blobTier.ToString())}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            await this
+                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Update blob (V2)
+        /// </summary>
+        /// <remarks>This operation updates a blob in Azure Blob Storage.</remarks>
+        /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
+        /// <param name="blob">Blob</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Update blob (V2) response.</returns>
+        public virtual async Task<BlobMetadata> UpdateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, byte[] input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
+            return await this
+                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
 
     }
 
-}
-
-#endregion Trigger Parameter Metadata
-
-#region Client
-
-/// <summary>
-/// Typed client for azureblob connector.
-/// </summary>
-public class AzureBlobClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new AzureBlobClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public AzureBlobClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new AzureBlobClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public AzureBlobClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new AzureBlobClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    public AzureBlobClient(Uri connectionRuntimeUrl, TokenCredential credential)
-        : base(connectionRuntimeUrl, credential)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new AzureBlobClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public AzureBlobClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected AzureBlobClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "azureblob";
-
-    /// <summary>
-    /// Get storage accounts
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get storage accounts response.</returns>
-    public virtual async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
-    {
-        var path = $"/v2/codeless/GetDataSets";
-        return await this
-            .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Copy blob (V2)
-    /// </summary>
-    /// <remarks>This operation copies a blob. If blob is being deleted/renamed on server right after it was copied, connector may return HTTP 404 error by it&apos;s design. Please use a delay for 1 minute before deleting or renaming newly created blob. Chunk transfer is not supported in this action. If source and destination are present in same storage account, please use relative path. Otherwise, maximum size of a source for copy blob operation is 50 MB.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="sourceUrl">Source url</param>
-    /// <param name="destinationBlobPath">Destination blob path</param>
-    /// <param name="overwrite">Overwrite?</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Copy blob (V2) response.</returns>
-    public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool overwrite = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (sourceUrl != default)
-            queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
-        if (destinationBlobPath != default)
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationBlobPath.ToString())}");
-        if (overwrite != default)
-            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Create block blob (V2)
-    /// </summary>
-    /// <remarks>This operation uploads a block blob to Azure Blob Storage.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="specifyFolderPathToUpload">Specify folder path to upload</param>
-    /// <param name="specifyNameOfTheBlobToCreate">Specify name of the blob to create</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task CreateBlockBlobAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string specifyFolderPathToUpload, string specifyNameOfTheBlobToCreate, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (specifyFolderPathToUpload != default)
-            queryParams.Add($"folderPath={Uri.EscapeDataString(specifyFolderPathToUpload.ToString())}");
-        if (specifyNameOfTheBlobToCreate != default)
-            queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate.ToString())}");
-        var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this
-            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Create blob (V2)
-    /// </summary>
-    /// <remarks>This operation uploads a blob to Azure Blob Storage.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="folderPath">Folder path</param>
-    /// <param name="blobName">Blob name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Create blob (V2) response.</returns>
-    public virtual async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (folderPath != default)
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-        if (blobName != default)
-            queryParams.Add($"name={Uri.EscapeDataString(blobName.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Create SAS URI by path (V2)
-    /// </summary>
-    /// <remarks>This operation creates a SAS link for a blob using the path.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="blobPath">Blob path</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Create SAS URI by path (V2) response.</returns>
-    public virtual async Task<SharedAccessSignature> CreateShareLinkByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, SharedAccessSignatureBlobPolicy input, string blobPath, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (blobPath != default)
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<SharedAccessSignature>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Delete blob (V2)
-    /// </summary>
-    /// <remarks>This operation deletes a blob.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blob">Blob</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, CancellationToken cancellationToken = default)
-    {
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
-        await this
-            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Extract archive to folder (V2)
-    /// </summary>
-    /// <remarks>This operation extracts an archive blob into a folder (example: .zip).</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="sourceArchiveBlobPath">Source archive blob path</param>
-    /// <param name="destinationFolderPath">Destination folder path</param>
-    /// <param name="overwrite">Overwrite?</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Extract archive to folder (V2) response.</returns>
-    public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (sourceArchiveBlobPath != default)
-            queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath.ToString())}");
-        if (destinationFolderPath != default)
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-        if (overwrite != default)
-            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get available access policies (V2)
-    /// </summary>
-    /// <remarks>This operation gets available shared access policies for a blob.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blobPath">Blob path</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get available access policies (V2) response.</returns>
-    public virtual async Task<List<SharedAccessSignatureBlobPolicy>> GetAccessPoliciesAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (blobPath != default)
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<List<SharedAccessSignatureBlobPolicy>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get blob content (V2)
-    /// </summary>
-    /// <remarks>This operation retrieves blob contents using id.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blob">Blob</param>
-    /// <param name="inferContentType">Infer content type</param>
-    /// <param name="extractMIPLabels">Extract MIP Labels</param>
-    /// <param name="purviewAcccountName">Purview Acccount Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get blob content (V2) response.</returns>
-    public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (inferContentType != default)
-            queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
-        if (extractMIPLabels != default)
-            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
-        if (purviewAcccountName != default)
-            queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get blob content using path (V2)
-    /// </summary>
-    /// <remarks>This operation retrieves blob contents using path.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blobPath">Blob path</param>
-    /// <param name="inferContentType">Infer content type</param>
-    /// <param name="extractMIPLabels">Extract MIP Labels</param>
-    /// <param name="purviewAcccountName">Purview Acccount Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get blob content using path (V2) response.</returns>
-    public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (blobPath != default)
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-        if (inferContentType != default)
-            queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
-        if (extractMIPLabels != default)
-            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
-        if (purviewAcccountName != default)
-            queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get Blob Metadata (V2)
-    /// </summary>
-    /// <remarks>This operation retrieves blob metadata using blob id.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blob">Blob</param>
-    /// <param name="extractMIPLabels">Extract MIP Labels</param>
-    /// <param name="purviewAcccountName">Purview Acccount Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get Blob Metadata (V2) response.</returns>
-    public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (extractMIPLabels != default)
-            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
-        if (purviewAcccountName != default)
-            queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get Blob Metadata using path (V2)
-    /// </summary>
-    /// <remarks>This operation retrieves blob metadata using path.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blobPath">Blob path</param>
-    /// <param name="extractMIPLabels">Extract MIP Labels</param>
-    /// <param name="purviewAcccountName">Purview Acccount Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get Blob Metadata using path (V2) response.</returns>
-    public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (blobPath != default)
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-        if (extractMIPLabels != default)
-            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
-        if (purviewAcccountName != default)
-            queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Lists blobs (V2)
-    /// </summary>
-    /// <remarks>This operation lists blobs in a container.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="folder">Folder</param>
-    /// <param name="pagingMarker">Paging Marker</param>
-    /// <param name="flatListing">Flat Listing</param>
-    /// <param name="extractMIPLabels">Extract MIP Labels</param>
-    /// <param name="purviewAcccountName">Purview Acccount Name</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Lists blobs (V2) response.</returns>
-    public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool flatListing = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (pagingMarker != default)
-            queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
-        if (flatListing != default)
-            queryParams.Add($"useFlatListing={Uri.EscapeDataString(flatListing.ToString())}");
-        if (extractMIPLabels != default)
-            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.ToString())}");
-        if (purviewAcccountName != default)
-            queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2/{Uri.EscapeDataString(folder.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<ListOfBlobsWithSensitivityLabels>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Lists blobs in the root folder  (V2)
-    /// </summary>
-    /// <remarks>This operation lists blobs in the Azure Blob Storage root folder.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="pagingMarker">Paging Marker</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-    public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (pagingMarker != default)
-            queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
-            ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
-            (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
-            cancellationToken);
-    }
-
-    /// <summary>
-    /// Set blob tier by path (V2)
-    /// </summary>
-    /// <remarks>This operation sets a tier for a block blob on a standard storage account using the path.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blobPath">Blob path</param>
-    /// <param name="blobTier">Blob Tier</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task SetBlobTierByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, string blobTier, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (blobPath != default)
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-        if (blobTier != default)
-            queryParams.Add($"newTier={Uri.EscapeDataString(blobTier.ToString())}");
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this
-            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Update blob (V2)
-    /// </summary>
-    /// <remarks>This operation updates a blob in Azure Blob Storage.</remarks>
-    /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
-    /// <param name="blob">Blob</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Update blob (V2) response.</returns>
-    public virtual async Task<BlobMetadata> UpdateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, byte[] input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
-        return await this
-            .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }

@@ -21,575 +21,575 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Kusto.Models
 {
 
-#region Types
+    #region Types
 
-/// <summary>
-/// Response for Run KQL query
-/// </summary>
-public class Table
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<Row> Value { get; set; }
-}
-
-/// <summary>
-/// Item in value
-/// </summary>
-[DynamicSchema("listKustoResultsSchemaPost")]
-public class Row
-{
     /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
+    /// Response for Run KQL query
     /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// Response for Query schema
-/// </summary>
-public class ObjectEntity
-{
-    /// <summary>
-    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// Response for Run KQL query and render a chart
-/// </summary>
-public class VisualizeResults
-{
-    /// <summary>The body of the result in base64 encoding.</summary>
-    [JsonPropertyName("body")]
-    public string Body { get; set; }
-
-    /// <summary>The body of the result in html encoding.</summary>
-    [JsonPropertyName("bodyHtml")]
-    public string BodyHtml { get; set; }
-
-    /// <summary>The content of the attachment.</summary>
-    [JsonPropertyName("attachmentContent")]
-    public string AttachmentContent { get; set; }
-
-    /// <summary>The name of the attachment file.</summary>
-    [JsonPropertyName("attachmentName")]
-    public string AttachmentName { get; set; }
-
-    /// <summary>Links to run the query in Kusto tools, for instance in KustoExplorer.</summary>
-    [JsonPropertyName("kustoDeepLink")]
-    public string LinksToKustoExplorer { get; set; }
-}
-
-/// <summary>
-/// Response for Run async control command
-/// </summary>
-public class AsyncCommandResult
-{
-    /// <summary>The state of the command.</summary>
-    [JsonPropertyName("state")]
-    public string State { get; set; }
-
-    /// <summary>The status of the command.</summary>
-    [JsonPropertyName("status")]
-    public string Status { get; set; }
-
-    /// <summary>The operation ID of the control command</summary>
-    [JsonPropertyName("operationId")]
-    public string OperationID { get; set; }
-}
-
-/// <summary>
-/// Response for Kusto Query MCP Server
-/// </summary>
-public class MCPQueryResponse
-{
-    /// <summary>jsonrpc</summary>
-    [JsonPropertyName("jsonrpc")]
-    public string Jsonrpc { get; set; }
-
-    /// <summary>id</summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>method</summary>
-    [JsonPropertyName("method")]
-    public string Method { get; set; }
-
-    /// <summary>params</summary>
-    [JsonPropertyName("params")]
-    public object Params { get; set; }
-
-    /// <summary>result</summary>
-    [JsonPropertyName("result")]
-    public object Result { get; set; }
-
-    /// <summary>error</summary>
-    [JsonPropertyName("error")]
-    public object Error { get; set; }
-}
-
-/// <summary>
-/// QueryAndVisualizeSchema
-/// </summary>
-public class QueryAndVisualizeSchema
-{
-    /// <summary>cluster</summary>
-    [JsonPropertyName("cluster")]
-    public string Cluster { get; set; }
-
-    /// <summary>db</summary>
-    [JsonPropertyName("db")]
-    public string Db { get; set; }
-
-    /// <summary>csl</summary>
-    [JsonPropertyName("csl")]
-    public string Csl { get; set; }
-
-    /// <summary>chartType</summary>
-    [JsonPropertyName("chartType")]
-    public string ChartType { get; set; }
-}
-
-/// <summary>
-/// CommandAndVisualizeSchema
-/// </summary>
-public class CommandAndVisualizeSchema
-{
-    /// <summary>cluster</summary>
-    [JsonPropertyName("cluster")]
-    public string Cluster { get; set; }
-
-    /// <summary>db</summary>
-    [JsonPropertyName("db")]
-    public string Db { get; set; }
-
-    /// <summary>Specify the control command you would like to run</summary>
-    [JsonPropertyName("csl")]
-    public string ControlCommand { get; set; }
-
-    /// <summary>chartType</summary>
-    [JsonPropertyName("chartType")]
-    public string ChartType { get; set; }
-}
-
-/// <summary>
-/// QueryAndListSchema
-/// </summary>
-public class QueryAndListSchema
-{
-    /// <summary>cluster</summary>
-    [JsonPropertyName("cluster")]
-    public string Cluster { get; set; }
-
-    /// <summary>db</summary>
-    [JsonPropertyName("db")]
-    public string Db { get; set; }
-
-    /// <summary>csl</summary>
-    [JsonPropertyName("csl")]
-    public string Csl { get; set; }
-}
-
-/// <summary>
-/// ControlCommandAndListSchema
-/// </summary>
-public class ControlCommandAndListSchema
-{
-    /// <summary>cluster</summary>
-    [JsonPropertyName("cluster")]
-    public string Cluster { get; set; }
-
-    /// <summary>db</summary>
-    [JsonPropertyName("db")]
-    public string Db { get; set; }
-
-    /// <summary>Specify the show control command you would like to run</summary>
-    [JsonPropertyName("csl")]
-    public string ControlCommand { get; set; }
-}
-
-/// <summary>
-/// MCPQueryRequest
-/// </summary>
-public class MCPQueryRequest
-{
-    /// <summary>jsonrpc</summary>
-    [JsonPropertyName("jsonrpc")]
-    public string Jsonrpc { get; set; }
-
-    /// <summary>id</summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>method</summary>
-    [JsonPropertyName("method")]
-    public string Method { get; set; }
-
-    /// <summary>params</summary>
-    [JsonPropertyName("params")]
-    public object Params { get; set; }
-
-    /// <summary>result</summary>
-    [JsonPropertyName("result")]
-    public object Result { get; set; }
-
-    /// <summary>error</summary>
-    [JsonPropertyName("error")]
-    public object Error { get; set; }
-
-    /// <summary>callbackEndpoint</summary>
-    [JsonPropertyName("callbackEndpoint")]
-    public string CallbackEndpoint { get; set; }
-}
-
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of Kusto models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class KustoModelFactory
-{
-    /// <summary>
-    /// Creates a new instance of <see cref="Table"/>.
-    /// </summary>
-    public static Table Table(
-        List<Row> value = default)
+    public class Table
     {
-        return new Table
-        {
-            Value = value,
-        };
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<Row> Value { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="VisualizeResults"/>.
+    /// Item in value
     /// </summary>
-    public static VisualizeResults VisualizeResults(
-        string body = default,
-        string bodyHtml = default,
-        string attachmentContent = default,
-        string attachmentName = default,
-        string linksToKustoExplorer = default)
+    [DynamicSchema("listKustoResultsSchemaPost")]
+    public class Row
     {
-        return new VisualizeResults
-        {
-            Body = body,
-            BodyHtml = bodyHtml,
-            AttachmentContent = attachmentContent,
-            AttachmentName = attachmentName,
-            LinksToKustoExplorer = linksToKustoExplorer,
-        };
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="AsyncCommandResult"/>.
+    /// Response for Query schema
     /// </summary>
-    public static AsyncCommandResult AsyncCommandResult(
-        string state = default,
-        string status = default,
-        string operationID = default)
+    public class ObjectEntity
     {
-        return new AsyncCommandResult
-        {
-            State = state,
-            Status = status,
-            OperationID = operationID,
-        };
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+    /// Response for Run KQL query and render a chart
     /// </summary>
-    public static MCPQueryResponse MCPQueryResponse(
-        string jsonrpc = default,
-        string id = default,
-        string method = default,
-        object @params = default,
-        object result = default,
-        object error = default)
+    public class VisualizeResults
     {
-        return new MCPQueryResponse
-        {
-            Jsonrpc = jsonrpc,
-            Id = id,
-            Method = method,
-            Params = @params,
-            Result = result,
-            Error = error,
-        };
+        /// <summary>The body of the result in base64 encoding.</summary>
+        [JsonPropertyName("body")]
+        public string Body { get; set; }
+
+        /// <summary>The body of the result in html encoding.</summary>
+        [JsonPropertyName("bodyHtml")]
+        public string BodyHtml { get; set; }
+
+        /// <summary>The content of the attachment.</summary>
+        [JsonPropertyName("attachmentContent")]
+        public string AttachmentContent { get; set; }
+
+        /// <summary>The name of the attachment file.</summary>
+        [JsonPropertyName("attachmentName")]
+        public string AttachmentName { get; set; }
+
+        /// <summary>Links to run the query in Kusto tools, for instance in KustoExplorer.</summary>
+        [JsonPropertyName("kustoDeepLink")]
+        public string LinksToKustoExplorer { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="QueryAndVisualizeSchema"/>.
+    /// Response for Run async control command
     /// </summary>
-    public static QueryAndVisualizeSchema QueryAndVisualizeSchema(
-        string cluster = default,
-        string db = default,
-        string csl = default,
-        string chartType = default)
+    public class AsyncCommandResult
     {
-        return new QueryAndVisualizeSchema
-        {
-            Cluster = cluster,
-            Db = db,
-            Csl = csl,
-            ChartType = chartType,
-        };
+        /// <summary>The state of the command.</summary>
+        [JsonPropertyName("state")]
+        public string State { get; set; }
+
+        /// <summary>The status of the command.</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
+        /// <summary>The operation ID of the control command</summary>
+        [JsonPropertyName("operationId")]
+        public string OperationID { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="CommandAndVisualizeSchema"/>.
+    /// Response for Kusto Query MCP Server
     /// </summary>
-    public static CommandAndVisualizeSchema CommandAndVisualizeSchema(
-        string cluster = default,
-        string db = default,
-        string controlCommand = default,
-        string chartType = default)
+    public class MCPQueryResponse
     {
-        return new CommandAndVisualizeSchema
-        {
-            Cluster = cluster,
-            Db = db,
-            ControlCommand = controlCommand,
-            ChartType = chartType,
-        };
+        /// <summary>jsonrpc</summary>
+        [JsonPropertyName("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>method</summary>
+        [JsonPropertyName("method")]
+        public string Method { get; set; }
+
+        /// <summary>params</summary>
+        [JsonPropertyName("params")]
+        public object Params { get; set; }
+
+        /// <summary>result</summary>
+        [JsonPropertyName("result")]
+        public object Result { get; set; }
+
+        /// <summary>error</summary>
+        [JsonPropertyName("error")]
+        public object Error { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="QueryAndListSchema"/>.
+    /// QueryAndVisualizeSchema
     /// </summary>
-    public static QueryAndListSchema QueryAndListSchema(
-        string cluster = default,
-        string db = default,
-        string csl = default)
+    public class QueryAndVisualizeSchema
     {
-        return new QueryAndListSchema
-        {
-            Cluster = cluster,
-            Db = db,
-            Csl = csl,
-        };
+        /// <summary>cluster</summary>
+        [JsonPropertyName("cluster")]
+        public string Cluster { get; set; }
+
+        /// <summary>db</summary>
+        [JsonPropertyName("db")]
+        public string Db { get; set; }
+
+        /// <summary>csl</summary>
+        [JsonPropertyName("csl")]
+        public string Csl { get; set; }
+
+        /// <summary>chartType</summary>
+        [JsonPropertyName("chartType")]
+        public string ChartType { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="ControlCommandAndListSchema"/>.
+    /// CommandAndVisualizeSchema
     /// </summary>
-    public static ControlCommandAndListSchema ControlCommandAndListSchema(
-        string cluster = default,
-        string db = default,
-        string controlCommand = default)
+    public class CommandAndVisualizeSchema
     {
-        return new ControlCommandAndListSchema
-        {
-            Cluster = cluster,
-            Db = db,
-            ControlCommand = controlCommand,
-        };
+        /// <summary>cluster</summary>
+        [JsonPropertyName("cluster")]
+        public string Cluster { get; set; }
+
+        /// <summary>db</summary>
+        [JsonPropertyName("db")]
+        public string Db { get; set; }
+
+        /// <summary>Specify the control command you would like to run</summary>
+        [JsonPropertyName("csl")]
+        public string ControlCommand { get; set; }
+
+        /// <summary>chartType</summary>
+        [JsonPropertyName("chartType")]
+        public string ChartType { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+    /// QueryAndListSchema
     /// </summary>
-    public static MCPQueryRequest MCPQueryRequest(
-        string jsonrpc = default,
-        string id = default,
-        string method = default,
-        object @params = default,
-        object result = default,
-        object error = default,
-        string callbackEndpoint = default)
+    public class QueryAndListSchema
     {
-        return new MCPQueryRequest
-        {
-            Jsonrpc = jsonrpc,
-            Id = id,
-            Method = method,
-            Params = @params,
-            Result = result,
-            Error = error,
-            CallbackEndpoint = callbackEndpoint,
-        };
-    }
-}
+        /// <summary>cluster</summary>
+        [JsonPropertyName("cluster")]
+        public string Cluster { get; set; }
 
-#endregion Model Factory
+        /// <summary>db</summary>
+        [JsonPropertyName("db")]
+        public string Db { get; set; }
+
+        /// <summary>csl</summary>
+        [JsonPropertyName("csl")]
+        public string Csl { get; set; }
+    }
+
+    /// <summary>
+    /// ControlCommandAndListSchema
+    /// </summary>
+    public class ControlCommandAndListSchema
+    {
+        /// <summary>cluster</summary>
+        [JsonPropertyName("cluster")]
+        public string Cluster { get; set; }
+
+        /// <summary>db</summary>
+        [JsonPropertyName("db")]
+        public string Db { get; set; }
+
+        /// <summary>Specify the show control command you would like to run</summary>
+        [JsonPropertyName("csl")]
+        public string ControlCommand { get; set; }
+    }
+
+    /// <summary>
+    /// MCPQueryRequest
+    /// </summary>
+    public class MCPQueryRequest
+    {
+        /// <summary>jsonrpc</summary>
+        [JsonPropertyName("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>method</summary>
+        [JsonPropertyName("method")]
+        public string Method { get; set; }
+
+        /// <summary>params</summary>
+        [JsonPropertyName("params")]
+        public object Params { get; set; }
+
+        /// <summary>result</summary>
+        [JsonPropertyName("result")]
+        public object Result { get; set; }
+
+        /// <summary>error</summary>
+        [JsonPropertyName("error")]
+        public object Error { get; set; }
+
+        /// <summary>callbackEndpoint</summary>
+        [JsonPropertyName("callbackEndpoint")]
+        public string CallbackEndpoint { get; set; }
+    }
+
+    #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Kusto models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class KustoModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="Table"/>.
+        /// </summary>
+        public static Table Table(
+            List<Row> value = default)
+        {
+            return new Table
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="VisualizeResults"/>.
+        /// </summary>
+        public static VisualizeResults VisualizeResults(
+            string body = default,
+            string bodyHtml = default,
+            string attachmentContent = default,
+            string attachmentName = default,
+            string linksToKustoExplorer = default)
+        {
+            return new VisualizeResults
+            {
+                Body = body,
+                BodyHtml = bodyHtml,
+                AttachmentContent = attachmentContent,
+                AttachmentName = attachmentName,
+                LinksToKustoExplorer = linksToKustoExplorer,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AsyncCommandResult"/>.
+        /// </summary>
+        public static AsyncCommandResult AsyncCommandResult(
+            string state = default,
+            string status = default,
+            string operationID = default)
+        {
+            return new AsyncCommandResult
+            {
+                State = state,
+                Status = status,
+                OperationID = operationID,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+        /// </summary>
+        public static MCPQueryResponse MCPQueryResponse(
+            string jsonrpc = default,
+            string id = default,
+            string method = default,
+            object @params = default,
+            object result = default,
+            object error = default)
+        {
+            return new MCPQueryResponse
+            {
+                Jsonrpc = jsonrpc,
+                Id = id,
+                Method = method,
+                Params = @params,
+                Result = result,
+                Error = error,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="QueryAndVisualizeSchema"/>.
+        /// </summary>
+        public static QueryAndVisualizeSchema QueryAndVisualizeSchema(
+            string cluster = default,
+            string db = default,
+            string csl = default,
+            string chartType = default)
+        {
+            return new QueryAndVisualizeSchema
+            {
+                Cluster = cluster,
+                Db = db,
+                Csl = csl,
+                ChartType = chartType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CommandAndVisualizeSchema"/>.
+        /// </summary>
+        public static CommandAndVisualizeSchema CommandAndVisualizeSchema(
+            string cluster = default,
+            string db = default,
+            string controlCommand = default,
+            string chartType = default)
+        {
+            return new CommandAndVisualizeSchema
+            {
+                Cluster = cluster,
+                Db = db,
+                ControlCommand = controlCommand,
+                ChartType = chartType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="QueryAndListSchema"/>.
+        /// </summary>
+        public static QueryAndListSchema QueryAndListSchema(
+            string cluster = default,
+            string db = default,
+            string csl = default)
+        {
+            return new QueryAndListSchema
+            {
+                Cluster = cluster,
+                Db = db,
+                Csl = csl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ControlCommandAndListSchema"/>.
+        /// </summary>
+        public static ControlCommandAndListSchema ControlCommandAndListSchema(
+            string cluster = default,
+            string db = default,
+            string controlCommand = default)
+        {
+            return new ControlCommandAndListSchema
+            {
+                Cluster = cluster,
+                Db = db,
+                ControlCommand = controlCommand,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+        /// </summary>
+        public static MCPQueryRequest MCPQueryRequest(
+            string jsonrpc = default,
+            string id = default,
+            string method = default,
+            object @params = default,
+            object result = default,
+            object error = default,
+            string callbackEndpoint = default)
+        {
+            return new MCPQueryRequest
+            {
+                Jsonrpc = jsonrpc,
+                Id = id,
+                Method = method,
+                Params = @params,
+                Result = result,
+                Error = error,
+                CallbackEndpoint = callbackEndpoint,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 
 namespace Azure.Connectors.Sdk.Kusto
 {
 
-#region Client
-
-/// <summary>
-/// Typed client for kusto connector.
-/// </summary>
-public class KustoClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new KustoClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public KustoClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
+    #region Client
 
     /// <summary>
-    /// Creates a new KustoClient with the specified connection runtime URL and credential.
+    /// Typed client for kusto connector.
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public KustoClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class KustoClient : ConnectorClientBase
     {
+        /// <summary>
+        /// Creates a new KustoClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public KustoClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new KustoClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public KustoClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new KustoClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public KustoClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new KustoClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public KustoClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected KustoClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "kusto";
+
+        /// <summary>
+        /// Run KQL query
+        /// </summary>
+        /// <remarks>Runs the KQL query and returns the result as a set of rows which can be iterated over in the following connectors e.g TableName | take 10.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run KQL query response.</returns>
+        public virtual async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/ListKustoResults/false";
+            return await this
+                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Run show control command
+        /// </summary>
+        /// <remarks>Runs the show control command and returns the result as a set of rows which can be iterated over in the following connectors e.g .show table TableName policy caching.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run show control command response.</returns>
+        public virtual async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/ListKustoShowCommandResults";
+            return await this
+                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Query schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Query schema response.</returns>
+        public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/ListKustoResultsSchema";
+            return await this
+                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Run KQL query and render a chart
+        /// </summary>
+        /// <remarks>Runs the KQL query and returns result as a chart of your choice e.g TableName | where Timestamp &gt; ago(1h) | project timestamp, value.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run KQL query and render a chart response.</returns>
+        public virtual async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/RunKustoAndVisualizeResults/false";
+            return await this
+                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Run control command and render a chart
+        /// </summary>
+        /// <remarks>Runs the control command and returns the result as a chart of your choice e.g .clear table TableName data.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run control command and render a chart response.</returns>
+        public virtual async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/RunKustoAndVisualizeResults/true";
+            return await this
+                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Run async control command
+        /// </summary>
+        /// <remarks>Runs control command in async mode and returns its ID, state and status on completion. Command can run for maximum 1 hour. The &apos;async&apos; keyword is mandatory e.g .set-or-append async TargetTable &lt;| SourceTable.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Run async control command response.</returns>
+        public virtual async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/RunAsyncControlCommandAndWait";
+            return await this
+                .CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Kusto Query MCP Server
+        /// </summary>
+        /// <remarks>This MCP server runs Kusto queries and manages the results.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="sessionId">sessionId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Kusto Query MCP Server response.</returns>
+        public virtual async Task<MCPQueryResponse> McpKustoQueryManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (sessionId != default)
+                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+            var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 
-    /// <summary>
-    /// Creates a new KustoClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    public KustoClient(Uri connectionRuntimeUrl, TokenCredential credential)
-        : base(connectionRuntimeUrl, credential)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new KustoClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public KustoClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected KustoClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "kusto";
-
-    /// <summary>
-    /// Run KQL query
-    /// </summary>
-    /// <remarks>Runs the KQL query and returns the result as a set of rows which can be iterated over in the following connectors e.g TableName | take 10.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run KQL query response.</returns>
-    public virtual async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/ListKustoResults/false";
-        return await this
-            .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Run show control command
-    /// </summary>
-    /// <remarks>Runs the show control command and returns the result as a set of rows which can be iterated over in the following connectors e.g .show table TableName policy caching.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run show control command response.</returns>
-    public virtual async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/ListKustoShowCommandResults";
-        return await this
-            .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Query schema
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Query schema response.</returns>
-    public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/ListKustoResultsSchema";
-        return await this
-            .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Run KQL query and render a chart
-    /// </summary>
-    /// <remarks>Runs the KQL query and returns result as a chart of your choice e.g TableName | where Timestamp &gt; ago(1h) | project timestamp, value.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run KQL query and render a chart response.</returns>
-    public virtual async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/RunKustoAndVisualizeResults/false";
-        return await this
-            .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Run control command and render a chart
-    /// </summary>
-    /// <remarks>Runs the control command and returns the result as a chart of your choice e.g .clear table TableName data.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run control command and render a chart response.</returns>
-    public virtual async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/RunKustoAndVisualizeResults/true";
-        return await this
-            .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Run async control command
-    /// </summary>
-    /// <remarks>Runs control command in async mode and returns its ID, state and status on completion. Command can run for maximum 1 hour. The &apos;async&apos; keyword is mandatory e.g .set-or-append async TargetTable &lt;| SourceTable.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Run async control command response.</returns>
-    public virtual async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/RunAsyncControlCommandAndWait";
-        return await this
-            .CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Kusto Query MCP Server
-    /// </summary>
-    /// <remarks>This MCP server runs Kusto queries and manages the results.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="sessionId">sessionId</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Kusto Query MCP Server response.</returns>
-    public virtual async Task<MCPQueryResponse> McpKustoQueryManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (sessionId != default)
-            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-        var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }
