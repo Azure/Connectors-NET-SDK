@@ -10,7 +10,7 @@ namespace Azure.Connectors.Sdk.Serialization;
 /// <summary>
 /// JSON converter for DateTime values using ISO 8601 format.
 /// </summary>
-public class Iso8601DateTimeConverter : JsonConverter<DateTime>
+internal class Iso8601DateTimeConverter : JsonConverter<DateTime>
 {
     private const string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
 
@@ -39,7 +39,7 @@ public class Iso8601DateTimeConverter : JsonConverter<DateTime>
 /// <summary>
 /// JSON converter for TimeSpan values using ISO 8601 duration format.
 /// </summary>
-public class Iso8601TimeSpanConverter : JsonConverter<TimeSpan>
+internal class Iso8601TimeSpanConverter : JsonConverter<TimeSpan>
 {
     /// <inheritdoc />
     public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -66,7 +66,7 @@ public class Iso8601TimeSpanConverter : JsonConverter<TimeSpan>
 /// <summary>
 /// JSON converter for nullable TimeSpan values.
 /// </summary>
-public class NullableTimeSpanConverter : JsonConverter<TimeSpan?>
+internal class NullableTimeSpanConverter : JsonConverter<TimeSpan?>
 {
     private readonly Iso8601TimeSpanConverter _innerConverter = new();
 

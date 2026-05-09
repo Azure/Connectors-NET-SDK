@@ -22,5888 +22,5898 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Office365.Models
 {
 
-    #region Types
+#region Types
 
-    /// <summary>
-    /// Response for Get Outlook category names
-    /// </summary>
-    public class GraphOutlookCategory
-    {
-        /// <summary>The ID of the Outlook Category.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
+/// <summary>
+/// Response for Get Outlook category names
+/// </summary>
+public class GraphOutlookCategory
+{
+    /// <summary>The ID of the Outlook Category.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The display name of the Outlook Category.</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+}
+
+/// <summary>
+/// Response for Draft an email message
+/// </summary>
+public class OutlookReceiveMessage
+{
+    /// <summary>Internet Message Id</summary>
+    public string InternetMessageId { get; set; }
+
+    /// <summary>Body preview</summary>
+    public string BodyPreview { get; set; }
+
+    /// <summary>Id</summary>
+    public string Id { get; set; }
+
+    /// <summary>Conversation Id</summary>
+    public string ConversationId { get; set; }
 
-        /// <summary>The display name of the Outlook Category.</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
+    /// <summary>Has attachments</summary>
+    public bool? HasAttachments { get; set; }
+
+    /// <summary>Is read</summary>
+    public bool? IsRead { get; set; }
+
+    /// <summary>Created date and time</summary>
+    [JsonInclude]
+    public DateTime? CreatedDateTime { get; internal set; }
+
+    /// <summary>Received date and time</summary>
+    [JsonInclude]
+    public DateTime? ReceivedDateTime { get; internal set; }
+
+    /// <summary>Last modified date and time</summary>
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
+
+    /// <summary>Attachments</summary>
+    public List<OutlookReceiveAttachment> Attachments { get; set; }
+
+    /// <summary>To Recipient</summary>
+    public List<Recipient> ToRecipients { get; set; }
+
+    /// <summary>Cc Recipients</summary>
+    public List<Recipient> CcRecipients { get; set; }
+
+    /// <summary>Bcc Recipients</summary>
+    public List<Recipient> BccRecipients { get; set; }
+
+    /// <summary>The email addresses to use when replying</summary>
+    public List<Recipient> ReplyTo { get; set; }
+
+    /// <summary>Subject</summary>
+    public string Subject { get; set; }
+
+    /// <summary>Body</summary>
+    public ItemBody Body { get; set; }
+
+    /// <summary>From</summary>
+    public Recipient From { get; set; }
+
+    /// <summary>Importance</summary>
+    public string Importance { get; set; }
+
+    /// <summary>Internet message headers</summary>
+    public List<InternetMessageHeader> InternetMessageHeaders { get; set; }
+}
+
+/// <summary>
+/// Item in Attachments
+/// </summary>
+public class OutlookReceiveAttachment
+{
+    /// <summary>OData type</summary>
+    [JsonPropertyName("@odata.type")]
+    public string Type { get; set; }
+
+    /// <summary>Attachment Id</summary>
+    public string Id { get; set; }
+
+    /// <summary>Attachment name</summary>
+    public string Name { get; set; }
+
+    /// <summary>Attachment content</summary>
+    public string ContentBytes { get; set; }
+
+    /// <summary>Attachment content type</summary>
+    public string ContentType { get; set; }
+
+    /// <summary>Attachment size in bytes</summary>
+    public long? Size { get; set; }
+
+    /// <summary>Permission associated with a reference attachment</summary>
+    public string Permission { get; set; }
+
+    /// <summary>Provider for the reference attachment</summary>
+    public string ProviderType { get; set; }
+
+    /// <summary>Reference attachment source url</summary>
+    public string SourceUrl { get; set; }
+
+    /// <summary>Set to true if this is an inline attachment</summary>
+    public bool? IsInline { get; set; }
+
+    /// <summary>The date and time when the attachment was last modified</summary>
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
+
+    /// <summary>Content Id</summary>
+    public string ContentId { get; set; }
+}
+
+/// <summary>
+/// Item in To Recipient
+/// </summary>
+public class Recipient
+{
+    /// <summary>EmailAddress</summary>
+    public EmailAddress EmailAddress { get; set; }
+}
+
+/// <summary>
+/// EmailAddress
+/// </summary>
+public class EmailAddress
+{
+    /// <summary>Name</summary>
+    public string Name { get; set; }
+
+    /// <summary>Address</summary>
+    public string Address { get; set; }
+}
+
+/// <summary>
+/// Body
+/// </summary>
+public class ItemBody
+{
+    /// <summary>ContentType</summary>
+    public ContentType? ContentType { get; set; }
+
+    /// <summary>Content</summary>
+    public string Content { get; set; }
+}
+
+/// <summary>
+/// Item in Internet message headers
+/// </summary>
+public class InternetMessageHeader
+{
+    /// <summary>Header name</summary>
+    public string Name { get; set; }
+
+    /// <summary>Header value</summary>
+    public string Value { get; set; }
+}
+
+/// <summary>
+/// Response for Assign a category to multiple emails
+/// </summary>
+public class BatchOperationResult
+{
+    /// <summary>The count of messages processed successfully.</summary>
+    [JsonPropertyName("successCount")]
+    public int? SuccessCount { get; set; }
+
+    /// <summary>The list of failed messages with errors.</summary>
+    [JsonPropertyName("failures")]
+    public List<BatchItemFailureResult> Failures { get; set; }
+}
+
+/// <summary>
+/// Item in The list of failed messages with errors.
+/// </summary>
+public class BatchItemFailureResult
+{
+    /// <summary>The ID of the failed message.</summary>
+    public string MessageId { get; set; }
+
+    /// <summary>The error message of the failure.</summary>
+    public string Error { get; set; }
+}
+
+/// <summary>
+/// Response for Send email with options
+/// </summary>
+public class SubscriptionResponse
+{
+    /// <summary>Id of the subscription</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>Resource of the subscription request</summary>
+    [JsonPropertyName("resource")]
+    public string Resource { get; set; }
+
+    /// <summary>Notification Type</summary>
+    [JsonPropertyName("notificationType")]
+    public string NotificationType { get; set; }
+
+    /// <summary>Notification Url</summary>
+    [JsonPropertyName("notificationUrl")]
+    public string NotificationUrl { get; set; }
+}
+
+/// <summary>
+/// Response for Send an HTTP request
+/// </summary>
+public class ObjectWithoutType
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for Email Management MCP Server (deprecated)
+/// </summary>
+public class MCPQueryResponse
+{
+    /// <summary>jsonrpc</summary>
+    [JsonPropertyName("jsonrpc")]
+    public string Jsonrpc { get; set; }
+
+    /// <summary>id</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>method</summary>
+    [JsonPropertyName("method")]
+    public string Method { get; set; }
+
+    /// <summary>params</summary>
+    [JsonPropertyName("params")]
+    public object Params { get; set; }
+
+    /// <summary>result</summary>
+    [JsonPropertyName("result")]
+    public object Result { get; set; }
+
+    /// <summary>error</summary>
+    [JsonPropertyName("error")]
+    public object Error { get; set; }
+}
+
+/// <summary>
+/// Response for Get event (V3)
+/// </summary>
+public class GraphCalendarEventClientReceive
+{
+    /// <summary>Event subject</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>Start time of the event (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("start")]
+    public string StartTime { get; set; }
+
+    /// <summary>End time of the event (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("end")]
+    public string EndTime { get; set; }
+
+    /// <summary>Start time of the event with time zone (example: &apos;2017-08-29T04:00:00.0000000+00:00&apos;)</summary>
+    [JsonPropertyName("startWithTimeZone")]
+    [JsonInclude]
+    public DateTime? StartTimeWithTimeZone { get; internal set; }
+
+    /// <summary>End time of the event with time zone (example: &apos;2017-08-29T05:00:00.0000000+00:00&apos;)</summary>
+    [JsonPropertyName("endWithTimeZone")]
+    [JsonInclude]
+    public DateTime? EndTimeWithTimeZone { get; internal set; }
+
+    /// <summary>Body of the message associated with the event</summary>
+    [JsonPropertyName("body")]
+    public string Body { get; set; }
+
+    /// <summary>Set to true if the body is Html</summary>
+    [JsonPropertyName("isHtml")]
+    public bool? IsHTML { get; set; }
+
+    /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
+    [JsonPropertyName("responseType")]
+    public ResponseType? ResponseType { get; set; }
+
+    /// <summary>The response time of the event</summary>
+    [JsonPropertyName("responseTime")]
+    [JsonInclude]
+    public DateTime? ResponseTime { get; internal set; }
+
+    /// <summary>The event&apos;s unique identifier</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The date and time that the event was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
+
+    /// <summary>The date and time that the event was last modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
+
+    /// <summary>The organizer of the event</summary>
+    [JsonPropertyName("organizer")]
+    public string Organizer { get; set; }
+
+    /// <summary>Time zone of the event</summary>
+    [JsonPropertyName("timeZone")]
+    public string TimeZone { get; set; }
+
+    /// <summary>Unique identifier for Series Master event type</summary>
+    [JsonPropertyName("seriesMasterId")]
+    public string SeriesMasterId { get; set; }
+
+    /// <summary>A unique identifier for an event across calendars. This ID is different for each occurrence in a recurring series</summary>
+    [JsonPropertyName("iCalUId")]
+    public string ICalUId { get; set; }
+
+    /// <summary>The categories associated with the event</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>The URL to open the event in Outlook Web App</summary>
+    [JsonPropertyName("webLink")]
+    public string WebLink { get; set; }
+
+    /// <summary>Required attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("requiredAttendees")]
+    public string RequiredAttendees { get; set; }
+
+    /// <summary>Optional attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("optionalAttendees")]
+    public string OptionalAttendees { get; set; }
+
+    /// <summary>Resource attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("resourceAttendees")]
+    public string ResourceAttendees { get; set; }
+
+    /// <summary>Location of the event</summary>
+    [JsonPropertyName("location")]
+    public string Location { get; set; }
+
+    /// <summary>The importance of the event: low, normal, or high</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>Set to true if the event lasts all day</summary>
+    [JsonPropertyName("isAllDay")]
+    public bool? IsAllDayEvent { get; set; }
+
+    /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
+    [JsonPropertyName("recurrence")]
+    public Recurrence? Recurrence { get; set; }
+
+    /// <summary>End Date of the recurrence</summary>
+    [JsonPropertyName("recurrenceEnd")]
+    public DateTime? RecurrenceEndDate { get; set; }
+
+    /// <summary>How many times to repeat the event</summary>
+    [JsonPropertyName("numberOfOccurences")]
+    public int? NumberOfOccurrences { get; set; }
+
+    /// <summary>Time in minutes before event start to remind</summary>
+    [JsonPropertyName("reminderMinutesBeforeStart")]
+    public int? Reminder { get; set; }
+
+    /// <summary>Set to true if an alert is set to remind the user of the event.</summary>
+    [JsonPropertyName("isReminderOn")]
+    public bool? IsReminderOn { get; set; }
+
+    /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
+    [JsonPropertyName("showAs")]
+    public ShowAs? ShowAs { get; set; }
+
+    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
+    [JsonPropertyName("responseRequested")]
+    public bool? ResponseRequested { get; set; }
+
+    /// <summary>The possible values are: normal, personal, private, confidential</summary>
+    [JsonPropertyName("sensitivity")]
+    public Sensitivity? Sensitivity { get; set; }
+}
+
+/// <summary>
+/// Response for Get events (V4)
+/// </summary>
+public class GraphCalendarEventListClientReceive
+{
+    /// <summary>List of calendar items</summary>
+    [JsonPropertyName("value")]
+    public List<GraphCalendarEventClientReceive> Value { get; set; }
+}
+
+/// <summary>
+/// Response for When an event is added, updated or deleted (V3)
+/// </summary>
+public class GraphCalendarEventListWithActionType
+{
+    /// <summary>List of calendar items</summary>
+    [JsonPropertyName("value")]
+    public List<GraphCalendarEventClientWithActionType> Value { get; set; }
+}
+
+/// <summary>
+/// Item in List of calendar items
+/// </summary>
+public class GraphCalendarEventClientWithActionType
+{
+    /// <summary>Changed action type of the event - added, updated or deleted.</summary>
+    public ActionType? ActionType { get; set; }
+
+    /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
+    public bool? IsAdded { get; set; }
+
+    /// <summary>Flag that indicates whether the event was updated since the last poll of the trigger.</summary>
+    public bool? IsUpdated { get; set; }
+
+    /// <summary>Event subject</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>Start time of the event (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("start")]
+    public string StartTime { get; set; }
+
+    /// <summary>End time of the event (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("end")]
+    public string EndTime { get; set; }
+
+    /// <summary>Start time of the event with time zone (example: &apos;2017-08-29T04:00:00.0000000+00:00&apos;)</summary>
+    [JsonPropertyName("startWithTimeZone")]
+    [JsonInclude]
+    public DateTime? StartTimeWithTimeZone { get; internal set; }
+
+    /// <summary>End time of the event with time zone (example: &apos;2017-08-29T05:00:00.0000000+00:00&apos;)</summary>
+    [JsonPropertyName("endWithTimeZone")]
+    [JsonInclude]
+    public DateTime? EndTimeWithTimeZone { get; internal set; }
+
+    /// <summary>Body of the message associated with the event</summary>
+    [JsonPropertyName("body")]
+    public string Body { get; set; }
+
+    /// <summary>Set to true if the body is Html</summary>
+    [JsonPropertyName("isHtml")]
+    public bool? IsHTML { get; set; }
+
+    /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
+    [JsonPropertyName("responseType")]
+    public ResponseType? ResponseType { get; set; }
+
+    /// <summary>The response time of the event</summary>
+    [JsonPropertyName("responseTime")]
+    [JsonInclude]
+    public DateTime? ResponseTime { get; internal set; }
+
+    /// <summary>The event&apos;s unique identifier</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The date and time that the event was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
+
+    /// <summary>The date and time that the event was last modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
+
+    /// <summary>The organizer of the event</summary>
+    [JsonPropertyName("organizer")]
+    public string Organizer { get; set; }
+
+    /// <summary>Time zone of the event</summary>
+    [JsonPropertyName("timeZone")]
+    public string TimeZone { get; set; }
+
+    /// <summary>Unique identifier for Series Master event type</summary>
+    [JsonPropertyName("seriesMasterId")]
+    public string SeriesMasterId { get; set; }
+
+    /// <summary>A unique identifier for an event across calendars. This ID is different for each occurrence in a recurring series</summary>
+    [JsonPropertyName("iCalUId")]
+    public string ICalUId { get; set; }
+
+    /// <summary>The categories associated with the event</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>The URL to open the event in Outlook Web App</summary>
+    [JsonPropertyName("webLink")]
+    public string WebLink { get; set; }
+
+    /// <summary>Required attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("requiredAttendees")]
+    public string RequiredAttendees { get; set; }
+
+    /// <summary>Optional attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("optionalAttendees")]
+    public string OptionalAttendees { get; set; }
+
+    /// <summary>Resource attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("resourceAttendees")]
+    public string ResourceAttendees { get; set; }
+
+    /// <summary>Location of the event</summary>
+    [JsonPropertyName("location")]
+    public string Location { get; set; }
+
+    /// <summary>The importance of the event: low, normal, or high</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>Set to true if the event lasts all day</summary>
+    [JsonPropertyName("isAllDay")]
+    public bool? IsAllDayEvent { get; set; }
+
+    /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
+    [JsonPropertyName("recurrence")]
+    public Recurrence? Recurrence { get; set; }
+
+    /// <summary>End Date of the recurrence</summary>
+    [JsonPropertyName("recurrenceEnd")]
+    public DateTime? RecurrenceEndDate { get; set; }
+
+    /// <summary>How many times to repeat the event</summary>
+    [JsonPropertyName("numberOfOccurences")]
+    public int? NumberOfOccurrences { get; set; }
+
+    /// <summary>Time in minutes before event start to remind</summary>
+    [JsonPropertyName("reminderMinutesBeforeStart")]
+    public int? Reminder { get; set; }
+
+    /// <summary>Set to true if an alert is set to remind the user of the event.</summary>
+    [JsonPropertyName("isReminderOn")]
+    public bool? IsReminderOn { get; set; }
+
+    /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
+    [JsonPropertyName("showAs")]
+    public ShowAs? ShowAs { get; set; }
+
+    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
+    [JsonPropertyName("responseRequested")]
+    public bool? ResponseRequested { get; set; }
+
+    /// <summary>The possible values are: normal, personal, private, confidential</summary>
+    [JsonPropertyName("sensitivity")]
+    public Sensitivity? Sensitivity { get; set; }
+}
+
+/// <summary>
+/// Response for Get calendars (V2)
+/// </summary>
+public class CalendarGetTablesResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get contact (V2)
+/// </summary>
+public class ContactResponse
+{
+    /// <summary>The contact&apos;s unique identifier.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The ID of the contact&apos;s parent folder</summary>
+    [JsonPropertyName("parentFolderId")]
+    public string ParentFolderId { get; set; }
+
+    /// <summary>The contact&apos;s birthday</summary>
+    [JsonPropertyName("birthday")]
+    public DateTime? Birthday { get; set; }
+
+    /// <summary>The name the contact is filed under</summary>
+    [JsonPropertyName("fileAs")]
+    public string FileAs { get; set; }
+
+    /// <summary>The contact&apos;s display name</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The contact&apos;s given name</summary>
+    [JsonPropertyName("givenName")]
+    public string GivenName { get; set; }
+
+    /// <summary>The contact&apos;s initials</summary>
+    [JsonPropertyName("initials")]
+    public string Initials { get; set; }
+
+    /// <summary>The contact&apos;s middle name</summary>
+    [JsonPropertyName("middleName")]
+    public string MiddleName { get; set; }
+
+    /// <summary>The contact&apos;s nickname</summary>
+    [JsonPropertyName("nickName")]
+    public string Nickname { get; set; }
+
+    /// <summary>The contact&apos;s surname</summary>
+    [JsonPropertyName("surname")]
+    public string Surname { get; set; }
+
+    /// <summary>The contact&apos;s title</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; }
+
+    /// <summary>The contact&apos;s generation</summary>
+    [JsonPropertyName("generation")]
+    public string Generation { get; set; }
+
+    /// <summary>The contact&apos;s email addresses</summary>
+    [JsonPropertyName("emailAddresses")]
+    public List<EmailAddress> EmailAddresses { get; set; }
+
+    /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
+    [JsonPropertyName("imAddresses")]
+    public List<string> IMAddresses { get; set; }
+
+    /// <summary>The contact&apos;s job title</summary>
+    [JsonPropertyName("jobTitle")]
+    public string JobTitle { get; set; }
+
+    /// <summary>The name of the contact&apos;s company</summary>
+    [JsonPropertyName("companyName")]
+    public string CompanyName { get; set; }
+
+    /// <summary>The contact&apos;s department</summary>
+    [JsonPropertyName("department")]
+    public string Department { get; set; }
+
+    /// <summary>The location of the contact&apos;s office</summary>
+    [JsonPropertyName("officeLocation")]
+    public string OfficeLocation { get; set; }
+
+    /// <summary>The contact&apos;s profession</summary>
+    [JsonPropertyName("profession")]
+    public string Profession { get; set; }
+
+    /// <summary>The business home page of the contact</summary>
+    [JsonPropertyName("businessHomePage")]
+    public string BusinessHomePage { get; set; }
+
+    /// <summary>The name of the contact&apos;s assistant</summary>
+    [JsonPropertyName("assistantName")]
+    public string AssistantName { get; set; }
+
+    /// <summary>The name of the contact&apos;s manager</summary>
+    [JsonPropertyName("manager")]
+    public string Manager { get; set; }
+
+    /// <summary>The contact&apos;s home phone numbers</summary>
+    [JsonPropertyName("homePhones")]
+    public List<string> HomePhones { get; set; }
+
+    /// <summary>The contact&apos;s business phone numbers</summary>
+    [JsonPropertyName("businessPhones")]
+    public List<string> BusinessPhones { get; set; }
+
+    /// <summary>The contact&apos;s mobile phone number</summary>
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
+
+    /// <summary>homeAddress</summary>
+    [JsonPropertyName("homeAddress")]
+    public PhysicalAddress HomeAddress { get; set; }
+
+    /// <summary>businessAddress</summary>
+    [JsonPropertyName("businessAddress")]
+    public PhysicalAddress BusinessAddress { get; set; }
+
+    /// <summary>otherAddress</summary>
+    [JsonPropertyName("otherAddress")]
+    public PhysicalAddress OtherAddress { get; set; }
+
+    /// <summary>The phonetic Japanese company name of the contact</summary>
+    [JsonPropertyName("yomiCompanyName")]
+    public string YomiCompanyName { get; set; }
+
+    /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
+    [JsonPropertyName("yomiGivenName")]
+    public string YomiGivenName { get; set; }
+
+    /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
+    [JsonPropertyName("yomiSurname")]
+    public string YomiSurname { get; set; }
+
+    /// <summary>The categories associated with the contact</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>Identifies the version of the event object</summary>
+    [JsonPropertyName("changeKey")]
+    public string ChangeKey { get; set; }
+
+    /// <summary>The time the contact was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
+
+    /// <summary>The time the contact was modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
+}
+
+/// <summary>
+/// Item in The contact&apos;s email addresses
+/// </summary>
+public class EmailAddressV2
+{
+    /// <summary>name</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>address</summary>
+    [JsonPropertyName("address")]
+    public string Address { get; set; }
+}
+
+/// <summary>
+/// homeAddress
+/// </summary>
+public class PhysicalAddress
+{
+    /// <summary>The contact&apos;s street address.</summary>
+    [JsonPropertyName("street")]
+    public string Street { get; set; }
+
+    /// <summary>The contact&apos;s city.</summary>
+    [JsonPropertyName("city")]
+    public string City { get; set; }
+
+    /// <summary>The contact&apos;s state.</summary>
+    [JsonPropertyName("state")]
+    public string State { get; set; }
+
+    /// <summary>The contact&apos;s country of region.</summary>
+    [JsonPropertyName("countryOrRegion")]
+    public string CountryOrRegion { get; set; }
+
+    /// <summary>The contact&apos;s postal code.</summary>
+    [JsonPropertyName("postalCode")]
+    public string PostalCode { get; set; }
+}
+
+/// <summary>
+/// Response for Get contacts (V2)
+/// </summary>
+public class EntityListResponseContactResponse
+{
+    /// <summary>List of values</summary>
+    [JsonPropertyName("value")]
+    public List<ContactResponse> Value { get; set; }
+}
+
+/// <summary>
+/// Item in List of values
+/// </summary>
+public class ContactResponseV2
+{
+    /// <summary>The contact&apos;s unique identifier.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The ID of the contact&apos;s parent folder</summary>
+    [JsonPropertyName("parentFolderId")]
+    public string ParentFolderId { get; set; }
+
+    /// <summary>The contact&apos;s birthday</summary>
+    [JsonPropertyName("birthday")]
+    public DateTime? Birthday { get; set; }
+
+    /// <summary>The name the contact is filed under</summary>
+    [JsonPropertyName("fileAs")]
+    public string FileAs { get; set; }
+
+    /// <summary>The contact&apos;s display name</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The contact&apos;s given name</summary>
+    [JsonPropertyName("givenName")]
+    public string GivenName { get; set; }
+
+    /// <summary>The contact&apos;s initials</summary>
+    [JsonPropertyName("initials")]
+    public string Initials { get; set; }
+
+    /// <summary>The contact&apos;s middle name</summary>
+    [JsonPropertyName("middleName")]
+    public string MiddleName { get; set; }
+
+    /// <summary>The contact&apos;s nickname</summary>
+    [JsonPropertyName("nickName")]
+    public string Nickname { get; set; }
+
+    /// <summary>The contact&apos;s surname</summary>
+    [JsonPropertyName("surname")]
+    public string Surname { get; set; }
+
+    /// <summary>The contact&apos;s title</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; }
+
+    /// <summary>The contact&apos;s generation</summary>
+    [JsonPropertyName("generation")]
+    public string Generation { get; set; }
+
+    /// <summary>The contact&apos;s email addresses</summary>
+    [JsonPropertyName("emailAddresses")]
+    public List<EmailAddress> EmailAddresses { get; set; }
+
+    /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
+    [JsonPropertyName("imAddresses")]
+    public List<string> IMAddresses { get; set; }
+
+    /// <summary>The contact&apos;s job title</summary>
+    [JsonPropertyName("jobTitle")]
+    public string JobTitle { get; set; }
+
+    /// <summary>The name of the contact&apos;s company</summary>
+    [JsonPropertyName("companyName")]
+    public string CompanyName { get; set; }
+
+    /// <summary>The contact&apos;s department</summary>
+    [JsonPropertyName("department")]
+    public string Department { get; set; }
+
+    /// <summary>The location of the contact&apos;s office</summary>
+    [JsonPropertyName("officeLocation")]
+    public string OfficeLocation { get; set; }
+
+    /// <summary>The contact&apos;s profession</summary>
+    [JsonPropertyName("profession")]
+    public string Profession { get; set; }
+
+    /// <summary>The business home page of the contact</summary>
+    [JsonPropertyName("businessHomePage")]
+    public string BusinessHomePage { get; set; }
+
+    /// <summary>The name of the contact&apos;s assistant</summary>
+    [JsonPropertyName("assistantName")]
+    public string AssistantName { get; set; }
+
+    /// <summary>The name of the contact&apos;s manager</summary>
+    [JsonPropertyName("manager")]
+    public string Manager { get; set; }
+
+    /// <summary>The contact&apos;s home phone numbers</summary>
+    [JsonPropertyName("homePhones")]
+    public List<string> HomePhones { get; set; }
+
+    /// <summary>The contact&apos;s business phone numbers</summary>
+    [JsonPropertyName("businessPhones")]
+    public List<string> BusinessPhones { get; set; }
+
+    /// <summary>The contact&apos;s mobile phone number</summary>
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
+
+    /// <summary>homeAddress</summary>
+    [JsonPropertyName("homeAddress")]
+    public PhysicalAddress HomeAddress { get; set; }
+
+    /// <summary>businessAddress</summary>
+    [JsonPropertyName("businessAddress")]
+    public PhysicalAddress BusinessAddress { get; set; }
+
+    /// <summary>otherAddress</summary>
+    [JsonPropertyName("otherAddress")]
+    public PhysicalAddress OtherAddress { get; set; }
+
+    /// <summary>The phonetic Japanese company name of the contact</summary>
+    [JsonPropertyName("yomiCompanyName")]
+    public string YomiCompanyName { get; set; }
+
+    /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
+    [JsonPropertyName("yomiGivenName")]
+    public string YomiGivenName { get; set; }
+
+    /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
+    [JsonPropertyName("yomiSurname")]
+    public string YomiSurname { get; set; }
+
+    /// <summary>The categories associated with the contact</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>Identifies the version of the event object</summary>
+    [JsonPropertyName("changeKey")]
+    public string ChangeKey { get; set; }
+
+    /// <summary>The time the contact was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
+
+    /// <summary>The time the contact was modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
+}
+
+/// <summary>
+/// Response for Get contact folders (V2)
+/// </summary>
+public class EntityListResponseGraphContactFolder
+{
+    /// <summary>List of values</summary>
+    [JsonPropertyName("value")]
+    public List<GraphContactFolder> Value { get; set; }
+}
+
+/// <summary>
+/// Item in List of values
+/// </summary>
+public class GraphContactFolder
+{
+    /// <summary>The ID of the contacts folder</summary>
+    [JsonPropertyName("id")]
+    public string ID { get; set; }
+
+    /// <summary>The name of the contacts folder</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The ID of the parent folder</summary>
+    [JsonPropertyName("parentFolderId")]
+    public string ParentFolderID { get; set; }
+}
+
+/// <summary>
+/// Find meeting times (V2)
+/// </summary>
+public class FindMeetingTimesInput
+{
+    /// <summary>List of semicolon separated email addresses</summary>
+    public string RequiredAttendees { get; set; }
+
+    /// <summary>List of semicolon separated email addresses</summary>
+    public string OptionalAttendees { get; set; }
+
+    /// <summary>Resource attendees for the event separated by semicolons</summary>
+    public string ResourceAttendees { get; set; }
+
+    /// <summary>Duration of the meeting in minutes</summary>
+    public int? MeetingDuration { get; set; }
+
+    /// <summary>Start time for meeting time suggestions</summary>
+    [JsonPropertyName("Start")]
+    public DateTime? StartTime { get; set; }
+
+    /// <summary>End time for meeting time suggestions</summary>
+    [JsonPropertyName("End")]
+    public DateTime? EndTime { get; set; }
+
+    /// <summary>The maximum number of meeting suggestions to return in the response</summary>
+    public int? MaxCandidates { get; set; }
+
+    /// <summary>The minimum required confidence for a time slot to be returned in the response</summary>
+    public string MinimumAttendeePercentage { get; set; }
+
+    /// <summary>true if the organizer doesn&apos;t have to attend. The default is false</summary>
+    public bool? IsOrganizerOptional { get; set; }
+
+    /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
+    public ActivityDomain? ActivityDomain { get; set; }
+}
+
+/// <summary>
+/// Response for Find meeting times (V2)
+/// </summary>
+public class FindMeetingTimesResponse
+{
+    /// <summary>Empty Suggestions Reason</summary>
+    [JsonPropertyName("emptySuggestionsReason")]
+    public string EmptySuggestionsReason { get; set; }
+
+    /// <summary>meetingTimeSuggestions</summary>
+    [JsonPropertyName("meetingTimeSuggestions")]
+    public List<object> MeetingTimeSuggestions { get; set; }
+}
+
+/// <summary>
+/// Response for Get Attachment (V2)
+/// </summary>
+public class GetAttachmentResponse
+{
+    /// <summary>Id of the attachment.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>Name of attachment.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>Content type of attachment.</summary>
+    [JsonPropertyName("contentType")]
+    public string ContentType { get; set; }
+
+    /// <summary>Size of attachment.</summary>
+    [JsonPropertyName("size")]
+    public int? Size { get; set; }
+
+    /// <summary>Content of attachment.</summary>
+    [JsonPropertyName("contentBytes")]
+    public string ContentBytes { get; set; }
+
+    /// <summary>Set to true if this is an inline attachment.</summary>
+    [JsonPropertyName("isInline")]
+    public bool? IsInline { get; set; }
+
+    /// <summary>The date and time when the attachment was last modified.</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
+
+    /// <summary>Content Id</summary>
+    [JsonPropertyName("contentId")]
+    public string ContentId { get; set; }
+
+    /// <summary>sensitivityLabelInfo</summary>
+    [JsonPropertyName("sensitivityLabelInfo")]
+    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+}
+
+/// <summary>
+/// Item in sensitivityLabelInfo
+/// </summary>
+public class SensitivityLabelMetadata
+{
+    /// <summary>SensitivityLabel Id.</summary>
+    [JsonPropertyName("sensitivityLabelId")]
+    public string SensitivityLabelId { get; set; }
+
+    /// <summary>SensitivityLabel name.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>SensitivityLabel displayName info</summary>
+    [JsonPropertyName("displayName")]
+    public string SensitivityLabelDisplayNameInfo { get; set; }
+
+    /// <summary>SensitivityLabel details on tooltip.</summary>
+    [JsonPropertyName("tooltip")]
+    public string TooltipInfo { get; set; }
+
+    /// <summary>SensitivityLabel priority.</summary>
+    [JsonPropertyName("priority")]
+    public int? PriorityOfSensitivityLabel { get; set; }
+
+    /// <summary>SensitivityLabel color.</summary>
+    [JsonPropertyName("color")]
+    public string ColorToBeDisplayedForSensitivityLabel { get; set; }
+
+    /// <summary> is SensitivityLabel Encrypted.</summary>
+    [JsonPropertyName("isEncrypted")]
+    public bool? IsEncryptedStatusOfSensitivityLabel { get; set; }
+
+    /// <summary>Whether SensitivityLabel is Enabled.</summary>
+    [JsonPropertyName("isEnabled")]
+    public bool? WhetherSensitivityLabelIsEnabled { get; set; }
+
+    /// <summary>Whether SensitivityLabel is Parent.</summary>
+    [JsonPropertyName("isParent")]
+    public bool? WhetherSensitivityLabelIsParent { get; set; }
+
+    /// <summary>Parent SensitivityLabel Id.</summary>
+    [JsonPropertyName("parentSensitivityLabelId")]
+    public string ParentSensitivityLabelId { get; set; }
+}
+
+/// <summary>
+/// Response for Get email (V2)
+/// </summary>
+public class GraphClientReceiveMessage
+{
+    /// <summary>The mailbox owner and sender of the message</summary>
+    [JsonPropertyName("from")]
+    public string From { get; set; }
+
+    /// <summary>The recipients for the message</summary>
+    [JsonPropertyName("toRecipients")]
+    public string To { get; set; }
+
+    /// <summary>The Cc recipients for the message</summary>
+    [JsonPropertyName("ccRecipients")]
+    public string CC { get; set; }
+
+    /// <summary>The Bcc recipients for the message</summary>
+    [JsonPropertyName("bccRecipients")]
+    public string BCC { get; set; }
+
+    /// <summary>The email addresses to use when replying</summary>
+    [JsonPropertyName("replyTo")]
+    public string ReplyTo { get; set; }
+
+    /// <summary>The subject of the message</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>The body of the message</summary>
+    [JsonPropertyName("body")]
+    public string Body { get; set; }
+
+    /// <summary>The importance of the message (low, normal, high)</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>The preview of the message</summary>
+    [JsonPropertyName("bodyPreview")]
+    public string BodyPreview { get; set; }
+
+    /// <summary>Indicates whether the message has attachments</summary>
+    [JsonPropertyName("hasAttachments")]
+    public bool? HasAttachment { get; set; }
+
+    /// <summary>The unique identifier of the message</summary>
+    [JsonPropertyName("id")]
+    public string MessageId { get; set; }
+
+    /// <summary>The message ID in the format specified by RFC2822</summary>
+    [JsonPropertyName("internetMessageId")]
+    public string InternetMessageId { get; set; }
+
+    /// <summary>The Id of the conversation the email belongs to</summary>
+    [JsonPropertyName("conversationId")]
+    public string ConversationId { get; set; }
+
+    /// <summary>The date and time the message was received</summary>
+    [JsonPropertyName("receivedDateTime")]
+    public DateTime? ReceivedTime { get; set; }
+
+    /// <summary>Indicates whether the message has been read</summary>
+    [JsonPropertyName("isRead")]
+    public bool? IsRead { get; set; }
+
+    /// <summary>The file attachments for the message</summary>
+    [JsonPropertyName("attachments")]
+    public List<GraphClientReceiveFileAttachment> Attachments { get; set; }
+
+    /// <summary>Is Html?</summary>
+    [JsonPropertyName("isHtml")]
+    public bool? IsHTML { get; set; }
+
+    /// <summary>sensitivityLabelInfo</summary>
+    [JsonPropertyName("sensitivityLabelInfo")]
+    public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+}
+
+/// <summary>
+/// Item in The file attachments for the message
+/// </summary>
+public class GraphClientReceiveFileAttachment
+{
+    /// <summary>Attachment Id</summary>
+    [JsonPropertyName("id")]
+    public string AttachmentId { get; set; }
+
+    /// <summary>Attachment name</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>Attachment content</summary>
+    [JsonPropertyName("contentBytes")]
+    public string Content { get; set; }
+
+    /// <summary>Attachment content type</summary>
+    [JsonPropertyName("contentType")]
+    public string ContentType { get; set; }
+
+    /// <summary>The size in bytes of the attachment</summary>
+    [JsonPropertyName("size")]
+    public long? Size { get; set; }
+
+    /// <summary>Set to true if this is an inline attachment</summary>
+    [JsonPropertyName("isInline")]
+    public bool? IsInline { get; set; }
+
+    /// <summary>The date and time when the attachment was last modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedDateTime { get; internal set; }
+
+    /// <summary>Content Id</summary>
+    [JsonPropertyName("contentId")]
+    public string ContentId { get; set; }
+}
+
+/// <summary>
+/// Response for Get emails (V3)
+/// </summary>
+public class BatchResponseGraphClientReceiveMessage
+{
+    /// <summary>A list of the response objects</summary>
+    [JsonPropertyName("value")]
+    [JsonInclude]
+    public List<GraphClientReceiveMessage> Value { get; internal set; }
+}
+
+/// <summary>
+/// Response for Get calendar view of events (V3)
+/// </summary>
+public class EntityListResponseGraphCalendarEventClientReceive
+{
+    /// <summary>List of values</summary>
+    [JsonPropertyName("value")]
+    public List<GraphCalendarEventClientReceive> Value { get; set; }
+}
+
+/// <summary>
+/// Get mail tips for a mailbox (V2)
+/// </summary>
+public class GetMailTipsInput
+{
+    /// <summary>Flags that represents the mailtips.</summary>
+    [JsonPropertyName("MailTipsOptions")]
+    public string FlagsThatRepresentsTheMailtips { get; set; }
+
+    /// <summary>Address of the mailbox to get mail tips for.</summary>
+    public List<string> EmailAddresses { get; set; }
+}
+
+/// <summary>
+/// Response for Get mail tips for a mailbox (V2)
+/// </summary>
+public class GetMailTipsResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<MailTipsClientReceive> Value { get; set; }
+}
+
+/// <summary>
+/// Item in value
+/// </summary>
+public class MailTipsClientReceiveV2
+{
+    /// <summary>automaticReplies</summary>
+    [JsonPropertyName("automaticReplies")]
+    public MailTipsAutomaticReplies AutomaticReplies { get; set; }
+
+    /// <summary>Is delivery restricted</summary>
+    [JsonPropertyName("deliveryRestricted")]
+    public bool? IsDeliveryRestricted { get; set; }
+
+    /// <summary>Number of external members</summary>
+    [JsonPropertyName("externalMemberCount")]
+    public int? IsModerated { get; set; }
+
+    /// <summary>Is mailbox full</summary>
+    [JsonPropertyName("mailboxFull")]
+    public bool? IsMailboxFull { get; set; }
+
+    /// <summary>Maximum message size</summary>
+    [JsonPropertyName("maxMessageSize")]
+    public long? MaximumMessageSize { get; set; }
+
+    /// <summary>Total member count</summary>
+    [JsonPropertyName("totalMemberCount")]
+    public long? TotalMemberCount { get; set; }
+}
+
+/// <summary>
+/// automaticReplies
+/// </summary>
+public class MailTipsAutomaticReplies
+{
+    /// <summary>Automatic replies message</summary>
+    [JsonPropertyName("message")]
+    public string AutomaticRepliesMessage { get; set; }
+}
+
+/// <summary>
+/// Response for Get room lists (V2)
+/// </summary>
+public class GetRoomListsResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get rooms (V2)
+/// </summary>
+public class GetRoomsResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get rooms in room list (V2)
+/// </summary>
+public class GetRoomsInRoomListResponse
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Mark as read or unread (V3)
+/// </summary>
+public class MarkAsReadInput
+{
+    /// <summary>Mark as read/unread.</summary>
+    [JsonPropertyName("isRead")]
+    public bool? MarkAs { get; set; }
+}
+
+/// <summary>
+/// Response for When an email is flagged (V4)
+/// </summary>
+public class TriggerBatchResponseGraphClientReceiveMessage
+{
+    /// <summary>A list of the response objects</summary>
+    [JsonPropertyName("value")]
+    public List<GraphClientReceiveMessage> Value { get; set; }
+}
+
+/// <summary>
+/// Set up automatic replies (V2)
+/// </summary>
+public class SetAutomaticRepliesSettingInput
+{
+    /// <summary>automaticRepliesSetting</summary>
+    [JsonPropertyName("automaticRepliesSetting")]
+    public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
+}
+
+/// <summary>
+/// automaticRepliesSetting
+/// </summary>
+public class AutomaticRepliesSettingClient
+{
+    /// <summary>Automatic reply setting status</summary>
+    [JsonPropertyName("status")]
+    public Status? Status { get; set; }
+
+    /// <summary>The audience that will see the external reply message</summary>
+    [JsonPropertyName("externalAudience")]
+    public ExternalAudience? ExternalAudience { get; set; }
+
+    /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("scheduledStartDateTime")]
+    public object StartTime { get; set; }
+
+    /// <summary>Scheduled end time (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("scheduledEndDateTime")]
+    public object EndTime { get; set; }
+
+    /// <summary>Message for people within your organization</summary>
+    [JsonPropertyName("internalReplyMessage")]
+    public string InternalReplyMessage { get; set; }
+
+    /// <summary>Message for people outside your organization</summary>
+    [JsonPropertyName("externalReplyMessage")]
+    public string ExternalReplyMessage { get; set; }
+}
+
+/// <summary>
+/// Response for Set up automatic replies (V2)
+/// </summary>
+public class SetAutomaticRepliesSettingResponse
+{
+    /// <summary>automaticRepliesSetting</summary>
+    [JsonPropertyName("automaticRepliesSetting")]
+    public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
+}
+
+/// <summary>
+/// ClientSendAttachment
+/// </summary>
+public class ClientSendAttachment
+{
+    /// <summary>Attachment name</summary>
+    public string Name { get; set; }
+
+    /// <summary>Attachment content</summary>
+    [JsonPropertyName("ContentBytes")]
+    public string Content { get; set; }
+}
+
+/// <summary>
+/// ClientSendHtmlMessage
+/// </summary>
+public class SendEmailInput
+{
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    public string To { get; set; }
+
+    /// <summary>Specify the subject of the mail</summary>
+    public string Subject { get; set; }
+
+    /// <summary>Specify the body of the mail</summary>
+    public string Body { get; set; }
+
+    /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
+    [JsonPropertyName("From")]
+    public string FromSendAs { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    [JsonPropertyName("Cc")]
+    public string CC { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    [JsonPropertyName("Bcc")]
+    public string BCC { get; set; }
+
+    /// <summary>Attachments</summary>
+    public List<ClientSendAttachment> Attachments { get; set; }
+
+    /// <summary>Sensitivity</summary>
+    public string Sensitivity { get; set; }
+
+    /// <summary>The email addresses to use when replying</summary>
+    public string ReplyTo { get; set; }
+
+    /// <summary>Importance</summary>
+    public string Importance { get; set; }
+}
+
+/// <summary>
+/// ClientDraftHtmlMessage
+/// </summary>
+public class DraftEmailInput
+{
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    public string To { get; set; }
+
+    /// <summary>Specify the subject of the mail</summary>
+    public string Subject { get; set; }
+
+    /// <summary>Specify the body of the mail</summary>
+    public string Body { get; set; }
+
+    /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
+    [JsonPropertyName("From")]
+    public string FromSendAs { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    [JsonPropertyName("Cc")]
+    public string CC { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    [JsonPropertyName("Bcc")]
+    public string BCC { get; set; }
+
+    /// <summary>Attachments</summary>
+    public List<ClientSendAttachment> Attachments { get; set; }
+
+    /// <summary>Sensitivity</summary>
+    public string Sensitivity { get; set; }
+
+    /// <summary>The email addresses to use when replying</summary>
+    public string ReplyTo { get; set; }
+
+    /// <summary>Importance</summary>
+    public string Importance { get; set; }
+}
+
+/// <summary>
+/// ReplyHtmlMessage
+/// </summary>
+public class ReplyEmailInput
+{
+    /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
+    public string To { get; set; }
+
+    /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
+    [JsonPropertyName("Cc")]
+    public string CC { get; set; }
+
+    /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
+    [JsonPropertyName("Bcc")]
+    public string BCC { get; set; }
+
+    /// <summary>Email subject (if empty, the original subject used).</summary>
+    public string Subject { get; set; }
+
+    /// <summary>Content of the email.</summary>
+    public string Body { get; set; }
+
+    /// <summary>True to reply to all recipients. (default: False)</summary>
+    public bool? ReplyAll { get; set; }
+
+    /// <summary>Pick an importance. (default: Low)</summary>
+    public string Importance { get; set; }
+
+    /// <summary>Details of attachments to be sent along with the reply.</summary>
+    public List<ClientSendAttachment> Attachments { get; set; }
+}
+
+/// <summary>
+/// OptionsEmailSubscription
+/// </summary>
+public class OptionsEmailSubscription
+{
+    /// <summary>Gets or sets callback url to flow engine. It is expected as part of request</summary>
+    public string NotificationUrl { get; set; }
+
+    /// <summary>Message</summary>
+    public MessageWithOptions Message { get; set; }
+}
+
+/// <summary>
+/// Message
+/// </summary>
+public class MessageWithOptions
+{
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    public string To { get; set; }
+
+    /// <summary>Subject of the email</summary>
+    public string Subject { get; set; }
+
+    /// <summary>List of comma separated options for the email response</summary>
+    [JsonPropertyName("Options")]
+    public string UserOptions { get; set; }
+
+    /// <summary>Header text for email body</summary>
+    public string HeaderText { get; set; }
+
+    /// <summary>Header text for users options selection</summary>
+    public string SelectionText { get; set; }
+
+    /// <summary>Body of the email</summary>
+    public string Body { get; set; }
+
+    /// <summary>Importance</summary>
+    public string Importance { get; set; }
+
+    /// <summary>Attachments</summary>
+    public List<ClientSendAttachment> Attachments { get; set; }
+
+    /// <summary>Use only HTML message</summary>
+    public bool? UseOnlyHTMLMessage { get; set; }
+
+    /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
+    public bool? HideHTMLMessage { get; set; }
+
+    /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
+    public bool? ShowHTMLConfirmationDialog { get; set; }
+
+    /// <summary>If set to Yes, then the Microsoft footer is hidden in the email body.</summary>
+    public bool? HideMicrosoftFooter { get; set; }
+}
+
+/// <summary>
+/// ApprovalEmailSubscription
+/// </summary>
+public class ApprovalEmailSubscription
+{
+    /// <summary>Gets or sets callback url to flow engine. It is expected as part of request</summary>
+    public string NotificationUrl { get; set; }
+
+    /// <summary>Message</summary>
+    public ApprovalMessage Message { get; set; }
+}
+
+/// <summary>
+/// Message
+/// </summary>
+public class ApprovalMessage
+{
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    public string To { get; set; }
+
+    /// <summary>Subject</summary>
+    public string Subject { get; set; }
+
+    /// <summary>User Options</summary>
+    [JsonPropertyName("Options")]
+    public string UserOptions { get; set; }
+
+    /// <summary>Header text for email body</summary>
+    public string HeaderText { get; set; }
+
+    /// <summary>Header text for users options selection</summary>
+    public string SelectionText { get; set; }
+
+    /// <summary>Body</summary>
+    public string Body { get; set; }
+
+    /// <summary>Importance</summary>
+    public string Importance { get; set; }
+
+    /// <summary>Attachments</summary>
+    public List<ClientSendAttachment> Attachments { get; set; }
+
+    /// <summary>Use only HTML message</summary>
+    public bool? UseOnlyHTMLMessage { get; set; }
+
+    /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
+    public bool? HideHTMLMessage { get; set; }
+
+    /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
+    public bool? ShowHTMLConfirmationDialog { get; set; }
+}
+
+/// <summary>
+/// SharedMailboxClientSendHtmlMessage
+/// </summary>
+public class SharedMailboxSendEmailInput
+{
+    /// <summary>Specify email address of a shared mailbox like someone@contoso.com</summary>
+    [JsonPropertyName("MailboxAddress")]
+    public string OriginalMailboxAddress { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    public string To { get; set; }
+
+    /// <summary>Specify the subject of the mail</summary>
+    public string Subject { get; set; }
+
+    /// <summary>Specify the body of the mail</summary>
+    public string Body { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    [JsonPropertyName("Cc")]
+    public string CC { get; set; }
+
+    /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+    [JsonPropertyName("Bcc")]
+    public string BCC { get; set; }
+
+    /// <summary>Attachments</summary>
+    public List<ClientSendAttachment> Attachments { get; set; }
+
+    /// <summary>Sensitivity</summary>
+    public string Sensitivity { get; set; }
+
+    /// <summary>The email addresses to use when replying</summary>
+    public string ReplyTo { get; set; }
+
+    /// <summary>Importance</summary>
+    public string Importance { get; set; }
+}
+
+/// <summary>
+/// GraphCalendarEventClient
+/// </summary>
+public class GraphCalendarEventClient
+{
+    /// <summary>Event subject</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>Start time of the event (example: &apos;2017-08-29T04:00:00&apos;)</summary>
+    [JsonPropertyName("start")]
+    public string StartTime { get; set; }
+
+    /// <summary>End time of the event (example: &apos;2017-08-29T05:00:00&apos;)</summary>
+    [JsonPropertyName("end")]
+    public string EndTime { get; set; }
+
+    /// <summary>Time zone of the event</summary>
+    [JsonPropertyName("timeZone")]
+    public Office365TimeZone? TimeZone { get; set; }
+
+    /// <summary>Required attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("requiredAttendees")]
+    public string RequiredAttendees { get; set; }
+
+    /// <summary>Optional attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("optionalAttendees")]
+    public string OptionalAttendees { get; set; }
+
+    /// <summary>Resource attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("resourceAttendees")]
+    public string ResourceAttendees { get; set; }
+
+    /// <summary>Body of the message associated with the event</summary>
+    [JsonPropertyName("body")]
+    public string Body { get; set; }
+
+    /// <summary>The categories associated with the event</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>Location of the event</summary>
+    [JsonPropertyName("location")]
+    public string Location { get; set; }
+
+    /// <summary>The importance of the event: low, normal, or high</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>Set to true if the event lasts all day</summary>
+    [JsonPropertyName("isAllDay")]
+    public bool? IsAllDayEvent { get; set; }
+
+    /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
+    [JsonPropertyName("recurrence")]
+    public Recurrence? Recurrence { get; set; }
+
+    /// <summary>Days of week for weekly recurrence</summary>
+    [JsonPropertyName("selectedDaysOfWeek")]
+    public List<string> SelectedDaysOfWeek { get; set; }
+
+    /// <summary>End Date of the recurrence</summary>
+    [JsonPropertyName("recurrenceEnd")]
+    public DateTime? RecurrenceEndDate { get; set; }
+
+    /// <summary>How many times to repeat the event</summary>
+    [JsonPropertyName("numberOfOccurences")]
+    public int? NumberOfOccurrences { get; set; }
+
+    /// <summary>Time in minutes before event start to remind</summary>
+    [JsonPropertyName("reminderMinutesBeforeStart")]
+    public int? Reminder { get; set; }
+
+    /// <summary>Set to true if an alert is set to remind the user of the event.</summary>
+    [JsonPropertyName("isReminderOn")]
+    public bool? IsReminderOn { get; set; }
+
+    /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
+    [JsonPropertyName("showAs")]
+    public ShowAs? ShowAs { get; set; }
+
+    /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
+    [JsonPropertyName("responseRequested")]
+    public bool? ResponseRequested { get; set; }
+
+    /// <summary>The possible values are: normal, personal, private, confidential</summary>
+    [JsonPropertyName("sensitivity")]
+    public Sensitivity? Sensitivity { get; set; }
+}
+
+/// <summary>
+/// MailTipsClientReceive_V2
+/// </summary>
+public class MailTipsClientReceive
+{
+    /// <summary>automaticReplies</summary>
+    [JsonPropertyName("automaticReplies")]
+    public MailTipsAutomaticReplies AutomaticReplies { get; set; }
+
+    /// <summary>Is delivery restricted</summary>
+    [JsonPropertyName("deliveryRestricted")]
+    public bool? IsDeliveryRestricted { get; set; }
+
+    /// <summary>Number of external members</summary>
+    [JsonPropertyName("externalMemberCount")]
+    public int? IsModerated { get; set; }
+
+    /// <summary>Is mailbox full</summary>
+    [JsonPropertyName("mailboxFull")]
+    public bool? IsMailboxFull { get; set; }
+
+    /// <summary>Maximum message size</summary>
+    [JsonPropertyName("maxMessageSize")]
+    public long? MaximumMessageSize { get; set; }
+
+    /// <summary>Total member count</summary>
+    [JsonPropertyName("totalMemberCount")]
+    public long? TotalMemberCount { get; set; }
+}
+
+/// <summary>
+/// UpdateEmailFlag
+/// </summary>
+public class UpdateEmailFlag
+{
+    /// <summary>Flag status</summary>
+    [JsonPropertyName("flag")]
+    public object Flag { get; set; }
+}
+
+/// <summary>
+/// ResponseToEventInvite
+/// </summary>
+public class ResponseToEventInvite
+{
+    /// <summary>Comment</summary>
+    public string Comment { get; set; }
+
+    /// <summary>Send response to organizer?</summary>
+    public bool? SendResponse { get; set; }
+}
+
+/// <summary>
+/// DirectForwardMessage
+/// </summary>
+public class DirectForwardMessage
+{
+    /// <summary>Comment</summary>
+    public string Comment { get; set; }
+
+    /// <summary>Semicolon separated list of recipients to forward the message to</summary>
+    [JsonPropertyName("ToRecipients")]
+    public string To { get; set; }
+}
+
+/// <summary>
+/// DateTimeTimeZone_V2
+/// </summary>
+public class DateTimeTimeZone
+{
+    /// <summary>DateTime (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
+    [JsonPropertyName("dateTime")]
+    public string DateTime { get; set; }
+
+    /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
+    [JsonPropertyName("timeZone")]
+    public string TimeZone { get; set; }
+}
+
+/// <summary>
+/// Contact_V2
+/// </summary>
+public class Contact
+{
+    /// <summary>The contact&apos;s unique identifier.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The ID of the contact&apos;s parent folder</summary>
+    [JsonPropertyName("parentFolderId")]
+    public string ParentFolderId { get; set; }
+
+    /// <summary>The contact&apos;s birthday</summary>
+    [JsonPropertyName("birthday")]
+    public DateTime? Birthday { get; set; }
+
+    /// <summary>The name the contact is filed under</summary>
+    [JsonPropertyName("fileAs")]
+    public string FileAs { get; set; }
+
+    /// <summary>The contact&apos;s display name</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The contact&apos;s given name</summary>
+    [JsonPropertyName("givenName")]
+    public string GivenName { get; set; }
+
+    /// <summary>The contact&apos;s initials</summary>
+    [JsonPropertyName("initials")]
+    public string Initials { get; set; }
+
+    /// <summary>The contact&apos;s middle name</summary>
+    [JsonPropertyName("middleName")]
+    public string MiddleName { get; set; }
+
+    /// <summary>The contact&apos;s nickname</summary>
+    [JsonPropertyName("nickName")]
+    public string Nickname { get; set; }
+
+    /// <summary>The contact&apos;s surname</summary>
+    [JsonPropertyName("surname")]
+    public string Surname { get; set; }
+
+    /// <summary>The contact&apos;s title</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; }
+
+    /// <summary>The contact&apos;s generation</summary>
+    [JsonPropertyName("generation")]
+    public string Generation { get; set; }
+
+    /// <summary>The contact&apos;s email addresses</summary>
+    [JsonPropertyName("emailAddresses")]
+    public List<EmailAddress> EmailAddresses { get; set; }
+
+    /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
+    [JsonPropertyName("imAddresses")]
+    public List<string> IMAddresses { get; set; }
+
+    /// <summary>The contact&apos;s job title</summary>
+    [JsonPropertyName("jobTitle")]
+    public string JobTitle { get; set; }
+
+    /// <summary>The name of the contact&apos;s company</summary>
+    [JsonPropertyName("companyName")]
+    public string CompanyName { get; set; }
+
+    /// <summary>The contact&apos;s department</summary>
+    [JsonPropertyName("department")]
+    public string Department { get; set; }
+
+    /// <summary>The location of the contact&apos;s office</summary>
+    [JsonPropertyName("officeLocation")]
+    public string OfficeLocation { get; set; }
+
+    /// <summary>The contact&apos;s profession</summary>
+    [JsonPropertyName("profession")]
+    public string Profession { get; set; }
+
+    /// <summary>The business home page of the contact</summary>
+    [JsonPropertyName("businessHomePage")]
+    public string BusinessHomePage { get; set; }
+
+    /// <summary>The name of the contact&apos;s assistant</summary>
+    [JsonPropertyName("assistantName")]
+    public string AssistantName { get; set; }
+
+    /// <summary>The name of the contact&apos;s manager</summary>
+    [JsonPropertyName("manager")]
+    public string Manager { get; set; }
+
+    /// <summary>The contact&apos;s home phone numbers</summary>
+    [JsonPropertyName("homePhones")]
+    public List<string> HomePhones { get; set; }
+
+    /// <summary>The contact&apos;s business phone numbers</summary>
+    [JsonPropertyName("businessPhones")]
+    public List<string> BusinessPhones { get; set; }
+
+    /// <summary>The contact&apos;s mobile phone number</summary>
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
+
+    /// <summary>homeAddress</summary>
+    [JsonPropertyName("homeAddress")]
+    public PhysicalAddress HomeAddress { get; set; }
+
+    /// <summary>businessAddress</summary>
+    [JsonPropertyName("businessAddress")]
+    public PhysicalAddress BusinessAddress { get; set; }
+
+    /// <summary>otherAddress</summary>
+    [JsonPropertyName("otherAddress")]
+    public PhysicalAddress OtherAddress { get; set; }
+
+    /// <summary>The phonetic Japanese company name of the contact</summary>
+    [JsonPropertyName("yomiCompanyName")]
+    public string YomiCompanyName { get; set; }
+
+    /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
+    [JsonPropertyName("yomiGivenName")]
+    public string YomiGivenName { get; set; }
+
+    /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
+    [JsonPropertyName("yomiSurname")]
+    public string YomiSurname { get; set; }
+
+    /// <summary>The categories associated with the contact</summary>
+    [JsonPropertyName("categories")]
+    public List<string> Categories { get; set; }
+
+    /// <summary>Identifies the version of the event object</summary>
+    [JsonPropertyName("changeKey")]
+    public string ChangeKey { get; set; }
+
+    /// <summary>The time the contact was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? CreatedTime { get; internal set; }
+
+    /// <summary>The time the contact was modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
+}
+
+/// <summary>
+/// MCPQueryRequest
+/// </summary>
+public class MCPQueryRequest
+{
+    /// <summary>jsonrpc</summary>
+    [JsonPropertyName("jsonrpc")]
+    public string Jsonrpc { get; set; }
+
+    /// <summary>id</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>method</summary>
+    [JsonPropertyName("method")]
+    public string Method { get; set; }
+
+    /// <summary>params</summary>
+    [JsonPropertyName("params")]
+    public object Params { get; set; }
+
+    /// <summary>result</summary>
+    [JsonPropertyName("result")]
+    public object Result { get; set; }
+
+    /// <summary>error</summary>
+    [JsonPropertyName("error")]
+    public object Error { get; set; }
+
+    /// <summary>callbackEndpoint</summary>
+    [JsonPropertyName("callbackEndpoint")]
+    public string CallbackEndpoint { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known ActionType values.
+/// </summary>
+[JsonConverter(typeof(ActionType.ActionTypeJsonConverter))]
+public readonly struct ActionType : IEquatable<ActionType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActionType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ActionType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>added</summary>
+    public static ActionType Added { get; } = new("added");
+
+    /// <summary>updated</summary>
+    public static ActionType Updated { get; } = new("updated");
+
+    /// <summary>deleted</summary>
+    public static ActionType Deleted { get; } = new("deleted");
+
+    /// <summary>Converts a string to <see cref="ActionType"/>.</summary>
+    public static implicit operator ActionType(string value) => new(value);
+
+    /// <summary>Converts a <see cref="ActionType"/> to its string representation.</summary>
+    public static implicit operator string(ActionType value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(ActionType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ActionType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ActionType left, ActionType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ActionType left, ActionType right) => !left.Equals(right);
+
+    internal sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
+    {
+        public ActionTypeJsonConverter() { }
+        public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActionType, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ActivityDomain values.
+/// </summary>
+[JsonConverter(typeof(ActivityDomain.ActivityDomainJsonConverter))]
+public readonly struct ActivityDomain : IEquatable<ActivityDomain>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActivityDomain"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ActivityDomain(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Work</summary>
+    public static ActivityDomain Work { get; } = new("Work");
+
+    /// <summary>Personal</summary>
+    public static ActivityDomain Personal { get; } = new("Personal");
+
+    /// <summary>Unrestricted</summary>
+    public static ActivityDomain Unrestricted { get; } = new("Unrestricted");
+
+    /// <summary>Unknown</summary>
+    public static ActivityDomain Unknown { get; } = new("Unknown");
+
+    /// <summary>Converts a string to <see cref="ActivityDomain"/>.</summary>
+    public static implicit operator ActivityDomain(string value) => new(value);
+
+    /// <summary>Converts a <see cref="ActivityDomain"/> to its string representation.</summary>
+    public static implicit operator string(ActivityDomain value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(ActivityDomain other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ActivityDomain other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ActivityDomain left, ActivityDomain right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ActivityDomain left, ActivityDomain right) => !left.Equals(right);
+
+    internal sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
+    {
+        public ActivityDomainJsonConverter() { }
+        public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActivityDomain, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ActivityDomain value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ContentType values.
+/// </summary>
+[JsonConverter(typeof(ContentType.ContentTypeJsonConverter))]
+public readonly struct ContentType : IEquatable<ContentType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ContentType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ContentType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Text</summary>
+    public static ContentType Text { get; } = new("Text");
+
+    /// <summary>HTML</summary>
+    public static ContentType Html { get; } = new("HTML");
+
+    /// <summary>Converts a string to <see cref="ContentType"/>.</summary>
+    public static implicit operator ContentType(string value) => new(value);
+
+    /// <summary>Converts a <see cref="ContentType"/> to its string representation.</summary>
+    public static implicit operator string(ContentType value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(ContentType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ContentType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ContentType left, ContentType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ContentType left, ContentType right) => !left.Equals(right);
+
+    internal sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
+    {
+        public ContentTypeJsonConverter() { }
+        public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ContentType, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ContentType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ExternalAudience values.
+/// </summary>
+[JsonConverter(typeof(ExternalAudience.ExternalAudienceJsonConverter))]
+public readonly struct ExternalAudience : IEquatable<ExternalAudience>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExternalAudience"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ExternalAudience(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>none</summary>
+    public static ExternalAudience None { get; } = new("none");
+
+    /// <summary>contactsOnly</summary>
+    public static ExternalAudience ContactsOnly { get; } = new("contactsOnly");
+
+    /// <summary>all</summary>
+    public static ExternalAudience All { get; } = new("all");
+
+    /// <summary>Converts a string to <see cref="ExternalAudience"/>.</summary>
+    public static implicit operator ExternalAudience(string value) => new(value);
+
+    /// <summary>Converts a <see cref="ExternalAudience"/> to its string representation.</summary>
+    public static implicit operator string(ExternalAudience value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(ExternalAudience other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ExternalAudience other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ExternalAudience left, ExternalAudience right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ExternalAudience left, ExternalAudience right) => !left.Equals(right);
+
+    internal sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
+    {
+        public ExternalAudienceJsonConverter() { }
+        public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ExternalAudience, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Office365TimeZone values.
+/// </summary>
+[JsonConverter(typeof(Office365TimeZone.Office365TimeZoneJsonConverter))]
+public readonly struct Office365TimeZone : IEquatable<Office365TimeZone>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Office365TimeZone"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Office365TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>(UTC-12:00) International Date Line West</summary>
+    public static Office365TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
+
+    /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
+    public static Office365TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
+
+    /// <summary>(UTC-10:00) Aleutian Islands</summary>
+    public static Office365TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
+
+    /// <summary>(UTC-10:00) Hawaii</summary>
+    public static Office365TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
+
+    /// <summary>(UTC-09:30) Marquesas Islands</summary>
+    public static Office365TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
+
+    /// <summary>(UTC-09:00) Alaska</summary>
+    public static Office365TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
+
+    /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
+    public static Office365TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
+
+    /// <summary>(UTC-08:00) Baja California</summary>
+    public static Office365TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
+
+    /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
+    public static Office365TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
+
+    /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
+    public static Office365TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
+
+    /// <summary>(UTC-07:00) Arizona</summary>
+    public static Office365TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
+
+    /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
+    public static Office365TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
+
+    /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
+    public static Office365TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
+
+    /// <summary>(UTC-06:00) Central America</summary>
+    public static Office365TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
+
+    /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
+    public static Office365TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
+
+    /// <summary>(UTC-06:00) Easter Island</summary>
+    public static Office365TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
+
+    /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
+    public static Office365TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
+
+    /// <summary>(UTC-06:00) Saskatchewan</summary>
+    public static Office365TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
+
+    /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
+    public static Office365TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
+
+    /// <summary>(UTC-05:00) Chetumal</summary>
+    public static Office365TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
+
+    /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
+    public static Office365TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
+
+    /// <summary>(UTC-05:00) Haiti</summary>
+    public static Office365TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
+
+    /// <summary>(UTC-05:00) Havana</summary>
+    public static Office365TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
+
+    /// <summary>(UTC-05:00) Indiana (East)</summary>
+    public static Office365TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
+
+    /// <summary>(UTC-04:00) Asuncion</summary>
+    public static Office365TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
+
+    /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
+    public static Office365TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
+
+    /// <summary>(UTC-04:00) Caracas</summary>
+    public static Office365TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
+
+    /// <summary>(UTC-04:00) Cuiaba</summary>
+    public static Office365TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
+
+    /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
+    public static Office365TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
+
+    /// <summary>(UTC-04:00) Santiago</summary>
+    public static Office365TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
+
+    /// <summary>(UTC-04:00) Turks and Caicos</summary>
+    public static Office365TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
+
+    /// <summary>(UTC-03:30) Newfoundland</summary>
+    public static Office365TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
+
+    /// <summary>(UTC-03:00) Araguaina</summary>
+    public static Office365TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
+
+    /// <summary>(UTC-03:00) Brasilia</summary>
+    public static Office365TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
+
+    /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
+    public static Office365TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
+
+    /// <summary>(UTC-03:00) City of Buenos Aires</summary>
+    public static Office365TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
+
+    /// <summary>(UTC-03:00) Greenland</summary>
+    public static Office365TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
+
+    /// <summary>(UTC-03:00) Montevideo</summary>
+    public static Office365TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
+
+    /// <summary>(UTC-03:00) Punta Arenas</summary>
+    public static Office365TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
+
+    /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
+    public static Office365TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
+
+    /// <summary>(UTC-03:00) Salvador</summary>
+    public static Office365TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
+
+    /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
+    public static Office365TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
+
+    /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
+    public static Office365TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
+
+    /// <summary>(UTC-01:00) Azores</summary>
+    public static Office365TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
+
+    /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
+    public static Office365TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
+
+    /// <summary>(UTC) Coordinated Universal Time</summary>
+    public static Office365TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
+
+    /// <summary>(UTC+00:00) Casablanca</summary>
+    public static Office365TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
+
+    /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
+    public static Office365TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
+
+    /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
+    public static Office365TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
+
+    /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
+    public static Office365TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
+
+    /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
+    public static Office365TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
+
+    /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
+    public static Office365TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
+
+    /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
+    public static Office365TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
+
+    /// <summary>(UTC+01:00) West Central Africa</summary>
+    public static Office365TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
+
+    /// <summary>(UTC+01:00) Windhoek</summary>
+    public static Office365TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
+
+    /// <summary>(UTC+02:00) Amman</summary>
+    public static Office365TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
+
+    /// <summary>(UTC+02:00) Athens, Bucharest</summary>
+    public static Office365TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
+
+    /// <summary>(UTC+02:00) Beirut</summary>
+    public static Office365TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
+
+    /// <summary>(UTC+02:00) Cairo</summary>
+    public static Office365TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
+
+    /// <summary>(UTC+02:00) Chisinau</summary>
+    public static Office365TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
+
+    /// <summary>(UTC+02:00) Damascus</summary>
+    public static Office365TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
+
+    /// <summary>(UTC+02:00) Gaza, Hebron</summary>
+    public static Office365TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
+
+    /// <summary>(UTC+02:00) Harare, Pretoria</summary>
+    public static Office365TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
+
+    /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
+    public static Office365TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
+
+    /// <summary>(UTC+02:00) Jerusalem</summary>
+    public static Office365TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
+
+    /// <summary>(UTC+02:00) Kaliningrad</summary>
+    public static Office365TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
+
+    /// <summary>(UTC+02:00) Tripoli</summary>
+    public static Office365TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
+
+    /// <summary>(UTC+03:00) Baghdad</summary>
+    public static Office365TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
+
+    /// <summary>(UTC+03:00) Istanbul</summary>
+    public static Office365TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
+
+    /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
+    public static Office365TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
+
+    /// <summary>(UTC+03:00) Minsk</summary>
+    public static Office365TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
+
+    /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
+    public static Office365TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
+
+    /// <summary>(UTC+03:00) Nairobi</summary>
+    public static Office365TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
+
+    /// <summary>(UTC+03:30) Tehran</summary>
+    public static Office365TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
+
+    /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
+    public static Office365TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
+
+    /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
+    public static Office365TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
+
+    /// <summary>(UTC+04:00) Baku</summary>
+    public static Office365TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
+
+    /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
+    public static Office365TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
+
+    /// <summary>(UTC+04:00) Port Louis</summary>
+    public static Office365TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
+
+    /// <summary>(UTC+04:00) Saratov</summary>
+    public static Office365TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
+
+    /// <summary>(UTC+04:00) Tbilisi</summary>
+    public static Office365TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
+
+    /// <summary>(UTC+04:00) Volgograd</summary>
+    public static Office365TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
+
+    /// <summary>(UTC+04:00) Yerevan</summary>
+    public static Office365TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
+
+    /// <summary>(UTC+04:30) Kabul</summary>
+    public static Office365TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
+
+    /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
+    public static Office365TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
+
+    /// <summary>(UTC+05:00) Ekaterinburg</summary>
+    public static Office365TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
+
+    /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
+    public static Office365TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
+
+    /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
+    public static Office365TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
+
+    /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
+    public static Office365TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
+
+    /// <summary>(UTC+05:45) Kathmandu</summary>
+    public static Office365TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
+
+    /// <summary>(UTC+06:00) Astana</summary>
+    public static Office365TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
+
+    /// <summary>(UTC+06:00) Dhaka</summary>
+    public static Office365TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
+
+    /// <summary>(UTC+06:00) Omsk</summary>
+    public static Office365TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
+
+    /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
+    public static Office365TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
+
+    /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
+    public static Office365TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
+
+    /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
+    public static Office365TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
+
+    /// <summary>(UTC+07:00) Hovd</summary>
+    public static Office365TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
+
+    /// <summary>(UTC+07:00) Krasnoyarsk</summary>
+    public static Office365TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
+
+    /// <summary>(UTC+07:00) Novosibirsk</summary>
+    public static Office365TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
+
+    /// <summary>(UTC+07:00) Tomsk</summary>
+    public static Office365TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
+
+    /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
+    public static Office365TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
+
+    /// <summary>(UTC+08:00) Irkutsk</summary>
+    public static Office365TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
+
+    /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
+    public static Office365TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
+
+    /// <summary>(UTC+08:00) Perth</summary>
+    public static Office365TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
+
+    /// <summary>(UTC+08:00) Taipei</summary>
+    public static Office365TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
+
+    /// <summary>(UTC+08:00) Ulaanbaatar</summary>
+    public static Office365TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
+
+    /// <summary>(UTC+08:30) Pyongyang</summary>
+    public static Office365TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
+
+    /// <summary>(UTC+08:45) Eucla</summary>
+    public static Office365TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
+
+    /// <summary>(UTC+09:00) Chita</summary>
+    public static Office365TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
+
+    /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
+    public static Office365TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
+
+    /// <summary>(UTC+09:00) Seoul</summary>
+    public static Office365TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
+
+    /// <summary>(UTC+09:00) Yakutsk</summary>
+    public static Office365TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
+
+    /// <summary>(UTC+09:30) Adelaide</summary>
+    public static Office365TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
+
+    /// <summary>(UTC+09:30) Darwin</summary>
+    public static Office365TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
+
+    /// <summary>(UTC+10:00) Brisbane</summary>
+    public static Office365TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
+
+    /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
+    public static Office365TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
+
+    /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
+    public static Office365TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
+
+    /// <summary>(UTC+10:00) Hobart</summary>
+    public static Office365TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
+
+    /// <summary>(UTC+10:00) Vladivostok</summary>
+    public static Office365TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
+
+    /// <summary>(UTC+10:30) Lord Howe Island</summary>
+    public static Office365TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
+
+    /// <summary>(UTC+11:00) Bougainville Island</summary>
+    public static Office365TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
+
+    /// <summary>(UTC+11:00) Chokurdakh</summary>
+    public static Office365TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
+
+    /// <summary>(UTC+11:00) Magadan</summary>
+    public static Office365TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
+
+    /// <summary>(UTC+11:00) Norfolk Island</summary>
+    public static Office365TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
+
+    /// <summary>(UTC+11:00) Sakhalin</summary>
+    public static Office365TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
+
+    /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
+    public static Office365TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
+
+    /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
+    public static Office365TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
+
+    /// <summary>(UTC+12:00) Auckland, Wellington</summary>
+    public static Office365TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
+
+    /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
+    public static Office365TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
+
+    /// <summary>(UTC+12:00) Fiji</summary>
+    public static Office365TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
+
+    /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
+    public static Office365TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
+
+    /// <summary>(UTC+12:45) Chatham Islands</summary>
+    public static Office365TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
+
+    /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
+    public static Office365TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
+
+    /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
+    public static Office365TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
+
+    /// <summary>(UTC+13:00) Samoa</summary>
+    public static Office365TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
+
+    /// <summary>(UTC+14:00) Kiritimati Island</summary>
+    public static Office365TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
+
+    /// <summary>Converts a string to <see cref="Office365TimeZone"/>.</summary>
+    public static implicit operator Office365TimeZone(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Office365TimeZone"/> to its string representation.</summary>
+    public static implicit operator string(Office365TimeZone value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Office365TimeZone other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Office365TimeZone other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Office365TimeZone left, Office365TimeZone right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Office365TimeZone left, Office365TimeZone right) => !left.Equals(right);
+
+    internal sealed class Office365TimeZoneJsonConverter : JsonConverter<Office365TimeZone>
+    {
+        public Office365TimeZoneJsonConverter() { }
+        public override Office365TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Office365TimeZone, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Office365TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Recurrence values.
+/// </summary>
+[JsonConverter(typeof(Recurrence.RecurrenceJsonConverter))]
+public readonly struct Recurrence : IEquatable<Recurrence>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Recurrence"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Recurrence(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>none</summary>
+    public static Recurrence None { get; } = new("none");
+
+    /// <summary>daily</summary>
+    public static Recurrence Daily { get; } = new("daily");
+
+    /// <summary>weekly</summary>
+    public static Recurrence Weekly { get; } = new("weekly");
+
+    /// <summary>monthly</summary>
+    public static Recurrence Monthly { get; } = new("monthly");
+
+    /// <summary>yearly</summary>
+    public static Recurrence Yearly { get; } = new("yearly");
+
+    /// <summary>Converts a string to <see cref="Recurrence"/>.</summary>
+    public static implicit operator Recurrence(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Recurrence"/> to its string representation.</summary>
+    public static implicit operator string(Recurrence value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Recurrence other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Recurrence other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Recurrence left, Recurrence right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Recurrence left, Recurrence right) => !left.Equals(right);
+
+    internal sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
+    {
+        public RecurrenceJsonConverter() { }
+        public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Recurrence, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Recurrence value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ResponseType values.
+/// </summary>
+[JsonConverter(typeof(ResponseType.ResponseTypeJsonConverter))]
+public readonly struct ResponseType : IEquatable<ResponseType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ResponseType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ResponseType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>none</summary>
+    public static ResponseType None { get; } = new("none");
+
+    /// <summary>organizer</summary>
+    public static ResponseType Organizer { get; } = new("organizer");
+
+    /// <summary>tentativelyAccepted</summary>
+    public static ResponseType TentativelyAccepted { get; } = new("tentativelyAccepted");
+
+    /// <summary>accepted</summary>
+    public static ResponseType Accepted { get; } = new("accepted");
+
+    /// <summary>declined</summary>
+    public static ResponseType Declined { get; } = new("declined");
+
+    /// <summary>notResponded</summary>
+    public static ResponseType NotResponded { get; } = new("notResponded");
+
+    /// <summary>Converts a string to <see cref="ResponseType"/>.</summary>
+    public static implicit operator ResponseType(string value) => new(value);
+
+    /// <summary>Converts a <see cref="ResponseType"/> to its string representation.</summary>
+    public static implicit operator string(ResponseType value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(ResponseType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ResponseType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ResponseType left, ResponseType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ResponseType left, ResponseType right) => !left.Equals(right);
+
+    internal sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
+    {
+        public ResponseTypeJsonConverter() { }
+        public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ResponseType, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ResponseType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
 
+/// <summary>
+/// Extensible enum for known Sensitivity values.
+/// </summary>
+[JsonConverter(typeof(Sensitivity.SensitivityJsonConverter))]
+public readonly struct Sensitivity : IEquatable<Sensitivity>
+{
+    private readonly string _value;
+
     /// <summary>
-    /// Response for Draft an email message
+    /// Initializes a new instance of the <see cref="Sensitivity"/> struct.
     /// </summary>
-    public class OutlookReceiveMessage
-    {
-        /// <summary>Internet Message Id</summary>
-        public string InternetMessageId { get; set; }
+    /// <param name="value">The string value.</param>
+    public Sensitivity(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>normal</summary>
+    public static Sensitivity Normal { get; } = new("normal");
+
+    /// <summary>personal</summary>
+    public static Sensitivity Personal { get; } = new("personal");
+
+    /// <summary>private</summary>
+    public static Sensitivity Private { get; } = new("private");
+
+    /// <summary>confidential</summary>
+    public static Sensitivity Confidential { get; } = new("confidential");
+
+    /// <summary>Converts a string to <see cref="Sensitivity"/>.</summary>
+    public static implicit operator Sensitivity(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Sensitivity"/> to its string representation.</summary>
+    public static implicit operator string(Sensitivity value) => value.ToString();
 
-        /// <summary>Body preview</summary>
-        public string BodyPreview { get; set; }
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Sensitivity other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Sensitivity other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Sensitivity left, Sensitivity right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Sensitivity left, Sensitivity right) => !left.Equals(right);
+
+    internal sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
+    {
+        public SensitivityJsonConverter() { }
+        public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Sensitivity, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Sensitivity value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
 
-        /// <summary>Id</summary>
-        public string Id { get; set; }
+/// <summary>
+/// Extensible enum for known ShowAs values.
+/// </summary>
+[JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
+public readonly struct ShowAs : IEquatable<ShowAs>
+{
+    private readonly string _value;
 
-        /// <summary>Conversation Id</summary>
-        public string ConversationId { get; set; }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShowAs"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
-        /// <summary>Has attachments</summary>
-        public bool? HasAttachments { get; set; }
+    /// <summary>free</summary>
+    public static ShowAs Free { get; } = new("free");
 
-        /// <summary>Is read</summary>
-        public bool? IsRead { get; set; }
+    /// <summary>tentative</summary>
+    public static ShowAs Tentative { get; } = new("tentative");
 
-        /// <summary>Created date and time</summary>
-        [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+    /// <summary>busy</summary>
+    public static ShowAs Busy { get; } = new("busy");
 
-        /// <summary>Received date and time</summary>
-        [JsonInclude]
-        public DateTime? ReceivedDateTime { get; internal set; }
+    /// <summary>oof</summary>
+    public static ShowAs Oof { get; } = new("oof");
 
-        /// <summary>Last modified date and time</summary>
-        [JsonInclude]
-        public DateTime? LastModifiedDateTime { get; internal set; }
+    /// <summary>workingElsewhere</summary>
+    public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
 
-        /// <summary>Attachments</summary>
-        public List<OutlookReceiveAttachment> Attachments { get; set; }
+    /// <summary>unknown</summary>
+    public static ShowAs Unknown { get; } = new("unknown");
 
-        /// <summary>To Recipient</summary>
-        public List<Recipient> ToRecipients { get; set; }
+    /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
+    public static implicit operator ShowAs(string value) => new(value);
 
-        /// <summary>Cc Recipients</summary>
-        public List<Recipient> CcRecipients { get; set; }
+    /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
+    public static implicit operator string(ShowAs value) => value.ToString();
 
-        /// <summary>Bcc Recipients</summary>
-        public List<Recipient> BccRecipients { get; set; }
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
 
-        /// <summary>The email addresses to use when replying</summary>
-        public List<Recipient> ReplyTo { get; set; }
+    /// <inheritdoc/>
+    public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
-        /// <summary>Subject</summary>
-        public string Subject { get; set; }
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
-        /// <summary>Body</summary>
-        public ItemBody Body { get; set; }
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
-        /// <summary>From</summary>
-        public Recipient From { get; set; }
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
 
-        /// <summary>Importance</summary>
-        public string Importance { get; set; }
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
 
-        /// <summary>Internet message headers</summary>
-        public List<InternetMessageHeader> InternetMessageHeaders { get; set; }
+    internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+    {
+        public ShowAsJsonConverter() { }
+        public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
+
+/// <summary>
+/// Extensible enum for known Status values.
+/// </summary>
+[JsonConverter(typeof(Status.StatusJsonConverter))]
+public readonly struct Status : IEquatable<Status>
+{
+    private readonly string _value;
 
     /// <summary>
-    /// Item in Attachments
+    /// Initializes a new instance of the <see cref="Status"/> struct.
     /// </summary>
-    public class OutlookReceiveAttachment
-    {
-        /// <summary>OData type</summary>
-        [JsonPropertyName("@odata.type")]
-        public string Type { get; set; }
+    /// <param name="value">The string value.</param>
+    public Status(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>disabled</summary>
+    public static Status Disabled { get; } = new("disabled");
 
-        /// <summary>Attachment Id</summary>
-        public string Id { get; set; }
+    /// <summary>alwaysEnabled</summary>
+    public static Status AlwaysEnabled { get; } = new("alwaysEnabled");
 
-        /// <summary>Attachment name</summary>
-        public string Name { get; set; }
+    /// <summary>scheduled</summary>
+    public static Status Scheduled { get; } = new("scheduled");
 
-        /// <summary>Attachment content</summary>
-        public string ContentBytes { get; set; }
+    /// <summary>Converts a string to <see cref="Status"/>.</summary>
+    public static implicit operator Status(string value) => new(value);
 
-        /// <summary>Attachment content type</summary>
-        public string ContentType { get; set; }
+    /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
+    public static implicit operator string(Status value) => value.ToString();
 
-        /// <summary>Attachment size in bytes</summary>
-        public long? Size { get; set; }
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
 
-        /// <summary>Permission associated with a reference attachment</summary>
-        public string Permission { get; set; }
+    /// <inheritdoc/>
+    public bool Equals(Status other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
-        /// <summary>Provider for the reference attachment</summary>
-        public string ProviderType { get; set; }
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Status other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
-        /// <summary>Reference attachment source url</summary>
-        public string SourceUrl { get; set; }
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
-        /// <summary>Set to true if this is an inline attachment</summary>
-        public bool? IsInline { get; set; }
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Status left, Status right) => left.Equals(right);
 
-        /// <summary>The date and time when the attachment was last modified</summary>
-        [JsonInclude]
-        public DateTime? LastModifiedDateTime { get; internal set; }
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Status left, Status right) => !left.Equals(right);
 
-        /// <summary>Content Id</summary>
-        public string ContentId { get; set; }
+    internal sealed class StatusJsonConverter : JsonConverter<Status>
+    {
+        public StatusJsonConverter() { }
+        public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Status, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
+
+#endregion Types
 
+#region Model Factory
+
+/// <summary>
+/// Model factory for creating instances of Office365 models.
+/// Use these factory methods to construct model instances in tests and scenarios
+/// where output-only properties (with internal setters) need to be populated.
+/// </summary>
+public static class Office365ModelFactory
+{
     /// <summary>
-    /// Item in To Recipient
+    /// Creates a new instance of <see cref="GraphOutlookCategory"/>.
     /// </summary>
-    public class Recipient
+    public static GraphOutlookCategory GraphOutlookCategory(
+        string id = default,
+        string displayName = default)
     {
-        /// <summary>EmailAddress</summary>
-        public EmailAddress EmailAddress { get; set; }
+        return new GraphOutlookCategory
+        {
+            Id = id,
+            DisplayName = displayName,
+        };
     }
 
     /// <summary>
-    /// EmailAddress
+    /// Creates a new instance of <see cref="OutlookReceiveMessage"/>.
     /// </summary>
-    public class EmailAddress
+    public static OutlookReceiveMessage OutlookReceiveMessage(
+        string internetMessageId = default,
+        string bodyPreview = default,
+        string id = default,
+        string conversationId = default,
+        bool? hasAttachments = default,
+        bool? isRead = default,
+        DateTime? createdDateTime = default,
+        DateTime? receivedDateTime = default,
+        DateTime? lastModifiedDateTime = default,
+        List<OutlookReceiveAttachment> attachments = default,
+        List<Recipient> toRecipients = default,
+        List<Recipient> ccRecipients = default,
+        List<Recipient> bccRecipients = default,
+        List<Recipient> replyTo = default,
+        string subject = default,
+        ItemBody body = default,
+        Recipient from = default,
+        string importance = default,
+        List<InternetMessageHeader> internetMessageHeaders = default)
     {
-        /// <summary>Name</summary>
-        public string Name { get; set; }
-
-        /// <summary>Address</summary>
-        public string Address { get; set; }
+        return new OutlookReceiveMessage
+        {
+            InternetMessageId = internetMessageId,
+            BodyPreview = bodyPreview,
+            Id = id,
+            ConversationId = conversationId,
+            HasAttachments = hasAttachments,
+            IsRead = isRead,
+            CreatedDateTime = createdDateTime,
+            ReceivedDateTime = receivedDateTime,
+            LastModifiedDateTime = lastModifiedDateTime,
+            Attachments = attachments,
+            ToRecipients = toRecipients,
+            CcRecipients = ccRecipients,
+            BccRecipients = bccRecipients,
+            ReplyTo = replyTo,
+            Subject = subject,
+            Body = body,
+            From = from,
+            Importance = importance,
+            InternetMessageHeaders = internetMessageHeaders,
+        };
     }
 
     /// <summary>
-    /// Body
+    /// Creates a new instance of <see cref="OutlookReceiveAttachment"/>.
     /// </summary>
-    public class ItemBody
+    public static OutlookReceiveAttachment OutlookReceiveAttachment(
+        string type = default,
+        string id = default,
+        string name = default,
+        string contentBytes = default,
+        string contentType = default,
+        long? size = default,
+        string permission = default,
+        string providerType = default,
+        string sourceUrl = default,
+        bool? isInline = default,
+        DateTime? lastModifiedDateTime = default,
+        string contentId = default)
     {
-        /// <summary>ContentType</summary>
-        public ContentType? ContentType { get; set; }
-
-        /// <summary>Content</summary>
-        public string Content { get; set; }
+        return new OutlookReceiveAttachment
+        {
+            Type = type,
+            Id = id,
+            Name = name,
+            ContentBytes = contentBytes,
+            ContentType = contentType,
+            Size = size,
+            Permission = permission,
+            ProviderType = providerType,
+            SourceUrl = sourceUrl,
+            IsInline = isInline,
+            LastModifiedDateTime = lastModifiedDateTime,
+            ContentId = contentId,
+        };
     }
 
     /// <summary>
-    /// Item in Internet message headers
+    /// Creates a new instance of <see cref="Recipient"/>.
     /// </summary>
-    public class InternetMessageHeader
+    public static Recipient Recipient(
+        EmailAddress emailAddress = default)
     {
-        /// <summary>Header name</summary>
-        public string Name { get; set; }
-
-        /// <summary>Header value</summary>
-        public string Value { get; set; }
+        return new Recipient
+        {
+            EmailAddress = emailAddress,
+        };
     }
 
     /// <summary>
-    /// Response for Assign a category to multiple emails
+    /// Creates a new instance of <see cref="EmailAddress"/>.
     /// </summary>
-    public class BatchOperationResult
+    public static EmailAddress EmailAddress(
+        string name = default,
+        string address = default)
     {
-        /// <summary>The count of messages processed successfully.</summary>
-        [JsonPropertyName("successCount")]
-        public int? SuccessCount { get; set; }
-
-        /// <summary>The list of failed messages with errors.</summary>
-        [JsonPropertyName("failures")]
-        public List<BatchItemFailureResult> Failures { get; set; }
+        return new EmailAddress
+        {
+            Name = name,
+            Address = address,
+        };
     }
 
     /// <summary>
-    /// Item in The list of failed messages with errors.
+    /// Creates a new instance of <see cref="ItemBody"/>.
     /// </summary>
-    public class BatchItemFailureResult
+    public static ItemBody ItemBody(
+        ContentType? contentType = default,
+        string content = default)
     {
-        /// <summary>The ID of the failed message.</summary>
-        public string MessageId { get; set; }
-
-        /// <summary>The error message of the failure.</summary>
-        public string Error { get; set; }
+        return new ItemBody
+        {
+            ContentType = contentType,
+            Content = content,
+        };
     }
 
     /// <summary>
-    /// Response for Send email with options
+    /// Creates a new instance of <see cref="InternetMessageHeader"/>.
     /// </summary>
-    public class SubscriptionResponse
+    public static InternetMessageHeader InternetMessageHeader(
+        string name = default,
+        string value = default)
     {
-        /// <summary>Id of the subscription</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>Resource of the subscription request</summary>
-        [JsonPropertyName("resource")]
-        public string Resource { get; set; }
-
-        /// <summary>Notification Type</summary>
-        [JsonPropertyName("notificationType")]
-        public string NotificationType { get; set; }
-
-        /// <summary>Notification Url</summary>
-        [JsonPropertyName("notificationUrl")]
-        public string NotificationUrl { get; set; }
+        return new InternetMessageHeader
+        {
+            Name = name,
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Response for Send an HTTP request
+    /// Creates a new instance of <see cref="BatchOperationResult"/>.
     /// </summary>
-    public class ObjectWithoutType
+    public static BatchOperationResult BatchOperationResult(
+        int? successCount = default,
+        List<BatchItemFailureResult> failures = default)
     {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+        return new BatchOperationResult
+        {
+            SuccessCount = successCount,
+            Failures = failures,
+        };
     }
 
     /// <summary>
-    /// Response for Email Management MCP Server (deprecated)
+    /// Creates a new instance of <see cref="BatchItemFailureResult"/>.
     /// </summary>
-    public class MCPQueryResponse
+    public static BatchItemFailureResult BatchItemFailureResult(
+        string messageId = default,
+        string error = default)
     {
-        /// <summary>jsonrpc</summary>
-        [JsonPropertyName("jsonrpc")]
-        public string Jsonrpc { get; set; }
-
-        /// <summary>id</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>method</summary>
-        [JsonPropertyName("method")]
-        public string Method { get; set; }
-
-        /// <summary>params</summary>
-        [JsonPropertyName("params")]
-        public object Params { get; set; }
-
-        /// <summary>result</summary>
-        [JsonPropertyName("result")]
-        public object Result { get; set; }
-
-        /// <summary>error</summary>
-        [JsonPropertyName("error")]
-        public object Error { get; set; }
+        return new BatchItemFailureResult
+        {
+            MessageId = messageId,
+            Error = error,
+        };
     }
 
     /// <summary>
-    /// Response for Get event (V3)
+    /// Creates a new instance of <see cref="SubscriptionResponse"/>.
     /// </summary>
-    public class GraphCalendarEventClientReceive
+    public static SubscriptionResponse SubscriptionResponse(
+        string id = default,
+        string resource = default,
+        string notificationType = default,
+        string notificationUrl = default)
     {
-        /// <summary>Event subject</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>Start time of the event (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("start")]
-        public string StartTime { get; set; }
-
-        /// <summary>End time of the event (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("end")]
-        public string EndTime { get; set; }
-
-        /// <summary>Start time of the event with time zone (example: &apos;2017-08-29T04:00:00.0000000+00:00&apos;)</summary>
-        [JsonPropertyName("startWithTimeZone")]
-        [JsonInclude]
-        public DateTime? StartTimeWithTimeZone { get; internal set; }
-
-        /// <summary>End time of the event with time zone (example: &apos;2017-08-29T05:00:00.0000000+00:00&apos;)</summary>
-        [JsonPropertyName("endWithTimeZone")]
-        [JsonInclude]
-        public DateTime? EndTimeWithTimeZone { get; internal set; }
-
-        /// <summary>Body of the message associated with the event</summary>
-        [JsonPropertyName("body")]
-        public string Body { get; set; }
-
-        /// <summary>Set to true if the body is Html</summary>
-        [JsonPropertyName("isHtml")]
-        public bool? IsHTML { get; set; }
-
-        /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
-        [JsonPropertyName("responseType")]
-        public ResponseType? ResponseType { get; set; }
-
-        /// <summary>The response time of the event</summary>
-        [JsonPropertyName("responseTime")]
-        [JsonInclude]
-        public DateTime? ResponseTime { get; internal set; }
-
-        /// <summary>The event&apos;s unique identifier</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The date and time that the event was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
-
-        /// <summary>The date and time that the event was last modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
-
-        /// <summary>The organizer of the event</summary>
-        [JsonPropertyName("organizer")]
-        public string Organizer { get; set; }
-
-        /// <summary>Time zone of the event</summary>
-        [JsonPropertyName("timeZone")]
-        public string TimeZone { get; set; }
-
-        /// <summary>Unique identifier for Series Master event type</summary>
-        [JsonPropertyName("seriesMasterId")]
-        public string SeriesMasterId { get; set; }
-
-        /// <summary>A unique identifier for an event across calendars. This ID is different for each occurrence in a recurring series</summary>
-        [JsonPropertyName("iCalUId")]
-        public string ICalUId { get; set; }
-
-        /// <summary>The categories associated with the event</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>The URL to open the event in Outlook Web App</summary>
-        [JsonPropertyName("webLink")]
-        public string WebLink { get; set; }
-
-        /// <summary>Required attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("requiredAttendees")]
-        public string RequiredAttendees { get; set; }
-
-        /// <summary>Optional attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("optionalAttendees")]
-        public string OptionalAttendees { get; set; }
-
-        /// <summary>Resource attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("resourceAttendees")]
-        public string ResourceAttendees { get; set; }
-
-        /// <summary>Location of the event</summary>
-        [JsonPropertyName("location")]
-        public string Location { get; set; }
-
-        /// <summary>The importance of the event: low, normal, or high</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>Set to true if the event lasts all day</summary>
-        [JsonPropertyName("isAllDay")]
-        public bool? IsAllDayEvent { get; set; }
-
-        /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
-        [JsonPropertyName("recurrence")]
-        public Recurrence? Recurrence { get; set; }
-
-        /// <summary>End Date of the recurrence</summary>
-        [JsonPropertyName("recurrenceEnd")]
-        public DateTime? RecurrenceEndDate { get; set; }
-
-        /// <summary>How many times to repeat the event</summary>
-        [JsonPropertyName("numberOfOccurences")]
-        public int? NumberOfOccurrences { get; set; }
-
-        /// <summary>Time in minutes before event start to remind</summary>
-        [JsonPropertyName("reminderMinutesBeforeStart")]
-        public int? Reminder { get; set; }
-
-        /// <summary>Set to true if an alert is set to remind the user of the event.</summary>
-        [JsonPropertyName("isReminderOn")]
-        public bool? IsReminderOn { get; set; }
-
-        /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
-        [JsonPropertyName("showAs")]
-        public ShowAs? ShowAs { get; set; }
-
-        /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-        [JsonPropertyName("responseRequested")]
-        public bool? ResponseRequested { get; set; }
-
-        /// <summary>The possible values are: normal, personal, private, confidential</summary>
-        [JsonPropertyName("sensitivity")]
-        public Sensitivity? Sensitivity { get; set; }
+        return new SubscriptionResponse
+        {
+            Id = id,
+            Resource = resource,
+            NotificationType = notificationType,
+            NotificationUrl = notificationUrl,
+        };
     }
 
     /// <summary>
-    /// Response for Get events (V4)
+    /// Creates a new instance of <see cref="MCPQueryResponse"/>.
     /// </summary>
-    public class GraphCalendarEventListClientReceive
+    public static MCPQueryResponse MCPQueryResponse(
+        string jsonrpc = default,
+        string id = default,
+        string method = default,
+        object @params = default,
+        object result = default,
+        object error = default)
     {
-        /// <summary>List of calendar items</summary>
-        [JsonPropertyName("value")]
-        public List<GraphCalendarEventClientReceive> Value { get; set; }
+        return new MCPQueryResponse
+        {
+            Jsonrpc = jsonrpc,
+            Id = id,
+            Method = method,
+            Params = @params,
+            Result = result,
+            Error = error,
+        };
     }
 
     /// <summary>
-    /// Response for When an event is added, updated or deleted (V3)
+    /// Creates a new instance of <see cref="GraphCalendarEventClientReceive"/>.
     /// </summary>
-    public class GraphCalendarEventListWithActionType
+    public static GraphCalendarEventClientReceive GraphCalendarEventClientReceive(
+        string subject = default,
+        string startTime = default,
+        string endTime = default,
+        DateTime? startTimeWithTimeZone = default,
+        DateTime? endTimeWithTimeZone = default,
+        string body = default,
+        bool? isHTML = default,
+        ResponseType? responseType = default,
+        DateTime? responseTime = default,
+        string id = default,
+        DateTime? createdTime = default,
+        DateTime? lastModifiedTime = default,
+        string organizer = default,
+        string timeZone = default,
+        string seriesMasterId = default,
+        string iCalUId = default,
+        List<string> categories = default,
+        string webLink = default,
+        string requiredAttendees = default,
+        string optionalAttendees = default,
+        string resourceAttendees = default,
+        string location = default,
+        string importance = default,
+        bool? isAllDayEvent = default,
+        Recurrence? recurrence = default,
+        DateTime? recurrenceEndDate = default,
+        int? numberOfOccurrences = default,
+        int? reminder = default,
+        bool? isReminderOn = default,
+        ShowAs? showAs = default,
+        bool? responseRequested = default,
+        Sensitivity? sensitivity = default)
     {
-        /// <summary>List of calendar items</summary>
-        [JsonPropertyName("value")]
-        public List<GraphCalendarEventClientWithActionType> Value { get; set; }
+        return new GraphCalendarEventClientReceive
+        {
+            Subject = subject,
+            StartTime = startTime,
+            EndTime = endTime,
+            StartTimeWithTimeZone = startTimeWithTimeZone,
+            EndTimeWithTimeZone = endTimeWithTimeZone,
+            Body = body,
+            IsHTML = isHTML,
+            ResponseType = responseType,
+            ResponseTime = responseTime,
+            Id = id,
+            CreatedTime = createdTime,
+            LastModifiedTime = lastModifiedTime,
+            Organizer = organizer,
+            TimeZone = timeZone,
+            SeriesMasterId = seriesMasterId,
+            ICalUId = iCalUId,
+            Categories = categories,
+            WebLink = webLink,
+            RequiredAttendees = requiredAttendees,
+            OptionalAttendees = optionalAttendees,
+            ResourceAttendees = resourceAttendees,
+            Location = location,
+            Importance = importance,
+            IsAllDayEvent = isAllDayEvent,
+            Recurrence = recurrence,
+            RecurrenceEndDate = recurrenceEndDate,
+            NumberOfOccurrences = numberOfOccurrences,
+            Reminder = reminder,
+            IsReminderOn = isReminderOn,
+            ShowAs = showAs,
+            ResponseRequested = responseRequested,
+            Sensitivity = sensitivity,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GraphCalendarEventListClientReceive"/>.
+    /// </summary>
+    public static GraphCalendarEventListClientReceive GraphCalendarEventListClientReceive(
+        List<GraphCalendarEventClientReceive> value = default)
+    {
+        return new GraphCalendarEventListClientReceive
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Item in List of calendar items
+    /// Creates a new instance of <see cref="GraphCalendarEventListWithActionType"/>.
     /// </summary>
-    public class GraphCalendarEventClientWithActionType
+    public static GraphCalendarEventListWithActionType GraphCalendarEventListWithActionType(
+        List<GraphCalendarEventClientWithActionType> value = default)
     {
-        /// <summary>Changed action type of the event - added, updated or deleted.</summary>
-        public ActionType? ActionType { get; set; }
-
-        /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
-        public bool? IsAdded { get; set; }
-
-        /// <summary>Flag that indicates whether the event was updated since the last poll of the trigger.</summary>
-        public bool? IsUpdated { get; set; }
-
-        /// <summary>Event subject</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>Start time of the event (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("start")]
-        public string StartTime { get; set; }
-
-        /// <summary>End time of the event (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("end")]
-        public string EndTime { get; set; }
-
-        /// <summary>Start time of the event with time zone (example: &apos;2017-08-29T04:00:00.0000000+00:00&apos;)</summary>
-        [JsonPropertyName("startWithTimeZone")]
-        [JsonInclude]
-        public DateTime? StartTimeWithTimeZone { get; internal set; }
-
-        /// <summary>End time of the event with time zone (example: &apos;2017-08-29T05:00:00.0000000+00:00&apos;)</summary>
-        [JsonPropertyName("endWithTimeZone")]
-        [JsonInclude]
-        public DateTime? EndTimeWithTimeZone { get; internal set; }
-
-        /// <summary>Body of the message associated with the event</summary>
-        [JsonPropertyName("body")]
-        public string Body { get; set; }
-
-        /// <summary>Set to true if the body is Html</summary>
-        [JsonPropertyName("isHtml")]
-        public bool? IsHTML { get; set; }
-
-        /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
-        [JsonPropertyName("responseType")]
-        public ResponseType? ResponseType { get; set; }
-
-        /// <summary>The response time of the event</summary>
-        [JsonPropertyName("responseTime")]
-        [JsonInclude]
-        public DateTime? ResponseTime { get; internal set; }
-
-        /// <summary>The event&apos;s unique identifier</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The date and time that the event was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
-
-        /// <summary>The date and time that the event was last modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
-
-        /// <summary>The organizer of the event</summary>
-        [JsonPropertyName("organizer")]
-        public string Organizer { get; set; }
-
-        /// <summary>Time zone of the event</summary>
-        [JsonPropertyName("timeZone")]
-        public string TimeZone { get; set; }
-
-        /// <summary>Unique identifier for Series Master event type</summary>
-        [JsonPropertyName("seriesMasterId")]
-        public string SeriesMasterId { get; set; }
-
-        /// <summary>A unique identifier for an event across calendars. This ID is different for each occurrence in a recurring series</summary>
-        [JsonPropertyName("iCalUId")]
-        public string ICalUId { get; set; }
-
-        /// <summary>The categories associated with the event</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>The URL to open the event in Outlook Web App</summary>
-        [JsonPropertyName("webLink")]
-        public string WebLink { get; set; }
-
-        /// <summary>Required attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("requiredAttendees")]
-        public string RequiredAttendees { get; set; }
-
-        /// <summary>Optional attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("optionalAttendees")]
-        public string OptionalAttendees { get; set; }
-
-        /// <summary>Resource attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("resourceAttendees")]
-        public string ResourceAttendees { get; set; }
-
-        /// <summary>Location of the event</summary>
-        [JsonPropertyName("location")]
-        public string Location { get; set; }
-
-        /// <summary>The importance of the event: low, normal, or high</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>Set to true if the event lasts all day</summary>
-        [JsonPropertyName("isAllDay")]
-        public bool? IsAllDayEvent { get; set; }
-
-        /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
-        [JsonPropertyName("recurrence")]
-        public Recurrence? Recurrence { get; set; }
-
-        /// <summary>End Date of the recurrence</summary>
-        [JsonPropertyName("recurrenceEnd")]
-        public DateTime? RecurrenceEndDate { get; set; }
-
-        /// <summary>How many times to repeat the event</summary>
-        [JsonPropertyName("numberOfOccurences")]
-        public int? NumberOfOccurrences { get; set; }
-
-        /// <summary>Time in minutes before event start to remind</summary>
-        [JsonPropertyName("reminderMinutesBeforeStart")]
-        public int? Reminder { get; set; }
-
-        /// <summary>Set to true if an alert is set to remind the user of the event.</summary>
-        [JsonPropertyName("isReminderOn")]
-        public bool? IsReminderOn { get; set; }
-
-        /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
-        [JsonPropertyName("showAs")]
-        public ShowAs? ShowAs { get; set; }
+        return new GraphCalendarEventListWithActionType
+        {
+            Value = value,
+        };
+    }
 
-        /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-        [JsonPropertyName("responseRequested")]
-        public bool? ResponseRequested { get; set; }
+    /// <summary>
+    /// Creates a new instance of <see cref="GraphCalendarEventClientWithActionType"/>.
+    /// </summary>
+    public static GraphCalendarEventClientWithActionType GraphCalendarEventClientWithActionType(
+        ActionType? actionType = default,
+        bool? isAdded = default,
+        bool? isUpdated = default,
+        string subject = default,
+        string startTime = default,
+        string endTime = default,
+        DateTime? startTimeWithTimeZone = default,
+        DateTime? endTimeWithTimeZone = default,
+        string body = default,
+        bool? isHTML = default,
+        ResponseType? responseType = default,
+        DateTime? responseTime = default,
+        string id = default,
+        DateTime? createdTime = default,
+        DateTime? lastModifiedTime = default,
+        string organizer = default,
+        string timeZone = default,
+        string seriesMasterId = default,
+        string iCalUId = default,
+        List<string> categories = default,
+        string webLink = default,
+        string requiredAttendees = default,
+        string optionalAttendees = default,
+        string resourceAttendees = default,
+        string location = default,
+        string importance = default,
+        bool? isAllDayEvent = default,
+        Recurrence? recurrence = default,
+        DateTime? recurrenceEndDate = default,
+        int? numberOfOccurrences = default,
+        int? reminder = default,
+        bool? isReminderOn = default,
+        ShowAs? showAs = default,
+        bool? responseRequested = default,
+        Sensitivity? sensitivity = default)
+    {
+        return new GraphCalendarEventClientWithActionType
+        {
+            ActionType = actionType,
+            IsAdded = isAdded,
+            IsUpdated = isUpdated,
+            Subject = subject,
+            StartTime = startTime,
+            EndTime = endTime,
+            StartTimeWithTimeZone = startTimeWithTimeZone,
+            EndTimeWithTimeZone = endTimeWithTimeZone,
+            Body = body,
+            IsHTML = isHTML,
+            ResponseType = responseType,
+            ResponseTime = responseTime,
+            Id = id,
+            CreatedTime = createdTime,
+            LastModifiedTime = lastModifiedTime,
+            Organizer = organizer,
+            TimeZone = timeZone,
+            SeriesMasterId = seriesMasterId,
+            ICalUId = iCalUId,
+            Categories = categories,
+            WebLink = webLink,
+            RequiredAttendees = requiredAttendees,
+            OptionalAttendees = optionalAttendees,
+            ResourceAttendees = resourceAttendees,
+            Location = location,
+            Importance = importance,
+            IsAllDayEvent = isAllDayEvent,
+            Recurrence = recurrence,
+            RecurrenceEndDate = recurrenceEndDate,
+            NumberOfOccurrences = numberOfOccurrences,
+            Reminder = reminder,
+            IsReminderOn = isReminderOn,
+            ShowAs = showAs,
+            ResponseRequested = responseRequested,
+            Sensitivity = sensitivity,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CalendarGetTablesResponse"/>.
+    /// </summary>
+    public static CalendarGetTablesResponse CalendarGetTablesResponse(
+        List<object> value = default)
+    {
+        return new CalendarGetTablesResponse
+        {
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ContactResponse"/>.
+    /// </summary>
+    public static ContactResponse ContactResponse(
+        string id = default,
+        string parentFolderId = default,
+        DateTime? birthday = default,
+        string fileAs = default,
+        string displayName = default,
+        string givenName = default,
+        string initials = default,
+        string middleName = default,
+        string nickname = default,
+        string surname = default,
+        string title = default,
+        string generation = default,
+        List<EmailAddress> emailAddresses = default,
+        List<string> imAddresses = default,
+        string jobTitle = default,
+        string companyName = default,
+        string department = default,
+        string officeLocation = default,
+        string profession = default,
+        string businessHomePage = default,
+        string assistantName = default,
+        string manager = default,
+        List<string> homePhones = default,
+        List<string> businessPhones = default,
+        string mobilePhone = default,
+        PhysicalAddress homeAddress = default,
+        PhysicalAddress businessAddress = default,
+        PhysicalAddress otherAddress = default,
+        string yomiCompanyName = default,
+        string yomiGivenName = default,
+        string yomiSurname = default,
+        List<string> categories = default,
+        string changeKey = default,
+        DateTime? createdTime = default,
+        DateTime? lastModifiedTime = default)
+    {
+        return new ContactResponse
+        {
+            Id = id,
+            ParentFolderId = parentFolderId,
+            Birthday = birthday,
+            FileAs = fileAs,
+            DisplayName = displayName,
+            GivenName = givenName,
+            Initials = initials,
+            MiddleName = middleName,
+            Nickname = nickname,
+            Surname = surname,
+            Title = title,
+            Generation = generation,
+            EmailAddresses = emailAddresses,
+            IMAddresses = imAddresses,
+            JobTitle = jobTitle,
+            CompanyName = companyName,
+            Department = department,
+            OfficeLocation = officeLocation,
+            Profession = profession,
+            BusinessHomePage = businessHomePage,
+            AssistantName = assistantName,
+            Manager = manager,
+            HomePhones = homePhones,
+            BusinessPhones = businessPhones,
+            MobilePhone = mobilePhone,
+            HomeAddress = homeAddress,
+            BusinessAddress = businessAddress,
+            OtherAddress = otherAddress,
+            YomiCompanyName = yomiCompanyName,
+            YomiGivenName = yomiGivenName,
+            YomiSurname = yomiSurname,
+            Categories = categories,
+            ChangeKey = changeKey,
+            CreatedTime = createdTime,
+            LastModifiedTime = lastModifiedTime,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="EmailAddressV2"/>.
+    /// </summary>
+    public static EmailAddressV2 EmailAddressV2(
+        string name = default,
+        string address = default)
+    {
+        return new EmailAddressV2
+        {
+            Name = name,
+            Address = address,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="PhysicalAddress"/>.
+    /// </summary>
+    public static PhysicalAddress PhysicalAddress(
+        string street = default,
+        string city = default,
+        string state = default,
+        string countryOrRegion = default,
+        string postalCode = default)
+    {
+        return new PhysicalAddress
+        {
+            Street = street,
+            City = city,
+            State = state,
+            CountryOrRegion = countryOrRegion,
+            PostalCode = postalCode,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="EntityListResponseContactResponse"/>.
+    /// </summary>
+    public static EntityListResponseContactResponse EntityListResponseContactResponse(
+        List<ContactResponse> value = default)
+    {
+        return new EntityListResponseContactResponse
+        {
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ContactResponseV2"/>.
+    /// </summary>
+    public static ContactResponseV2 ContactResponseV2(
+        string id = default,
+        string parentFolderId = default,
+        DateTime? birthday = default,
+        string fileAs = default,
+        string displayName = default,
+        string givenName = default,
+        string initials = default,
+        string middleName = default,
+        string nickname = default,
+        string surname = default,
+        string title = default,
+        string generation = default,
+        List<EmailAddress> emailAddresses = default,
+        List<string> imAddresses = default,
+        string jobTitle = default,
+        string companyName = default,
+        string department = default,
+        string officeLocation = default,
+        string profession = default,
+        string businessHomePage = default,
+        string assistantName = default,
+        string manager = default,
+        List<string> homePhones = default,
+        List<string> businessPhones = default,
+        string mobilePhone = default,
+        PhysicalAddress homeAddress = default,
+        PhysicalAddress businessAddress = default,
+        PhysicalAddress otherAddress = default,
+        string yomiCompanyName = default,
+        string yomiGivenName = default,
+        string yomiSurname = default,
+        List<string> categories = default,
+        string changeKey = default,
+        DateTime? createdTime = default,
+        DateTime? lastModifiedTime = default)
+    {
+        return new ContactResponseV2
+        {
+            Id = id,
+            ParentFolderId = parentFolderId,
+            Birthday = birthday,
+            FileAs = fileAs,
+            DisplayName = displayName,
+            GivenName = givenName,
+            Initials = initials,
+            MiddleName = middleName,
+            Nickname = nickname,
+            Surname = surname,
+            Title = title,
+            Generation = generation,
+            EmailAddresses = emailAddresses,
+            IMAddresses = imAddresses,
+            JobTitle = jobTitle,
+            CompanyName = companyName,
+            Department = department,
+            OfficeLocation = officeLocation,
+            Profession = profession,
+            BusinessHomePage = businessHomePage,
+            AssistantName = assistantName,
+            Manager = manager,
+            HomePhones = homePhones,
+            BusinessPhones = businessPhones,
+            MobilePhone = mobilePhone,
+            HomeAddress = homeAddress,
+            BusinessAddress = businessAddress,
+            OtherAddress = otherAddress,
+            YomiCompanyName = yomiCompanyName,
+            YomiGivenName = yomiGivenName,
+            YomiSurname = yomiSurname,
+            Categories = categories,
+            ChangeKey = changeKey,
+            CreatedTime = createdTime,
+            LastModifiedTime = lastModifiedTime,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="EntityListResponseGraphContactFolder"/>.
+    /// </summary>
+    public static EntityListResponseGraphContactFolder EntityListResponseGraphContactFolder(
+        List<GraphContactFolder> value = default)
+    {
+        return new EntityListResponseGraphContactFolder
+        {
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GraphContactFolder"/>.
+    /// </summary>
+    public static GraphContactFolder GraphContactFolder(
+        string id = default,
+        string displayName = default,
+        string parentFolderID = default)
+    {
+        return new GraphContactFolder
+        {
+            ID = id,
+            DisplayName = displayName,
+            ParentFolderID = parentFolderID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="FindMeetingTimesInput"/>.
+    /// </summary>
+    public static FindMeetingTimesInput FindMeetingTimesInput(
+        string requiredAttendees = default,
+        string optionalAttendees = default,
+        string resourceAttendees = default,
+        int? meetingDuration = default,
+        DateTime? startTime = default,
+        DateTime? endTime = default,
+        int? maxCandidates = default,
+        string minimumAttendeePercentage = default,
+        bool? isOrganizerOptional = default,
+        ActivityDomain? activityDomain = default)
+    {
+        return new FindMeetingTimesInput
+        {
+            RequiredAttendees = requiredAttendees,
+            OptionalAttendees = optionalAttendees,
+            ResourceAttendees = resourceAttendees,
+            MeetingDuration = meetingDuration,
+            StartTime = startTime,
+            EndTime = endTime,
+            MaxCandidates = maxCandidates,
+            MinimumAttendeePercentage = minimumAttendeePercentage,
+            IsOrganizerOptional = isOrganizerOptional,
+            ActivityDomain = activityDomain,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="FindMeetingTimesResponse"/>.
+    /// </summary>
+    public static FindMeetingTimesResponse FindMeetingTimesResponse(
+        string emptySuggestionsReason = default,
+        List<object> meetingTimeSuggestions = default)
+    {
+        return new FindMeetingTimesResponse
+        {
+            EmptySuggestionsReason = emptySuggestionsReason,
+            MeetingTimeSuggestions = meetingTimeSuggestions,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetAttachmentResponse"/>.
+    /// </summary>
+    public static GetAttachmentResponse GetAttachmentResponse(
+        string id = default,
+        string name = default,
+        string contentType = default,
+        int? size = default,
+        string contentBytes = default,
+        bool? isInline = default,
+        DateTime? lastModifiedDateTime = default,
+        string contentId = default,
+        List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+    {
+        return new GetAttachmentResponse
+        {
+            Id = id,
+            Name = name,
+            ContentType = contentType,
+            Size = size,
+            ContentBytes = contentBytes,
+            IsInline = isInline,
+            LastModifiedDateTime = lastModifiedDateTime,
+            ContentId = contentId,
+            SensitivityLabelInfo = sensitivityLabelInfo,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="SensitivityLabelMetadata"/>.
+    /// </summary>
+    public static SensitivityLabelMetadata SensitivityLabelMetadata(
+        string sensitivityLabelId = default,
+        string name = default,
+        string sensitivityLabelDisplayNameInfo = default,
+        string tooltipInfo = default,
+        int? priorityOfSensitivityLabel = default,
+        string colorToBeDisplayedForSensitivityLabel = default,
+        bool? isEncryptedStatusOfSensitivityLabel = default,
+        bool? whetherSensitivityLabelIsEnabled = default,
+        bool? whetherSensitivityLabelIsParent = default,
+        string parentSensitivityLabelId = default)
+    {
+        return new SensitivityLabelMetadata
+        {
+            SensitivityLabelId = sensitivityLabelId,
+            Name = name,
+            SensitivityLabelDisplayNameInfo = sensitivityLabelDisplayNameInfo,
+            TooltipInfo = tooltipInfo,
+            PriorityOfSensitivityLabel = priorityOfSensitivityLabel,
+            ColorToBeDisplayedForSensitivityLabel = colorToBeDisplayedForSensitivityLabel,
+            IsEncryptedStatusOfSensitivityLabel = isEncryptedStatusOfSensitivityLabel,
+            WhetherSensitivityLabelIsEnabled = whetherSensitivityLabelIsEnabled,
+            WhetherSensitivityLabelIsParent = whetherSensitivityLabelIsParent,
+            ParentSensitivityLabelId = parentSensitivityLabelId,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GraphClientReceiveMessage"/>.
+    /// </summary>
+    public static GraphClientReceiveMessage GraphClientReceiveMessage(
+        string from = default,
+        string to = default,
+        string cc = default,
+        string bcc = default,
+        string replyTo = default,
+        string subject = default,
+        string body = default,
+        string importance = default,
+        string bodyPreview = default,
+        bool? hasAttachment = default,
+        string messageId = default,
+        string internetMessageId = default,
+        string conversationId = default,
+        DateTime? receivedTime = default,
+        bool? isRead = default,
+        List<GraphClientReceiveFileAttachment> attachments = default,
+        bool? isHTML = default,
+        List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+    {
+        return new GraphClientReceiveMessage
+        {
+            From = from,
+            To = to,
+            CC = cc,
+            BCC = bcc,
+            ReplyTo = replyTo,
+            Subject = subject,
+            Body = body,
+            Importance = importance,
+            BodyPreview = bodyPreview,
+            HasAttachment = hasAttachment,
+            MessageId = messageId,
+            InternetMessageId = internetMessageId,
+            ConversationId = conversationId,
+            ReceivedTime = receivedTime,
+            IsRead = isRead,
+            Attachments = attachments,
+            IsHTML = isHTML,
+            SensitivityLabelInfo = sensitivityLabelInfo,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GraphClientReceiveFileAttachment"/>.
+    /// </summary>
+    public static GraphClientReceiveFileAttachment GraphClientReceiveFileAttachment(
+        string attachmentId = default,
+        string name = default,
+        string content = default,
+        string contentType = default,
+        long? size = default,
+        bool? isInline = default,
+        DateTime? lastModifiedDateTime = default,
+        string contentId = default)
+    {
+        return new GraphClientReceiveFileAttachment
+        {
+            AttachmentId = attachmentId,
+            Name = name,
+            Content = content,
+            ContentType = contentType,
+            Size = size,
+            IsInline = isInline,
+            LastModifiedDateTime = lastModifiedDateTime,
+            ContentId = contentId,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="BatchResponseGraphClientReceiveMessage"/>.
+    /// </summary>
+    public static BatchResponseGraphClientReceiveMessage BatchResponseGraphClientReceiveMessage(
+        List<GraphClientReceiveMessage> value = default)
+    {
+        return new BatchResponseGraphClientReceiveMessage
+        {
+            Value = value,
+        };
+    }
 
-        /// <summary>The possible values are: normal, personal, private, confidential</summary>
-        [JsonPropertyName("sensitivity")]
-        public Sensitivity? Sensitivity { get; set; }
+    /// <summary>
+    /// Creates a new instance of <see cref="EntityListResponseGraphCalendarEventClientReceive"/>.
+    /// </summary>
+    public static EntityListResponseGraphCalendarEventClientReceive EntityListResponseGraphCalendarEventClientReceive(
+        List<GraphCalendarEventClientReceive> value = default)
+    {
+        return new EntityListResponseGraphCalendarEventClientReceive
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Response for Get calendars (V2)
+    /// Creates a new instance of <see cref="GetMailTipsInput"/>.
     /// </summary>
-    public class CalendarGetTablesResponse
+    public static GetMailTipsInput GetMailTipsInput(
+        string flagsThatRepresentsTheMailtips = default,
+        List<string> emailAddresses = default)
     {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        return new GetMailTipsInput
+        {
+            FlagsThatRepresentsTheMailtips = flagsThatRepresentsTheMailtips,
+            EmailAddresses = emailAddresses,
+        };
     }
 
     /// <summary>
-    /// Response for Get contact (V2)
+    /// Creates a new instance of <see cref="GetMailTipsResponse"/>.
     /// </summary>
-    public class ContactResponse
+    public static GetMailTipsResponse GetMailTipsResponse(
+        List<MailTipsClientReceive> value = default)
     {
-        /// <summary>The contact&apos;s unique identifier.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The ID of the contact&apos;s parent folder</summary>
-        [JsonPropertyName("parentFolderId")]
-        public string ParentFolderId { get; set; }
-
-        /// <summary>The contact&apos;s birthday</summary>
-        [JsonPropertyName("birthday")]
-        public DateTime? Birthday { get; set; }
-
-        /// <summary>The name the contact is filed under</summary>
-        [JsonPropertyName("fileAs")]
-        public string FileAs { get; set; }
-
-        /// <summary>The contact&apos;s display name</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The contact&apos;s given name</summary>
-        [JsonPropertyName("givenName")]
-        public string GivenName { get; set; }
-
-        /// <summary>The contact&apos;s initials</summary>
-        [JsonPropertyName("initials")]
-        public string Initials { get; set; }
-
-        /// <summary>The contact&apos;s middle name</summary>
-        [JsonPropertyName("middleName")]
-        public string MiddleName { get; set; }
-
-        /// <summary>The contact&apos;s nickname</summary>
-        [JsonPropertyName("nickName")]
-        public string Nickname { get; set; }
-
-        /// <summary>The contact&apos;s surname</summary>
-        [JsonPropertyName("surname")]
-        public string Surname { get; set; }
-
-        /// <summary>The contact&apos;s title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>The contact&apos;s generation</summary>
-        [JsonPropertyName("generation")]
-        public string Generation { get; set; }
-
-        /// <summary>The contact&apos;s email addresses</summary>
-        [JsonPropertyName("emailAddresses")]
-        public List<EmailAddress> EmailAddresses { get; set; }
-
-        /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
-        [JsonPropertyName("imAddresses")]
-        public List<string> IMAddresses { get; set; }
-
-        /// <summary>The contact&apos;s job title</summary>
-        [JsonPropertyName("jobTitle")]
-        public string JobTitle { get; set; }
-
-        /// <summary>The name of the contact&apos;s company</summary>
-        [JsonPropertyName("companyName")]
-        public string CompanyName { get; set; }
-
-        /// <summary>The contact&apos;s department</summary>
-        [JsonPropertyName("department")]
-        public string Department { get; set; }
-
-        /// <summary>The location of the contact&apos;s office</summary>
-        [JsonPropertyName("officeLocation")]
-        public string OfficeLocation { get; set; }
-
-        /// <summary>The contact&apos;s profession</summary>
-        [JsonPropertyName("profession")]
-        public string Profession { get; set; }
-
-        /// <summary>The business home page of the contact</summary>
-        [JsonPropertyName("businessHomePage")]
-        public string BusinessHomePage { get; set; }
-
-        /// <summary>The name of the contact&apos;s assistant</summary>
-        [JsonPropertyName("assistantName")]
-        public string AssistantName { get; set; }
-
-        /// <summary>The name of the contact&apos;s manager</summary>
-        [JsonPropertyName("manager")]
-        public string Manager { get; set; }
-
-        /// <summary>The contact&apos;s home phone numbers</summary>
-        [JsonPropertyName("homePhones")]
-        public List<string> HomePhones { get; set; }
-
-        /// <summary>The contact&apos;s business phone numbers</summary>
-        [JsonPropertyName("businessPhones")]
-        public List<string> BusinessPhones { get; set; }
-
-        /// <summary>The contact&apos;s mobile phone number</summary>
-        [JsonPropertyName("mobilePhone")]
-        public string MobilePhone { get; set; }
-
-        /// <summary>homeAddress</summary>
-        [JsonPropertyName("homeAddress")]
-        public PhysicalAddress HomeAddress { get; set; }
-
-        /// <summary>businessAddress</summary>
-        [JsonPropertyName("businessAddress")]
-        public PhysicalAddress BusinessAddress { get; set; }
-
-        /// <summary>otherAddress</summary>
-        [JsonPropertyName("otherAddress")]
-        public PhysicalAddress OtherAddress { get; set; }
-
-        /// <summary>The phonetic Japanese company name of the contact</summary>
-        [JsonPropertyName("yomiCompanyName")]
-        public string YomiCompanyName { get; set; }
-
-        /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
-        [JsonPropertyName("yomiGivenName")]
-        public string YomiGivenName { get; set; }
-
-        /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
-        [JsonPropertyName("yomiSurname")]
-        public string YomiSurname { get; set; }
-
-        /// <summary>The categories associated with the contact</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>Identifies the version of the event object</summary>
-        [JsonPropertyName("changeKey")]
-        public string ChangeKey { get; set; }
-
-        /// <summary>The time the contact was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
-
-        /// <summary>The time the contact was modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        return new GetMailTipsResponse
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Item in The contact&apos;s email addresses
+    /// Creates a new instance of <see cref="MailTipsClientReceiveV2"/>.
     /// </summary>
-    public class EmailAddressV2
+    public static MailTipsClientReceiveV2 MailTipsClientReceiveV2(
+        MailTipsAutomaticReplies automaticReplies = default,
+        bool? isDeliveryRestricted = default,
+        int? isModerated = default,
+        bool? isMailboxFull = default,
+        long? maximumMessageSize = default,
+        long? totalMemberCount = default)
     {
-        /// <summary>name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>address</summary>
-        [JsonPropertyName("address")]
-        public string Address { get; set; }
+        return new MailTipsClientReceiveV2
+        {
+            AutomaticReplies = automaticReplies,
+            IsDeliveryRestricted = isDeliveryRestricted,
+            IsModerated = isModerated,
+            IsMailboxFull = isMailboxFull,
+            MaximumMessageSize = maximumMessageSize,
+            TotalMemberCount = totalMemberCount,
+        };
     }
 
     /// <summary>
-    /// homeAddress
+    /// Creates a new instance of <see cref="MailTipsAutomaticReplies"/>.
     /// </summary>
-    public class PhysicalAddress
+    public static MailTipsAutomaticReplies MailTipsAutomaticReplies(
+        string automaticRepliesMessage = default)
     {
-        /// <summary>The contact&apos;s street address.</summary>
-        [JsonPropertyName("street")]
-        public string Street { get; set; }
-
-        /// <summary>The contact&apos;s city.</summary>
-        [JsonPropertyName("city")]
-        public string City { get; set; }
-
-        /// <summary>The contact&apos;s state.</summary>
-        [JsonPropertyName("state")]
-        public string State { get; set; }
-
-        /// <summary>The contact&apos;s country of region.</summary>
-        [JsonPropertyName("countryOrRegion")]
-        public string CountryOrRegion { get; set; }
-
-        /// <summary>The contact&apos;s postal code.</summary>
-        [JsonPropertyName("postalCode")]
-        public string PostalCode { get; set; }
+        return new MailTipsAutomaticReplies
+        {
+            AutomaticRepliesMessage = automaticRepliesMessage,
+        };
     }
 
     /// <summary>
-    /// Response for Get contacts (V2)
+    /// Creates a new instance of <see cref="GetRoomListsResponse"/>.
     /// </summary>
-    public class EntityListResponseContactResponse
+    public static GetRoomListsResponse GetRoomListsResponse(
+        List<object> value = default)
     {
-        /// <summary>List of values</summary>
-        [JsonPropertyName("value")]
-        public List<ContactResponse> Value { get; set; }
+        return new GetRoomListsResponse
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Item in List of values
+    /// Creates a new instance of <see cref="GetRoomsResponse"/>.
     /// </summary>
-    public class ContactResponseV2
+    public static GetRoomsResponse GetRoomsResponse(
+        List<object> value = default)
     {
-        /// <summary>The contact&apos;s unique identifier.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The ID of the contact&apos;s parent folder</summary>
-        [JsonPropertyName("parentFolderId")]
-        public string ParentFolderId { get; set; }
-
-        /// <summary>The contact&apos;s birthday</summary>
-        [JsonPropertyName("birthday")]
-        public DateTime? Birthday { get; set; }
-
-        /// <summary>The name the contact is filed under</summary>
-        [JsonPropertyName("fileAs")]
-        public string FileAs { get; set; }
-
-        /// <summary>The contact&apos;s display name</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The contact&apos;s given name</summary>
-        [JsonPropertyName("givenName")]
-        public string GivenName { get; set; }
-
-        /// <summary>The contact&apos;s initials</summary>
-        [JsonPropertyName("initials")]
-        public string Initials { get; set; }
-
-        /// <summary>The contact&apos;s middle name</summary>
-        [JsonPropertyName("middleName")]
-        public string MiddleName { get; set; }
-
-        /// <summary>The contact&apos;s nickname</summary>
-        [JsonPropertyName("nickName")]
-        public string Nickname { get; set; }
-
-        /// <summary>The contact&apos;s surname</summary>
-        [JsonPropertyName("surname")]
-        public string Surname { get; set; }
-
-        /// <summary>The contact&apos;s title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>The contact&apos;s generation</summary>
-        [JsonPropertyName("generation")]
-        public string Generation { get; set; }
-
-        /// <summary>The contact&apos;s email addresses</summary>
-        [JsonPropertyName("emailAddresses")]
-        public List<EmailAddress> EmailAddresses { get; set; }
-
-        /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
-        [JsonPropertyName("imAddresses")]
-        public List<string> IMAddresses { get; set; }
-
-        /// <summary>The contact&apos;s job title</summary>
-        [JsonPropertyName("jobTitle")]
-        public string JobTitle { get; set; }
-
-        /// <summary>The name of the contact&apos;s company</summary>
-        [JsonPropertyName("companyName")]
-        public string CompanyName { get; set; }
-
-        /// <summary>The contact&apos;s department</summary>
-        [JsonPropertyName("department")]
-        public string Department { get; set; }
-
-        /// <summary>The location of the contact&apos;s office</summary>
-        [JsonPropertyName("officeLocation")]
-        public string OfficeLocation { get; set; }
-
-        /// <summary>The contact&apos;s profession</summary>
-        [JsonPropertyName("profession")]
-        public string Profession { get; set; }
-
-        /// <summary>The business home page of the contact</summary>
-        [JsonPropertyName("businessHomePage")]
-        public string BusinessHomePage { get; set; }
-
-        /// <summary>The name of the contact&apos;s assistant</summary>
-        [JsonPropertyName("assistantName")]
-        public string AssistantName { get; set; }
-
-        /// <summary>The name of the contact&apos;s manager</summary>
-        [JsonPropertyName("manager")]
-        public string Manager { get; set; }
-
-        /// <summary>The contact&apos;s home phone numbers</summary>
-        [JsonPropertyName("homePhones")]
-        public List<string> HomePhones { get; set; }
-
-        /// <summary>The contact&apos;s business phone numbers</summary>
-        [JsonPropertyName("businessPhones")]
-        public List<string> BusinessPhones { get; set; }
-
-        /// <summary>The contact&apos;s mobile phone number</summary>
-        [JsonPropertyName("mobilePhone")]
-        public string MobilePhone { get; set; }
-
-        /// <summary>homeAddress</summary>
-        [JsonPropertyName("homeAddress")]
-        public PhysicalAddress HomeAddress { get; set; }
-
-        /// <summary>businessAddress</summary>
-        [JsonPropertyName("businessAddress")]
-        public PhysicalAddress BusinessAddress { get; set; }
-
-        /// <summary>otherAddress</summary>
-        [JsonPropertyName("otherAddress")]
-        public PhysicalAddress OtherAddress { get; set; }
-
-        /// <summary>The phonetic Japanese company name of the contact</summary>
-        [JsonPropertyName("yomiCompanyName")]
-        public string YomiCompanyName { get; set; }
-
-        /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
-        [JsonPropertyName("yomiGivenName")]
-        public string YomiGivenName { get; set; }
-
-        /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
-        [JsonPropertyName("yomiSurname")]
-        public string YomiSurname { get; set; }
-
-        /// <summary>The categories associated with the contact</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>Identifies the version of the event object</summary>
-        [JsonPropertyName("changeKey")]
-        public string ChangeKey { get; set; }
-
-        /// <summary>The time the contact was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
-
-        /// <summary>The time the contact was modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        return new GetRoomsResponse
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Response for Get contact folders (V2)
+    /// Creates a new instance of <see cref="GetRoomsInRoomListResponse"/>.
     /// </summary>
-    public class EntityListResponseGraphContactFolder
+    public static GetRoomsInRoomListResponse GetRoomsInRoomListResponse(
+        List<object> value = default)
     {
-        /// <summary>List of values</summary>
-        [JsonPropertyName("value")]
-        public List<GraphContactFolder> Value { get; set; }
+        return new GetRoomsInRoomListResponse
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Item in List of values
+    /// Creates a new instance of <see cref="MarkAsReadInput"/>.
     /// </summary>
-    public class GraphContactFolder
+    public static MarkAsReadInput MarkAsReadInput(
+        bool? markAs = default)
     {
-        /// <summary>The ID of the contacts folder</summary>
-        [JsonPropertyName("id")]
-        public string ID { get; set; }
-
-        /// <summary>The name of the contacts folder</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The ID of the parent folder</summary>
-        [JsonPropertyName("parentFolderId")]
-        public string ParentFolderID { get; set; }
+        return new MarkAsReadInput
+        {
+            MarkAs = markAs,
+        };
     }
 
     /// <summary>
-    /// Find meeting times (V2)
+    /// Creates a new instance of <see cref="TriggerBatchResponseGraphClientReceiveMessage"/>.
     /// </summary>
-    public class FindMeetingTimesInput
+    public static TriggerBatchResponseGraphClientReceiveMessage TriggerBatchResponseGraphClientReceiveMessage(
+        List<GraphClientReceiveMessage> value = default)
     {
-        /// <summary>List of semicolon separated email addresses</summary>
-        public string RequiredAttendees { get; set; }
-
-        /// <summary>List of semicolon separated email addresses</summary>
-        public string OptionalAttendees { get; set; }
-
-        /// <summary>Resource attendees for the event separated by semicolons</summary>
-        public string ResourceAttendees { get; set; }
-
-        /// <summary>Duration of the meeting in minutes</summary>
-        public int? MeetingDuration { get; set; }
-
-        /// <summary>Start time for meeting time suggestions</summary>
-        [JsonPropertyName("Start")]
-        public DateTime? StartTime { get; set; }
-
-        /// <summary>End time for meeting time suggestions</summary>
-        [JsonPropertyName("End")]
-        public DateTime? EndTime { get; set; }
-
-        /// <summary>The maximum number of meeting suggestions to return in the response</summary>
-        public int? MaxCandidates { get; set; }
-
-        /// <summary>The minimum required confidence for a time slot to be returned in the response</summary>
-        public string MinimumAttendeePercentage { get; set; }
-
-        /// <summary>true if the organizer doesn&apos;t have to attend. The default is false</summary>
-        public bool? IsOrganizerOptional { get; set; }
-
-        /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
-        public ActivityDomain? ActivityDomain { get; set; }
+        return new TriggerBatchResponseGraphClientReceiveMessage
+        {
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Response for Find meeting times (V2)
+    /// Creates a new instance of <see cref="SetAutomaticRepliesSettingInput"/>.
     /// </summary>
-    public class FindMeetingTimesResponse
+    public static SetAutomaticRepliesSettingInput SetAutomaticRepliesSettingInput(
+        AutomaticRepliesSettingClient automaticRepliesSetting = default)
     {
-        /// <summary>Empty Suggestions Reason</summary>
-        [JsonPropertyName("emptySuggestionsReason")]
-        public string EmptySuggestionsReason { get; set; }
-
-        /// <summary>meetingTimeSuggestions</summary>
-        [JsonPropertyName("meetingTimeSuggestions")]
-        public List<object> MeetingTimeSuggestions { get; set; }
+        return new SetAutomaticRepliesSettingInput
+        {
+            AutomaticRepliesSetting = automaticRepliesSetting,
+        };
     }
 
     /// <summary>
-    /// Response for Get Attachment (V2)
+    /// Creates a new instance of <see cref="AutomaticRepliesSettingClient"/>.
     /// </summary>
-    public class GetAttachmentResponse
+    public static AutomaticRepliesSettingClient AutomaticRepliesSettingClient(
+        Status? status = default,
+        ExternalAudience? externalAudience = default,
+        object startTime = default,
+        object endTime = default,
+        string internalReplyMessage = default,
+        string externalReplyMessage = default)
     {
-        /// <summary>Id of the attachment.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>Name of attachment.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Content type of attachment.</summary>
-        [JsonPropertyName("contentType")]
-        public string ContentType { get; set; }
-
-        /// <summary>Size of attachment.</summary>
-        [JsonPropertyName("size")]
-        public int? Size { get; set; }
-
-        /// <summary>Content of attachment.</summary>
-        [JsonPropertyName("contentBytes")]
-        public string ContentBytes { get; set; }
-
-        /// <summary>Set to true if this is an inline attachment.</summary>
-        [JsonPropertyName("isInline")]
-        public bool? IsInline { get; set; }
-
-        /// <summary>The date and time when the attachment was last modified.</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedDateTime { get; internal set; }
-
-        /// <summary>Content Id</summary>
-        [JsonPropertyName("contentId")]
-        public string ContentId { get; set; }
-
-        /// <summary>sensitivityLabelInfo</summary>
-        [JsonPropertyName("sensitivityLabelInfo")]
-        public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+        return new AutomaticRepliesSettingClient
+        {
+            Status = status,
+            ExternalAudience = externalAudience,
+            StartTime = startTime,
+            EndTime = endTime,
+            InternalReplyMessage = internalReplyMessage,
+            ExternalReplyMessage = externalReplyMessage,
+        };
     }
 
     /// <summary>
-    /// Item in sensitivityLabelInfo
+    /// Creates a new instance of <see cref="SetAutomaticRepliesSettingResponse"/>.
     /// </summary>
-    public class SensitivityLabelMetadata
+    public static SetAutomaticRepliesSettingResponse SetAutomaticRepliesSettingResponse(
+        AutomaticRepliesSettingClient automaticRepliesSetting = default)
     {
-        /// <summary>SensitivityLabel Id.</summary>
-        [JsonPropertyName("sensitivityLabelId")]
-        public string SensitivityLabelId { get; set; }
-
-        /// <summary>SensitivityLabel name.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>SensitivityLabel displayName info</summary>
-        [JsonPropertyName("displayName")]
-        public string SensitivityLabelDisplayNameInfo { get; set; }
-
-        /// <summary>SensitivityLabel details on tooltip.</summary>
-        [JsonPropertyName("tooltip")]
-        public string TooltipInfo { get; set; }
-
-        /// <summary>SensitivityLabel priority.</summary>
-        [JsonPropertyName("priority")]
-        public int? PriorityOfSensitivityLabel { get; set; }
-
-        /// <summary>SensitivityLabel color.</summary>
-        [JsonPropertyName("color")]
-        public string ColorToBeDisplayedForSensitivityLabel { get; set; }
-
-        /// <summary> is SensitivityLabel Encrypted.</summary>
-        [JsonPropertyName("isEncrypted")]
-        public bool? IsEncryptedStatusOfSensitivityLabel { get; set; }
-
-        /// <summary>Whether SensitivityLabel is Enabled.</summary>
-        [JsonPropertyName("isEnabled")]
-        public bool? WhetherSensitivityLabelIsEnabled { get; set; }
-
-        /// <summary>Whether SensitivityLabel is Parent.</summary>
-        [JsonPropertyName("isParent")]
-        public bool? WhetherSensitivityLabelIsParent { get; set; }
+        return new SetAutomaticRepliesSettingResponse
+        {
+            AutomaticRepliesSetting = automaticRepliesSetting,
+        };
+    }
 
-        /// <summary>Parent SensitivityLabel Id.</summary>
-        [JsonPropertyName("parentSensitivityLabelId")]
-        public string ParentSensitivityLabelId { get; set; }
+    /// <summary>
+    /// Creates a new instance of <see cref="ClientSendAttachment"/>.
+    /// </summary>
+    public static ClientSendAttachment ClientSendAttachment(
+        string name = default,
+        string content = default)
+    {
+        return new ClientSendAttachment
+        {
+            Name = name,
+            Content = content,
+        };
     }
 
     /// <summary>
-    /// Response for Get email (V2)
+    /// Creates a new instance of <see cref="SendEmailInput"/>.
     /// </summary>
-    public class GraphClientReceiveMessage
+    public static SendEmailInput SendEmailInput(
+        string to = default,
+        string subject = default,
+        string body = default,
+        string fromSendAs = default,
+        string cc = default,
+        string bcc = default,
+        List<ClientSendAttachment> attachments = default,
+        string sensitivity = default,
+        string replyTo = default,
+        string importance = default)
     {
-        /// <summary>The mailbox owner and sender of the message</summary>
-        [JsonPropertyName("from")]
-        public string From { get; set; }
+        return new SendEmailInput
+        {
+            To = to,
+            Subject = subject,
+            Body = body,
+            FromSendAs = fromSendAs,
+            CC = cc,
+            BCC = bcc,
+            Attachments = attachments,
+            Sensitivity = sensitivity,
+            ReplyTo = replyTo,
+            Importance = importance,
+        };
+    }
 
-        /// <summary>The recipients for the message</summary>
-        [JsonPropertyName("toRecipients")]
-        public string To { get; set; }
-
-        /// <summary>The Cc recipients for the message</summary>
-        [JsonPropertyName("ccRecipients")]
-        public string CC { get; set; }
-
-        /// <summary>The Bcc recipients for the message</summary>
-        [JsonPropertyName("bccRecipients")]
-        public string BCC { get; set; }
-
-        /// <summary>The email addresses to use when replying</summary>
-        [JsonPropertyName("replyTo")]
-        public string ReplyTo { get; set; }
-
-        /// <summary>The subject of the message</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>The body of the message</summary>
-        [JsonPropertyName("body")]
-        public string Body { get; set; }
-
-        /// <summary>The importance of the message (low, normal, high)</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>The preview of the message</summary>
-        [JsonPropertyName("bodyPreview")]
-        public string BodyPreview { get; set; }
-
-        /// <summary>Indicates whether the message has attachments</summary>
-        [JsonPropertyName("hasAttachments")]
-        public bool? HasAttachment { get; set; }
-
-        /// <summary>The unique identifier of the message</summary>
-        [JsonPropertyName("id")]
-        public string MessageId { get; set; }
-
-        /// <summary>The message ID in the format specified by RFC2822</summary>
-        [JsonPropertyName("internetMessageId")]
-        public string InternetMessageId { get; set; }
-
-        /// <summary>The Id of the conversation the email belongs to</summary>
-        [JsonPropertyName("conversationId")]
-        public string ConversationId { get; set; }
-
-        /// <summary>The date and time the message was received</summary>
-        [JsonPropertyName("receivedDateTime")]
-        public DateTime? ReceivedTime { get; set; }
-
-        /// <summary>Indicates whether the message has been read</summary>
-        [JsonPropertyName("isRead")]
-        public bool? IsRead { get; set; }
-
-        /// <summary>The file attachments for the message</summary>
-        [JsonPropertyName("attachments")]
-        public List<GraphClientReceiveFileAttachment> Attachments { get; set; }
-
-        /// <summary>Is Html?</summary>
-        [JsonPropertyName("isHtml")]
-        public bool? IsHTML { get; set; }
-
-        /// <summary>sensitivityLabelInfo</summary>
-        [JsonPropertyName("sensitivityLabelInfo")]
-        public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The file attachments for the message
-    /// </summary>
-    public class GraphClientReceiveFileAttachment
-    {
-        /// <summary>Attachment Id</summary>
-        [JsonPropertyName("id")]
-        public string AttachmentId { get; set; }
-
-        /// <summary>Attachment name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Attachment content</summary>
-        [JsonPropertyName("contentBytes")]
-        public string Content { get; set; }
-
-        /// <summary>Attachment content type</summary>
-        [JsonPropertyName("contentType")]
-        public string ContentType { get; set; }
-
-        /// <summary>The size in bytes of the attachment</summary>
-        [JsonPropertyName("size")]
-        public long? Size { get; set; }
-
-        /// <summary>Set to true if this is an inline attachment</summary>
-        [JsonPropertyName("isInline")]
-        public bool? IsInline { get; set; }
-
-        /// <summary>The date and time when the attachment was last modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedDateTime { get; internal set; }
-
-        /// <summary>Content Id</summary>
-        [JsonPropertyName("contentId")]
-        public string ContentId { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get emails (V3)
-    /// </summary>
-    public class BatchResponseGraphClientReceiveMessage
-    {
-        /// <summary>A list of the response objects</summary>
-        [JsonPropertyName("value")]
-        [JsonInclude]
-        public List<GraphClientReceiveMessage> Value { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for Get calendar view of events (V3)
-    /// </summary>
-    public class EntityListResponseGraphCalendarEventClientReceive
-    {
-        /// <summary>List of values</summary>
-        [JsonPropertyName("value")]
-        public List<GraphCalendarEventClientReceive> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Get mail tips for a mailbox (V2)
-    /// </summary>
-    public class GetMailTipsInput
-    {
-        /// <summary>Flags that represents the mailtips.</summary>
-        [JsonPropertyName("MailTipsOptions")]
-        public string FlagsThatRepresentsTheMailtips { get; set; }
-
-        /// <summary>Address of the mailbox to get mail tips for.</summary>
-        public List<string> EmailAddresses { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get mail tips for a mailbox (V2)
-    /// </summary>
-    public class GetMailTipsResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<MailTipsClientReceive> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in value
-    /// </summary>
-    public class MailTipsClientReceiveV2
-    {
-        /// <summary>automaticReplies</summary>
-        [JsonPropertyName("automaticReplies")]
-        public MailTipsAutomaticReplies AutomaticReplies { get; set; }
-
-        /// <summary>Is delivery restricted</summary>
-        [JsonPropertyName("deliveryRestricted")]
-        public bool? IsDeliveryRestricted { get; set; }
-
-        /// <summary>Number of external members</summary>
-        [JsonPropertyName("externalMemberCount")]
-        public int? IsModerated { get; set; }
-
-        /// <summary>Is mailbox full</summary>
-        [JsonPropertyName("mailboxFull")]
-        public bool? IsMailboxFull { get; set; }
-
-        /// <summary>Maximum message size</summary>
-        [JsonPropertyName("maxMessageSize")]
-        public long? MaximumMessageSize { get; set; }
-
-        /// <summary>Total member count</summary>
-        [JsonPropertyName("totalMemberCount")]
-        public long? TotalMemberCount { get; set; }
-    }
-
-    /// <summary>
-    /// automaticReplies
-    /// </summary>
-    public class MailTipsAutomaticReplies
-    {
-        /// <summary>Automatic replies message</summary>
-        [JsonPropertyName("message")]
-        public string AutomaticRepliesMessage { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get room lists (V2)
-    /// </summary>
-    public class GetRoomListsResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get rooms (V2)
-    /// </summary>
-    public class GetRoomsResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get rooms in room list (V2)
-    /// </summary>
-    public class GetRoomsInRoomListResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Mark as read or unread (V3)
-    /// </summary>
-    public class MarkAsReadInput
-    {
-        /// <summary>Mark as read/unread.</summary>
-        [JsonPropertyName("isRead")]
-        public bool? MarkAs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for When an email is flagged (V4)
-    /// </summary>
-    public class TriggerBatchResponseGraphClientReceiveMessage
-    {
-        /// <summary>A list of the response objects</summary>
-        [JsonPropertyName("value")]
-        public List<GraphClientReceiveMessage> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Set up automatic replies (V2)
-    /// </summary>
-    public class SetAutomaticRepliesSettingInput
-    {
-        /// <summary>automaticRepliesSetting</summary>
-        [JsonPropertyName("automaticRepliesSetting")]
-        public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
-    }
-
-    /// <summary>
-    /// automaticRepliesSetting
-    /// </summary>
-    public class AutomaticRepliesSettingClient
-    {
-        /// <summary>Automatic reply setting status</summary>
-        [JsonPropertyName("status")]
-        public Status? Status { get; set; }
-
-        /// <summary>The audience that will see the external reply message</summary>
-        [JsonPropertyName("externalAudience")]
-        public ExternalAudience? ExternalAudience { get; set; }
-
-        /// <summary>Scheduled start time (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("scheduledStartDateTime")]
-        public object StartTime { get; set; }
-
-        /// <summary>Scheduled end time (example: &apos;2017-08-29T05:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("scheduledEndDateTime")]
-        public object EndTime { get; set; }
-
-        /// <summary>Message for people within your organization</summary>
-        [JsonPropertyName("internalReplyMessage")]
-        public string InternalReplyMessage { get; set; }
-
-        /// <summary>Message for people outside your organization</summary>
-        [JsonPropertyName("externalReplyMessage")]
-        public string ExternalReplyMessage { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Set up automatic replies (V2)
-    /// </summary>
-    public class SetAutomaticRepliesSettingResponse
-    {
-        /// <summary>automaticRepliesSetting</summary>
-        [JsonPropertyName("automaticRepliesSetting")]
-        public AutomaticRepliesSettingClient AutomaticRepliesSetting { get; set; }
-    }
-
-    /// <summary>
-    /// ClientSendAttachment
-    /// </summary>
-    public class ClientSendAttachment
-    {
-        /// <summary>Attachment name</summary>
-        public string Name { get; set; }
-
-        /// <summary>Attachment content</summary>
-        [JsonPropertyName("ContentBytes")]
-        public string Content { get; set; }
-    }
-
-    /// <summary>
-    /// ClientSendHtmlMessage
-    /// </summary>
-    public class SendEmailInput
-    {
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        public string To { get; set; }
-
-        /// <summary>Specify the subject of the mail</summary>
-        public string Subject { get; set; }
-
-        /// <summary>Specify the body of the mail</summary>
-        public string Body { get; set; }
-
-        /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
-        [JsonPropertyName("From")]
-        public string FromSendAs { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        [JsonPropertyName("Cc")]
-        public string CC { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
-
-        /// <summary>Attachments</summary>
-        public List<ClientSendAttachment> Attachments { get; set; }
-
-        /// <summary>Sensitivity</summary>
-        public string Sensitivity { get; set; }
-
-        /// <summary>The email addresses to use when replying</summary>
-        public string ReplyTo { get; set; }
-
-        /// <summary>Importance</summary>
-        public string Importance { get; set; }
-    }
-
-    /// <summary>
-    /// ClientDraftHtmlMessage
-    /// </summary>
-    public class DraftEmailInput
-    {
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        public string To { get; set; }
-
-        /// <summary>Specify the subject of the mail</summary>
-        public string Subject { get; set; }
-
-        /// <summary>Specify the body of the mail</summary>
-        public string Body { get; set; }
-
-        /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
-        [JsonPropertyName("From")]
-        public string FromSendAs { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        [JsonPropertyName("Cc")]
-        public string CC { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
-
-        /// <summary>Attachments</summary>
-        public List<ClientSendAttachment> Attachments { get; set; }
-
-        /// <summary>Sensitivity</summary>
-        public string Sensitivity { get; set; }
-
-        /// <summary>The email addresses to use when replying</summary>
-        public string ReplyTo { get; set; }
-
-        /// <summary>Importance</summary>
-        public string Importance { get; set; }
-    }
-
-    /// <summary>
-    /// ReplyHtmlMessage
-    /// </summary>
-    public class ReplyEmailInput
-    {
-        /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
-        public string To { get; set; }
-
-        /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
-        [JsonPropertyName("Cc")]
-        public string CC { get; set; }
-
-        /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
-        [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
-
-        /// <summary>Email subject (if empty, the original subject used).</summary>
-        public string Subject { get; set; }
-
-        /// <summary>Content of the email.</summary>
-        public string Body { get; set; }
-
-        /// <summary>True to reply to all recipients. (default: False)</summary>
-        public bool? ReplyAll { get; set; }
-
-        /// <summary>Pick an importance. (default: Low)</summary>
-        public string Importance { get; set; }
-
-        /// <summary>Details of attachments to be sent along with the reply.</summary>
-        public List<ClientSendAttachment> Attachments { get; set; }
-    }
-
-    /// <summary>
-    /// OptionsEmailSubscription
-    /// </summary>
-    public class OptionsEmailSubscription
-    {
-        /// <summary>Gets or sets callback url to flow engine. It is expected as part of request</summary>
-        public string NotificationUrl { get; set; }
-
-        /// <summary>Message</summary>
-        public MessageWithOptions Message { get; set; }
-    }
-
-    /// <summary>
-    /// Message
-    /// </summary>
-    public class MessageWithOptions
-    {
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        public string To { get; set; }
-
-        /// <summary>Subject of the email</summary>
-        public string Subject { get; set; }
-
-        /// <summary>List of comma separated options for the email response</summary>
-        [JsonPropertyName("Options")]
-        public string UserOptions { get; set; }
-
-        /// <summary>Header text for email body</summary>
-        public string HeaderText { get; set; }
-
-        /// <summary>Header text for users options selection</summary>
-        public string SelectionText { get; set; }
-
-        /// <summary>Body of the email</summary>
-        public string Body { get; set; }
-
-        /// <summary>Importance</summary>
-        public string Importance { get; set; }
-
-        /// <summary>Attachments</summary>
-        public List<ClientSendAttachment> Attachments { get; set; }
-
-        /// <summary>Use only HTML message</summary>
-        public bool? UseOnlyHTMLMessage { get; set; }
-
-        /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
-        public bool? HideHTMLMessage { get; set; }
-
-        /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
-        public bool? ShowHTMLConfirmationDialog { get; set; }
-
-        /// <summary>If set to Yes, then the Microsoft footer is hidden in the email body.</summary>
-        public bool? HideMicrosoftFooter { get; set; }
-    }
-
-    /// <summary>
-    /// ApprovalEmailSubscription
-    /// </summary>
-    public class ApprovalEmailSubscription
-    {
-        /// <summary>Gets or sets callback url to flow engine. It is expected as part of request</summary>
-        public string NotificationUrl { get; set; }
-
-        /// <summary>Message</summary>
-        public ApprovalMessage Message { get; set; }
-    }
-
-    /// <summary>
-    /// Message
-    /// </summary>
-    public class ApprovalMessage
-    {
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        public string To { get; set; }
-
-        /// <summary>Subject</summary>
-        public string Subject { get; set; }
-
-        /// <summary>User Options</summary>
-        [JsonPropertyName("Options")]
-        public string UserOptions { get; set; }
-
-        /// <summary>Header text for email body</summary>
-        public string HeaderText { get; set; }
-
-        /// <summary>Header text for users options selection</summary>
-        public string SelectionText { get; set; }
-
-        /// <summary>Body</summary>
-        public string Body { get; set; }
-
-        /// <summary>Importance</summary>
-        public string Importance { get; set; }
-
-        /// <summary>Attachments</summary>
-        public List<ClientSendAttachment> Attachments { get; set; }
-
-        /// <summary>Use only HTML message</summary>
-        public bool? UseOnlyHTMLMessage { get; set; }
-
-        /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
-        public bool? HideHTMLMessage { get; set; }
-
-        /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
-        public bool? ShowHTMLConfirmationDialog { get; set; }
-    }
-
-    /// <summary>
-    /// SharedMailboxClientSendHtmlMessage
-    /// </summary>
-    public class SharedMailboxSendEmailInput
-    {
-        /// <summary>Specify email address of a shared mailbox like someone@contoso.com</summary>
-        [JsonPropertyName("MailboxAddress")]
-        public string OriginalMailboxAddress { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        public string To { get; set; }
-
-        /// <summary>Specify the subject of the mail</summary>
-        public string Subject { get; set; }
-
-        /// <summary>Specify the body of the mail</summary>
-        public string Body { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        [JsonPropertyName("Cc")]
-        public string CC { get; set; }
-
-        /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
-        [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
-
-        /// <summary>Attachments</summary>
-        public List<ClientSendAttachment> Attachments { get; set; }
-
-        /// <summary>Sensitivity</summary>
-        public string Sensitivity { get; set; }
-
-        /// <summary>The email addresses to use when replying</summary>
-        public string ReplyTo { get; set; }
-
-        /// <summary>Importance</summary>
-        public string Importance { get; set; }
-    }
-
-    /// <summary>
-    /// GraphCalendarEventClient
-    /// </summary>
-    public class GraphCalendarEventClient
-    {
-        /// <summary>Event subject</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>Start time of the event (example: &apos;2017-08-29T04:00:00&apos;)</summary>
-        [JsonPropertyName("start")]
-        public string StartTime { get; set; }
-
-        /// <summary>End time of the event (example: &apos;2017-08-29T05:00:00&apos;)</summary>
-        [JsonPropertyName("end")]
-        public string EndTime { get; set; }
-
-        /// <summary>Time zone of the event</summary>
-        [JsonPropertyName("timeZone")]
-        public Office365TimeZone? TimeZone { get; set; }
-
-        /// <summary>Required attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("requiredAttendees")]
-        public string RequiredAttendees { get; set; }
-
-        /// <summary>Optional attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("optionalAttendees")]
-        public string OptionalAttendees { get; set; }
-
-        /// <summary>Resource attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("resourceAttendees")]
-        public string ResourceAttendees { get; set; }
-
-        /// <summary>Body of the message associated with the event</summary>
-        [JsonPropertyName("body")]
-        public string Body { get; set; }
-
-        /// <summary>The categories associated with the event</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>Location of the event</summary>
-        [JsonPropertyName("location")]
-        public string Location { get; set; }
-
-        /// <summary>The importance of the event: low, normal, or high</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>Set to true if the event lasts all day</summary>
-        [JsonPropertyName("isAllDay")]
-        public bool? IsAllDayEvent { get; set; }
-
-        /// <summary>The recurrence pattern for the event: none, daily, weekly, monthly or yearly</summary>
-        [JsonPropertyName("recurrence")]
-        public Recurrence? Recurrence { get; set; }
-
-        /// <summary>Days of week for weekly recurrence</summary>
-        [JsonPropertyName("selectedDaysOfWeek")]
-        public List<string> SelectedDaysOfWeek { get; set; }
-
-        /// <summary>End Date of the recurrence</summary>
-        [JsonPropertyName("recurrenceEnd")]
-        public DateTime? RecurrenceEndDate { get; set; }
-
-        /// <summary>How many times to repeat the event</summary>
-        [JsonPropertyName("numberOfOccurences")]
-        public int? NumberOfOccurrences { get; set; }
-
-        /// <summary>Time in minutes before event start to remind</summary>
-        [JsonPropertyName("reminderMinutesBeforeStart")]
-        public int? Reminder { get; set; }
-
-        /// <summary>Set to true if an alert is set to remind the user of the event.</summary>
-        [JsonPropertyName("isReminderOn")]
-        public bool? IsReminderOn { get; set; }
-
-        /// <summary>Status to show during the event: free, tentative, busy, oof, workingElsewhere or unknown</summary>
-        [JsonPropertyName("showAs")]
-        public ShowAs? ShowAs { get; set; }
-
-        /// <summary>Set to true if the sender would like a response when the event is accepted or declined</summary>
-        [JsonPropertyName("responseRequested")]
-        public bool? ResponseRequested { get; set; }
-
-        /// <summary>The possible values are: normal, personal, private, confidential</summary>
-        [JsonPropertyName("sensitivity")]
-        public Sensitivity? Sensitivity { get; set; }
-    }
-
-    /// <summary>
-    /// MailTipsClientReceive_V2
-    /// </summary>
-    public class MailTipsClientReceive
-    {
-        /// <summary>automaticReplies</summary>
-        [JsonPropertyName("automaticReplies")]
-        public MailTipsAutomaticReplies AutomaticReplies { get; set; }
-
-        /// <summary>Is delivery restricted</summary>
-        [JsonPropertyName("deliveryRestricted")]
-        public bool? IsDeliveryRestricted { get; set; }
-
-        /// <summary>Number of external members</summary>
-        [JsonPropertyName("externalMemberCount")]
-        public int? IsModerated { get; set; }
-
-        /// <summary>Is mailbox full</summary>
-        [JsonPropertyName("mailboxFull")]
-        public bool? IsMailboxFull { get; set; }
-
-        /// <summary>Maximum message size</summary>
-        [JsonPropertyName("maxMessageSize")]
-        public long? MaximumMessageSize { get; set; }
-
-        /// <summary>Total member count</summary>
-        [JsonPropertyName("totalMemberCount")]
-        public long? TotalMemberCount { get; set; }
-    }
-
-    /// <summary>
-    /// UpdateEmailFlag
-    /// </summary>
-    public class UpdateEmailFlag
-    {
-        /// <summary>Flag status</summary>
-        [JsonPropertyName("flag")]
-        public object Flag { get; set; }
-    }
-
-    /// <summary>
-    /// ResponseToEventInvite
-    /// </summary>
-    public class ResponseToEventInvite
-    {
-        /// <summary>Comment</summary>
-        public string Comment { get; set; }
-
-        /// <summary>Send response to organizer?</summary>
-        public bool? SendResponse { get; set; }
-    }
-
-    /// <summary>
-    /// DirectForwardMessage
-    /// </summary>
-    public class DirectForwardMessage
-    {
-        /// <summary>Comment</summary>
-        public string Comment { get; set; }
-
-        /// <summary>Semicolon separated list of recipients to forward the message to</summary>
-        [JsonPropertyName("ToRecipients")]
-        public string To { get; set; }
-    }
-
-    /// <summary>
-    /// DateTimeTimeZone_V2
-    /// </summary>
-    public class DateTimeTimeZone
-    {
-        /// <summary>DateTime (example: &apos;2017-08-29T04:00:00.0000000&apos;)</summary>
-        [JsonPropertyName("dateTime")]
-        public string DateTime { get; set; }
-
-        /// <summary>TimeZone (example: &apos;Pacific Standard Time&apos;)</summary>
-        [JsonPropertyName("timeZone")]
-        public string TimeZone { get; set; }
-    }
-
-    /// <summary>
-    /// Contact_V2
-    /// </summary>
-    public class Contact
-    {
-        /// <summary>The contact&apos;s unique identifier.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The ID of the contact&apos;s parent folder</summary>
-        [JsonPropertyName("parentFolderId")]
-        public string ParentFolderId { get; set; }
-
-        /// <summary>The contact&apos;s birthday</summary>
-        [JsonPropertyName("birthday")]
-        public DateTime? Birthday { get; set; }
-
-        /// <summary>The name the contact is filed under</summary>
-        [JsonPropertyName("fileAs")]
-        public string FileAs { get; set; }
-
-        /// <summary>The contact&apos;s display name</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The contact&apos;s given name</summary>
-        [JsonPropertyName("givenName")]
-        public string GivenName { get; set; }
-
-        /// <summary>The contact&apos;s initials</summary>
-        [JsonPropertyName("initials")]
-        public string Initials { get; set; }
-
-        /// <summary>The contact&apos;s middle name</summary>
-        [JsonPropertyName("middleName")]
-        public string MiddleName { get; set; }
-
-        /// <summary>The contact&apos;s nickname</summary>
-        [JsonPropertyName("nickName")]
-        public string Nickname { get; set; }
-
-        /// <summary>The contact&apos;s surname</summary>
-        [JsonPropertyName("surname")]
-        public string Surname { get; set; }
-
-        /// <summary>The contact&apos;s title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>The contact&apos;s generation</summary>
-        [JsonPropertyName("generation")]
-        public string Generation { get; set; }
-
-        /// <summary>The contact&apos;s email addresses</summary>
-        [JsonPropertyName("emailAddresses")]
-        public List<EmailAddress> EmailAddresses { get; set; }
-
-        /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
-        [JsonPropertyName("imAddresses")]
-        public List<string> IMAddresses { get; set; }
-
-        /// <summary>The contact&apos;s job title</summary>
-        [JsonPropertyName("jobTitle")]
-        public string JobTitle { get; set; }
-
-        /// <summary>The name of the contact&apos;s company</summary>
-        [JsonPropertyName("companyName")]
-        public string CompanyName { get; set; }
-
-        /// <summary>The contact&apos;s department</summary>
-        [JsonPropertyName("department")]
-        public string Department { get; set; }
-
-        /// <summary>The location of the contact&apos;s office</summary>
-        [JsonPropertyName("officeLocation")]
-        public string OfficeLocation { get; set; }
-
-        /// <summary>The contact&apos;s profession</summary>
-        [JsonPropertyName("profession")]
-        public string Profession { get; set; }
-
-        /// <summary>The business home page of the contact</summary>
-        [JsonPropertyName("businessHomePage")]
-        public string BusinessHomePage { get; set; }
-
-        /// <summary>The name of the contact&apos;s assistant</summary>
-        [JsonPropertyName("assistantName")]
-        public string AssistantName { get; set; }
-
-        /// <summary>The name of the contact&apos;s manager</summary>
-        [JsonPropertyName("manager")]
-        public string Manager { get; set; }
-
-        /// <summary>The contact&apos;s home phone numbers</summary>
-        [JsonPropertyName("homePhones")]
-        public List<string> HomePhones { get; set; }
-
-        /// <summary>The contact&apos;s business phone numbers</summary>
-        [JsonPropertyName("businessPhones")]
-        public List<string> BusinessPhones { get; set; }
-
-        /// <summary>The contact&apos;s mobile phone number</summary>
-        [JsonPropertyName("mobilePhone")]
-        public string MobilePhone { get; set; }
-
-        /// <summary>homeAddress</summary>
-        [JsonPropertyName("homeAddress")]
-        public PhysicalAddress HomeAddress { get; set; }
-
-        /// <summary>businessAddress</summary>
-        [JsonPropertyName("businessAddress")]
-        public PhysicalAddress BusinessAddress { get; set; }
-
-        /// <summary>otherAddress</summary>
-        [JsonPropertyName("otherAddress")]
-        public PhysicalAddress OtherAddress { get; set; }
-
-        /// <summary>The phonetic Japanese company name of the contact</summary>
-        [JsonPropertyName("yomiCompanyName")]
-        public string YomiCompanyName { get; set; }
-
-        /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
-        [JsonPropertyName("yomiGivenName")]
-        public string YomiGivenName { get; set; }
-
-        /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
-        [JsonPropertyName("yomiSurname")]
-        public string YomiSurname { get; set; }
-
-        /// <summary>The categories associated with the contact</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>Identifies the version of the event object</summary>
-        [JsonPropertyName("changeKey")]
-        public string ChangeKey { get; set; }
-
-        /// <summary>The time the contact was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
-
-        /// <summary>The time the contact was modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
-    }
-
-    /// <summary>
-    /// MCPQueryRequest
-    /// </summary>
-    public class MCPQueryRequest
-    {
-        /// <summary>jsonrpc</summary>
-        [JsonPropertyName("jsonrpc")]
-        public string Jsonrpc { get; set; }
-
-        /// <summary>id</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>method</summary>
-        [JsonPropertyName("method")]
-        public string Method { get; set; }
-
-        /// <summary>params</summary>
-        [JsonPropertyName("params")]
-        public object Params { get; set; }
-
-        /// <summary>result</summary>
-        [JsonPropertyName("result")]
-        public object Result { get; set; }
-
-        /// <summary>error</summary>
-        [JsonPropertyName("error")]
-        public object Error { get; set; }
-
-        /// <summary>callbackEndpoint</summary>
-        [JsonPropertyName("callbackEndpoint")]
-        public string CallbackEndpoint { get; set; }
-    }
-
-    /// <summary>
-    /// Extensible enum for known ActionType values.
-    /// </summary>
-    [JsonConverter(typeof(ActionType.ActionTypeJsonConverter))]
-    public readonly struct ActionType : IEquatable<ActionType>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActionType"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ActionType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>added</summary>
-        public static ActionType Added { get; } = new("added");
-
-        /// <summary>updated</summary>
-        public static ActionType Updated { get; } = new("updated");
-
-        /// <summary>deleted</summary>
-        public static ActionType Deleted { get; } = new("deleted");
-
-        /// <summary>Converts a string to <see cref="ActionType"/>.</summary>
-        public static implicit operator ActionType(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ActionType"/> to its string representation.</summary>
-        public static implicit operator string(ActionType value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ActionType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ActionType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ActionType left, ActionType right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ActionType left, ActionType right) => !left.Equals(right);
-
-        internal sealed class ActionTypeJsonConverter : JsonConverter<ActionType>
-        {
-            public ActionTypeJsonConverter() { }
-            public override ActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActionType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known ActivityDomain values.
-    /// </summary>
-    [JsonConverter(typeof(ActivityDomain.ActivityDomainJsonConverter))]
-    public readonly struct ActivityDomain : IEquatable<ActivityDomain>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActivityDomain"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ActivityDomain(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>Work</summary>
-        public static ActivityDomain Work { get; } = new("Work");
-
-        /// <summary>Personal</summary>
-        public static ActivityDomain Personal { get; } = new("Personal");
-
-        /// <summary>Unrestricted</summary>
-        public static ActivityDomain Unrestricted { get; } = new("Unrestricted");
-
-        /// <summary>Unknown</summary>
-        public static ActivityDomain Unknown { get; } = new("Unknown");
-
-        /// <summary>Converts a string to <see cref="ActivityDomain"/>.</summary>
-        public static implicit operator ActivityDomain(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ActivityDomain"/> to its string representation.</summary>
-        public static implicit operator string(ActivityDomain value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ActivityDomain other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ActivityDomain other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ActivityDomain left, ActivityDomain right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ActivityDomain left, ActivityDomain right) => !left.Equals(right);
-
-        internal sealed class ActivityDomainJsonConverter : JsonConverter<ActivityDomain>
-        {
-            public ActivityDomainJsonConverter() { }
-            public override ActivityDomain Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActivityDomain, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ActivityDomain value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known ContentType values.
-    /// </summary>
-    [JsonConverter(typeof(ContentType.ContentTypeJsonConverter))]
-    public readonly struct ContentType : IEquatable<ContentType>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContentType"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ContentType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>Text</summary>
-        public static ContentType Text { get; } = new("Text");
-
-        /// <summary>HTML</summary>
-        public static ContentType Html { get; } = new("HTML");
-
-        /// <summary>Converts a string to <see cref="ContentType"/>.</summary>
-        public static implicit operator ContentType(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ContentType"/> to its string representation.</summary>
-        public static implicit operator string(ContentType value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ContentType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ContentType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ContentType left, ContentType right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ContentType left, ContentType right) => !left.Equals(right);
-
-        internal sealed class ContentTypeJsonConverter : JsonConverter<ContentType>
-        {
-            public ContentTypeJsonConverter() { }
-            public override ContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ContentType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ContentType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known ExternalAudience values.
-    /// </summary>
-    [JsonConverter(typeof(ExternalAudience.ExternalAudienceJsonConverter))]
-    public readonly struct ExternalAudience : IEquatable<ExternalAudience>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExternalAudience"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ExternalAudience(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>none</summary>
-        public static ExternalAudience None { get; } = new("none");
-
-        /// <summary>contactsOnly</summary>
-        public static ExternalAudience ContactsOnly { get; } = new("contactsOnly");
-
-        /// <summary>all</summary>
-        public static ExternalAudience All { get; } = new("all");
-
-        /// <summary>Converts a string to <see cref="ExternalAudience"/>.</summary>
-        public static implicit operator ExternalAudience(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ExternalAudience"/> to its string representation.</summary>
-        public static implicit operator string(ExternalAudience value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ExternalAudience other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ExternalAudience other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ExternalAudience left, ExternalAudience right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ExternalAudience left, ExternalAudience right) => !left.Equals(right);
-
-        internal sealed class ExternalAudienceJsonConverter : JsonConverter<ExternalAudience>
-        {
-            public ExternalAudienceJsonConverter() { }
-            public override ExternalAudience Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ExternalAudience, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ExternalAudience value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
-    /// <summary>
-    /// Extensible enum for known Office365TimeZone values.
-    /// </summary>
-    [JsonConverter(typeof(Office365TimeZone.Office365TimeZoneJsonConverter))]
-    public readonly struct Office365TimeZone : IEquatable<Office365TimeZone>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Office365TimeZone"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Office365TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>(UTC-12:00) International Date Line West</summary>
-        public static Office365TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
-
-        /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
-        public static Office365TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
-
-        /// <summary>(UTC-10:00) Aleutian Islands</summary>
-        public static Office365TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
-
-        /// <summary>(UTC-10:00) Hawaii</summary>
-        public static Office365TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
-
-        /// <summary>(UTC-09:30) Marquesas Islands</summary>
-        public static Office365TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
-
-        /// <summary>(UTC-09:00) Alaska</summary>
-        public static Office365TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
-
-        /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
-        public static Office365TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
-
-        /// <summary>(UTC-08:00) Baja California</summary>
-        public static Office365TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
-
-        /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
-        public static Office365TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
-
-        /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
-
-        /// <summary>(UTC-07:00) Arizona</summary>
-        public static Office365TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
-
-        /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
-        public static Office365TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
-
-        /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
-
-        /// <summary>(UTC-06:00) Central America</summary>
-        public static Office365TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
-
-        /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
-
-        /// <summary>(UTC-06:00) Easter Island</summary>
-        public static Office365TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
-
-        /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
-        public static Office365TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
-
-        /// <summary>(UTC-06:00) Saskatchewan</summary>
-        public static Office365TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
-
-        /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
-        public static Office365TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
-
-        /// <summary>(UTC-05:00) Chetumal</summary>
-        public static Office365TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
-
-        /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
-
-        /// <summary>(UTC-05:00) Haiti</summary>
-        public static Office365TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
-
-        /// <summary>(UTC-05:00) Havana</summary>
-        public static Office365TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
-
-        /// <summary>(UTC-05:00) Indiana (East)</summary>
-        public static Office365TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
-
-        /// <summary>(UTC-04:00) Asuncion</summary>
-        public static Office365TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
-
-        /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
-        public static Office365TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
-
-        /// <summary>(UTC-04:00) Caracas</summary>
-        public static Office365TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
-
-        /// <summary>(UTC-04:00) Cuiaba</summary>
-        public static Office365TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
-
-        /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
-        public static Office365TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
-
-        /// <summary>(UTC-04:00) Santiago</summary>
-        public static Office365TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
-
-        /// <summary>(UTC-04:00) Turks and Caicos</summary>
-        public static Office365TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
-
-        /// <summary>(UTC-03:30) Newfoundland</summary>
-        public static Office365TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
-
-        /// <summary>(UTC-03:00) Araguaina</summary>
-        public static Office365TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
-
-        /// <summary>(UTC-03:00) Brasilia</summary>
-        public static Office365TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
-
-        /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
-        public static Office365TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
-
-        /// <summary>(UTC-03:00) City of Buenos Aires</summary>
-        public static Office365TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
-
-        /// <summary>(UTC-03:00) Greenland</summary>
-        public static Office365TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
-
-        /// <summary>(UTC-03:00) Montevideo</summary>
-        public static Office365TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
-
-        /// <summary>(UTC-03:00) Punta Arenas</summary>
-        public static Office365TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
-
-        /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
-        public static Office365TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
-
-        /// <summary>(UTC-03:00) Salvador</summary>
-        public static Office365TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
-
-        /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
-        public static Office365TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
-
-        /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
-        public static Office365TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
-
-        /// <summary>(UTC-01:00) Azores</summary>
-        public static Office365TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
-
-        /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
-        public static Office365TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
-
-        /// <summary>(UTC) Coordinated Universal Time</summary>
-        public static Office365TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
-
-        /// <summary>(UTC+00:00) Casablanca</summary>
-        public static Office365TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
-
-        /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
-        public static Office365TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
-
-        /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
-        public static Office365TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
-
-        /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
-        public static Office365TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
-
-        /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
-        public static Office365TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
-
-        /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
-        public static Office365TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
-
-        /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
-        public static Office365TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
-
-        /// <summary>(UTC+01:00) West Central Africa</summary>
-        public static Office365TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
-
-        /// <summary>(UTC+01:00) Windhoek</summary>
-        public static Office365TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
-
-        /// <summary>(UTC+02:00) Amman</summary>
-        public static Office365TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
-
-        /// <summary>(UTC+02:00) Athens, Bucharest</summary>
-        public static Office365TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
-
-        /// <summary>(UTC+02:00) Beirut</summary>
-        public static Office365TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
-
-        /// <summary>(UTC+02:00) Cairo</summary>
-        public static Office365TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
-
-        /// <summary>(UTC+02:00) Chisinau</summary>
-        public static Office365TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
-
-        /// <summary>(UTC+02:00) Damascus</summary>
-        public static Office365TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
-
-        /// <summary>(UTC+02:00) Gaza, Hebron</summary>
-        public static Office365TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
-
-        /// <summary>(UTC+02:00) Harare, Pretoria</summary>
-        public static Office365TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
-
-        /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
-        public static Office365TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
-
-        /// <summary>(UTC+02:00) Jerusalem</summary>
-        public static Office365TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
-
-        /// <summary>(UTC+02:00) Kaliningrad</summary>
-        public static Office365TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
-
-        /// <summary>(UTC+02:00) Tripoli</summary>
-        public static Office365TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
-
-        /// <summary>(UTC+03:00) Baghdad</summary>
-        public static Office365TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
-
-        /// <summary>(UTC+03:00) Istanbul</summary>
-        public static Office365TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
-
-        /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
-        public static Office365TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
-
-        /// <summary>(UTC+03:00) Minsk</summary>
-        public static Office365TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
-
-        /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
-        public static Office365TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
-
-        /// <summary>(UTC+03:00) Nairobi</summary>
-        public static Office365TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
-
-        /// <summary>(UTC+03:30) Tehran</summary>
-        public static Office365TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
-
-        /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
-        public static Office365TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
-
-        /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
-        public static Office365TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
-
-        /// <summary>(UTC+04:00) Baku</summary>
-        public static Office365TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
-
-        /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
-        public static Office365TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
-
-        /// <summary>(UTC+04:00) Port Louis</summary>
-        public static Office365TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
-
-        /// <summary>(UTC+04:00) Saratov</summary>
-        public static Office365TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
-
-        /// <summary>(UTC+04:00) Tbilisi</summary>
-        public static Office365TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
-
-        /// <summary>(UTC+04:00) Volgograd</summary>
-        public static Office365TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
-
-        /// <summary>(UTC+04:00) Yerevan</summary>
-        public static Office365TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
-
-        /// <summary>(UTC+04:30) Kabul</summary>
-        public static Office365TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
-
-        /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
-        public static Office365TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
-
-        /// <summary>(UTC+05:00) Ekaterinburg</summary>
-        public static Office365TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
-
-        /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
-        public static Office365TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
-
-        /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
-        public static Office365TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
-
-        /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
-        public static Office365TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
-
-        /// <summary>(UTC+05:45) Kathmandu</summary>
-        public static Office365TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
-
-        /// <summary>(UTC+06:00) Astana</summary>
-        public static Office365TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
-
-        /// <summary>(UTC+06:00) Dhaka</summary>
-        public static Office365TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
-
-        /// <summary>(UTC+06:00) Omsk</summary>
-        public static Office365TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
-
-        /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
-        public static Office365TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
-
-        /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
-        public static Office365TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
-
-        /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
-        public static Office365TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
-
-        /// <summary>(UTC+07:00) Hovd</summary>
-        public static Office365TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
-
-        /// <summary>(UTC+07:00) Krasnoyarsk</summary>
-        public static Office365TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
-
-        /// <summary>(UTC+07:00) Novosibirsk</summary>
-        public static Office365TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
-
-        /// <summary>(UTC+07:00) Tomsk</summary>
-        public static Office365TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
-
-        /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
-        public static Office365TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
-
-        /// <summary>(UTC+08:00) Irkutsk</summary>
-        public static Office365TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
-
-        /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
-        public static Office365TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
-
-        /// <summary>(UTC+08:00) Perth</summary>
-        public static Office365TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
-
-        /// <summary>(UTC+08:00) Taipei</summary>
-        public static Office365TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
-
-        /// <summary>(UTC+08:00) Ulaanbaatar</summary>
-        public static Office365TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
-
-        /// <summary>(UTC+08:30) Pyongyang</summary>
-        public static Office365TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
-
-        /// <summary>(UTC+08:45) Eucla</summary>
-        public static Office365TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
-
-        /// <summary>(UTC+09:00) Chita</summary>
-        public static Office365TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
-
-        /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
-        public static Office365TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
-
-        /// <summary>(UTC+09:00) Seoul</summary>
-        public static Office365TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
-
-        /// <summary>(UTC+09:00) Yakutsk</summary>
-        public static Office365TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
-
-        /// <summary>(UTC+09:30) Adelaide</summary>
-        public static Office365TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
-
-        /// <summary>(UTC+09:30) Darwin</summary>
-        public static Office365TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
-
-        /// <summary>(UTC+10:00) Brisbane</summary>
-        public static Office365TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
-
-        /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
-        public static Office365TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
-
-        /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
-        public static Office365TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
-
-        /// <summary>(UTC+10:00) Hobart</summary>
-        public static Office365TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
-
-        /// <summary>(UTC+10:00) Vladivostok</summary>
-        public static Office365TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
-
-        /// <summary>(UTC+10:30) Lord Howe Island</summary>
-        public static Office365TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
-
-        /// <summary>(UTC+11:00) Bougainville Island</summary>
-        public static Office365TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
-
-        /// <summary>(UTC+11:00) Chokurdakh</summary>
-        public static Office365TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
-
-        /// <summary>(UTC+11:00) Magadan</summary>
-        public static Office365TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
-
-        /// <summary>(UTC+11:00) Norfolk Island</summary>
-        public static Office365TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
-
-        /// <summary>(UTC+11:00) Sakhalin</summary>
-        public static Office365TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
-
-        /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
-        public static Office365TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
-
-        /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
-        public static Office365TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
-
-        /// <summary>(UTC+12:00) Auckland, Wellington</summary>
-        public static Office365TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
-
-        /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
-        public static Office365TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
-
-        /// <summary>(UTC+12:00) Fiji</summary>
-        public static Office365TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
-
-        /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
-        public static Office365TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
-
-        /// <summary>(UTC+12:45) Chatham Islands</summary>
-        public static Office365TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
-
-        /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
-        public static Office365TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
-
-        /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
-        public static Office365TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
-
-        /// <summary>(UTC+13:00) Samoa</summary>
-        public static Office365TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
-
-        /// <summary>(UTC+14:00) Kiritimati Island</summary>
-        public static Office365TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
-
-        /// <summary>Converts a string to <see cref="Office365TimeZone"/>.</summary>
-        public static implicit operator Office365TimeZone(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Office365TimeZone"/> to its string representation.</summary>
-        public static implicit operator string(Office365TimeZone value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Office365TimeZone other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Office365TimeZone other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Office365TimeZone left, Office365TimeZone right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Office365TimeZone left, Office365TimeZone right) => !left.Equals(right);
-
-        internal sealed class Office365TimeZoneJsonConverter : JsonConverter<Office365TimeZone>
-        {
-            public Office365TimeZoneJsonConverter() { }
-            public override Office365TimeZone Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Office365TimeZone, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Office365TimeZone value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
-    }
-
     /// <summary>
-    /// Extensible enum for known Recurrence values.
+    /// Creates a new instance of <see cref="DraftEmailInput"/>.
     /// </summary>
-    [JsonConverter(typeof(Recurrence.RecurrenceJsonConverter))]
-    public readonly struct Recurrence : IEquatable<Recurrence>
+    public static DraftEmailInput DraftEmailInput(
+        string to = default,
+        string subject = default,
+        string body = default,
+        string fromSendAs = default,
+        string cc = default,
+        string bcc = default,
+        List<ClientSendAttachment> attachments = default,
+        string sensitivity = default,
+        string replyTo = default,
+        string importance = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Recurrence"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Recurrence(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>none</summary>
-        public static Recurrence None { get; } = new("none");
-
-        /// <summary>daily</summary>
-        public static Recurrence Daily { get; } = new("daily");
-
-        /// <summary>weekly</summary>
-        public static Recurrence Weekly { get; } = new("weekly");
-
-        /// <summary>monthly</summary>
-        public static Recurrence Monthly { get; } = new("monthly");
-
-        /// <summary>yearly</summary>
-        public static Recurrence Yearly { get; } = new("yearly");
-
-        /// <summary>Converts a string to <see cref="Recurrence"/>.</summary>
-        public static implicit operator Recurrence(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Recurrence"/> to its string representation.</summary>
-        public static implicit operator string(Recurrence value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Recurrence other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Recurrence other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Recurrence left, Recurrence right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Recurrence left, Recurrence right) => !left.Equals(right);
-
-        internal sealed class RecurrenceJsonConverter : JsonConverter<Recurrence>
+        return new DraftEmailInput
         {
-            public RecurrenceJsonConverter() { }
-            public override Recurrence Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Recurrence, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Recurrence value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            To = to,
+            Subject = subject,
+            Body = body,
+            FromSendAs = fromSendAs,
+            CC = cc,
+            BCC = bcc,
+            Attachments = attachments,
+            Sensitivity = sensitivity,
+            ReplyTo = replyTo,
+            Importance = importance,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known ResponseType values.
+    /// Creates a new instance of <see cref="ReplyEmailInput"/>.
     /// </summary>
-    [JsonConverter(typeof(ResponseType.ResponseTypeJsonConverter))]
-    public readonly struct ResponseType : IEquatable<ResponseType>
+    public static ReplyEmailInput ReplyEmailInput(
+        string to = default,
+        string cc = default,
+        string bcc = default,
+        string subject = default,
+        string body = default,
+        bool? replyAll = default,
+        string importance = default,
+        List<ClientSendAttachment> attachments = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseType"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ResponseType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>none</summary>
-        public static ResponseType None { get; } = new("none");
-
-        /// <summary>organizer</summary>
-        public static ResponseType Organizer { get; } = new("organizer");
-
-        /// <summary>tentativelyAccepted</summary>
-        public static ResponseType TentativelyAccepted { get; } = new("tentativelyAccepted");
-
-        /// <summary>accepted</summary>
-        public static ResponseType Accepted { get; } = new("accepted");
-
-        /// <summary>declined</summary>
-        public static ResponseType Declined { get; } = new("declined");
-
-        /// <summary>notResponded</summary>
-        public static ResponseType NotResponded { get; } = new("notResponded");
-
-        /// <summary>Converts a string to <see cref="ResponseType"/>.</summary>
-        public static implicit operator ResponseType(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ResponseType"/> to its string representation.</summary>
-        public static implicit operator string(ResponseType value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ResponseType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ResponseType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ResponseType left, ResponseType right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ResponseType left, ResponseType right) => !left.Equals(right);
-
-        internal sealed class ResponseTypeJsonConverter : JsonConverter<ResponseType>
+        return new ReplyEmailInput
         {
-            public ResponseTypeJsonConverter() { }
-            public override ResponseType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ResponseType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ResponseType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            To = to,
+            CC = cc,
+            BCC = bcc,
+            Subject = subject,
+            Body = body,
+            ReplyAll = replyAll,
+            Importance = importance,
+            Attachments = attachments,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known Sensitivity values.
+    /// Creates a new instance of <see cref="OptionsEmailSubscription"/>.
     /// </summary>
-    [JsonConverter(typeof(Sensitivity.SensitivityJsonConverter))]
-    public readonly struct Sensitivity : IEquatable<Sensitivity>
+    public static OptionsEmailSubscription OptionsEmailSubscription(
+        string notificationUrl = default,
+        MessageWithOptions message = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Sensitivity"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Sensitivity(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>normal</summary>
-        public static Sensitivity Normal { get; } = new("normal");
-
-        /// <summary>personal</summary>
-        public static Sensitivity Personal { get; } = new("personal");
-
-        /// <summary>private</summary>
-        public static Sensitivity Private { get; } = new("private");
-
-        /// <summary>confidential</summary>
-        public static Sensitivity Confidential { get; } = new("confidential");
-
-        /// <summary>Converts a string to <see cref="Sensitivity"/>.</summary>
-        public static implicit operator Sensitivity(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Sensitivity"/> to its string representation.</summary>
-        public static implicit operator string(Sensitivity value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Sensitivity other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Sensitivity other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Sensitivity left, Sensitivity right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Sensitivity left, Sensitivity right) => !left.Equals(right);
-
-        internal sealed class SensitivityJsonConverter : JsonConverter<Sensitivity>
+        return new OptionsEmailSubscription
         {
-            public SensitivityJsonConverter() { }
-            public override Sensitivity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Sensitivity, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Sensitivity value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            NotificationUrl = notificationUrl,
+            Message = message,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known ShowAs values.
+    /// Creates a new instance of <see cref="MessageWithOptions"/>.
     /// </summary>
-    [JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
-    public readonly struct ShowAs : IEquatable<ShowAs>
+    public static MessageWithOptions MessageWithOptions(
+        string to = default,
+        string subject = default,
+        string userOptions = default,
+        string headerText = default,
+        string selectionText = default,
+        string body = default,
+        string importance = default,
+        List<ClientSendAttachment> attachments = default,
+        bool? useOnlyHTMLMessage = default,
+        bool? hideHTMLMessage = default,
+        bool? showHTMLConfirmationDialog = default,
+        bool? hideMicrosoftFooter = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShowAs"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>free</summary>
-        public static ShowAs Free { get; } = new("free");
-
-        /// <summary>tentative</summary>
-        public static ShowAs Tentative { get; } = new("tentative");
-
-        /// <summary>busy</summary>
-        public static ShowAs Busy { get; } = new("busy");
-
-        /// <summary>oof</summary>
-        public static ShowAs Oof { get; } = new("oof");
-
-        /// <summary>workingElsewhere</summary>
-        public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
-
-        /// <summary>unknown</summary>
-        public static ShowAs Unknown { get; } = new("unknown");
-
-        /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
-        public static implicit operator ShowAs(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
-        public static implicit operator string(ShowAs value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
-
-        internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+        return new MessageWithOptions
         {
-            public ShowAsJsonConverter() { }
-            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            To = to,
+            Subject = subject,
+            UserOptions = userOptions,
+            HeaderText = headerText,
+            SelectionText = selectionText,
+            Body = body,
+            Importance = importance,
+            Attachments = attachments,
+            UseOnlyHTMLMessage = useOnlyHTMLMessage,
+            HideHTMLMessage = hideHTMLMessage,
+            ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+            HideMicrosoftFooter = hideMicrosoftFooter,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known Status values.
+    /// Creates a new instance of <see cref="ApprovalEmailSubscription"/>.
     /// </summary>
-    [JsonConverter(typeof(Status.StatusJsonConverter))]
-    public readonly struct Status : IEquatable<Status>
+    public static ApprovalEmailSubscription ApprovalEmailSubscription(
+        string notificationUrl = default,
+        ApprovalMessage message = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Status"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Status(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>disabled</summary>
-        public static Status Disabled { get; } = new("disabled");
-
-        /// <summary>alwaysEnabled</summary>
-        public static Status AlwaysEnabled { get; } = new("alwaysEnabled");
-
-        /// <summary>scheduled</summary>
-        public static Status Scheduled { get; } = new("scheduled");
-
-        /// <summary>Converts a string to <see cref="Status"/>.</summary>
-        public static implicit operator Status(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
-        public static implicit operator string(Status value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Status other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Status other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Status left, Status right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Status left, Status right) => !left.Equals(right);
-
-        internal sealed class StatusJsonConverter : JsonConverter<Status>
+        return new ApprovalEmailSubscription
         {
-            public StatusJsonConverter() { }
-            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Status, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            NotificationUrl = notificationUrl,
+            Message = message,
+        };
     }
-
-    #endregion Types
 
-    #region Model Factory
-
     /// <summary>
-    /// Model factory for creating instances of Office365 models.
-    /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// Creates a new instance of <see cref="ApprovalMessage"/>.
     /// </summary>
-    public static class Office365ModelFactory
+    public static ApprovalMessage ApprovalMessage(
+        string to = default,
+        string subject = default,
+        string userOptions = default,
+        string headerText = default,
+        string selectionText = default,
+        string body = default,
+        string importance = default,
+        List<ClientSendAttachment> attachments = default,
+        bool? useOnlyHTMLMessage = default,
+        bool? hideHTMLMessage = default,
+        bool? showHTMLConfirmationDialog = default)
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphOutlookCategory"/>.
-        /// </summary>
-        public static GraphOutlookCategory GraphOutlookCategory(
-            string id = default,
-            string displayName = default)
-        {
-            return new GraphOutlookCategory
-            {
-                Id = id,
-                DisplayName = displayName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OutlookReceiveMessage"/>.
-        /// </summary>
-        public static OutlookReceiveMessage OutlookReceiveMessage(
-            string internetMessageId = default,
-            string bodyPreview = default,
-            string id = default,
-            string conversationId = default,
-            bool? hasAttachments = default,
-            bool? isRead = default,
-            DateTime? createdDateTime = default,
-            DateTime? receivedDateTime = default,
-            DateTime? lastModifiedDateTime = default,
-            List<OutlookReceiveAttachment> attachments = default,
-            List<Recipient> toRecipients = default,
-            List<Recipient> ccRecipients = default,
-            List<Recipient> bccRecipients = default,
-            List<Recipient> replyTo = default,
-            string subject = default,
-            ItemBody body = default,
-            Recipient from = default,
-            string importance = default,
-            List<InternetMessageHeader> internetMessageHeaders = default)
-        {
-            return new OutlookReceiveMessage
-            {
-                InternetMessageId = internetMessageId,
-                BodyPreview = bodyPreview,
-                Id = id,
-                ConversationId = conversationId,
-                HasAttachments = hasAttachments,
-                IsRead = isRead,
-                CreatedDateTime = createdDateTime,
-                ReceivedDateTime = receivedDateTime,
-                LastModifiedDateTime = lastModifiedDateTime,
-                Attachments = attachments,
-                ToRecipients = toRecipients,
-                CcRecipients = ccRecipients,
-                BccRecipients = bccRecipients,
-                ReplyTo = replyTo,
-                Subject = subject,
-                Body = body,
-                From = from,
-                Importance = importance,
-                InternetMessageHeaders = internetMessageHeaders,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OutlookReceiveAttachment"/>.
-        /// </summary>
-        public static OutlookReceiveAttachment OutlookReceiveAttachment(
-            string type = default,
-            string id = default,
-            string name = default,
-            string contentBytes = default,
-            string contentType = default,
-            long? size = default,
-            string permission = default,
-            string providerType = default,
-            string sourceUrl = default,
-            bool? isInline = default,
-            DateTime? lastModifiedDateTime = default,
-            string contentId = default)
-        {
-            return new OutlookReceiveAttachment
-            {
-                Type = type,
-                Id = id,
-                Name = name,
-                ContentBytes = contentBytes,
-                ContentType = contentType,
-                Size = size,
-                Permission = permission,
-                ProviderType = providerType,
-                SourceUrl = sourceUrl,
-                IsInline = isInline,
-                LastModifiedDateTime = lastModifiedDateTime,
-                ContentId = contentId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Recipient"/>.
-        /// </summary>
-        public static Recipient Recipient(
-            EmailAddress emailAddress = default)
-        {
-            return new Recipient
-            {
-                EmailAddress = emailAddress,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EmailAddress"/>.
-        /// </summary>
-        public static EmailAddress EmailAddress(
-            string name = default,
-            string address = default)
-        {
-            return new EmailAddress
-            {
-                Name = name,
-                Address = address,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ItemBody"/>.
-        /// </summary>
-        public static ItemBody ItemBody(
-            ContentType? contentType = default,
-            string content = default)
-        {
-            return new ItemBody
-            {
-                ContentType = contentType,
-                Content = content,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="InternetMessageHeader"/>.
-        /// </summary>
-        public static InternetMessageHeader InternetMessageHeader(
-            string name = default,
-            string value = default)
-        {
-            return new InternetMessageHeader
-            {
-                Name = name,
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BatchOperationResult"/>.
-        /// </summary>
-        public static BatchOperationResult BatchOperationResult(
-            int? successCount = default,
-            List<BatchItemFailureResult> failures = default)
-        {
-            return new BatchOperationResult
-            {
-                SuccessCount = successCount,
-                Failures = failures,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BatchItemFailureResult"/>.
-        /// </summary>
-        public static BatchItemFailureResult BatchItemFailureResult(
-            string messageId = default,
-            string error = default)
-        {
-            return new BatchItemFailureResult
-            {
-                MessageId = messageId,
-                Error = error,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SubscriptionResponse"/>.
-        /// </summary>
-        public static SubscriptionResponse SubscriptionResponse(
-            string id = default,
-            string resource = default,
-            string notificationType = default,
-            string notificationUrl = default)
-        {
-            return new SubscriptionResponse
-            {
-                Id = id,
-                Resource = resource,
-                NotificationType = notificationType,
-                NotificationUrl = notificationUrl,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
-        /// </summary>
-        public static MCPQueryResponse MCPQueryResponse(
-            string jsonrpc = default,
-            string id = default,
-            string method = default,
-            object @params = default,
-            object result = default,
-            object error = default)
-        {
-            return new MCPQueryResponse
-            {
-                Jsonrpc = jsonrpc,
-                Id = id,
-                Method = method,
-                Params = @params,
-                Result = result,
-                Error = error,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphCalendarEventClientReceive"/>.
-        /// </summary>
-        public static GraphCalendarEventClientReceive GraphCalendarEventClientReceive(
-            string subject = default,
-            string startTime = default,
-            string endTime = default,
-            DateTime? startTimeWithTimeZone = default,
-            DateTime? endTimeWithTimeZone = default,
-            string body = default,
-            bool? isHTML = default,
-            ResponseType? responseType = default,
-            DateTime? responseTime = default,
-            string id = default,
-            DateTime? createdTime = default,
-            DateTime? lastModifiedTime = default,
-            string organizer = default,
-            string timeZone = default,
-            string seriesMasterId = default,
-            string iCalUId = default,
-            List<string> categories = default,
-            string webLink = default,
-            string requiredAttendees = default,
-            string optionalAttendees = default,
-            string resourceAttendees = default,
-            string location = default,
-            string importance = default,
-            bool? isAllDayEvent = default,
-            Recurrence? recurrence = default,
-            DateTime? recurrenceEndDate = default,
-            int? numberOfOccurrences = default,
-            int? reminder = default,
-            bool? isReminderOn = default,
-            ShowAs? showAs = default,
-            bool? responseRequested = default,
-            Sensitivity? sensitivity = default)
+        return new ApprovalMessage
         {
-            return new GraphCalendarEventClientReceive
-            {
-                Subject = subject,
-                StartTime = startTime,
-                EndTime = endTime,
-                StartTimeWithTimeZone = startTimeWithTimeZone,
-                EndTimeWithTimeZone = endTimeWithTimeZone,
-                Body = body,
-                IsHTML = isHTML,
-                ResponseType = responseType,
-                ResponseTime = responseTime,
-                Id = id,
-                CreatedTime = createdTime,
-                LastModifiedTime = lastModifiedTime,
-                Organizer = organizer,
-                TimeZone = timeZone,
-                SeriesMasterId = seriesMasterId,
-                ICalUId = iCalUId,
-                Categories = categories,
-                WebLink = webLink,
-                RequiredAttendees = requiredAttendees,
-                OptionalAttendees = optionalAttendees,
-                ResourceAttendees = resourceAttendees,
-                Location = location,
-                Importance = importance,
-                IsAllDayEvent = isAllDayEvent,
-                Recurrence = recurrence,
-                RecurrenceEndDate = recurrenceEndDate,
-                NumberOfOccurrences = numberOfOccurrences,
-                Reminder = reminder,
-                IsReminderOn = isReminderOn,
-                ShowAs = showAs,
-                ResponseRequested = responseRequested,
-                Sensitivity = sensitivity,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphCalendarEventListClientReceive"/>.
-        /// </summary>
-        public static GraphCalendarEventListClientReceive GraphCalendarEventListClientReceive(
-            List<GraphCalendarEventClientReceive> value = default)
-        {
-            return new GraphCalendarEventListClientReceive
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphCalendarEventListWithActionType"/>.
-        /// </summary>
-        public static GraphCalendarEventListWithActionType GraphCalendarEventListWithActionType(
-            List<GraphCalendarEventClientWithActionType> value = default)
-        {
-            return new GraphCalendarEventListWithActionType
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphCalendarEventClientWithActionType"/>.
-        /// </summary>
-        public static GraphCalendarEventClientWithActionType GraphCalendarEventClientWithActionType(
-            ActionType? actionType = default,
-            bool? isAdded = default,
-            bool? isUpdated = default,
-            string subject = default,
-            string startTime = default,
-            string endTime = default,
-            DateTime? startTimeWithTimeZone = default,
-            DateTime? endTimeWithTimeZone = default,
-            string body = default,
-            bool? isHTML = default,
-            ResponseType? responseType = default,
-            DateTime? responseTime = default,
-            string id = default,
-            DateTime? createdTime = default,
-            DateTime? lastModifiedTime = default,
-            string organizer = default,
-            string timeZone = default,
-            string seriesMasterId = default,
-            string iCalUId = default,
-            List<string> categories = default,
-            string webLink = default,
-            string requiredAttendees = default,
-            string optionalAttendees = default,
-            string resourceAttendees = default,
-            string location = default,
-            string importance = default,
-            bool? isAllDayEvent = default,
-            Recurrence? recurrence = default,
-            DateTime? recurrenceEndDate = default,
-            int? numberOfOccurrences = default,
-            int? reminder = default,
-            bool? isReminderOn = default,
-            ShowAs? showAs = default,
-            bool? responseRequested = default,
-            Sensitivity? sensitivity = default)
-        {
-            return new GraphCalendarEventClientWithActionType
-            {
-                ActionType = actionType,
-                IsAdded = isAdded,
-                IsUpdated = isUpdated,
-                Subject = subject,
-                StartTime = startTime,
-                EndTime = endTime,
-                StartTimeWithTimeZone = startTimeWithTimeZone,
-                EndTimeWithTimeZone = endTimeWithTimeZone,
-                Body = body,
-                IsHTML = isHTML,
-                ResponseType = responseType,
-                ResponseTime = responseTime,
-                Id = id,
-                CreatedTime = createdTime,
-                LastModifiedTime = lastModifiedTime,
-                Organizer = organizer,
-                TimeZone = timeZone,
-                SeriesMasterId = seriesMasterId,
-                ICalUId = iCalUId,
-                Categories = categories,
-                WebLink = webLink,
-                RequiredAttendees = requiredAttendees,
-                OptionalAttendees = optionalAttendees,
-                ResourceAttendees = resourceAttendees,
-                Location = location,
-                Importance = importance,
-                IsAllDayEvent = isAllDayEvent,
-                Recurrence = recurrence,
-                RecurrenceEndDate = recurrenceEndDate,
-                NumberOfOccurrences = numberOfOccurrences,
-                Reminder = reminder,
-                IsReminderOn = isReminderOn,
-                ShowAs = showAs,
-                ResponseRequested = responseRequested,
-                Sensitivity = sensitivity,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CalendarGetTablesResponse"/>.
-        /// </summary>
-        public static CalendarGetTablesResponse CalendarGetTablesResponse(
-            List<object> value = default)
-        {
-            return new CalendarGetTablesResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ContactResponse"/>.
-        /// </summary>
-        public static ContactResponse ContactResponse(
-            string id = default,
-            string parentFolderId = default,
-            DateTime? birthday = default,
-            string fileAs = default,
-            string displayName = default,
-            string givenName = default,
-            string initials = default,
-            string middleName = default,
-            string nickname = default,
-            string surname = default,
-            string title = default,
-            string generation = default,
-            List<EmailAddress> emailAddresses = default,
-            List<string> imAddresses = default,
-            string jobTitle = default,
-            string companyName = default,
-            string department = default,
-            string officeLocation = default,
-            string profession = default,
-            string businessHomePage = default,
-            string assistantName = default,
-            string manager = default,
-            List<string> homePhones = default,
-            List<string> businessPhones = default,
-            string mobilePhone = default,
-            PhysicalAddress homeAddress = default,
-            PhysicalAddress businessAddress = default,
-            PhysicalAddress otherAddress = default,
-            string yomiCompanyName = default,
-            string yomiGivenName = default,
-            string yomiSurname = default,
-            List<string> categories = default,
-            string changeKey = default,
-            DateTime? createdTime = default,
-            DateTime? lastModifiedTime = default)
-        {
-            return new ContactResponse
-            {
-                Id = id,
-                ParentFolderId = parentFolderId,
-                Birthday = birthday,
-                FileAs = fileAs,
-                DisplayName = displayName,
-                GivenName = givenName,
-                Initials = initials,
-                MiddleName = middleName,
-                Nickname = nickname,
-                Surname = surname,
-                Title = title,
-                Generation = generation,
-                EmailAddresses = emailAddresses,
-                IMAddresses = imAddresses,
-                JobTitle = jobTitle,
-                CompanyName = companyName,
-                Department = department,
-                OfficeLocation = officeLocation,
-                Profession = profession,
-                BusinessHomePage = businessHomePage,
-                AssistantName = assistantName,
-                Manager = manager,
-                HomePhones = homePhones,
-                BusinessPhones = businessPhones,
-                MobilePhone = mobilePhone,
-                HomeAddress = homeAddress,
-                BusinessAddress = businessAddress,
-                OtherAddress = otherAddress,
-                YomiCompanyName = yomiCompanyName,
-                YomiGivenName = yomiGivenName,
-                YomiSurname = yomiSurname,
-                Categories = categories,
-                ChangeKey = changeKey,
-                CreatedTime = createdTime,
-                LastModifiedTime = lastModifiedTime,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EmailAddressV2"/>.
-        /// </summary>
-        public static EmailAddressV2 EmailAddressV2(
-            string name = default,
-            string address = default)
-        {
-            return new EmailAddressV2
-            {
-                Name = name,
-                Address = address,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PhysicalAddress"/>.
-        /// </summary>
-        public static PhysicalAddress PhysicalAddress(
-            string street = default,
-            string city = default,
-            string state = default,
-            string countryOrRegion = default,
-            string postalCode = default)
-        {
-            return new PhysicalAddress
-            {
-                Street = street,
-                City = city,
-                State = state,
-                CountryOrRegion = countryOrRegion,
-                PostalCode = postalCode,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntityListResponseContactResponse"/>.
-        /// </summary>
-        public static EntityListResponseContactResponse EntityListResponseContactResponse(
-            List<ContactResponse> value = default)
-        {
-            return new EntityListResponseContactResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ContactResponseV2"/>.
-        /// </summary>
-        public static ContactResponseV2 ContactResponseV2(
-            string id = default,
-            string parentFolderId = default,
-            DateTime? birthday = default,
-            string fileAs = default,
-            string displayName = default,
-            string givenName = default,
-            string initials = default,
-            string middleName = default,
-            string nickname = default,
-            string surname = default,
-            string title = default,
-            string generation = default,
-            List<EmailAddress> emailAddresses = default,
-            List<string> imAddresses = default,
-            string jobTitle = default,
-            string companyName = default,
-            string department = default,
-            string officeLocation = default,
-            string profession = default,
-            string businessHomePage = default,
-            string assistantName = default,
-            string manager = default,
-            List<string> homePhones = default,
-            List<string> businessPhones = default,
-            string mobilePhone = default,
-            PhysicalAddress homeAddress = default,
-            PhysicalAddress businessAddress = default,
-            PhysicalAddress otherAddress = default,
-            string yomiCompanyName = default,
-            string yomiGivenName = default,
-            string yomiSurname = default,
-            List<string> categories = default,
-            string changeKey = default,
-            DateTime? createdTime = default,
-            DateTime? lastModifiedTime = default)
-        {
-            return new ContactResponseV2
-            {
-                Id = id,
-                ParentFolderId = parentFolderId,
-                Birthday = birthday,
-                FileAs = fileAs,
-                DisplayName = displayName,
-                GivenName = givenName,
-                Initials = initials,
-                MiddleName = middleName,
-                Nickname = nickname,
-                Surname = surname,
-                Title = title,
-                Generation = generation,
-                EmailAddresses = emailAddresses,
-                IMAddresses = imAddresses,
-                JobTitle = jobTitle,
-                CompanyName = companyName,
-                Department = department,
-                OfficeLocation = officeLocation,
-                Profession = profession,
-                BusinessHomePage = businessHomePage,
-                AssistantName = assistantName,
-                Manager = manager,
-                HomePhones = homePhones,
-                BusinessPhones = businessPhones,
-                MobilePhone = mobilePhone,
-                HomeAddress = homeAddress,
-                BusinessAddress = businessAddress,
-                OtherAddress = otherAddress,
-                YomiCompanyName = yomiCompanyName,
-                YomiGivenName = yomiGivenName,
-                YomiSurname = yomiSurname,
-                Categories = categories,
-                ChangeKey = changeKey,
-                CreatedTime = createdTime,
-                LastModifiedTime = lastModifiedTime,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntityListResponseGraphContactFolder"/>.
-        /// </summary>
-        public static EntityListResponseGraphContactFolder EntityListResponseGraphContactFolder(
-            List<GraphContactFolder> value = default)
-        {
-            return new EntityListResponseGraphContactFolder
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphContactFolder"/>.
-        /// </summary>
-        public static GraphContactFolder GraphContactFolder(
-            string id = default,
-            string displayName = default,
-            string parentFolderID = default)
-        {
-            return new GraphContactFolder
-            {
-                ID = id,
-                DisplayName = displayName,
-                ParentFolderID = parentFolderID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FindMeetingTimesInput"/>.
-        /// </summary>
-        public static FindMeetingTimesInput FindMeetingTimesInput(
-            string requiredAttendees = default,
-            string optionalAttendees = default,
-            string resourceAttendees = default,
-            int? meetingDuration = default,
-            DateTime? startTime = default,
-            DateTime? endTime = default,
-            int? maxCandidates = default,
-            string minimumAttendeePercentage = default,
-            bool? isOrganizerOptional = default,
-            ActivityDomain? activityDomain = default)
-        {
-            return new FindMeetingTimesInput
-            {
-                RequiredAttendees = requiredAttendees,
-                OptionalAttendees = optionalAttendees,
-                ResourceAttendees = resourceAttendees,
-                MeetingDuration = meetingDuration,
-                StartTime = startTime,
-                EndTime = endTime,
-                MaxCandidates = maxCandidates,
-                MinimumAttendeePercentage = minimumAttendeePercentage,
-                IsOrganizerOptional = isOrganizerOptional,
-                ActivityDomain = activityDomain,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FindMeetingTimesResponse"/>.
-        /// </summary>
-        public static FindMeetingTimesResponse FindMeetingTimesResponse(
-            string emptySuggestionsReason = default,
-            List<object> meetingTimeSuggestions = default)
-        {
-            return new FindMeetingTimesResponse
-            {
-                EmptySuggestionsReason = emptySuggestionsReason,
-                MeetingTimeSuggestions = meetingTimeSuggestions,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetAttachmentResponse"/>.
-        /// </summary>
-        public static GetAttachmentResponse GetAttachmentResponse(
-            string id = default,
-            string name = default,
-            string contentType = default,
-            int? size = default,
-            string contentBytes = default,
-            bool? isInline = default,
-            DateTime? lastModifiedDateTime = default,
-            string contentId = default,
-            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
-        {
-            return new GetAttachmentResponse
-            {
-                Id = id,
-                Name = name,
-                ContentType = contentType,
-                Size = size,
-                ContentBytes = contentBytes,
-                IsInline = isInline,
-                LastModifiedDateTime = lastModifiedDateTime,
-                ContentId = contentId,
-                SensitivityLabelInfo = sensitivityLabelInfo,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SensitivityLabelMetadata"/>.
-        /// </summary>
-        public static SensitivityLabelMetadata SensitivityLabelMetadata(
-            string sensitivityLabelId = default,
-            string name = default,
-            string sensitivityLabelDisplayNameInfo = default,
-            string tooltipInfo = default,
-            int? priorityOfSensitivityLabel = default,
-            string colorToBeDisplayedForSensitivityLabel = default,
-            bool? isEncryptedStatusOfSensitivityLabel = default,
-            bool? whetherSensitivityLabelIsEnabled = default,
-            bool? whetherSensitivityLabelIsParent = default,
-            string parentSensitivityLabelId = default)
-        {
-            return new SensitivityLabelMetadata
-            {
-                SensitivityLabelId = sensitivityLabelId,
-                Name = name,
-                SensitivityLabelDisplayNameInfo = sensitivityLabelDisplayNameInfo,
-                TooltipInfo = tooltipInfo,
-                PriorityOfSensitivityLabel = priorityOfSensitivityLabel,
-                ColorToBeDisplayedForSensitivityLabel = colorToBeDisplayedForSensitivityLabel,
-                IsEncryptedStatusOfSensitivityLabel = isEncryptedStatusOfSensitivityLabel,
-                WhetherSensitivityLabelIsEnabled = whetherSensitivityLabelIsEnabled,
-                WhetherSensitivityLabelIsParent = whetherSensitivityLabelIsParent,
-                ParentSensitivityLabelId = parentSensitivityLabelId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphClientReceiveMessage"/>.
-        /// </summary>
-        public static GraphClientReceiveMessage GraphClientReceiveMessage(
-            string from = default,
-            string to = default,
-            string cc = default,
-            string bcc = default,
-            string replyTo = default,
-            string subject = default,
-            string body = default,
-            string importance = default,
-            string bodyPreview = default,
-            bool? hasAttachment = default,
-            string messageId = default,
-            string internetMessageId = default,
-            string conversationId = default,
-            DateTime? receivedTime = default,
-            bool? isRead = default,
-            List<GraphClientReceiveFileAttachment> attachments = default,
-            bool? isHTML = default,
-            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
-        {
-            return new GraphClientReceiveMessage
-            {
-                From = from,
-                To = to,
-                CC = cc,
-                BCC = bcc,
-                ReplyTo = replyTo,
-                Subject = subject,
-                Body = body,
-                Importance = importance,
-                BodyPreview = bodyPreview,
-                HasAttachment = hasAttachment,
-                MessageId = messageId,
-                InternetMessageId = internetMessageId,
-                ConversationId = conversationId,
-                ReceivedTime = receivedTime,
-                IsRead = isRead,
-                Attachments = attachments,
-                IsHTML = isHTML,
-                SensitivityLabelInfo = sensitivityLabelInfo,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphClientReceiveFileAttachment"/>.
-        /// </summary>
-        public static GraphClientReceiveFileAttachment GraphClientReceiveFileAttachment(
-            string attachmentId = default,
-            string name = default,
-            string content = default,
-            string contentType = default,
-            long? size = default,
-            bool? isInline = default,
-            DateTime? lastModifiedDateTime = default,
-            string contentId = default)
-        {
-            return new GraphClientReceiveFileAttachment
-            {
-                AttachmentId = attachmentId,
-                Name = name,
-                Content = content,
-                ContentType = contentType,
-                Size = size,
-                IsInline = isInline,
-                LastModifiedDateTime = lastModifiedDateTime,
-                ContentId = contentId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BatchResponseGraphClientReceiveMessage"/>.
-        /// </summary>
-        public static BatchResponseGraphClientReceiveMessage BatchResponseGraphClientReceiveMessage(
-            List<GraphClientReceiveMessage> value = default)
-        {
-            return new BatchResponseGraphClientReceiveMessage
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntityListResponseGraphCalendarEventClientReceive"/>.
-        /// </summary>
-        public static EntityListResponseGraphCalendarEventClientReceive EntityListResponseGraphCalendarEventClientReceive(
-            List<GraphCalendarEventClientReceive> value = default)
-        {
-            return new EntityListResponseGraphCalendarEventClientReceive
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMailTipsInput"/>.
-        /// </summary>
-        public static GetMailTipsInput GetMailTipsInput(
-            string flagsThatRepresentsTheMailtips = default,
-            List<string> emailAddresses = default)
-        {
-            return new GetMailTipsInput
-            {
-                FlagsThatRepresentsTheMailtips = flagsThatRepresentsTheMailtips,
-                EmailAddresses = emailAddresses,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMailTipsResponse"/>.
-        /// </summary>
-        public static GetMailTipsResponse GetMailTipsResponse(
-            List<MailTipsClientReceive> value = default)
-        {
-            return new GetMailTipsResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MailTipsClientReceiveV2"/>.
-        /// </summary>
-        public static MailTipsClientReceiveV2 MailTipsClientReceiveV2(
-            MailTipsAutomaticReplies automaticReplies = default,
-            bool? isDeliveryRestricted = default,
-            int? isModerated = default,
-            bool? isMailboxFull = default,
-            long? maximumMessageSize = default,
-            long? totalMemberCount = default)
-        {
-            return new MailTipsClientReceiveV2
-            {
-                AutomaticReplies = automaticReplies,
-                IsDeliveryRestricted = isDeliveryRestricted,
-                IsModerated = isModerated,
-                IsMailboxFull = isMailboxFull,
-                MaximumMessageSize = maximumMessageSize,
-                TotalMemberCount = totalMemberCount,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MailTipsAutomaticReplies"/>.
-        /// </summary>
-        public static MailTipsAutomaticReplies MailTipsAutomaticReplies(
-            string automaticRepliesMessage = default)
-        {
-            return new MailTipsAutomaticReplies
-            {
-                AutomaticRepliesMessage = automaticRepliesMessage,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetRoomListsResponse"/>.
-        /// </summary>
-        public static GetRoomListsResponse GetRoomListsResponse(
-            List<object> value = default)
-        {
-            return new GetRoomListsResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetRoomsResponse"/>.
-        /// </summary>
-        public static GetRoomsResponse GetRoomsResponse(
-            List<object> value = default)
-        {
-            return new GetRoomsResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetRoomsInRoomListResponse"/>.
-        /// </summary>
-        public static GetRoomsInRoomListResponse GetRoomsInRoomListResponse(
-            List<object> value = default)
-        {
-            return new GetRoomsInRoomListResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MarkAsReadInput"/>.
-        /// </summary>
-        public static MarkAsReadInput MarkAsReadInput(
-            bool? markAs = default)
-        {
-            return new MarkAsReadInput
-            {
-                MarkAs = markAs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TriggerBatchResponseGraphClientReceiveMessage"/>.
-        /// </summary>
-        public static TriggerBatchResponseGraphClientReceiveMessage TriggerBatchResponseGraphClientReceiveMessage(
-            List<GraphClientReceiveMessage> value = default)
-        {
-            return new TriggerBatchResponseGraphClientReceiveMessage
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SetAutomaticRepliesSettingInput"/>.
-        /// </summary>
-        public static SetAutomaticRepliesSettingInput SetAutomaticRepliesSettingInput(
-            AutomaticRepliesSettingClient automaticRepliesSetting = default)
-        {
-            return new SetAutomaticRepliesSettingInput
-            {
-                AutomaticRepliesSetting = automaticRepliesSetting,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AutomaticRepliesSettingClient"/>.
-        /// </summary>
-        public static AutomaticRepliesSettingClient AutomaticRepliesSettingClient(
-            Status? status = default,
-            ExternalAudience? externalAudience = default,
-            object startTime = default,
-            object endTime = default,
-            string internalReplyMessage = default,
-            string externalReplyMessage = default)
-        {
-            return new AutomaticRepliesSettingClient
-            {
-                Status = status,
-                ExternalAudience = externalAudience,
-                StartTime = startTime,
-                EndTime = endTime,
-                InternalReplyMessage = internalReplyMessage,
-                ExternalReplyMessage = externalReplyMessage,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SetAutomaticRepliesSettingResponse"/>.
-        /// </summary>
-        public static SetAutomaticRepliesSettingResponse SetAutomaticRepliesSettingResponse(
-            AutomaticRepliesSettingClient automaticRepliesSetting = default)
-        {
-            return new SetAutomaticRepliesSettingResponse
-            {
-                AutomaticRepliesSetting = automaticRepliesSetting,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ClientSendAttachment"/>.
-        /// </summary>
-        public static ClientSendAttachment ClientSendAttachment(
-            string name = default,
-            string content = default)
-        {
-            return new ClientSendAttachment
-            {
-                Name = name,
-                Content = content,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SendEmailInput"/>.
-        /// </summary>
-        public static SendEmailInput SendEmailInput(
-            string to = default,
-            string subject = default,
-            string body = default,
-            string fromSendAs = default,
-            string cc = default,
-            string bcc = default,
-            List<ClientSendAttachment> attachments = default,
-            string sensitivity = default,
-            string replyTo = default,
-            string importance = default)
-        {
-            return new SendEmailInput
-            {
-                To = to,
-                Subject = subject,
-                Body = body,
-                FromSendAs = fromSendAs,
-                CC = cc,
-                BCC = bcc,
-                Attachments = attachments,
-                Sensitivity = sensitivity,
-                ReplyTo = replyTo,
-                Importance = importance,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DraftEmailInput"/>.
-        /// </summary>
-        public static DraftEmailInput DraftEmailInput(
-            string to = default,
-            string subject = default,
-            string body = default,
-            string fromSendAs = default,
-            string cc = default,
-            string bcc = default,
-            List<ClientSendAttachment> attachments = default,
-            string sensitivity = default,
-            string replyTo = default,
-            string importance = default)
-        {
-            return new DraftEmailInput
-            {
-                To = to,
-                Subject = subject,
-                Body = body,
-                FromSendAs = fromSendAs,
-                CC = cc,
-                BCC = bcc,
-                Attachments = attachments,
-                Sensitivity = sensitivity,
-                ReplyTo = replyTo,
-                Importance = importance,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ReplyEmailInput"/>.
-        /// </summary>
-        public static ReplyEmailInput ReplyEmailInput(
-            string to = default,
-            string cc = default,
-            string bcc = default,
-            string subject = default,
-            string body = default,
-            bool? replyAll = default,
-            string importance = default,
-            List<ClientSendAttachment> attachments = default)
-        {
-            return new ReplyEmailInput
-            {
-                To = to,
-                CC = cc,
-                BCC = bcc,
-                Subject = subject,
-                Body = body,
-                ReplyAll = replyAll,
-                Importance = importance,
-                Attachments = attachments,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OptionsEmailSubscription"/>.
-        /// </summary>
-        public static OptionsEmailSubscription OptionsEmailSubscription(
-            string notificationUrl = default,
-            MessageWithOptions message = default)
-        {
-            return new OptionsEmailSubscription
-            {
-                NotificationUrl = notificationUrl,
-                Message = message,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MessageWithOptions"/>.
-        /// </summary>
-        public static MessageWithOptions MessageWithOptions(
-            string to = default,
-            string subject = default,
-            string userOptions = default,
-            string headerText = default,
-            string selectionText = default,
-            string body = default,
-            string importance = default,
-            List<ClientSendAttachment> attachments = default,
-            bool? useOnlyHTMLMessage = default,
-            bool? hideHTMLMessage = default,
-            bool? showHTMLConfirmationDialog = default,
-            bool? hideMicrosoftFooter = default)
-        {
-            return new MessageWithOptions
-            {
-                To = to,
-                Subject = subject,
-                UserOptions = userOptions,
-                HeaderText = headerText,
-                SelectionText = selectionText,
-                Body = body,
-                Importance = importance,
-                Attachments = attachments,
-                UseOnlyHTMLMessage = useOnlyHTMLMessage,
-                HideHTMLMessage = hideHTMLMessage,
-                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
-                HideMicrosoftFooter = hideMicrosoftFooter,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ApprovalEmailSubscription"/>.
-        /// </summary>
-        public static ApprovalEmailSubscription ApprovalEmailSubscription(
-            string notificationUrl = default,
-            ApprovalMessage message = default)
-        {
-            return new ApprovalEmailSubscription
-            {
-                NotificationUrl = notificationUrl,
-                Message = message,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ApprovalMessage"/>.
-        /// </summary>
-        public static ApprovalMessage ApprovalMessage(
-            string to = default,
-            string subject = default,
-            string userOptions = default,
-            string headerText = default,
-            string selectionText = default,
-            string body = default,
-            string importance = default,
-            List<ClientSendAttachment> attachments = default,
-            bool? useOnlyHTMLMessage = default,
-            bool? hideHTMLMessage = default,
-            bool? showHTMLConfirmationDialog = default)
-        {
-            return new ApprovalMessage
-            {
-                To = to,
-                Subject = subject,
-                UserOptions = userOptions,
-                HeaderText = headerText,
-                SelectionText = selectionText,
-                Body = body,
-                Importance = importance,
-                Attachments = attachments,
-                UseOnlyHTMLMessage = useOnlyHTMLMessage,
-                HideHTMLMessage = hideHTMLMessage,
-                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SharedMailboxSendEmailInput"/>.
-        /// </summary>
-        public static SharedMailboxSendEmailInput SharedMailboxSendEmailInput(
-            string originalMailboxAddress = default,
-            string to = default,
-            string subject = default,
-            string body = default,
-            string cc = default,
-            string bcc = default,
-            List<ClientSendAttachment> attachments = default,
-            string sensitivity = default,
-            string replyTo = default,
-            string importance = default)
-        {
-            return new SharedMailboxSendEmailInput
-            {
-                OriginalMailboxAddress = originalMailboxAddress,
-                To = to,
-                Subject = subject,
-                Body = body,
-                CC = cc,
-                BCC = bcc,
-                Attachments = attachments,
-                Sensitivity = sensitivity,
-                ReplyTo = replyTo,
-                Importance = importance,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GraphCalendarEventClient"/>.
-        /// </summary>
-        public static GraphCalendarEventClient GraphCalendarEventClient(
-            string subject = default,
-            string startTime = default,
-            string endTime = default,
-            Office365TimeZone? timeZone = default,
-            string requiredAttendees = default,
-            string optionalAttendees = default,
-            string resourceAttendees = default,
-            string body = default,
-            List<string> categories = default,
-            string location = default,
-            string importance = default,
-            bool? isAllDayEvent = default,
-            Recurrence? recurrence = default,
-            List<string> selectedDaysOfWeek = default,
-            DateTime? recurrenceEndDate = default,
-            int? numberOfOccurrences = default,
-            int? reminder = default,
-            bool? isReminderOn = default,
-            ShowAs? showAs = default,
-            bool? responseRequested = default,
-            Sensitivity? sensitivity = default)
-        {
-            return new GraphCalendarEventClient
-            {
-                Subject = subject,
-                StartTime = startTime,
-                EndTime = endTime,
-                TimeZone = timeZone,
-                RequiredAttendees = requiredAttendees,
-                OptionalAttendees = optionalAttendees,
-                ResourceAttendees = resourceAttendees,
-                Body = body,
-                Categories = categories,
-                Location = location,
-                Importance = importance,
-                IsAllDayEvent = isAllDayEvent,
-                Recurrence = recurrence,
-                SelectedDaysOfWeek = selectedDaysOfWeek,
-                RecurrenceEndDate = recurrenceEndDate,
-                NumberOfOccurrences = numberOfOccurrences,
-                Reminder = reminder,
-                IsReminderOn = isReminderOn,
-                ShowAs = showAs,
-                ResponseRequested = responseRequested,
-                Sensitivity = sensitivity,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MailTipsClientReceive"/>.
-        /// </summary>
-        public static MailTipsClientReceive MailTipsClientReceive(
-            MailTipsAutomaticReplies automaticReplies = default,
-            bool? isDeliveryRestricted = default,
-            int? isModerated = default,
-            bool? isMailboxFull = default,
-            long? maximumMessageSize = default,
-            long? totalMemberCount = default)
-        {
-            return new MailTipsClientReceive
-            {
-                AutomaticReplies = automaticReplies,
-                IsDeliveryRestricted = isDeliveryRestricted,
-                IsModerated = isModerated,
-                IsMailboxFull = isMailboxFull,
-                MaximumMessageSize = maximumMessageSize,
-                TotalMemberCount = totalMemberCount,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="UpdateEmailFlag"/>.
-        /// </summary>
-        public static UpdateEmailFlag UpdateEmailFlag(
-            object flag = default)
-        {
-            return new UpdateEmailFlag
-            {
-                Flag = flag,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResponseToEventInvite"/>.
-        /// </summary>
-        public static ResponseToEventInvite ResponseToEventInvite(
-            string comment = default,
-            bool? sendResponse = default)
-        {
-            return new ResponseToEventInvite
-            {
-                Comment = comment,
-                SendResponse = sendResponse,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DirectForwardMessage"/>.
-        /// </summary>
-        public static DirectForwardMessage DirectForwardMessage(
-            string comment = default,
-            string to = default)
-        {
-            return new DirectForwardMessage
-            {
-                Comment = comment,
-                To = to,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DateTimeTimeZone"/>.
-        /// </summary>
-        public static DateTimeTimeZone DateTimeTimeZone(
-            string dateTime = default,
-            string timeZone = default)
-        {
-            return new DateTimeTimeZone
-            {
-                DateTime = dateTime,
-                TimeZone = timeZone,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Contact"/>.
-        /// </summary>
-        public static Contact Contact(
-            string id = default,
-            string parentFolderId = default,
-            DateTime? birthday = default,
-            string fileAs = default,
-            string displayName = default,
-            string givenName = default,
-            string initials = default,
-            string middleName = default,
-            string nickname = default,
-            string surname = default,
-            string title = default,
-            string generation = default,
-            List<EmailAddress> emailAddresses = default,
-            List<string> imAddresses = default,
-            string jobTitle = default,
-            string companyName = default,
-            string department = default,
-            string officeLocation = default,
-            string profession = default,
-            string businessHomePage = default,
-            string assistantName = default,
-            string manager = default,
-            List<string> homePhones = default,
-            List<string> businessPhones = default,
-            string mobilePhone = default,
-            PhysicalAddress homeAddress = default,
-            PhysicalAddress businessAddress = default,
-            PhysicalAddress otherAddress = default,
-            string yomiCompanyName = default,
-            string yomiGivenName = default,
-            string yomiSurname = default,
-            List<string> categories = default,
-            string changeKey = default,
-            DateTime? createdTime = default,
-            DateTime? lastModifiedTime = default)
-        {
-            return new Contact
-            {
-                Id = id,
-                ParentFolderId = parentFolderId,
-                Birthday = birthday,
-                FileAs = fileAs,
-                DisplayName = displayName,
-                GivenName = givenName,
-                Initials = initials,
-                MiddleName = middleName,
-                Nickname = nickname,
-                Surname = surname,
-                Title = title,
-                Generation = generation,
-                EmailAddresses = emailAddresses,
-                IMAddresses = imAddresses,
-                JobTitle = jobTitle,
-                CompanyName = companyName,
-                Department = department,
-                OfficeLocation = officeLocation,
-                Profession = profession,
-                BusinessHomePage = businessHomePage,
-                AssistantName = assistantName,
-                Manager = manager,
-                HomePhones = homePhones,
-                BusinessPhones = businessPhones,
-                MobilePhone = mobilePhone,
-                HomeAddress = homeAddress,
-                BusinessAddress = businessAddress,
-                OtherAddress = otherAddress,
-                YomiCompanyName = yomiCompanyName,
-                YomiGivenName = yomiGivenName,
-                YomiSurname = yomiSurname,
-                Categories = categories,
-                ChangeKey = changeKey,
-                CreatedTime = createdTime,
-                LastModifiedTime = lastModifiedTime,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
-        /// </summary>
-        public static MCPQueryRequest MCPQueryRequest(
-            string jsonrpc = default,
-            string id = default,
-            string method = default,
-            object @params = default,
-            object result = default,
-            object error = default,
-            string callbackEndpoint = default)
-        {
-            return new MCPQueryRequest
-            {
-                Jsonrpc = jsonrpc,
-                Id = id,
-                Method = method,
-                Params = @params,
-                Result = result,
-                Error = error,
-                CallbackEndpoint = callbackEndpoint,
-            };
-        }
+            To = to,
+            Subject = subject,
+            UserOptions = userOptions,
+            HeaderText = headerText,
+            SelectionText = selectionText,
+            Body = body,
+            Importance = importance,
+            Attachments = attachments,
+            UseOnlyHTMLMessage = useOnlyHTMLMessage,
+            HideHTMLMessage = hideHTMLMessage,
+            ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+        };
     }
 
-    #endregion Model Factory
-
-    #region Trigger Payloads
-
-    /// <summary>
-    /// Typed trigger payload for the OnCalendarChangedItems trigger (Office365 "When an event is added, updated or deleted (V3)", operationId: CalendarGetOnChangedItemsV3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarChangedItemsTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class Office365OnCalendarChangedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientWithActionType>
-    {
-    }
-
     /// <summary>
-    /// Typed trigger payload for the OnCalendarNewItems trigger (Office365 "When a new event is created (V3)", operationId: CalendarGetOnNewItemsV3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarNewItemsTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="SharedMailboxSendEmailInput"/>.
     /// </summary>
-    public class Office365OnCalendarNewItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+    public static SharedMailboxSendEmailInput SharedMailboxSendEmailInput(
+        string originalMailboxAddress = default,
+        string to = default,
+        string subject = default,
+        string body = default,
+        string cc = default,
+        string bcc = default,
+        List<ClientSendAttachment> attachments = default,
+        string sensitivity = default,
+        string replyTo = default,
+        string importance = default)
     {
+        return new SharedMailboxSendEmailInput
+        {
+            OriginalMailboxAddress = originalMailboxAddress,
+            To = to,
+            Subject = subject,
+            Body = body,
+            CC = cc,
+            BCC = bcc,
+            Attachments = attachments,
+            Sensitivity = sensitivity,
+            ReplyTo = replyTo,
+            Importance = importance,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnCalendarUpdatedItems trigger (Office365 "When an event is modified (V3)", operationId: CalendarGetOnUpdatedItemsV3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarUpdatedItemsTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="GraphCalendarEventClient"/>.
     /// </summary>
-    public class Office365OnCalendarUpdatedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+    public static GraphCalendarEventClient GraphCalendarEventClient(
+        string subject = default,
+        string startTime = default,
+        string endTime = default,
+        Office365TimeZone? timeZone = default,
+        string requiredAttendees = default,
+        string optionalAttendees = default,
+        string resourceAttendees = default,
+        string body = default,
+        List<string> categories = default,
+        string location = default,
+        string importance = default,
+        bool? isAllDayEvent = default,
+        Recurrence? recurrence = default,
+        List<string> selectedDaysOfWeek = default,
+        DateTime? recurrenceEndDate = default,
+        int? numberOfOccurrences = default,
+        int? reminder = default,
+        bool? isReminderOn = default,
+        ShowAs? showAs = default,
+        bool? responseRequested = default,
+        Sensitivity? sensitivity = default)
     {
+        return new GraphCalendarEventClient
+        {
+            Subject = subject,
+            StartTime = startTime,
+            EndTime = endTime,
+            TimeZone = timeZone,
+            RequiredAttendees = requiredAttendees,
+            OptionalAttendees = optionalAttendees,
+            ResourceAttendees = resourceAttendees,
+            Body = body,
+            Categories = categories,
+            Location = location,
+            Importance = importance,
+            IsAllDayEvent = isAllDayEvent,
+            Recurrence = recurrence,
+            SelectedDaysOfWeek = selectedDaysOfWeek,
+            RecurrenceEndDate = recurrenceEndDate,
+            NumberOfOccurrences = numberOfOccurrences,
+            Reminder = reminder,
+            IsReminderOn = isReminderOn,
+            ShowAs = showAs,
+            ResponseRequested = responseRequested,
+            Sensitivity = sensitivity,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnFlaggedEmail trigger (Office365 "When an email is flagged (V4)", operationId: OnFlaggedEmailV4).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnFlaggedEmailTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="MailTipsClientReceive"/>.
     /// </summary>
-    public class Office365OnFlaggedEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+    public static MailTipsClientReceive MailTipsClientReceive(
+        MailTipsAutomaticReplies automaticReplies = default,
+        bool? isDeliveryRestricted = default,
+        int? isModerated = default,
+        bool? isMailboxFull = default,
+        long? maximumMessageSize = default,
+        long? totalMemberCount = default)
     {
+        return new MailTipsClientReceive
+        {
+            AutomaticReplies = automaticReplies,
+            IsDeliveryRestricted = isDeliveryRestricted,
+            IsModerated = isModerated,
+            IsMailboxFull = isMailboxFull,
+            MaximumMessageSize = maximumMessageSize,
+            TotalMemberCount = totalMemberCount,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnNewEmail trigger (Office365 "When a new email arrives (V3)", operationId: OnNewEmailV3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="UpdateEmailFlag"/>.
     /// </summary>
-    public class Office365OnNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+    public static UpdateEmailFlag UpdateEmailFlag(
+        object flag = default)
     {
+        return new UpdateEmailFlag
+        {
+            Flag = flag,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnNewEmailMentioningMe trigger (Office365 "When a new email mentioning me arrives (V3)", operationId: OnNewMentionMeEmailV3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailMentioningMeTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="ResponseToEventInvite"/>.
     /// </summary>
-    public class Office365OnNewEmailMentioningMeTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+    public static ResponseToEventInvite ResponseToEventInvite(
+        string comment = default,
+        bool? sendResponse = default)
     {
+        return new ResponseToEventInvite
+        {
+            Comment = comment,
+            SendResponse = sendResponse,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnUpcomingEvents trigger (Office365 "When an upcoming event is starting soon (V3)", operationId: OnUpcomingEventsV3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="DirectForwardMessage"/>.
     /// </summary>
-    public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+    public static DirectForwardMessage DirectForwardMessage(
+        string comment = default,
+        string to = default)
     {
+        return new DirectForwardMessage
+        {
+            Comment = comment,
+            To = to,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnSharedMailboxNewEmail trigger (Office365 "When a new email arrives in a shared mailbox (V2)", operationId: SharedMailboxOnNewEmailV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="DateTimeTimeZone"/>.
     /// </summary>
-    public class Office365OnSharedMailboxNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+    public static DateTimeTimeZone DateTimeTimeZone(
+        string dateTime = default,
+        string timeZone = default)
     {
+        return new DateTimeTimeZone
+        {
+            DateTime = dateTime,
+            TimeZone = timeZone,
+        };
     }
 
     /// <summary>
-    /// Static registry of trigger operations for the Office365 connector that have typed payloads.
-    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
-    /// Triggers that return binary content (e.g., file downloads) are not included here
-    /// because they have no JSON-deserializable payload type. See <see cref="Office365TriggerOperations"/>
-    /// for the complete list of trigger operation name constants.
+    /// Creates a new instance of <see cref="Contact"/>.
     /// </summary>
-    public static class Office365Triggers
-    {
-        /// <summary>
-        /// Trigger operations with typed payloads for the Office365 connector.
-        /// This is a subset of all triggers — see <see cref="Office365TriggerOperations"/> for the full list.
-        /// </summary>
-        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
-            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
-            {
-                ["CalendarGetOnChangedItemsV3"] = typeof(Office365OnCalendarChangedItemsTriggerPayload),
-                ["CalendarGetOnNewItemsV3"] = typeof(Office365OnCalendarNewItemsTriggerPayload),
-                ["CalendarGetOnUpdatedItemsV3"] = typeof(Office365OnCalendarUpdatedItemsTriggerPayload),
-                ["OnFlaggedEmailV4"] = typeof(Office365OnFlaggedEmailTriggerPayload),
-                ["OnNewEmailV3"] = typeof(Office365OnNewEmailTriggerPayload),
-                ["OnNewMentionMeEmailV3"] = typeof(Office365OnNewEmailMentioningMeTriggerPayload),
-                ["OnUpcomingEventsV3"] = typeof(Office365OnUpcomingEventsTriggerPayload),
-                ["SharedMailboxOnNewEmailV2"] = typeof(Office365OnSharedMailboxNewEmailTriggerPayload),
-            });
-    }
-
-    #endregion Trigger Payloads
+    public static Contact Contact(
+        string id = default,
+        string parentFolderId = default,
+        DateTime? birthday = default,
+        string fileAs = default,
+        string displayName = default,
+        string givenName = default,
+        string initials = default,
+        string middleName = default,
+        string nickname = default,
+        string surname = default,
+        string title = default,
+        string generation = default,
+        List<EmailAddress> emailAddresses = default,
+        List<string> imAddresses = default,
+        string jobTitle = default,
+        string companyName = default,
+        string department = default,
+        string officeLocation = default,
+        string profession = default,
+        string businessHomePage = default,
+        string assistantName = default,
+        string manager = default,
+        List<string> homePhones = default,
+        List<string> businessPhones = default,
+        string mobilePhone = default,
+        PhysicalAddress homeAddress = default,
+        PhysicalAddress businessAddress = default,
+        PhysicalAddress otherAddress = default,
+        string yomiCompanyName = default,
+        string yomiGivenName = default,
+        string yomiSurname = default,
+        List<string> categories = default,
+        string changeKey = default,
+        DateTime? createdTime = default,
+        DateTime? lastModifiedTime = default)
+    {
+        return new Contact
+        {
+            Id = id,
+            ParentFolderId = parentFolderId,
+            Birthday = birthday,
+            FileAs = fileAs,
+            DisplayName = displayName,
+            GivenName = givenName,
+            Initials = initials,
+            MiddleName = middleName,
+            Nickname = nickname,
+            Surname = surname,
+            Title = title,
+            Generation = generation,
+            EmailAddresses = emailAddresses,
+            IMAddresses = imAddresses,
+            JobTitle = jobTitle,
+            CompanyName = companyName,
+            Department = department,
+            OfficeLocation = officeLocation,
+            Profession = profession,
+            BusinessHomePage = businessHomePage,
+            AssistantName = assistantName,
+            Manager = manager,
+            HomePhones = homePhones,
+            BusinessPhones = businessPhones,
+            MobilePhone = mobilePhone,
+            HomeAddress = homeAddress,
+            BusinessAddress = businessAddress,
+            OtherAddress = otherAddress,
+            YomiCompanyName = yomiCompanyName,
+            YomiGivenName = yomiGivenName,
+            YomiSurname = yomiSurname,
+            Categories = categories,
+            ChangeKey = changeKey,
+            CreatedTime = createdTime,
+            LastModifiedTime = lastModifiedTime,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+    /// </summary>
+    public static MCPQueryRequest MCPQueryRequest(
+        string jsonrpc = default,
+        string id = default,
+        string method = default,
+        object @params = default,
+        object result = default,
+        object error = default,
+        string callbackEndpoint = default)
+    {
+        return new MCPQueryRequest
+        {
+            Jsonrpc = jsonrpc,
+            Id = id,
+            Method = method,
+            Params = @params,
+            Result = result,
+            Error = error,
+            CallbackEndpoint = callbackEndpoint,
+        };
+    }
+}
+
+#endregion Model Factory
+
+#region Trigger Payloads
+
+/// <summary>
+/// Typed trigger payload for the OnCalendarChangedItems trigger (Office365 "When an event is added, updated or deleted (V3)", operationId: CalendarGetOnChangedItemsV3).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarChangedItemsTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnCalendarChangedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientWithActionType>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnCalendarNewItems trigger (Office365 "When a new event is created (V3)", operationId: CalendarGetOnNewItemsV3).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarNewItemsTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnCalendarNewItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnCalendarUpdatedItems trigger (Office365 "When an event is modified (V3)", operationId: CalendarGetOnUpdatedItemsV3).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnCalendarUpdatedItemsTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnCalendarUpdatedItemsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnFlaggedEmail trigger (Office365 "When an email is flagged (V4)", operationId: OnFlaggedEmailV4).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnFlaggedEmailTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnFlaggedEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnNewEmail trigger (Office365 "When a new email arrives (V3)", operationId: OnNewEmailV3).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnNewEmailMentioningMe trigger (Office365 "When a new email mentioning me arrives (V3)", operationId: OnNewMentionMeEmailV3).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnNewEmailMentioningMeTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnNewEmailMentioningMeTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnUpcomingEvents trigger (Office365 "When an upcoming event is starting soon (V3)", operationId: OnUpcomingEventsV3).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnSharedMailboxNewEmail trigger (Office365 "When a new email arrives in a shared mailbox (V2)", operationId: SharedMailboxOnNewEmailV2).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class Office365OnSharedMailboxNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+{
+}
+
+/// <summary>
+/// Static registry of trigger operations for the Office365 connector that have typed payloads.
+/// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+/// Triggers that return binary content (e.g., file downloads) are not included here
+/// because they have no JSON-deserializable payload type. See <see cref="Office365TriggerOperations"/>
+/// for the complete list of trigger operation name constants.
+/// </summary>
+public static class Office365Triggers
+{
+    /// <summary>
+    /// Trigger operations with typed payloads for the Office365 connector.
+    /// This is a subset of all triggers — see <see cref="Office365TriggerOperations"/> for the full list.
+    /// </summary>
+    public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+        new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["CalendarGetOnChangedItemsV3"] = typeof(Office365OnCalendarChangedItemsTriggerPayload),
+            ["CalendarGetOnNewItemsV3"] = typeof(Office365OnCalendarNewItemsTriggerPayload),
+            ["CalendarGetOnUpdatedItemsV3"] = typeof(Office365OnCalendarUpdatedItemsTriggerPayload),
+            ["OnFlaggedEmailV4"] = typeof(Office365OnFlaggedEmailTriggerPayload),
+            ["OnNewEmailV3"] = typeof(Office365OnNewEmailTriggerPayload),
+            ["OnNewMentionMeEmailV3"] = typeof(Office365OnNewEmailMentioningMeTriggerPayload),
+            ["OnUpcomingEventsV3"] = typeof(Office365OnUpcomingEventsTriggerPayload),
+            ["SharedMailboxOnNewEmailV2"] = typeof(Office365OnSharedMailboxNewEmailTriggerPayload),
+        });
+}
+
+#endregion Trigger Payloads
 
 }
 
 namespace Azure.Connectors.Sdk.Office365
 {
 
-    #region Trigger Operation Constants
+#region Trigger Operation Constants
+
+/// <summary>
+/// Trigger operation name constants for the Office365 connector.
+/// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
+/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+/// </summary>
+public static class Office365TriggerOperations
+{
+    /// <summary>
+    /// When an event is added, updated or deleted (V3).
+    /// Payload type: <see cref="Office365OnCalendarChangedItemsTriggerPayload"/>.
+    /// </summary>
+    public const string OnCalendarChangedItems = "CalendarGetOnChangedItemsV3";
 
     /// <summary>
-    /// Trigger operation name constants for the Office365 connector.
-    /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// When a new event is created (V3).
+    /// Payload type: <see cref="Office365OnCalendarNewItemsTriggerPayload"/>.
     /// </summary>
-    public static class Office365TriggerOperations
+    public const string OnCalendarNewItems = "CalendarGetOnNewItemsV3";
+
+    /// <summary>
+    /// When an event is modified (V3).
+    /// Payload type: <see cref="Office365OnCalendarUpdatedItemsTriggerPayload"/>.
+    /// </summary>
+    public const string OnCalendarUpdatedItems = "CalendarGetOnUpdatedItemsV3";
+
+    /// <summary>
+    /// When an email is flagged (V4).
+    /// Payload type: <see cref="Office365OnFlaggedEmailTriggerPayload"/>.
+    /// </summary>
+    public const string OnFlaggedEmail = "OnFlaggedEmailV4";
+
+    /// <summary>
+    /// When a new email arrives (V3).
+    /// Payload type: <see cref="Office365OnNewEmailTriggerPayload"/>.
+    /// </summary>
+    public const string OnNewEmail = "OnNewEmailV3";
+
+    /// <summary>
+    /// When a new email mentioning me arrives (V3).
+    /// Payload type: <see cref="Office365OnNewEmailMentioningMeTriggerPayload"/>.
+    /// </summary>
+    public const string OnNewEmailMentioningMe = "OnNewMentionMeEmailV3";
+
+    /// <summary>
+    /// When an upcoming event is starting soon (V3).
+    /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
+    /// </summary>
+    public const string OnUpcomingEvents = "OnUpcomingEventsV3";
+
+    /// <summary>
+    /// When a new email arrives in a shared mailbox (V2).
+    /// Payload type: <see cref="Office365OnSharedMailboxNewEmailTriggerPayload"/>.
+    /// </summary>
+    public const string OnSharedMailboxNewEmail = "SharedMailboxOnNewEmailV2";
+
+}
+
+#endregion Trigger Operation Constants
+
+#region Trigger Parameter Metadata
+
+/// <summary>
+/// Trigger input parameter name constants for the Office365 connector.
+/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+/// </summary>
+public static class Office365TriggerParameters
+{
+    /// <summary>
+    /// Input parameters for the OnCalendarChangedItems trigger operation (operationId: CalendarGetOnChangedItemsV3).
+    /// </summary>
+    public static class OnCalendarChangedItems
     {
         /// <summary>
-        /// When an event is added, updated or deleted (V3).
-        /// Payload type: <see cref="Office365OnCalendarChangedItemsTriggerPayload"/>.
+        /// Number of incoming days in calendar to be tracked
+        /// Default: 300.
         /// </summary>
-        public const string OnCalendarChangedItems = "CalendarGetOnChangedItemsV3";
+        public const string IncomingDays = "incomingDays";
 
         /// <summary>
-        /// When a new event is created (V3).
-        /// Payload type: <see cref="Office365OnCalendarNewItemsTriggerPayload"/>.
+        /// Number of past days in calendar to be tracked
+        /// Default: 50.
         /// </summary>
-        public const string OnCalendarNewItems = "CalendarGetOnNewItemsV3";
-
-        /// <summary>
-        /// When an event is modified (V3).
-        /// Payload type: <see cref="Office365OnCalendarUpdatedItemsTriggerPayload"/>.
-        /// </summary>
-        public const string OnCalendarUpdatedItems = "CalendarGetOnUpdatedItemsV3";
-
-        /// <summary>
-        /// When an email is flagged (V4).
-        /// Payload type: <see cref="Office365OnFlaggedEmailTriggerPayload"/>.
-        /// </summary>
-        public const string OnFlaggedEmail = "OnFlaggedEmailV4";
-
-        /// <summary>
-        /// When a new email arrives (V3).
-        /// Payload type: <see cref="Office365OnNewEmailTriggerPayload"/>.
-        /// </summary>
-        public const string OnNewEmail = "OnNewEmailV3";
-
-        /// <summary>
-        /// When a new email mentioning me arrives (V3).
-        /// Payload type: <see cref="Office365OnNewEmailMentioningMeTriggerPayload"/>.
-        /// </summary>
-        public const string OnNewEmailMentioningMe = "OnNewMentionMeEmailV3";
-
-        /// <summary>
-        /// When an upcoming event is starting soon (V3).
-        /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
-        /// </summary>
-        public const string OnUpcomingEvents = "OnUpcomingEventsV3";
-
-        /// <summary>
-        /// When a new email arrives in a shared mailbox (V2).
-        /// Payload type: <see cref="Office365OnSharedMailboxNewEmailTriggerPayload"/>.
-        /// </summary>
-        public const string OnSharedMailboxNewEmail = "SharedMailboxOnNewEmailV2";
+        public const string PastDays = "pastDays";
 
     }
 
-    #endregion Trigger Operation Constants
-
-    #region Trigger Parameter Metadata
-
     /// <summary>
-    /// Trigger input parameter name constants for the Office365 connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// Input parameters for the OnCalendarNewItems trigger operation (operationId: CalendarGetOnNewItemsV3).
     /// </summary>
-    public static class Office365TriggerParameters
+    public static class OnCalendarNewItems
     {
         /// <summary>
-        /// Input parameters for the OnCalendarChangedItems trigger operation (operationId: CalendarGetOnChangedItemsV3).
+        /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
         /// </summary>
-        public static class OnCalendarChangedItems
-        {
-            /// <summary>
-            /// Number of incoming days in calendar to be tracked
-            /// Default: 300.
-            /// </summary>
-            public const string IncomingDays = "incomingDays";
-
-            /// <summary>
-            /// Number of past days in calendar to be tracked
-            /// Default: 50.
-            /// </summary>
-            public const string PastDays = "pastDays";
-
-        }
+        public const string Filter = "$filter";
 
         /// <summary>
-        /// Input parameters for the OnCalendarNewItems trigger operation (operationId: CalendarGetOnNewItemsV3).
+        /// An ODATA orderBy query for specifying the order of entries.
         /// </summary>
-        public static class OnCalendarNewItems
-        {
-            /// <summary>
-            /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
-            /// </summary>
-            public const string Filter = "$filter";
-
-            /// <summary>
-            /// An ODATA orderBy query for specifying the order of entries.
-            /// </summary>
-            public const string Orderby = "$orderby";
-
-            /// <summary>
-            /// Total number of entries to retrieve (default = all).
-            /// </summary>
-            public const string Top = "$top";
-
-            /// <summary>
-            /// The number of entries to skip (default = 0).
-            /// </summary>
-            public const string Skip = "$skip";
-
-            /// <summary>
-            /// Special header to enable operation simulation.
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
+        public const string Orderby = "$orderby";
 
         /// <summary>
-        /// Input parameters for the OnCalendarUpdatedItems trigger operation (operationId: CalendarGetOnUpdatedItemsV3).
+        /// Total number of entries to retrieve (default = all).
         /// </summary>
-        public static class OnCalendarUpdatedItems
-        {
-            /// <summary>
-            /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
-            /// </summary>
-            public const string Filter = "$filter";
-
-            /// <summary>
-            /// An ODATA orderBy query for specifying the order of entries.
-            /// </summary>
-            public const string Orderby = "$orderby";
-
-            /// <summary>
-            /// Total number of entries to retrieve (default = all).
-            /// </summary>
-            public const string Top = "$top";
-
-            /// <summary>
-            /// The number of entries to skip (default = 0).
-            /// </summary>
-            public const string Skip = "$skip";
-
-        }
+        public const string Top = "$top";
 
         /// <summary>
-        /// Input parameters for the OnFlaggedEmail trigger operation (operationId: OnFlaggedEmailV4).
+        /// The number of entries to skip (default = 0).
         /// </summary>
-        public static class OnFlaggedEmail
-        {
-            /// <summary>
-            /// Mail folder to check for new emails.
-            /// Default: Inbox.
-            /// </summary>
-            public const string FolderPath = "folderPath";
-
-            /// <summary>
-            /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string To = "to";
-
-            /// <summary>
-            /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string Cc = "cc";
-
-            /// <summary>
-            /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string ToOrCc = "toOrCc";
-
-            /// <summary>
-            /// Sender email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string From = "from";
-
-            /// <summary>
-            /// Importance of the email (Any, High, Normal, Low).
-            /// Default: Any.
-            /// Allowed values: Any, Low, Normal, High.
-            /// </summary>
-            public const string Importance = "importance";
-
-            /// <summary>
-            /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
-            /// Default: false.
-            /// </summary>
-            public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
-
-            /// <summary>
-            /// Should the response of the trigger include the attachments content.
-            /// Default: false.
-            /// </summary>
-            public const string IncludeAttachments = "includeAttachments";
-
-            /// <summary>
-            /// String to look for in the subject line.
-            /// </summary>
-            public const string SubjectFilter = "subjectFilter";
-
-        }
+        public const string Skip = "$skip";
 
         /// <summary>
-        /// Input parameters for the OnNewEmail trigger operation (operationId: OnNewEmailV3).
+        /// Special header to enable operation simulation.
         /// </summary>
-        public static class OnNewEmail
-        {
-            /// <summary>
-            /// Mail folder to check for new emails.
-            /// Default: Inbox.
-            /// </summary>
-            public const string FolderPath = "folderPath";
-
-            /// <summary>
-            /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string To = "to";
-
-            /// <summary>
-            /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string Cc = "cc";
-
-            /// <summary>
-            /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string ToOrCc = "toOrCc";
-
-            /// <summary>
-            /// Sender email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string From = "from";
-
-            /// <summary>
-            /// Importance of the email (Any, High, Normal, Low).
-            /// Default: Any.
-            /// Allowed values: Any, Low, Normal, High.
-            /// </summary>
-            public const string Importance = "importance";
-
-            /// <summary>
-            /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
-            /// Default: false.
-            /// </summary>
-            public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
-
-            /// <summary>
-            /// Should the response of the trigger include the attachments content.
-            /// Default: false.
-            /// </summary>
-            public const string IncludeAttachments = "includeAttachments";
-
-            /// <summary>
-            /// String to look for in the subject line.
-            /// </summary>
-            public const string SubjectFilter = "subjectFilter";
-
-            /// <summary>
-            /// Special header to enable operation simulation.
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnNewEmailMentioningMe trigger operation (operationId: OnNewMentionMeEmailV3).
-        /// </summary>
-        public static class OnNewEmailMentioningMe
-        {
-            /// <summary>
-            /// Id of message to fire on first trigger run if supplied.
-            /// </summary>
-            public const string MessageIdToFireOnFirstTriggerRun = "messageIdToFireOnFirstTriggerRun";
-
-            /// <summary>
-            /// Mail folder to check for new emails.
-            /// </summary>
-            public const string FolderPath = "folderPath";
-
-            /// <summary>
-            /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string To = "to";
-
-            /// <summary>
-            /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string Cc = "cc";
-
-            /// <summary>
-            /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string ToOrCc = "toOrCc";
-
-            /// <summary>
-            /// Sender email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string From = "from";
-
-            /// <summary>
-            /// Importance of the email (Any, High, Normal, Low).
-            /// Default: Any.
-            /// Allowed values: Any, Low, Normal, High.
-            /// </summary>
-            public const string Importance = "importance";
-
-            /// <summary>
-            /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
-            /// Default: false.
-            /// </summary>
-            public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
-
-            /// <summary>
-            /// Should the response of the trigger include the attachments content.
-            /// Default: false.
-            /// </summary>
-            public const string IncludeAttachments = "includeAttachments";
-
-            /// <summary>
-            /// String to look for in the subject line.
-            /// </summary>
-            public const string SubjectFilter = "subjectFilter";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnUpcomingEvents trigger operation (operationId: OnUpcomingEventsV3).
-        /// </summary>
-        public static class OnUpcomingEvents
-        {
-            /// <summary>
-            /// Unique identifier of the calendar.
-            /// Required.
-            /// Dynamic values from: CalendarGetTables_V2.
-            /// </summary>
-            public const string Table = "table";
-
-            /// <summary>
-            /// Time (in minutes) to look ahead for upcoming events.
-            /// Default: 15.
-            /// </summary>
-            public const string LookAheadTimeInMinutes = "lookAheadTimeInMinutes";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnSharedMailboxNewEmail trigger operation (operationId: SharedMailboxOnNewEmailV2).
-        /// </summary>
-        public static class OnSharedMailboxNewEmail
-        {
-            /// <summary>
-            /// Address of the shared mailbox.
-            /// Required.
-            /// </summary>
-            public const string MailboxAddress = "mailboxAddress";
-
-            /// <summary>
-            /// Mail folder to check for new emails.
-            /// Default: Inbox.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string To = "to";
-
-            /// <summary>
-            /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string Cc = "cc";
-
-            /// <summary>
-            /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string ToOrCc = "toOrCc";
-
-            /// <summary>
-            /// Sender email addresses separated by semicolons (If any match, the trigger will run).
-            /// </summary>
-            public const string From = "from";
-
-            /// <summary>
-            /// Importance of the email (Any, High, Normal, Low).
-            /// Default: Any.
-            /// Allowed values: Any, Low, Normal, High.
-            /// </summary>
-            public const string Importance = "importance";
-
-            /// <summary>
-            /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
-            /// Default: false.
-            /// </summary>
-            public const string HasAttachments = "hasAttachments";
-
-            /// <summary>
-            /// Should the response of the trigger include the attachments content.
-            /// Default: false.
-            /// </summary>
-            public const string IncludeAttachments = "includeAttachments";
-
-            /// <summary>
-            /// String to look for in the subject line.
-            /// </summary>
-            public const string SubjectFilter = "subjectFilter";
-
-            /// <summary>
-            /// Special header to enable operation simulation.
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
+        public const string XMsOperationContext = "x-ms-operation-context";
 
     }
 
-    #endregion Trigger Parameter Metadata
-
-    #region Client
-
     /// <summary>
-    /// Typed client for office365 connector.
+    /// Input parameters for the OnCalendarUpdatedItems trigger operation (operationId: CalendarGetOnUpdatedItemsV3).
     /// </summary>
-    public class Office365Client : ConnectorClientBase
+    public static class OnCalendarUpdatedItems
     {
         /// <summary>
-        /// Creates a new Office365Client with the specified connection runtime URL.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public Office365Client(Uri connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
+        public const string Filter = "$filter";
 
         /// <summary>
-        /// Creates a new Office365Client with the specified connection runtime URL and credential.
+        /// An ODATA orderBy query for specifying the order of entries.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="credential">The Azure credential for authentication.</param>
-        /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public Office365Client(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-            : base(connectionRuntimeUrl, credential, options)
-        {
-        }
+        public const string Orderby = "$orderby";
 
         /// <summary>
-        /// Creates a new Office365Client with the specified connection runtime URL string.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// Total number of entries to retrieve (default = all).
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public Office365Client(string connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
-
-        protected Office365Client() : this(new Uri("https://localhost")) { }
-
-        public override string ConnectorName => "office365";
+        public const string Top = "$top";
 
         /// <summary>
-        /// Get Outlook category names
+        /// The number of entries to skip (default = 0).
         /// </summary>
-        /// <remarks>This operation gets Outlook category display names.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Outlook category names response.</returns>
-        public virtual async Task<List<GraphOutlookCategory>> GetOutlookCategoryNamesAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/Categories";
-            return await this
-                .CallConnectorAsync<List<GraphOutlookCategory>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Draft an email message
-        /// </summary>
-        /// <remarks>This operation drafts an email message.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="draftType">Draft Type</param>
-        /// <param name="comment">Comment</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Draft an email message response.</returns>
-        public virtual async Task<OutlookReceiveMessage> DraftEmailAsync(DraftEmailInput input, string messageId = default, string draftType = default, string comment = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (messageId != default)
-                queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-            if (draftType != default)
-                queryParams.Add($"draftType={Uri.EscapeDataString(draftType.ToString())}");
-            if (comment != default)
-                queryParams.Add($"comment={Uri.EscapeDataString(comment.ToString())}");
-            var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<OutlookReceiveMessage>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Updates an email Draft message
-        /// </summary>
-        /// <remarks>This operation updates an an email Draft message.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateDraftEmailAsync(DraftEmailInput input, string messageId, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (messageId != default)
-                queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-            var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send a Draft message
-        /// </summary>
-        /// <remarks>This operation sends a Draft message.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SendDraftEmailAsync(string messageId, CancellationToken cancellationToken = default)
-        {
-            var path = $"/Draft/Send/{Uri.EscapeDataString(messageId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Assigns an Outlook category
-        /// </summary>
-        /// <remarks>This operation assigns an Outlook category to an email.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="category">Category</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AssignCategoryAsync(string messageId, string category, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (messageId != default)
-                queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-            if (category != default)
-                queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
-            var path = $"/Mail/Category" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Assign a category to multiple emails
-        /// </summary>
-        /// <remarks>This operation assigns an Outlook category to multiple emails.</remarks>
-        /// <param name="categoryName">Category Name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Assign a category to multiple emails response.</returns>
-        public virtual async Task<BatchOperationResult> AssignCategoryBulkAsync(string categoryName, List<string> input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/Mail/Category/Bulk/{Uri.EscapeDataString(categoryName.ToString())}";
-            return await this
-                .CallConnectorAsync<BatchOperationResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send email with options
-        /// </summary>
-        /// <remarks>This operation sends an email with multiple options and waits for the recipient to respond back with one of the options. Please refer to the following link regarding the support of actionable messages in different mail clients: https://docs.microsoft.com/outlook/actionable-messages/#outlook-version-requirements-for-actionable-messages.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send email with options response.</returns>
-        public virtual async Task<SubscriptionResponse> SendMailWithOptionsAsync(OptionsEmailSubscription input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/mailwithoptions/$subscriptions";
-            return await this
-                .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send approval email
-        /// </summary>
-        /// <remarks>This operation sends an approval email and waits for a response from the recipient. Please refer to the following link regarding the support of actionable messages in different mail clients: https://docs.microsoft.com/outlook/actionable-messages/#outlook-version-requirements-for-actionable-messages.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send approval email response.</returns>
-        public virtual async Task<SubscriptionResponse> SendApprovalMailAsync(ApprovalEmailSubscription input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/approvalmail/$subscriptions";
-            return await this
-                .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Update my contact&apos;s photo
-        /// </summary>
-        /// <remarks>Updates the photo of the specified contact of the current user. The size of the photo must be less than 4 MB.</remarks>
-        /// <param name="folderId">Folder id</param>
-        /// <param name="itemId">Item id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateMyContactPhotoAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, byte[] input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}/photo/$value";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send an HTTP request
-        /// </summary>
-        /// <remarks>Construct a Microsoft Graph REST API request to invoke. These segments are supported: 1st segement: /me, /users/&lt;userId&gt; 2nd segment: messages, mailFolders, events, calendar, calendars, outlook, inferenceClassification. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send an HTTP request response.</returns>
-        public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/httprequest";
-            return await this
-                .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Email Management MCP Server (deprecated)
-        /// </summary>
-        /// <remarks>This MCP server manages email messages from your Office 365 account</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="sessionId">sessionId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Email Management MCP Server (deprecated) response.</returns>
-        public virtual async Task<MCPQueryResponse> McpEmailsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/mcp/EmailsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Meeting Management MCP Server (deprecated)
-        /// </summary>
-        /// <remarks>This MCP server manages events, calendars and meetings</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="sessionId">sessionId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Meeting Management MCP Server (deprecated) response.</returns>
-        public virtual async Task<MCPQueryResponse> McpMeetingManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/mcp/MeetingManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Contact Management MCP Server
-        /// </summary>
-        /// <remarks>This MCP server manages contacts</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="sessionId">sessionId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Contact Management MCP Server response.</returns>
-        public virtual async Task<MCPQueryResponse> McpContactsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/mcp/ContactsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete event (V2)
-        /// </summary>
-        /// <remarks>This operation deletes an event in a calendar.</remarks>
-        /// <param name="calendarId">Calendar id</param>
-        /// <param name="id">Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task CalendarDeleteItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get event (V3)
-        /// </summary>
-        /// <remarks>This operation gets a specific event from a calendar using Graph API. (V3)</remarks>
-        /// <param name="calendarId">Calendar id</param>
-        /// <param name="itemId">Item id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get event (V3) response.</returns>
-        public virtual async Task<GraphCalendarEventClientReceive> CalendarGetItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string itemId, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
-            return await this
-                .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get events (V4)
-        /// </summary>
-        /// <remarks>This operation gets events from a calendar using Graph API. (V4)</remarks>
-        /// <param name="calendarId">Calendar id</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="topCount">Top Count</param>
-        /// <param name="skipCount">Skip Count</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get events (V4) response.</returns>
-        public virtual async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-            var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get calendars (V2)
-        /// </summary>
-        /// <remarks>This operation lists available calendars.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get calendars (V2) response.</returns>
-        public virtual async Task<CalendarGetTablesResponse> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/calendars";
-            return await this
-                .CallConnectorAsync<CalendarGetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Update event (V4)
-        /// </summary>
-        /// <remarks>This operation updates an event in a calendar using Graph API.</remarks>
-        /// <param name="calendarId">Calendar id</param>
-        /// <param name="id">Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update event (V4) response.</returns>
-        public virtual async Task<GraphCalendarEventClientReceive> CalendarPatchItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create event (V4)
-        /// </summary>
-        /// <remarks>This operation creates a new event in a calendar.</remarks>
-        /// <param name="calendarId">Calendar id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create event (V4) response.</returns>
-        public virtual async Task<GraphCalendarEventClientReceive> CalendarPostItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
-            return await this
-                .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete contact (V2)
-        /// </summary>
-        /// <remarks>This operation deletes a contact from a contacts folder.</remarks>
-        /// <param name="folderId">Folder id</param>
-        /// <param name="id">Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ContactDeleteItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get contact (V2)
-        /// </summary>
-        /// <remarks>This operation gets a specific contact from a contacts folder.</remarks>
-        /// <param name="folderId">Folder id</param>
-        /// <param name="itemId">Item id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contact (V2) response.</returns>
-        public virtual async Task<ContactResponse> ContactGetItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}";
-            return await this
-                .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get contacts (V2)
-        /// </summary>
-        /// <remarks>This operation gets contacts from a contacts folder.</remarks>
-        /// <param name="folderId">Folder id</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="topCount">Top Count</param>
-        /// <param name="skipCount">Skip Count</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contacts (V2) response.</returns>
-        public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get contact folders (V2)
-        /// </summary>
-        /// <remarks>This operation lists available contacts folders using Graph API</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contact folders (V2) response.</returns>
-        public virtual async Task<EntityListResponseGraphContactFolder> ContactGetTablesAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/v2/datasets/contacts/tables";
-            return await this
-                .CallConnectorAsync<EntityListResponseGraphContactFolder>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Update contact (V2)
-        /// </summary>
-        /// <remarks>This operation updates a contact in a contacts folder.</remarks>
-        /// <param name="folderId">Folder id</param>
-        /// <param name="id">Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update contact (V2) response.</returns>
-        public virtual async Task<ContactResponse> ContactPatchItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, Contact input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create contact (V2)
-        /// </summary>
-        /// <remarks>This operation creates a new contact in a contacts folder.</remarks>
-        /// <param name="folderId">Folder id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create contact (V2) response.</returns>
-        public virtual async Task<ContactResponse> ContactPostItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, Contact input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts";
-            return await this
-                .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete email (V2)
-        /// </summary>
-        /// <remarks>This operation deletes an email by id.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Export email (V2)
-        /// </summary>
-        /// <remarks>Export the content of the email in the EML file format.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Export email (V2) response.</returns>
-        public virtual async Task<byte[]> ExportEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(messageId.ToString())}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Find meeting times (V2)
-        /// </summary>
-        /// <remarks>Find meeting time suggestions based on organizer, attendee availability, and time or location constraints</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Find meeting times (V2) response.</returns>
-        public virtual async Task<FindMeetingTimesResponse> FindMeetingTimesAsync(FindMeetingTimesInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/beta/me/findMeetingTimes";
-            return await this
-                .CallConnectorAsync<FindMeetingTimesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Flag email (V2)
-        /// </summary>
-        /// <remarks>This operation updates an email flag.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlagAsync(string messageId, UpdateEmailFlag input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Forward an email (V2)
-        /// </summary>
-        /// <remarks>Forward an email.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ForwardEmailAsync(string messageId, DirectForwardMessage input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get Attachment (V2)
-        /// </summary>
-        /// <remarks>This operation gets an email attachment by id.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="attachementId">Attachement Id</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
-        /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Attachment (V2) response.</returns>
-        public virtual async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
-            var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/attachments/{Uri.EscapeDataString(attachementId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get email (V2)
-        /// </summary>
-        /// <remarks>This operation gets an email by id.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="includeAttachments">Include Attachments</param>
-        /// <param name="internetMessageId">Internet Message Id</param>
-        /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
-        /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get email (V2) response.</returns>
-        public virtual async Task<GraphClientReceiveMessage> GetEmailAsync(string messageId, string originalMailboxAddress = default, bool includeAttachments = default, string internetMessageId = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            if (includeAttachments != default)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
-            if (internetMessageId != default)
-                queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
-            var path = $"/v2/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get emails (V3)
-        /// </summary>
-        /// <remarks>This operation gets emails from a folder via graph apis. Please note that filtering related to these fields: To, Cc, To Or Cc, From, Importance, Fetch Only With Attachments, Subject Filter, is performed using first 250 items in a given mail folder. To avoid that limitation you can use &apos;Search Query&apos; field.</remarks>
-        /// <param name="folder">Folder</param>
-        /// <param name="to">To</param>
-        /// <param name="cC">CC</param>
-        /// <param name="toOrCC">To or CC</param>
-        /// <param name="from">From</param>
-        /// <param name="importance">Importance</param>
-        /// <param name="onlyWithAttachments">Only with Attachments</param>
-        /// <param name="subjectFilter">Subject Filter</param>
-        /// <param name="fetchOnlyUnreadMessages">Fetch Only Unread Messages</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="includeAttachments">Include Attachments</param>
-        /// <param name="searchQuery">Search Query</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get emails (V3) response.</returns>
-        public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool onlyWithAttachments = default, string subjectFilter = default, bool fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool includeAttachments = default, string searchQuery = default, int top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (folder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-            if (to != default)
-                queryParams.Add($"to={Uri.EscapeDataString(to.ToString())}");
-            if (cC != default)
-                queryParams.Add($"cc={Uri.EscapeDataString(cC.ToString())}");
-            if (toOrCC != default)
-                queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC.ToString())}");
-            if (from != default)
-                queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
-            if (importance != default)
-                queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
-            if (onlyWithAttachments != default)
-                queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.ToString())}");
-            if (subjectFilter != default)
-                queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
-            if (fetchOnlyUnreadMessages != default)
-                queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.ToString())}");
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            if (includeAttachments != default)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
-            if (searchQuery != default)
-                queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
-            if (top != default)
-                queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/v3/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BatchResponseGraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get calendar view of events (V3)
-        /// </summary>
-        /// <remarks>This operation gets all events (including instances of recurrences) in a calendar using Graph API. Recurrence property is null in this case.</remarks>
-        /// <param name="calendarId">Calendar Id</param>
-        /// <param name="startTime">Start Time</param>
-        /// <param name="endTime">End Time</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="topCount">Top Count</param>
-        /// <param name="skipCount">Skip Count</param>
-        /// <param name="search">Search</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get calendar view of events (V3) response.</returns>
-        public virtual async Task<EntityListResponseGraphCalendarEventClientReceive> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string search = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (calendarId != default)
-                queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-            if (startTime != default)
-                queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
-            if (endTime != default)
-                queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-            if (search != default)
-                queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
-            var path = $"/datasets/calendars/v3/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EntityListResponseGraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get mail tips for a mailbox (V2)
-        /// </summary>
-        /// <remarks>Get mail tips for a mailbox such as automatic replies / OOF message or if the mailbox is full. This is not available in GccHigh and Mooncake.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get mail tips for a mailbox (V2) response.</returns>
-        public virtual async Task<GetMailTipsResponse> GetMailTipsAsync(GetMailTipsInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/getMailTips";
-            return await this
-                .CallConnectorAsync<GetMailTipsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get room lists (V2)
-        /// </summary>
-        /// <remarks>Get all the room lists defined in the user&apos;s tenant</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get room lists (V2) response.</returns>
-        public virtual async Task<GetRoomListsResponse> GetRoomListsAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/beta/me/findRoomLists";
-            return await this
-                .CallConnectorAsync<GetRoomListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get rooms (V2)
-        /// </summary>
-        /// <remarks>Get all the meeting rooms defined in the user&apos;s tenant</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get rooms (V2) response.</returns>
-        public virtual async Task<GetRoomsResponse> GetRoomsAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/beta/me/findRooms";
-            return await this
-                .CallConnectorAsync<GetRoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get rooms in room list (V2)
-        /// </summary>
-        /// <remarks>Get the meeting rooms in a specific room list</remarks>
-        /// <param name="roomList">Room list</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get rooms in room list (V2) response.</returns>
-        public virtual async Task<GetRoomsInRoomListResponse> GetRoomsInRoomListAsync([DynamicValues("GetRoomLists_V2")] string roomList, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/beta/me/findRooms(RoomList='{Uri.EscapeDataString(roomList.ToString())}')";
-            return await this
-                .CallConnectorAsync<GetRoomsInRoomListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Mark as read or unread (V3)
-        /// </summary>
-        /// <remarks>This operation marks an email as read/unread.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task MarkAsReadAsync(string messageId, MarkAsReadInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Move email (V2)
-        /// </summary>
-        /// <remarks>This operation moves an email to the specified folder within the same mailbox.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="folder">Folder</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Move email (V2) response.</returns>
-        public virtual async Task<GraphClientReceiveMessage> MoveAsync(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (folder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Reply to email (V3)
-        /// </summary>
-        /// <remarks>This operation replies to an email.</remarks>
-        /// <param name="messageId">Message Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="originalMailboxAddress">Original Mailbox Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ReplyToAsync(string messageId, ReplyEmailInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (originalMailboxAddress != default)
-                queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Respond to an event invite (V2)
-        /// </summary>
-        /// <remarks>Respond to an event invite.</remarks>
-        /// <param name="eventId">Event Id</param>
-        /// <param name="response">Response</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RespondToEventAsync(string eventId, string response, ResponseToEventInvite input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send an email (V2)
-        /// </summary>
-        /// <remarks>This operation sends an email message.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SendEmailAsync(SendEmailInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v2/Mail";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Set up automatic replies (V2)
-        /// </summary>
-        /// <remarks>Set the automatic replies setting for your mailbox.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Set up automatic replies (V2) response.</returns>
-        public virtual async Task<SetAutomaticRepliesSettingResponse> SetAutomaticRepliesSettingAsync(SetAutomaticRepliesSettingInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/codeless/v1.0/me/mailboxSettings";
-            return await this
-                .CallConnectorAsync<SetAutomaticRepliesSettingResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send an email from a shared mailbox (V2)
-        /// </summary>
-        /// <remarks>This operation sends an email from a shared mailbox. Your account should have permission to access the mailbox for this operation to succeed.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SharedMailboxSendEmailAsync(SharedMailboxSendEmailInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v2/SharedMailbox/Mail";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
+        public const string Skip = "$skip";
 
     }
 
-    #endregion Client
+    /// <summary>
+    /// Input parameters for the OnFlaggedEmail trigger operation (operationId: OnFlaggedEmailV4).
+    /// </summary>
+    public static class OnFlaggedEmail
+    {
+        /// <summary>
+        /// Mail folder to check for new emails.
+        /// Default: Inbox.
+        /// </summary>
+        public const string FolderPath = "folderPath";
+
+        /// <summary>
+        /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string To = "to";
+
+        /// <summary>
+        /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string Cc = "cc";
+
+        /// <summary>
+        /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string ToOrCc = "toOrCc";
+
+        /// <summary>
+        /// Sender email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string From = "from";
+
+        /// <summary>
+        /// Importance of the email (Any, High, Normal, Low).
+        /// Default: Any.
+        /// Allowed values: Any, Low, Normal, High.
+        /// </summary>
+        public const string Importance = "importance";
+
+        /// <summary>
+        /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
+        /// Default: false.
+        /// </summary>
+        public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
+
+        /// <summary>
+        /// Should the response of the trigger include the attachments content.
+        /// Default: false.
+        /// </summary>
+        public const string IncludeAttachments = "includeAttachments";
+
+        /// <summary>
+        /// String to look for in the subject line.
+        /// </summary>
+        public const string SubjectFilter = "subjectFilter";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnNewEmail trigger operation (operationId: OnNewEmailV3).
+    /// </summary>
+    public static class OnNewEmail
+    {
+        /// <summary>
+        /// Mail folder to check for new emails.
+        /// Default: Inbox.
+        /// </summary>
+        public const string FolderPath = "folderPath";
+
+        /// <summary>
+        /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string To = "to";
+
+        /// <summary>
+        /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string Cc = "cc";
+
+        /// <summary>
+        /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string ToOrCc = "toOrCc";
+
+        /// <summary>
+        /// Sender email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string From = "from";
+
+        /// <summary>
+        /// Importance of the email (Any, High, Normal, Low).
+        /// Default: Any.
+        /// Allowed values: Any, Low, Normal, High.
+        /// </summary>
+        public const string Importance = "importance";
+
+        /// <summary>
+        /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
+        /// Default: false.
+        /// </summary>
+        public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
+
+        /// <summary>
+        /// Should the response of the trigger include the attachments content.
+        /// Default: false.
+        /// </summary>
+        public const string IncludeAttachments = "includeAttachments";
+
+        /// <summary>
+        /// String to look for in the subject line.
+        /// </summary>
+        public const string SubjectFilter = "subjectFilter";
+
+        /// <summary>
+        /// Special header to enable operation simulation.
+        /// </summary>
+        public const string XMsOperationContext = "x-ms-operation-context";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnNewEmailMentioningMe trigger operation (operationId: OnNewMentionMeEmailV3).
+    /// </summary>
+    public static class OnNewEmailMentioningMe
+    {
+        /// <summary>
+        /// Id of message to fire on first trigger run if supplied.
+        /// </summary>
+        public const string MessageIdToFireOnFirstTriggerRun = "messageIdToFireOnFirstTriggerRun";
+
+        /// <summary>
+        /// Mail folder to check for new emails.
+        /// </summary>
+        public const string FolderPath = "folderPath";
+
+        /// <summary>
+        /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string To = "to";
+
+        /// <summary>
+        /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string Cc = "cc";
+
+        /// <summary>
+        /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string ToOrCc = "toOrCc";
+
+        /// <summary>
+        /// Sender email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string From = "from";
+
+        /// <summary>
+        /// Importance of the email (Any, High, Normal, Low).
+        /// Default: Any.
+        /// Allowed values: Any, Low, Normal, High.
+        /// </summary>
+        public const string Importance = "importance";
+
+        /// <summary>
+        /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
+        /// Default: false.
+        /// </summary>
+        public const string FetchOnlyWithAttachment = "fetchOnlyWithAttachment";
+
+        /// <summary>
+        /// Should the response of the trigger include the attachments content.
+        /// Default: false.
+        /// </summary>
+        public const string IncludeAttachments = "includeAttachments";
+
+        /// <summary>
+        /// String to look for in the subject line.
+        /// </summary>
+        public const string SubjectFilter = "subjectFilter";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnUpcomingEvents trigger operation (operationId: OnUpcomingEventsV3).
+    /// </summary>
+    public static class OnUpcomingEvents
+    {
+        /// <summary>
+        /// Unique identifier of the calendar.
+        /// Required.
+        /// Dynamic values from: CalendarGetTables_V2.
+        /// </summary>
+        public const string Table = "table";
+
+        /// <summary>
+        /// Time (in minutes) to look ahead for upcoming events.
+        /// Default: 15.
+        /// </summary>
+        public const string LookAheadTimeInMinutes = "lookAheadTimeInMinutes";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnSharedMailboxNewEmail trigger operation (operationId: SharedMailboxOnNewEmailV2).
+    /// </summary>
+    public static class OnSharedMailboxNewEmail
+    {
+        /// <summary>
+        /// Address of the shared mailbox.
+        /// Required.
+        /// </summary>
+        public const string MailboxAddress = "mailboxAddress";
+
+        /// <summary>
+        /// Mail folder to check for new emails.
+        /// Default: Inbox.
+        /// </summary>
+        public const string FolderId = "folderId";
+
+        /// <summary>
+        /// Recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string To = "to";
+
+        /// <summary>
+        /// CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string Cc = "cc";
+
+        /// <summary>
+        /// To or CC recipient email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string ToOrCc = "toOrCc";
+
+        /// <summary>
+        /// Sender email addresses separated by semicolons (If any match, the trigger will run).
+        /// </summary>
+        public const string From = "from";
+
+        /// <summary>
+        /// Importance of the email (Any, High, Normal, Low).
+        /// Default: Any.
+        /// Allowed values: Any, Low, Normal, High.
+        /// </summary>
+        public const string Importance = "importance";
+
+        /// <summary>
+        /// If set to true, only emails with an attachment will be retrieved. Emails without any attachments will be skipped. If set to false, all emails will be retrieved.
+        /// Default: false.
+        /// </summary>
+        public const string HasAttachments = "hasAttachments";
+
+        /// <summary>
+        /// Should the response of the trigger include the attachments content.
+        /// Default: false.
+        /// </summary>
+        public const string IncludeAttachments = "includeAttachments";
+
+        /// <summary>
+        /// String to look for in the subject line.
+        /// </summary>
+        public const string SubjectFilter = "subjectFilter";
+
+        /// <summary>
+        /// Special header to enable operation simulation.
+        /// </summary>
+        public const string XMsOperationContext = "x-ms-operation-context";
+
+    }
+
+}
+
+#endregion Trigger Parameter Metadata
+
+#region Client
+
+/// <summary>
+/// Typed client for office365 connector.
+/// </summary>
+public class Office365Client : ConnectorClientBase
+{
+    /// <summary>
+    /// Creates a new Office365Client with the specified connection runtime URL.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public Office365Client(Uri connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new Office365Client with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    /// <param name="options">Optional client options for retry, timeout, etc.</param>
+    public Office365Client(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        : base(connectionRuntimeUrl, credential, options)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new Office365Client with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    public Office365Client(Uri connectionRuntimeUrl, TokenCredential credential)
+        : base(connectionRuntimeUrl, credential)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new Office365Client with the specified connection runtime URL string.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public Office365Client(string connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    protected Office365Client() : this(new Uri("https://localhost")) { }
+
+    public override string ConnectorName => "office365";
+
+    /// <summary>
+    /// Get Outlook category names
+    /// </summary>
+    /// <remarks>This operation gets Outlook category display names.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get Outlook category names response.</returns>
+    public virtual async Task<List<GraphOutlookCategory>> GetOutlookCategoryNamesAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/Categories";
+        return await this
+            .CallConnectorAsync<List<GraphOutlookCategory>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Draft an email message
+    /// </summary>
+    /// <remarks>This operation drafts an email message.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="draftType">Draft Type</param>
+    /// <param name="comment">Comment</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Draft an email message response.</returns>
+    public virtual async Task<OutlookReceiveMessage> DraftEmailAsync(DraftEmailInput input, string messageId = default, string draftType = default, string comment = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (messageId != default)
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+        if (draftType != default)
+            queryParams.Add($"draftType={Uri.EscapeDataString(draftType.ToString())}");
+        if (comment != default)
+            queryParams.Add($"comment={Uri.EscapeDataString(comment.ToString())}");
+        var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<OutlookReceiveMessage>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Updates an email Draft message
+    /// </summary>
+    /// <remarks>This operation updates an an email Draft message.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task UpdateDraftEmailAsync(DraftEmailInput input, string messageId, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (messageId != default)
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+        var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send a Draft message
+    /// </summary>
+    /// <remarks>This operation sends a Draft message.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task SendDraftEmailAsync(string messageId, CancellationToken cancellationToken = default)
+    {
+        var path = $"/Draft/Send/{Uri.EscapeDataString(messageId.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Assigns an Outlook category
+    /// </summary>
+    /// <remarks>This operation assigns an Outlook category to an email.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="category">Category</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task AssignCategoryAsync(string messageId, string category, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (messageId != default)
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+        if (category != default)
+            queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
+        var path = $"/Mail/Category" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Assign a category to multiple emails
+    /// </summary>
+    /// <remarks>This operation assigns an Outlook category to multiple emails.</remarks>
+    /// <param name="categoryName">Category Name</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Assign a category to multiple emails response.</returns>
+    public virtual async Task<BatchOperationResult> AssignCategoryBulkAsync(string categoryName, List<string> input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/Mail/Category/Bulk/{Uri.EscapeDataString(categoryName.ToString())}";
+        return await this
+            .CallConnectorAsync<BatchOperationResult>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send email with options
+    /// </summary>
+    /// <remarks>This operation sends an email with multiple options and waits for the recipient to respond back with one of the options. Please refer to the following link regarding the support of actionable messages in different mail clients: https://docs.microsoft.com/outlook/actionable-messages/#outlook-version-requirements-for-actionable-messages.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Send email with options response.</returns>
+    public virtual async Task<SubscriptionResponse> SendMailWithOptionsAsync(OptionsEmailSubscription input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/mailwithoptions/$subscriptions";
+        return await this
+            .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send approval email
+    /// </summary>
+    /// <remarks>This operation sends an approval email and waits for a response from the recipient. Please refer to the following link regarding the support of actionable messages in different mail clients: https://docs.microsoft.com/outlook/actionable-messages/#outlook-version-requirements-for-actionable-messages.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Send approval email response.</returns>
+    public virtual async Task<SubscriptionResponse> SendApprovalMailAsync(ApprovalEmailSubscription input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/approvalmail/$subscriptions";
+        return await this
+            .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Update my contact&apos;s photo
+    /// </summary>
+    /// <remarks>Updates the photo of the specified contact of the current user. The size of the photo must be less than 4 MB.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="itemId">Item id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task UpdateMyContactPhotoAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, byte[] input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}/photo/$value";
+        await this
+            .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send an HTTP request
+    /// </summary>
+    /// <remarks>Construct a Microsoft Graph REST API request to invoke. These segments are supported: 1st segement: /me, /users/&lt;userId&gt; 2nd segment: messages, mailFolders, events, calendar, calendars, outlook, inferenceClassification. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Send an HTTP request response.</returns>
+    public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/httprequest";
+        return await this
+            .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Email Management MCP Server (deprecated)
+    /// </summary>
+    /// <remarks>This MCP server manages email messages from your Office 365 account</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="sessionId">sessionId</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Email Management MCP Server (deprecated) response.</returns>
+    public virtual async Task<MCPQueryResponse> McpEmailsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sessionId != default)
+            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+        var path = $"/mcp/EmailsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Meeting Management MCP Server (deprecated)
+    /// </summary>
+    /// <remarks>This MCP server manages events, calendars and meetings</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="sessionId">sessionId</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Meeting Management MCP Server (deprecated) response.</returns>
+    public virtual async Task<MCPQueryResponse> McpMeetingManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sessionId != default)
+            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+        var path = $"/mcp/MeetingManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Contact Management MCP Server
+    /// </summary>
+    /// <remarks>This MCP server manages contacts</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="sessionId">sessionId</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Contact Management MCP Server response.</returns>
+    public virtual async Task<MCPQueryResponse> McpContactsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sessionId != default)
+            queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+        var path = $"/mcp/ContactsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete event (V2)
+    /// </summary>
+    /// <remarks>This operation deletes an event in a calendar.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="id">Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task CalendarDeleteItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get event (V3)
+    /// </summary>
+    /// <remarks>This operation gets a specific event from a calendar using Graph API. (V3)</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="itemId">Item id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get event (V3) response.</returns>
+    public virtual async Task<GraphCalendarEventClientReceive> CalendarGetItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string itemId, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+        return await this
+            .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get events (V4)
+    /// </summary>
+    /// <remarks>This operation gets events from a calendar using Graph API. (V4)</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="topCount">Top Count</param>
+    /// <param name="skipCount">Skip Count</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get events (V4) response.</returns>
+    public virtual async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get calendars (V2)
+    /// </summary>
+    /// <remarks>This operation lists available calendars.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get calendars (V2) response.</returns>
+    public virtual async Task<CalendarGetTablesResponse> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/calendars";
+        return await this
+            .CallConnectorAsync<CalendarGetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Update event (V4)
+    /// </summary>
+    /// <remarks>This operation updates an event in a calendar using Graph API.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="id">Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Update event (V4) response.</returns>
+    public virtual async Task<GraphCalendarEventClientReceive> CalendarPatchItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+        return await this
+            .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create event (V4)
+    /// </summary>
+    /// <remarks>This operation creates a new event in a calendar.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create event (V4) response.</returns>
+    public virtual async Task<GraphCalendarEventClientReceive> CalendarPostItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
+        return await this
+            .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete contact (V2)
+    /// </summary>
+    /// <remarks>This operation deletes a contact from a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="id">Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task ContactDeleteItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get contact (V2)
+    /// </summary>
+    /// <remarks>This operation gets a specific contact from a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="itemId">Item id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get contact (V2) response.</returns>
+    public virtual async Task<ContactResponse> ContactGetItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}";
+        return await this
+            .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get contacts (V2)
+    /// </summary>
+    /// <remarks>This operation gets contacts from a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="topCount">Top Count</param>
+    /// <param name="skipCount">Skip Count</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get contacts (V2) response.</returns>
+    public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get contact folders (V2)
+    /// </summary>
+    /// <remarks>This operation lists available contacts folders using Graph API</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get contact folders (V2) response.</returns>
+    public virtual async Task<EntityListResponseGraphContactFolder> ContactGetTablesAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/v2/datasets/contacts/tables";
+        return await this
+            .CallConnectorAsync<EntityListResponseGraphContactFolder>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Update contact (V2)
+    /// </summary>
+    /// <remarks>This operation updates a contact in a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="id">Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Update contact (V2) response.</returns>
+    public virtual async Task<ContactResponse> ContactPatchItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, Contact input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
+        return await this
+            .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create contact (V2)
+    /// </summary>
+    /// <remarks>This operation creates a new contact in a contacts folder.</remarks>
+    /// <param name="folderId">Folder id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create contact (V2) response.</returns>
+    public virtual async Task<ContactResponse> ContactPostItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, Contact input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts";
+        return await this
+            .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete email (V2)
+    /// </summary>
+    /// <remarks>This operation deletes an email by id.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task DeleteEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Export email (V2)
+    /// </summary>
+    /// <remarks>Export the content of the email in the EML file format.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Export email (V2) response.</returns>
+    public virtual async Task<byte[]> ExportEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(messageId.ToString())}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Find meeting times (V2)
+    /// </summary>
+    /// <remarks>Find meeting time suggestions based on organizer, attendee availability, and time or location constraints</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Find meeting times (V2) response.</returns>
+    public virtual async Task<FindMeetingTimesResponse> FindMeetingTimesAsync(FindMeetingTimesInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/beta/me/findMeetingTimes";
+        return await this
+            .CallConnectorAsync<FindMeetingTimesResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Flag email (V2)
+    /// </summary>
+    /// <remarks>This operation updates an email flag.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task FlagAsync(string messageId, UpdateEmailFlag input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Forward an email (V2)
+    /// </summary>
+    /// <remarks>Forward an email.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task ForwardEmailAsync(string messageId, DirectForwardMessage input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get Attachment (V2)
+    /// </summary>
+    /// <remarks>This operation gets an email attachment by id.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="attachementId">Attachement Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
+    /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get Attachment (V2) response.</returns>
+    public virtual async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (extractSensitivityLabel != default)
+            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+        if (sensitivityLabelMetadata != default)
+            queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+        var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/attachments/{Uri.EscapeDataString(attachementId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GetAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get email (V2)
+    /// </summary>
+    /// <remarks>This operation gets an email by id.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="includeAttachments">Include Attachments</param>
+    /// <param name="internetMessageId">Internet Message Id</param>
+    /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
+    /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get email (V2) response.</returns>
+    public virtual async Task<GraphClientReceiveMessage> GetEmailAsync(string messageId, string originalMailboxAddress = default, bool includeAttachments = default, string internetMessageId = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (includeAttachments != default)
+            queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+        if (internetMessageId != default)
+            queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
+        if (extractSensitivityLabel != default)
+            queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+        if (sensitivityLabelMetadata != default)
+            queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+        var path = $"/v2/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get emails (V3)
+    /// </summary>
+    /// <remarks>This operation gets emails from a folder via graph apis. Please note that filtering related to these fields: To, Cc, To Or Cc, From, Importance, Fetch Only With Attachments, Subject Filter, is performed using first 250 items in a given mail folder. To avoid that limitation you can use &apos;Search Query&apos; field.</remarks>
+    /// <param name="folder">Folder</param>
+    /// <param name="to">To</param>
+    /// <param name="cC">CC</param>
+    /// <param name="toOrCC">To or CC</param>
+    /// <param name="from">From</param>
+    /// <param name="importance">Importance</param>
+    /// <param name="onlyWithAttachments">Only with Attachments</param>
+    /// <param name="subjectFilter">Subject Filter</param>
+    /// <param name="fetchOnlyUnreadMessages">Fetch Only Unread Messages</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="includeAttachments">Include Attachments</param>
+    /// <param name="searchQuery">Search Query</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get emails (V3) response.</returns>
+    public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool onlyWithAttachments = default, string subjectFilter = default, bool fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool includeAttachments = default, string searchQuery = default, int top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (folder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+        if (to != default)
+            queryParams.Add($"to={Uri.EscapeDataString(to.ToString())}");
+        if (cC != default)
+            queryParams.Add($"cc={Uri.EscapeDataString(cC.ToString())}");
+        if (toOrCC != default)
+            queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC.ToString())}");
+        if (from != default)
+            queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
+        if (importance != default)
+            queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
+        if (onlyWithAttachments != default)
+            queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.ToString())}");
+        if (subjectFilter != default)
+            queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
+        if (fetchOnlyUnreadMessages != default)
+            queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        if (includeAttachments != default)
+            queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+        if (searchQuery != default)
+            queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
+        if (top != default)
+            queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/v3/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BatchResponseGraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get calendar view of events (V3)
+    /// </summary>
+    /// <remarks>This operation gets all events (including instances of recurrences) in a calendar using Graph API. Recurrence property is null in this case.</remarks>
+    /// <param name="calendarId">Calendar Id</param>
+    /// <param name="startTime">Start Time</param>
+    /// <param name="endTime">End Time</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="topCount">Top Count</param>
+    /// <param name="skipCount">Skip Count</param>
+    /// <param name="search">Search</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get calendar view of events (V3) response.</returns>
+    public virtual async Task<EntityListResponseGraphCalendarEventClientReceive> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string search = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (calendarId != default)
+            queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
+        if (startTime != default)
+            queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
+        if (endTime != default)
+            queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (topCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+        if (skipCount != default)
+            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+        if (search != default)
+            queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+        var path = $"/datasets/calendars/v3/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<EntityListResponseGraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get mail tips for a mailbox (V2)
+    /// </summary>
+    /// <remarks>Get mail tips for a mailbox such as automatic replies / OOF message or if the mailbox is full. This is not available in GccHigh and Mooncake.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get mail tips for a mailbox (V2) response.</returns>
+    public virtual async Task<GetMailTipsResponse> GetMailTipsAsync(GetMailTipsInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/getMailTips";
+        return await this
+            .CallConnectorAsync<GetMailTipsResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get room lists (V2)
+    /// </summary>
+    /// <remarks>Get all the room lists defined in the user&apos;s tenant</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get room lists (V2) response.</returns>
+    public virtual async Task<GetRoomListsResponse> GetRoomListsAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/beta/me/findRoomLists";
+        return await this
+            .CallConnectorAsync<GetRoomListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get rooms (V2)
+    /// </summary>
+    /// <remarks>Get all the meeting rooms defined in the user&apos;s tenant</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get rooms (V2) response.</returns>
+    public virtual async Task<GetRoomsResponse> GetRoomsAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/beta/me/findRooms";
+        return await this
+            .CallConnectorAsync<GetRoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get rooms in room list (V2)
+    /// </summary>
+    /// <remarks>Get the meeting rooms in a specific room list</remarks>
+    /// <param name="roomList">Room list</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get rooms in room list (V2) response.</returns>
+    public virtual async Task<GetRoomsInRoomListResponse> GetRoomsInRoomListAsync([DynamicValues("GetRoomLists_V2")] string roomList, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/beta/me/findRooms(RoomList='{Uri.EscapeDataString(roomList.ToString())}')";
+        return await this
+            .CallConnectorAsync<GetRoomsInRoomListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Mark as read or unread (V3)
+    /// </summary>
+    /// <remarks>This operation marks an email as read/unread.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task MarkAsReadAsync(string messageId, MarkAsReadInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Move email (V2)
+    /// </summary>
+    /// <remarks>This operation moves an email to the specified folder within the same mailbox.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="folder">Folder</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Move email (V2) response.</returns>
+    public virtual async Task<GraphClientReceiveMessage> MoveAsync(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (folder != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Reply to email (V3)
+    /// </summary>
+    /// <remarks>This operation replies to an email.</remarks>
+    /// <param name="messageId">Message Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="originalMailboxAddress">Original Mailbox Address</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task ReplyToAsync(string messageId, ReplyEmailInput input, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (originalMailboxAddress != default)
+            queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
+        var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Respond to an event invite (V2)
+    /// </summary>
+    /// <remarks>Respond to an event invite.</remarks>
+    /// <param name="eventId">Event Id</param>
+    /// <param name="response">Response</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task RespondToEventAsync(string eventId, string response, ResponseToEventInvite input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send an email (V2)
+    /// </summary>
+    /// <remarks>This operation sends an email message.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task SendEmailAsync(SendEmailInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v2/Mail";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Set up automatic replies (V2)
+    /// </summary>
+    /// <remarks>Set the automatic replies setting for your mailbox.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Set up automatic replies (V2) response.</returns>
+    public virtual async Task<SetAutomaticRepliesSettingResponse> SetAutomaticRepliesSettingAsync(SetAutomaticRepliesSettingInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/codeless/v1.0/me/mailboxSettings";
+        return await this
+            .CallConnectorAsync<SetAutomaticRepliesSettingResponse>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send an email from a shared mailbox (V2)
+    /// </summary>
+    /// <remarks>This operation sends an email from a shared mailbox. Your account should have permission to access the mailbox for this operation to succeed.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task SharedMailboxSendEmailAsync(SharedMailboxSendEmailInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v2/SharedMailbox/Mail";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+}
+
+#endregion Client
 }

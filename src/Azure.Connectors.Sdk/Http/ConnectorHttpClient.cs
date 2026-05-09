@@ -55,13 +55,22 @@ namespace Azure.Connectors.Sdk.Http
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class.
+        /// This constructor exists for mocking frameworks (e.g. Moq) and should not be used directly.
+        /// </summary>
+        protected ConnectorHttpClient()
+        {
+            this._pipeline = null!;
+        }
+
+        /// <summary>
         /// Sends an HTTP request through the Azure.Core pipeline with retry and authentication.
         /// </summary>
         /// <param name="request">The HTTP request.</param>
         /// <param name="scopes">The authentication scopes (used for telemetry; auth is configured in the pipeline).</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The HTTP response.</returns>
-        public async Task<HttpResponseMessage> SendAsync(
+        public virtual async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             string[] scopes,
             CancellationToken cancellationToken = default)

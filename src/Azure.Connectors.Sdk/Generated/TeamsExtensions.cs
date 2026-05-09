@@ -23,3475 +23,3485 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Teams.Models
 {
 
-    #region Types
-
-    /// <summary>
-    /// Response for Create a Teams meeting
-    /// </summary>
-    public class NewMeetingResponse
-    {
-        /// <summary>Unique identifier for the event</summary>
-        [JsonPropertyName("id")]
-        public string ID { get; set; }
-
-        /// <summary>Timestamp the event was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public string CreatedTimestamp { get; internal set; }
-
-        /// <summary>Timestamp the event was last modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public string LastModifiedTimestamp { get; internal set; }
-
-        /// <summary>The categories associated with the event</summary>
-        [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
-
-        /// <summary>Time zone of the event</summary>
-        [JsonPropertyName("timeZone")]
-        public string TimeZone { get; set; }
-
-        /// <summary>The number of minutes before the event start time that the reminder alert occurs</summary>
-        [JsonPropertyName("reminderMinutesBeforeStart")]
-        public int? PreEventReminderTime { get; set; }
-
-        /// <summary>Set to true if an alert is set to remind the user of the event</summary>
-        [JsonPropertyName("isReminderOn")]
-        public bool? RemindersEnabled { get; set; }
-
-        /// <summary>Set to true if the event has attachments</summary>
-        [JsonPropertyName("hasAttachments")]
-        public bool? HasAttachments { get; set; }
-
-        /// <summary>The text of the event&apos;s subject line</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>The preview of the message associated with the event</summary>
-        [JsonPropertyName("bodyPreview")]
-        public string BodyPreview { get; set; }
-
-        /// <summary>The importance of the event. The possible values are: low, normal, high</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>Sensitivity of the event</summary>
-        [JsonPropertyName("sensitivity")]
-        public string Sensitivity { get; set; }
-
-        /// <summary>Set to true if the event lasts all day</summary>
-        [JsonPropertyName("isAllDay")]
-        public bool? IsAllDay { get; set; }
-
-        /// <summary>Set to true if the event has been canceled</summary>
-        [JsonPropertyName("isCancelled")]
-        public bool? IsCancelled { get; set; }
-
-        /// <summary>Set to true if the calendar owner is the organizer of the event</summary>
-        [JsonPropertyName("isOrganizer")]
-        public bool? IsOrganizer { get; set; }
-
-        /// <summary>The organizer would like an invitee to send a response to the event</summary>
-        [JsonPropertyName("responseRequested")]
-        public bool? ResponseRequested { get; set; }
-
-        /// <summary>The status to show. Possible values are: free, tentative, busy, oof, workingElsewhere, unknown.</summary>
-        [JsonPropertyName("showAs")]
-        public string ShowAs { get; set; }
-
-        /// <summary>The event type. Possible values are: singleInstance, occurrence, exception, seriesMaster</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-
-        /// <summary>The URL to open the event in Outlook on the web.</summary>
-        [JsonPropertyName("webLink")]
-        public string WebLast { get; set; }
-
-        /// <summary>A URL for an online meeting</summary>
-        [JsonPropertyName("onlineMeetingUrl")]
-        public string OnlineMeetingURL { get; set; }
-
-        /// <summary>True if the meeting organizer allows invitees to propose a new time when responding</summary>
-        [JsonPropertyName("allowNewTimeProposals")]
-        public bool? AllowNewTimeProposals { get; set; }
-
-        /// <summary>The recurrence pattern for the event</summary>
-        [JsonPropertyName("recurrence")]
-        public object Recurrence { get; set; }
-
-        /// <summary>Indicates the type of response sent in response to an event message</summary>
-        [JsonPropertyName("responseStatus")]
-        public object ResponseStatus { get; set; }
-
-        /// <summary>The body of the message associated with the event</summary>
-        [JsonPropertyName("body")]
-        public object Body { get; set; }
-
-        /// <summary>The start date, time, and time zone of the event</summary>
-        [JsonPropertyName("start")]
-        public object Start { get; set; }
-
-        /// <summary>The date, time, and time zone that the event ends</summary>
-        [JsonPropertyName("end")]
-        public object End { get; set; }
-
-        /// <summary>The location of the event</summary>
-        [JsonPropertyName("location")]
-        public object Location { get; set; }
-
-        /// <summary>The collection of attendees for the event</summary>
-        [JsonPropertyName("attendees")]
-        public List<object> Attendee { get; set; }
-
-        /// <summary>Organizer</summary>
-        [JsonPropertyName("organizer")]
-        public object Organizer { get; set; }
-
-        /// <summary>Details for an attendee to join the meeting online.</summary>
-        [JsonPropertyName("onlineMeeting")]
-        public object OnlineMeeting { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List joined teams
-    /// </summary>
-    public class GetAllTeamsResponse
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>List of the teams you are a member of</summary>
-        [JsonPropertyName("value")]
-        public List<object> TeamsList { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List associated teams
-    /// </summary>
-    public class GetAllAssociatedTeamsResponse
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>List of the teams you are associated with</summary>
-        [JsonPropertyName("value")]
-        public List<AssociatedTeamInfo> TeamsList { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of the teams you are associated with
-    /// </summary>
-    public class AssociatedTeamInfo
-    {
-        /// <summary>The unique identifier of the team</summary>
-        [JsonPropertyName("id")]
-        public string TeamID { get; set; }
-
-        /// <summary>The name of the team</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The ID of the Microsoft Entra tenant this team belongs to</summary>
-        [JsonPropertyName("tenantId")]
-        public string TenantID { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List channels
-    /// </summary>
-    public class GetChannelsForGroupResponse
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>List of one or more channels for a specific team</summary>
-        [JsonPropertyName("value")]
-        public List<GetChannelResponse> ChannelList { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of one or more channels for a specific team
-    /// </summary>
-    public class GetChannelResponse
-    {
-        /// <summary>The unique identifier of the channel</summary>
-        [JsonPropertyName("id")]
-        public string ChannelID { get; set; }
-
-        /// <summary>The name of the channel</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The description of the channel, optional</summary>
-        [JsonPropertyName("description")]
-        public string DescriptionOfChannel { get; set; }
-
-        /// <summary>The email address for sending messages to the channel</summary>
-        [JsonPropertyName("email")]
-        public string TheEmailAddressForTheChannel { get; set; }
-
-        /// <summary>The ID of the Microsoft Entra tenant.</summary>
-        [JsonPropertyName("tenantId")]
-        public string TeamTenantId { get; set; }
-
-        /// <summary>A hyperlink for the channel in Microsoft Teams</summary>
-        [JsonPropertyName("webUrl")]
-        public string AHyperlinkForTheChannelInMicrosoftTeams { get; set; }
-
-        /// <summary>The SharePoint folder URL of the channel</summary>
-        [JsonPropertyName("filesFolderWebUrl")]
-        public string SharePointFolderURLForChannel { get; set; }
-
-        /// <summary>Timestamp at which the channel was created. Read only</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? ChannelCreationTime { get; internal set; }
-
-        /// <summary>The channel membership type</summary>
-        [JsonPropertyName("membershipType")]
-        public MembershipType? TheTypeOfTheChannel { get; set; }
-    }
-
-    /// <summary>
-    /// Create a channel
-    /// </summary>
-    public class CreateChannelInput
-    {
-        /// <summary>Optional textual description for the channel</summary>
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        /// <summary>Channel name as it appears in Microsoft Teams</summary>
-        [JsonPropertyName("displayName")]
-        public string Name { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create a channel
-    /// </summary>
-    public class CreateChannelResponse
-    {
-        /// <summary>Optional textual description for the channel</summary>
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        /// <summary>Channel name as it appears in Microsoft Teams</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The channel&apos;s unique identifier</summary>
-        [JsonPropertyName("id")]
-        public string ID { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List all channels
-    /// </summary>
-    public class GetAllChannelsForTeamResponse
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>List of one or more channels for a specific team</summary>
-        [JsonPropertyName("value")]
-        public List<ChannelWithOwnerTeamId> ChannelList { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of one or more channels for a specific team
-    /// </summary>
-    public class ChannelWithOwnerTeamId
-    {
-        /// <summary>The unique identifier of the channel</summary>
-        [JsonPropertyName("id")]
-        public string ChannelID { get; set; }
-
-        /// <summary>The name of the channel</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The description of the channel, optional</summary>
-        [JsonPropertyName("description")]
-        public string DescriptionOfChannel { get; set; }
-
-        /// <summary>The email address for sending messages to the channel</summary>
-        [JsonPropertyName("email")]
-        public string TheEmailAddressForTheChannel { get; set; }
-
-        /// <summary>The ID of the Microsoft Entra tenant.</summary>
-        [JsonPropertyName("tenantId")]
-        public string TeamTenantId { get; set; }
-
-        /// <summary>A hyperlink for the channel in Microsoft Teams</summary>
-        [JsonPropertyName("webUrl")]
-        public string AHyperlinkForTheChannelInMicrosoftTeams { get; set; }
-
-        /// <summary>The SharePoint folder URL of the channel</summary>
-        [JsonPropertyName("filesFolderWebUrl")]
-        public string SharePointFolderURLForChannel { get; set; }
-
-        /// <summary>Timestamp at which the channel was created. Read only</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? ChannelCreationTime { get; internal set; }
-
-        /// <summary>The channel membership type</summary>
-        [JsonPropertyName("membershipType")]
-        public MembershipType? TheTypeOfTheChannel { get; set; }
-
-        /// <summary>The ID of the team that owns the channel</summary>
-        [JsonPropertyName("ownerTeamId")]
-        public string OwnerTeamID { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List chats
-    /// </summary>
-    public class GetChatsResponse
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>List of one or more chats you are a part of</summary>
-        [JsonPropertyName("value")]
-        public List<object> ChatsList { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List all tags for a team
-    /// </summary>
-    public class GetTagsResponseSchema
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Create a tag for a team
-    /// </summary>
-    public class CreateTagInput
-    {
-        /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>List of users&apos; IDs separated by semi-colons, identifier must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
-        [JsonPropertyName("members")]
-        public string MembersIDs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create a tag for a team
-    /// </summary>
-    public class CreateTagResponseSchema
-    {
-        /// <summary>@odata.type</summary>
-        [JsonPropertyName("@odata.type")]
-        public string Type { get; set; }
-
-        /// <summary>Unique identifier of the tag</summary>
-        [JsonPropertyName("id")]
-        public string ID { get; set; }
-
-        /// <summary>ID of the team in which the tag is defined</summary>
-        [JsonPropertyName("teamId")]
-        public string TeamID { get; set; }
-
-        /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The number of users assigned to the tag</summary>
-        [JsonPropertyName("memberCount")]
-        public int? MemberCount { get; set; }
-    }
-
-    /// <summary>
-    /// Add a member to a team tag
-    /// </summary>
-    public class AddMemberToTagInput
-    {
-        /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
-        [JsonPropertyName("userId")]
-        public string UserSID { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Add a member to a team tag
-    /// </summary>
-    public class AddMemberToTagResponseSchema
-    {
-        /// <summary>User ID of the member added to the tag</summary>
-        [JsonPropertyName("userId")]
-        public string ID { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List the members of a team tag
-    /// </summary>
-    public class GetTagMembersResponseSchema
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get an @mention token for a team tag
-    /// </summary>
-    public class AtMentionTagResponse
-    {
-        /// <summary>A token for the tag to @mention. It can be inserted into messages and adaptive cards sent from a person</summary>
-        [JsonPropertyName("atMention")]
-        public string MentionTag { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get messages in a channel
-    /// </summary>
-    public class GetMessagesFromConversationResponse : IPageable<ChatMessage>
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>@odata.count</summary>
-        [JsonPropertyName("@odata.count")]
-        public int? Count { get; set; }
-
-        /// <summary>@odata.nextLink</summary>
-        [JsonPropertyName("@odata.nextLink")]
-        public string NextLink { get; set; }
-
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<ChatMessage> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get message details
-    /// </summary>
-    [DynamicSchema("GetMessageDetailsResponseSchema")]
-    public class DynamicGetMessageDetailsResponseSchema
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for List replies of a channel message
-    /// </summary>
-    public class ListRepliesResponseSchema
-    {
-        /// <summary>List replies response</summary>
-        [JsonPropertyName("value")]
-        public List<object> ListOfMessageReplies { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List members
-    /// </summary>
-    public class ListMembersResponseSchema
-    {
-        /// <summary>List members response</summary>
-        [JsonPropertyName("value")]
-        public List<object> ListOfMembers { get; set; }
-    }
-
-    /// <summary>
-    /// When a new chat message is added
-    /// </summary>
-    public class WebhookChatMessageTriggerInput
-    {
-        /// <summary>notificationUrl</summary>
-        [JsonPropertyName("notificationUrl")]
-        public string NotificationUrl { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get unified action input metadata
-    /// </summary>
-    public class UnifiedActionSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// schema
-    /// </summary>
-    public class ObjectEntity
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get response schema
-    /// </summary>
-    public class DynamicResponseSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get adaptive card input metadata
-    /// </summary>
-    public class ConnectorMetadata
-    {
-        /// <summary>metadatatype</summary>
-        [JsonPropertyName("metadatatype")]
-        public string Metadatatype { get; set; }
-
-        /// <summary>activitytype</summary>
-        [JsonPropertyName("activitytype")]
-        public string Activitytype { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get selected message hybrid trigger output metadata
-    /// </summary>
-    public class SelectedMessageTriggerMetadata
-    {
-        /// <summary>TeamsFlowRunContext</summary>
-        public ObjectEntity TeamsFlowRunContext { get; set; }
-
-        /// <summary>CardOutputs</summary>
-        public ObjectEntity CardOutputs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get compose message hybrid trigger output metadata
-    /// </summary>
-    public class ComposeMessageTriggerMetadata
-    {
-        /// <summary>TeamsFlowRunContext</summary>
-        public ObjectEntity TeamsFlowRunContext { get; set; }
-
-        /// <summary>CardOutputs</summary>
-        public ObjectEntity CardOutputs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get compose message hybrid trigger output metadata
-    /// </summary>
-    public class CardResponseTriggerMetadata
-    {
-        /// <summary>TeamsFlowRunContext</summary>
-        public ObjectEntity TeamsFlowRunContext { get; set; }
-
-        /// <summary>CardOutputs</summary>
-        public ObjectEntity CardOutputs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get a team
-    /// </summary>
-    public class GetTeamResponse
-    {
-        /// <summary>The unique identifier of the team</summary>
-        [JsonPropertyName("id")]
-        public string TeamID { get; set; }
-
-        /// <summary>The name of the team</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The description of the team, optional</summary>
-        [JsonPropertyName("description")]
-        public string DescriptionOfTeam { get; set; }
-
-        /// <summary>The internal ID of the team</summary>
-        [JsonPropertyName("internalId")]
-        public string InternalID { get; set; }
-
-        /// <summary>A hyperlink that will go to the team in the Microsoft Teams client</summary>
-        [JsonPropertyName("webUrl")]
-        public string TeamSWebUrl { get; set; }
-
-        /// <summary>Whether this team is in read-only mode</summary>
-        [JsonPropertyName("isArchived")]
-        public bool? Archived { get; set; }
-
-        /// <summary>memberSettings</summary>
-        [JsonPropertyName("memberSettings")]
-        public MemberSettings MemberSettings { get; set; }
-
-        /// <summary>guestSettings</summary>
-        [JsonPropertyName("guestSettings")]
-        public GuestSettings GuestSettings { get; set; }
-
-        /// <summary>messagingSettings</summary>
-        [JsonPropertyName("messagingSettings")]
-        public MessagingSettings MessagingSettings { get; set; }
-
-        /// <summary>funSettings</summary>
-        [JsonPropertyName("funSettings")]
-        public FunSettings FunSettings { get; set; }
-
-        /// <summary>discoverySettings</summary>
-        [JsonPropertyName("discoverySettings")]
-        public DiscoverySettings DiscoverySettings { get; set; }
-    }
-
-    /// <summary>
-    /// memberSettings
-    /// </summary>
-    public class MemberSettings
-    {
-        /// <summary>If set to true, members can add and update channels</summary>
-        [JsonPropertyName("allowCreateUpdateChannels")]
-        public bool? MembersAreAllowedCreateUpdateChannels { get; set; }
-
-        /// <summary>If set to true, members can delete channels</summary>
-        [JsonPropertyName("allowDeleteChannels")]
-        public bool? MembersAreAllowedDeleteChannels { get; set; }
-
-        /// <summary>If set to true, members can add and remove apps</summary>
-        [JsonPropertyName("allowAddRemoveApps")]
-        public bool? MembersAreAllowedAddRemoveApps { get; set; }
-
-        /// <summary>If set to true, members can add, update, and remove tabs</summary>
-        [JsonPropertyName("allowCreateUpdateRemoveTabs")]
-        public bool? MembersAreAllowedCreateUpdateRemoveTabs { get; set; }
-
-        /// <summary>If set to true, members can add, update, and remove connectors</summary>
-        [JsonPropertyName("allowCreateUpdateRemoveConnectors")]
-        public bool? MembersAreAllowedCreateUpdateRemoveConnectors { get; set; }
-    }
-
-    /// <summary>
-    /// guestSettings
-    /// </summary>
-    public class GuestSettings
-    {
-        /// <summary>If set to true, guests can add and update channels</summary>
-        [JsonPropertyName("allowCreateUpdateChannels")]
-        public bool? GuestsAreAllowedCreateUpdateChannels { get; set; }
-
-        /// <summary>If set to true, guests can delete channels</summary>
-        [JsonPropertyName("allowDeleteChannels")]
-        public bool? GuestsAreAllowedDeleteChannels { get; set; }
-    }
-
-    /// <summary>
-    /// messagingSettings
-    /// </summary>
-    public class MessagingSettings
-    {
-        /// <summary>If set to true, users can edit their messages</summary>
-        [JsonPropertyName("allowUserEditMessages")]
-        public bool? AllowUserToEditMessages { get; set; }
-
-        /// <summary>If set to true, users can delete their messages</summary>
-        [JsonPropertyName("allowUserDeleteMessages")]
-        public bool? AllowUserToDeleteMessages { get; set; }
-
-        /// <summary>If set to true, owners can delete any message</summary>
-        [JsonPropertyName("allowOwnerDeleteMessages")]
-        public bool? AllowOwnerToDeleteMessages { get; set; }
-
-        /// <summary>If set to true, @team mentions are allowed</summary>
-        [JsonPropertyName("allowTeamMentions")]
-        public bool? AllowTeamMentions { get; set; }
-
-        /// <summary>If set to true, @channel mentions are allowed</summary>
-        [JsonPropertyName("allowChannelMentions")]
-        public bool? AllowChannelMentions { get; set; }
-    }
-
-    /// <summary>
-    /// funSettings
-    /// </summary>
-    public class FunSettings
-    {
-        /// <summary>If set to true, enables Giphy use</summary>
-        [JsonPropertyName("allowGiphy")]
-        public bool? AllowGiphy { get; set; }
-
-        /// <summary>Giphy content rating. Possible values are: moderate, strict</summary>
-        [JsonPropertyName("giphyContentRating")]
-        public string GiphyContentRating { get; set; }
-
-        /// <summary>If set to true, enables users to include stickers and memes</summary>
-        [JsonPropertyName("allowStickersAndMemes")]
-        public bool? AllowStickersAndMemes { get; set; }
-
-        /// <summary>If set to true, enables users to include custom memes</summary>
-        [JsonPropertyName("allowCustomMemes")]
-        public bool? AllowCustomMemes { get; set; }
-    }
-
-    /// <summary>
-    /// discoverySettings
-    /// </summary>
-    public class DiscoverySettings
-    {
-        /// <summary>If set to true, the team is visible via search and suggestions from the Teams client</summary>
-        [JsonPropertyName("showInTeamsSearchAndSuggestions")]
-        public bool? ShowInTeamSSearchAndSuggestions { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get an @mention token for a user
-    /// </summary>
-    public class AtMentionUser
-    {
-        /// <summary>An @mention token for the user. This property can be inserted into messages</summary>
-        [JsonPropertyName("atMention")]
-        public string Mention { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Response for When a new team member is removed
-    /// </summary>
-    public class OnGroupMemberChangeResponseItem
-    {
-        /// <summary>Unique id of the user</summary>
-        [JsonPropertyName("id")]
-        public string UserID { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create a chat
-    /// </summary>
-    public class NewChatResponse
-    {
-        /// <summary>The chat&apos;s unique identifier</summary>
-        [JsonPropertyName("id")]
-        public string ConversationID { get; set; }
-    }
-
-    /// <summary>
-    /// Create a team
-    /// </summary>
-    public class CreateATeamInput
-    {
-        /// <summary>The name of the team</summary>
-        [JsonPropertyName("displayName")]
-        public string TeamName { get; set; }
-
-        /// <summary>An optional description for the team</summary>
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        /// <summary>The visibility of the the team</summary>
-        [JsonPropertyName("visibility")]
-        public Visibility? Visibility { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create a team
-    /// </summary>
-    public class CreateATeamResponse
-    {
-        /// <summary>Team ID of the team that was just created</summary>
-        [JsonPropertyName("newTeamId")]
-        public string NewTeamID { get; set; }
-    }
-
-    /// <summary>
-    /// Add a member to a team
-    /// </summary>
-    public class AddMemberToTeamInput
-    {
-        /// <summary>User principal name or Microsoft Entra ID to add</summary>
-        [JsonPropertyName("userId")]
-        public string User { get; set; }
-
-        /// <summary>True, if the user should be a team owner</summary>
-        [JsonPropertyName("owner")]
-        public bool? SetUserAsTeamOwner { get; set; }
-    }
-
-    /// <summary>
-    /// Add a member to a channel
-    /// </summary>
-    public class AddMemberToChannelInput
-    {
-        /// <summary>User principal name or Microsoft Entra ID to add</summary>
-        [JsonPropertyName("userId")]
-        public string User { get; set; }
-
-        /// <summary>True, if the user should be a channel owner</summary>
-        [JsonPropertyName("owner")]
-        public bool? SetUserAsChannelOwner { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Post message in a chat or channel
-    /// </summary>
-    public class PostToConversationResponse
-    {
-        /// <summary>Unique message ID</summary>
-        [JsonPropertyName("id")]
-        public string MessageID { get; set; }
-
-        /// <summary>Link to the message in Microsoft Teams</summary>
-        [JsonPropertyName("messageLink")]
-        public string MessageLink { get; set; }
-
-        /// <summary>The chat&apos;s unique identifier</summary>
-        [JsonPropertyName("conversationId")]
-        public string ConversationID { get; set; }
-    }
-
-    /// <summary>
-    /// Post adaptive card and wait for a response
-    /// </summary>
-    public class PostCardAndWaitForResponseInput
-    {
-        /// <summary>notificationUrl</summary>
-        [JsonPropertyName("notificationUrl")]
-        public string NotificationUrl { get; set; }
-
-        /// <summary>body</summary>
-        [JsonPropertyName("body")]
-        public object Body { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Post adaptive card and wait for a response
-    /// </summary>
-    [DynamicSchema("GetPostToConversationResponseSchema")]
-    public class DynamicPostGatherInputToConversationResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get message details response schema
-    /// </summary>
-    public class GetMessageDetailsSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List members input schema
-    /// </summary>
-    public class ListMembersSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Input schema for webhook trigger
-    /// </summary>
-    public class WebhookTriggerSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Conversation location for where to post
-    /// </summary>
-    public class GetMessageLocationsResponse
-    {
-        /// <summary>valid locations to post a message or reply, make verbose</summary>
-        [JsonPropertyName("locations")]
-        public List<object> Locations { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get feed notification input metadata
-    /// </summary>
-    public class PostFeedSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Send a Microsoft Graph HTTP request
-    /// </summary>
-    public class ObjectWithoutType
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicGetMessageDetailsSchema
-    /// </summary>
-    [DynamicSchema("GetMessageDetailsInputSchema")]
-    public class DynamicGetMessageDetailsSchema
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicListMembersSchema
-    /// </summary>
-    [DynamicSchema("ListMembersInputSchema")]
-    public class DynamicListMembersSchema
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicPostFeedNotificationRequest
-    /// </summary>
-    [DynamicSchema("GetFeedNotificationInputSchema")]
-    public class DynamicPostFeedNotificationRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicPostMessageRequest
-    /// </summary>
-    [DynamicSchema("GetUnifiedActionSchema")]
-    public class DynamicPostMessageRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicReplyMessageRequest
-    /// </summary>
-    [DynamicSchema("GetUnifiedActionSchema")]
-    public class DynamicReplyMessageRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicPostCardRequest
-    /// </summary>
-    [DynamicSchema("GetUnifiedActionSchema")]
-    public class DynamicPostCardRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicPostCardAndWaitRequest
-    /// </summary>
-    [DynamicSchema("GetUnifiedActionSchema")]
-    public class DynamicPostCardAndWaitRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicReplyCardRequest
-    /// </summary>
-    [DynamicSchema("GetUnifiedActionSchema")]
-    public class DynamicReplyCardRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicUpdateCardRequest
-    /// </summary>
-    [DynamicSchema("GetUnifiedActionSchema")]
-    public class DynamicUpdateCardRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicUserMessageWithOptionsSubscriptionRequest
-    /// </summary>
-    [DynamicSchema("GetMessageWithOptionsSubscriptionInputMetadata")]
-    public class DynamicUserMessageWithOptionsSubscriptionRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// DynamicWebhookTriggerRequestSchema
-    /// </summary>
-    [DynamicSchema("GetWebhookTriggerRequestSchema")]
-    public class DynamicWebhookTriggerRequestSchema
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// ChatMessage
-    /// </summary>
-    public class ChatMessage
-    {
-        /// <summary>attachments</summary>
-        [JsonPropertyName("attachments")]
-        public List<object> Attachments { get; set; }
-
-        /// <summary>Plaintext representation of the content of the message</summary>
-        [JsonPropertyName("body")]
-        public object Body { get; set; }
-
-        /// <summary>Timestamp of when the chat message was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreationTimestamp { get; internal set; }
-
-        /// <summary>deleted</summary>
-        [JsonPropertyName("deleted")]
-        public bool? Deleted { get; set; }
-
-        /// <summary>Version number of the chat message.</summary>
-        [JsonPropertyName("etag")]
-        public string Etag { get; set; }
-
-        /// <summary>The message sender</summary>
-        [JsonPropertyName("from")]
-        public object From { get; set; }
-
-        /// <summary>Unique ID of the message</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The importance of the message. The possible values are: normal, high, urgent.</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public string LastModifiedTimestamp { get; internal set; }
-
-        /// <summary>Locale of the chat message set by the client.</summary>
-        [JsonPropertyName("locale")]
-        public string Locale { get; set; }
-
-        /// <summary>List of entities mentioned in the chat message. Supported entities are: user, bot, team, and channel.</summary>
-        [JsonPropertyName("mentions")]
-        public List<object> Mentions { get; set; }
-
-        /// <summary>The type of chat message</summary>
-        [JsonPropertyName("messageType")]
-        public string MessageType { get; set; }
-
-        /// <summary>Reactions for this chat message (for example, Like)</summary>
-        [JsonPropertyName("reactions")]
-        public List<object> Reactions { get; set; }
-
-        /// <summary>ID of the parent message of the thread</summary>
-        [JsonPropertyName("replyToId")]
-        public string ReplyToId { get; set; }
-
-        /// <summary>The subject of the chat message, optional</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>Summary text of the message that could be used for push notifications and summary views or fall back views</summary>
-        [JsonPropertyName("summary")]
-        public string Summary { get; set; }
-    }
-
-    /// <summary>
-    /// NewChat
-    /// </summary>
-    public class NewChat
-    {
-        /// <summary>Title, displayed only in group chats</summary>
-        [JsonPropertyName("topic")]
-        public string Title { get; set; }
-
-        /// <summary>User&apos;s IDs, separated by semicolons</summary>
-        [JsonPropertyName("members")]
-        public string MembersToAdd { get; set; }
-    }
-
-    /// <summary>
-    /// NewMeeting
-    /// </summary>
-    public class NewMeeting
-    {
-        /// <summary>The text of the event&apos;s subject line</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>The body of the message associated with the event</summary>
-        [JsonPropertyName("body")]
-        public object Body { get; set; }
-
-        /// <summary>Time zone of the event</summary>
-        [JsonPropertyName("timeZone")]
-        public string TimeZone { get; set; }
-
-        /// <summary>start</summary>
-        [JsonPropertyName("start")]
-        public object Start { get; set; }
-
-        /// <summary>end</summary>
-        [JsonPropertyName("end")]
-        public object End { get; set; }
-
-        /// <summary>Required attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("requiredAttendees")]
-        public string RequiredAttendees { get; set; }
-
-        /// <summary>Optional attendees for the event separated by semicolons</summary>
-        [JsonPropertyName("optionalAttendees")]
-        public string OptionalAttendees { get; set; }
-
-        /// <summary>The location of the event</summary>
-        [JsonPropertyName("location")]
-        public object Location { get; set; }
-
-        /// <summary>The importance of the event: low, normal or high</summary>
-        [JsonPropertyName("importance")]
-        public Importance? Importance { get; set; }
-
-        /// <summary>The recurrence pattern for the meeting</summary>
-        [JsonPropertyName("recurrence")]
-        public object Recurrence { get; set; }
-
-        /// <summary>Set to true if the event lasts all day</summary>
-        [JsonPropertyName("isAllDay")]
-        public bool? AllDayEvent { get; set; }
-
-        /// <summary>The number of minutes before the event start time that the reminder alert occurs</summary>
-        [JsonPropertyName("reminderMinutesBeforeStart")]
-        public int? PreEventReminderTime { get; set; }
-
-        /// <summary>Set to true if an alert is set to remind the user of the event</summary>
-        [JsonPropertyName("isReminderOn")]
-        public bool? EnableReminders { get; set; }
-
-        /// <summary>Status to show during the event</summary>
-        [JsonPropertyName("showAs")]
-        public ShowAs? StatusShowAs { get; set; }
-
-        /// <summary>Set to true if the sender would like a response when the event is accepted</summary>
-        [JsonPropertyName("responseRequested")]
-        public bool? RequestResponse { get; set; }
-
-        /// <summary>Set to true, if the meeting should have an online meeting provider</summary>
-        [JsonPropertyName("isOnlineMeeting")]
-        public bool? OnlineMeetingEnabled { get; set; }
-
-        /// <summary>Represents the online meeting service provider</summary>
-        [JsonPropertyName("onlineMeetingProvider")]
-        public string OnlineMeetingProvider { get; set; }
-    }
-
-    /// <summary>
-    /// Extensible enum for known Importance values.
-    /// </summary>
-    [JsonConverter(typeof(Importance.ImportanceJsonConverter))]
-    public readonly struct Importance : IEquatable<Importance>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Importance"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>low</summary>
-        public static Importance Low { get; } = new("low");
-
-        /// <summary>normal</summary>
-        public static Importance Normal { get; } = new("normal");
-
-        /// <summary>high</summary>
-        public static Importance High { get; } = new("high");
-
-        /// <summary>Converts a string to <see cref="Importance"/>.</summary>
-        public static implicit operator Importance(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
-        public static implicit operator string(Importance value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Importance left, Importance right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
-
-        internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
+#region Types
+
+/// <summary>
+/// Response for Create a Teams meeting
+/// </summary>
+public class NewMeetingResponse
+{
+    /// <summary>Unique identifier for the event</summary>
+    [JsonPropertyName("id")]
+    public string ID { get; set; }
+
+    /// <summary>Timestamp the event was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public string CreatedTimestamp { get; internal set; }
+
+    /// <summary>Timestamp the event was last modified</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public string LastModifiedTimestamp { get; internal set; }
+
+    /// <summary>The categories associated with the event</summary>
+    [JsonPropertyName("categories")]
+    public List<object> Categories { get; set; }
+
+    /// <summary>Time zone of the event</summary>
+    [JsonPropertyName("timeZone")]
+    public string TimeZone { get; set; }
+
+    /// <summary>The number of minutes before the event start time that the reminder alert occurs</summary>
+    [JsonPropertyName("reminderMinutesBeforeStart")]
+    public int? PreEventReminderTime { get; set; }
+
+    /// <summary>Set to true if an alert is set to remind the user of the event</summary>
+    [JsonPropertyName("isReminderOn")]
+    public bool? RemindersEnabled { get; set; }
+
+    /// <summary>Set to true if the event has attachments</summary>
+    [JsonPropertyName("hasAttachments")]
+    public bool? HasAttachments { get; set; }
+
+    /// <summary>The text of the event&apos;s subject line</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>The preview of the message associated with the event</summary>
+    [JsonPropertyName("bodyPreview")]
+    public string BodyPreview { get; set; }
+
+    /// <summary>The importance of the event. The possible values are: low, normal, high</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>Sensitivity of the event</summary>
+    [JsonPropertyName("sensitivity")]
+    public string Sensitivity { get; set; }
+
+    /// <summary>Set to true if the event lasts all day</summary>
+    [JsonPropertyName("isAllDay")]
+    public bool? IsAllDay { get; set; }
+
+    /// <summary>Set to true if the event has been canceled</summary>
+    [JsonPropertyName("isCancelled")]
+    public bool? IsCancelled { get; set; }
+
+    /// <summary>Set to true if the calendar owner is the organizer of the event</summary>
+    [JsonPropertyName("isOrganizer")]
+    public bool? IsOrganizer { get; set; }
+
+    /// <summary>The organizer would like an invitee to send a response to the event</summary>
+    [JsonPropertyName("responseRequested")]
+    public bool? ResponseRequested { get; set; }
+
+    /// <summary>The status to show. Possible values are: free, tentative, busy, oof, workingElsewhere, unknown.</summary>
+    [JsonPropertyName("showAs")]
+    public string ShowAs { get; set; }
+
+    /// <summary>The event type. Possible values are: singleInstance, occurrence, exception, seriesMaster</summary>
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
+    /// <summary>The URL to open the event in Outlook on the web.</summary>
+    [JsonPropertyName("webLink")]
+    public string WebLast { get; set; }
+
+    /// <summary>A URL for an online meeting</summary>
+    [JsonPropertyName("onlineMeetingUrl")]
+    public string OnlineMeetingURL { get; set; }
+
+    /// <summary>True if the meeting organizer allows invitees to propose a new time when responding</summary>
+    [JsonPropertyName("allowNewTimeProposals")]
+    public bool? AllowNewTimeProposals { get; set; }
+
+    /// <summary>The recurrence pattern for the event</summary>
+    [JsonPropertyName("recurrence")]
+    public object Recurrence { get; set; }
+
+    /// <summary>Indicates the type of response sent in response to an event message</summary>
+    [JsonPropertyName("responseStatus")]
+    public object ResponseStatus { get; set; }
+
+    /// <summary>The body of the message associated with the event</summary>
+    [JsonPropertyName("body")]
+    public object Body { get; set; }
+
+    /// <summary>The start date, time, and time zone of the event</summary>
+    [JsonPropertyName("start")]
+    public object Start { get; set; }
+
+    /// <summary>The date, time, and time zone that the event ends</summary>
+    [JsonPropertyName("end")]
+    public object End { get; set; }
+
+    /// <summary>The location of the event</summary>
+    [JsonPropertyName("location")]
+    public object Location { get; set; }
+
+    /// <summary>The collection of attendees for the event</summary>
+    [JsonPropertyName("attendees")]
+    public List<object> Attendee { get; set; }
+
+    /// <summary>Organizer</summary>
+    [JsonPropertyName("organizer")]
+    public object Organizer { get; set; }
+
+    /// <summary>Details for an attendee to join the meeting online.</summary>
+    [JsonPropertyName("onlineMeeting")]
+    public object OnlineMeeting { get; set; }
+}
+
+/// <summary>
+/// Response for List joined teams
+/// </summary>
+public class GetAllTeamsResponse
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>List of the teams you are a member of</summary>
+    [JsonPropertyName("value")]
+    public List<object> TeamsList { get; set; }
+}
+
+/// <summary>
+/// Response for List associated teams
+/// </summary>
+public class GetAllAssociatedTeamsResponse
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>List of the teams you are associated with</summary>
+    [JsonPropertyName("value")]
+    public List<AssociatedTeamInfo> TeamsList { get; set; }
+}
+
+/// <summary>
+/// Item in List of the teams you are associated with
+/// </summary>
+public class AssociatedTeamInfo
+{
+    /// <summary>The unique identifier of the team</summary>
+    [JsonPropertyName("id")]
+    public string TeamID { get; set; }
+
+    /// <summary>The name of the team</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The ID of the Microsoft Entra tenant this team belongs to</summary>
+    [JsonPropertyName("tenantId")]
+    public string TenantID { get; set; }
+}
+
+/// <summary>
+/// Response for List channels
+/// </summary>
+public class GetChannelsForGroupResponse
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>List of one or more channels for a specific team</summary>
+    [JsonPropertyName("value")]
+    public List<GetChannelResponse> ChannelList { get; set; }
+}
+
+/// <summary>
+/// Item in List of one or more channels for a specific team
+/// </summary>
+public class GetChannelResponse
+{
+    /// <summary>The unique identifier of the channel</summary>
+    [JsonPropertyName("id")]
+    public string ChannelID { get; set; }
+
+    /// <summary>The name of the channel</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The description of the channel, optional</summary>
+    [JsonPropertyName("description")]
+    public string DescriptionOfChannel { get; set; }
+
+    /// <summary>The email address for sending messages to the channel</summary>
+    [JsonPropertyName("email")]
+    public string TheEmailAddressForTheChannel { get; set; }
+
+    /// <summary>The ID of the Microsoft Entra tenant.</summary>
+    [JsonPropertyName("tenantId")]
+    public string TeamTenantId { get; set; }
+
+    /// <summary>A hyperlink for the channel in Microsoft Teams</summary>
+    [JsonPropertyName("webUrl")]
+    public string AHyperlinkForTheChannelInMicrosoftTeams { get; set; }
+
+    /// <summary>The SharePoint folder URL of the channel</summary>
+    [JsonPropertyName("filesFolderWebUrl")]
+    public string SharePointFolderURLForChannel { get; set; }
+
+    /// <summary>Timestamp at which the channel was created. Read only</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? ChannelCreationTime { get; internal set; }
+
+    /// <summary>The channel membership type</summary>
+    [JsonPropertyName("membershipType")]
+    public MembershipType? TheTypeOfTheChannel { get; set; }
+}
+
+/// <summary>
+/// Create a channel
+/// </summary>
+public class CreateChannelInput
+{
+    /// <summary>Optional textual description for the channel</summary>
+    [JsonPropertyName("description")]
+    public string Description { get; set; }
+
+    /// <summary>Channel name as it appears in Microsoft Teams</summary>
+    [JsonPropertyName("displayName")]
+    public string Name { get; set; }
+}
+
+/// <summary>
+/// Response for Create a channel
+/// </summary>
+public class CreateChannelResponse
+{
+    /// <summary>Optional textual description for the channel</summary>
+    [JsonPropertyName("description")]
+    public string Description { get; set; }
+
+    /// <summary>Channel name as it appears in Microsoft Teams</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The channel&apos;s unique identifier</summary>
+    [JsonPropertyName("id")]
+    public string ID { get; set; }
+}
+
+/// <summary>
+/// Response for List all channels
+/// </summary>
+public class GetAllChannelsForTeamResponse
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>List of one or more channels for a specific team</summary>
+    [JsonPropertyName("value")]
+    public List<ChannelWithOwnerTeamId> ChannelList { get; set; }
+}
+
+/// <summary>
+/// Item in List of one or more channels for a specific team
+/// </summary>
+public class ChannelWithOwnerTeamId
+{
+    /// <summary>The unique identifier of the channel</summary>
+    [JsonPropertyName("id")]
+    public string ChannelID { get; set; }
+
+    /// <summary>The name of the channel</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The description of the channel, optional</summary>
+    [JsonPropertyName("description")]
+    public string DescriptionOfChannel { get; set; }
+
+    /// <summary>The email address for sending messages to the channel</summary>
+    [JsonPropertyName("email")]
+    public string TheEmailAddressForTheChannel { get; set; }
+
+    /// <summary>The ID of the Microsoft Entra tenant.</summary>
+    [JsonPropertyName("tenantId")]
+    public string TeamTenantId { get; set; }
+
+    /// <summary>A hyperlink for the channel in Microsoft Teams</summary>
+    [JsonPropertyName("webUrl")]
+    public string AHyperlinkForTheChannelInMicrosoftTeams { get; set; }
+
+    /// <summary>The SharePoint folder URL of the channel</summary>
+    [JsonPropertyName("filesFolderWebUrl")]
+    public string SharePointFolderURLForChannel { get; set; }
+
+    /// <summary>Timestamp at which the channel was created. Read only</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? ChannelCreationTime { get; internal set; }
+
+    /// <summary>The channel membership type</summary>
+    [JsonPropertyName("membershipType")]
+    public MembershipType? TheTypeOfTheChannel { get; set; }
+
+    /// <summary>The ID of the team that owns the channel</summary>
+    [JsonPropertyName("ownerTeamId")]
+    public string OwnerTeamID { get; set; }
+}
+
+/// <summary>
+/// Response for List chats
+/// </summary>
+public class GetChatsResponse
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>List of one or more chats you are a part of</summary>
+    [JsonPropertyName("value")]
+    public List<object> ChatsList { get; set; }
+}
+
+/// <summary>
+/// Response for List all tags for a team
+/// </summary>
+public class GetTagsResponseSchema
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Create a tag for a team
+/// </summary>
+public class CreateTagInput
+{
+    /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>List of users&apos; IDs separated by semi-colons, identifier must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
+    [JsonPropertyName("members")]
+    public string MembersIDs { get; set; }
+}
+
+/// <summary>
+/// Response for Create a tag for a team
+/// </summary>
+public class CreateTagResponseSchema
+{
+    /// <summary>@odata.type</summary>
+    [JsonPropertyName("@odata.type")]
+    public string Type { get; set; }
+
+    /// <summary>Unique identifier of the tag</summary>
+    [JsonPropertyName("id")]
+    public string ID { get; set; }
+
+    /// <summary>ID of the team in which the tag is defined</summary>
+    [JsonPropertyName("teamId")]
+    public string TeamID { get; set; }
+
+    /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The number of users assigned to the tag</summary>
+    [JsonPropertyName("memberCount")]
+    public int? MemberCount { get; set; }
+}
+
+/// <summary>
+/// Add a member to a team tag
+/// </summary>
+public class AddMemberToTagInput
+{
+    /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
+    [JsonPropertyName("userId")]
+    public string UserSID { get; set; }
+}
+
+/// <summary>
+/// Response for Add a member to a team tag
+/// </summary>
+public class AddMemberToTagResponseSchema
+{
+    /// <summary>User ID of the member added to the tag</summary>
+    [JsonPropertyName("userId")]
+    public string ID { get; set; }
+}
+
+/// <summary>
+/// Response for List the members of a team tag
+/// </summary>
+public class GetTagMembersResponseSchema
+{
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<object> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get an @mention token for a team tag
+/// </summary>
+public class AtMentionTagResponse
+{
+    /// <summary>A token for the tag to @mention. It can be inserted into messages and adaptive cards sent from a person</summary>
+    [JsonPropertyName("atMention")]
+    public string MentionTag { get; set; }
+}
+
+/// <summary>
+/// Response for Get messages in a channel
+/// </summary>
+public class GetMessagesFromConversationResponse : IPageable<ChatMessage>
+{
+    /// <summary>@odata.context</summary>
+    [JsonPropertyName("@odata.context")]
+    public string Context { get; set; }
+
+    /// <summary>@odata.count</summary>
+    [JsonPropertyName("@odata.count")]
+    public int? Count { get; set; }
+
+    /// <summary>@odata.nextLink</summary>
+    [JsonPropertyName("@odata.nextLink")]
+    public string NextLink { get; set; }
+
+    /// <summary>value</summary>
+    [JsonPropertyName("value")]
+    public List<ChatMessage> Value { get; set; }
+}
+
+/// <summary>
+/// Response for Get message details
+/// </summary>
+[DynamicSchema("GetMessageDetailsResponseSchema")]
+public class DynamicGetMessageDetailsResponseSchema
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for List replies of a channel message
+/// </summary>
+public class ListRepliesResponseSchema
+{
+    /// <summary>List replies response</summary>
+    [JsonPropertyName("value")]
+    public List<object> ListOfMessageReplies { get; set; }
+}
+
+/// <summary>
+/// Response for List members
+/// </summary>
+public class ListMembersResponseSchema
+{
+    /// <summary>List members response</summary>
+    [JsonPropertyName("value")]
+    public List<object> ListOfMembers { get; set; }
+}
+
+/// <summary>
+/// When a new chat message is added
+/// </summary>
+public class WebhookChatMessageTriggerInput
+{
+    /// <summary>notificationUrl</summary>
+    [JsonPropertyName("notificationUrl")]
+    public string NotificationUrl { get; set; }
+}
+
+/// <summary>
+/// Response for Get unified action input metadata
+/// </summary>
+public class UnifiedActionSchema
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// schema
+/// </summary>
+public class ObjectEntity
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for Get response schema
+/// </summary>
+public class DynamicResponseSchema
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// Response for Get adaptive card input metadata
+/// </summary>
+public class ConnectorMetadata
+{
+    /// <summary>metadatatype</summary>
+    [JsonPropertyName("metadatatype")]
+    public string Metadatatype { get; set; }
+
+    /// <summary>activitytype</summary>
+    [JsonPropertyName("activitytype")]
+    public string Activitytype { get; set; }
+
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// Response for Get selected message hybrid trigger output metadata
+/// </summary>
+public class SelectedMessageTriggerMetadata
+{
+    /// <summary>TeamsFlowRunContext</summary>
+    public ObjectEntity TeamsFlowRunContext { get; set; }
+
+    /// <summary>CardOutputs</summary>
+    public ObjectEntity CardOutputs { get; set; }
+}
+
+/// <summary>
+/// Response for Get compose message hybrid trigger output metadata
+/// </summary>
+public class ComposeMessageTriggerMetadata
+{
+    /// <summary>TeamsFlowRunContext</summary>
+    public ObjectEntity TeamsFlowRunContext { get; set; }
+
+    /// <summary>CardOutputs</summary>
+    public ObjectEntity CardOutputs { get; set; }
+}
+
+/// <summary>
+/// Response for Get compose message hybrid trigger output metadata
+/// </summary>
+public class CardResponseTriggerMetadata
+{
+    /// <summary>TeamsFlowRunContext</summary>
+    public ObjectEntity TeamsFlowRunContext { get; set; }
+
+    /// <summary>CardOutputs</summary>
+    public ObjectEntity CardOutputs { get; set; }
+}
+
+/// <summary>
+/// Response for Get a team
+/// </summary>
+public class GetTeamResponse
+{
+    /// <summary>The unique identifier of the team</summary>
+    [JsonPropertyName("id")]
+    public string TeamID { get; set; }
+
+    /// <summary>The name of the team</summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; }
+
+    /// <summary>The description of the team, optional</summary>
+    [JsonPropertyName("description")]
+    public string DescriptionOfTeam { get; set; }
+
+    /// <summary>The internal ID of the team</summary>
+    [JsonPropertyName("internalId")]
+    public string InternalID { get; set; }
+
+    /// <summary>A hyperlink that will go to the team in the Microsoft Teams client</summary>
+    [JsonPropertyName("webUrl")]
+    public string TeamSWebUrl { get; set; }
+
+    /// <summary>Whether this team is in read-only mode</summary>
+    [JsonPropertyName("isArchived")]
+    public bool? Archived { get; set; }
+
+    /// <summary>memberSettings</summary>
+    [JsonPropertyName("memberSettings")]
+    public MemberSettings MemberSettings { get; set; }
+
+    /// <summary>guestSettings</summary>
+    [JsonPropertyName("guestSettings")]
+    public GuestSettings GuestSettings { get; set; }
+
+    /// <summary>messagingSettings</summary>
+    [JsonPropertyName("messagingSettings")]
+    public MessagingSettings MessagingSettings { get; set; }
+
+    /// <summary>funSettings</summary>
+    [JsonPropertyName("funSettings")]
+    public FunSettings FunSettings { get; set; }
+
+    /// <summary>discoverySettings</summary>
+    [JsonPropertyName("discoverySettings")]
+    public DiscoverySettings DiscoverySettings { get; set; }
+}
+
+/// <summary>
+/// memberSettings
+/// </summary>
+public class MemberSettings
+{
+    /// <summary>If set to true, members can add and update channels</summary>
+    [JsonPropertyName("allowCreateUpdateChannels")]
+    public bool? MembersAreAllowedCreateUpdateChannels { get; set; }
+
+    /// <summary>If set to true, members can delete channels</summary>
+    [JsonPropertyName("allowDeleteChannels")]
+    public bool? MembersAreAllowedDeleteChannels { get; set; }
+
+    /// <summary>If set to true, members can add and remove apps</summary>
+    [JsonPropertyName("allowAddRemoveApps")]
+    public bool? MembersAreAllowedAddRemoveApps { get; set; }
+
+    /// <summary>If set to true, members can add, update, and remove tabs</summary>
+    [JsonPropertyName("allowCreateUpdateRemoveTabs")]
+    public bool? MembersAreAllowedCreateUpdateRemoveTabs { get; set; }
+
+    /// <summary>If set to true, members can add, update, and remove connectors</summary>
+    [JsonPropertyName("allowCreateUpdateRemoveConnectors")]
+    public bool? MembersAreAllowedCreateUpdateRemoveConnectors { get; set; }
+}
+
+/// <summary>
+/// guestSettings
+/// </summary>
+public class GuestSettings
+{
+    /// <summary>If set to true, guests can add and update channels</summary>
+    [JsonPropertyName("allowCreateUpdateChannels")]
+    public bool? GuestsAreAllowedCreateUpdateChannels { get; set; }
+
+    /// <summary>If set to true, guests can delete channels</summary>
+    [JsonPropertyName("allowDeleteChannels")]
+    public bool? GuestsAreAllowedDeleteChannels { get; set; }
+}
+
+/// <summary>
+/// messagingSettings
+/// </summary>
+public class MessagingSettings
+{
+    /// <summary>If set to true, users can edit their messages</summary>
+    [JsonPropertyName("allowUserEditMessages")]
+    public bool? AllowUserToEditMessages { get; set; }
+
+    /// <summary>If set to true, users can delete their messages</summary>
+    [JsonPropertyName("allowUserDeleteMessages")]
+    public bool? AllowUserToDeleteMessages { get; set; }
+
+    /// <summary>If set to true, owners can delete any message</summary>
+    [JsonPropertyName("allowOwnerDeleteMessages")]
+    public bool? AllowOwnerToDeleteMessages { get; set; }
+
+    /// <summary>If set to true, @team mentions are allowed</summary>
+    [JsonPropertyName("allowTeamMentions")]
+    public bool? AllowTeamMentions { get; set; }
+
+    /// <summary>If set to true, @channel mentions are allowed</summary>
+    [JsonPropertyName("allowChannelMentions")]
+    public bool? AllowChannelMentions { get; set; }
+}
+
+/// <summary>
+/// funSettings
+/// </summary>
+public class FunSettings
+{
+    /// <summary>If set to true, enables Giphy use</summary>
+    [JsonPropertyName("allowGiphy")]
+    public bool? AllowGiphy { get; set; }
+
+    /// <summary>Giphy content rating. Possible values are: moderate, strict</summary>
+    [JsonPropertyName("giphyContentRating")]
+    public string GiphyContentRating { get; set; }
+
+    /// <summary>If set to true, enables users to include stickers and memes</summary>
+    [JsonPropertyName("allowStickersAndMemes")]
+    public bool? AllowStickersAndMemes { get; set; }
+
+    /// <summary>If set to true, enables users to include custom memes</summary>
+    [JsonPropertyName("allowCustomMemes")]
+    public bool? AllowCustomMemes { get; set; }
+}
+
+/// <summary>
+/// discoverySettings
+/// </summary>
+public class DiscoverySettings
+{
+    /// <summary>If set to true, the team is visible via search and suggestions from the Teams client</summary>
+    [JsonPropertyName("showInTeamsSearchAndSuggestions")]
+    public bool? ShowInTeamSSearchAndSuggestions { get; set; }
+}
+
+/// <summary>
+/// Response for Get an @mention token for a user
+/// </summary>
+public class AtMentionUser
+{
+    /// <summary>An @mention token for the user. This property can be inserted into messages</summary>
+    [JsonPropertyName("atMention")]
+    public string Mention { get; set; }
+}
+
+/// <summary>
+/// Item in Response for When a new team member is removed
+/// </summary>
+public class OnGroupMemberChangeResponseItem
+{
+    /// <summary>Unique id of the user</summary>
+    [JsonPropertyName("id")]
+    public string UserID { get; set; }
+}
+
+/// <summary>
+/// Response for Create a chat
+/// </summary>
+public class NewChatResponse
+{
+    /// <summary>The chat&apos;s unique identifier</summary>
+    [JsonPropertyName("id")]
+    public string ConversationID { get; set; }
+}
+
+/// <summary>
+/// Create a team
+/// </summary>
+public class CreateATeamInput
+{
+    /// <summary>The name of the team</summary>
+    [JsonPropertyName("displayName")]
+    public string TeamName { get; set; }
+
+    /// <summary>An optional description for the team</summary>
+    [JsonPropertyName("description")]
+    public string Description { get; set; }
+
+    /// <summary>The visibility of the the team</summary>
+    [JsonPropertyName("visibility")]
+    public Visibility? Visibility { get; set; }
+}
+
+/// <summary>
+/// Response for Create a team
+/// </summary>
+public class CreateATeamResponse
+{
+    /// <summary>Team ID of the team that was just created</summary>
+    [JsonPropertyName("newTeamId")]
+    public string NewTeamID { get; set; }
+}
+
+/// <summary>
+/// Add a member to a team
+/// </summary>
+public class AddMemberToTeamInput
+{
+    /// <summary>User principal name or Microsoft Entra ID to add</summary>
+    [JsonPropertyName("userId")]
+    public string User { get; set; }
+
+    /// <summary>True, if the user should be a team owner</summary>
+    [JsonPropertyName("owner")]
+    public bool? SetUserAsTeamOwner { get; set; }
+}
+
+/// <summary>
+/// Add a member to a channel
+/// </summary>
+public class AddMemberToChannelInput
+{
+    /// <summary>User principal name or Microsoft Entra ID to add</summary>
+    [JsonPropertyName("userId")]
+    public string User { get; set; }
+
+    /// <summary>True, if the user should be a channel owner</summary>
+    [JsonPropertyName("owner")]
+    public bool? SetUserAsChannelOwner { get; set; }
+}
+
+/// <summary>
+/// Response for Post message in a chat or channel
+/// </summary>
+public class PostToConversationResponse
+{
+    /// <summary>Unique message ID</summary>
+    [JsonPropertyName("id")]
+    public string MessageID { get; set; }
+
+    /// <summary>Link to the message in Microsoft Teams</summary>
+    [JsonPropertyName("messageLink")]
+    public string MessageLink { get; set; }
+
+    /// <summary>The chat&apos;s unique identifier</summary>
+    [JsonPropertyName("conversationId")]
+    public string ConversationID { get; set; }
+}
+
+/// <summary>
+/// Post adaptive card and wait for a response
+/// </summary>
+public class PostCardAndWaitForResponseInput
+{
+    /// <summary>notificationUrl</summary>
+    [JsonPropertyName("notificationUrl")]
+    public string NotificationUrl { get; set; }
+
+    /// <summary>body</summary>
+    [JsonPropertyName("body")]
+    public object Body { get; set; }
+}
+
+/// <summary>
+/// Response for Post adaptive card and wait for a response
+/// </summary>
+[DynamicSchema("GetPostToConversationResponseSchema")]
+public class DynamicPostGatherInputToConversationResponse
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for Get message details response schema
+/// </summary>
+public class GetMessageDetailsSchema
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// Response for List members input schema
+/// </summary>
+public class ListMembersSchema
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// Response for Input schema for webhook trigger
+/// </summary>
+public class WebhookTriggerSchema
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// Response for Conversation location for where to post
+/// </summary>
+public class GetMessageLocationsResponse
+{
+    /// <summary>valid locations to post a message or reply, make verbose</summary>
+    [JsonPropertyName("locations")]
+    public List<object> Locations { get; set; }
+}
+
+/// <summary>
+/// Response for Get feed notification input metadata
+/// </summary>
+public class PostFeedSchema
+{
+    /// <summary>schema</summary>
+    [JsonPropertyName("schema")]
+    public ObjectEntity Schema { get; set; }
+}
+
+/// <summary>
+/// Response for Send a Microsoft Graph HTTP request
+/// </summary>
+public class ObjectWithoutType
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicGetMessageDetailsSchema
+/// </summary>
+[DynamicSchema("GetMessageDetailsInputSchema")]
+public class DynamicGetMessageDetailsSchema
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicListMembersSchema
+/// </summary>
+[DynamicSchema("ListMembersInputSchema")]
+public class DynamicListMembersSchema
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicPostFeedNotificationRequest
+/// </summary>
+[DynamicSchema("GetFeedNotificationInputSchema")]
+public class DynamicPostFeedNotificationRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicPostMessageRequest
+/// </summary>
+[DynamicSchema("GetUnifiedActionSchema")]
+public class DynamicPostMessageRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicReplyMessageRequest
+/// </summary>
+[DynamicSchema("GetUnifiedActionSchema")]
+public class DynamicReplyMessageRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicPostCardRequest
+/// </summary>
+[DynamicSchema("GetUnifiedActionSchema")]
+public class DynamicPostCardRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicPostCardAndWaitRequest
+/// </summary>
+[DynamicSchema("GetUnifiedActionSchema")]
+public class DynamicPostCardAndWaitRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicReplyCardRequest
+/// </summary>
+[DynamicSchema("GetUnifiedActionSchema")]
+public class DynamicReplyCardRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicUpdateCardRequest
+/// </summary>
+[DynamicSchema("GetUnifiedActionSchema")]
+public class DynamicUpdateCardRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicUserMessageWithOptionsSubscriptionRequest
+/// </summary>
+[DynamicSchema("GetMessageWithOptionsSubscriptionInputMetadata")]
+public class DynamicUserMessageWithOptionsSubscriptionRequest
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// DynamicWebhookTriggerRequestSchema
+/// </summary>
+[DynamicSchema("GetWebhookTriggerRequestSchema")]
+public class DynamicWebhookTriggerRequestSchema
+{
+    /// <summary>
+    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+    /// Populate this dictionary with the properties returned by the schema API.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// ChatMessage
+/// </summary>
+public class ChatMessage
+{
+    /// <summary>attachments</summary>
+    [JsonPropertyName("attachments")]
+    public List<object> Attachments { get; set; }
+
+    /// <summary>Plaintext representation of the content of the message</summary>
+    [JsonPropertyName("body")]
+    public object Body { get; set; }
+
+    /// <summary>Timestamp of when the chat message was created</summary>
+    [JsonPropertyName("createdDateTime")]
+    [JsonInclude]
+    public DateTime? CreationTimestamp { get; internal set; }
+
+    /// <summary>deleted</summary>
+    [JsonPropertyName("deleted")]
+    public bool? Deleted { get; set; }
+
+    /// <summary>Version number of the chat message.</summary>
+    [JsonPropertyName("etag")]
+    public string Etag { get; set; }
+
+    /// <summary>The message sender</summary>
+    [JsonPropertyName("from")]
+    public object From { get; set; }
+
+    /// <summary>Unique ID of the message</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The importance of the message. The possible values are: normal, high, urgent.</summary>
+    [JsonPropertyName("importance")]
+    public string Importance { get; set; }
+
+    /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
+    [JsonPropertyName("lastModifiedDateTime")]
+    [JsonInclude]
+    public string LastModifiedTimestamp { get; internal set; }
+
+    /// <summary>Locale of the chat message set by the client.</summary>
+    [JsonPropertyName("locale")]
+    public string Locale { get; set; }
+
+    /// <summary>List of entities mentioned in the chat message. Supported entities are: user, bot, team, and channel.</summary>
+    [JsonPropertyName("mentions")]
+    public List<object> Mentions { get; set; }
+
+    /// <summary>The type of chat message</summary>
+    [JsonPropertyName("messageType")]
+    public string MessageType { get; set; }
+
+    /// <summary>Reactions for this chat message (for example, Like)</summary>
+    [JsonPropertyName("reactions")]
+    public List<object> Reactions { get; set; }
+
+    /// <summary>ID of the parent message of the thread</summary>
+    [JsonPropertyName("replyToId")]
+    public string ReplyToId { get; set; }
+
+    /// <summary>The subject of the chat message, optional</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>Summary text of the message that could be used for push notifications and summary views or fall back views</summary>
+    [JsonPropertyName("summary")]
+    public string Summary { get; set; }
+}
+
+/// <summary>
+/// NewChat
+/// </summary>
+public class NewChat
+{
+    /// <summary>Title, displayed only in group chats</summary>
+    [JsonPropertyName("topic")]
+    public string Title { get; set; }
+
+    /// <summary>User&apos;s IDs, separated by semicolons</summary>
+    [JsonPropertyName("members")]
+    public string MembersToAdd { get; set; }
+}
+
+/// <summary>
+/// NewMeeting
+/// </summary>
+public class NewMeeting
+{
+    /// <summary>The text of the event&apos;s subject line</summary>
+    [JsonPropertyName("subject")]
+    public string Subject { get; set; }
+
+    /// <summary>The body of the message associated with the event</summary>
+    [JsonPropertyName("body")]
+    public object Body { get; set; }
+
+    /// <summary>Time zone of the event</summary>
+    [JsonPropertyName("timeZone")]
+    public string TimeZone { get; set; }
+
+    /// <summary>start</summary>
+    [JsonPropertyName("start")]
+    public object Start { get; set; }
+
+    /// <summary>end</summary>
+    [JsonPropertyName("end")]
+    public object End { get; set; }
+
+    /// <summary>Required attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("requiredAttendees")]
+    public string RequiredAttendees { get; set; }
+
+    /// <summary>Optional attendees for the event separated by semicolons</summary>
+    [JsonPropertyName("optionalAttendees")]
+    public string OptionalAttendees { get; set; }
+
+    /// <summary>The location of the event</summary>
+    [JsonPropertyName("location")]
+    public object Location { get; set; }
+
+    /// <summary>The importance of the event: low, normal or high</summary>
+    [JsonPropertyName("importance")]
+    public Importance? Importance { get; set; }
+
+    /// <summary>The recurrence pattern for the meeting</summary>
+    [JsonPropertyName("recurrence")]
+    public object Recurrence { get; set; }
+
+    /// <summary>Set to true if the event lasts all day</summary>
+    [JsonPropertyName("isAllDay")]
+    public bool? AllDayEvent { get; set; }
+
+    /// <summary>The number of minutes before the event start time that the reminder alert occurs</summary>
+    [JsonPropertyName("reminderMinutesBeforeStart")]
+    public int? PreEventReminderTime { get; set; }
+
+    /// <summary>Set to true if an alert is set to remind the user of the event</summary>
+    [JsonPropertyName("isReminderOn")]
+    public bool? EnableReminders { get; set; }
+
+    /// <summary>Status to show during the event</summary>
+    [JsonPropertyName("showAs")]
+    public ShowAs? StatusShowAs { get; set; }
+
+    /// <summary>Set to true if the sender would like a response when the event is accepted</summary>
+    [JsonPropertyName("responseRequested")]
+    public bool? RequestResponse { get; set; }
+
+    /// <summary>Set to true, if the meeting should have an online meeting provider</summary>
+    [JsonPropertyName("isOnlineMeeting")]
+    public bool? OnlineMeetingEnabled { get; set; }
+
+    /// <summary>Represents the online meeting service provider</summary>
+    [JsonPropertyName("onlineMeetingProvider")]
+    public string OnlineMeetingProvider { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known Importance values.
+/// </summary>
+[JsonConverter(typeof(Importance.ImportanceJsonConverter))]
+public readonly struct Importance : IEquatable<Importance>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Importance"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Importance(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>low</summary>
+    public static Importance Low { get; } = new("low");
+
+    /// <summary>normal</summary>
+    public static Importance Normal { get; } = new("normal");
+
+    /// <summary>high</summary>
+    public static Importance High { get; } = new("high");
+
+    /// <summary>Converts a string to <see cref="Importance"/>.</summary>
+    public static implicit operator Importance(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Importance"/> to its string representation.</summary>
+    public static implicit operator string(Importance value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Importance other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Importance other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Importance left, Importance right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Importance left, Importance right) => !left.Equals(right);
+
+    internal sealed class ImportanceJsonConverter : JsonConverter<Importance>
+    {
+        public ImportanceJsonConverter() { }
+        public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known MembershipType values.
+/// </summary>
+[JsonConverter(typeof(MembershipType.MembershipTypeJsonConverter))]
+public readonly struct MembershipType : IEquatable<MembershipType>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MembershipType"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public MembershipType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>standard</summary>
+    public static MembershipType Standard { get; } = new("standard");
+
+    /// <summary>private</summary>
+    public static MembershipType Private { get; } = new("private");
+
+    /// <summary>unknownFutureValue</summary>
+    public static MembershipType UnknownFutureValue { get; } = new("unknownFutureValue");
+
+    /// <summary>shared</summary>
+    public static MembershipType Shared { get; } = new("shared");
+
+    /// <summary>Converts a string to <see cref="MembershipType"/>.</summary>
+    public static implicit operator MembershipType(string value) => new(value);
+
+    /// <summary>Converts a <see cref="MembershipType"/> to its string representation.</summary>
+    public static implicit operator string(MembershipType value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(MembershipType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is MembershipType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(MembershipType left, MembershipType right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(MembershipType left, MembershipType right) => !left.Equals(right);
+
+    internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
+    {
+        public MembershipTypeJsonConverter() { }
+        public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MembershipType, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known ShowAs values.
+/// </summary>
+[JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
+public readonly struct ShowAs : IEquatable<ShowAs>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ShowAs"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>free</summary>
+    public static ShowAs Free { get; } = new("free");
+
+    /// <summary>tentative</summary>
+    public static ShowAs Tentative { get; } = new("tentative");
+
+    /// <summary>busy</summary>
+    public static ShowAs Busy { get; } = new("busy");
+
+    /// <summary>oof</summary>
+    public static ShowAs Oof { get; } = new("oof");
+
+    /// <summary>workingElsewhere</summary>
+    public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
+
+    /// <summary>unknown</summary>
+    public static ShowAs Unknown { get; } = new("unknown");
+
+    /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
+    public static implicit operator ShowAs(string value) => new(value);
+
+    /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
+    public static implicit operator string(ShowAs value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
+
+    internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+    {
+        public ShowAsJsonConverter() { }
+        public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+/// <summary>
+/// Extensible enum for known Visibility values.
+/// </summary>
+[JsonConverter(typeof(Visibility.VisibilityJsonConverter))]
+public readonly struct Visibility : IEquatable<Visibility>
+{
+    private readonly string _value;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Visibility"/> struct.
+    /// </summary>
+    /// <param name="value">The string value.</param>
+    public Visibility(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Private</summary>
+    public static Visibility Private { get; } = new("Private");
+
+    /// <summary>Public</summary>
+    public static Visibility Public { get; } = new("Public");
+
+    /// <summary>Converts a string to <see cref="Visibility"/>.</summary>
+    public static implicit operator Visibility(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Visibility"/> to its string representation.</summary>
+    public static implicit operator string(Visibility value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Visibility other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Visibility other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Visibility left, Visibility right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Visibility left, Visibility right) => !left.Equals(right);
+
+    internal sealed class VisibilityJsonConverter : JsonConverter<Visibility>
+    {
+        public VisibilityJsonConverter() { }
+        public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Visibility, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Visibility value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+    }
+}
+
+#endregion Types
+
+#region Model Factory
+
+/// <summary>
+/// Model factory for creating instances of Teams models.
+/// Use these factory methods to construct model instances in tests and scenarios
+/// where output-only properties (with internal setters) need to be populated.
+/// </summary>
+public static class TeamsModelFactory
+{
+    /// <summary>
+    /// Creates a new instance of <see cref="NewMeetingResponse"/>.
+    /// </summary>
+    public static NewMeetingResponse NewMeetingResponse(
+        string id = default,
+        string createdTimestamp = default,
+        string lastModifiedTimestamp = default,
+        List<object> categories = default,
+        string timeZone = default,
+        int? preEventReminderTime = default,
+        bool? remindersEnabled = default,
+        bool? hasAttachments = default,
+        string subject = default,
+        string bodyPreview = default,
+        string importance = default,
+        string sensitivity = default,
+        bool? isAllDay = default,
+        bool? isCancelled = default,
+        bool? isOrganizer = default,
+        bool? responseRequested = default,
+        string showAs = default,
+        string type = default,
+        string webLast = default,
+        string onlineMeetingURL = default,
+        bool? allowNewTimeProposals = default,
+        object recurrence = default,
+        object responseStatus = default,
+        object body = default,
+        object start = default,
+        object end = default,
+        object location = default,
+        List<object> attendee = default,
+        object organizer = default,
+        object onlineMeeting = default)
+    {
+        return new NewMeetingResponse
         {
-            public ImportanceJsonConverter() { }
-            public override Importance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Importance, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Importance value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            ID = id,
+            CreatedTimestamp = createdTimestamp,
+            LastModifiedTimestamp = lastModifiedTimestamp,
+            Categories = categories,
+            TimeZone = timeZone,
+            PreEventReminderTime = preEventReminderTime,
+            RemindersEnabled = remindersEnabled,
+            HasAttachments = hasAttachments,
+            Subject = subject,
+            BodyPreview = bodyPreview,
+            Importance = importance,
+            Sensitivity = sensitivity,
+            IsAllDay = isAllDay,
+            IsCancelled = isCancelled,
+            IsOrganizer = isOrganizer,
+            ResponseRequested = responseRequested,
+            ShowAs = showAs,
+            Type = type,
+            WebLast = webLast,
+            OnlineMeetingURL = onlineMeetingURL,
+            AllowNewTimeProposals = allowNewTimeProposals,
+            Recurrence = recurrence,
+            ResponseStatus = responseStatus,
+            Body = body,
+            Start = start,
+            End = end,
+            Location = location,
+            Attendee = attendee,
+            Organizer = organizer,
+            OnlineMeeting = onlineMeeting,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known MembershipType values.
+    /// Creates a new instance of <see cref="GetAllTeamsResponse"/>.
     /// </summary>
-    [JsonConverter(typeof(MembershipType.MembershipTypeJsonConverter))]
-    public readonly struct MembershipType : IEquatable<MembershipType>
+    public static GetAllTeamsResponse GetAllTeamsResponse(
+        string context = default,
+        List<object> teamsList = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MembershipType"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public MembershipType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>standard</summary>
-        public static MembershipType Standard { get; } = new("standard");
-
-        /// <summary>private</summary>
-        public static MembershipType Private { get; } = new("private");
-
-        /// <summary>unknownFutureValue</summary>
-        public static MembershipType UnknownFutureValue { get; } = new("unknownFutureValue");
-
-        /// <summary>shared</summary>
-        public static MembershipType Shared { get; } = new("shared");
-
-        /// <summary>Converts a string to <see cref="MembershipType"/>.</summary>
-        public static implicit operator MembershipType(string value) => new(value);
-
-        /// <summary>Converts a <see cref="MembershipType"/> to its string representation.</summary>
-        public static implicit operator string(MembershipType value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(MembershipType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is MembershipType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(MembershipType left, MembershipType right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(MembershipType left, MembershipType right) => !left.Equals(right);
-
-        internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
+        return new GetAllTeamsResponse
         {
-            public MembershipTypeJsonConverter() { }
-            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MembershipType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            Context = context,
+            TeamsList = teamsList,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known ShowAs values.
+    /// Creates a new instance of <see cref="GetAllAssociatedTeamsResponse"/>.
     /// </summary>
-    [JsonConverter(typeof(ShowAs.ShowAsJsonConverter))]
-    public readonly struct ShowAs : IEquatable<ShowAs>
+    public static GetAllAssociatedTeamsResponse GetAllAssociatedTeamsResponse(
+        string context = default,
+        List<AssociatedTeamInfo> teamsList = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShowAs"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public ShowAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>free</summary>
-        public static ShowAs Free { get; } = new("free");
-
-        /// <summary>tentative</summary>
-        public static ShowAs Tentative { get; } = new("tentative");
-
-        /// <summary>busy</summary>
-        public static ShowAs Busy { get; } = new("busy");
-
-        /// <summary>oof</summary>
-        public static ShowAs Oof { get; } = new("oof");
-
-        /// <summary>workingElsewhere</summary>
-        public static ShowAs WorkingElsewhere { get; } = new("workingElsewhere");
-
-        /// <summary>unknown</summary>
-        public static ShowAs Unknown { get; } = new("unknown");
-
-        /// <summary>Converts a string to <see cref="ShowAs"/>.</summary>
-        public static implicit operator ShowAs(string value) => new(value);
-
-        /// <summary>Converts a <see cref="ShowAs"/> to its string representation.</summary>
-        public static implicit operator string(ShowAs value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(ShowAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is ShowAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(ShowAs left, ShowAs right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(ShowAs left, ShowAs right) => !left.Equals(right);
-
-        internal sealed class ShowAsJsonConverter : JsonConverter<ShowAs>
+        return new GetAllAssociatedTeamsResponse
         {
-            public ShowAsJsonConverter() { }
-            public override ShowAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ShowAs, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, ShowAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            Context = context,
+            TeamsList = teamsList,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known Visibility values.
+    /// Creates a new instance of <see cref="AssociatedTeamInfo"/>.
     /// </summary>
-    [JsonConverter(typeof(Visibility.VisibilityJsonConverter))]
-    public readonly struct Visibility : IEquatable<Visibility>
+    public static AssociatedTeamInfo AssociatedTeamInfo(
+        string teamID = default,
+        string displayName = default,
+        string tenantID = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Visibility"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Visibility(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>Private</summary>
-        public static Visibility Private { get; } = new("Private");
-
-        /// <summary>Public</summary>
-        public static Visibility Public { get; } = new("Public");
-
-        /// <summary>Converts a string to <see cref="Visibility"/>.</summary>
-        public static implicit operator Visibility(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Visibility"/> to its string representation.</summary>
-        public static implicit operator string(Visibility value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Visibility other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Visibility other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Visibility left, Visibility right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Visibility left, Visibility right) => !left.Equals(right);
-
-        internal sealed class VisibilityJsonConverter : JsonConverter<Visibility>
+        return new AssociatedTeamInfo
         {
-            public VisibilityJsonConverter() { }
-            public override Visibility Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Visibility, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Visibility value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            TeamID = teamID,
+            DisplayName = displayName,
+            TenantID = tenantID,
+        };
     }
-
-    #endregion Types
-
-    #region Model Factory
 
     /// <summary>
-    /// Model factory for creating instances of Teams models.
-    /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// Creates a new instance of <see cref="GetChannelsForGroupResponse"/>.
     /// </summary>
-    public static class TeamsModelFactory
+    public static GetChannelsForGroupResponse GetChannelsForGroupResponse(
+        string context = default,
+        List<GetChannelResponse> channelList = default)
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="NewMeetingResponse"/>.
-        /// </summary>
-        public static NewMeetingResponse NewMeetingResponse(
-            string id = default,
-            string createdTimestamp = default,
-            string lastModifiedTimestamp = default,
-            List<object> categories = default,
-            string timeZone = default,
-            int? preEventReminderTime = default,
-            bool? remindersEnabled = default,
-            bool? hasAttachments = default,
-            string subject = default,
-            string bodyPreview = default,
-            string importance = default,
-            string sensitivity = default,
-            bool? isAllDay = default,
-            bool? isCancelled = default,
-            bool? isOrganizer = default,
-            bool? responseRequested = default,
-            string showAs = default,
-            string type = default,
-            string webLast = default,
-            string onlineMeetingURL = default,
-            bool? allowNewTimeProposals = default,
-            object recurrence = default,
-            object responseStatus = default,
-            object body = default,
-            object start = default,
-            object end = default,
-            object location = default,
-            List<object> attendee = default,
-            object organizer = default,
-            object onlineMeeting = default)
+        return new GetChannelsForGroupResponse
         {
-            return new NewMeetingResponse
-            {
-                ID = id,
-                CreatedTimestamp = createdTimestamp,
-                LastModifiedTimestamp = lastModifiedTimestamp,
-                Categories = categories,
-                TimeZone = timeZone,
-                PreEventReminderTime = preEventReminderTime,
-                RemindersEnabled = remindersEnabled,
-                HasAttachments = hasAttachments,
-                Subject = subject,
-                BodyPreview = bodyPreview,
-                Importance = importance,
-                Sensitivity = sensitivity,
-                IsAllDay = isAllDay,
-                IsCancelled = isCancelled,
-                IsOrganizer = isOrganizer,
-                ResponseRequested = responseRequested,
-                ShowAs = showAs,
-                Type = type,
-                WebLast = webLast,
-                OnlineMeetingURL = onlineMeetingURL,
-                AllowNewTimeProposals = allowNewTimeProposals,
-                Recurrence = recurrence,
-                ResponseStatus = responseStatus,
-                Body = body,
-                Start = start,
-                End = end,
-                Location = location,
-                Attendee = attendee,
-                Organizer = organizer,
-                OnlineMeeting = onlineMeeting,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetAllTeamsResponse"/>.
-        /// </summary>
-        public static GetAllTeamsResponse GetAllTeamsResponse(
-            string context = default,
-            List<object> teamsList = default)
-        {
-            return new GetAllTeamsResponse
-            {
-                Context = context,
-                TeamsList = teamsList,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetAllAssociatedTeamsResponse"/>.
-        /// </summary>
-        public static GetAllAssociatedTeamsResponse GetAllAssociatedTeamsResponse(
-            string context = default,
-            List<AssociatedTeamInfo> teamsList = default)
-        {
-            return new GetAllAssociatedTeamsResponse
-            {
-                Context = context,
-                TeamsList = teamsList,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AssociatedTeamInfo"/>.
-        /// </summary>
-        public static AssociatedTeamInfo AssociatedTeamInfo(
-            string teamID = default,
-            string displayName = default,
-            string tenantID = default)
-        {
-            return new AssociatedTeamInfo
-            {
-                TeamID = teamID,
-                DisplayName = displayName,
-                TenantID = tenantID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetChannelsForGroupResponse"/>.
-        /// </summary>
-        public static GetChannelsForGroupResponse GetChannelsForGroupResponse(
-            string context = default,
-            List<GetChannelResponse> channelList = default)
-        {
-            return new GetChannelsForGroupResponse
-            {
-                Context = context,
-                ChannelList = channelList,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetChannelResponse"/>.
-        /// </summary>
-        public static GetChannelResponse GetChannelResponse(
-            string channelID = default,
-            string displayName = default,
-            string descriptionOfChannel = default,
-            string theEmailAddressForTheChannel = default,
-            string teamTenantId = default,
-            string aHyperlinkForTheChannelInMicrosoftTeams = default,
-            string sharePointFolderURLForChannel = default,
-            DateTime? channelCreationTime = default,
-            MembershipType? theTypeOfTheChannel = default)
-        {
-            return new GetChannelResponse
-            {
-                ChannelID = channelID,
-                DisplayName = displayName,
-                DescriptionOfChannel = descriptionOfChannel,
-                TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
-                TeamTenantId = teamTenantId,
-                AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
-                SharePointFolderURLForChannel = sharePointFolderURLForChannel,
-                ChannelCreationTime = channelCreationTime,
-                TheTypeOfTheChannel = theTypeOfTheChannel,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateChannelInput"/>.
-        /// </summary>
-        public static CreateChannelInput CreateChannelInput(
-            string description = default,
-            string name = default)
-        {
-            return new CreateChannelInput
-            {
-                Description = description,
-                Name = name,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateChannelResponse"/>.
-        /// </summary>
-        public static CreateChannelResponse CreateChannelResponse(
-            string description = default,
-            string displayName = default,
-            string id = default)
-        {
-            return new CreateChannelResponse
-            {
-                Description = description,
-                DisplayName = displayName,
-                ID = id,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetAllChannelsForTeamResponse"/>.
-        /// </summary>
-        public static GetAllChannelsForTeamResponse GetAllChannelsForTeamResponse(
-            string context = default,
-            List<ChannelWithOwnerTeamId> channelList = default)
-        {
-            return new GetAllChannelsForTeamResponse
-            {
-                Context = context,
-                ChannelList = channelList,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ChannelWithOwnerTeamId"/>.
-        /// </summary>
-        public static ChannelWithOwnerTeamId ChannelWithOwnerTeamId(
-            string channelID = default,
-            string displayName = default,
-            string descriptionOfChannel = default,
-            string theEmailAddressForTheChannel = default,
-            string teamTenantId = default,
-            string aHyperlinkForTheChannelInMicrosoftTeams = default,
-            string sharePointFolderURLForChannel = default,
-            DateTime? channelCreationTime = default,
-            MembershipType? theTypeOfTheChannel = default,
-            string ownerTeamID = default)
-        {
-            return new ChannelWithOwnerTeamId
-            {
-                ChannelID = channelID,
-                DisplayName = displayName,
-                DescriptionOfChannel = descriptionOfChannel,
-                TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
-                TeamTenantId = teamTenantId,
-                AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
-                SharePointFolderURLForChannel = sharePointFolderURLForChannel,
-                ChannelCreationTime = channelCreationTime,
-                TheTypeOfTheChannel = theTypeOfTheChannel,
-                OwnerTeamID = ownerTeamID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetChatsResponse"/>.
-        /// </summary>
-        public static GetChatsResponse GetChatsResponse(
-            string context = default,
-            List<object> chatsList = default)
-        {
-            return new GetChatsResponse
-            {
-                Context = context,
-                ChatsList = chatsList,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetTagsResponseSchema"/>.
-        /// </summary>
-        public static GetTagsResponseSchema GetTagsResponseSchema(
-            string context = default,
-            List<object> value = default)
-        {
-            return new GetTagsResponseSchema
-            {
-                Context = context,
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateTagInput"/>.
-        /// </summary>
-        public static CreateTagInput CreateTagInput(
-            string displayName = default,
-            string membersIDs = default)
-        {
-            return new CreateTagInput
-            {
-                DisplayName = displayName,
-                MembersIDs = membersIDs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateTagResponseSchema"/>.
-        /// </summary>
-        public static CreateTagResponseSchema CreateTagResponseSchema(
-            string type = default,
-            string id = default,
-            string teamID = default,
-            string displayName = default,
-            int? memberCount = default)
-        {
-            return new CreateTagResponseSchema
-            {
-                Type = type,
-                ID = id,
-                TeamID = teamID,
-                DisplayName = displayName,
-                MemberCount = memberCount,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
-        /// </summary>
-        public static AddMemberToTagInput AddMemberToTagInput(
-            string userSID = default)
-        {
-            return new AddMemberToTagInput
-            {
-                UserSID = userSID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AddMemberToTagResponseSchema"/>.
-        /// </summary>
-        public static AddMemberToTagResponseSchema AddMemberToTagResponseSchema(
-            string id = default)
-        {
-            return new AddMemberToTagResponseSchema
-            {
-                ID = id,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetTagMembersResponseSchema"/>.
-        /// </summary>
-        public static GetTagMembersResponseSchema GetTagMembersResponseSchema(
-            List<object> value = default)
-        {
-            return new GetTagMembersResponseSchema
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AtMentionTagResponse"/>.
-        /// </summary>
-        public static AtMentionTagResponse AtMentionTagResponse(
-            string mentionTag = default)
-        {
-            return new AtMentionTagResponse
-            {
-                MentionTag = mentionTag,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMessagesFromConversationResponse"/>.
-        /// </summary>
-        public static GetMessagesFromConversationResponse GetMessagesFromConversationResponse(
-            string context = default,
-            int? count = default,
-            string nextLink = default,
-            List<ChatMessage> value = default)
-        {
-            return new GetMessagesFromConversationResponse
-            {
-                Context = context,
-                Count = count,
-                NextLink = nextLink,
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListRepliesResponseSchema"/>.
-        /// </summary>
-        public static ListRepliesResponseSchema ListRepliesResponseSchema(
-            List<object> listOfMessageReplies = default)
-        {
-            return new ListRepliesResponseSchema
-            {
-                ListOfMessageReplies = listOfMessageReplies,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListMembersResponseSchema"/>.
-        /// </summary>
-        public static ListMembersResponseSchema ListMembersResponseSchema(
-            List<object> listOfMembers = default)
-        {
-            return new ListMembersResponseSchema
-            {
-                ListOfMembers = listOfMembers,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WebhookChatMessageTriggerInput"/>.
-        /// </summary>
-        public static WebhookChatMessageTriggerInput WebhookChatMessageTriggerInput(
-            string notificationUrl = default)
-        {
-            return new WebhookChatMessageTriggerInput
-            {
-                NotificationUrl = notificationUrl,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="UnifiedActionSchema"/>.
-        /// </summary>
-        public static UnifiedActionSchema UnifiedActionSchema(
-            ObjectEntity schema = default)
-        {
-            return new UnifiedActionSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DynamicResponseSchema"/>.
-        /// </summary>
-        public static DynamicResponseSchema DynamicResponseSchema(
-            ObjectEntity schema = default)
-        {
-            return new DynamicResponseSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ConnectorMetadata"/>.
-        /// </summary>
-        public static ConnectorMetadata ConnectorMetadata(
-            string metadatatype = default,
-            string activitytype = default,
-            ObjectEntity schema = default)
-        {
-            return new ConnectorMetadata
-            {
-                Metadatatype = metadatatype,
-                Activitytype = activitytype,
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SelectedMessageTriggerMetadata"/>.
-        /// </summary>
-        public static SelectedMessageTriggerMetadata SelectedMessageTriggerMetadata(
-            ObjectEntity teamsFlowRunContext = default,
-            ObjectEntity cardOutputs = default)
-        {
-            return new SelectedMessageTriggerMetadata
-            {
-                TeamsFlowRunContext = teamsFlowRunContext,
-                CardOutputs = cardOutputs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ComposeMessageTriggerMetadata"/>.
-        /// </summary>
-        public static ComposeMessageTriggerMetadata ComposeMessageTriggerMetadata(
-            ObjectEntity teamsFlowRunContext = default,
-            ObjectEntity cardOutputs = default)
-        {
-            return new ComposeMessageTriggerMetadata
-            {
-                TeamsFlowRunContext = teamsFlowRunContext,
-                CardOutputs = cardOutputs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CardResponseTriggerMetadata"/>.
-        /// </summary>
-        public static CardResponseTriggerMetadata CardResponseTriggerMetadata(
-            ObjectEntity teamsFlowRunContext = default,
-            ObjectEntity cardOutputs = default)
-        {
-            return new CardResponseTriggerMetadata
-            {
-                TeamsFlowRunContext = teamsFlowRunContext,
-                CardOutputs = cardOutputs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetTeamResponse"/>.
-        /// </summary>
-        public static GetTeamResponse GetTeamResponse(
-            string teamID = default,
-            string displayName = default,
-            string descriptionOfTeam = default,
-            string internalID = default,
-            string teamSWebUrl = default,
-            bool? archived = default,
-            MemberSettings memberSettings = default,
-            GuestSettings guestSettings = default,
-            MessagingSettings messagingSettings = default,
-            FunSettings funSettings = default,
-            DiscoverySettings discoverySettings = default)
-        {
-            return new GetTeamResponse
-            {
-                TeamID = teamID,
-                DisplayName = displayName,
-                DescriptionOfTeam = descriptionOfTeam,
-                InternalID = internalID,
-                TeamSWebUrl = teamSWebUrl,
-                Archived = archived,
-                MemberSettings = memberSettings,
-                GuestSettings = guestSettings,
-                MessagingSettings = messagingSettings,
-                FunSettings = funSettings,
-                DiscoverySettings = discoverySettings,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MemberSettings"/>.
-        /// </summary>
-        public static MemberSettings MemberSettings(
-            bool? membersAreAllowedCreateUpdateChannels = default,
-            bool? membersAreAllowedDeleteChannels = default,
-            bool? membersAreAllowedAddRemoveApps = default,
-            bool? membersAreAllowedCreateUpdateRemoveTabs = default,
-            bool? membersAreAllowedCreateUpdateRemoveConnectors = default)
-        {
-            return new MemberSettings
-            {
-                MembersAreAllowedCreateUpdateChannels = membersAreAllowedCreateUpdateChannels,
-                MembersAreAllowedDeleteChannels = membersAreAllowedDeleteChannels,
-                MembersAreAllowedAddRemoveApps = membersAreAllowedAddRemoveApps,
-                MembersAreAllowedCreateUpdateRemoveTabs = membersAreAllowedCreateUpdateRemoveTabs,
-                MembersAreAllowedCreateUpdateRemoveConnectors = membersAreAllowedCreateUpdateRemoveConnectors,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GuestSettings"/>.
-        /// </summary>
-        public static GuestSettings GuestSettings(
-            bool? guestsAreAllowedCreateUpdateChannels = default,
-            bool? guestsAreAllowedDeleteChannels = default)
-        {
-            return new GuestSettings
-            {
-                GuestsAreAllowedCreateUpdateChannels = guestsAreAllowedCreateUpdateChannels,
-                GuestsAreAllowedDeleteChannels = guestsAreAllowedDeleteChannels,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MessagingSettings"/>.
-        /// </summary>
-        public static MessagingSettings MessagingSettings(
-            bool? allowUserToEditMessages = default,
-            bool? allowUserToDeleteMessages = default,
-            bool? allowOwnerToDeleteMessages = default,
-            bool? allowTeamMentions = default,
-            bool? allowChannelMentions = default)
-        {
-            return new MessagingSettings
-            {
-                AllowUserToEditMessages = allowUserToEditMessages,
-                AllowUserToDeleteMessages = allowUserToDeleteMessages,
-                AllowOwnerToDeleteMessages = allowOwnerToDeleteMessages,
-                AllowTeamMentions = allowTeamMentions,
-                AllowChannelMentions = allowChannelMentions,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FunSettings"/>.
-        /// </summary>
-        public static FunSettings FunSettings(
-            bool? allowGiphy = default,
-            string giphyContentRating = default,
-            bool? allowStickersAndMemes = default,
-            bool? allowCustomMemes = default)
-        {
-            return new FunSettings
-            {
-                AllowGiphy = allowGiphy,
-                GiphyContentRating = giphyContentRating,
-                AllowStickersAndMemes = allowStickersAndMemes,
-                AllowCustomMemes = allowCustomMemes,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DiscoverySettings"/>.
-        /// </summary>
-        public static DiscoverySettings DiscoverySettings(
-            bool? showInTeamSSearchAndSuggestions = default)
-        {
-            return new DiscoverySettings
-            {
-                ShowInTeamSSearchAndSuggestions = showInTeamSSearchAndSuggestions,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AtMentionUser"/>.
-        /// </summary>
-        public static AtMentionUser AtMentionUser(
-            string mention = default)
-        {
-            return new AtMentionUser
-            {
-                Mention = mention,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OnGroupMemberChangeResponseItem"/>.
-        /// </summary>
-        public static OnGroupMemberChangeResponseItem OnGroupMemberChangeResponseItem(
-            string userID = default)
-        {
-            return new OnGroupMemberChangeResponseItem
-            {
-                UserID = userID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="NewChatResponse"/>.
-        /// </summary>
-        public static NewChatResponse NewChatResponse(
-            string conversationID = default)
-        {
-            return new NewChatResponse
-            {
-                ConversationID = conversationID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateATeamInput"/>.
-        /// </summary>
-        public static CreateATeamInput CreateATeamInput(
-            string teamName = default,
-            string description = default,
-            Visibility? visibility = default)
-        {
-            return new CreateATeamInput
-            {
-                TeamName = teamName,
-                Description = description,
-                Visibility = visibility,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateATeamResponse"/>.
-        /// </summary>
-        public static CreateATeamResponse CreateATeamResponse(
-            string newTeamID = default)
-        {
-            return new CreateATeamResponse
-            {
-                NewTeamID = newTeamID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AddMemberToTeamInput"/>.
-        /// </summary>
-        public static AddMemberToTeamInput AddMemberToTeamInput(
-            string user = default,
-            bool? setUserAsTeamOwner = default)
-        {
-            return new AddMemberToTeamInput
-            {
-                User = user,
-                SetUserAsTeamOwner = setUserAsTeamOwner,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AddMemberToChannelInput"/>.
-        /// </summary>
-        public static AddMemberToChannelInput AddMemberToChannelInput(
-            string user = default,
-            bool? setUserAsChannelOwner = default)
-        {
-            return new AddMemberToChannelInput
-            {
-                User = user,
-                SetUserAsChannelOwner = setUserAsChannelOwner,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PostToConversationResponse"/>.
-        /// </summary>
-        public static PostToConversationResponse PostToConversationResponse(
-            string messageID = default,
-            string messageLink = default,
-            string conversationID = default)
-        {
-            return new PostToConversationResponse
-            {
-                MessageID = messageID,
-                MessageLink = messageLink,
-                ConversationID = conversationID,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PostCardAndWaitForResponseInput"/>.
-        /// </summary>
-        public static PostCardAndWaitForResponseInput PostCardAndWaitForResponseInput(
-            string notificationUrl = default,
-            object body = default)
-        {
-            return new PostCardAndWaitForResponseInput
-            {
-                NotificationUrl = notificationUrl,
-                Body = body,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMessageDetailsSchema"/>.
-        /// </summary>
-        public static GetMessageDetailsSchema GetMessageDetailsSchema(
-            ObjectEntity schema = default)
-        {
-            return new GetMessageDetailsSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListMembersSchema"/>.
-        /// </summary>
-        public static ListMembersSchema ListMembersSchema(
-            ObjectEntity schema = default)
-        {
-            return new ListMembersSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WebhookTriggerSchema"/>.
-        /// </summary>
-        public static WebhookTriggerSchema WebhookTriggerSchema(
-            ObjectEntity schema = default)
-        {
-            return new WebhookTriggerSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMessageLocationsResponse"/>.
-        /// </summary>
-        public static GetMessageLocationsResponse GetMessageLocationsResponse(
-            List<object> locations = default)
-        {
-            return new GetMessageLocationsResponse
-            {
-                Locations = locations,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PostFeedSchema"/>.
-        /// </summary>
-        public static PostFeedSchema PostFeedSchema(
-            ObjectEntity schema = default)
-        {
-            return new PostFeedSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ChatMessage"/>.
-        /// </summary>
-        public static ChatMessage ChatMessage(
-            List<object> attachments = default,
-            object body = default,
-            DateTime? creationTimestamp = default,
-            bool? deleted = default,
-            string etag = default,
-            object from = default,
-            string id = default,
-            string importance = default,
-            string lastModifiedTimestamp = default,
-            string locale = default,
-            List<object> mentions = default,
-            string messageType = default,
-            List<object> reactions = default,
-            string replyToId = default,
-            string subject = default,
-            string summary = default)
-        {
-            return new ChatMessage
-            {
-                Attachments = attachments,
-                Body = body,
-                CreationTimestamp = creationTimestamp,
-                Deleted = deleted,
-                Etag = etag,
-                From = from,
-                Id = id,
-                Importance = importance,
-                LastModifiedTimestamp = lastModifiedTimestamp,
-                Locale = locale,
-                Mentions = mentions,
-                MessageType = messageType,
-                Reactions = reactions,
-                ReplyToId = replyToId,
-                Subject = subject,
-                Summary = summary,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="NewChat"/>.
-        /// </summary>
-        public static NewChat NewChat(
-            string title = default,
-            string membersToAdd = default)
-        {
-            return new NewChat
-            {
-                Title = title,
-                MembersToAdd = membersToAdd,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="NewMeeting"/>.
-        /// </summary>
-        public static NewMeeting NewMeeting(
-            string subject = default,
-            object body = default,
-            string timeZone = default,
-            object start = default,
-            object end = default,
-            string requiredAttendees = default,
-            string optionalAttendees = default,
-            object location = default,
-            Importance? importance = default,
-            object recurrence = default,
-            bool? allDayEvent = default,
-            int? preEventReminderTime = default,
-            bool? enableReminders = default,
-            ShowAs? statusShowAs = default,
-            bool? requestResponse = default,
-            bool? onlineMeetingEnabled = default,
-            string onlineMeetingProvider = default)
-        {
-            return new NewMeeting
-            {
-                Subject = subject,
-                Body = body,
-                TimeZone = timeZone,
-                Start = start,
-                End = end,
-                RequiredAttendees = requiredAttendees,
-                OptionalAttendees = optionalAttendees,
-                Location = location,
-                Importance = importance,
-                Recurrence = recurrence,
-                AllDayEvent = allDayEvent,
-                PreEventReminderTime = preEventReminderTime,
-                EnableReminders = enableReminders,
-                StatusShowAs = statusShowAs,
-                RequestResponse = requestResponse,
-                OnlineMeetingEnabled = onlineMeetingEnabled,
-                OnlineMeetingProvider = onlineMeetingProvider,
-            };
-        }
+            Context = context,
+            ChannelList = channelList,
+        };
     }
 
-    #endregion Model Factory
+    /// <summary>
+    /// Creates a new instance of <see cref="GetChannelResponse"/>.
+    /// </summary>
+    public static GetChannelResponse GetChannelResponse(
+        string channelID = default,
+        string displayName = default,
+        string descriptionOfChannel = default,
+        string theEmailAddressForTheChannel = default,
+        string teamTenantId = default,
+        string aHyperlinkForTheChannelInMicrosoftTeams = default,
+        string sharePointFolderURLForChannel = default,
+        DateTime? channelCreationTime = default,
+        MembershipType? theTypeOfTheChannel = default)
+    {
+        return new GetChannelResponse
+        {
+            ChannelID = channelID,
+            DisplayName = displayName,
+            DescriptionOfChannel = descriptionOfChannel,
+            TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
+            TeamTenantId = teamTenantId,
+            AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
+            SharePointFolderURLForChannel = sharePointFolderURLForChannel,
+            ChannelCreationTime = channelCreationTime,
+            TheTypeOfTheChannel = theTypeOfTheChannel,
+        };
+    }
 
-    #region Trigger Payloads
+    /// <summary>
+    /// Creates a new instance of <see cref="CreateChannelInput"/>.
+    /// </summary>
+    public static CreateChannelInput CreateChannelInput(
+        string description = default,
+        string name = default)
+    {
+        return new CreateChannelInput
+        {
+            Description = description,
+            Name = name,
+        };
+    }
 
-    #endregion Trigger Payloads
+    /// <summary>
+    /// Creates a new instance of <see cref="CreateChannelResponse"/>.
+    /// </summary>
+    public static CreateChannelResponse CreateChannelResponse(
+        string description = default,
+        string displayName = default,
+        string id = default)
+    {
+        return new CreateChannelResponse
+        {
+            Description = description,
+            DisplayName = displayName,
+            ID = id,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetAllChannelsForTeamResponse"/>.
+    /// </summary>
+    public static GetAllChannelsForTeamResponse GetAllChannelsForTeamResponse(
+        string context = default,
+        List<ChannelWithOwnerTeamId> channelList = default)
+    {
+        return new GetAllChannelsForTeamResponse
+        {
+            Context = context,
+            ChannelList = channelList,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ChannelWithOwnerTeamId"/>.
+    /// </summary>
+    public static ChannelWithOwnerTeamId ChannelWithOwnerTeamId(
+        string channelID = default,
+        string displayName = default,
+        string descriptionOfChannel = default,
+        string theEmailAddressForTheChannel = default,
+        string teamTenantId = default,
+        string aHyperlinkForTheChannelInMicrosoftTeams = default,
+        string sharePointFolderURLForChannel = default,
+        DateTime? channelCreationTime = default,
+        MembershipType? theTypeOfTheChannel = default,
+        string ownerTeamID = default)
+    {
+        return new ChannelWithOwnerTeamId
+        {
+            ChannelID = channelID,
+            DisplayName = displayName,
+            DescriptionOfChannel = descriptionOfChannel,
+            TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
+            TeamTenantId = teamTenantId,
+            AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
+            SharePointFolderURLForChannel = sharePointFolderURLForChannel,
+            ChannelCreationTime = channelCreationTime,
+            TheTypeOfTheChannel = theTypeOfTheChannel,
+            OwnerTeamID = ownerTeamID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetChatsResponse"/>.
+    /// </summary>
+    public static GetChatsResponse GetChatsResponse(
+        string context = default,
+        List<object> chatsList = default)
+    {
+        return new GetChatsResponse
+        {
+            Context = context,
+            ChatsList = chatsList,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetTagsResponseSchema"/>.
+    /// </summary>
+    public static GetTagsResponseSchema GetTagsResponseSchema(
+        string context = default,
+        List<object> value = default)
+    {
+        return new GetTagsResponseSchema
+        {
+            Context = context,
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CreateTagInput"/>.
+    /// </summary>
+    public static CreateTagInput CreateTagInput(
+        string displayName = default,
+        string membersIDs = default)
+    {
+        return new CreateTagInput
+        {
+            DisplayName = displayName,
+            MembersIDs = membersIDs,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CreateTagResponseSchema"/>.
+    /// </summary>
+    public static CreateTagResponseSchema CreateTagResponseSchema(
+        string type = default,
+        string id = default,
+        string teamID = default,
+        string displayName = default,
+        int? memberCount = default)
+    {
+        return new CreateTagResponseSchema
+        {
+            Type = type,
+            ID = id,
+            TeamID = teamID,
+            DisplayName = displayName,
+            MemberCount = memberCount,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
+    /// </summary>
+    public static AddMemberToTagInput AddMemberToTagInput(
+        string userSID = default)
+    {
+        return new AddMemberToTagInput
+        {
+            UserSID = userSID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AddMemberToTagResponseSchema"/>.
+    /// </summary>
+    public static AddMemberToTagResponseSchema AddMemberToTagResponseSchema(
+        string id = default)
+    {
+        return new AddMemberToTagResponseSchema
+        {
+            ID = id,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetTagMembersResponseSchema"/>.
+    /// </summary>
+    public static GetTagMembersResponseSchema GetTagMembersResponseSchema(
+        List<object> value = default)
+    {
+        return new GetTagMembersResponseSchema
+        {
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AtMentionTagResponse"/>.
+    /// </summary>
+    public static AtMentionTagResponse AtMentionTagResponse(
+        string mentionTag = default)
+    {
+        return new AtMentionTagResponse
+        {
+            MentionTag = mentionTag,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetMessagesFromConversationResponse"/>.
+    /// </summary>
+    public static GetMessagesFromConversationResponse GetMessagesFromConversationResponse(
+        string context = default,
+        int? count = default,
+        string nextLink = default,
+        List<ChatMessage> value = default)
+    {
+        return new GetMessagesFromConversationResponse
+        {
+            Context = context,
+            Count = count,
+            NextLink = nextLink,
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ListRepliesResponseSchema"/>.
+    /// </summary>
+    public static ListRepliesResponseSchema ListRepliesResponseSchema(
+        List<object> listOfMessageReplies = default)
+    {
+        return new ListRepliesResponseSchema
+        {
+            ListOfMessageReplies = listOfMessageReplies,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ListMembersResponseSchema"/>.
+    /// </summary>
+    public static ListMembersResponseSchema ListMembersResponseSchema(
+        List<object> listOfMembers = default)
+    {
+        return new ListMembersResponseSchema
+        {
+            ListOfMembers = listOfMembers,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="WebhookChatMessageTriggerInput"/>.
+    /// </summary>
+    public static WebhookChatMessageTriggerInput WebhookChatMessageTriggerInput(
+        string notificationUrl = default)
+    {
+        return new WebhookChatMessageTriggerInput
+        {
+            NotificationUrl = notificationUrl,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="UnifiedActionSchema"/>.
+    /// </summary>
+    public static UnifiedActionSchema UnifiedActionSchema(
+        ObjectEntity schema = default)
+    {
+        return new UnifiedActionSchema
+        {
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DynamicResponseSchema"/>.
+    /// </summary>
+    public static DynamicResponseSchema DynamicResponseSchema(
+        ObjectEntity schema = default)
+    {
+        return new DynamicResponseSchema
+        {
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ConnectorMetadata"/>.
+    /// </summary>
+    public static ConnectorMetadata ConnectorMetadata(
+        string metadatatype = default,
+        string activitytype = default,
+        ObjectEntity schema = default)
+    {
+        return new ConnectorMetadata
+        {
+            Metadatatype = metadatatype,
+            Activitytype = activitytype,
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="SelectedMessageTriggerMetadata"/>.
+    /// </summary>
+    public static SelectedMessageTriggerMetadata SelectedMessageTriggerMetadata(
+        ObjectEntity teamsFlowRunContext = default,
+        ObjectEntity cardOutputs = default)
+    {
+        return new SelectedMessageTriggerMetadata
+        {
+            TeamsFlowRunContext = teamsFlowRunContext,
+            CardOutputs = cardOutputs,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ComposeMessageTriggerMetadata"/>.
+    /// </summary>
+    public static ComposeMessageTriggerMetadata ComposeMessageTriggerMetadata(
+        ObjectEntity teamsFlowRunContext = default,
+        ObjectEntity cardOutputs = default)
+    {
+        return new ComposeMessageTriggerMetadata
+        {
+            TeamsFlowRunContext = teamsFlowRunContext,
+            CardOutputs = cardOutputs,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CardResponseTriggerMetadata"/>.
+    /// </summary>
+    public static CardResponseTriggerMetadata CardResponseTriggerMetadata(
+        ObjectEntity teamsFlowRunContext = default,
+        ObjectEntity cardOutputs = default)
+    {
+        return new CardResponseTriggerMetadata
+        {
+            TeamsFlowRunContext = teamsFlowRunContext,
+            CardOutputs = cardOutputs,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetTeamResponse"/>.
+    /// </summary>
+    public static GetTeamResponse GetTeamResponse(
+        string teamID = default,
+        string displayName = default,
+        string descriptionOfTeam = default,
+        string internalID = default,
+        string teamSWebUrl = default,
+        bool? archived = default,
+        MemberSettings memberSettings = default,
+        GuestSettings guestSettings = default,
+        MessagingSettings messagingSettings = default,
+        FunSettings funSettings = default,
+        DiscoverySettings discoverySettings = default)
+    {
+        return new GetTeamResponse
+        {
+            TeamID = teamID,
+            DisplayName = displayName,
+            DescriptionOfTeam = descriptionOfTeam,
+            InternalID = internalID,
+            TeamSWebUrl = teamSWebUrl,
+            Archived = archived,
+            MemberSettings = memberSettings,
+            GuestSettings = guestSettings,
+            MessagingSettings = messagingSettings,
+            FunSettings = funSettings,
+            DiscoverySettings = discoverySettings,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="MemberSettings"/>.
+    /// </summary>
+    public static MemberSettings MemberSettings(
+        bool? membersAreAllowedCreateUpdateChannels = default,
+        bool? membersAreAllowedDeleteChannels = default,
+        bool? membersAreAllowedAddRemoveApps = default,
+        bool? membersAreAllowedCreateUpdateRemoveTabs = default,
+        bool? membersAreAllowedCreateUpdateRemoveConnectors = default)
+    {
+        return new MemberSettings
+        {
+            MembersAreAllowedCreateUpdateChannels = membersAreAllowedCreateUpdateChannels,
+            MembersAreAllowedDeleteChannels = membersAreAllowedDeleteChannels,
+            MembersAreAllowedAddRemoveApps = membersAreAllowedAddRemoveApps,
+            MembersAreAllowedCreateUpdateRemoveTabs = membersAreAllowedCreateUpdateRemoveTabs,
+            MembersAreAllowedCreateUpdateRemoveConnectors = membersAreAllowedCreateUpdateRemoveConnectors,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GuestSettings"/>.
+    /// </summary>
+    public static GuestSettings GuestSettings(
+        bool? guestsAreAllowedCreateUpdateChannels = default,
+        bool? guestsAreAllowedDeleteChannels = default)
+    {
+        return new GuestSettings
+        {
+            GuestsAreAllowedCreateUpdateChannels = guestsAreAllowedCreateUpdateChannels,
+            GuestsAreAllowedDeleteChannels = guestsAreAllowedDeleteChannels,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="MessagingSettings"/>.
+    /// </summary>
+    public static MessagingSettings MessagingSettings(
+        bool? allowUserToEditMessages = default,
+        bool? allowUserToDeleteMessages = default,
+        bool? allowOwnerToDeleteMessages = default,
+        bool? allowTeamMentions = default,
+        bool? allowChannelMentions = default)
+    {
+        return new MessagingSettings
+        {
+            AllowUserToEditMessages = allowUserToEditMessages,
+            AllowUserToDeleteMessages = allowUserToDeleteMessages,
+            AllowOwnerToDeleteMessages = allowOwnerToDeleteMessages,
+            AllowTeamMentions = allowTeamMentions,
+            AllowChannelMentions = allowChannelMentions,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="FunSettings"/>.
+    /// </summary>
+    public static FunSettings FunSettings(
+        bool? allowGiphy = default,
+        string giphyContentRating = default,
+        bool? allowStickersAndMemes = default,
+        bool? allowCustomMemes = default)
+    {
+        return new FunSettings
+        {
+            AllowGiphy = allowGiphy,
+            GiphyContentRating = giphyContentRating,
+            AllowStickersAndMemes = allowStickersAndMemes,
+            AllowCustomMemes = allowCustomMemes,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DiscoverySettings"/>.
+    /// </summary>
+    public static DiscoverySettings DiscoverySettings(
+        bool? showInTeamSSearchAndSuggestions = default)
+    {
+        return new DiscoverySettings
+        {
+            ShowInTeamSSearchAndSuggestions = showInTeamSSearchAndSuggestions,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AtMentionUser"/>.
+    /// </summary>
+    public static AtMentionUser AtMentionUser(
+        string mention = default)
+    {
+        return new AtMentionUser
+        {
+            Mention = mention,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="OnGroupMemberChangeResponseItem"/>.
+    /// </summary>
+    public static OnGroupMemberChangeResponseItem OnGroupMemberChangeResponseItem(
+        string userID = default)
+    {
+        return new OnGroupMemberChangeResponseItem
+        {
+            UserID = userID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="NewChatResponse"/>.
+    /// </summary>
+    public static NewChatResponse NewChatResponse(
+        string conversationID = default)
+    {
+        return new NewChatResponse
+        {
+            ConversationID = conversationID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CreateATeamInput"/>.
+    /// </summary>
+    public static CreateATeamInput CreateATeamInput(
+        string teamName = default,
+        string description = default,
+        Visibility? visibility = default)
+    {
+        return new CreateATeamInput
+        {
+            TeamName = teamName,
+            Description = description,
+            Visibility = visibility,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="CreateATeamResponse"/>.
+    /// </summary>
+    public static CreateATeamResponse CreateATeamResponse(
+        string newTeamID = default)
+    {
+        return new CreateATeamResponse
+        {
+            NewTeamID = newTeamID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AddMemberToTeamInput"/>.
+    /// </summary>
+    public static AddMemberToTeamInput AddMemberToTeamInput(
+        string user = default,
+        bool? setUserAsTeamOwner = default)
+    {
+        return new AddMemberToTeamInput
+        {
+            User = user,
+            SetUserAsTeamOwner = setUserAsTeamOwner,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AddMemberToChannelInput"/>.
+    /// </summary>
+    public static AddMemberToChannelInput AddMemberToChannelInput(
+        string user = default,
+        bool? setUserAsChannelOwner = default)
+    {
+        return new AddMemberToChannelInput
+        {
+            User = user,
+            SetUserAsChannelOwner = setUserAsChannelOwner,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="PostToConversationResponse"/>.
+    /// </summary>
+    public static PostToConversationResponse PostToConversationResponse(
+        string messageID = default,
+        string messageLink = default,
+        string conversationID = default)
+    {
+        return new PostToConversationResponse
+        {
+            MessageID = messageID,
+            MessageLink = messageLink,
+            ConversationID = conversationID,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="PostCardAndWaitForResponseInput"/>.
+    /// </summary>
+    public static PostCardAndWaitForResponseInput PostCardAndWaitForResponseInput(
+        string notificationUrl = default,
+        object body = default)
+    {
+        return new PostCardAndWaitForResponseInput
+        {
+            NotificationUrl = notificationUrl,
+            Body = body,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetMessageDetailsSchema"/>.
+    /// </summary>
+    public static GetMessageDetailsSchema GetMessageDetailsSchema(
+        ObjectEntity schema = default)
+    {
+        return new GetMessageDetailsSchema
+        {
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ListMembersSchema"/>.
+    /// </summary>
+    public static ListMembersSchema ListMembersSchema(
+        ObjectEntity schema = default)
+    {
+        return new ListMembersSchema
+        {
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="WebhookTriggerSchema"/>.
+    /// </summary>
+    public static WebhookTriggerSchema WebhookTriggerSchema(
+        ObjectEntity schema = default)
+    {
+        return new WebhookTriggerSchema
+        {
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GetMessageLocationsResponse"/>.
+    /// </summary>
+    public static GetMessageLocationsResponse GetMessageLocationsResponse(
+        List<object> locations = default)
+    {
+        return new GetMessageLocationsResponse
+        {
+            Locations = locations,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="PostFeedSchema"/>.
+    /// </summary>
+    public static PostFeedSchema PostFeedSchema(
+        ObjectEntity schema = default)
+    {
+        return new PostFeedSchema
+        {
+            Schema = schema,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ChatMessage"/>.
+    /// </summary>
+    public static ChatMessage ChatMessage(
+        List<object> attachments = default,
+        object body = default,
+        DateTime? creationTimestamp = default,
+        bool? deleted = default,
+        string etag = default,
+        object from = default,
+        string id = default,
+        string importance = default,
+        string lastModifiedTimestamp = default,
+        string locale = default,
+        List<object> mentions = default,
+        string messageType = default,
+        List<object> reactions = default,
+        string replyToId = default,
+        string subject = default,
+        string summary = default)
+    {
+        return new ChatMessage
+        {
+            Attachments = attachments,
+            Body = body,
+            CreationTimestamp = creationTimestamp,
+            Deleted = deleted,
+            Etag = etag,
+            From = from,
+            Id = id,
+            Importance = importance,
+            LastModifiedTimestamp = lastModifiedTimestamp,
+            Locale = locale,
+            Mentions = mentions,
+            MessageType = messageType,
+            Reactions = reactions,
+            ReplyToId = replyToId,
+            Subject = subject,
+            Summary = summary,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="NewChat"/>.
+    /// </summary>
+    public static NewChat NewChat(
+        string title = default,
+        string membersToAdd = default)
+    {
+        return new NewChat
+        {
+            Title = title,
+            MembersToAdd = membersToAdd,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="NewMeeting"/>.
+    /// </summary>
+    public static NewMeeting NewMeeting(
+        string subject = default,
+        object body = default,
+        string timeZone = default,
+        object start = default,
+        object end = default,
+        string requiredAttendees = default,
+        string optionalAttendees = default,
+        object location = default,
+        Importance? importance = default,
+        object recurrence = default,
+        bool? allDayEvent = default,
+        int? preEventReminderTime = default,
+        bool? enableReminders = default,
+        ShowAs? statusShowAs = default,
+        bool? requestResponse = default,
+        bool? onlineMeetingEnabled = default,
+        string onlineMeetingProvider = default)
+    {
+        return new NewMeeting
+        {
+            Subject = subject,
+            Body = body,
+            TimeZone = timeZone,
+            Start = start,
+            End = end,
+            RequiredAttendees = requiredAttendees,
+            OptionalAttendees = optionalAttendees,
+            Location = location,
+            Importance = importance,
+            Recurrence = recurrence,
+            AllDayEvent = allDayEvent,
+            PreEventReminderTime = preEventReminderTime,
+            EnableReminders = enableReminders,
+            StatusShowAs = statusShowAs,
+            RequestResponse = requestResponse,
+            OnlineMeetingEnabled = onlineMeetingEnabled,
+            OnlineMeetingProvider = onlineMeetingProvider,
+        };
+    }
+}
+
+#endregion Model Factory
+
+#region Trigger Payloads
+
+#endregion Trigger Payloads
 
 }
 
 namespace Azure.Connectors.Sdk.Teams
 {
 
-    #region Trigger Operation Constants
+#region Trigger Operation Constants
+
+/// <summary>
+/// Trigger operation name constants for the Teams connector.
+/// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
+/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+/// </summary>
+public static class TeamsTriggerOperations
+{
+    /// <summary>
+    /// When a new channel message is added.
+    /// </summary>
+    public const string OnNewChannelMessage = "OnNewChannelMessage";
 
     /// <summary>
-    /// Trigger operation name constants for the Teams connector.
-    /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// When I am mentioned in a channel message.
     /// </summary>
-    public static class TeamsTriggerOperations
+    public const string OnNewChannelMessageMentioningMe = "OnNewChannelMessageMentioningMe";
+
+    /// <summary>
+    /// When I&apos;m @mentioned.
+    /// </summary>
+    public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
+
+    /// <summary>
+    /// When someone reacted to a message in chat.
+    /// </summary>
+    public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
+
+    /// <summary>
+    /// When a new chat message is added.
+    /// </summary>
+    public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
+
+    /// <summary>
+    /// When keywords are mentioned.
+    /// </summary>
+    public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
+
+    /// <summary>
+    /// When a new message is added to a chat or channel.
+    /// </summary>
+    public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
+
+    /// <summary>
+    /// When a new team member is removed.
+    /// </summary>
+    public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
+
+    /// <summary>
+    /// When a new team member is added.
+    /// </summary>
+    public const string OnTeamMemberAdded = "OnGroupMembershipAdd";
+
+}
+
+#endregion Trigger Operation Constants
+
+#region Trigger Parameter Metadata
+
+/// <summary>
+/// Trigger input parameter name constants for the Teams connector.
+/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+/// </summary>
+public static class TeamsTriggerParameters
+{
+    /// <summary>
+    /// Input parameters for the OnNewChannelMessage trigger operation (operationId: OnNewChannelMessage).
+    /// </summary>
+    public static class OnNewChannelMessage
     {
         /// <summary>
-        /// When a new channel message is added.
+        /// Top.
+        /// Default: 50.
         /// </summary>
-        public const string OnNewChannelMessage = "OnNewChannelMessage";
-
-        /// <summary>
-        /// When I am mentioned in a channel message.
-        /// </summary>
-        public const string OnNewChannelMessageMentioningMe = "OnNewChannelMessageMentioningMe";
-
-        /// <summary>
-        /// When I&apos;m @mentioned.
-        /// </summary>
-        public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
-
-        /// <summary>
-        /// When someone reacted to a message in chat.
-        /// </summary>
-        public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
-
-        /// <summary>
-        /// When a new chat message is added.
-        /// </summary>
-        public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
-
-        /// <summary>
-        /// When keywords are mentioned.
-        /// </summary>
-        public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
-
-        /// <summary>
-        /// When a new message is added to a chat or channel.
-        /// </summary>
-        public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
-
-        /// <summary>
-        /// When a new team member is removed.
-        /// </summary>
-        public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
-
-        /// <summary>
-        /// When a new team member is added.
-        /// </summary>
-        public const string OnTeamMemberAdded = "OnGroupMembershipAdd";
+        public const string Top = "$top";
 
     }
 
-    #endregion Trigger Operation Constants
-
-    #region Trigger Parameter Metadata
-
     /// <summary>
-    /// Trigger input parameter name constants for the Teams connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// Input parameters for the OnNewChannelMessageMentioningMe trigger operation (operationId: OnNewChannelMessageMentioningMe).
     /// </summary>
-    public static class TeamsTriggerParameters
+    public static class OnNewChannelMessageMentioningMe
     {
         /// <summary>
-        /// Input parameters for the OnNewChannelMessage trigger operation (operationId: OnNewChannelMessage).
+        /// Top.
+        /// Default: 50.
         /// </summary>
-        public static class OnNewChannelMessage
-        {
-            /// <summary>
-            /// Top.
-            /// Default: 50.
-            /// </summary>
-            public const string Top = "$top";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnNewChannelMessageMentioningMe trigger operation (operationId: OnNewChannelMessageMentioningMe).
-        /// </summary>
-        public static class OnNewChannelMessageMentioningMe
-        {
-            /// <summary>
-            /// Top.
-            /// Default: 50.
-            /// </summary>
-            public const string Top = "$top";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWebhookMessageReactionTrigger trigger operation (operationId: WebhookMessageReactionTrigger).
-        /// </summary>
-        public static class OnWebhookMessageReactionTrigger
-        {
-            /// <summary>
-            /// Choose emoji to monitor for message reactions
-            /// Required.
-            /// </summary>
-            public const string ReactionKey = "reactionKey";
-
-            /// <summary>
-            /// Whether the flow should be triggered by every reaction or only the first reaction on a particular message
-            /// Required.
-            /// Allowed values: Multiple, Once.
-            /// </summary>
-            public const string Frequency = "frequency";
-
-            /// <summary>
-            /// Specify who can trigger this workflow
-            /// Required.
-            /// Allowed values: Myself, Everyone.
-            /// </summary>
-            public const string RunningPolicy = "runningPolicy";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWebhookKeywordTrigger trigger operation (operationId: WebhookKeywordTrigger).
-        /// </summary>
-        public static class OnWebhookKeywordTrigger
-        {
-            /// <summary>
-            /// A comma separated list of keywords to search for
-            /// Required.
-            /// </summary>
-            public const string Search = "$search";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnTeamMemberRemoved trigger operation (operationId: OnGroupMembershipRemoval).
-        /// </summary>
-        public static class OnTeamMemberRemoved
-        {
-            /// <summary>
-            /// Select team
-            /// Required.
-            /// Dynamic values from: GetAllTeams.
-            /// </summary>
-            public const string GroupId = "groupId";
-
-            /// <summary>
-            /// Select.
-            /// Default: members.
-            /// </summary>
-            public const string Select = "$select";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
-        /// </summary>
-        public static class OnTeamMemberAdded
-        {
-            /// <summary>
-            /// Select team
-            /// Required.
-            /// Dynamic values from: GetAllTeams.
-            /// </summary>
-            public const string GroupId = "groupId";
-
-            /// <summary>
-            /// Select.
-            /// Default: members.
-            /// </summary>
-            public const string Select = "$select";
-
-        }
+        public const string Top = "$top";
 
     }
 
-    #endregion Trigger Parameter Metadata
-
-    #region Client
-
     /// <summary>
-    /// Typed client for teams connector.
+    /// Input parameters for the OnWebhookMessageReactionTrigger trigger operation (operationId: WebhookMessageReactionTrigger).
     /// </summary>
-    public class TeamsClient : ConnectorClientBase
+    public static class OnWebhookMessageReactionTrigger
     {
         /// <summary>
-        /// Creates a new TeamsClient with the specified connection runtime URL.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// Choose emoji to monitor for message reactions
+        /// Required.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public TeamsClient(Uri connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
+        public const string ReactionKey = "reactionKey";
 
         /// <summary>
-        /// Creates a new TeamsClient with the specified connection runtime URL and credential.
+        /// Whether the flow should be triggered by every reaction or only the first reaction on a particular message
+        /// Required.
+        /// Allowed values: Multiple, Once.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="credential">The Azure credential for authentication.</param>
-        /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public TeamsClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-            : base(connectionRuntimeUrl, credential, options)
-        {
-        }
+        public const string Frequency = "frequency";
 
         /// <summary>
-        /// Creates a new TeamsClient with the specified connection runtime URL string.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// Specify who can trigger this workflow
+        /// Required.
+        /// Allowed values: Myself, Everyone.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public TeamsClient(string connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
-
-        protected TeamsClient() : this(new Uri("https://localhost")) { }
-
-        public override string ConnectorName => "teams";
-
-        /// <summary>
-        /// Create a Teams meeting
-        /// </summary>
-        /// <remarks>Create a meeting with a link at the bottom of the invite to join the meeting online on Microsoft Teams.</remarks>
-        /// <param name="calendarId">Calendar id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a Teams meeting response.</returns>
-        public virtual async Task<NewMeetingResponse> CreateTeamsMeetingAsync(string calendarId, NewMeeting input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
-            return await this
-                .CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List joined teams
-        /// </summary>
-        /// <remarks>Lists all the teams in Microsoft Teams that you are a member of</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List joined teams response.</returns>
-        public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/me/joinedTeams";
-            return await this
-                .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List associated teams
-        /// </summary>
-        /// <remarks>Lists all the teams you are a direct member of, or are a member of a shared channel that is hosted inside the team.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List associated teams response.</returns>
-        public virtual async Task<GetAllAssociatedTeamsResponse> GetAllAssociatedTeamsAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/me/teamwork/associatedTeams";
-            return await this
-                .CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List channels
-        /// </summary>
-        /// <remarks>Lists all the channels for a specific team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List channels response.</returns>
-        public virtual async Task<GetChannelsForGroupResponse> GetChannelsForGroupAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create a channel
-        /// </summary>
-        /// <remarks>Create a new channel within a specified team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a channel response.</returns>
-        public virtual async Task<CreateChannelResponse> CreateChannelAsync([DynamicValues("GetAllTeams")] string team, CreateChannelInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
-            return await this
-                .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get details for a specific channel in a team
-        /// </summary>
-        /// <remarks>Get the channel details</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="channel">Channel</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get details for a specific channel in a team response.</returns>
-        public virtual async Task<GetChannelResponse> GetChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
-            return await this
-                .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List all channels
-        /// </summary>
-        /// <remarks>Lists all the channels for a specific team, including channels that are shared with the team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all channels response.</returns>
-        public virtual async Task<GetAllChannelsForTeamResponse> GetAllChannelsForTeamAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/allChannels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List chats
-        /// </summary>
-        /// <remarks>Lists recent chats you are a part of</remarks>
-        /// <param name="chatTypes">Chat Types</param>
-        /// <param name="topic">Topic</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List chats response.</returns>
-        public virtual async Task<GetChatsResponse> GetChatsAsync(string chatTypes, string topic, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
-            return await this
-                .CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List all tags for a team
-        /// </summary>
-        /// <remarks>Lists the team&apos;s tags</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all tags for a team response.</returns>
-        public virtual async Task<GetTagsResponseSchema> GetTagsAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-            return await this
-                .CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create a tag for a team
-        /// </summary>
-        /// <remarks>Creates a tag in a team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a tag for a team response.</returns>
-        public virtual async Task<CreateTagResponseSchema> CreateTagAsync([DynamicValues("GetAllTeams")] string team, CreateTagInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-            return await this
-                .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Add a member to a team tag
-        /// </summary>
-        /// <remarks>Adds a user to a team tag</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add a member to a team tag response.</returns>
-        public virtual async Task<AddMemberToTagResponseSchema> AddMemberToTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, AddMemberToTagInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-            return await this
-                .CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List the members of a team tag
-        /// </summary>
-        /// <remarks>Lists the members of a team tag</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List the members of a team tag response.</returns>
-        public virtual async Task<GetTagMembersResponseSchema> GetTagMembersAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-            return await this
-                .CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a member from a team tag
-        /// </summary>
-        /// <remarks>Deletes a member from a team tag</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="tagMemberID">Tag Member ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberID, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberID.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Post a feed notification
-        /// </summary>
-        /// <remarks>Posts a notification to a user&apos;s activity feed linking to a chat or team.</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="notificationType">Notification type</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task PostFeedNotificationAsync(string postAs, string notificationType, DynamicPostFeedNotificationRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get an @mention token for a team tag
-        /// </summary>
-        /// <remarks>Creates a token that can be inserted into a message or adaptive card sent as a user in a channel to @mention a team tag.</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get an @mention token for a team tag response.</returns>
-        public virtual async Task<AtMentionTagResponse> AtMentionTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-            return await this
-                .CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a team tag
-        /// </summary>
-        /// <remarks>Deletes a tag from a team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get messages in a channel
-        /// </summary>
-        /// <remarks>Gets messages from a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="channel">Channel</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
-        public virtual AsyncPageable<ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
-            return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
-                ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Get message details
-        /// </summary>
-        /// <remarks>Gets the details of a message in a chat or a channel.</remarks>
-        /// <param name="message">Message</param>
-        /// <param name="messageType">Message type</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message details response.</returns>
-        public virtual async Task<DynamicGetMessageDetailsResponseSchema> GetMessageDetailsAsync(string message, string messageType, DynamicGetMessageDetailsSchema input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List replies of a channel message
-        /// </summary>
-        /// <remarks>List replies to a message in a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="channel">Channel</param>
-        /// <param name="message">Message</param>
-        /// <param name="latestRepliesCount">Latest replies count</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List replies of a channel message response.</returns>
-        public virtual async Task<ListRepliesResponseSchema> ListRepliesToMessageAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string message, int latestRepliesCount = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (latestRepliesCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages/{Uri.EscapeDataString(message.ToString())}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List members
-        /// </summary>
-        /// <remarks>List direct members of a group chat or a channel</remarks>
-        /// <param name="threadType">Thread type</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List members response.</returns>
-        public virtual async Task<ListMembersResponseSchema> ListMembersAsync(string threadType, DynamicListMembersSchema input, string filterQuery = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            var path = $"/v1.0/teams/listmembers/threadType/{Uri.EscapeDataString(threadType.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get unified action input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="unifiedAction">Unified Action</param>
-        /// <param name="postAs">Post as</param>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get unified action input metadata response.</returns>
-        public virtual async Task<UnifiedActionSchema> GetUnifiedActionSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
-            return await this
-                .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get response schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="unifiedAction">Unified Action</param>
-        /// <param name="postAs">Post as</param>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get response schema response.</returns>
-        public virtual async Task<DynamicResponseSchema> GetPostToConversationResponseSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
-            return await this
-                .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get adaptive card input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get adaptive card input metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetAdaptiveCardInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get notification input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get notification input metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetNotificationInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Post a choice of options as the Flow bot to a user
-        /// </summary>
-        /// <remarks>Send a set of options to a Microsoft Teams user, that they must respond to before the flow will continue. This action will pause the flow until the user response to the options</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SubscribeUserMessageWithOptionsAsync(DynamicUserMessageWithOptionsSubscriptionRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get message with options subscription input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message with options subscription input metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get message with options subscription output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message with options subscription output metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get flow continuation subscription output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get flow continuation subscription output metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get flow continuation subscription output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get flow continuation subscription output metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync(string postAs, string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get selected message hybrid trigger output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get selected message hybrid trigger output metadata response.</returns>
-        public virtual async Task<SelectedMessageTriggerMetadata> GetSelectedMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
-            return await this
-                .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get compose message hybrid trigger output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
-        public virtual async Task<ComposeMessageTriggerMetadata> GetComposeMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
-            return await this
-                .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get compose message hybrid trigger output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
-        public virtual async Task<CardResponseTriggerMetadata> GetCardResponseTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
-            return await this
-                .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get a team
-        /// </summary>
-        /// <remarks>Gets the details for a team in Microsoft Teams.</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get a team response.</returns>
-        public virtual async Task<GetTeamResponse> GetTeamAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
-            return await this
-                .CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get an @mention token for a user
-        /// </summary>
-        /// <remarks>Creates a token that can be inserted into a message or adaptive card to @mention a user.</remarks>
-        /// <param name="user">User</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get an @mention token for a user response.</returns>
-        public virtual async Task<AtMentionUser> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
-            return await this
-                .CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create a chat
-        /// </summary>
-        /// <remarks>Creates a one on one or group chat</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a chat response.</returns>
-        public virtual async Task<NewChatResponse> CreateChatAsync(NewChat input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/chats";
-            return await this
-                .CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get messages in a chat
-        /// </summary>
-        /// <remarks>Retrieves messages from a one on one or group chat</remarks>
-        /// <param name="conversationID">Conversation ID</param>
-        /// <param name="filterQuery">Filter Query</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
-        public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
-                ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Create a team
-        /// </summary>
-        /// <remarks>Creates a new team in Microsoft Teams</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a team response.</returns>
-        public virtual async Task<CreateATeamResponse> CreateATeamAsync(CreateATeamInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams";
-            return await this
-                .CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Add a member to a team
-        /// </summary>
-        /// <remarks>Adds a member to a team in Microsoft Teams</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddMemberToTeamAsync([DynamicValues("GetAllTeams")] string team, AddMemberToTeamInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/members";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Add a member to a channel
-        /// </summary>
-        /// <remarks>Adds a member to a channel in Microsoft Teams</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="channel">Channel</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddMemberToChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, AddMemberToChannelInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Remove a direct member from a channel
-        /// </summary>
-        /// <remarks>Removes a direct member from a channel in Microsoft Teams</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="channel">Channel</param>
-        /// <param name="membershipID">Membership ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipID, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipID.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Post message in a chat or channel
-        /// </summary>
-        /// <remarks>Posts a message to a chat or a channel</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="postIn">Post in</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Post message in a chat or channel response.</returns>
-        public virtual async Task<PostToConversationResponse> PostMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostMessageRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Reply with a message in a channel
-        /// </summary>
-        /// <remarks>Replies with a message to a channel&apos;s message</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="postIn">Post in</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Reply with a message in a channel response.</returns>
-        public virtual async Task<PostToConversationResponse> ReplyWithMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyMessageRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Post card in a chat or channel
-        /// </summary>
-        /// <remarks>Posts a card to a chat or a channel</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="postIn">Post in</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Post card in a chat or channel response.</returns>
-        public virtual async Task<PostToConversationResponse> PostCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostCardRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Post adaptive card and wait for a response
-        /// </summary>
-        /// <remarks>Posts an adaptive card to a chat or a channel and waits for a response from any user. This will pause the flow until any user responds.</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="postIn">Post in</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Post adaptive card and wait for a response response.</returns>
-        public virtual async Task<DynamicPostGatherInputToConversationResponse> PostCardAndWaitForResponseAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, PostCardAndWaitForResponseInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
-            return await this
-                .CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Reply with an adaptive card in a channel
-        /// </summary>
-        /// <remarks>Replies with an adaptive card to a channel&apos;s message</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="postIn">Post in</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Reply with an adaptive card in a channel response.</returns>
-        public virtual async Task<PostToConversationResponse> ReplyWithCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyCardRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Update an adaptive card in a chat or channel
-        /// </summary>
-        /// <remarks>Updates an existing adaptive card</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="postIn">Post in</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update an adaptive card in a chat or channel response.</returns>
-        public virtual async Task<PostToConversationResponse> UpdateCardInConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicUpdateCardRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get message details response schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message details response schema response.</returns>
-        public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get message details input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message details input metadata response.</returns>
-        public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsResponseSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List members input schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List members input schema response.</returns>
-        public virtual async Task<ListMembersSchema> ListMembersInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Input schema for webhook trigger
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Input schema for webhook trigger response.</returns>
-        public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerRequestSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Response schema for webhook trigger
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="triggerType">Trigger type</param>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Response schema for webhook trigger response.</returns>
-        public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerResponseSchemaAsync(string triggerType, string messageType, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Conversation location for where to post
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message Type</param>
-        /// <param name="postAs">Post as</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Conversation location for where to post response.</returns>
-        public virtual async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get feed notification input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="notificationType">Notification type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get feed notification input metadata response.</returns>
-        public virtual async Task<PostFeedSchema> GetFeedNotificationInputSchemaAsync(string postAs, string notificationType, CancellationToken cancellationToken = default)
-        {
-            var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-            return await this
-                .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Send a Microsoft Graph HTTP request
-        /// </summary>
-        /// <remarks>Construct a Microsoft Graph REST API request to invoke against the Microsoft Teams endpoints. These segments are supported: 1st segment: /teams, /me, /users 2nd segment: channels, chats, installedApps, messages, pinnedMessages, onlineMeetings. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send a Microsoft Graph HTTP request response.</returns>
-        public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/httprequest";
-            return await this
-                .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
+        public const string RunningPolicy = "runningPolicy";
 
     }
 
-    #endregion Client
+    /// <summary>
+    /// Input parameters for the OnWebhookKeywordTrigger trigger operation (operationId: WebhookKeywordTrigger).
+    /// </summary>
+    public static class OnWebhookKeywordTrigger
+    {
+        /// <summary>
+        /// A comma separated list of keywords to search for
+        /// Required.
+        /// </summary>
+        public const string Search = "$search";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnTeamMemberRemoved trigger operation (operationId: OnGroupMembershipRemoval).
+    /// </summary>
+    public static class OnTeamMemberRemoved
+    {
+        /// <summary>
+        /// Select team
+        /// Required.
+        /// Dynamic values from: GetAllTeams.
+        /// </summary>
+        public const string GroupId = "groupId";
+
+        /// <summary>
+        /// Select.
+        /// Default: members.
+        /// </summary>
+        public const string Select = "$select";
+
+    }
+
+    /// <summary>
+    /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
+    /// </summary>
+    public static class OnTeamMemberAdded
+    {
+        /// <summary>
+        /// Select team
+        /// Required.
+        /// Dynamic values from: GetAllTeams.
+        /// </summary>
+        public const string GroupId = "groupId";
+
+        /// <summary>
+        /// Select.
+        /// Default: members.
+        /// </summary>
+        public const string Select = "$select";
+
+    }
+
+}
+
+#endregion Trigger Parameter Metadata
+
+#region Client
+
+/// <summary>
+/// Typed client for teams connector.
+/// </summary>
+public class TeamsClient : ConnectorClientBase
+{
+    /// <summary>
+    /// Creates a new TeamsClient with the specified connection runtime URL.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public TeamsClient(Uri connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new TeamsClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    /// <param name="options">Optional client options for retry, timeout, etc.</param>
+    public TeamsClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        : base(connectionRuntimeUrl, credential, options)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new TeamsClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    public TeamsClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        : base(connectionRuntimeUrl, credential)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new TeamsClient with the specified connection runtime URL string.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public TeamsClient(string connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    protected TeamsClient() : this(new Uri("https://localhost")) { }
+
+    public override string ConnectorName => "teams";
+
+    /// <summary>
+    /// Create a Teams meeting
+    /// </summary>
+    /// <remarks>Create a meeting with a link at the bottom of the invite to join the meeting online on Microsoft Teams.</remarks>
+    /// <param name="calendarId">Calendar id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create a Teams meeting response.</returns>
+    public virtual async Task<NewMeetingResponse> CreateTeamsMeetingAsync(string calendarId, NewMeeting input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
+        return await this
+            .CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List joined teams
+    /// </summary>
+    /// <remarks>Lists all the teams in Microsoft Teams that you are a member of</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List joined teams response.</returns>
+    public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/me/joinedTeams";
+        return await this
+            .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List associated teams
+    /// </summary>
+    /// <remarks>Lists all the teams you are a direct member of, or are a member of a shared channel that is hosted inside the team.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List associated teams response.</returns>
+    public virtual async Task<GetAllAssociatedTeamsResponse> GetAllAssociatedTeamsAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/me/teamwork/associatedTeams";
+        return await this
+            .CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List channels
+    /// </summary>
+    /// <remarks>Lists all the channels for a specific team</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List channels response.</returns>
+    public virtual async Task<GetChannelsForGroupResponse> GetChannelsForGroupAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create a channel
+    /// </summary>
+    /// <remarks>Create a new channel within a specified team</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create a channel response.</returns>
+    public virtual async Task<CreateChannelResponse> CreateChannelAsync([DynamicValues("GetAllTeams")] string team, CreateChannelInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
+        return await this
+            .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get details for a specific channel in a team
+    /// </summary>
+    /// <remarks>Get the channel details</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="channel">Channel</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get details for a specific channel in a team response.</returns>
+    public virtual async Task<GetChannelResponse> GetChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
+        return await this
+            .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List all channels
+    /// </summary>
+    /// <remarks>Lists all the channels for a specific team, including channels that are shared with the team</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List all channels response.</returns>
+    public virtual async Task<GetAllChannelsForTeamResponse> GetAllChannelsForTeamAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/allChannels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List chats
+    /// </summary>
+    /// <remarks>Lists recent chats you are a part of</remarks>
+    /// <param name="chatTypes">Chat Types</param>
+    /// <param name="topic">Topic</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List chats response.</returns>
+    public virtual async Task<GetChatsResponse> GetChatsAsync(string chatTypes, string topic, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
+        return await this
+            .CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List all tags for a team
+    /// </summary>
+    /// <remarks>Lists the team&apos;s tags</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List all tags for a team response.</returns>
+    public virtual async Task<GetTagsResponseSchema> GetTagsAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
+        return await this
+            .CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create a tag for a team
+    /// </summary>
+    /// <remarks>Creates a tag in a team</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create a tag for a team response.</returns>
+    public virtual async Task<CreateTagResponseSchema> CreateTagAsync([DynamicValues("GetAllTeams")] string team, CreateTagInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
+        return await this
+            .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Add a member to a team tag
+    /// </summary>
+    /// <remarks>Adds a user to a team tag</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="tag">Tag</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Add a member to a team tag response.</returns>
+    public virtual async Task<AddMemberToTagResponseSchema> AddMemberToTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, AddMemberToTagInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
+        return await this
+            .CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List the members of a team tag
+    /// </summary>
+    /// <remarks>Lists the members of a team tag</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="tag">Tag</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List the members of a team tag response.</returns>
+    public virtual async Task<GetTagMembersResponseSchema> GetTagMembersAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
+        return await this
+            .CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete a member from a team tag
+    /// </summary>
+    /// <remarks>Deletes a member from a team tag</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="tag">Tag</param>
+    /// <param name="tagMemberID">Tag Member ID</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberID, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberID.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Post a feed notification
+    /// </summary>
+    /// <remarks>Posts a notification to a user&apos;s activity feed linking to a chat or team.</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="notificationType">Notification type</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task PostFeedNotificationAsync(string postAs, string notificationType, DynamicPostFeedNotificationRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get an @mention token for a team tag
+    /// </summary>
+    /// <remarks>Creates a token that can be inserted into a message or adaptive card sent as a user in a channel to @mention a team tag.</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="tag">Tag</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get an @mention token for a team tag response.</returns>
+    public virtual async Task<AtMentionTagResponse> AtMentionTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
+        return await this
+            .CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete a team tag
+    /// </summary>
+    /// <remarks>Deletes a tag from a team</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="tag">Tag</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task DeleteTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get messages in a channel
+    /// </summary>
+    /// <remarks>Gets messages from a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="channel">Channel</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
+    public virtual AsyncPageable<ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
+        return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
+            ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Get message details
+    /// </summary>
+    /// <remarks>Gets the details of a message in a chat or a channel.</remarks>
+    /// <param name="message">Message</param>
+    /// <param name="messageType">Message type</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get message details response.</returns>
+    public virtual async Task<DynamicGetMessageDetailsResponseSchema> GetMessageDetailsAsync(string message, string messageType, DynamicGetMessageDetailsSchema input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
+        return await this
+            .CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List replies of a channel message
+    /// </summary>
+    /// <remarks>List replies to a message in a channel in a specific team. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="channel">Channel</param>
+    /// <param name="message">Message</param>
+    /// <param name="latestRepliesCount">Latest replies count</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List replies of a channel message response.</returns>
+    public virtual async Task<ListRepliesResponseSchema> ListRepliesToMessageAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string message, int latestRepliesCount = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (latestRepliesCount != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.ToString())}");
+        var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages/{Uri.EscapeDataString(message.ToString())}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List members
+    /// </summary>
+    /// <remarks>List direct members of a group chat or a channel</remarks>
+    /// <param name="threadType">Thread type</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List members response.</returns>
+    public virtual async Task<ListMembersResponseSchema> ListMembersAsync(string threadType, DynamicListMembersSchema input, string filterQuery = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        var path = $"/v1.0/teams/listmembers/threadType/{Uri.EscapeDataString(threadType.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get unified action input metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="unifiedAction">Unified Action</param>
+    /// <param name="postAs">Post as</param>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get unified action input metadata response.</returns>
+    public virtual async Task<UnifiedActionSchema> GetUnifiedActionSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
+        return await this
+            .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get response schema
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="unifiedAction">Unified Action</param>
+    /// <param name="postAs">Post as</param>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get response schema response.</returns>
+    public virtual async Task<DynamicResponseSchema> GetPostToConversationResponseSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
+        return await this
+            .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get adaptive card input metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get adaptive card input metadata response.</returns>
+    public virtual async Task<ConnectorMetadata> GetAdaptiveCardInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get notification input metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get notification input metadata response.</returns>
+    public virtual async Task<ConnectorMetadata> GetNotificationInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Post a choice of options as the Flow bot to a user
+    /// </summary>
+    /// <remarks>Send a set of options to a Microsoft Teams user, that they must respond to before the flow will continue. This action will pause the flow until the user response to the options</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task SubscribeUserMessageWithOptionsAsync(DynamicUserMessageWithOptionsSubscriptionRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get message with options subscription input metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get message with options subscription input metadata response.</returns>
+    public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get message with options subscription output metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get message with options subscription output metadata response.</returns>
+    public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get flow continuation subscription output metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get flow continuation subscription output metadata response.</returns>
+    public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get flow continuation subscription output metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get flow continuation subscription output metadata response.</returns>
+    public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync(string postAs, string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+        return await this
+            .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get selected message hybrid trigger output metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get selected message hybrid trigger output metadata response.</returns>
+    public virtual async Task<SelectedMessageTriggerMetadata> GetSelectedMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
+        return await this
+            .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get compose message hybrid trigger output metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
+    public virtual async Task<ComposeMessageTriggerMetadata> GetComposeMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
+        return await this
+            .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get compose message hybrid trigger output metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
+    public virtual async Task<CardResponseTriggerMetadata> GetCardResponseTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
+        return await this
+            .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get a team
+    /// </summary>
+    /// <remarks>Gets the details for a team in Microsoft Teams.</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get a team response.</returns>
+    public virtual async Task<GetTeamResponse> GetTeamAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
+        return await this
+            .CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get an @mention token for a user
+    /// </summary>
+    /// <remarks>Creates a token that can be inserted into a message or adaptive card to @mention a user.</remarks>
+    /// <param name="user">User</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get an @mention token for a user response.</returns>
+    public virtual async Task<AtMentionUser> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
+        return await this
+            .CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create a chat
+    /// </summary>
+    /// <remarks>Creates a one on one or group chat</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create a chat response.</returns>
+    public virtual async Task<NewChatResponse> CreateChatAsync(NewChat input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/chats";
+        return await this
+            .CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get messages in a chat
+    /// </summary>
+    /// <remarks>Retrieves messages from a one on one or group chat</remarks>
+    /// <param name="conversationID">Conversation ID</param>
+    /// <param name="filterQuery">Filter Query</param>
+    /// <param name="orderBy">Order By</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
+    public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filterQuery != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+        if (orderBy != default)
+            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
+            ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Create a team
+    /// </summary>
+    /// <remarks>Creates a new team in Microsoft Teams</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create a team response.</returns>
+    public virtual async Task<CreateATeamResponse> CreateATeamAsync(CreateATeamInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams";
+        return await this
+            .CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Add a member to a team
+    /// </summary>
+    /// <remarks>Adds a member to a team in Microsoft Teams</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task AddMemberToTeamAsync([DynamicValues("GetAllTeams")] string team, AddMemberToTeamInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/members";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Add a member to a channel
+    /// </summary>
+    /// <remarks>Adds a member to a channel in Microsoft Teams</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="channel">Channel</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task AddMemberToChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, AddMemberToChannelInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Remove a direct member from a channel
+    /// </summary>
+    /// <remarks>Removes a direct member from a channel in Microsoft Teams</remarks>
+    /// <param name="team">Team</param>
+    /// <param name="channel">Channel</param>
+    /// <param name="membershipID">Membership ID</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipID, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipID.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Post message in a chat or channel
+    /// </summary>
+    /// <remarks>Posts a message to a chat or a channel</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="postIn">Post in</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Post message in a chat or channel response.</returns>
+    public virtual async Task<PostToConversationResponse> PostMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostMessageRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Reply with a message in a channel
+    /// </summary>
+    /// <remarks>Replies with a message to a channel&apos;s message</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="postIn">Post in</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Reply with a message in a channel response.</returns>
+    public virtual async Task<PostToConversationResponse> ReplyWithMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyMessageRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Post card in a chat or channel
+    /// </summary>
+    /// <remarks>Posts a card to a chat or a channel</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="postIn">Post in</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Post card in a chat or channel response.</returns>
+    public virtual async Task<PostToConversationResponse> PostCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostCardRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Post adaptive card and wait for a response
+    /// </summary>
+    /// <remarks>Posts an adaptive card to a chat or a channel and waits for a response from any user. This will pause the flow until any user responds.</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="postIn">Post in</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Post adaptive card and wait for a response response.</returns>
+    public virtual async Task<DynamicPostGatherInputToConversationResponse> PostCardAndWaitForResponseAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, PostCardAndWaitForResponseInput input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
+        return await this
+            .CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Reply with an adaptive card in a channel
+    /// </summary>
+    /// <remarks>Replies with an adaptive card to a channel&apos;s message</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="postIn">Post in</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Reply with an adaptive card in a channel response.</returns>
+    public virtual async Task<PostToConversationResponse> ReplyWithCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyCardRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Update an adaptive card in a chat or channel
+    /// </summary>
+    /// <remarks>Updates an existing adaptive card</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="postIn">Post in</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Update an adaptive card in a chat or channel response.</returns>
+    public virtual async Task<PostToConversationResponse> UpdateCardInConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicUpdateCardRequest input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+        return await this
+            .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get message details response schema
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="messageType">Message type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get message details response schema response.</returns>
+    public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+        return await this
+            .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get message details input metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="messageType">Message type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get message details input metadata response.</returns>
+    public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsResponseSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+        return await this
+            .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List members input schema
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="messageType">Message type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List members input schema response.</returns>
+    public virtual async Task<ListMembersSchema> ListMembersInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+        return await this
+            .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Input schema for webhook trigger
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="messageType">Message type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Input schema for webhook trigger response.</returns>
+    public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerRequestSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+        return await this
+            .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Response schema for webhook trigger
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="triggerType">Trigger type</param>
+    /// <param name="messageType">Message type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Response schema for webhook trigger response.</returns>
+    public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerResponseSchemaAsync(string triggerType, string messageType, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+        return await this
+            .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Conversation location for where to post
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="messageType">Message Type</param>
+    /// <param name="postAs">Post as</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Conversation location for where to post response.</returns>
+    public virtual async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
+        return await this
+            .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get feed notification input metadata
+    /// </summary>
+    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+    /// <param name="postAs">Post as</param>
+    /// <param name="notificationType">Notification type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get feed notification input metadata response.</returns>
+    public virtual async Task<PostFeedSchema> GetFeedNotificationInputSchemaAsync(string postAs, string notificationType, CancellationToken cancellationToken = default)
+    {
+        var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
+        return await this
+            .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Send a Microsoft Graph HTTP request
+    /// </summary>
+    /// <remarks>Construct a Microsoft Graph REST API request to invoke against the Microsoft Teams endpoints. These segments are supported: 1st segment: /teams, /me, /users 2nd segment: channels, chats, installedApps, messages, pinnedMessages, onlineMeetings. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Send a Microsoft Graph HTTP request response.</returns>
+    public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/httprequest";
+        return await this
+            .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+}
+
+#endregion Client
 }

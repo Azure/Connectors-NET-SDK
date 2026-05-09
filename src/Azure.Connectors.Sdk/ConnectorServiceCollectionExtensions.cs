@@ -4,12 +4,12 @@
 
 using Azure.Connectors.Sdk.Arm;
 using Azure.Connectors.Sdk.AzureBlob;
-using Azure.Connectors.Sdk.Azuremonitorlogs;
+using Azure.Connectors.Sdk.AzureMonitorLogs;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
-using Azure.Connectors.Sdk.Office365users;
+using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Smtp;
@@ -93,19 +93,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="AzuremonitorlogsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddAzuremonitorlogsClient(
+        public static IServiceCollection AddAzureMonitorLogsClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzuremonitorlogsClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureMonitorLogsClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Azuremonitorlogs,
-                factory: (connectionRuntimeUrl, credential) => new AzuremonitorlogsClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.AzureMonitorLogs,
+                factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -173,19 +173,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="Office365usersClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="Office365UsersClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddOffice365usersClient(
+        public static IServiceCollection AddOffice365UsersClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365usersClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365UsersClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Office365users,
-                factory: (connectionRuntimeUrl, credential) => new Office365usersClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.Office365Users,
+                factory: (connectionRuntimeUrl, credential) => new Office365UsersClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

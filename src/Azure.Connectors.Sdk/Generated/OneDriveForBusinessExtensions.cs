@@ -23,922 +23,932 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
 {
 
-    #region Types
+#region Types
 
+/// <summary>
+/// Response for Get file metadata
+/// </summary>
+public class BlobMetadata
+{
+    /// <summary>The unique identifier of the file or folder.</summary>
+    public string Id { get; set; }
+
+    /// <summary>The name of the file or folder.</summary>
+    public string Name { get; set; }
+
+    /// <summary>The name of the file or folder, without the file extension.</summary>
+    [JsonPropertyName("NameNoExt")]
+    public string NameWithoutExtension { get; set; }
+
+    /// <summary>The display name of the file or folder.</summary>
+    public string DisplayName { get; set; }
+
+    /// <summary>The path of the file or folder.</summary>
+    public string Path { get; set; }
+
+    /// <summary>The date and time the file or folder was last modified.</summary>
+    [JsonPropertyName("LastModified")]
+    [JsonInclude]
+    public DateTime? LastModifiedTime { get; internal set; }
+
+    /// <summary>The file or folder size in bytes.</summary>
+    public long? Size { get; set; }
+
+    /// <summary>The media type of the file or folder.</summary>
+    public string MediaType { get; set; }
+
+    /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+    public bool? IsFolder { get; set; }
+
+    /// <summary>The etag of the file or folder.</summary>
+    [JsonInclude]
+    public string ETag { get; internal set; }
+
+    /// <summary>The file locator of the file or folder.</summary>
+    public string FileLocator { get; set; }
+
+    /// <summary>The user who last modified the file or folder.</summary>
+    public string LastModifiedBy { get; set; }
+}
+
+/// <summary>
+/// Response for Get file thumbnail
+/// </summary>
+public class Thumbnail
+{
+    /// <summary>A URL that points to the thumbnail.</summary>
+    public string Url { get; set; }
+
+    /// <summary>The thumbnail width in pixels.</summary>
+    public int? Width { get; set; }
+
+    /// <summary>The thumbnail height in pixels.</summary>
+    public int? Height { get; set; }
+}
+
+/// <summary>
+/// Response for Create share link
+/// </summary>
+public class SharingLink
+{
+    /// <summary>A URL that points to the file or folder.</summary>
+    [JsonPropertyName("WebUrl")]
+    public string WebURL { get; set; }
+}
+
+/// <summary>
+/// Response for List files in folder
+/// </summary>
+public class BlobMetadataPage : IPageable<BlobMetadata>
+{
+    /// <summary>Blob metadata collection.</summary>
+    [JsonPropertyName("value")]
+    [JsonInclude]
+    public List<BlobMetadata> Value { get; internal set; }
+
+    /// <summary>A URL which can be used to retrieve the next page.</summary>
+    [JsonPropertyName("nextLink")]
+    public string NextLink { get; set; }
+}
+
+#endregion Types
+
+#region Model Factory
+
+/// <summary>
+/// Model factory for creating instances of OneDriveForBusiness models.
+/// Use these factory methods to construct model instances in tests and scenarios
+/// where output-only properties (with internal setters) need to be populated.
+/// </summary>
+public static class OneDriveForBusinessModelFactory
+{
     /// <summary>
-    /// Response for Get file metadata
+    /// Creates a new instance of <see cref="BlobMetadata"/>.
     /// </summary>
-    public class BlobMetadata
+    public static BlobMetadata BlobMetadata(
+        string id = default,
+        string name = default,
+        string nameWithoutExtension = default,
+        string displayName = default,
+        string path = default,
+        DateTime? lastModifiedTime = default,
+        long? size = default,
+        string mediaType = default,
+        bool? isFolder = default,
+        string eTag = default,
+        string fileLocator = default,
+        string lastModifiedBy = default)
     {
-        /// <summary>The unique identifier of the file or folder.</summary>
-        public string Id { get; set; }
-
-        /// <summary>The name of the file or folder.</summary>
-        public string Name { get; set; }
-
-        /// <summary>The name of the file or folder, without the file extension.</summary>
-        [JsonPropertyName("NameNoExt")]
-        public string NameWithoutExtension { get; set; }
-
-        /// <summary>The display name of the file or folder.</summary>
-        public string DisplayName { get; set; }
-
-        /// <summary>The path of the file or folder.</summary>
-        public string Path { get; set; }
-
-        /// <summary>The date and time the file or folder was last modified.</summary>
-        [JsonPropertyName("LastModified")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
-
-        /// <summary>The file or folder size in bytes.</summary>
-        public long? Size { get; set; }
-
-        /// <summary>The media type of the file or folder.</summary>
-        public string MediaType { get; set; }
-
-        /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
-        public bool? IsFolder { get; set; }
-
-        /// <summary>The etag of the file or folder.</summary>
-        [JsonInclude]
-        public string ETag { get; internal set; }
-
-        /// <summary>The file locator of the file or folder.</summary>
-        public string FileLocator { get; set; }
-
-        /// <summary>The user who last modified the file or folder.</summary>
-        public string LastModifiedBy { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get file thumbnail
-    /// </summary>
-    public class Thumbnail
-    {
-        /// <summary>A URL that points to the thumbnail.</summary>
-        public string Url { get; set; }
-
-        /// <summary>The thumbnail width in pixels.</summary>
-        public int? Width { get; set; }
-
-        /// <summary>The thumbnail height in pixels.</summary>
-        public int? Height { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create share link
-    /// </summary>
-    public class SharingLink
-    {
-        /// <summary>A URL that points to the file or folder.</summary>
-        [JsonPropertyName("WebUrl")]
-        public string WebURL { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List files in folder
-    /// </summary>
-    public class BlobMetadataPage : IPageable<BlobMetadata>
-    {
-        /// <summary>Blob metadata collection.</summary>
-        [JsonPropertyName("value")]
-        [JsonInclude]
-        public List<BlobMetadata> Value { get; internal set; }
-
-        /// <summary>A URL which can be used to retrieve the next page.</summary>
-        [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
-    }
-
-    #endregion Types
-
-    #region Model Factory
-
-    /// <summary>
-    /// Model factory for creating instances of OneDriveForBusiness models.
-    /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
-    /// </summary>
-    public static class OneDriveForBusinessModelFactory
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="BlobMetadata"/>.
-        /// </summary>
-        public static BlobMetadata BlobMetadata(
-            string id = default,
-            string name = default,
-            string nameWithoutExtension = default,
-            string displayName = default,
-            string path = default,
-            DateTime? lastModifiedTime = default,
-            long? size = default,
-            string mediaType = default,
-            bool? isFolder = default,
-            string eTag = default,
-            string fileLocator = default,
-            string lastModifiedBy = default)
+        return new BlobMetadata
         {
-            return new BlobMetadata
-            {
-                Id = id,
-                Name = name,
-                NameWithoutExtension = nameWithoutExtension,
-                DisplayName = displayName,
-                Path = path,
-                LastModifiedTime = lastModifiedTime,
-                Size = size,
-                MediaType = mediaType,
-                IsFolder = isFolder,
-                ETag = eTag,
-                FileLocator = fileLocator,
-                LastModifiedBy = lastModifiedBy,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Thumbnail"/>.
-        /// </summary>
-        public static Thumbnail Thumbnail(
-            string url = default,
-            int? width = default,
-            int? height = default)
-        {
-            return new Thumbnail
-            {
-                Url = url,
-                Width = width,
-                Height = height,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SharingLink"/>.
-        /// </summary>
-        public static SharingLink SharingLink(
-            string webURL = default)
-        {
-            return new SharingLink
-            {
-                WebURL = webURL,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BlobMetadataPage"/>.
-        /// </summary>
-        public static BlobMetadataPage BlobMetadataPage(
-            List<BlobMetadata> value = default,
-            string nextLink = default)
-        {
-            return new BlobMetadataPage
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-    }
-
-    #endregion Model Factory
-
-    #region Trigger Payloads
-
-    /// <summary>
-    /// Typed trigger payload for the OnNewFiles trigger (OneDriveForBusiness "When a file is created (properties only)", operationId: OnNewFilesV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnNewFilesTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class OneDriveForBusinessOnNewFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
-    {
+            Id = id,
+            Name = name,
+            NameWithoutExtension = nameWithoutExtension,
+            DisplayName = displayName,
+            Path = path,
+            LastModifiedTime = lastModifiedTime,
+            Size = size,
+            MediaType = mediaType,
+            IsFolder = isFolder,
+            ETag = eTag,
+            FileLocator = fileLocator,
+            LastModifiedBy = lastModifiedBy,
+        };
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnUpdatedFiles trigger (OneDriveForBusiness "When a file is modified (properties only)", operationId: OnUpdatedFilesV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+    /// Creates a new instance of <see cref="Thumbnail"/>.
     /// </summary>
-    public class OneDriveForBusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
+    public static Thumbnail Thumbnail(
+        string url = default,
+        int? width = default,
+        int? height = default)
     {
+        return new Thumbnail
+        {
+            Url = url,
+            Width = width,
+            Height = height,
+        };
     }
 
     /// <summary>
-    /// Static registry of trigger operations for the OneDriveForBusiness connector that have typed payloads.
-    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
-    /// Triggers that return binary content (e.g., file downloads) are not included here
-    /// because they have no JSON-deserializable payload type. See <see cref="OneDriveForBusinessTriggerOperations"/>
-    /// for the complete list of trigger operation name constants.
+    /// Creates a new instance of <see cref="SharingLink"/>.
     /// </summary>
-    public static class OneDriveForBusinessTriggers
+    public static SharingLink SharingLink(
+        string webURL = default)
     {
-        /// <summary>
-        /// Trigger operations with typed payloads for the OneDriveForBusiness connector.
-        /// This is a subset of all triggers — see <see cref="OneDriveForBusinessTriggerOperations"/> for the full list.
-        /// </summary>
-        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
-            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
-            {
-                ["OnNewFilesV2"] = typeof(OneDriveForBusinessOnNewFilesTriggerPayload),
-                ["OnUpdatedFilesV2"] = typeof(OneDriveForBusinessOnUpdatedFilesTriggerPayload),
-            });
+        return new SharingLink
+        {
+            WebURL = webURL,
+        };
     }
 
-    #endregion Trigger Payloads
+    /// <summary>
+    /// Creates a new instance of <see cref="BlobMetadataPage"/>.
+    /// </summary>
+    public static BlobMetadataPage BlobMetadataPage(
+        List<BlobMetadata> value = default,
+        string nextLink = default)
+    {
+        return new BlobMetadataPage
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+}
+
+#endregion Model Factory
+
+#region Trigger Payloads
+
+/// <summary>
+/// Typed trigger payload for the OnNewFiles trigger (OneDriveForBusiness "When a file is created (properties only)", operationId: OnNewFilesV2).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnNewFilesTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class OneDriveForBusinessOnNewFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
+{
+}
+
+/// <summary>
+/// Typed trigger payload for the OnUpdatedFiles trigger (OneDriveForBusiness "When a file is modified (properties only)", operationId: OnUpdatedFilesV2).
+/// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+/// </summary>
+public class OneDriveForBusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
+{
+}
+
+/// <summary>
+/// Static registry of trigger operations for the OneDriveForBusiness connector that have typed payloads.
+/// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+/// Triggers that return binary content (e.g., file downloads) are not included here
+/// because they have no JSON-deserializable payload type. See <see cref="OneDriveForBusinessTriggerOperations"/>
+/// for the complete list of trigger operation name constants.
+/// </summary>
+public static class OneDriveForBusinessTriggers
+{
+    /// <summary>
+    /// Trigger operations with typed payloads for the OneDriveForBusiness connector.
+    /// This is a subset of all triggers — see <see cref="OneDriveForBusinessTriggerOperations"/> for the full list.
+    /// </summary>
+    public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+        new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["OnNewFilesV2"] = typeof(OneDriveForBusinessOnNewFilesTriggerPayload),
+            ["OnUpdatedFilesV2"] = typeof(OneDriveForBusinessOnUpdatedFilesTriggerPayload),
+        });
+}
+
+#endregion Trigger Payloads
 
 }
 
 namespace Azure.Connectors.Sdk.OneDriveForBusiness
 {
 
-    #region Trigger Operation Constants
+#region Trigger Operation Constants
+
+/// <summary>
+/// Trigger operation name constants for the OneDriveForBusiness connector.
+/// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
+/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+/// </summary>
+public static class OneDriveForBusinessTriggerOperations
+{
+    /// <summary>
+    /// When a file is created.
+    /// </summary>
+    public const string OnNewFile = "OnNewFileV2";
 
     /// <summary>
-    /// Trigger operation name constants for the OneDriveForBusiness connector.
-    /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// When a file is created (properties only).
+    /// Payload type: <see cref="OneDriveForBusinessOnNewFilesTriggerPayload"/>.
     /// </summary>
-    public static class OneDriveForBusinessTriggerOperations
+    public const string OnNewFiles = "OnNewFilesV2";
+
+    /// <summary>
+    /// When a file is modified.
+    /// </summary>
+    public const string OnUpdatedFile = "OnUpdatedFileV2";
+
+    /// <summary>
+    /// When a file is modified (properties only).
+    /// Payload type: <see cref="OneDriveForBusinessOnUpdatedFilesTriggerPayload"/>.
+    /// </summary>
+    public const string OnUpdatedFiles = "OnUpdatedFilesV2";
+
+}
+
+#endregion Trigger Operation Constants
+
+#region Trigger Parameter Metadata
+
+/// <summary>
+/// Trigger input parameter name constants for the OneDriveForBusiness connector.
+/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+/// </summary>
+public static class OneDriveForBusinessTriggerParameters
+{
+    /// <summary>
+    /// Input parameters for the OnNewFile trigger operation (operationId: OnNewFileV2).
+    /// </summary>
+    public static class OnNewFile
     {
         /// <summary>
-        /// When a file is created.
+        /// The unique identifier of the folder.
+        /// Required.
         /// </summary>
-        public const string OnNewFile = "OnNewFileV2";
+        public const string FolderId = "folderId";
 
         /// <summary>
-        /// When a file is created (properties only).
-        /// Payload type: <see cref="OneDriveForBusinessOnNewFilesTriggerPayload"/>.
+        /// Include items in subfolders
+        /// Default: false.
         /// </summary>
-        public const string OnNewFiles = "OnNewFilesV2";
+        public const string IncludeSubfolders = "includeSubfolders";
 
         /// <summary>
-        /// When a file is modified.
+        /// A boolean value (true, false) to infer content-type based on extension.
+        /// Default: true.
         /// </summary>
-        public const string OnUpdatedFile = "OnUpdatedFileV2";
+        public const string InferContentType = "inferContentType";
 
         /// <summary>
-        /// When a file is modified (properties only).
-        /// Payload type: <see cref="OneDriveForBusinessOnUpdatedFilesTriggerPayload"/>.
+        /// Simulate this call.
+        /// Default: false.
         /// </summary>
-        public const string OnUpdatedFiles = "OnUpdatedFilesV2";
+        public const string Simulate = "simulate";
+
+        /// <summary>
+        /// Special header to enable operation simulation
+        /// </summary>
+        public const string XMsOperationContext = "x-ms-operation-context";
 
     }
 
-    #endregion Trigger Operation Constants
-
-    #region Trigger Parameter Metadata
-
     /// <summary>
-    /// Trigger input parameter name constants for the OneDriveForBusiness connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// Input parameters for the OnNewFiles trigger operation (operationId: OnNewFilesV2).
     /// </summary>
-    public static class OneDriveForBusinessTriggerParameters
+    public static class OnNewFiles
     {
         /// <summary>
-        /// Input parameters for the OnNewFile trigger operation (operationId: OnNewFileV2).
+        /// The unique identifier of the folder.
+        /// Required.
         /// </summary>
-        public static class OnNewFile
-        {
-            /// <summary>
-            /// The unique identifier of the folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// Include items in subfolders
-            /// Default: false.
-            /// </summary>
-            public const string IncludeSubfolders = "includeSubfolders";
-
-            /// <summary>
-            /// A boolean value (true, false) to infer content-type based on extension.
-            /// Default: true.
-            /// </summary>
-            public const string InferContentType = "inferContentType";
-
-            /// <summary>
-            /// Simulate this call.
-            /// Default: false.
-            /// </summary>
-            public const string Simulate = "simulate";
-
-            /// <summary>
-            /// Special header to enable operation simulation
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
+        public const string FolderId = "folderId";
 
         /// <summary>
-        /// Input parameters for the OnNewFiles trigger operation (operationId: OnNewFilesV2).
+        /// Include items in subfolders
+        /// Default: false.
         /// </summary>
-        public static class OnNewFiles
-        {
-            /// <summary>
-            /// The unique identifier of the folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// Include items in subfolders
-            /// Default: false.
-            /// </summary>
-            public const string IncludeSubfolders = "includeSubfolders";
-
-            /// <summary>
-            /// Maximum number of files to return by single trigger run (1-100). Note that &apos;Split On&apos; setting can force trigger to process each item individually.
-            /// Default: 10.
-            /// </summary>
-            public const string MaxFileCount = "maxFileCount";
-
-            /// <summary>
-            /// Simulate this call.
-            /// Default: false.
-            /// </summary>
-            public const string Simulate = "simulate";
-
-            /// <summary>
-            /// Special header to enable operation simulation
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
+        public const string IncludeSubfolders = "includeSubfolders";
 
         /// <summary>
-        /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFileV2).
+        /// Maximum number of files to return by single trigger run (1-100). Note that &apos;Split On&apos; setting can force trigger to process each item individually.
+        /// Default: 10.
         /// </summary>
-        public static class OnUpdatedFile
-        {
-            /// <summary>
-            /// The unique identifier of the folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// Include items in subfolders
-            /// Default: false.
-            /// </summary>
-            public const string IncludeSubfolders = "includeSubfolders";
-
-            /// <summary>
-            /// Include file content.
-            /// Default: true.
-            /// </summary>
-            public const string IncludeFileContent = "includeFileContent";
-
-            /// <summary>
-            /// A boolean value (true, false) to infer content-type based on extension.
-            /// Default: true.
-            /// </summary>
-            public const string InferContentType = "inferContentType";
-
-            /// <summary>
-            /// Simulate this call.
-            /// Default: false.
-            /// </summary>
-            public const string Simulate = "simulate";
-
-            /// <summary>
-            /// Special header to enable operation simulation
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
+        public const string MaxFileCount = "maxFileCount";
 
         /// <summary>
-        /// Input parameters for the OnUpdatedFiles trigger operation (operationId: OnUpdatedFilesV2).
+        /// Simulate this call.
+        /// Default: false.
         /// </summary>
-        public static class OnUpdatedFiles
-        {
-            /// <summary>
-            /// The unique identifier of the folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
+        public const string Simulate = "simulate";
 
-            /// <summary>
-            /// Include items in subfolders
-            /// Default: false.
-            /// </summary>
-            public const string IncludeSubfolders = "includeSubfolders";
-
-            /// <summary>
-            /// Maximum number of files to return by single trigger run (1-100). Note that &apos;Split On&apos; setting can force trigger to process each item individually.
-            /// Default: 10.
-            /// </summary>
-            public const string MaxFileCount = "maxFileCount";
-
-            /// <summary>
-            /// Simulate this call.
-            /// Default: false.
-            /// </summary>
-            public const string Simulate = "simulate";
-
-            /// <summary>
-            /// Special header to enable operation simulation
-            /// </summary>
-            public const string XMsOperationContext = "x-ms-operation-context";
-
-        }
+        /// <summary>
+        /// Special header to enable operation simulation
+        /// </summary>
+        public const string XMsOperationContext = "x-ms-operation-context";
 
     }
 
-    #endregion Trigger Parameter Metadata
-
-    #region Client
-
     /// <summary>
-    /// Typed client for onedriveforbusiness connector.
+    /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFileV2).
     /// </summary>
-    public class OneDriveForBusinessClient : ConnectorClientBase
+    public static class OnUpdatedFile
     {
         /// <summary>
-        /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// The unique identifier of the folder.
+        /// Required.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public OneDriveForBusinessClient(Uri connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
+        public const string FolderId = "folderId";
 
         /// <summary>
-        /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL and credential.
+        /// Include items in subfolders
+        /// Default: false.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="credential">The Azure credential for authentication.</param>
-        /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public OneDriveForBusinessClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-            : base(connectionRuntimeUrl, credential, options)
-        {
-        }
+        public const string IncludeSubfolders = "includeSubfolders";
 
         /// <summary>
-        /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL string.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// Include file content.
+        /// Default: true.
         /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public OneDriveForBusinessClient(string connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
-
-        protected OneDriveForBusinessClient() : this(new Uri("https://localhost")) { }
-
-        public override string ConnectorName => "onedriveforbusiness";
+        public const string IncludeFileContent = "includeFileContent";
 
         /// <summary>
-        /// Get file metadata
+        /// A boolean value (true, false) to infer content-type based on extension.
+        /// Default: true.
         /// </summary>
-        /// <remarks>This operation gets the metadata for a file.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get file metadata response.</returns>
-        public virtual async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
+        public const string InferContentType = "inferContentType";
 
         /// <summary>
-        /// Update file
+        /// Simulate this call.
+        /// Default: false.
         /// </summary>
-        /// <remarks>This operation updates a file.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update file response.</returns>
-        public virtual async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
+        public const string Simulate = "simulate";
 
         /// <summary>
-        /// Delete file
+        /// Special header to enable operation simulation
         /// </summary>
-        /// <remarks>This operation deletes a file.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get file metadata using path
-        /// </summary>
-        /// <remarks>This operation gets the metadata of a file using the path.</remarks>
-        /// <param name="filePath">File Path</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get file metadata using path response.</returns>
-        public virtual async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filePath != default)
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get file content using path
-        /// </summary>
-        /// <remarks>This operation gets the content of a file using the path.</remarks>
-        /// <param name="filePath">File Path</param>
-        /// <param name="inferContentType">Infer Content Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get file content using path response.</returns>
-        public virtual async Task<byte[]> GetFileContentByPathAsync(string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filePath != default)
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (inferContentType != default)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
-            var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get file content
-        /// </summary>
-        /// <remarks>This operation gets the content of a file.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="inferContentType">Infer Content Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get file content response.</returns>
-        public virtual async Task<byte[]> GetFileContentAsync(string file, bool inferContentType = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (inferContentType != default)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create file
-        /// </summary>
-        /// <remarks>This operation creates a file.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="folderPath">Folder Path</param>
-        /// <param name="fileName">File Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create file response.</returns>
-        public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (folderPath != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            if (fileName != default)
-                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Upload file from URL
-        /// </summary>
-        /// <remarks>This operation uploads a file from a URL to OneDrive.</remarks>
-        /// <param name="sourceURL">Source URL</param>
-        /// <param name="destinationFilePath">Destination File Path</param>
-        /// <param name="overwrite">Overwrite</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Upload file from URL response.</returns>
-        public virtual async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (sourceURL != default)
-                queryParams.Add($"source={Uri.EscapeDataString(sourceURL.ToString())}");
-            if (destinationFilePath != default)
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite != default)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Copy file
-        /// </summary>
-        /// <remarks>This operation copies a file within OneDrive.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="destinationFilePath">Destination File Path</param>
-        /// <param name="overwrite">Overwrite</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copy file response.</returns>
-        public virtual async Task<BlobMetadata> CopyDriveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (destinationFilePath != default)
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite != default)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Copy file using path
-        /// </summary>
-        /// <remarks>This operation copies a file within OneDrive by path.</remarks>
-        /// <param name="filePath">File Path</param>
-        /// <param name="destinationFilePath">Destination File Path</param>
-        /// <param name="overwrite">Overwrite</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copy file using path response.</returns>
-        public virtual async Task<BlobMetadata> CopyDriveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filePath != default)
-                queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
-            if (destinationFilePath != default)
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite != default)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/CopyFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Move or rename a file
-        /// </summary>
-        /// <remarks>This operation moves or renames a file.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="destinationFilePath">Destination File Path</param>
-        /// <param name="overwrite">Overwrite</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Move or rename a file response.</returns>
-        public virtual async Task<BlobMetadata> MoveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (destinationFilePath != default)
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite != default)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Move or rename a file using path
-        /// </summary>
-        /// <remarks>This operation moves or renames a file using the path.</remarks>
-        /// <param name="filePath">File Path</param>
-        /// <param name="destinationFilePath">Destination File Path</param>
-        /// <param name="overwrite">Overwrite</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Move or rename a file using path response.</returns>
-        public virtual async Task<BlobMetadata> MoveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filePath != default)
-                queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
-            if (destinationFilePath != default)
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite != default)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/MoveFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Convert file
-        /// </summary>
-        /// <remarks>This operation converts a file to another format. The list of supported conversions can be found at https://aka.ms/onedriveconversions</remarks>
-        /// <param name="file">File</param>
-        /// <param name="targetType">Target type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Convert file response.</returns>
-        public virtual async Task<byte[]> ConvertFileAsync(string file, string targetType = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (targetType != default)
-                queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Convert file using path
-        /// </summary>
-        /// <remarks>This operation converts a file to another format using the path. The list of supported conversions can be found at https://aka.ms/onedriveconversions</remarks>
-        /// <param name="filePath">File Path</param>
-        /// <param name="targetType">Target type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Convert file using path response.</returns>
-        public virtual async Task<byte[]> ConvertFileByPathAsync(string filePath, string targetType = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filePath != default)
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (targetType != default)
-                queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
-            var path = $"/datasets/default/ConvertFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get file thumbnail
-        /// </summary>
-        /// <remarks>This operation gets the thumbnail of a file. The thumbnail will only be valid for 6 hours.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="thumbnailSize">Thumbnail Size</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get file thumbnail response.</returns>
-        public virtual async Task<Thumbnail> GetFileThumbnailAsync(string file, string thumbnailSize, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (thumbnailSize != default)
-                queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List files in root folder
-        /// </summary>
-        /// <remarks>This operation gets the list of files and subfolders in the root folder.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List files in root folder response.</returns>
-        public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/default/folders";
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Find files in folder
-        /// </summary>
-        /// <remarks>This operation finds files within a folder using search or name pattern match.</remarks>
-        /// <param name="folder">Folder</param>
-        /// <param name="searchQuery">Search Query</param>
-        /// <param name="fileSearchMode">File Search Mode</param>
-        /// <param name="numberOfFilesToReturn">Number of files to return</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Find files in folder response.</returns>
-        public virtual async Task<List<BlobMetadata>> FindFilesAsync(string folder, string searchQuery, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (searchQuery != default)
-                queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
-            if (fileSearchMode != default)
-                queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
-            if (numberOfFilesToReturn != default)
-                queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
-            var path = $"/datasets/default/folders/{Uri.EscapeDataString(folder.ToString())}/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Find files in folder by path
-        /// </summary>
-        /// <remarks>This operation finds files within a folder by path using search or name pattern match.</remarks>
-        /// <param name="searchQuery">Search Query</param>
-        /// <param name="folderPath">Folder Path</param>
-        /// <param name="fileSearchMode">File Search Mode</param>
-        /// <param name="numberOfFilesToReturn">Number of files to return</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Find files in folder by path response.</returns>
-        public virtual async Task<List<BlobMetadata>> FindFilesByPathAsync(string searchQuery, string folderPath, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (searchQuery != default)
-                queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
-            if (folderPath != default)
-                queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
-            if (fileSearchMode != default)
-                queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
-            if (numberOfFilesToReturn != default)
-                queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
-            var path = $"/datasets/default/findFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create share link
-        /// </summary>
-        /// <remarks>This operation creates a share link for a file.</remarks>
-        /// <param name="file">File</param>
-        /// <param name="linkType">Link type</param>
-        /// <param name="linkScope">Link scope</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create share link response.</returns>
-        public virtual async Task<SharingLink> CreateShareLinkAsync(string file, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (linkType != default)
-                queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
-            if (linkScope != default)
-                queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create share link by path
-        /// </summary>
-        /// <remarks>This operation creates a share link for a file using the path.</remarks>
-        /// <param name="filePath">File Path</param>
-        /// <param name="linkType">Link type</param>
-        /// <param name="linkScope">Link scope</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create share link by path response.</returns>
-        public virtual async Task<SharingLink> CreateShareLinkByPathAsync(string filePath, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filePath != default)
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (linkType != default)
-                queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
-            if (linkScope != default)
-                queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
-            var path = $"/datasets/default/CreateShareLinkByPathV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Extract archive to folder
-        /// </summary>
-        /// <remarks>This operation extracts an archive file into a folder (example: .zip). Maximum archive size is 50 MB and 100 files inside.</remarks>
-        /// <param name="sourceArchiveFilePath">Source Archive File Path</param>
-        /// <param name="destinationFolderPath">Destination Folder Path</param>
-        /// <param name="overwrite">Overwrite</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Extract archive to folder response.</returns>
-        public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (sourceArchiveFilePath != default)
-                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-            if (destinationFolderPath != default)
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-            if (overwrite != default)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List files in folder
-        /// </summary>
-        /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
-        /// <param name="folder">Folder</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
-        public virtual AsyncPageable<BlobMetadata> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
-            return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
-                ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
+        public const string XMsOperationContext = "x-ms-operation-context";
 
     }
 
-    #endregion Client
+    /// <summary>
+    /// Input parameters for the OnUpdatedFiles trigger operation (operationId: OnUpdatedFilesV2).
+    /// </summary>
+    public static class OnUpdatedFiles
+    {
+        /// <summary>
+        /// The unique identifier of the folder.
+        /// Required.
+        /// </summary>
+        public const string FolderId = "folderId";
+
+        /// <summary>
+        /// Include items in subfolders
+        /// Default: false.
+        /// </summary>
+        public const string IncludeSubfolders = "includeSubfolders";
+
+        /// <summary>
+        /// Maximum number of files to return by single trigger run (1-100). Note that &apos;Split On&apos; setting can force trigger to process each item individually.
+        /// Default: 10.
+        /// </summary>
+        public const string MaxFileCount = "maxFileCount";
+
+        /// <summary>
+        /// Simulate this call.
+        /// Default: false.
+        /// </summary>
+        public const string Simulate = "simulate";
+
+        /// <summary>
+        /// Special header to enable operation simulation
+        /// </summary>
+        public const string XMsOperationContext = "x-ms-operation-context";
+
+    }
+
+}
+
+#endregion Trigger Parameter Metadata
+
+#region Client
+
+/// <summary>
+/// Typed client for onedriveforbusiness connector.
+/// </summary>
+public class OneDriveForBusinessClient : ConnectorClientBase
+{
+    /// <summary>
+    /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public OneDriveForBusinessClient(Uri connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    /// <param name="options">Optional client options for retry, timeout, etc.</param>
+    public OneDriveForBusinessClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        : base(connectionRuntimeUrl, credential, options)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    public OneDriveForBusinessClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        : base(connectionRuntimeUrl, credential)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new OneDriveForBusinessClient with the specified connection runtime URL string.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public OneDriveForBusinessClient(string connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    protected OneDriveForBusinessClient() : this(new Uri("https://localhost")) { }
+
+    public override string ConnectorName => "onedriveforbusiness";
+
+    /// <summary>
+    /// Get file metadata
+    /// </summary>
+    /// <remarks>This operation gets the metadata for a file.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get file metadata response.</returns>
+    public virtual async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Update file
+    /// </summary>
+    /// <remarks>This operation updates a file.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Update file response.</returns>
+    public virtual async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete file
+    /// </summary>
+    /// <remarks>This operation deletes a file.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get file metadata using path
+    /// </summary>
+    /// <remarks>This operation gets the metadata of a file using the path.</remarks>
+    /// <param name="filePath">File Path</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get file metadata using path response.</returns>
+    public virtual async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filePath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+        var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get file content using path
+    /// </summary>
+    /// <remarks>This operation gets the content of a file using the path.</remarks>
+    /// <param name="filePath">File Path</param>
+    /// <param name="inferContentType">Infer Content Type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get file content using path response.</returns>
+    public virtual async Task<byte[]> GetFileContentByPathAsync(string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filePath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+        if (inferContentType != default)
+            queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
+        var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get file content
+    /// </summary>
+    /// <remarks>This operation gets the content of a file.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="inferContentType">Infer Content Type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get file content response.</returns>
+    public virtual async Task<byte[]> GetFileContentAsync(string file, bool inferContentType = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (inferContentType != default)
+            queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create file
+    /// </summary>
+    /// <remarks>This operation creates a file.</remarks>
+    /// <param name="input">The request body.</param>
+    /// <param name="folderPath">Folder Path</param>
+    /// <param name="fileName">File Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create file response.</returns>
+    public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (folderPath != default)
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+        if (fileName != default)
+            queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+        var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Upload file from URL
+    /// </summary>
+    /// <remarks>This operation uploads a file from a URL to OneDrive.</remarks>
+    /// <param name="sourceURL">Source URL</param>
+    /// <param name="destinationFilePath">Destination File Path</param>
+    /// <param name="overwrite">Overwrite</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Upload file from URL response.</returns>
+    public virtual async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sourceURL != default)
+            queryParams.Add($"source={Uri.EscapeDataString(sourceURL.ToString())}");
+        if (destinationFilePath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+        if (overwrite != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+        var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Copy file
+    /// </summary>
+    /// <remarks>This operation copies a file within OneDrive.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="destinationFilePath">Destination File Path</param>
+    /// <param name="overwrite">Overwrite</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Copy file response.</returns>
+    public virtual async Task<BlobMetadata> CopyDriveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (destinationFilePath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+        if (overwrite != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Copy file using path
+    /// </summary>
+    /// <remarks>This operation copies a file within OneDrive by path.</remarks>
+    /// <param name="filePath">File Path</param>
+    /// <param name="destinationFilePath">Destination File Path</param>
+    /// <param name="overwrite">Overwrite</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Copy file using path response.</returns>
+    public virtual async Task<BlobMetadata> CopyDriveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
+        if (destinationFilePath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+        if (overwrite != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+        var path = $"/datasets/default/CopyFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Move or rename a file
+    /// </summary>
+    /// <remarks>This operation moves or renames a file.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="destinationFilePath">Destination File Path</param>
+    /// <param name="overwrite">Overwrite</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Move or rename a file response.</returns>
+    public virtual async Task<BlobMetadata> MoveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (destinationFilePath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+        if (overwrite != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Move or rename a file using path
+    /// </summary>
+    /// <remarks>This operation moves or renames a file using the path.</remarks>
+    /// <param name="filePath">File Path</param>
+    /// <param name="destinationFilePath">Destination File Path</param>
+    /// <param name="overwrite">Overwrite</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Move or rename a file using path response.</returns>
+    public virtual async Task<BlobMetadata> MoveFileByPathAsync(string filePath, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
+        if (destinationFilePath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+        if (overwrite != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+        var path = $"/datasets/default/MoveFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Convert file
+    /// </summary>
+    /// <remarks>This operation converts a file to another format. The list of supported conversions can be found at https://aka.ms/onedriveconversions</remarks>
+    /// <param name="file">File</param>
+    /// <param name="targetType">Target type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Convert file response.</returns>
+    public virtual async Task<byte[]> ConvertFileAsync(string file, string targetType = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (targetType != default)
+            queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Convert file using path
+    /// </summary>
+    /// <remarks>This operation converts a file to another format using the path. The list of supported conversions can be found at https://aka.ms/onedriveconversions</remarks>
+    /// <param name="filePath">File Path</param>
+    /// <param name="targetType">Target type</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Convert file using path response.</returns>
+    public virtual async Task<byte[]> ConvertFileByPathAsync(string filePath, string targetType = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filePath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+        if (targetType != default)
+            queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
+        var path = $"/datasets/default/ConvertFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Get file thumbnail
+    /// </summary>
+    /// <remarks>This operation gets the thumbnail of a file. The thumbnail will only be valid for 6 hours.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="thumbnailSize">Thumbnail Size</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Get file thumbnail response.</returns>
+    public virtual async Task<Thumbnail> GetFileThumbnailAsync(string file, string thumbnailSize, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (thumbnailSize != default)
+            queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List files in root folder
+    /// </summary>
+    /// <remarks>This operation gets the list of files and subfolders in the root folder.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The List files in root folder response.</returns>
+    public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/default/folders";
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Find files in folder
+    /// </summary>
+    /// <remarks>This operation finds files within a folder using search or name pattern match.</remarks>
+    /// <param name="folder">Folder</param>
+    /// <param name="searchQuery">Search Query</param>
+    /// <param name="fileSearchMode">File Search Mode</param>
+    /// <param name="numberOfFilesToReturn">Number of files to return</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Find files in folder response.</returns>
+    public virtual async Task<List<BlobMetadata>> FindFilesAsync(string folder, string searchQuery, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (searchQuery != default)
+            queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
+        if (fileSearchMode != default)
+            queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
+        if (numberOfFilesToReturn != default)
+            queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
+        var path = $"/datasets/default/folders/{Uri.EscapeDataString(folder.ToString())}/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Find files in folder by path
+    /// </summary>
+    /// <remarks>This operation finds files within a folder by path using search or name pattern match.</remarks>
+    /// <param name="searchQuery">Search Query</param>
+    /// <param name="folderPath">Folder Path</param>
+    /// <param name="fileSearchMode">File Search Mode</param>
+    /// <param name="numberOfFilesToReturn">Number of files to return</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Find files in folder by path response.</returns>
+    public virtual async Task<List<BlobMetadata>> FindFilesByPathAsync(string searchQuery, string folderPath, string fileSearchMode, int numberOfFilesToReturn = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (searchQuery != default)
+            queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
+        if (folderPath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
+        if (fileSearchMode != default)
+            queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
+        if (numberOfFilesToReturn != default)
+            queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.ToString())}");
+        var path = $"/datasets/default/findFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create share link
+    /// </summary>
+    /// <remarks>This operation creates a share link for a file.</remarks>
+    /// <param name="file">File</param>
+    /// <param name="linkType">Link type</param>
+    /// <param name="linkScope">Link scope</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create share link response.</returns>
+    public virtual async Task<SharingLink> CreateShareLinkAsync(string file, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (linkType != default)
+            queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
+        if (linkScope != default)
+            queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
+        var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create share link by path
+    /// </summary>
+    /// <remarks>This operation creates a share link for a file using the path.</remarks>
+    /// <param name="filePath">File Path</param>
+    /// <param name="linkType">Link type</param>
+    /// <param name="linkScope">Link scope</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create share link by path response.</returns>
+    public virtual async Task<SharingLink> CreateShareLinkByPathAsync(string filePath, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (filePath != default)
+            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+        if (linkType != default)
+            queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
+        if (linkScope != default)
+            queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
+        var path = $"/datasets/default/CreateShareLinkByPathV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Extract archive to folder
+    /// </summary>
+    /// <remarks>This operation extracts an archive file into a folder (example: .zip). Maximum archive size is 50 MB and 100 files inside.</remarks>
+    /// <param name="sourceArchiveFilePath">Source Archive File Path</param>
+    /// <param name="destinationFolderPath">Destination Folder Path</param>
+    /// <param name="overwrite">Overwrite</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Extract archive to folder response.</returns>
+    public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (sourceArchiveFilePath != default)
+            queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+        if (destinationFolderPath != default)
+            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+        if (overwrite != default)
+            queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
+        var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List files in folder
+    /// </summary>
+    /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
+    /// <param name="folder">Folder</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
+    public virtual AsyncPageable<BlobMetadata> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
+    {
+        var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
+        return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
+            ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+}
+
+#endregion Client
 }

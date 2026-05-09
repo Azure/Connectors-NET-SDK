@@ -9,7 +9,7 @@ namespace Azure.Connectors.Sdk
     /// and an optional link to the next page.
     /// </summary>
     /// <typeparam name="T">The type of items in the page.</typeparam>
-    public interface IPageable<T>
+    internal interface IPageable<T>
     {
         /// <summary>
         /// Gets the items in this page.
