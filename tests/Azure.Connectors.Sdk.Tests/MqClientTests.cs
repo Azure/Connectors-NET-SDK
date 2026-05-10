@@ -368,6 +368,58 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task SendAsync_SerializesRequestBody_WithPascalCasePropertyNames()
+        {
+            // Arrange — capture the outgoing HTTP request body
+            string? capturedRequestBody = null;
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns(async (HttpRequestMessage request, CancellationToken cancellationToken) =>
+                {
+                    capturedRequestBody = await request.Content!
+                        .ReadAsStringAsync(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new StringContent("{\"itemInternalId\":\"id-1\"}")
+                    };
+                });
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            using var client = new MqClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            await client
+                .SendAsync(
+                    new SendValidDataOptions { Message = "Hello MQ", Queue = "TEST.QUEUE" },
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert — the actual HTTP body must use PascalCase property names
+            Assert.IsNotNull(capturedRequestBody, "Request body was not captured");
+            Assert.IsTrue(capturedRequestBody.Contains("\"Message\"", StringComparison.Ordinal), $"Expected PascalCase 'Message' but got: {capturedRequestBody}");
+            Assert.IsTrue(capturedRequestBody.Contains("\"Queue\"", StringComparison.Ordinal), $"Expected PascalCase 'Queue' but got: {capturedRequestBody}");
+            Assert.IsFalse(capturedRequestBody.Contains("\"message\"", StringComparison.Ordinal), $"camelCase 'message' should not appear: {capturedRequestBody}");
+            Assert.IsFalse(capturedRequestBody.Contains("\"queue\"", StringComparison.Ordinal), $"camelCase 'queue' should not appear: {capturedRequestBody}");
+        }
+
+        [TestMethod]
         public void SendValidDataOptions_ShouldHaveExpectedProperties()
         {
             // Arrange & Act
