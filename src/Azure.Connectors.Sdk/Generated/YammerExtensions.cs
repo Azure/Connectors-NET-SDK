@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         [JsonPropertyName("network_id")]
         public long? Network { get; set; }
 
-        /// <summary>Descripton of the message type.</summary>
+        /// <summary>Description of the message type.</summary>
         [JsonPropertyName("message_type")]
         public string Type { get; set; }
 
@@ -277,7 +277,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         [JsonPropertyName("network_id")]
         public long? Network { get; set; }
 
-        /// <summary>Descripton of the message type.</summary>
+        /// <summary>Description of the message type.</summary>
         [JsonPropertyName("message_type")]
         public string Type { get; set; }
 

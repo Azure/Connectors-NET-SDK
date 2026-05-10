@@ -178,9 +178,9 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | SMTP | ✅ Validated | SendEmail |
 | Azure Event Grid | 🔄 SDK Generated | TopicTypesList, SubscriptionsList (trigger: CreateSubscription) |
 | Excel Online | 🔄 SDK Generated | GetItems, GetItem, CreateTable, AddRow, GetAllWorksheets, GetTables |
-| Universal Print | ✅ E2E Validated | ListRecentShares, PrintFile |
-| Microsoft Defender ATP | ✅ E2E Validated | AdvancedHunting, GetAlerts, CreateAlertByReference |
-| Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks, GetGroups, GetUserDetailsById, GetAllMessages |
+| Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
+| Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
+| Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 
 ## Related Projects
 

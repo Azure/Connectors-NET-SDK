@@ -456,7 +456,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     /// </summary>
     public class IpStats
     {
-        /// <summary>The ip adress</summary>
+        /// <summary>The ip address</summary>
         [JsonPropertyName("ipAddress")]
         public string IpAddress { get; set; }
 
