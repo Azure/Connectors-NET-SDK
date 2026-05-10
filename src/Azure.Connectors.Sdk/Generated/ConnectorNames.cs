@@ -27,9 +27,19 @@ public static class ConnectorNames
     public const string AzureBlob = "azureblob";
 
     /// <summary>
+    /// The <c>azureeventgrid</c> connector.
+    /// </summary>
+    public const string AzureEventGrid = "azureeventgrid";
+
+    /// <summary>
     /// The <c>azuremonitorlogs</c> connector.
     /// </summary>
     public const string AzureMonitorLogs = "azuremonitorlogs";
+
+    /// <summary>
+    /// The <c>excelonline</c> connector.
+    /// </summary>
+    public const string ExcelOnline = "excelonline";
 
     /// <summary>
     /// The <c>kusto</c> connector.
@@ -75,5 +85,20 @@ public static class ConnectorNames
     /// The <c>teams</c> connector.
     /// </summary>
     public const string Teams = "teams";
+
+    /// <summary>
+    /// The <c>universalprint</c> connector.
+    /// </summary>
+    public const string UniversalPrint = "universalprint";
+
+    /// <summary>
+    /// The <c>wdatp</c> connector (Microsoft Defender ATP).
+    /// </summary>
+    public const string Wdatp = "wdatp";
+
+    /// <summary>
+    /// The <c>yammer</c> connector.
+    /// </summary>
+    public const string Yammer = "yammer";
 
 }

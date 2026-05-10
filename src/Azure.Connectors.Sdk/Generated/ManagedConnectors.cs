@@ -7,9 +7,15 @@
 //   using Azure.Connectors.Sdk.AzureBlob;
 //   using Azure.Connectors.Sdk.AzureBlob.Models;
 //   var client = new AzureBlobClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureEventGrid;
+//   using Azure.Connectors.Sdk.AzureEventGrid.Models;
+//   var client = new AzureEventGridClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureMonitorLogs;
 //   using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
 //   var client = new AzureMonitorLogsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Excelonline;
+//   using Azure.Connectors.Sdk.Excelonline.Models;
+//   var client = new ExcelonlineClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Kusto;
 //   using Azure.Connectors.Sdk.Kusto.Models;
 //   var client = new KustoClient(connectionRuntimeUrl);
@@ -37,6 +43,15 @@
 //   using Azure.Connectors.Sdk.Teams;
 //   using Azure.Connectors.Sdk.Teams.Models;
 //   var client = new TeamsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Universalprint;
+//   using Azure.Connectors.Sdk.Universalprint.Models;
+//   var client = new UniversalprintClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Wdatp;
+//   using Azure.Connectors.Sdk.Wdatp.Models;
+//   var client = new WdatpClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Yammer;
+//   using Azure.Connectors.Sdk.Yammer.Models;
+//   var client = new YammerClient(connectionRuntimeUrl);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -53,7 +68,9 @@ public static class SdkConnectors
     public static readonly string[] AvailableConnectors = [
         "arm",
         "azureblob",
+        "azureeventgrid",
         "azuremonitorlogs",
+        "excelonline",
         "kusto",
         "mq",
         "msgraphgroupsanduser",
@@ -63,5 +80,8 @@ public static class SdkConnectors
         "sharepointonline",
         "smtp",
         "teams",
+        "universalprint",
+        "wdatp",
+        "yammer",
     ];
 }
