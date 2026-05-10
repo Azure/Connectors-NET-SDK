@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **Removed `CamelCase` JSON naming policy** from `ConnectorClientBase.JsonOptions` and `ConnectorJsonSerializer` — properties without `[JsonPropertyName]` attributes now serialize using their C# PascalCase names, matching swagger/connector API expectations. Properties with `[JsonPropertyName]` are unaffected. Also changed `JsonStringEnumConverter` to use default casing instead of camelCase. (#84, #85)
 - **Renamed `AzuremonitorlogsClient` to `AzureMonitorLogsClient`** and `Office365usersClient` to `Office365UsersClient` for consistent PascalCase naming (#126)
   - Namespaces updated: `Azure.Connectors.Sdk.Azuremonitorlogs` → `Azure.Connectors.Sdk.AzureMonitorLogs`, `Azure.Connectors.Sdk.Office365users` → `Azure.Connectors.Sdk.Office365Users`
   - DI extension methods renamed: `AddAzuremonitorlogsClient` → `AddAzureMonitorLogsClient`, `AddOffice365usersClient` → `AddOffice365UsersClient`
