@@ -689,7 +689,7 @@ namespace Azure.Connectors.Sdk.Yammer
         public static class OnNewMessagesInGroup
         {
             /// <summary>
-            /// Unique identifer of the network.
+            /// Unique identifier of the network.
             /// Default: Default.
             /// Dynamic values from: GetNetworks.
             /// </summary>

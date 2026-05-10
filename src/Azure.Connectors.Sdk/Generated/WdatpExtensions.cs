@@ -644,7 +644,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
         [JsonPropertyName("fixedDevices")]
         public int? FixedDevices { get; set; }
 
-        /// <summary>The remeidation activity creator notes</summary>
+        /// <summary>The remediation activity creator notes</summary>
         [JsonPropertyName("requesterNotes")]
         public string RequesterNotes { get; set; }
 
@@ -2928,7 +2928,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <summary>
         /// Remediation tasks - Get list of remediation activities (Preview)
         /// </summary>
-        /// <remarks>Retrieve from Windows Defender ATP the remdiation activities</remarks>
+        /// <remarks>Retrieve from Windows Defender ATP the remediation activities</remarks>
         /// <param name="filtersResults">Filters results</param>
         /// <param name="selectsProperties">Selects properties</param>
         /// <param name="sortsResults">Sorts results</param>
