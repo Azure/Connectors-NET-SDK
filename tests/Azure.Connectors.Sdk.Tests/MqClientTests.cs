@@ -380,7 +380,7 @@ namespace Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<CancellationToken>())
                 .Returns(async (HttpRequestMessage request, CancellationToken ct) =>
                 {
-                    capturedRequestBody = await request.Content!.ReadAsStringAsync(ct).ConfigureAwait(false);
+                    capturedRequestBody = await request.Content!.ReadAsStringAsync(ct).ConfigureAwait(continueOnCapturedContext: false);
                     return new HttpResponseMessage
                     {
                         StatusCode = HttpStatusCode.OK,

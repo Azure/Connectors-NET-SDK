@@ -1,0 +1,16 @@
+Good catch — replaced the serializer-only unit test with an integration test that captures the actual outgoing `HttpRequestMessage.Content` from `MqClient.SendAsync`. This now covers the `ConnectorClientBase.JsonOptions` code path directly.
+
+The new test `SendAsync_SerializesRequestBody_WithPascalCasePropertyNames` mocks the handler to capture the request body, then asserts PascalCase:
+```csharp
+string? capturedRequestBody = null;
+mockHandler.Protected()
+    .Setup<Task<HttpResponseMessage>>("SendAsync", ...)
+    .Returns(async (HttpRequestMessage request, CancellationToken ct) =>
+    {
+        capturedRequestBody = await request.Content!.ReadAsStringAsync(ct);
+        ...
+    });
+// Assert
+Assert.IsTrue(capturedRequestBody.Contains("\"Message\"", StringComparison.Ordinal));
+Assert.IsFalse(capturedRequestBody.Contains("\"message\"", StringComparison.Ordinal));
+```
