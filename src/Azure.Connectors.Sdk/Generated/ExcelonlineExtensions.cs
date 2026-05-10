@@ -21,726 +21,726 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Excelonline.Models
 {
 
-#region Types
+    #region Types
 
-/// <summary>
-/// Response for Create table
-/// </summary>
-public class TableMetadata
-{
-    /// <summary>Table name</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>Table title</summary>
-    [JsonPropertyName("title")]
-    public string Title { get; set; }
-
-    /// <summary>Table permission</summary>
-    [JsonPropertyName("x-ms-permission")]
-    public string XMsPermission { get; set; }
-
-    /// <summary>x-ms-capabilities</summary>
-    [JsonPropertyName("x-ms-capabilities")]
-    public TableCapabilitiesMetadata XMsCapabilities { get; set; }
-
-    /// <summary>schema</summary>
-    [JsonPropertyName("schema")]
-    public ObjectEntity Schema { get; set; }
-
-    /// <summary>referencedEntities</summary>
-    [JsonPropertyName("referencedEntities")]
-    public ObjectEntity ReferencedEntities { get; set; }
-
-    /// <summary>Url link</summary>
-    [JsonPropertyName("webUrl")]
-    public string WebUrl { get; set; }
-}
-
-/// <summary>
-/// x-ms-capabilities
-/// </summary>
-public class TableCapabilitiesMetadata
-{
-    /// <summary>sortRestrictions</summary>
-    [JsonPropertyName("sortRestrictions")]
-    public TableSortRestrictionsMetadata SortRestrictions { get; set; }
-
-    /// <summary>filterRestrictions</summary>
-    [JsonPropertyName("filterRestrictions")]
-    public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
-
-    /// <summary>selectRestrictions</summary>
-    [JsonPropertyName("selectRestrictions")]
-    public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
-
-    /// <summary>Server paging restrictions</summary>
-    [JsonPropertyName("isOnlyServerPagable")]
-    public bool? IsOnlyServerPagable { get; set; }
-
-    /// <summary>List of supported filter capabilities</summary>
-    [JsonPropertyName("filterFunctionSupport")]
-    public List<string> FilterFunctionSupport { get; set; }
-
-    /// <summary>List of supported server-driven paging capabilities</summary>
-    [JsonPropertyName("serverPagingOptions")]
-    public List<string> ServerPagingOptions { get; set; }
-}
-
-/// <summary>
-/// sortRestrictions
-/// </summary>
-public class TableSortRestrictionsMetadata
-{
-    /// <summary>Indicates whether this table has sortable columns</summary>
-    [JsonPropertyName("sortable")]
-    public bool? Sortable { get; set; }
-
-    /// <summary>List of unsortable properties</summary>
-    [JsonPropertyName("unsortableProperties")]
-    public List<string> UnsortableProperties { get; set; }
-
-    /// <summary>List of properties which support ascending order only</summary>
-    [JsonPropertyName("ascendingOnlyProperties")]
-    public List<string> AscendingOnlyProperties { get; set; }
-}
-
-/// <summary>
-/// filterRestrictions
-/// </summary>
-public class TableFilterRestrictionsMetadata
-{
-    /// <summary>Indicates whether this table has filterable columns</summary>
-    [JsonPropertyName("filterable")]
-    public bool? Filterable { get; set; }
-
-    /// <summary>List of non filterable properties</summary>
-    [JsonPropertyName("nonFilterableProperties")]
-    public List<string> NonFilterableProperties { get; set; }
-
-    /// <summary>List of required properties</summary>
-    [JsonPropertyName("requiredProperties")]
-    public List<string> RequiredProperties { get; set; }
-}
-
-/// <summary>
-/// selectRestrictions
-/// </summary>
-public class TableSelectRestrictionsMetadata
-{
-    /// <summary>Indicates whether this table has selectable columns</summary>
-    [JsonPropertyName("selectable")]
-    public bool? Selectable { get; set; }
-}
-
-/// <summary>
-/// schema
-/// </summary>
-public class ObjectEntity
-{
     /// <summary>
-    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// Response for Create table
     /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-}
-
-/// <summary>
-/// Response for List rows present in a table
-/// </summary>
-public class ItemsList
-{
-    /// <summary>List of Items</summary>
-    [JsonPropertyName("value")]
-    public List<Item> Value { get; set; }
-}
-
-/// <summary>
-/// Item in List of Items
-/// </summary>
-[DynamicSchema("GetTable")]
-public class Item
-{
-    /// <summary>
-    /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-    /// Populate this dictionary with the properties returned by the schema API.
-    /// </summary>
-    [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    /// <summary>dynamicProperties</summary>
-    [JsonPropertyName("dynamicProperties")]
-    public object DynamicProperties { get; set; }
-}
-
-/// <summary>
-/// Response for Get worksheets
-/// </summary>
-public class GetAllWorksheetsResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<WorksheetMetadata> Value { get; set; }
-}
-
-/// <summary>
-/// Item in value
-/// </summary>
-public class WorksheetMetadata
-{
-    /// <summary>Worksheet Id.</summary>
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    /// <summary>Worksheet name.</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>Worksheet position.</summary>
-    [JsonPropertyName("position")]
-    public int? Position { get; set; }
-
-    /// <summary>Worksheet visibility.</summary>
-    [JsonPropertyName("visibility")]
-    public string Visibility { get; set; }
-}
-
-/// <summary>
-/// Create worksheet
-/// </summary>
-public class CreateWorksheetInput
-{
-    /// <summary>Worksheet name.</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-}
-
-/// <summary>
-/// Response for Get tables
-/// </summary>
-public class GetTablesResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
-
-/// <summary>
-/// Response for Get table columns
-/// </summary>
-public class GetColumnsResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
-
-/// <summary>
-/// TableToCreate
-/// </summary>
-public class TableToCreate
-{
-    /// <summary>Enter the Excel table name.</summary>
-    public string TableName { get; set; }
-
-    /// <summary>Enter the table address using A1 notation.</summary>
-    [JsonPropertyName("Range")]
-    public string TableRange { get; set; }
-
-    /// <summary>Enter the columns names separated by &apos;;&apos; or &apos;,&apos;.</summary>
-    public string ColumnsNames { get; set; }
-}
-
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of Excelonline models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class ExcelonlineModelFactory
-{
-    /// <summary>
-    /// Creates a new instance of <see cref="TableMetadata"/>.
-    /// </summary>
-    public static TableMetadata TableMetadata(
-        string name = default,
-        string title = default,
-        string xMsPermission = default,
-        TableCapabilitiesMetadata xMsCapabilities = default,
-        ObjectEntity schema = default,
-        ObjectEntity referencedEntities = default,
-        string webUrl = default)
+    public class TableMetadata
     {
-        return new TableMetadata
-        {
-            Name = name,
-            Title = title,
-            XMsPermission = xMsPermission,
-            XMsCapabilities = xMsCapabilities,
-            Schema = schema,
-            ReferencedEntities = referencedEntities,
-            WebUrl = webUrl,
-        };
+        /// <summary>Table name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Table title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Table permission</summary>
+        [JsonPropertyName("x-ms-permission")]
+        public string XMsPermission { get; set; }
+
+        /// <summary>x-ms-capabilities</summary>
+        [JsonPropertyName("x-ms-capabilities")]
+        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+
+        /// <summary>referencedEntities</summary>
+        [JsonPropertyName("referencedEntities")]
+        public ObjectEntity ReferencedEntities { get; set; }
+
+        /// <summary>Url link</summary>
+        [JsonPropertyName("webUrl")]
+        public string WebUrl { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
+    /// x-ms-capabilities
     /// </summary>
-    public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
-        TableSortRestrictionsMetadata sortRestrictions = default,
-        TableFilterRestrictionsMetadata filterRestrictions = default,
-        TableSelectRestrictionsMetadata selectRestrictions = default,
-        bool? isOnlyServerPagable = default,
-        List<string> filterFunctionSupport = default,
-        List<string> serverPagingOptions = default)
+    public class TableCapabilitiesMetadata
     {
-        return new TableCapabilitiesMetadata
-        {
-            SortRestrictions = sortRestrictions,
-            FilterRestrictions = filterRestrictions,
-            SelectRestrictions = selectRestrictions,
-            IsOnlyServerPagable = isOnlyServerPagable,
-            FilterFunctionSupport = filterFunctionSupport,
-            ServerPagingOptions = serverPagingOptions,
-        };
+        /// <summary>sortRestrictions</summary>
+        [JsonPropertyName("sortRestrictions")]
+        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
+
+        /// <summary>filterRestrictions</summary>
+        [JsonPropertyName("filterRestrictions")]
+        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
+
+        /// <summary>selectRestrictions</summary>
+        [JsonPropertyName("selectRestrictions")]
+        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>Server paging restrictions</summary>
+        [JsonPropertyName("isOnlyServerPagable")]
+        public bool? IsOnlyServerPagable { get; set; }
+
+        /// <summary>List of supported filter capabilities</summary>
+        [JsonPropertyName("filterFunctionSupport")]
+        public List<string> FilterFunctionSupport { get; set; }
+
+        /// <summary>List of supported server-driven paging capabilities</summary>
+        [JsonPropertyName("serverPagingOptions")]
+        public List<string> ServerPagingOptions { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
+    /// sortRestrictions
     /// </summary>
-    public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
-        bool? sortable = default,
-        List<string> unsortableProperties = default,
-        List<string> ascendingOnlyProperties = default)
+    public class TableSortRestrictionsMetadata
     {
-        return new TableSortRestrictionsMetadata
-        {
-            Sortable = sortable,
-            UnsortableProperties = unsortableProperties,
-            AscendingOnlyProperties = ascendingOnlyProperties,
-        };
+        /// <summary>Indicates whether this table has sortable columns</summary>
+        [JsonPropertyName("sortable")]
+        public bool? Sortable { get; set; }
+
+        /// <summary>List of unsortable properties</summary>
+        [JsonPropertyName("unsortableProperties")]
+        public List<string> UnsortableProperties { get; set; }
+
+        /// <summary>List of properties which support ascending order only</summary>
+        [JsonPropertyName("ascendingOnlyProperties")]
+        public List<string> AscendingOnlyProperties { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
+    /// filterRestrictions
     /// </summary>
-    public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
-        bool? filterable = default,
-        List<string> nonFilterableProperties = default,
-        List<string> requiredProperties = default)
+    public class TableFilterRestrictionsMetadata
     {
-        return new TableFilterRestrictionsMetadata
-        {
-            Filterable = filterable,
-            NonFilterableProperties = nonFilterableProperties,
-            RequiredProperties = requiredProperties,
-        };
+        /// <summary>Indicates whether this table has filterable columns</summary>
+        [JsonPropertyName("filterable")]
+        public bool? Filterable { get; set; }
+
+        /// <summary>List of non filterable properties</summary>
+        [JsonPropertyName("nonFilterableProperties")]
+        public List<string> NonFilterableProperties { get; set; }
+
+        /// <summary>List of required properties</summary>
+        [JsonPropertyName("requiredProperties")]
+        public List<string> RequiredProperties { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
+    /// selectRestrictions
     /// </summary>
-    public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
-        bool? selectable = default)
+    public class TableSelectRestrictionsMetadata
     {
-        return new TableSelectRestrictionsMetadata
-        {
-            Selectable = selectable,
-        };
+        /// <summary>Indicates whether this table has selectable columns</summary>
+        [JsonPropertyName("selectable")]
+        public bool? Selectable { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="ItemsList"/>.
+    /// schema
     /// </summary>
-    public static ItemsList ItemsList(
-        List<Item> value = default)
+    public class ObjectEntity
     {
-        return new ItemsList
-        {
-            Value = value,
-        };
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="Item"/>.
+    /// Response for List rows present in a table
     /// </summary>
-    public static Item Item(
-        object dynamicProperties = default)
+    public class ItemsList
     {
-        return new Item
-        {
-            DynamicProperties = dynamicProperties,
-        };
+        /// <summary>List of Items</summary>
+        [JsonPropertyName("value")]
+        public List<Item> Value { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="GetAllWorksheetsResponse"/>.
+    /// Item in List of Items
     /// </summary>
-    public static GetAllWorksheetsResponse GetAllWorksheetsResponse(
-        List<WorksheetMetadata> value = default)
+    [DynamicSchema("GetTable")]
+    public class Item
     {
-        return new GetAllWorksheetsResponse
-        {
-            Value = value,
-        };
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+        /// <summary>dynamicProperties</summary>
+        [JsonPropertyName("dynamicProperties")]
+        public object DynamicProperties { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="WorksheetMetadata"/>.
+    /// Response for Get worksheets
     /// </summary>
-    public static WorksheetMetadata WorksheetMetadata(
-        string id = default,
-        string name = default,
-        int? position = default,
-        string visibility = default)
+    public class GetAllWorksheetsResponse
     {
-        return new WorksheetMetadata
-        {
-            Id = id,
-            Name = name,
-            Position = position,
-            Visibility = visibility,
-        };
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<WorksheetMetadata> Value { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="CreateWorksheetInput"/>.
+    /// Item in value
     /// </summary>
-    public static CreateWorksheetInput CreateWorksheetInput(
-        string name = default)
+    public class WorksheetMetadata
     {
-        return new CreateWorksheetInput
-        {
-            Name = name,
-        };
+        /// <summary>Worksheet Id.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Worksheet name.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Worksheet position.</summary>
+        [JsonPropertyName("position")]
+        public int? Position { get; set; }
+
+        /// <summary>Worksheet visibility.</summary>
+        [JsonPropertyName("visibility")]
+        public string Visibility { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="GetTablesResponse"/>.
+    /// Create worksheet
     /// </summary>
-    public static GetTablesResponse GetTablesResponse(
-        List<object> value = default)
+    public class CreateWorksheetInput
     {
-        return new GetTablesResponse
-        {
-            Value = value,
-        };
+        /// <summary>Worksheet name.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="GetColumnsResponse"/>.
+    /// Response for Get tables
     /// </summary>
-    public static GetColumnsResponse GetColumnsResponse(
-        List<object> value = default)
+    public class GetTablesResponse
     {
-        return new GetColumnsResponse
-        {
-            Value = value,
-        };
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="TableToCreate"/>.
+    /// Response for Get table columns
     /// </summary>
-    public static TableToCreate TableToCreate(
-        string tableName = default,
-        string tableRange = default,
-        string columnsNames = default)
+    public class GetColumnsResponse
     {
-        return new TableToCreate
-        {
-            TableName = tableName,
-            TableRange = tableRange,
-            ColumnsNames = columnsNames,
-        };
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
     }
-}
 
-#endregion Model Factory
+    /// <summary>
+    /// TableToCreate
+    /// </summary>
+    public class TableToCreate
+    {
+        /// <summary>Enter the Excel table name.</summary>
+        public string TableName { get; set; }
+
+        /// <summary>Enter the table address using A1 notation.</summary>
+        [JsonPropertyName("Range")]
+        public string TableRange { get; set; }
+
+        /// <summary>Enter the columns names separated by &apos;;&apos; or &apos;,&apos;.</summary>
+        public string ColumnsNames { get; set; }
+    }
+
+    #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of Excelonline models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class ExcelonlineModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="TableMetadata"/>.
+        /// </summary>
+        public static TableMetadata TableMetadata(
+            string name = default,
+            string title = default,
+            string xMsPermission = default,
+            TableCapabilitiesMetadata xMsCapabilities = default,
+            ObjectEntity schema = default,
+            ObjectEntity referencedEntities = default,
+            string webUrl = default)
+        {
+            return new TableMetadata
+            {
+                Name = name,
+                Title = title,
+                XMsPermission = xMsPermission,
+                XMsCapabilities = xMsCapabilities,
+                Schema = schema,
+                ReferencedEntities = referencedEntities,
+                WebUrl = webUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
+        /// </summary>
+        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
+            TableSortRestrictionsMetadata sortRestrictions = default,
+            TableFilterRestrictionsMetadata filterRestrictions = default,
+            TableSelectRestrictionsMetadata selectRestrictions = default,
+            bool? isOnlyServerPagable = default,
+            List<string> filterFunctionSupport = default,
+            List<string> serverPagingOptions = default)
+        {
+            return new TableCapabilitiesMetadata
+            {
+                SortRestrictions = sortRestrictions,
+                FilterRestrictions = filterRestrictions,
+                SelectRestrictions = selectRestrictions,
+                IsOnlyServerPagable = isOnlyServerPagable,
+                FilterFunctionSupport = filterFunctionSupport,
+                ServerPagingOptions = serverPagingOptions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
+            bool? sortable = default,
+            List<string> unsortableProperties = default,
+            List<string> ascendingOnlyProperties = default)
+        {
+            return new TableSortRestrictionsMetadata
+            {
+                Sortable = sortable,
+                UnsortableProperties = unsortableProperties,
+                AscendingOnlyProperties = ascendingOnlyProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
+            bool? filterable = default,
+            List<string> nonFilterableProperties = default,
+            List<string> requiredProperties = default)
+        {
+            return new TableFilterRestrictionsMetadata
+            {
+                Filterable = filterable,
+                NonFilterableProperties = nonFilterableProperties,
+                RequiredProperties = requiredProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
+            bool? selectable = default)
+        {
+            return new TableSelectRestrictionsMetadata
+            {
+                Selectable = selectable,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ItemsList"/>.
+        /// </summary>
+        public static ItemsList ItemsList(
+            List<Item> value = default)
+        {
+            return new ItemsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Item"/>.
+        /// </summary>
+        public static Item Item(
+            object dynamicProperties = default)
+        {
+            return new Item
+            {
+                DynamicProperties = dynamicProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetAllWorksheetsResponse"/>.
+        /// </summary>
+        public static GetAllWorksheetsResponse GetAllWorksheetsResponse(
+            List<WorksheetMetadata> value = default)
+        {
+            return new GetAllWorksheetsResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorksheetMetadata"/>.
+        /// </summary>
+        public static WorksheetMetadata WorksheetMetadata(
+            string id = default,
+            string name = default,
+            int? position = default,
+            string visibility = default)
+        {
+            return new WorksheetMetadata
+            {
+                Id = id,
+                Name = name,
+                Position = position,
+                Visibility = visibility,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateWorksheetInput"/>.
+        /// </summary>
+        public static CreateWorksheetInput CreateWorksheetInput(
+            string name = default)
+        {
+            return new CreateWorksheetInput
+            {
+                Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetTablesResponse"/>.
+        /// </summary>
+        public static GetTablesResponse GetTablesResponse(
+            List<object> value = default)
+        {
+            return new GetTablesResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnsResponse"/>.
+        /// </summary>
+        public static GetColumnsResponse GetColumnsResponse(
+            List<object> value = default)
+        {
+            return new GetColumnsResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableToCreate"/>.
+        /// </summary>
+        public static TableToCreate TableToCreate(
+            string tableName = default,
+            string tableRange = default,
+            string columnsNames = default)
+        {
+            return new TableToCreate
+            {
+                TableName = tableName,
+                TableRange = tableRange,
+                ColumnsNames = columnsNames,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 
 namespace Azure.Connectors.Sdk.Excelonline
 {
 
-#region Client
-
-/// <summary>
-/// Typed client for excelonline connector.
-/// </summary>
-public class ExcelonlineClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new ExcelonlineClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public ExcelonlineClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
+    #region Client
 
     /// <summary>
-    /// Creates a new ExcelonlineClient with the specified connection runtime URL and credential.
+    /// Typed client for excelonline connector.
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public ExcelonlineClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class ExcelonlineClient : ConnectorClientBase
     {
+        /// <summary>
+        /// Creates a new ExcelonlineClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public ExcelonlineClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new ExcelonlineClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public ExcelonlineClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new ExcelonlineClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public ExcelonlineClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected ExcelonlineClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "excelonline";
+
+        /// <summary>
+        /// Create table
+        /// </summary>
+        /// <remarks>Create a new table in the Excel workbook.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create table response.</returns>
+        public virtual async Task<TableMetadata> CreateTableAsync(string documentLibrary, string file, TableToCreate input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables";
+            return await this
+                .CallConnectorAsync<TableMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Add a key column to a table
+        /// </summary>
+        /// <remarks>Add a key column to an Excel table. The new column will be appended to the right. The new key column must be unique in the table.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="keyColumn">Key Column</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task CreateIdColumnAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyColumn = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (keyColumn != default)
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            await this
+                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// List rows present in a table
+        /// </summary>
+        /// <remarks>List rows present in a table.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="filterQuery">Filter Query</param>
+        /// <param name="orderBy">Order By</param>
+        /// <param name="topCount">Top Count</param>
+        /// <param name="skipCount">Skip Count</param>
+        /// <param name="selectQuery">Select Query</param>
+        /// <param name="dateTimeFormat">DateTime Format</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List rows present in a table response.</returns>
+        public virtual async Task<ItemsList> GetItemsAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string selectQuery = default, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+            if (topCount != default)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
+            if (skipCount != default)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+            if (dateTimeFormat != default)
+                queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get a row
+        /// </summary>
+        /// <remarks>Get a row using a key column. This action will retrieve all the values of the specified row given a column and key column.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="keyValue">Key Value</param>
+        /// <param name="keyColumn">Key Column</param>
+        /// <param name="dateTimeFormat">DateTime Format</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get a row response.</returns>
+        public virtual async Task<Item> GetItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (keyColumn != default)
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            if (dateTimeFormat != default)
+                queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Delete a row
+        /// </summary>
+        /// <remarks>Delete a row using a key column.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="keyValue">Key Value</param>
+        /// <param name="keyColumn">Key Column</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task DeleteItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (keyColumn != default)
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            await this
+                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Update a row
+        /// </summary>
+        /// <remarks>Update a row using a key column. The input value will overwrite the specified cells and columns left blank will not be updated. In order to append (instead of overwrite) a value, use the &quot;Get a row&quot; action to retrieve the content first.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="keyValue">Key Value</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="keyColumn">Key Column</param>
+        /// <param name="dateTimeFormat">DateTime Format</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Update a row response.</returns>
+        public virtual async Task<Item> PatchItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, Item input, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (keyColumn != default)
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            if (dateTimeFormat != default)
+                queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get worksheets
+        /// </summary>
+        /// <remarks>Get a list of worksheets in the Excel workbook.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get worksheets response.</returns>
+        public virtual async Task<GetAllWorksheetsResponse> GetAllWorksheetsAsync(string documentLibrary, string file, CancellationToken cancellationToken = default)
+        {
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/worksheets";
+            return await this
+                .CallConnectorAsync<GetAllWorksheetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Create worksheet
+        /// </summary>
+        /// <remarks>Create a new worksheet in the Excel workbook.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create worksheet response.</returns>
+        public virtual async Task<WorksheetMetadata> CreateWorksheetAsync(string documentLibrary, string file, CreateWorksheetInput input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/worksheets";
+            return await this
+                .CallConnectorAsync<WorksheetMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get tables
+        /// </summary>
+        /// <remarks>Get a list of tables in the Excel workbook.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get tables response.</returns>
+        public virtual async Task<GetTablesResponse> GetTablesAsync(string documentLibrary, string file, CancellationToken cancellationToken = default)
+        {
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables";
+            return await this
+                .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get table columns
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get table columns response.</returns>
+        public virtual async Task<GetColumnsResponse> GetColumnsAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
+        {
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns";
+            return await this
+                .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Add a row into a table
+        /// </summary>
+        /// <remarks>Add a new row into the Excel table.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="dateTimeFormat">DateTime Format</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Add a row into a table response.</returns>
+        public virtual async Task<Item> AddRowAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, Item input, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (dateTimeFormat != default)
+                queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
+            var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 
-    /// <summary>
-    /// Creates a new ExcelonlineClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public ExcelonlineClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected ExcelonlineClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "excelonline";
-
-    /// <summary>
-    /// Create table
-    /// </summary>
-    /// <remarks>Create a new table in the Excel workbook.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Create table response.</returns>
-    public virtual async Task<TableMetadata> CreateTableAsync(string documentLibrary, string file, TableToCreate input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables";
-        return await this
-            .CallConnectorAsync<TableMetadata>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Add a key column to a table
-    /// </summary>
-    /// <remarks>Add a key column to an Excel table. The new column will be appended to the right. The new key column must be unique in the table.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="keyColumn">Key Column</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task CreateIdColumnAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyColumn = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (keyColumn != default)
-            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-        var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this
-            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// List rows present in a table
-    /// </summary>
-    /// <remarks>List rows present in a table.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="filterQuery">Filter Query</param>
-    /// <param name="orderBy">Order By</param>
-    /// <param name="topCount">Top Count</param>
-    /// <param name="skipCount">Skip Count</param>
-    /// <param name="selectQuery">Select Query</param>
-    /// <param name="dateTimeFormat">DateTime Format</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List rows present in a table response.</returns>
-    public virtual async Task<ItemsList> GetItemsAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string selectQuery = default, string dateTimeFormat = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (filterQuery != default)
-            queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-        if (orderBy != default)
-            queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-        if (topCount != default)
-            queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-        if (skipCount != default)
-            queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
-        if (selectQuery != default)
-            queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-        if (dateTimeFormat != default)
-            queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-        var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get a row
-    /// </summary>
-    /// <remarks>Get a row using a key column. This action will retrieve all the values of the specified row given a column and key column.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="keyValue">Key Value</param>
-    /// <param name="keyColumn">Key Column</param>
-    /// <param name="dateTimeFormat">DateTime Format</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get a row response.</returns>
-    public virtual async Task<Item> GetItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (keyColumn != default)
-            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-        if (dateTimeFormat != default)
-            queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-        var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Delete a row
-    /// </summary>
-    /// <remarks>Delete a row using a key column.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="keyValue">Key Value</param>
-    /// <param name="keyColumn">Key Column</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task DeleteItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (keyColumn != default)
-            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-        var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this
-            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Update a row
-    /// </summary>
-    /// <remarks>Update a row using a key column. The input value will overwrite the specified cells and columns left blank will not be updated. In order to append (instead of overwrite) a value, use the &quot;Get a row&quot; action to retrieve the content first.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="keyValue">Key Value</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="keyColumn">Key Column</param>
-    /// <param name="dateTimeFormat">DateTime Format</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Update a row response.</returns>
-    public virtual async Task<Item> PatchItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, Item input, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (keyColumn != default)
-            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-        if (dateTimeFormat != default)
-            queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-        var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get worksheets
-    /// </summary>
-    /// <remarks>Get a list of worksheets in the Excel workbook.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get worksheets response.</returns>
-    public virtual async Task<GetAllWorksheetsResponse> GetAllWorksheetsAsync(string documentLibrary, string file, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/worksheets";
-        return await this
-            .CallConnectorAsync<GetAllWorksheetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Create worksheet
-    /// </summary>
-    /// <remarks>Create a new worksheet in the Excel workbook.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Create worksheet response.</returns>
-    public virtual async Task<WorksheetMetadata> CreateWorksheetAsync(string documentLibrary, string file, CreateWorksheetInput input, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/worksheets";
-        return await this
-            .CallConnectorAsync<WorksheetMetadata>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get tables
-    /// </summary>
-    /// <remarks>Get a list of tables in the Excel workbook.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get tables response.</returns>
-    public virtual async Task<GetTablesResponse> GetTablesAsync(string documentLibrary, string file, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables";
-        return await this
-            .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get table columns
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get table columns response.</returns>
-    public virtual async Task<GetColumnsResponse> GetColumnsAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
-    {
-        var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns";
-        return await this
-            .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Add a row into a table
-    /// </summary>
-    /// <remarks>Add a new row into the Excel table.</remarks>
-    /// <param name="documentLibrary">Document Library</param>
-    /// <param name="file">File</param>
-    /// <param name="table">Table</param>
-    /// <param name="input">The request body.</param>
-    /// <param name="dateTimeFormat">DateTime Format</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Add a row into a table response.</returns>
-    public virtual async Task<Item> AddRowAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, Item input, string dateTimeFormat = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (dateTimeFormat != default)
-            queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-        var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }

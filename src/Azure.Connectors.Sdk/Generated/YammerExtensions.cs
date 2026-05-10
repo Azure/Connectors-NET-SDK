@@ -22,928 +22,928 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Yammer.Models
 {
 
-#region Types
+    #region Types
 
-/// <summary>
-/// Response for Get my networks
-/// </summary>
-public class Network
-{
-    /// <summary>Unique identifier of the network.</summary>
-    [JsonPropertyName("id")]
-    public string ID { get; set; }
-
-    /// <summary>Summary of the network.</summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>Web link to the network page.</summary>
-    [JsonPropertyName("permalink")]
-    public string Link { get; set; }
-}
-
-/// <summary>
-/// Response for Get groups
-/// </summary>
-public class YammmerEntity
-{
-    /// <summary>Details of the Viva Engage entity.</summary>
-    [JsonPropertyName("type")]
-    public string Description { get; set; }
-
-    /// <summary>Unique identifier of the group.</summary>
-    [JsonPropertyName("id")]
-    public long? GroupID { get; set; }
-
-    /// <summary>Name of the Viva Engage entity.</summary>
-    [JsonPropertyName("full_name")]
-    public string FullName { get; set; }
-}
-
-/// <summary>
-/// Response for Get user details
-/// </summary>
-public class User
-{
-    /// <summary>Username.</summary>
-    [JsonPropertyName("name")]
-    public string Username { get; set; }
-
-    /// <summary>User job title.</summary>
-    [JsonPropertyName("job_title")]
-    public string JobTitle { get; set; }
-
-    /// <summary>User location.</summary>
-    [JsonPropertyName("location")]
-    public string Location { get; set; }
-
-    /// <summary>User full name.</summary>
-    [JsonPropertyName("full_name")]
-    public string FullName { get; set; }
-
-    /// <summary>User first name.</summary>
-    [JsonPropertyName("first_name")]
-    public string FirstName { get; set; }
-
-    /// <summary>User last name.</summary>
-    [JsonPropertyName("last_name")]
-    public string LastName { get; set; }
-
-    /// <summary>User profile url.</summary>
-    [JsonPropertyName("web_url")]
-    public string ProfileUrl { get; set; }
-
-    /// <summary>User email.</summary>
-    [JsonPropertyName("email")]
-    public string Email { get; set; }
-
-    /// <summary>User birth date.</summary>
-    [JsonPropertyName("birth_date")]
-    public string BirthDate { get; set; }
-
-    /// <summary>User photo url.</summary>
-    [JsonPropertyName("mugshot_url")]
-    public string PhotoUrl { get; set; }
-}
-
-/// <summary>
-/// Response for Get all messages (V3)
-/// </summary>
-public class PageableMessageList
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<Message> Messages { get; set; }
-}
-
-/// <summary>
-/// Item in value
-/// </summary>
-public class MessageV2
-{
-    /// <summary>ID associated with the post.</summary>
-    [JsonPropertyName("id")]
-    public long? ID { get; set; }
-
-    /// <summary>Text Content of the post.</summary>
-    [JsonPropertyName("content_excerpt")]
-    public string Text { get; set; }
-
-    /// <summary>Unique ID of user who posted the message.</summary>
-    [JsonPropertyName("sender_id")]
-    public long? Sender { get; set; }
-
-    /// <summary>ID of the message to which this message is a reply.</summary>
-    [JsonPropertyName("replied_to_id")]
-    public long? RepliedTo { get; set; }
-
-    /// <summary>Time at which the message was created.</summary>
-    [JsonPropertyName("created_at")]
-    public string CreatedAt { get; set; }
-
-    /// <summary>Id of the network message is associated with.</summary>
-    [JsonPropertyName("network_id")]
-    public long? Network { get; set; }
-
-    /// <summary>Descripton of the message type.</summary>
-    [JsonPropertyName("message_type")]
-    public string Type { get; set; }
-
-    /// <summary>Description of the type of sender.</summary>
-    [JsonPropertyName("sender_type")]
-    public string SenderType { get; set; }
-
-    /// <summary>API url of the post.</summary>
-    [JsonPropertyName("url")]
-    public string Url { get; set; }
-
-    /// <summary>Web url of the post.</summary>
-    [JsonPropertyName("web_url")]
-    public string WebUrl { get; set; }
-
-    /// <summary>Unique ID of group who posted the message.</summary>
-    [JsonPropertyName("group_id")]
-    public long? GroupID { get; set; }
-
-    /// <summary>body</summary>
-    [JsonPropertyName("body")]
-    public MessageBody Body { get; set; }
-
-    /// <summary>Unique ID of thread.</summary>
-    [JsonPropertyName("thread_id")]
-    public long? ThreadID { get; set; }
-
-    /// <summary>Flag to specify if the post is a  a direct message.</summary>
-    [JsonPropertyName("direct_message")]
-    public bool? DirectMessage { get; set; }
-
-    /// <summary>Type of the client.</summary>
-    [JsonPropertyName("client_type")]
-    public string ClientId { get; set; }
-
-    /// <summary>Web link of the client.</summary>
-    [JsonPropertyName("client_url")]
-    public string ClientURL { get; set; }
-
-    /// <summary>Language used in the message.</summary>
-    [JsonPropertyName("language")]
-    public string Language { get; set; }
-
-    /// <summary>Details of users notified.</summary>
-    [JsonPropertyName("notified_user_ids")]
-    public List<long?> TaggedUser { get; set; }
-
-    /// <summary>Details of the privacy associated with the message.</summary>
-    [JsonPropertyName("privacy")]
-    public string Privacy { get; set; }
-
-    /// <summary>liked_by</summary>
-    [JsonPropertyName("liked_by")]
-    public LikedBy LikedBy { get; set; }
-
-    /// <summary>Flag to specify if the post is a system generated message or not.</summary>
-    [JsonPropertyName("system_message")]
-    public bool? IsSystemMessage { get; set; }
-}
-
-/// <summary>
-/// body
-/// </summary>
-public class MessageBody
-{
-    /// <summary>Parsed text format.</summary>
-    [JsonPropertyName("parsed")]
-    public string Text { get; set; }
-
-    /// <summary>Plain text format.</summary>
-    [JsonPropertyName("plain")]
-    public string Plain { get; set; }
-
-    /// <summary>Rich text format.</summary>
-    [JsonPropertyName("rich")]
-    public string Rich { get; set; }
-}
-
-/// <summary>
-/// liked_by
-/// </summary>
-public class LikedBy
-{
-    /// <summary>Number of distinct likes.</summary>
-    [JsonPropertyName("count")]
-    public int? Count { get; set; }
-
-    /// <summary>List of people who liked the post.</summary>
-    [JsonPropertyName("names")]
-    public List<object> Names { get; set; }
-}
-
-/// <summary>
-/// Response for When there is a new message in my followed feed (V2)
-/// </summary>
-public class MessageList
-{
-    /// <summary>messages</summary>
-    [JsonPropertyName("messages")]
-    public List<Message> Messages { get; set; }
-}
-
-/// <summary>
-/// MessageV2
-/// </summary>
-public class Message
-{
-    /// <summary>ID associated with the post.</summary>
-    [JsonPropertyName("id")]
-    public long? ID { get; set; }
-
-    /// <summary>Text Content of the post.</summary>
-    [JsonPropertyName("content_excerpt")]
-    public string Text { get; set; }
-
-    /// <summary>Unique ID of user who posted the message.</summary>
-    [JsonPropertyName("sender_id")]
-    public long? Sender { get; set; }
-
-    /// <summary>ID of the message to which this message is a reply.</summary>
-    [JsonPropertyName("replied_to_id")]
-    public long? RepliedTo { get; set; }
-
-    /// <summary>Time at which the message was created.</summary>
-    [JsonPropertyName("created_at")]
-    public string CreatedAt { get; set; }
-
-    /// <summary>Id of the network message is associated with.</summary>
-    [JsonPropertyName("network_id")]
-    public long? Network { get; set; }
-
-    /// <summary>Descripton of the message type.</summary>
-    [JsonPropertyName("message_type")]
-    public string Type { get; set; }
-
-    /// <summary>Description of the type of sender.</summary>
-    [JsonPropertyName("sender_type")]
-    public string SenderType { get; set; }
-
-    /// <summary>API url of the post.</summary>
-    [JsonPropertyName("url")]
-    public string Url { get; set; }
-
-    /// <summary>Web url of the post.</summary>
-    [JsonPropertyName("web_url")]
-    public string WebUrl { get; set; }
-
-    /// <summary>Unique ID of group who posted the message.</summary>
-    [JsonPropertyName("group_id")]
-    public long? GroupID { get; set; }
-
-    /// <summary>body</summary>
-    [JsonPropertyName("body")]
-    public MessageBody Body { get; set; }
-
-    /// <summary>Unique ID of thread.</summary>
-    [JsonPropertyName("thread_id")]
-    public long? ThreadID { get; set; }
-
-    /// <summary>Flag to specify if the post is a  a direct message.</summary>
-    [JsonPropertyName("direct_message")]
-    public bool? DirectMessage { get; set; }
-
-    /// <summary>Type of the client.</summary>
-    [JsonPropertyName("client_type")]
-    public string ClientId { get; set; }
-
-    /// <summary>Web link of the client.</summary>
-    [JsonPropertyName("client_url")]
-    public string ClientURL { get; set; }
-
-    /// <summary>Language used in the message.</summary>
-    [JsonPropertyName("language")]
-    public string Language { get; set; }
-
-    /// <summary>Details of users notified.</summary>
-    [JsonPropertyName("notified_user_ids")]
-    public List<long?> TaggedUser { get; set; }
-
-    /// <summary>Details of the privacy associated with the message.</summary>
-    [JsonPropertyName("privacy")]
-    public string Privacy { get; set; }
-
-    /// <summary>liked_by</summary>
-    [JsonPropertyName("liked_by")]
-    public LikedBy LikedBy { get; set; }
-
-    /// <summary>Flag to specify if the post is a system generated message or not.</summary>
-    [JsonPropertyName("system_message")]
-    public bool? IsSystemMessage { get; set; }
-}
-
-/// <summary>
-/// PostOperationRequestV2
-/// </summary>
-public class PostOperationRequest
-{
-    /// <summary>The group to post a message to (0 = All Company/Network).</summary>
-    [JsonPropertyName("group_id")]
-    public long? GroupID { get; set; }
-
-    /// <summary>Your message to be posted into your network.</summary>
-    [JsonPropertyName("body")]
-    public string MessageText { get; set; }
-
-    /// <summary>The message ID this message is in reply to.</summary>
-    [JsonPropertyName("replied_to_id")]
-    public long? RepliedToId { get; set; }
-
-    /// <summary>If set, a private message will be sent directly to the user with the indicated ID.</summary>
-    [JsonPropertyName("direct_to_id")]
-    public long? DirectToId { get; set; }
-
-    /// <summary>Post message as an announcement to all users in a group.</summary>
-    [JsonPropertyName("broadcast")]
-    public bool? Broadcast { get; set; }
-
-    /// <summary>Title of the message to be posted.</summary>
-    [JsonPropertyName("title")]
-    public string Title { get; set; }
-}
-
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of Yammer models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class YammerModelFactory
-{
     /// <summary>
-    /// Creates a new instance of <see cref="Network"/>.
+    /// Response for Get my networks
     /// </summary>
-    public static Network Network(
-        string id = default,
-        string name = default,
-        string link = default)
+    public class Network
     {
-        return new Network
-        {
-            ID = id,
-            Name = name,
-            Link = link,
-        };
+        /// <summary>Unique identifier of the network.</summary>
+        [JsonPropertyName("id")]
+        public string ID { get; set; }
+
+        /// <summary>Summary of the network.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Web link to the network page.</summary>
+        [JsonPropertyName("permalink")]
+        public string Link { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="YammmerEntity"/>.
+    /// Response for Get groups
     /// </summary>
-    public static YammmerEntity YammmerEntity(
-        string description = default,
-        long? groupID = default,
-        string fullName = default)
+    public class YammmerEntity
     {
-        return new YammmerEntity
-        {
-            Description = description,
-            GroupID = groupID,
-            FullName = fullName,
-        };
+        /// <summary>Details of the Viva Engage entity.</summary>
+        [JsonPropertyName("type")]
+        public string Description { get; set; }
+
+        /// <summary>Unique identifier of the group.</summary>
+        [JsonPropertyName("id")]
+        public long? GroupID { get; set; }
+
+        /// <summary>Name of the Viva Engage entity.</summary>
+        [JsonPropertyName("full_name")]
+        public string FullName { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="User"/>.
+    /// Response for Get user details
     /// </summary>
-    public static User User(
-        string username = default,
-        string jobTitle = default,
-        string location = default,
-        string fullName = default,
-        string firstName = default,
-        string lastName = default,
-        string profileUrl = default,
-        string email = default,
-        string birthDate = default,
-        string photoUrl = default)
+    public class User
     {
-        return new User
-        {
-            Username = username,
-            JobTitle = jobTitle,
-            Location = location,
-            FullName = fullName,
-            FirstName = firstName,
-            LastName = lastName,
-            ProfileUrl = profileUrl,
-            Email = email,
-            BirthDate = birthDate,
-            PhotoUrl = photoUrl,
-        };
+        /// <summary>Username.</summary>
+        [JsonPropertyName("name")]
+        public string Username { get; set; }
+
+        /// <summary>User job title.</summary>
+        [JsonPropertyName("job_title")]
+        public string JobTitle { get; set; }
+
+        /// <summary>User location.</summary>
+        [JsonPropertyName("location")]
+        public string Location { get; set; }
+
+        /// <summary>User full name.</summary>
+        [JsonPropertyName("full_name")]
+        public string FullName { get; set; }
+
+        /// <summary>User first name.</summary>
+        [JsonPropertyName("first_name")]
+        public string FirstName { get; set; }
+
+        /// <summary>User last name.</summary>
+        [JsonPropertyName("last_name")]
+        public string LastName { get; set; }
+
+        /// <summary>User profile url.</summary>
+        [JsonPropertyName("web_url")]
+        public string ProfileUrl { get; set; }
+
+        /// <summary>User email.</summary>
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        /// <summary>User birth date.</summary>
+        [JsonPropertyName("birth_date")]
+        public string BirthDate { get; set; }
+
+        /// <summary>User photo url.</summary>
+        [JsonPropertyName("mugshot_url")]
+        public string PhotoUrl { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="PageableMessageList"/>.
+    /// Response for Get all messages (V3)
     /// </summary>
-    public static PageableMessageList PageableMessageList(
-        List<Message> messages = default)
+    public class PageableMessageList
     {
-        return new PageableMessageList
-        {
-            Messages = messages,
-        };
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<Message> Messages { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="MessageV2"/>.
+    /// Item in value
     /// </summary>
-    public static MessageV2 MessageV2(
-        long? id = default,
-        string text = default,
-        long? sender = default,
-        long? repliedTo = default,
-        string createdAt = default,
-        long? network = default,
-        string type = default,
-        string senderType = default,
-        string url = default,
-        string webUrl = default,
-        long? groupID = default,
-        MessageBody body = default,
-        long? threadID = default,
-        bool? directMessage = default,
-        string clientId = default,
-        string clientURL = default,
-        string language = default,
-        List<long?> taggedUser = default,
-        string privacy = default,
-        LikedBy likedBy = default,
-        bool? isSystemMessage = default)
+    public class MessageV2
     {
-        return new MessageV2
-        {
-            ID = id,
-            Text = text,
-            Sender = sender,
-            RepliedTo = repliedTo,
-            CreatedAt = createdAt,
-            Network = network,
-            Type = type,
-            SenderType = senderType,
-            Url = url,
-            WebUrl = webUrl,
-            GroupID = groupID,
-            Body = body,
-            ThreadID = threadID,
-            DirectMessage = directMessage,
-            ClientId = clientId,
-            ClientURL = clientURL,
-            Language = language,
-            TaggedUser = taggedUser,
-            Privacy = privacy,
-            LikedBy = likedBy,
-            IsSystemMessage = isSystemMessage,
-        };
+        /// <summary>ID associated with the post.</summary>
+        [JsonPropertyName("id")]
+        public long? ID { get; set; }
+
+        /// <summary>Text Content of the post.</summary>
+        [JsonPropertyName("content_excerpt")]
+        public string Text { get; set; }
+
+        /// <summary>Unique ID of user who posted the message.</summary>
+        [JsonPropertyName("sender_id")]
+        public long? Sender { get; set; }
+
+        /// <summary>ID of the message to which this message is a reply.</summary>
+        [JsonPropertyName("replied_to_id")]
+        public long? RepliedTo { get; set; }
+
+        /// <summary>Time at which the message was created.</summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; set; }
+
+        /// <summary>Id of the network message is associated with.</summary>
+        [JsonPropertyName("network_id")]
+        public long? Network { get; set; }
+
+        /// <summary>Descripton of the message type.</summary>
+        [JsonPropertyName("message_type")]
+        public string Type { get; set; }
+
+        /// <summary>Description of the type of sender.</summary>
+        [JsonPropertyName("sender_type")]
+        public string SenderType { get; set; }
+
+        /// <summary>API url of the post.</summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>Web url of the post.</summary>
+        [JsonPropertyName("web_url")]
+        public string WebUrl { get; set; }
+
+        /// <summary>Unique ID of group who posted the message.</summary>
+        [JsonPropertyName("group_id")]
+        public long? GroupID { get; set; }
+
+        /// <summary>body</summary>
+        [JsonPropertyName("body")]
+        public MessageBody Body { get; set; }
+
+        /// <summary>Unique ID of thread.</summary>
+        [JsonPropertyName("thread_id")]
+        public long? ThreadID { get; set; }
+
+        /// <summary>Flag to specify if the post is a  a direct message.</summary>
+        [JsonPropertyName("direct_message")]
+        public bool? DirectMessage { get; set; }
+
+        /// <summary>Type of the client.</summary>
+        [JsonPropertyName("client_type")]
+        public string ClientId { get; set; }
+
+        /// <summary>Web link of the client.</summary>
+        [JsonPropertyName("client_url")]
+        public string ClientURL { get; set; }
+
+        /// <summary>Language used in the message.</summary>
+        [JsonPropertyName("language")]
+        public string Language { get; set; }
+
+        /// <summary>Details of users notified.</summary>
+        [JsonPropertyName("notified_user_ids")]
+        public List<long?> TaggedUser { get; set; }
+
+        /// <summary>Details of the privacy associated with the message.</summary>
+        [JsonPropertyName("privacy")]
+        public string Privacy { get; set; }
+
+        /// <summary>liked_by</summary>
+        [JsonPropertyName("liked_by")]
+        public LikedBy LikedBy { get; set; }
+
+        /// <summary>Flag to specify if the post is a system generated message or not.</summary>
+        [JsonPropertyName("system_message")]
+        public bool? IsSystemMessage { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="MessageBody"/>.
+    /// body
     /// </summary>
-    public static MessageBody MessageBody(
-        string text = default,
-        string plain = default,
-        string rich = default)
+    public class MessageBody
     {
-        return new MessageBody
-        {
-            Text = text,
-            Plain = plain,
-            Rich = rich,
-        };
+        /// <summary>Parsed text format.</summary>
+        [JsonPropertyName("parsed")]
+        public string Text { get; set; }
+
+        /// <summary>Plain text format.</summary>
+        [JsonPropertyName("plain")]
+        public string Plain { get; set; }
+
+        /// <summary>Rich text format.</summary>
+        [JsonPropertyName("rich")]
+        public string Rich { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="LikedBy"/>.
+    /// liked_by
     /// </summary>
-    public static LikedBy LikedBy(
-        int? count = default,
-        List<object> names = default)
+    public class LikedBy
     {
-        return new LikedBy
-        {
-            Count = count,
-            Names = names,
-        };
+        /// <summary>Number of distinct likes.</summary>
+        [JsonPropertyName("count")]
+        public int? Count { get; set; }
+
+        /// <summary>List of people who liked the post.</summary>
+        [JsonPropertyName("names")]
+        public List<object> Names { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="MessageList"/>.
+    /// Response for When there is a new message in my followed feed (V2)
     /// </summary>
-    public static MessageList MessageList(
-        List<Message> messages = default)
+    public class MessageList
     {
-        return new MessageList
-        {
-            Messages = messages,
-        };
+        /// <summary>messages</summary>
+        [JsonPropertyName("messages")]
+        public List<Message> Messages { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="Message"/>.
+    /// MessageV2
     /// </summary>
-    public static Message Message(
-        long? id = default,
-        string text = default,
-        long? sender = default,
-        long? repliedTo = default,
-        string createdAt = default,
-        long? network = default,
-        string type = default,
-        string senderType = default,
-        string url = default,
-        string webUrl = default,
-        long? groupID = default,
-        MessageBody body = default,
-        long? threadID = default,
-        bool? directMessage = default,
-        string clientId = default,
-        string clientURL = default,
-        string language = default,
-        List<long?> taggedUser = default,
-        string privacy = default,
-        LikedBy likedBy = default,
-        bool? isSystemMessage = default)
+    public class Message
     {
-        return new Message
-        {
-            ID = id,
-            Text = text,
-            Sender = sender,
-            RepliedTo = repliedTo,
-            CreatedAt = createdAt,
-            Network = network,
-            Type = type,
-            SenderType = senderType,
-            Url = url,
-            WebUrl = webUrl,
-            GroupID = groupID,
-            Body = body,
-            ThreadID = threadID,
-            DirectMessage = directMessage,
-            ClientId = clientId,
-            ClientURL = clientURL,
-            Language = language,
-            TaggedUser = taggedUser,
-            Privacy = privacy,
-            LikedBy = likedBy,
-            IsSystemMessage = isSystemMessage,
-        };
+        /// <summary>ID associated with the post.</summary>
+        [JsonPropertyName("id")]
+        public long? ID { get; set; }
+
+        /// <summary>Text Content of the post.</summary>
+        [JsonPropertyName("content_excerpt")]
+        public string Text { get; set; }
+
+        /// <summary>Unique ID of user who posted the message.</summary>
+        [JsonPropertyName("sender_id")]
+        public long? Sender { get; set; }
+
+        /// <summary>ID of the message to which this message is a reply.</summary>
+        [JsonPropertyName("replied_to_id")]
+        public long? RepliedTo { get; set; }
+
+        /// <summary>Time at which the message was created.</summary>
+        [JsonPropertyName("created_at")]
+        public string CreatedAt { get; set; }
+
+        /// <summary>Id of the network message is associated with.</summary>
+        [JsonPropertyName("network_id")]
+        public long? Network { get; set; }
+
+        /// <summary>Descripton of the message type.</summary>
+        [JsonPropertyName("message_type")]
+        public string Type { get; set; }
+
+        /// <summary>Description of the type of sender.</summary>
+        [JsonPropertyName("sender_type")]
+        public string SenderType { get; set; }
+
+        /// <summary>API url of the post.</summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>Web url of the post.</summary>
+        [JsonPropertyName("web_url")]
+        public string WebUrl { get; set; }
+
+        /// <summary>Unique ID of group who posted the message.</summary>
+        [JsonPropertyName("group_id")]
+        public long? GroupID { get; set; }
+
+        /// <summary>body</summary>
+        [JsonPropertyName("body")]
+        public MessageBody Body { get; set; }
+
+        /// <summary>Unique ID of thread.</summary>
+        [JsonPropertyName("thread_id")]
+        public long? ThreadID { get; set; }
+
+        /// <summary>Flag to specify if the post is a  a direct message.</summary>
+        [JsonPropertyName("direct_message")]
+        public bool? DirectMessage { get; set; }
+
+        /// <summary>Type of the client.</summary>
+        [JsonPropertyName("client_type")]
+        public string ClientId { get; set; }
+
+        /// <summary>Web link of the client.</summary>
+        [JsonPropertyName("client_url")]
+        public string ClientURL { get; set; }
+
+        /// <summary>Language used in the message.</summary>
+        [JsonPropertyName("language")]
+        public string Language { get; set; }
+
+        /// <summary>Details of users notified.</summary>
+        [JsonPropertyName("notified_user_ids")]
+        public List<long?> TaggedUser { get; set; }
+
+        /// <summary>Details of the privacy associated with the message.</summary>
+        [JsonPropertyName("privacy")]
+        public string Privacy { get; set; }
+
+        /// <summary>liked_by</summary>
+        [JsonPropertyName("liked_by")]
+        public LikedBy LikedBy { get; set; }
+
+        /// <summary>Flag to specify if the post is a system generated message or not.</summary>
+        [JsonPropertyName("system_message")]
+        public bool? IsSystemMessage { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="PostOperationRequest"/>.
+    /// PostOperationRequestV2
     /// </summary>
-    public static PostOperationRequest PostOperationRequest(
-        long? groupID = default,
-        string messageText = default,
-        long? repliedToId = default,
-        long? directToId = default,
-        bool? broadcast = default,
-        string title = default)
+    public class PostOperationRequest
     {
-        return new PostOperationRequest
-        {
-            GroupID = groupID,
-            MessageText = messageText,
-            RepliedToId = repliedToId,
-            DirectToId = directToId,
-            Broadcast = broadcast,
-            Title = title,
-        };
+        /// <summary>The group to post a message to (0 = All Company/Network).</summary>
+        [JsonPropertyName("group_id")]
+        public long? GroupID { get; set; }
+
+        /// <summary>Your message to be posted into your network.</summary>
+        [JsonPropertyName("body")]
+        public string MessageText { get; set; }
+
+        /// <summary>The message ID this message is in reply to.</summary>
+        [JsonPropertyName("replied_to_id")]
+        public long? RepliedToId { get; set; }
+
+        /// <summary>If set, a private message will be sent directly to the user with the indicated ID.</summary>
+        [JsonPropertyName("direct_to_id")]
+        public long? DirectToId { get; set; }
+
+        /// <summary>Post message as an announcement to all users in a group.</summary>
+        [JsonPropertyName("broadcast")]
+        public bool? Broadcast { get; set; }
+
+        /// <summary>Title of the message to be posted.</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
     }
-}
 
-#endregion Model Factory
+    #endregion Types
 
-#region Trigger Payloads
+    #region Model Factory
 
-#endregion Trigger Payloads
+    /// <summary>
+    /// Model factory for creating instances of Yammer models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class YammerModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="Network"/>.
+        /// </summary>
+        public static Network Network(
+            string id = default,
+            string name = default,
+            string link = default)
+        {
+            return new Network
+            {
+                ID = id,
+                Name = name,
+                Link = link,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="YammmerEntity"/>.
+        /// </summary>
+        public static YammmerEntity YammmerEntity(
+            string description = default,
+            long? groupID = default,
+            string fullName = default)
+        {
+            return new YammmerEntity
+            {
+                Description = description,
+                GroupID = groupID,
+                FullName = fullName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="User"/>.
+        /// </summary>
+        public static User User(
+            string username = default,
+            string jobTitle = default,
+            string location = default,
+            string fullName = default,
+            string firstName = default,
+            string lastName = default,
+            string profileUrl = default,
+            string email = default,
+            string birthDate = default,
+            string photoUrl = default)
+        {
+            return new User
+            {
+                Username = username,
+                JobTitle = jobTitle,
+                Location = location,
+                FullName = fullName,
+                FirstName = firstName,
+                LastName = lastName,
+                ProfileUrl = profileUrl,
+                Email = email,
+                BirthDate = birthDate,
+                PhotoUrl = photoUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PageableMessageList"/>.
+        /// </summary>
+        public static PageableMessageList PageableMessageList(
+            List<Message> messages = default)
+        {
+            return new PageableMessageList
+            {
+                Messages = messages,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageV2"/>.
+        /// </summary>
+        public static MessageV2 MessageV2(
+            long? id = default,
+            string text = default,
+            long? sender = default,
+            long? repliedTo = default,
+            string createdAt = default,
+            long? network = default,
+            string type = default,
+            string senderType = default,
+            string url = default,
+            string webUrl = default,
+            long? groupID = default,
+            MessageBody body = default,
+            long? threadID = default,
+            bool? directMessage = default,
+            string clientId = default,
+            string clientURL = default,
+            string language = default,
+            List<long?> taggedUser = default,
+            string privacy = default,
+            LikedBy likedBy = default,
+            bool? isSystemMessage = default)
+        {
+            return new MessageV2
+            {
+                ID = id,
+                Text = text,
+                Sender = sender,
+                RepliedTo = repliedTo,
+                CreatedAt = createdAt,
+                Network = network,
+                Type = type,
+                SenderType = senderType,
+                Url = url,
+                WebUrl = webUrl,
+                GroupID = groupID,
+                Body = body,
+                ThreadID = threadID,
+                DirectMessage = directMessage,
+                ClientId = clientId,
+                ClientURL = clientURL,
+                Language = language,
+                TaggedUser = taggedUser,
+                Privacy = privacy,
+                LikedBy = likedBy,
+                IsSystemMessage = isSystemMessage,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageBody"/>.
+        /// </summary>
+        public static MessageBody MessageBody(
+            string text = default,
+            string plain = default,
+            string rich = default)
+        {
+            return new MessageBody
+            {
+                Text = text,
+                Plain = plain,
+                Rich = rich,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="LikedBy"/>.
+        /// </summary>
+        public static LikedBy LikedBy(
+            int? count = default,
+            List<object> names = default)
+        {
+            return new LikedBy
+            {
+                Count = count,
+                Names = names,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageList"/>.
+        /// </summary>
+        public static MessageList MessageList(
+            List<Message> messages = default)
+        {
+            return new MessageList
+            {
+                Messages = messages,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Message"/>.
+        /// </summary>
+        public static Message Message(
+            long? id = default,
+            string text = default,
+            long? sender = default,
+            long? repliedTo = default,
+            string createdAt = default,
+            long? network = default,
+            string type = default,
+            string senderType = default,
+            string url = default,
+            string webUrl = default,
+            long? groupID = default,
+            MessageBody body = default,
+            long? threadID = default,
+            bool? directMessage = default,
+            string clientId = default,
+            string clientURL = default,
+            string language = default,
+            List<long?> taggedUser = default,
+            string privacy = default,
+            LikedBy likedBy = default,
+            bool? isSystemMessage = default)
+        {
+            return new Message
+            {
+                ID = id,
+                Text = text,
+                Sender = sender,
+                RepliedTo = repliedTo,
+                CreatedAt = createdAt,
+                Network = network,
+                Type = type,
+                SenderType = senderType,
+                Url = url,
+                WebUrl = webUrl,
+                GroupID = groupID,
+                Body = body,
+                ThreadID = threadID,
+                DirectMessage = directMessage,
+                ClientId = clientId,
+                ClientURL = clientURL,
+                Language = language,
+                TaggedUser = taggedUser,
+                Privacy = privacy,
+                LikedBy = likedBy,
+                IsSystemMessage = isSystemMessage,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostOperationRequest"/>.
+        /// </summary>
+        public static PostOperationRequest PostOperationRequest(
+            long? groupID = default,
+            string messageText = default,
+            long? repliedToId = default,
+            long? directToId = default,
+            bool? broadcast = default,
+            string title = default)
+        {
+            return new PostOperationRequest
+            {
+                GroupID = groupID,
+                MessageText = messageText,
+                RepliedToId = repliedToId,
+                DirectToId = directToId,
+                Broadcast = broadcast,
+                Title = title,
+            };
+        }
+    }
+
+    #endregion Model Factory
+
+    #region Trigger Payloads
+
+    #endregion Trigger Payloads
 
 }
 
 namespace Azure.Connectors.Sdk.Yammer
 {
 
-#region Trigger Operation Constants
-
-/// <summary>
-/// Trigger operation name constants for the Yammer connector.
-/// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
-/// </summary>
-public static class YammerTriggerOperations
-{
-    /// <summary>
-    /// When there is a new message in my followed feed (V2).
-    /// </summary>
-    public const string OnNewMessagesFollowing = "OnNewMessagesFollowingV2";
+    #region Trigger Operation Constants
 
     /// <summary>
-    /// When there is a new message in a group (V2).
+    /// Trigger operation name constants for the Yammer connector.
+    /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
+    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
     /// </summary>
-    public const string OnNewMessagesInGroup = "OnNewMessagesInGroupV2";
-
-}
-
-#endregion Trigger Operation Constants
-
-#region Trigger Parameter Metadata
-
-/// <summary>
-/// Trigger input parameter name constants for the Yammer connector.
-/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
-/// </summary>
-public static class YammerTriggerParameters
-{
-    /// <summary>
-    /// Input parameters for the OnNewMessagesFollowing trigger operation (operationId: OnNewMessagesFollowingV2).
-    /// </summary>
-    public static class OnNewMessagesFollowing
+    public static class YammerTriggerOperations
     {
         /// <summary>
-        /// Pick a network.
-        /// Default: Default.
-        /// Dynamic values from: GetNetworks.
+        /// When there is a new message in my followed feed (V2).
         /// </summary>
-        public const string NetworkId = "network_id";
+        public const string OnNewMessagesFollowing = "OnNewMessagesFollowingV2";
 
         /// <summary>
-        /// Trigger state
+        /// When there is a new message in a group (V2).
         /// </summary>
-        public const string Triggerstate = "triggerstate";
+        public const string OnNewMessagesInGroup = "OnNewMessagesInGroupV2";
 
     }
 
+    #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
     /// <summary>
-    /// Input parameters for the OnNewMessagesInGroup trigger operation (operationId: OnNewMessagesInGroupV2).
+    /// Trigger input parameter name constants for the Yammer connector.
+    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
     /// </summary>
-    public static class OnNewMessagesInGroup
+    public static class YammerTriggerParameters
     {
         /// <summary>
-        /// Unique identifer of the network.
-        /// Default: Default.
-        /// Dynamic values from: GetNetworks.
+        /// Input parameters for the OnNewMessagesFollowing trigger operation (operationId: OnNewMessagesFollowingV2).
         /// </summary>
-        public const string NetworkId = "network_id";
+        public static class OnNewMessagesFollowing
+        {
+            /// <summary>
+            /// Pick a network.
+            /// Default: Default.
+            /// Dynamic values from: GetNetworks.
+            /// </summary>
+            public const string NetworkId = "network_id";
+
+            /// <summary>
+            /// Trigger state
+            /// </summary>
+            public const string Triggerstate = "triggerstate";
+
+        }
 
         /// <summary>
-        /// Trigger state
+        /// Input parameters for the OnNewMessagesInGroup trigger operation (operationId: OnNewMessagesInGroupV2).
         /// </summary>
-        public const string Triggerstate = "triggerstate";
+        public static class OnNewMessagesInGroup
+        {
+            /// <summary>
+            /// Unique identifer of the network.
+            /// Default: Default.
+            /// Dynamic values from: GetNetworks.
+            /// </summary>
+            public const string NetworkId = "network_id";
+
+            /// <summary>
+            /// Trigger state
+            /// </summary>
+            public const string Triggerstate = "triggerstate";
+
+        }
 
     }
 
-}
+    #endregion Trigger Parameter Metadata
 
-#endregion Trigger Parameter Metadata
-
-#region Client
-
-/// <summary>
-/// Typed client for yammer connector.
-/// </summary>
-public class YammerClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new YammerClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public YammerClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
+    #region Client
 
     /// <summary>
-    /// Creates a new YammerClient with the specified connection runtime URL and credential.
+    /// Typed client for yammer connector.
     /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public YammerClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
+    public class YammerClient : ConnectorClientBase
     {
+        /// <summary>
+        /// Creates a new YammerClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public YammerClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new YammerClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public YammerClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new YammerClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public YammerClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected YammerClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "yammer";
+
+        /// <summary>
+        /// Get my networks
+        /// </summary>
+        /// <remarks>Gets all the networks that the user belongs to.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get my networks response.</returns>
+        public virtual async Task<List<Network>> GetNetworksAsync(CancellationToken cancellationToken = default)
+        {
+            var path = $"/networks.json";
+            return await this
+                .CallConnectorAsync<List<Network>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get groups
+        /// </summary>
+        /// <remarks>Gets all groups. If mine = 1, get only groups to which the user belongs</remarks>
+        /// <param name="networkID">Network ID</param>
+        /// <param name="mine">mine</param>
+        /// <param name="showAllCompanyGroup">Show All Company Group</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get groups response.</returns>
+        public virtual async Task<List<YammmerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkID = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (networkID != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (mine != default)
+                queryParams.Add($"mine={Uri.EscapeDataString(mine.ToString())}");
+            if (showAllCompanyGroup != default)
+                queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.ToString())}");
+            var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<List<YammmerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get user details
+        /// </summary>
+        /// <remarks>This operation returns user profile details.</remarks>
+        /// <param name="userID">User ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get user details response.</returns>
+        public virtual async Task<User> GetUserDetailsByIdAsync(int userID, CancellationToken cancellationToken = default)
+        {
+            var path = $"/users/{Uri.EscapeDataString(userID.ToString())}.json";
+            return await this
+                .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Like message
+        /// </summary>
+        /// <remarks>This operation is used to like the specified message.</remarks>
+        /// <param name="messageID">Message ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task LikeMessageAsync(string messageID, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (messageID != default)
+                queryParams.Add($"message_id={Uri.EscapeDataString(messageID.ToString())}");
+            var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            await this
+                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get all messages (V3)
+        /// </summary>
+        /// <remarks>This operation returns all public messages in the logged in user&apos;s Viva Engage network. Corresponds to &quot;All&quot; conversations in the Viva Engage web interface.</remarks>
+        /// <param name="uniqueIdentifierOfTheNetwork">Unique identifier of the network</param>
+        /// <param name="olderThan">Older than</param>
+        /// <param name="newerThan">Newer than</param>
+        /// <param name="threadTypeOfMessages">Thread type of messages</param>
+        /// <param name="limit">Limit</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all messages (V3) response.</returns>
+        public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (uniqueIdentifierOfTheNetwork != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork.ToString())}");
+            if (olderThan != default)
+                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
+            if (newerThan != default)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
+            if (threadTypeOfMessages != default)
+                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+            if (limit != default)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
+            var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get the messages from my Following feed (V3)
+        /// </summary>
+        /// <remarks>This operation returns the messages from Following feed which is conversations involving people, groups and topics that the user is following.</remarks>
+        /// <param name="networkID">Network ID</param>
+        /// <param name="olderThan">Older than</param>
+        /// <param name="newerThan">Newer than</param>
+        /// <param name="threadTypeOfMessages">Thread type of messages</param>
+        /// <param name="limit">Limit</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get the messages from my Following feed (V3) response.</returns>
+        public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkID = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (networkID != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (olderThan != default)
+                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
+            if (newerThan != default)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
+            if (threadTypeOfMessages != default)
+                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+            if (limit != default)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
+            var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get messages in a group (V3)
+        /// </summary>
+        /// <remarks>This operation returns the messages posted in a group.</remarks>
+        /// <param name="groupID">Group ID</param>
+        /// <param name="networkID">Network ID</param>
+        /// <param name="olderThan">Older than</param>
+        /// <param name="newerThan">Newer than</param>
+        /// <param name="threadTypeOfMessages">Thread type of messages</param>
+        /// <param name="limit">Limit</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get messages in a group (V3) response.</returns>
+        public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupID, [DynamicValues("GetNetworks")] string networkID = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (networkID != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (olderThan != default)
+                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
+            if (newerThan != default)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
+            if (threadTypeOfMessages != default)
+                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+            if (limit != default)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
+            var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupID.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Get messages in a thread (V3)
+        /// </summary>
+        /// <remarks>This operation returns the messages posted in a thread.</remarks>
+        /// <param name="threadID">Thread ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get messages in a thread (V3) response.</returns>
+        public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadID, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadID.ToString())}.json";
+            return await this
+                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Post message (V2)
+        /// </summary>
+        /// <remarks>This operation is used to post a Message to a Group or All Company Feed. If group ID is provided, message will be posted to the specified group else it will be posted in All Company Feed.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="networkID">Network ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Post message (V2) response.</returns>
+        public virtual async Task<MessageList> PostMessageAsync(PostOperationRequest input, [DynamicValues("GetNetworks")] string networkID = default, CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            if (networkID != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            var path = $"/v2/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<MessageList>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 
-    /// <summary>
-    /// Creates a new YammerClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public YammerClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected YammerClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "yammer";
-
-    /// <summary>
-    /// Get my networks
-    /// </summary>
-    /// <remarks>Gets all the networks that the user belongs to.</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get my networks response.</returns>
-    public virtual async Task<List<Network>> GetNetworksAsync(CancellationToken cancellationToken = default)
-    {
-        var path = $"/networks.json";
-        return await this
-            .CallConnectorAsync<List<Network>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get groups
-    /// </summary>
-    /// <remarks>Gets all groups. If mine = 1, get only groups to which the user belongs</remarks>
-    /// <param name="networkID">Network ID</param>
-    /// <param name="mine">mine</param>
-    /// <param name="showAllCompanyGroup">Show All Company Group</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get groups response.</returns>
-    public virtual async Task<List<YammmerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkID = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (networkID != default)
-            queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
-        if (mine != default)
-            queryParams.Add($"mine={Uri.EscapeDataString(mine.ToString())}");
-        if (showAllCompanyGroup != default)
-            queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.ToString())}");
-        var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<List<YammmerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get user details
-    /// </summary>
-    /// <remarks>This operation returns user profile details.</remarks>
-    /// <param name="userID">User ID</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get user details response.</returns>
-    public virtual async Task<User> GetUserDetailsByIdAsync(int userID, CancellationToken cancellationToken = default)
-    {
-        var path = $"/users/{Uri.EscapeDataString(userID.ToString())}.json";
-        return await this
-            .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Like message
-    /// </summary>
-    /// <remarks>This operation is used to like the specified message.</remarks>
-    /// <param name="messageID">Message ID</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public virtual async Task LikeMessageAsync(string messageID, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (messageID != default)
-            queryParams.Add($"message_id={Uri.EscapeDataString(messageID.ToString())}");
-        var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        await this
-            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get all messages (V3)
-    /// </summary>
-    /// <remarks>This operation returns all public messages in the logged in user&apos;s Viva Engage network. Corresponds to &quot;All&quot; conversations in the Viva Engage web interface.</remarks>
-    /// <param name="uniqueIdentifierOfTheNetwork">Unique identifier of the network</param>
-    /// <param name="olderThan">Older than</param>
-    /// <param name="newerThan">Newer than</param>
-    /// <param name="threadTypeOfMessages">Thread type of messages</param>
-    /// <param name="limit">Limit</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get all messages (V3) response.</returns>
-    public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (uniqueIdentifierOfTheNetwork != default)
-            queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork.ToString())}");
-        if (olderThan != default)
-            queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
-        if (newerThan != default)
-            queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
-        if (threadTypeOfMessages != default)
-            queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-        if (limit != default)
-            queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-        var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get the messages from my Following feed (V3)
-    /// </summary>
-    /// <remarks>This operation returns the messages from Following feed which is conversations involving people, groups and topics that the user is following.</remarks>
-    /// <param name="networkID">Network ID</param>
-    /// <param name="olderThan">Older than</param>
-    /// <param name="newerThan">Newer than</param>
-    /// <param name="threadTypeOfMessages">Thread type of messages</param>
-    /// <param name="limit">Limit</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get the messages from my Following feed (V3) response.</returns>
-    public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkID = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (networkID != default)
-            queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
-        if (olderThan != default)
-            queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
-        if (newerThan != default)
-            queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
-        if (threadTypeOfMessages != default)
-            queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-        if (limit != default)
-            queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-        var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get messages in a group (V3)
-    /// </summary>
-    /// <remarks>This operation returns the messages posted in a group.</remarks>
-    /// <param name="groupID">Group ID</param>
-    /// <param name="networkID">Network ID</param>
-    /// <param name="olderThan">Older than</param>
-    /// <param name="newerThan">Newer than</param>
-    /// <param name="threadTypeOfMessages">Thread type of messages</param>
-    /// <param name="limit">Limit</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get messages in a group (V3) response.</returns>
-    public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupID, [DynamicValues("GetNetworks")] string networkID = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (networkID != default)
-            queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
-        if (olderThan != default)
-            queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
-        if (newerThan != default)
-            queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
-        if (threadTypeOfMessages != default)
-            queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-        if (limit != default)
-            queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-        var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupID.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Get messages in a thread (V3)
-    /// </summary>
-    /// <remarks>This operation returns the messages posted in a thread.</remarks>
-    /// <param name="threadID">Thread ID</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Get messages in a thread (V3) response.</returns>
-    public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadID, CancellationToken cancellationToken = default)
-    {
-        var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadID.ToString())}.json";
-        return await this
-            .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// Post message (V2)
-    /// </summary>
-    /// <remarks>This operation is used to post a Message to a Group or All Company Feed. If group ID is provided, message will be posted to the specified group else it will be posted in All Company Feed.</remarks>
-    /// <param name="input">The request body.</param>
-    /// <param name="networkID">Network ID</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The Post message (V2) response.</returns>
-    public virtual async Task<MessageList> PostMessageAsync(PostOperationRequest input, [DynamicValues("GetNetworks")] string networkID = default, CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        if (networkID != default)
-            queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
-        var path = $"/v2/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<MessageList>(HttpMethod.Post, path, input, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }
