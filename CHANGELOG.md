@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - DI extension methods renamed: `AddAzuremonitorlogsClient` → `AddAzureMonitorLogsClient`, `AddOffice365usersClient` → `AddOffice365UsersClient`
   - Model factories renamed: `AzuremonitorlogsModelFactory` → `AzureMonitorLogsModelFactory`, `Office365usersModelFactory` → `Office365UsersModelFactory`
 - **Made `IPageable<T>` internal** — this interface is now an internal deserialization contract only; generated clients already return `AsyncPageable<T>` from Azure.Core publicly (#127)
+- **Changed `ConnectorClientBase.CreatePageable` from `protected` to `private protected`** — only accessible to derived classes within the assembly; external subclasses of `ConnectorClientBase` cannot call this method directly (#127)
 - **Made JSON converter types internal** — `Iso8601DateTimeConverter`, `Iso8601TimeSpanConverter`, `NullableTimeSpanConverter` are serialization infrastructure not intended for direct consumer use (#124)
 
 ### Added

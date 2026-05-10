@@ -61,6 +61,8 @@ namespace Azure.Connectors.Sdk.Http
         protected ConnectorHttpClient()
         {
             this._pipeline = null!;
+            this._baseUri = null;
+            this._connectorNameProvider = null;
         }
 
         /// <summary>
