@@ -19,7 +19,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated UniversalprintClient class.
+    /// Tests for the generated UniversalPrintClient class.
     /// </summary>
     [TestClass]
     public class UniversalPrintClientTests

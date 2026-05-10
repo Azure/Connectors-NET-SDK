@@ -761,7 +761,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
 
         /// <summary>systemProductName</summary>
         [JsonPropertyName("systemProductName")]
-        public DateTime? SystemProductName { get; set; }
+        public string SystemProductName { get; set; }
 
         /// <summary>The last IP address of the machine</summary>
         [JsonPropertyName("lastIpAddress")]
@@ -2226,7 +2226,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
             DateTime? lastSeen = default,
             string osPlatform = default,
             string osVersion = default,
-            DateTime? systemProductName = default,
+            string systemProductName = default,
             string lastIpAddress = default,
             string lastExternalIpAddress = default,
             string agentVersion = default,

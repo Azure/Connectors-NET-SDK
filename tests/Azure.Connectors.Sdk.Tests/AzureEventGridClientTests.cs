@@ -20,7 +20,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated AzureeventgridClient class.
+    /// Tests for the generated AzureEventGridClient class.
     /// </summary>
     [TestClass]
     public class AzureEventGridClientTests

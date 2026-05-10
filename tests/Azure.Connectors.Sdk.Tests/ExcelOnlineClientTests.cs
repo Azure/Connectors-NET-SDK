@@ -20,7 +20,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated ExcelonlineClient class.
+    /// Tests for the generated ExcelOnlineClient class.
     /// </summary>
     [TestClass]
     public class ExcelOnlineClientTests
