@@ -177,7 +177,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
 | SMTP | ✅ Validated | SendEmail |
 | Azure Event Grid | ✅ E2E Validated | TopicTypesList, SubscriptionsList (trigger: CreateSubscription) |
-| Excel Online | ✅ E2E Validated | GetItems, GetItem, CreateTable, AddRow, GetAllWorksheets, GetTables |
+| Excel Online | ✅ E2E Validated | GetTables (connectivity confirmed via sdk-test-gateway-prod) |
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
