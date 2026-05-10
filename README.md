@@ -176,6 +176,11 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | MS Graph Groups & Users | ✅ Validated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties |
 | Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
 | SMTP | ✅ Validated | SendEmail |
+| Azure Event Grid | 🔄 SDK Generated | TopicTypesList, SubscriptionsList (trigger: CreateSubscription) |
+| Excel Online | 🔄 SDK Generated | GetItems, GetItem, CreateTable, AddRow, GetAllWorksheets, GetTables |
+| Universal Print | ✅ Validated | ListRecentShares, PrintFile |
+| Microsoft Defender ATP | ✅ Validated | AdvancedHunting, GetAlerts, CreateAlertByReference |
+| Yammer (Viva Engage) | ✅ Validated | GetNetworks, GetGroups, GetUserDetailsById, GetAllMessages |
 
 ## Related Projects
 

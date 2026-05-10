@@ -3,13 +3,14 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Universalprint;
-using Azure.Connectors.Sdk.Universalprint.Models;
+using Azure.Connectors.Sdk.AzureEventGrid;
+using Azure.Connectors.Sdk.AzureEventGrid.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,10 +20,10 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated UniversalprintClient class.
+    /// Tests for the generated AzureeventgridClient class.
     /// </summary>
     [TestClass]
-    public class UniversalprintClientTests
+    public class AzureEventGridClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -35,7 +36,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static UniversalprintClient CreateMockedClient(HttpResponseMessage response)
+        private static AzureEventGridClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -51,7 +52,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new UniversalprintClient(
+            return new AzureEventGridClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -60,27 +61,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
-            using var client = new UniversalprintClient("https://test.azure.com/connection");
+            using var client = new AzureEventGridClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new UniversalprintClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureEventGridClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new UniversalprintClient("https://test.azure.com/connection");
+            var client = new AzureEventGridClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new UniversalprintClient(
+            var client = new AzureEventGridClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();
@@ -88,9 +89,12 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ListRecentSharesAsync_WithMockedResponse_ReturnsExpectedResult()
+        public async Task TopicTypesListAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            var expectedResponse = new ListRecentSharesResponse();
+            var expectedResponse = new TopicTypesResponse
+            {
+                Value = new List<object> { new { name = "EventGrid" } }
+            };
 
             using var responseMessage = new HttpResponseMessage
             {
@@ -101,25 +105,26 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .ListRecentSharesAsync(cancellationToken: CancellationToken.None)
+                .TopicTypesListAsync(cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Value.Count);
         }
 
         [TestMethod]
-        public async Task ListRecentSharesAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task TopicTypesListAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
-                StatusCode = HttpStatusCode.Unauthorized,
-                Content = new StringContent("{\"error\": \"Unauthorized\"}")
+                StatusCode = HttpStatusCode.Forbidden,
+                Content = new StringContent("{\"error\": \"Forbidden\"}")
             };
 
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.ListRecentSharesAsync(cancellationToken: CancellationToken.None))
+                client.TopicTypesListAsync(cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
     }

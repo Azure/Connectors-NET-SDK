@@ -45,7 +45,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     /// <summary>
     /// Response for Get groups
     /// </summary>
-    public class YammmerEntity
+    public class YammerEntity
     {
         /// <summary>Details of the Viva Engage entity.</summary>
         [JsonPropertyName("type")]
@@ -396,14 +396,14 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="YammmerEntity"/>.
+        /// Creates a new instance of <see cref="YammerEntity"/>.
         /// </summary>
-        public static YammmerEntity YammmerEntity(
+        public static YammerEntity YammerEntity(
             string description = default,
             long? groupID = default,
             string fullName = default)
         {
-            return new YammmerEntity
+            return new YammerEntity
             {
                 Description = description,
                 GroupID = groupID,
@@ -679,7 +679,7 @@ namespace Azure.Connectors.Sdk.Yammer
             /// <summary>
             /// Trigger state
             /// </summary>
-            public const string Triggerstate = "triggerstate";
+            public const string TriggerState = "triggerstate";
 
         }
 
@@ -698,7 +698,7 @@ namespace Azure.Connectors.Sdk.Yammer
             /// <summary>
             /// Trigger state
             /// </summary>
-            public const string Triggerstate = "triggerstate";
+            public const string TriggerState = "triggerstate";
 
         }
 
@@ -771,7 +771,7 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="showAllCompanyGroup">Show All Company Group</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get groups response.</returns>
-        public virtual async Task<List<YammmerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkID = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<YammerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkID = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (networkID != default)
@@ -782,7 +782,7 @@ namespace Azure.Connectors.Sdk.Yammer
                 queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.ToString())}");
             var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
-                .CallConnectorAsync<List<YammmerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .CallConnectorAsync<List<YammerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 

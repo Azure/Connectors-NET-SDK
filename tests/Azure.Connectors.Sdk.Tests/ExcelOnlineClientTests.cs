@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Azureeventgrid;
-using Azure.Connectors.Sdk.Azureeventgrid.Models;
+using Azure.Connectors.Sdk.ExcelOnline;
+using Azure.Connectors.Sdk.ExcelOnline.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,10 +20,10 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated AzureeventgridClient class.
+    /// Tests for the generated ExcelonlineClient class.
     /// </summary>
     [TestClass]
-    public class AzureeventgridClientTests
+    public class ExcelOnlineClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -36,7 +36,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static AzureeventgridClient CreateMockedClient(HttpResponseMessage response)
+        private static ExcelOnlineClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -52,7 +52,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new AzureeventgridClient(
+            return new ExcelOnlineClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -61,27 +61,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
-            using var client = new AzureeventgridClient("https://test.azure.com/connection");
+            using var client = new ExcelOnlineClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureeventgridClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new ExcelOnlineClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new AzureeventgridClient("https://test.azure.com/connection");
+            var client = new ExcelOnlineClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new AzureeventgridClient(
+            var client = new ExcelOnlineClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();
@@ -89,12 +89,43 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task TopicTypesListAsync_WithMockedResponse_ReturnsExpectedResult()
+        public void TableMetadata_Serialization_RoundTrips()
         {
-            var expectedResponse = new TopicTypesResponse
+            var table = new TableMetadata
             {
-                Value = new List<object> { new { name = "EventGrid" } }
+                Name = "Table1",
+                Title = "My Test Table",
             };
+
+            var json = JsonSerializer.Serialize(table);
+            var deserialized = JsonSerializer.Deserialize<TableMetadata>(json);
+
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual("Table1", deserialized!.Name);
+            Assert.AreEqual("My Test Table", deserialized.Title);
+        }
+
+        [TestMethod]
+        public void WorksheetMetadata_Serialization_RoundTrips()
+        {
+            var worksheet = new WorksheetMetadata
+            {
+                Id = "ws-1",
+                Name = "Sheet1",
+            };
+
+            var json = JsonSerializer.Serialize(worksheet);
+            var deserialized = JsonSerializer.Deserialize<WorksheetMetadata>(json);
+
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual("ws-1", deserialized!.Id);
+            Assert.AreEqual("Sheet1", deserialized.Name);
+        }
+
+        [TestMethod]
+        public async Task GetItemsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            var expectedResponse = new ItemsList();
 
             using var responseMessage = new HttpResponseMessage
             {
@@ -105,26 +136,33 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .TopicTypesListAsync(cancellationToken: CancellationToken.None)
+                .GetItemsAsync(
+                    documentLibrary: "testlib",
+                    file: "testfile.xlsx",
+                    table: "Table1",
+                    cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Value.Count);
         }
 
         [TestMethod]
-        public async Task TopicTypesListAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task GetItemsAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
-                StatusCode = HttpStatusCode.Forbidden,
-                Content = new StringContent("{\"error\": \"Forbidden\"}")
+                StatusCode = HttpStatusCode.NotFound,
+                Content = new StringContent("{\"error\": \"Not found\"}")
             };
 
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.TopicTypesListAsync(cancellationToken: CancellationToken.None))
+                client.GetItemsAsync(
+                    documentLibrary: "testlib",
+                    file: "testfile.xlsx",
+                    table: "Table1",
+                    cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
     }

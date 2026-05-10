@@ -13,9 +13,9 @@
 //   using Azure.Connectors.Sdk.AzureMonitorLogs;
 //   using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
 //   var client = new AzureMonitorLogsClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Excelonline;
-//   using Azure.Connectors.Sdk.Excelonline.Models;
-//   var client = new ExcelonlineClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ExcelOnline;
+//   using Azure.Connectors.Sdk.ExcelOnline.Models;
+//   var client = new ExcelOnlineClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Kusto;
 //   using Azure.Connectors.Sdk.Kusto.Models;
 //   var client = new KustoClient(connectionRuntimeUrl);
@@ -43,9 +43,9 @@
 //   using Azure.Connectors.Sdk.Teams;
 //   using Azure.Connectors.Sdk.Teams.Models;
 //   var client = new TeamsClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Universalprint;
-//   using Azure.Connectors.Sdk.Universalprint.Models;
-//   var client = new UniversalprintClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.UniversalPrint;
+//   using Azure.Connectors.Sdk.UniversalPrint.Models;
+//   var client = new UniversalPrintClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Wdatp;
 //   using Azure.Connectors.Sdk.Wdatp.Models;
 //   var client = new WdatpClient(connectionRuntimeUrl);
