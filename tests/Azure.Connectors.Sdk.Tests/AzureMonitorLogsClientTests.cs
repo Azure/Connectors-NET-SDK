@@ -10,8 +10,8 @@ using System.Reflection;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Azuremonitorlogs;
-using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
+using Azure.Connectors.Sdk.AzureMonitorLogs;
+using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,16 +21,16 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated AzuremonitorlogsClient class.
+    /// Tests for the generated AzureMonitorLogsClient class.
     /// </summary>
     [TestClass]
-    public class AzuremonitorlogsClientTests
+    public class AzureMonitorLogsClientTests
     {
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new AzuremonitorlogsClient("https://test.azure.com/connection");
+            using var client = new AzureMonitorLogsClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -40,14 +40,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new AzuremonitorlogsClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureMonitorLogsClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new AzuremonitorlogsClient("https://test.azure.com/connection");
+            var client = new AzureMonitorLogsClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new AzuremonitorlogsClient(
+            using var client = new AzureMonitorLogsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -158,7 +158,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new AzuremonitorlogsClient(
+            using var client = new AzureMonitorLogsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -221,7 +221,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new AzuremonitorlogsClient(
+            using var client = new AzureMonitorLogsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -379,7 +379,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
-            var client = new AzuremonitorlogsClient(
+            var client = new AzureMonitorLogsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -393,7 +393,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
-            var client = new AzuremonitorlogsClient(
+            var client = new AzureMonitorLogsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 

@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Office365users;
-using Azure.Connectors.Sdk.Office365users.Models;
+using Azure.Connectors.Sdk.Office365Users;
+using Azure.Connectors.Sdk.Office365Users.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,16 +20,16 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated Office365usersClient class.
+    /// Tests for the generated Office365UsersClient class.
     /// </summary>
     [TestClass]
-    public class Office365usersClientTests
+    public class Office365UsersClientTests
     {
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new Office365usersClient("https://test.azure.com/connection");
+            using var client = new Office365UsersClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -39,14 +39,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new Office365usersClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new Office365UsersClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new Office365usersClient("https://test.azure.com/connection");
+            var client = new Office365UsersClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -57,7 +57,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
-            var client = new Office365usersClient(
+            var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
-            var client = new Office365usersClient(
+            var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -121,7 +121,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new Office365usersClient(
+            using var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -174,7 +174,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new Office365usersClient(
+            using var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -226,7 +226,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new Office365usersClient(
+            using var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -288,7 +288,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new Office365usersClient(
+            using var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -334,7 +334,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new Office365usersClient(
+            using var client = new Office365UsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -438,7 +438,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void EntityListResponseIReadOnlyListUser_ShouldImplementIPageable()
+        public void EntityListResponseIReadOnlyListUser_HasPageableProperties()
         {
             // Arrange & Act
             var response = new EntityListResponseIReadOnlyListUser
@@ -452,7 +452,6 @@ namespace Azure.Connectors.Sdk.Tests
             };
 
             // Assert
-            Assert.IsInstanceOfType<IPageable<User>>(response);
             Assert.AreEqual(2, response.Value.Count);
             Assert.AreEqual("https://test.azure.com/nextpage", response.NextLink);
         }

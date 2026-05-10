@@ -264,6 +264,16 @@ namespace Azure.Connectors.Sdk.Smtp
         }
 
         /// <summary>
+        /// Creates a new SmtpClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public SmtpClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
         /// Creates a new SmtpClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>

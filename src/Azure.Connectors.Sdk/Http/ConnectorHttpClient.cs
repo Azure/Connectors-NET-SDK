@@ -55,18 +55,36 @@ namespace Azure.Connectors.Sdk.Http
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorHttpClient"/> class.
+        /// This constructor exists for mocking frameworks (e.g. Moq) and should not be used directly.
+        /// </summary>
+        protected ConnectorHttpClient()
+        {
+            this._pipeline = null!;
+            this._baseUri = null;
+            this._connectorNameProvider = null;
+        }
+
+        /// <summary>
         /// Sends an HTTP request through the Azure.Core pipeline with retry and authentication.
         /// </summary>
         /// <param name="request">The HTTP request.</param>
         /// <param name="scopes">The authentication scopes (used for telemetry; auth is configured in the pipeline).</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The HTTP response.</returns>
-        public async Task<HttpResponseMessage> SendAsync(
+        public virtual async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             string[] scopes,
             CancellationToken cancellationToken = default)
         {
             ArgumentNullException.ThrowIfNull(request);
+
+            if (this._pipeline is null)
+            {
+                throw new InvalidOperationException(
+                    "This ConnectorHttpClient instance was created with the parameterless constructor " +
+                    "intended for mocking frameworks and is not initialized for HTTP operations.");
+            }
 
             using var activity = ConnectorHttpClient.ActivitySource.StartActivity(
                 $"HTTP {request.Method}",
@@ -76,6 +94,11 @@ namespace Azure.Connectors.Sdk.Http
             {
                 activity.SetTag("http.method", request.Method.ToString());
                 activity.SetTag("http.url", request.RequestUri?.ToString());
+
+                if (scopes is { Length: > 0 })
+                {
+                    activity.SetTag("auth.scopes", string.Join(",", scopes));
+                }
 
                 var connectorName = this._connectorNameProvider?.Invoke();
                 if (connectorName is not null)

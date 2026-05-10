@@ -29,7 +29,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azuremonitorlogs</c> connector.
     /// </summary>
-    public const string Azuremonitorlogs = "azuremonitorlogs";
+    public const string AzureMonitorLogs = "azuremonitorlogs";
 
     /// <summary>
     /// The <c>kusto</c> connector.
@@ -54,7 +54,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>office365users</c> connector.
     /// </summary>
-    public const string Office365users = "office365users";
+    public const string Office365Users = "office365users";
 
     /// <summary>
     /// The <c>onedriveforbusiness</c> connector.

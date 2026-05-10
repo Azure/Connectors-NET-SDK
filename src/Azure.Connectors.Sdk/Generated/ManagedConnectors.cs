@@ -7,9 +7,9 @@
 //   using Azure.Connectors.Sdk.AzureBlob;
 //   using Azure.Connectors.Sdk.AzureBlob.Models;
 //   var client = new AzureBlobClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Azuremonitorlogs;
-//   using Azure.Connectors.Sdk.Azuremonitorlogs.Models;
-//   var client = new AzuremonitorlogsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureMonitorLogs;
+//   using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
+//   var client = new AzureMonitorLogsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Kusto;
 //   using Azure.Connectors.Sdk.Kusto.Models;
 //   var client = new KustoClient(connectionRuntimeUrl);
@@ -22,9 +22,9 @@
 //   using Azure.Connectors.Sdk.Office365;
 //   using Azure.Connectors.Sdk.Office365.Models;
 //   var client = new Office365Client(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Office365users;
-//   using Azure.Connectors.Sdk.Office365users.Models;
-//   var client = new Office365usersClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Office365Users;
+//   using Azure.Connectors.Sdk.Office365Users.Models;
+//   var client = new Office365UsersClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.OneDriveForBusiness;
 //   using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 //   var client = new OneDriveForBusinessClient(connectionRuntimeUrl);

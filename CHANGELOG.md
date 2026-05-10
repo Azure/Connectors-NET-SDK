@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- **Renamed `AzuremonitorlogsClient` to `AzureMonitorLogsClient`** and `Office365usersClient` to `Office365UsersClient` for consistent PascalCase naming (#126)
+  - Namespaces updated: `Azure.Connectors.Sdk.Azuremonitorlogs` → `Azure.Connectors.Sdk.AzureMonitorLogs`, `Azure.Connectors.Sdk.Office365users` → `Azure.Connectors.Sdk.Office365Users`
+  - DI extension methods renamed: `AddAzuremonitorlogsClient` → `AddAzureMonitorLogsClient`, `AddOffice365usersClient` → `AddOffice365UsersClient`
+  - Model factories renamed: `AzuremonitorlogsModelFactory` → `AzureMonitorLogsModelFactory`, `Office365usersModelFactory` → `Office365UsersModelFactory`
+  - `ConnectorNames` constants renamed: `ConnectorNames.Azuremonitorlogs` → `ConnectorNames.AzureMonitorLogs`, `ConnectorNames.Office365users` → `ConnectorNames.Office365Users`
+- **Made `IPageable<T>` internal** — this interface is now an internal deserialization contract only; generated clients already return `AsyncPageable<T>` from Azure.Core publicly (#127)
+- **Changed `ConnectorClientBase.CreatePageable` from `protected` to `private protected`** — only accessible to derived classes within the assembly; external subclasses of `ConnectorClientBase` cannot call this method directly (#127)
+- **Made JSON converter types internal** — `Iso8601DateTimeConverter`, `Iso8601TimeSpanConverter`, `NullableTimeSpanConverter` are serialization infrastructure not intended for direct consumer use (#124)
+
+### Added
+
+- **Constructor overload `(Uri, TokenCredential)` without `ClientOptions` parameter** on `ConnectorClientBase` and all 12 generated clients, following the [Azure SDK constructor guideline](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-client-constructor-minimal) (#123)
+- **`ConnectorHttpClient` now supports mocking** — added protected parameterless constructor and marked `SendAsync` as virtual (#125)
+
+### Changed
+
+- **Regenerated all 12 connector clients** from updated CodefulSdkGenerator with PascalCase name overrides and constructor additions
+
 ## [0.9.0-preview.1] - 2026-05-08
 
 ### Breaking Changes

@@ -67,6 +67,17 @@ namespace Azure.Connectors.Sdk
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
+        protected ConnectorClientBase(Uri connectionRuntimeUrl, TokenCredential credential)
+            : this(connectionRuntimeUrl, credential, options: null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectorClientBase"/> class
+        /// with a connection runtime URL and explicit Azure credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, transport, diagnostics, etc.</param>
         protected ConnectorClientBase(
             Uri connectionRuntimeUrl,
@@ -277,7 +288,7 @@ namespace Azure.Connectors.Sdk
         /// <param name="firstPageFunc">Function that fetches the first page.</param>
         /// <param name="nextPageFunc">Function that fetches subsequent pages given a NextLink URL.</param>
         /// <param name="cancellationToken">Cancellation token for the page fetch operations.</param>
-        protected AsyncPageable<TItem> CreatePageable<TPage, TItem>(
+        private protected AsyncPageable<TItem> CreatePageable<TPage, TItem>(
             Func<CancellationToken, Task<TPage>> firstPageFunc,
             Func<string, CancellationToken, Task<TPage>> nextPageFunc,
             CancellationToken cancellationToken = default)
