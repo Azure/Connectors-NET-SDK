@@ -79,6 +79,13 @@ namespace Azure.Connectors.Sdk.Http
         {
             ArgumentNullException.ThrowIfNull(request);
 
+            if (this._pipeline is null)
+            {
+                throw new InvalidOperationException(
+                    "This ConnectorHttpClient instance was created with the parameterless constructor " +
+                    "intended for mocking frameworks and is not initialized for HTTP operations.");
+            }
+
             using var activity = ConnectorHttpClient.ActivitySource.StartActivity(
                 $"HTTP {request.Method}",
                 ActivityKind.Client);
