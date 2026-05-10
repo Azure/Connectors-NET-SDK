@@ -911,12 +911,19 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <summary>
         /// Extract archive to folder
         /// </summary>
-        /// <remarks>This operation extracts an archive file into a folder (example: .zip). Maximum archive size is 50 MB and 100 files inside.</remarks>
+        /// <remarks>
+        /// <para>This operation extracts an archive file into a folder (example: .zip). Maximum archive size is 50 MB and 100 files inside.</para>
+        /// <para><b>Known issue:</b> The connector service returns HTTP 404 for this route
+        /// (<c>/datasets/default/extractFolderV2</c>). The route is documented in swagger but not registered
+        /// in the connector backend.
+        /// See <see href="https://github.com/Azure/Connectors-NET-SDK/issues/71">issue #71</see>.</para>
+        /// </remarks>
         /// <param name="sourceArchiveFilePath">Source Archive File Path</param>
         /// <param name="destinationFolderPath">Destination Folder Path</param>
         /// <param name="overwrite">Overwrite</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Extract archive to folder response.</returns>
+        [Obsolete("This operation is known to fail with HTTP 404 — the route is not registered in the connector service. See https://github.com/Azure/Connectors-NET-SDK/issues/71")]
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
