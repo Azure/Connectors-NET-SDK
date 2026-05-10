@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.Mq.Models;
+using Azure.Connectors.Sdk.Serialization;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -365,6 +366,32 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(sendResponse.MessageData, deserialized.MessageData);
             Assert.AreEqual(sendResponse.CorrelationId, deserialized.CorrelationId);
             Assert.AreEqual(sendResponse.ItemInternalId, deserialized.ItemInternalId);
+        }
+
+        [TestMethod]
+        public void SendValidDataOptions_Serialization_UsesPascalCasePropertyNames()
+        {
+            // Arrange
+            var options = new SendValidDataOptions
+            {
+                Queue = "TEST.QUEUE",
+                Message = "Hello MQ"
+            };
+
+            // Act
+            var json = ConnectorJsonSerializer.Serialize(options);
+            var deserialized = ConnectorJsonSerializer.Deserialize<SendValidDataOptions>(json);
+
+            // Assert - Properties without [JsonPropertyName] must use PascalCase (matching swagger)
+            Assert.IsTrue(json.Contains("\"Message\"", StringComparison.Ordinal), $"Expected PascalCase 'Message' but got: {json}");
+            Assert.IsTrue(json.Contains("\"Queue\"", StringComparison.Ordinal), $"Expected PascalCase 'Queue' but got: {json}");
+            Assert.IsFalse(json.Contains("\"message\"", StringComparison.Ordinal), $"camelCase 'message' should not appear: {json}");
+            Assert.IsFalse(json.Contains("\"queue\"", StringComparison.Ordinal), $"camelCase 'queue' should not appear: {json}");
+
+            // Assert round-trip fidelity
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual("TEST.QUEUE", deserialized!.Queue);
+            Assert.AreEqual("Hello MQ", deserialized.Message);
         }
 
         [TestMethod]

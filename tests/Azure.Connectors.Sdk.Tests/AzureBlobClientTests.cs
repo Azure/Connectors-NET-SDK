@@ -613,7 +613,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void SensitivityLabelMetadata_UsesJsonPropertyNames()
         {
-            // Arrange - JSON uses camelCase property names
+            // Arrange - JSON uses property names from [JsonPropertyName] attributes
             var json = """{"sensitivityLabelId":"lbl-1","name":"Public","displayName":"Public","tooltip":"Public data","priority":1,"color":"green","isEncrypted":false,"isEnabled":true,"isParent":false,"parentSensitivityLabelId":null}""";
 
             // Act
