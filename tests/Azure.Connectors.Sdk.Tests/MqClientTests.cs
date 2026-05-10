@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.Mq.Models;
-using Azure.Connectors.Sdk.Serialization;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -369,29 +368,53 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void SendValidDataOptions_Serialization_UsesPascalCasePropertyNames()
+        public async Task SendAsync_SerializesRequestBody_WithPascalCasePropertyNames()
         {
-            // Arrange
-            var options = new SendValidDataOptions
-            {
-                Queue = "TEST.QUEUE",
-                Message = "Hello MQ"
-            };
+            // Arrange — capture the outgoing HTTP request body
+            string? capturedRequestBody = null;
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns(async (HttpRequestMessage request, CancellationToken ct) =>
+                {
+                    capturedRequestBody = await request.Content!.ReadAsStringAsync(ct).ConfigureAwait(false);
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new StringContent("{\"itemInternalId\":\"id-1\"}")
+                    };
+                });
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            using var client = new MqClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
 
             // Act
-            var json = ConnectorJsonSerializer.Serialize(options);
-            var deserialized = ConnectorJsonSerializer.Deserialize<SendValidDataOptions>(json);
+            await client
+                .SendAsync(
+                    new SendValidDataOptions { Message = "Hello MQ", Queue = "TEST.QUEUE" },
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
-            // Assert - Properties without [JsonPropertyName] must use PascalCase (matching swagger)
-            Assert.IsTrue(json.Contains("\"Message\"", StringComparison.Ordinal), $"Expected PascalCase 'Message' but got: {json}");
-            Assert.IsTrue(json.Contains("\"Queue\"", StringComparison.Ordinal), $"Expected PascalCase 'Queue' but got: {json}");
-            Assert.IsFalse(json.Contains("\"message\"", StringComparison.Ordinal), $"camelCase 'message' should not appear: {json}");
-            Assert.IsFalse(json.Contains("\"queue\"", StringComparison.Ordinal), $"camelCase 'queue' should not appear: {json}");
-
-            // Assert round-trip fidelity
-            Assert.IsNotNull(deserialized);
-            Assert.AreEqual("TEST.QUEUE", deserialized!.Queue);
-            Assert.AreEqual("Hello MQ", deserialized.Message);
+            // Assert — the actual HTTP body must use PascalCase property names
+            Assert.IsNotNull(capturedRequestBody, "Request body was not captured");
+            Assert.IsTrue(capturedRequestBody.Contains("\"Message\"", StringComparison.Ordinal), $"Expected PascalCase 'Message' but got: {capturedRequestBody}");
+            Assert.IsTrue(capturedRequestBody.Contains("\"Queue\"", StringComparison.Ordinal), $"Expected PascalCase 'Queue' but got: {capturedRequestBody}");
+            Assert.IsFalse(capturedRequestBody.Contains("\"message\"", StringComparison.Ordinal), $"camelCase 'message' should not appear: {capturedRequestBody}");
+            Assert.IsFalse(capturedRequestBody.Contains("\"queue\"", StringComparison.Ordinal), $"camelCase 'queue' should not appear: {capturedRequestBody}");
         }
 
         [TestMethod]
