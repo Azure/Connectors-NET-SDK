@@ -98,6 +98,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureEventGridClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureEventGridClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureEventGrid,
+                factory: (connectionRuntimeUrl, credential) => new AzureEventGridClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -111,6 +127,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.AzureMonitorLogs,
                 factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddExcelOnlineClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ExcelOnline,
+                factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -255,38 +287,6 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.Teams,
                 factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddAzureEventGridClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureEventGridClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.AzureEventGrid,
-                factory: (connectionRuntimeUrl, credential) => new AzureEventGridClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddExcelOnlineClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.ExcelOnline,
-                factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
