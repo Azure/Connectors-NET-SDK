@@ -88,6 +88,11 @@ namespace Azure.Connectors.Sdk.Http
                 activity.SetTag("http.method", request.Method.ToString());
                 activity.SetTag("http.url", request.RequestUri?.ToString());
 
+                if (scopes is { Length: > 0 })
+                {
+                    activity.SetTag("auth.scopes", string.Join(",", scopes));
+                }
+
                 var connectorName = this._connectorNameProvider?.Invoke();
                 if (connectorName is not null)
                 {
