@@ -4,16 +4,36 @@
 
 using Azure.Connectors.Sdk.Arm;
 using Azure.Connectors.Sdk.AzureBlob;
+using Azure.Connectors.Sdk.AzureEventGrid;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
+using Azure.Connectors.Sdk.Campfire;
+using Azure.Connectors.Sdk.ClickSendSms;
+using Azure.Connectors.Sdk.CloudmersiveConvert;
+using Azure.Connectors.Sdk.Etsy;
+using Azure.Connectors.Sdk.ExcelOnline;
+using Azure.Connectors.Sdk.FormstackForms;
+using Azure.Connectors.Sdk.FreshService;
+using Azure.Connectors.Sdk.Infusionsoft;
+using Azure.Connectors.Sdk.Insightly;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.Pipedrive;
+using Azure.Connectors.Sdk.Plivo;
+using Azure.Connectors.Sdk.Plumsail;
+using Azure.Connectors.Sdk.Replicon;
+using Azure.Connectors.Sdk.Revai;
 using Azure.Connectors.Sdk.SharePointOnline;
+using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.UniversalPrint;
+using Azure.Connectors.Sdk.Wdatp;
+using Azure.Connectors.Sdk.Yammer;
+using Azure.Connectors.Sdk.ZohoSign;
 using global::Azure.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -269,7 +289,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void AllConnectorExtensionMethods_RegisterCorrectClientAndConnectorName()
         {
-            // Arrange — register all 12 connectors.
+            // Arrange — register all 32 connectors.
             var services = new ServiceCollection();
             var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
                 "https://test.azure.com/apim/connector/abc123");
@@ -277,32 +297,72 @@ namespace Azure.Connectors.Sdk.Tests
             services
                 .AddArmClient(configuration)
                 .AddAzureBlobClient(configuration)
+                .AddAzureEventGridClient(configuration)
                 .AddAzureMonitorLogsClient(configuration)
+                .AddCampfireClient(configuration)
+                .AddClickSendSmsClient(configuration)
+                .AddCloudmersiveConvertClient(configuration)
+                .AddEtsyClient(configuration)
+                .AddExcelOnlineClient(configuration)
+                .AddFormstackFormsClient(configuration)
+                .AddFreshServiceClient(configuration)
+                .AddInfusionsoftClient(configuration)
+                .AddInsightlyClient(configuration)
                 .AddKustoClient(configuration)
                 .AddMqClient(configuration)
                 .AddMsGraphGroupsAndUsersClient(configuration)
                 .AddOffice365Client(configuration)
                 .AddOffice365UsersClient(configuration)
                 .AddOneDriveForBusinessClient(configuration)
+                .AddPipedriveClient(configuration)
+                .AddPlivoClient(configuration)
+                .AddPlumsailClient(configuration)
+                .AddRepliconClient(configuration)
+                .AddRevaiClient(configuration)
                 .AddSharePointOnlineClient(configuration)
+                .AddSigningHubClient(configuration)
                 .AddSmtpClient(configuration)
-                .AddTeamsClient(configuration);
+                .AddTeamsClient(configuration)
+                .AddUniversalPrintClient(configuration)
+                .AddWdatpClient(configuration)
+                .AddYammerClient(configuration)
+                .AddZohoSignClient(configuration);
 
             var provider = services.BuildServiceProvider();
 
             // Act & Assert — verify each client resolves with the correct ConnectorName.
             Assert.AreEqual("arm", provider.GetRequiredService<ArmClient>().ConnectorName);
             Assert.AreEqual("azureblob", provider.GetRequiredService<AzureBlobClient>().ConnectorName);
+            Assert.AreEqual("azureeventgrid", provider.GetRequiredService<AzureEventGridClient>().ConnectorName);
             Assert.AreEqual("azuremonitorlogs", provider.GetRequiredService<AzureMonitorLogsClient>().ConnectorName);
+            Assert.AreEqual("campfire", provider.GetRequiredService<CampfireClient>().ConnectorName);
+            Assert.AreEqual("clicksendsms", provider.GetRequiredService<ClickSendSmsClient>().ConnectorName);
+            Assert.AreEqual("cloudmersiveconvert", provider.GetRequiredService<CloudmersiveConvertClient>().ConnectorName);
+            Assert.AreEqual("etsy", provider.GetRequiredService<EtsyClient>().ConnectorName);
+            Assert.AreEqual("excelonline", provider.GetRequiredService<ExcelOnlineClient>().ConnectorName);
+            Assert.AreEqual("formstackforms", provider.GetRequiredService<FormstackFormsClient>().ConnectorName);
+            Assert.AreEqual("freshservice", provider.GetRequiredService<FreshServiceClient>().ConnectorName);
+            Assert.AreEqual("infusionsoft", provider.GetRequiredService<InfusionsoftClient>().ConnectorName);
+            Assert.AreEqual("insightly", provider.GetRequiredService<InsightlyClient>().ConnectorName);
             Assert.AreEqual("kusto", provider.GetRequiredService<KustoClient>().ConnectorName);
             Assert.AreEqual("mq", provider.GetRequiredService<MqClient>().ConnectorName);
             Assert.AreEqual("msgraphgroupsanduser", provider.GetRequiredService<MsGraphGroupsAndUsersClient>().ConnectorName);
             Assert.AreEqual("office365", provider.GetRequiredService<Office365Client>().ConnectorName);
             Assert.AreEqual("office365users", provider.GetRequiredService<Office365UsersClient>().ConnectorName);
             Assert.AreEqual("onedriveforbusiness", provider.GetRequiredService<OneDriveForBusinessClient>().ConnectorName);
+            Assert.AreEqual("pipedrive", provider.GetRequiredService<PipedriveClient>().ConnectorName);
+            Assert.AreEqual("plivo", provider.GetRequiredService<PlivoClient>().ConnectorName);
+            Assert.AreEqual("plumsail", provider.GetRequiredService<PlumsailClient>().ConnectorName);
+            Assert.AreEqual("replicon", provider.GetRequiredService<RepliconClient>().ConnectorName);
+            Assert.AreEqual("revai", provider.GetRequiredService<RevaiClient>().ConnectorName);
             Assert.AreEqual("sharepointonline", provider.GetRequiredService<SharePointOnlineClient>().ConnectorName);
+            Assert.AreEqual("signinghub", provider.GetRequiredService<SigningHubClient>().ConnectorName);
             Assert.AreEqual("smtp", provider.GetRequiredService<SmtpClient>().ConnectorName);
             Assert.AreEqual("teams", provider.GetRequiredService<TeamsClient>().ConnectorName);
+            Assert.AreEqual("universalprint", provider.GetRequiredService<UniversalPrintClient>().ConnectorName);
+            Assert.AreEqual("wdatp", provider.GetRequiredService<WdatpClient>().ConnectorName);
+            Assert.AreEqual("yammer", provider.GetRequiredService<YammerClient>().ConnectorName);
+            Assert.AreEqual("zohosign", provider.GetRequiredService<ZohoSignClient>().ConnectorName);
         }
 
         private static IConfiguration BuildMockConfiguration(

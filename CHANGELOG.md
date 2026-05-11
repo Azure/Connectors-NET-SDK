@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Constructor overload `(Uri, TokenCredential)` without `ClientOptions` parameter** on `ConnectorClientBase` and all 12 generated clients, following the [Azure SDK constructor guideline](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-client-constructor-minimal) (#123)
 - **`ConnectorHttpClient` now supports mocking** — added protected parameterless constructor and marked `SendAsync` as virtual (#125)
 - **5 new connector clients** — `ExcelOnlineClient`, `AzureEventGridClient`, `YammerClient`, `WdatpClient` (Microsoft Defender ATP), `UniversalPrintClient` (#7)
+- **15 more connector clients (batch 2)** — `CampfireClient`, `ClickSendSmsClient`, `CloudmersiveConvertClient`, `EtsyClient`, `FormstackFormsClient`, `FreshServiceClient`, `InfusionsoftClient`, `InsightlyClient`, `PipedriveClient`, `PlivoClient`, `PlumsailClient`, `RepliconClient`, `RevaiClient`, `SigningHubClient`, `ZohoSignClient` (#7)
 
 ### Changed
 
