@@ -34,7 +34,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         [JsonPropertyName("@odata.context")]
         public string Context { get; set; }
 
-        /// <summary>Only used in Power Apps Canvas to genereate the `$skipToken` for pagination. Power Automate and Logic Apps must use the pagination setting.</summary>
+        /// <summary>Only used in Power Apps Canvas to generate the `$skipToken` for pagination. Power Automate and Logic Apps must use the pagination setting.</summary>
         [JsonPropertyName("@odata.nextLink")]
         public string NextLink { get; set; }
 
@@ -66,7 +66,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         [JsonPropertyName("@odata.context")]
         public string Context { get; set; }
 
-        /// <summary>Only used in Power Apps Canvas to genereate the `$skipToken` for pagination. Power Automate and Logic Apps must use the pagination setting.</summary>
+        /// <summary>Only used in Power Apps Canvas to generate the `$skipToken` for pagination. Power Automate and Logic Apps must use the pagination setting.</summary>
         [JsonPropertyName("@odata.nextLink")]
         public string NextLink { get; set; }
 

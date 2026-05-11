@@ -126,7 +126,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     {
         /// <summary>Resource ID of the Job</summary>
         [JsonPropertyName("id")]
-        public string ResourceID { get; set; }
+        public string ResourceId { get; set; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -307,12 +307,12 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
         /// Creates a new instance of <see cref="CreateJobResponse"/>.
         /// </summary>
         public static CreateJobResponse CreateJobResponse(
-            string resourceID = default,
+            string resourceId = default,
             object properties = default)
         {
             return new CreateJobResponse
             {
-                ResourceID = resourceID,
+                ResourceId = resourceId,
                 Properties = properties,
             };
         }
@@ -455,12 +455,12 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         /// <param name="subscription">Subscription</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="automationAccount">Automation Account</param>
-        /// <param name="jobID">Job ID</param>
+        /// <param name="jobId">Job ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get job output response.</returns>
-        public virtual async Task<byte[]> GetJobOutputAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, string jobID, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetJobOutputAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, string jobId, CancellationToken cancellationToken = default)
         {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs/{Uri.EscapeDataString(jobID.ToString())}/output";
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs/{Uri.EscapeDataString(jobId.ToString())}/output";
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -473,12 +473,12 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         /// <param name="subscription">Subscription</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="automationAccount">Automation Account</param>
-        /// <param name="jobID">Job ID</param>
+        /// <param name="jobId">Job ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get status of job response.</returns>
-        public virtual async Task<CreateJobResponse> GetStatusOfJobAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, string jobID, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateJobResponse> GetStatusOfJobAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, string jobId, CancellationToken cancellationToken = default)
         {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs/{Uri.EscapeDataString(jobID.ToString())}";
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs/{Uri.EscapeDataString(jobId.ToString())}";
             return await this
                 .CallConnectorAsync<CreateJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

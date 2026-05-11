@@ -56,5 +56,6 @@ namespace Azure.Connectors.Sdk.Tests
             client.Dispose();
             client.Dispose();
         }
+
     }
 }

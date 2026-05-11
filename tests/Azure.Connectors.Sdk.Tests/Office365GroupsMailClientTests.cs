@@ -56,5 +56,31 @@ namespace Azure.Connectors.Sdk.Tests
             client.Dispose();
             client.Dispose();
         }
+
+        private static Office365GroupsMailClient CreateMockedClient(HttpResponseMessage response)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response).Verifiable();
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            return new Office365GroupsMailClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
+        }
+
+        [TestMethod]
+        public async Task ListGroupsAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            };
+            using var client = CreateMockedClient(responseMessage);
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListGroupsAsync(cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
     }
 }
