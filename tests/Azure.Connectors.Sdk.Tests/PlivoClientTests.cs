@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Plivo;
+using Azure.Connectors.Sdk.Plivo.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,6 +29,28 @@ namespace Azure.Connectors.Sdk.Tests
             mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
             return mock;
+        }
+
+        private static PlivoClient CreateMockedClient(HttpResponseMessage response)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response)
+                .Callback(() => { })
+                .Verifiable();
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            return new PlivoClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
         }
 
         [TestMethod]
@@ -58,6 +81,40 @@ namespace Azure.Connectors.Sdk.Tests
                 credential: SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
+        }
+
+        [TestMethod]
+        public async Task ListMessagesAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .ListMessagesAsync(authID: "auth1", cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task ListMessagesAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListMessagesAsync(authID: "auth1", cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
     }
 }

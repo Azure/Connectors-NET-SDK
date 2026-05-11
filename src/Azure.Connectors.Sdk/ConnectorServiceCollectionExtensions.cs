@@ -204,10 +204,6 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new EtsyClient(connectionRuntimeUrl, credential));
         }
 
-
-
-
-
         /// <summary>
         /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -283,10 +279,6 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Insightly,
                 factory: (connectionRuntimeUrl, credential) => new InsightlyClient(connectionRuntimeUrl, credential));
         }
-
-
-
-
 
         /// <summary>
         /// Registers <see cref="KustoClient"/> as a singleton using connection settings from the specified configuration section.
@@ -459,11 +451,6 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new RevaiClient(connectionRuntimeUrl, credential));
         }
 
-
-
-
-
-
         /// <summary>
         /// Registers <see cref="SharePointOnlineClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -494,7 +481,6 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.SigningHub,
                 factory: (connectionRuntimeUrl, credential) => new SigningHubClient(connectionRuntimeUrl, credential));
         }
-
 
         /// <summary>
         /// Registers <see cref="SmtpClient"/> as a singleton using connection settings from the specified configuration section.
@@ -590,7 +576,6 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.ZohoSign,
                 factory: (connectionRuntimeUrl, credential) => new ZohoSignClient(connectionRuntimeUrl, credential));
         }
-
 
         /// <summary>
         /// Common helper that validates configuration eagerly and registers a connector client singleton.

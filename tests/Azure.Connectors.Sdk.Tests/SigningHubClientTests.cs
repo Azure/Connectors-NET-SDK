@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.SigningHub;
+using Azure.Connectors.Sdk.SigningHub.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,6 +29,28 @@ namespace Azure.Connectors.Sdk.Tests
             mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
             return mock;
+        }
+
+        private static SigningHubClient CreateMockedClient(HttpResponseMessage response)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response)
+                .Callback(() => { })
+                .Verifiable();
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            return new SigningHubClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
         }
 
         [TestMethod]
@@ -58,6 +81,57 @@ namespace Azure.Connectors.Sdk.Tests
                 credential: SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
+        }
+
+        [TestMethod]
+        public async Task AttachmentGetAttachmentsAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .AttachmentGetAttachmentsAsync(packageID: 1, documentID: 1, cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task AttachmentGetAttachmentsAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.AttachmentGetAttachmentsAsync(packageID: 1, documentID: 1, cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public void ContactResponse_Serialization_RoundTrips()
+        {
+            var model = new ContactResponse
+            {
+                UserName = "john",
+                UserEmail = "j@test.com"
+            };
+
+            var json = JsonSerializer.Serialize(model);
+            var deserialized = JsonSerializer.Deserialize<ContactResponse>(json);
+
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual(expected: "john", actual: deserialized!.UserName);
+            Assert.AreEqual(expected: "j@test.com", actual: deserialized!.UserEmail);
         }
     }
 }
