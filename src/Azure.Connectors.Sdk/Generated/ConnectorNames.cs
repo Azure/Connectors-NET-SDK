@@ -3,7 +3,6 @@
 
 namespace Azure.Connectors.Sdk;
 
-
 /// <summary>
 /// Well-known connector names for connectors with SDK-generated clients.
 /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>ConnectorName</c> property
