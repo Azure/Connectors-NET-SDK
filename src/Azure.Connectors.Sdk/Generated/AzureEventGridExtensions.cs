@@ -21,264 +21,264 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.AzureEventGrid.Models
 {
 
-#region Types
+    #region Types
 
-/// <summary>
-/// Response for TopicTypes_List
-/// </summary>
-public class TopicTypesResponse
-{
-    /// <summary>value</summary>
-    [JsonPropertyName("value")]
-    public List<object> Value { get; set; }
-}
-
-/// <summary>
-/// Response for List subscriptions
-/// </summary>
-public class SubscriptionListResult
-{
-    /// <summary>The subscriptions available to the user.</summary>
-    [JsonPropertyName("value")]
-    public List<Subscription> Value { get; set; }
-}
-
-/// <summary>
-/// Item in The subscriptions available to the user.
-/// </summary>
-public class Subscription
-{
-    /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
-    [JsonPropertyName("id")]
-    [JsonInclude]
-    public string Id { get; internal set; }
-
-    /// <summary>The subscription Id.</summary>
-    [JsonPropertyName("subscriptionId")]
-    [JsonInclude]
-    public string SubscriptionId { get; internal set; }
-
-    /// <summary>The subscription display name.</summary>
-    [JsonPropertyName("displayName")]
-    [JsonInclude]
-    public string DisplayName { get; internal set; }
-}
-
-/// <summary>
-/// EventRequest
-/// </summary>
-public class EventRequest
-{
-    /// <summary>properties</summary>
-    [JsonPropertyName("properties")]
-    public object Properties { get; set; }
-}
-
-#endregion Types
-
-#region Model Factory
-
-/// <summary>
-/// Model factory for creating instances of AzureEventGrid models.
-/// Use these factory methods to construct model instances in tests and scenarios
-/// where output-only properties (with internal setters) need to be populated.
-/// </summary>
-public static class AzureEventGridModelFactory
-{
     /// <summary>
-    /// Creates a new instance of <see cref="TopicTypesResponse"/>.
+    /// Response for TopicTypes_List
     /// </summary>
-    public static TopicTypesResponse TopicTypesResponse(
-        List<object> value = default)
+    public class TopicTypesResponse
     {
-        return new TopicTypesResponse
-        {
-            Value = value,
-        };
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<object> Value { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="SubscriptionListResult"/>.
+    /// Response for List subscriptions
     /// </summary>
-    public static SubscriptionListResult SubscriptionListResult(
-        List<Subscription> value = default)
+    public class SubscriptionListResult
     {
-        return new SubscriptionListResult
-        {
-            Value = value,
-        };
+        /// <summary>The subscriptions available to the user.</summary>
+        [JsonPropertyName("value")]
+        public List<Subscription> Value { get; set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="Subscription"/>.
+    /// Item in The subscriptions available to the user.
     /// </summary>
-    public static Subscription Subscription(
-        string id = default,
-        string subscriptionId = default,
-        string displayName = default)
+    public class Subscription
     {
-        return new Subscription
-        {
-            Id = id,
-            SubscriptionId = subscriptionId,
-            DisplayName = displayName,
-        };
+        /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string Id { get; internal set; }
+
+        /// <summary>The subscription Id.</summary>
+        [JsonPropertyName("subscriptionId")]
+        [JsonInclude]
+        public string SubscriptionId { get; internal set; }
+
+        /// <summary>The subscription display name.</summary>
+        [JsonPropertyName("displayName")]
+        [JsonInclude]
+        public string DisplayName { get; internal set; }
     }
 
     /// <summary>
-    /// Creates a new instance of <see cref="EventRequest"/>.
+    /// EventRequest
     /// </summary>
-    public static EventRequest EventRequest(
-        object properties = default)
+    public class EventRequest
     {
-        return new EventRequest
-        {
-            Properties = properties,
-        };
+        /// <summary>properties</summary>
+        [JsonPropertyName("properties")]
+        public object Properties { get; set; }
     }
-}
 
-#endregion Model Factory
+    #endregion Types
+
+    #region Model Factory
+
+    /// <summary>
+    /// Model factory for creating instances of AzureEventGrid models.
+    /// Use these factory methods to construct model instances in tests and scenarios
+    /// where output-only properties (with internal setters) need to be populated.
+    /// </summary>
+    public static class AzureEventGridModelFactory
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="TopicTypesResponse"/>.
+        /// </summary>
+        public static TopicTypesResponse TopicTypesResponse(
+            List<object> value = default)
+        {
+            return new TopicTypesResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SubscriptionListResult"/>.
+        /// </summary>
+        public static SubscriptionListResult SubscriptionListResult(
+            List<Subscription> value = default)
+        {
+            return new SubscriptionListResult
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Subscription"/>.
+        /// </summary>
+        public static Subscription Subscription(
+            string id = default,
+            string subscriptionId = default,
+            string displayName = default)
+        {
+            return new Subscription
+            {
+                Id = id,
+                SubscriptionId = subscriptionId,
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EventRequest"/>.
+        /// </summary>
+        public static EventRequest EventRequest(
+            object properties = default)
+        {
+            return new EventRequest
+            {
+                Properties = properties,
+            };
+        }
+    }
+
+    #endregion Model Factory
 
 }
 
 namespace Azure.Connectors.Sdk.AzureEventGrid
 {
 
-#region Trigger Operation Constants
+    #region Trigger Operation Constants
 
-/// <summary>
-/// Trigger operation name constants for the AzureEventGrid connector.
-/// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-/// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
-/// </summary>
-public static class AzureEventGridTriggerOperations
-{
     /// <summary>
-    /// When a resource event occurs.
+    /// Trigger operation name constants for the AzureEventGrid connector.
+    /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
+    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
     /// </summary>
-    public const string OnCreateSubscription = "CreateSubscription";
-
-}
-
-#endregion Trigger Operation Constants
-
-#region Trigger Parameter Metadata
-
-/// <summary>
-/// Trigger input parameter name constants for the AzureEventGrid connector.
-/// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
-/// </summary>
-public static class AzureEventGridTriggerParameters
-{
-    /// <summary>
-    /// Input parameters for the OnCreateSubscription trigger operation (operationId: CreateSubscription).
-    /// </summary>
-    public static class OnCreateSubscription
+    public static class AzureEventGridTriggerOperations
     {
         /// <summary>
-        /// API Version.
-        /// Required.
-        /// Default: 2017-09-15-preview.
+        /// When a resource event occurs.
         /// </summary>
-        public const string XMsApiVersion = "x-ms-api-version";
+        public const string OnCreateSubscription = "CreateSubscription";
+
+    }
+
+    #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the AzureEventGrid connector.
+    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class AzureEventGridTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnCreateSubscription trigger operation (operationId: CreateSubscription).
+        /// </summary>
+        public static class OnCreateSubscription
+        {
+            /// <summary>
+            /// API Version.
+            /// Required.
+            /// Default: 2017-09-15-preview.
+            /// </summary>
+            public const string XMsApiVersion = "x-ms-api-version";
+
+            /// <summary>
+            /// Name to use for the new Event Grid subscription.
+            /// </summary>
+            public const string SubscriptionName = "subscriptionName";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
+    #region Client
+
+    /// <summary>
+    /// Typed client for azureeventgrid connector.
+    /// </summary>
+    public class AzureEventGridClient : ConnectorClientBase
+    {
+        /// <summary>
+        /// Creates a new AzureEventGridClient with the specified connection runtime URL.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public AzureEventGridClient(Uri connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
 
         /// <summary>
-        /// Name to use for the new Event Grid subscription.
+        /// Creates a new AzureEventGridClient with the specified connection runtime URL and credential.
         /// </summary>
-        public const string SubscriptionName = "subscriptionName";
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        /// <param name="options">Optional client options for retry, timeout, etc.</param>
+        public AzureEventGridClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+            : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new AzureEventGridClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public AzureEventGridClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new AzureEventGridClient with the specified connection runtime URL string.
+        /// Uses <see cref="ManagedIdentityCredential"/> by default.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        public AzureEventGridClient(string connectionRuntimeUrl)
+            : base(connectionRuntimeUrl)
+        {
+        }
+
+        protected AzureEventGridClient() : this(new Uri("https://localhost")) { }
+
+        public override string ConnectorName => "azureeventgrid";
+
+        /// <summary>
+        /// TopicTypes_List
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The TopicTypes_List response.</returns>
+        public virtual async Task<TopicTypesResponse> TopicTypesListAsync(CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2017-09-15-preview");
+            var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// List subscriptions
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List subscriptions response.</returns>
+        public virtual async Task<SubscriptionListResult> SubscriptionsListAsync(CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2015-11-01");
+            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return await this
+                .CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
 
     }
 
-}
-
-#endregion Trigger Parameter Metadata
-
-#region Client
-
-/// <summary>
-/// Typed client for azureeventgrid connector.
-/// </summary>
-public class AzureEventGridClient : ConnectorClientBase
-{
-    /// <summary>
-    /// Creates a new AzureEventGridClient with the specified connection runtime URL.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public AzureEventGridClient(Uri connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new AzureEventGridClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    /// <param name="options">Optional client options for retry, timeout, etc.</param>
-    public AzureEventGridClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-        : base(connectionRuntimeUrl, credential, options)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new AzureEventGridClient with the specified connection runtime URL and credential.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    /// <param name="credential">The Azure credential for authentication.</param>
-    public AzureEventGridClient(Uri connectionRuntimeUrl, TokenCredential credential)
-        : base(connectionRuntimeUrl, credential)
-    {
-    }
-
-    /// <summary>
-    /// Creates a new AzureEventGridClient with the specified connection runtime URL string.
-    /// Uses <see cref="ManagedIdentityCredential"/> by default.
-    /// </summary>
-    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-    public AzureEventGridClient(string connectionRuntimeUrl)
-        : base(connectionRuntimeUrl)
-    {
-    }
-
-    protected AzureEventGridClient() : this(new Uri("https://localhost")) { }
-
-    public override string ConnectorName => "azureeventgrid";
-
-    /// <summary>
-    /// TopicTypes_List
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The TopicTypes_List response.</returns>
-    public virtual async Task<TopicTypesResponse> TopicTypesListAsync(CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        queryParams.Add("x-ms-api-version=2017-09-15-preview");
-        var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-    /// <summary>
-    /// List subscriptions
-    /// </summary>
-    /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The List subscriptions response.</returns>
-    public virtual async Task<SubscriptionListResult> SubscriptionsListAsync(CancellationToken cancellationToken = default)
-    {
-        var queryParams = new List<string>();
-        queryParams.Add("x-ms-api-version=2015-11-01");
-        var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-        return await this
-            .CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
-    }
-
-}
-
-#endregion Client
+    #endregion Client
 }
