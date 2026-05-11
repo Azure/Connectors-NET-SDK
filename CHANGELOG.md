@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`ConnectorHttpClient` now supports mocking** — added protected parameterless constructor and marked `SendAsync` as virtual (#125)
 - **5 new connector clients** — `ExcelOnlineClient`, `AzureEventGridClient`, `YammerClient`, `WdatpClient` (Microsoft Defender ATP), `UniversalPrintClient` (#7)
 - **15 more connector clients (batch 2)** — `CampfireClient`, `ClickSendSmsClient`, `CloudmersiveConvertClient`, `EtsyClient`, `FormstackFormsClient`, `FreshServiceClient`, `InfusionsoftClient`, `InsightlyClient`, `PipedriveClient`, `PlivoClient`, `PlumsailClient`, `RepliconClient`, `RevaiClient`, `SigningHubClient`, `ZohoSignClient` (#7)
+- **15 more connector clients (batch 3)** — `DocuwareClient`, `ElfsquadDataClient`, `ImpexiumClient`, `JedoxOdataHubClient`, `MeetingRoomMapClient`, `OrderfulClient`, `PdfCoClient`, `ProjectplaceClient`, `SeismicPlannerClient`, `StarmindClient`, `StarrezRestV1Client`, `TallyfyClient`, `TextRequestClient`, `TicketmasterClient`, `WaywedoClient` (#7)
 
 ### Changed
 
