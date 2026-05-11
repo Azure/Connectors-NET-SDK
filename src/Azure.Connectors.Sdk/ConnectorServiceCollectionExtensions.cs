@@ -95,7 +95,8 @@ namespace Azure.Connectors.Sdk
         private const string ConnectionRuntimeUrlKey = "ConnectionRuntimeUrl";
         private const string ManagedIdentityClientIdKey = "ManagedIdentityClientId";
 
-        /// <summary>        /// Registers <see cref="ArmClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ArmClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -110,7 +111,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ArmClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -125,7 +127,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new AzureBlobClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -140,7 +143,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new AzureEventGridClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -155,7 +159,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="CampfireClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="CampfireClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -170,7 +175,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new CampfireClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="ClickSendSmsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ClickSendSmsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -185,7 +191,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ClickSendSmsClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="CloudmersiveConvertClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="CloudmersiveConvertClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -200,7 +207,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new CloudmersiveConvertClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="DocuwareClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="DocuwareClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -215,7 +223,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new DocuwareClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="ElfsquadDataClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ElfsquadDataClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -230,7 +239,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ElfsquadDataClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="EtsyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="EtsyClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -245,7 +255,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new EtsyClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -260,7 +271,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="FormstackFormsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="FormstackFormsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -275,7 +287,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new FormstackFormsClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="FreshServiceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="FreshServiceClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -290,7 +303,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new FreshServiceClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="ImpexiumClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ImpexiumClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -305,7 +319,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ImpexiumClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="InfusionsoftClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="InfusionsoftClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -320,7 +335,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new InfusionsoftClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="InsightlyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="InsightlyClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -335,7 +351,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new InsightlyClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="JedoxOdataHubClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="JedoxOdataHubClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -350,7 +367,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new JedoxOdataHubClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="KustoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="KustoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -365,7 +383,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new KustoClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="MeetingRoomMapClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="MeetingRoomMapClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -380,7 +399,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new MeetingRoomMapClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="MqClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="MqClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -395,7 +415,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new MqClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="MsGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="MsGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -410,7 +431,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new MsGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="Office365Client"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="Office365Client"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -425,7 +447,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new Office365Client(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="Office365UsersClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="Office365UsersClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -440,7 +463,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new Office365UsersClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="OneDriveForBusinessClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="OneDriveForBusinessClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -455,7 +479,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new OneDriveForBusinessClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="OrderfulClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="OrderfulClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -470,7 +495,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new OrderfulClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -485,7 +511,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new PdfCoClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="PipedriveClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="PipedriveClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -500,7 +527,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new PipedriveClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="PlivoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="PlivoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -515,7 +543,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new PlivoClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="PlumsailClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="PlumsailClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -530,7 +559,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new PlumsailClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="ProjectplaceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ProjectplaceClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -545,7 +575,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ProjectplaceClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="RepliconClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="RepliconClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -560,7 +591,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new RepliconClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="RevaiClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="RevaiClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -575,7 +607,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new RevaiClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="SeismicPlannerClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="SeismicPlannerClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -590,7 +623,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new SeismicPlannerClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="SharePointOnlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="SharePointOnlineClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -605,7 +639,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="SigningHubClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="SigningHubClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -620,7 +655,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new SigningHubClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="SmtpClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="SmtpClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -635,7 +671,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new SmtpClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="StarmindClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="StarmindClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -650,7 +687,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new StarmindClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="StarrezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="StarrezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -665,7 +703,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new StarrezRestV1Client(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="TallyfyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="TallyfyClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -680,7 +719,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TallyfyClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="TeamsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="TeamsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -695,7 +735,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="TextRequestClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="TextRequestClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -710,7 +751,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TextRequestClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="TicketmasterClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="TicketmasterClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -725,7 +767,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TicketmasterClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="UniversalPrintClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="UniversalPrintClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -740,7 +783,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new UniversalPrintClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="WaywedoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="WaywedoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -755,7 +799,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new WaywedoClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="WdatpClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="WdatpClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -770,7 +815,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new WdatpClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -785,7 +831,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Registers <see cref="ZohoSignClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>
+        /// Registers <see cref="ZohoSignClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -800,7 +847,8 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ZohoSignClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>        /// Common helper that validates configuration eagerly and registers a connector client singleton.
+        /// <summary>
+        /// Common helper that validates configuration eagerly and registers a connector client singleton.
         /// </summary>
         private static IServiceCollection AddConnectorClient<TClient>(
             IServiceCollection services,
