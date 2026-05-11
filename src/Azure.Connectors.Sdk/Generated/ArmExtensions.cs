@@ -22,2615 +22,2664 @@ using Azure.Identity;
 namespace Azure.Connectors.Sdk.Arm.Models
 {
 
-    #region Types
+#region Types
+
+/// <summary>
+/// Response for Lists the subscription locations
+/// </summary>
+public class LocationListResult
+{
+    /// <summary>The locations.</summary>
+    [JsonPropertyName("value")]
+    public List<Location> Value { get; set; }
+}
+
+/// <summary>
+/// Item in The locations.
+/// </summary>
+public class Location
+{
+    /// <summary>The fully qualified Id of the location. For example, /subscriptions/00000000-0000-0000-0000-000000000000/locations/westus.</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>The subscription Id.</summary>
+    [JsonPropertyName("subscriptionId")]
+    [JsonInclude]
+    public string SubscriptionId { get; internal set; }
+
+    /// <summary>The location name.</summary>
+    [JsonPropertyName("name")]
+    [JsonInclude]
+    public string LocationName { get; internal set; }
+
+    /// <summary>The display name of the location.</summary>
+    [JsonPropertyName("displayName")]
+    [JsonInclude]
+    public string DisplayName { get; internal set; }
+
+    /// <summary>The latitude of the location.</summary>
+    [JsonPropertyName("latitude")]
+    [JsonInclude]
+    public string Latitude { get; internal set; }
+
+    /// <summary>The longitude of the location.</summary>
+    [JsonPropertyName("longitude")]
+    [JsonInclude]
+    public string Longitude { get; internal set; }
+}
+
+/// <summary>
+/// Response for Read a subscription
+/// </summary>
+public class Subscription
+{
+    /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>The subscription Id.</summary>
+    [JsonPropertyName("subscriptionId")]
+    [JsonInclude]
+    public string SubscriptionId { get; internal set; }
+
+    /// <summary>The tenant Id.</summary>
+    [JsonPropertyName("tenantId")]
+    [JsonInclude]
+    public string TenantId { get; internal set; }
+
+    /// <summary>The subscription display name.</summary>
+    [JsonPropertyName("displayName")]
+    [JsonInclude]
+    public string DisplayName { get; internal set; }
+
+    /// <summary>The subscription state.</summary>
+    [JsonPropertyName("state")]
+    [JsonInclude]
+    public State? State { get; internal set; }
+
+    /// <summary>subscriptionPolicies</summary>
+    [JsonPropertyName("subscriptionPolicies")]
+    public SubscriptionPolicies SubscriptionPolicies { get; set; }
+
+    /// <summary>The authorization source of the request. Valid values are one or more combinations of Legacy, RoleBased, Bypassed, Direct and Management. For example, &apos;Legacy, RoleBased&apos;.</summary>
+    [JsonPropertyName("authorizationSource")]
+    public string AuthorizationSource { get; set; }
+}
+
+/// <summary>
+/// subscriptionPolicies
+/// </summary>
+public class SubscriptionPolicies
+{
+    /// <summary>The subscription location placement Id. The Id indicates which regions are visible for a subscription. For example, a subscription with a location placement Id of Public_2014-09-01 has access to Azure public regions.</summary>
+    [JsonPropertyName("locationPlacementId")]
+    [JsonInclude]
+    public string LocationPlacementId { get; internal set; }
+
+    /// <summary>The subscription quota Id.</summary>
+    [JsonPropertyName("quotaId")]
+    [JsonInclude]
+    public string QuotaId { get; internal set; }
+
+    /// <summary>The subscription spending limit.</summary>
+    [JsonPropertyName("spendingLimit")]
+    [JsonInclude]
+    public SpendingLimit? SpendingLimit { get; internal set; }
+}
+
+/// <summary>
+/// Response for List subscriptions
+/// </summary>
+public class SubscriptionListResult : IPageable<Subscription>
+{
+    /// <summary>The subscriptions.</summary>
+    [JsonPropertyName("value")]
+    public List<Subscription> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    public string NextLink { get; set; }
+}
+
+/// <summary>
+/// Response for Read a template deployment
+/// </summary>
+public class DeploymentExtended
+{
+    /// <summary>The ID of the deployment.</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>The name of the deployment.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>properties</summary>
+    [JsonPropertyName("properties")]
+    public DeploymentPropertiesExtended Properties { get; set; }
+}
+
+/// <summary>
+/// properties
+/// </summary>
+public class DeploymentPropertiesExtended
+{
+    /// <summary>The state of the provisioning.</summary>
+    [JsonPropertyName("provisioningState")]
+    [JsonInclude]
+    public string ProvisioningState { get; internal set; }
+
+    /// <summary>The correlation ID of the deployment.</summary>
+    [JsonPropertyName("correlationId")]
+    [JsonInclude]
+    public string CorrelationId { get; internal set; }
+
+    /// <summary>The timestamp of the template deployment.</summary>
+    [JsonPropertyName("timestamp")]
+    [JsonInclude]
+    public DateTime? Timestamp { get; internal set; }
+
+    /// <summary>Key/value pairs that represent deploymentoutput.</summary>
+    [JsonPropertyName("outputs")]
+    [JsonInclude]
+    public object Outputs { get; internal set; }
+
+    /// <summary>The list of resource providers needed for the deployment.</summary>
+    [JsonPropertyName("providers")]
+    [JsonInclude]
+    public List<Provider> Providers { get; internal set; }
+
+    /// <summary>The list of deployment dependencies.</summary>
+    [JsonPropertyName("dependencies")]
+    [JsonInclude]
+    public List<Dependency> Dependencies { get; internal set; }
+
+    /// <summary>The template content. Use only one of Template or TemplateLink.</summary>
+    [JsonPropertyName("template")]
+    public object Template { get; set; }
+
+    /// <summary>templateLink</summary>
+    [JsonPropertyName("templateLink")]
+    public TemplateLink TemplateLink { get; set; }
+
+    /// <summary>Deployment parameters. Use only one of Parameters or ParametersLink.</summary>
+    [JsonPropertyName("parameters")]
+    public object Parameters { get; set; }
+
+    /// <summary>parametersLink</summary>
+    [JsonPropertyName("parametersLink")]
+    public ParametersLink ParametersLink { get; set; }
+
+    /// <summary>The deployment mode.</summary>
+    [JsonPropertyName("mode")]
+    public Mode? DeploymentMode { get; set; }
+
+    /// <summary>debugSetting</summary>
+    [JsonPropertyName("debugSetting")]
+    public DebugSetting DebugSetting { get; set; }
+}
+
+/// <summary>
+/// Item in The list of resource providers needed for the deployment.
+/// </summary>
+public class Provider
+{
+    /// <summary>The provider id.</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>The namespace of the provider.</summary>
+    [JsonPropertyName("namespace")]
+    public string Namespace { get; set; }
+
+    /// <summary>The registration state of the provider.</summary>
+    [JsonPropertyName("registrationState")]
+    [JsonInclude]
+    public string RegistrationState { get; internal set; }
+
+    /// <summary>The collection of provider resource types.</summary>
+    [JsonPropertyName("resourceTypes")]
+    [JsonInclude]
+    public List<ProviderResourceType> ResourceType { get; internal set; }
+}
+
+/// <summary>
+/// Item in The collection of provider resource types.
+/// </summary>
+public class ProviderResourceType
+{
+    /// <summary>The resource type.</summary>
+    [JsonPropertyName("resourceType")]
+    public string ResourceType { get; set; }
+
+    /// <summary>The collection of locations where this resource type can be created in.</summary>
+    [JsonPropertyName("locations")]
+    public List<ObjectWithoutType> Locations { get; set; }
+
+    /// <summary>The aliases that are supported by this resource type.</summary>
+    [JsonPropertyName("aliases")]
+    public List<AliasType> Aliases { get; set; }
+
+    /// <summary>The api version.</summary>
+    [JsonPropertyName("apiVersions")]
+    public List<string> ApiVersions { get; set; }
+
+    /// <summary>The properties.</summary>
+    [JsonPropertyName("properties")]
+    public object Properties { get; set; }
+}
+
+/// <summary>
+/// Item in The collection of locations where this resource type can be created in.
+/// </summary>
+public class ObjectWithoutType
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Item in The aliases that are supported by this resource type.
+/// </summary>
+public class AliasType
+{
+    /// <summary>The alias name.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>The paths for an alias.</summary>
+    [JsonPropertyName("paths")]
+    public List<AliasPathType> Paths { get; set; }
+}
+
+/// <summary>
+/// Item in The paths for an alias.
+/// </summary>
+public class AliasPathType
+{
+    /// <summary>The path of an alias.</summary>
+    [JsonPropertyName("path")]
+    public string Path { get; set; }
+
+    /// <summary>The api versions.</summary>
+    [JsonPropertyName("apiVersions")]
+    public List<string> ApiVersions { get; set; }
+}
+
+/// <summary>
+/// Item in The list of deployment dependencies.
+/// </summary>
+public class Dependency
+{
+    /// <summary>The list of dependencies.</summary>
+    [JsonPropertyName("dependsOn")]
+    public List<BasicDependency> DependsOn { get; set; }
+
+    /// <summary>The ID of the dependency.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The dependency resource type.</summary>
+    [JsonPropertyName("resourceType")]
+    public string ResourceType { get; set; }
+
+    /// <summary>The dependency resource name.</summary>
+    [JsonPropertyName("resourceName")]
+    public string ResourceName { get; set; }
+}
+
+/// <summary>
+/// Item in The list of dependencies.
+/// </summary>
+public class BasicDependency
+{
+    /// <summary>The ID of the dependency.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The dependency resource type.</summary>
+    [JsonPropertyName("resourceType")]
+    public string ResourceType { get; set; }
+
+    /// <summary>The dependency resource name.</summary>
+    [JsonPropertyName("resourceName")]
+    public string ResourceName { get; set; }
+}
+
+/// <summary>
+/// templateLink
+/// </summary>
+public class TemplateLink
+{
+    /// <summary>URI referencing the template.</summary>
+    [JsonPropertyName("uri")]
+    public string TemplateURI { get; set; }
+
+    /// <summary>If included it must match the ContentVersion in the template.</summary>
+    [JsonPropertyName("contentVersion")]
+    public string TemplateContentVersion { get; set; }
+}
+
+/// <summary>
+/// parametersLink
+/// </summary>
+public class ParametersLink
+{
+    /// <summary>URI referencing the template.</summary>
+    [JsonPropertyName("uri")]
+    public string ParametersURI { get; set; }
+
+    /// <summary>If included it must match the ContentVersion in the template.</summary>
+    [JsonPropertyName("contentVersion")]
+    public string ParametersContentVersion { get; set; }
+}
+
+/// <summary>
+/// debugSetting
+/// </summary>
+public class DebugSetting
+{
+    /// <summary>The debug detail level.</summary>
+    [JsonPropertyName("detailLevel")]
+    public string DetailLevel { get; set; }
+}
+
+/// <summary>
+/// Response for Validate a template deployment
+/// </summary>
+public class DeploymentValidateResult
+{
+    /// <summary>error</summary>
+    [JsonPropertyName("error")]
+    public ResourceManagementErrorWithDetails Error { get; set; }
+
+    /// <summary>properties</summary>
+    [JsonPropertyName("properties")]
+    public DeploymentPropertiesExtended Properties { get; set; }
+}
+
+/// <summary>
+/// error
+/// </summary>
+public class ResourceManagementErrorWithDetails
+{
+    /// <summary>The error code returned from the server.</summary>
+    [JsonPropertyName("code")]
+    [JsonInclude]
+    public string Code { get; internal set; }
+
+    /// <summary>The error message returned from the server.</summary>
+    [JsonPropertyName("message")]
+    [JsonInclude]
+    public string Message { get; internal set; }
+
+    /// <summary>The target of the error.</summary>
+    [JsonPropertyName("target")]
+    [JsonInclude]
+    public string Target { get; internal set; }
+
+    /// <summary>Validation error.</summary>
+    [JsonPropertyName("details")]
+    [JsonInclude]
+    public List<object> Details { get; internal set; }
+}
+
+/// <summary>
+/// Response for Export deployment template
+/// </summary>
+public class DeploymentExportResult
+{
+    /// <summary>The template content.</summary>
+    [JsonPropertyName("template")]
+    public object Template { get; set; }
+}
+
+/// <summary>
+/// Response for List template deployments
+/// </summary>
+public class DeploymentListResult : IPageable<DeploymentExtended>
+{
+    /// <summary>The list of deployments.</summary>
+    [JsonPropertyName("value")]
+    public List<DeploymentExtended> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    [JsonInclude]
+    public string NextLink { get; internal set; }
+}
+
+/// <summary>
+/// Response for Read a template deployment operation
+/// </summary>
+public class DeploymentOperation
+{
+    /// <summary>Full deployment operation id.</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>Deployment operation id.</summary>
+    [JsonPropertyName("operationId")]
+    [JsonInclude]
+    public string OperationId { get; internal set; }
+
+    /// <summary>properties</summary>
+    [JsonPropertyName("properties")]
+    public DeploymentOperationProperties Properties { get; set; }
+}
+
+/// <summary>
+/// properties
+/// </summary>
+public class DeploymentOperationProperties
+{
+    /// <summary>The state of the provisioning.</summary>
+    [JsonPropertyName("provisioningState")]
+    [JsonInclude]
+    public string ProvisioningState { get; internal set; }
+
+    /// <summary>The date and time of the operation.</summary>
+    [JsonPropertyName("timestamp")]
+    [JsonInclude]
+    public DateTime? Timestamp { get; internal set; }
+
+    /// <summary>Deployment operation service request id.</summary>
+    [JsonPropertyName("serviceRequestId")]
+    [JsonInclude]
+    public string ServiceRequestId { get; internal set; }
+
+    /// <summary>Operation status code.</summary>
+    [JsonPropertyName("statusCode")]
+    [JsonInclude]
+    public string StatusCode { get; internal set; }
+
+    /// <summary>Operation status message.</summary>
+    [JsonPropertyName("statusMessage")]
+    [JsonInclude]
+    public object StatusMessage { get; internal set; }
+
+    /// <summary>targetResource</summary>
+    [JsonPropertyName("targetResource")]
+    public TargetResource TargetResource { get; set; }
+
+    /// <summary>request</summary>
+    [JsonPropertyName("request")]
+    public HttpMessage Request { get; set; }
+
+    /// <summary>response</summary>
+    [JsonPropertyName("response")]
+    public HttpMessage Response { get; set; }
+}
+
+/// <summary>
+/// targetResource
+/// </summary>
+public class TargetResource
+{
+    /// <summary>The ID of the resource.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The name of the resource.</summary>
+    [JsonPropertyName("resourceName")]
+    public string Name { get; set; }
+
+    /// <summary>The type of the resource.</summary>
+    [JsonPropertyName("resourceType")]
+    public string Type { get; set; }
+}
+
+/// <summary>
+/// request
+/// </summary>
+public class HttpMessage
+{
+    /// <summary>HTTP message content.</summary>
+    [JsonPropertyName("content")]
+    public object Content { get; set; }
+}
+
+/// <summary>
+/// Response for Lists template deployment operations
+/// </summary>
+public class DeploymentOperationsListResult : IPageable<DeploymentOperation>
+{
+    /// <summary>The list of deployments.</summary>
+    [JsonPropertyName("value")]
+    public List<DeploymentOperation> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    [JsonInclude]
+    public string NextLink { get; internal set; }
+}
+
+/// <summary>
+/// Response for List resource providers
+/// </summary>
+public class ProviderListResult : IPageable<Provider>
+{
+    /// <summary>The list of resource providers.</summary>
+    [JsonPropertyName("value")]
+    public List<Provider> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    [JsonInclude]
+    public string NextLink { get; internal set; }
+}
+
+/// <summary>
+/// Response for List resources by resource group
+/// </summary>
+public class ResourceListResult : IPageable<GenericResource>
+{
+    /// <summary>The list of resources.</summary>
+    [JsonPropertyName("value")]
+    public List<GenericResource> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    [JsonInclude]
+    public string NextLink { get; internal set; }
+}
+
+/// <summary>
+/// Item in The list of resources.
+/// </summary>
+public class GenericResource
+{
+    /// <summary>Resource Id</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>Resource name</summary>
+    [JsonPropertyName("name")]
+    [JsonInclude]
+    public string Name { get; internal set; }
+
+    /// <summary>Resource type</summary>
+    [JsonPropertyName("type")]
+    [JsonInclude]
+    public string Type { get; internal set; }
+
+    /// <summary>Resource location</summary>
+    [JsonPropertyName("location")]
+    public string Location { get; set; }
+
+    /// <summary>Resource tags</summary>
+    [JsonPropertyName("tags")]
+    public object Tags { get; set; }
+
+    /// <summary>plan</summary>
+    [JsonPropertyName("plan")]
+    public Plan Plan { get; set; }
+
+    /// <summary>The kind of the resource.</summary>
+    [JsonPropertyName("kind")]
+    public string Kind { get; set; }
+
+    /// <summary>Id of the resource that manages this resource.</summary>
+    [JsonPropertyName("managedBy")]
+    [JsonInclude]
+    public string ManagedBy { get; internal set; }
+
+    /// <summary>sku</summary>
+    [JsonPropertyName("sku")]
+    public Sku Sku { get; set; }
+
+    /// <summary>identity</summary>
+    [JsonPropertyName("identity")]
+    public Identity Identity { get; set; }
+
+    /// <summary>The resource properties.</summary>
+    [JsonPropertyName("properties")]
+    public object Properties { get; set; }
+}
+
+/// <summary>
+/// plan
+/// </summary>
+public class Plan
+{
+    /// <summary>The plan ID.</summary>
+    [JsonPropertyName("name")]
+    public string Id { get; set; }
+
+    /// <summary>The publisher ID.</summary>
+    [JsonPropertyName("publisher")]
+    public string Publisher { get; set; }
+
+    /// <summary>The offer ID.</summary>
+    [JsonPropertyName("product")]
+    public string Product { get; set; }
+
+    /// <summary>The promotion code.</summary>
+    [JsonPropertyName("promotionCode")]
+    public string PromotionCode { get; set; }
+}
+
+/// <summary>
+/// sku
+/// </summary>
+public class Sku
+{
+    /// <summary>The sku name.</summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>The sku tier.</summary>
+    [JsonPropertyName("tier")]
+    public string Tier { get; set; }
+
+    /// <summary>The sku size.</summary>
+    [JsonPropertyName("size")]
+    public string Size { get; set; }
+
+    /// <summary>The sku family.</summary>
+    [JsonPropertyName("family")]
+    public string Family { get; set; }
+
+    /// <summary>The sku model.</summary>
+    [JsonPropertyName("model")]
+    public string Model { get; set; }
+
+    /// <summary>The sku capacity.</summary>
+    [JsonPropertyName("capacity")]
+    public int? Capacity { get; set; }
+}
+
+/// <summary>
+/// identity
+/// </summary>
+public class Identity
+{
+    /// <summary>The principal id of resource identity.</summary>
+    [JsonPropertyName("principalId")]
+    [JsonInclude]
+    public string PrincipalId { get; internal set; }
+
+    /// <summary>The tenant id of resource.</summary>
+    [JsonPropertyName("tenantId")]
+    [JsonInclude]
+    public string TenantId { get; internal set; }
+
+    /// <summary>The identity type.</summary>
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+}
+
+/// <summary>
+/// Response for Read a resource group
+/// </summary>
+public class ResourceGroup
+{
+    /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY).</summary>
+    [JsonPropertyName("id")]
+    [JsonInclude]
+    public string Id { get; internal set; }
+
+    /// <summary>The Name of the resource group.</summary>
+    [JsonPropertyName("name")]
+    [JsonInclude]
+    public string Name { get; internal set; }
+
+    /// <summary>The location of the resource group. It cannot be changed after the resource group has been created. Has to be one of the supported Azure Locations, such as West US, East US, West Europe, East Asia, etc.</summary>
+    [JsonPropertyName("location")]
+    public string Location { get; set; }
+
+    /// <summary>Id of the resource that manages this resource group.</summary>
+    [JsonPropertyName("managedBy")]
+    [JsonInclude]
+    public string ManagedBy { get; internal set; }
+
+    /// <summary>The tags attached to the resource group.</summary>
+    [JsonPropertyName("tags")]
+    public object Tags { get; set; }
+
+    /// <summary>properties</summary>
+    [JsonPropertyName("properties")]
+    public ResourceGroupProperties Properties { get; set; }
+}
+
+/// <summary>
+/// properties
+/// </summary>
+public class ResourceGroupProperties
+{
+    /// <summary>The provisioning state.</summary>
+    [JsonPropertyName("provisioningState")]
+    [JsonInclude]
+    public string ProvisioningState { get; internal set; }
+}
+
+/// <summary>
+/// Response for Export a resource group template
+/// </summary>
+public class ResourceGroupExportResult
+{
+    /// <summary>The template content.</summary>
+    [JsonPropertyName("template")]
+    public object Template { get; set; }
+
+    /// <summary>error</summary>
+    [JsonPropertyName("error")]
+    public ResourceManagementErrorWithDetails Error { get; set; }
+}
+
+/// <summary>
+/// Response for List resource groups
+/// </summary>
+public class ResourceGroupListResult : IPageable<ResourceGroup>
+{
+    /// <summary>The list of resource groups.</summary>
+    [JsonPropertyName("value")]
+    public List<ResourceGroup> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    [JsonInclude]
+    public string NextLink { get; internal set; }
+}
+
+/// <summary>
+/// Invoke resource operation
+/// </summary>
+public class ResourcesInvokeInput
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for Invoke resource operation
+/// </summary>
+public class ResourcesInvokeResponse
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Invoke resource operation in provider
+/// </summary>
+public class ProviderResourcesInvokeInput
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for Invoke resource operation in provider
+/// </summary>
+public class ProviderResourcesInvokeResponse
+{
+    /// <summary>
+    /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+}
+
+/// <summary>
+/// Response for Create or update a subscription resource tag value
+/// </summary>
+public class TagValue
+{
+    /// <summary>The tag ID.</summary>
+    [JsonPropertyName("id")]
+    public string TagId { get; set; }
+
+    /// <summary>The tag value.</summary>
+    [JsonPropertyName("tagValue")]
+    public string TagValueValue { get; set; }
+
+    /// <summary>count</summary>
+    [JsonPropertyName("count")]
+    public TagCount Count { get; set; }
+}
+
+/// <summary>
+/// count
+/// </summary>
+public class TagCount
+{
+    /// <summary>Type of count.</summary>
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
+    /// <summary>Value of count.</summary>
+    [JsonPropertyName("value")]
+    public int? Value { get; set; }
+}
+
+/// <summary>
+/// Response for Create or update a subscription resource tag name
+/// </summary>
+public class TagDetails
+{
+    /// <summary>The tag ID.</summary>
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    /// <summary>The tag name.</summary>
+    [JsonPropertyName("tagName")]
+    public string Name { get; set; }
+
+    /// <summary>count</summary>
+    [JsonPropertyName("count")]
+    public TagCount Count { get; set; }
+
+    /// <summary>The list of tag values.</summary>
+    [JsonPropertyName("values")]
+    public List<TagValue> Values { get; set; }
+}
+
+/// <summary>
+/// Response for List subscription resource tags
+/// </summary>
+public class TagsListResult : IPageable<TagDetails>
+{
+    /// <summary>The list of tags.</summary>
+    [JsonPropertyName("value")]
+    public List<TagDetails> Value { get; set; }
+
+    /// <summary>The URL to get the next set of results.</summary>
+    [JsonPropertyName("nextLink")]
+    [JsonInclude]
+    public string NextLink { get; internal set; }
+}
+
+/// <summary>
+/// DeploymentProperties
+/// </summary>
+public class DeploymentProperties
+{
+    /// <summary>The template content. It can be a JObject or a well formed JSON string. Use only one of Template or TemplateLink.</summary>
+    [JsonPropertyName("template")]
+    public object TemplateContent { get; set; }
+
+    /// <summary>templateLink</summary>
+    [JsonPropertyName("templateLink")]
+    public TemplateLink TemplateLink { get; set; }
+
+    /// <summary>Deployment parameters. It can be a JObject or a well formed JSON string. Use only one of Parameters or ParametersLink.</summary>
+    [JsonPropertyName("parameters")]
+    public object Parameters { get; set; }
+
+    /// <summary>parametersLink</summary>
+    [JsonPropertyName("parametersLink")]
+    public ParametersLink ParametersLink { get; set; }
+
+    /// <summary>The deployment mode.</summary>
+    [JsonPropertyName("mode")]
+    public Mode? DeploymentMode { get; set; }
+
+    /// <summary>debugSetting</summary>
+    [JsonPropertyName("debugSetting")]
+    public DebugSetting DebugSetting { get; set; }
+}
+
+/// <summary>
+/// Deployment
+/// </summary>
+public class Deployment
+{
+    /// <summary>properties</summary>
+    [JsonPropertyName("properties")]
+    public DeploymentProperties Properties { get; set; }
+}
+
+/// <summary>
+/// ExportTemplateRequest
+/// </summary>
+public class ExportTemplateRequest
+{
+    /// <summary>The ids of the resources. The only supported string currently is &apos;*&apos; (all resources). Future api updates will support exporting specific resources.</summary>
+    [JsonPropertyName("resources")]
+    public List<string> Resources { get; set; }
+
+    /// <summary>The export template options. Supported values include &apos;IncludeParameterDefaultValue&apos;, &apos;IncludeComments&apos; or &apos;IncludeParameterDefaultValue, IncludeComments</summary>
+    [JsonPropertyName("options")]
+    public Options? Options { get; set; }
+}
+
+/// <summary>
+/// Extensible enum for known Mode values.
+/// </summary>
+[JsonConverter(typeof(Mode.ModeJsonConverter))]
+public readonly struct Mode : IEquatable<Mode>
+{
+    private readonly string _value;
 
     /// <summary>
-    /// Response for Lists the subscription locations
+    /// Initializes a new instance of the <see cref="Mode"/> struct.
     /// </summary>
-    public class LocationListResult
+    /// <param name="value">The string value.</param>
+    public Mode(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Incremental</summary>
+    public static Mode Incremental { get; } = new("Incremental");
+
+    /// <summary>Complete</summary>
+    public static Mode Complete { get; } = new("Complete");
+
+    /// <summary>Converts a string to <see cref="Mode"/>.</summary>
+    public static implicit operator Mode(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Mode"/> to its string representation.</summary>
+    public static implicit operator string(Mode value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Mode other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Mode other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Mode left, Mode right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Mode left, Mode right) => !left.Equals(right);
+
+    internal sealed class ModeJsonConverter : JsonConverter<Mode>
     {
-        /// <summary>The locations.</summary>
-        [JsonPropertyName("value")]
-        public List<Location> Value { get; set; }
+        public ModeJsonConverter() { }
+        public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Mode, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
+
+/// <summary>
+/// Extensible enum for known Options values.
+/// </summary>
+[JsonConverter(typeof(Options.OptionsJsonConverter))]
+public readonly struct Options : IEquatable<Options>
+{
+    private readonly string _value;
 
     /// <summary>
-    /// Item in The locations.
+    /// Initializes a new instance of the <see cref="Options"/> struct.
     /// </summary>
-    public class Location
+    /// <param name="value">The string value.</param>
+    public Options(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>IncludeParameterDefaultValue</summary>
+    public static Options IncludeParameterDefaultValue { get; } = new("IncludeParameterDefaultValue");
+
+    /// <summary>IncludeComments</summary>
+    public static Options IncludeComments { get; } = new("IncludeComments");
+
+    /// <summary>IncludeParameterDefaultValue, IncludeComments</summary>
+    public static Options IncludeParameterDefaultValueIncludeComments { get; } = new("IncludeParameterDefaultValue, IncludeComments");
+
+    /// <summary>Converts a string to <see cref="Options"/>.</summary>
+    public static implicit operator Options(string value) => new(value);
+
+    /// <summary>Converts a <see cref="Options"/> to its string representation.</summary>
+    public static implicit operator string(Options value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(Options other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is Options other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(Options left, Options right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(Options left, Options right) => !left.Equals(right);
+
+    internal sealed class OptionsJsonConverter : JsonConverter<Options>
     {
-        /// <summary>The fully qualified Id of the location. For example, /subscriptions/00000000-0000-0000-0000-000000000000/locations/westus.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>The subscription Id.</summary>
-        [JsonPropertyName("subscriptionId")]
-        [JsonInclude]
-        public string SubscriptionId { get; internal set; }
-
-        /// <summary>The location name.</summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string LocationName { get; internal set; }
-
-        /// <summary>The display name of the location.</summary>
-        [JsonPropertyName("displayName")]
-        [JsonInclude]
-        public string DisplayName { get; internal set; }
-
-        /// <summary>The latitude of the location.</summary>
-        [JsonPropertyName("latitude")]
-        [JsonInclude]
-        public string Latitude { get; internal set; }
-
-        /// <summary>The longitude of the location.</summary>
-        [JsonPropertyName("longitude")]
-        [JsonInclude]
-        public string Longitude { get; internal set; }
+        public OptionsJsonConverter() { }
+        public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Options, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, Options value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
+
+/// <summary>
+/// Extensible enum for known SpendingLimit values.
+/// </summary>
+[JsonConverter(typeof(SpendingLimit.SpendingLimitJsonConverter))]
+public readonly struct SpendingLimit : IEquatable<SpendingLimit>
+{
+    private readonly string _value;
 
     /// <summary>
-    /// Response for Read a subscription
+    /// Initializes a new instance of the <see cref="SpendingLimit"/> struct.
     /// </summary>
-    public class Subscription
+    /// <param name="value">The string value.</param>
+    public SpendingLimit(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>On</summary>
+    public static SpendingLimit On { get; } = new("On");
+
+    /// <summary>Off</summary>
+    public static SpendingLimit Off { get; } = new("Off");
+
+    /// <summary>CurrentPeriodOff</summary>
+    public static SpendingLimit CurrentPeriodOff { get; } = new("CurrentPeriodOff");
+
+    /// <summary>Converts a string to <see cref="SpendingLimit"/>.</summary>
+    public static implicit operator SpendingLimit(string value) => new(value);
+
+    /// <summary>Converts a <see cref="SpendingLimit"/> to its string representation.</summary>
+    public static implicit operator string(SpendingLimit value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(SpendingLimit other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is SpendingLimit other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(SpendingLimit left, SpendingLimit right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(SpendingLimit left, SpendingLimit right) => !left.Equals(right);
+
+    internal sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
     {
-        /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>The subscription Id.</summary>
-        [JsonPropertyName("subscriptionId")]
-        [JsonInclude]
-        public string SubscriptionId { get; internal set; }
-
-        /// <summary>The tenant Id.</summary>
-        [JsonPropertyName("tenantId")]
-        [JsonInclude]
-        public string TenantId { get; internal set; }
-
-        /// <summary>The subscription display name.</summary>
-        [JsonPropertyName("displayName")]
-        [JsonInclude]
-        public string DisplayName { get; internal set; }
-
-        /// <summary>The subscription state.</summary>
-        [JsonPropertyName("state")]
-        [JsonInclude]
-        public State? State { get; internal set; }
-
-        /// <summary>subscriptionPolicies</summary>
-        [JsonPropertyName("subscriptionPolicies")]
-        public SubscriptionPolicies SubscriptionPolicies { get; set; }
-
-        /// <summary>The authorization source of the request. Valid values are one or more combinations of Legacy, RoleBased, Bypassed, Direct and Management. For example, &apos;Legacy, RoleBased&apos;.</summary>
-        [JsonPropertyName("authorizationSource")]
-        public string AuthorizationSource { get; set; }
+        public SpendingLimitJsonConverter() { }
+        public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SpendingLimit, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, SpendingLimit value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
+
+/// <summary>
+/// Extensible enum for known State values.
+/// </summary>
+[JsonConverter(typeof(State.StateJsonConverter))]
+public readonly struct State : IEquatable<State>
+{
+    private readonly string _value;
 
     /// <summary>
-    /// subscriptionPolicies
+    /// Initializes a new instance of the <see cref="State"/> struct.
     /// </summary>
-    public class SubscriptionPolicies
+    /// <param name="value">The string value.</param>
+    public State(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+    /// <summary>Enabled</summary>
+    public static State Enabled { get; } = new("Enabled");
+
+    /// <summary>Warned</summary>
+    public static State Warned { get; } = new("Warned");
+
+    /// <summary>PastDue</summary>
+    public static State PastDue { get; } = new("PastDue");
+
+    /// <summary>Disabled</summary>
+    public static State Disabled { get; } = new("Disabled");
+
+    /// <summary>Deleted</summary>
+    public static State Deleted { get; } = new("Deleted");
+
+    /// <summary>Converts a string to <see cref="State"/>.</summary>
+    public static implicit operator State(string value) => new(value);
+
+    /// <summary>Converts a <see cref="State"/> to its string representation.</summary>
+    public static implicit operator string(State value) => value.ToString();
+
+    /// <inheritdoc/>
+    public override string ToString() => this._value;
+
+    /// <inheritdoc/>
+    public bool Equals(State other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) => obj is State other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+    /// <inheritdoc/>
+    public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+    /// <summary>Equality operator.</summary>
+    public static bool operator ==(State left, State right) => left.Equals(right);
+
+    /// <summary>Inequality operator.</summary>
+    public static bool operator !=(State left, State right) => !left.Equals(right);
+
+    internal sealed class StateJsonConverter : JsonConverter<State>
     {
-        /// <summary>The subscription location placement Id. The Id indicates which regions are visible for a subscription. For example, a subscription with a location placement Id of Public_2014-09-01 has access to Azure public regions.</summary>
-        [JsonPropertyName("locationPlacementId")]
-        [JsonInclude]
-        public string LocationPlacementId { get; internal set; }
-
-        /// <summary>The subscription quota Id.</summary>
-        [JsonPropertyName("quotaId")]
-        [JsonInclude]
-        public string QuotaId { get; internal set; }
-
-        /// <summary>The subscription spending limit.</summary>
-        [JsonPropertyName("spendingLimit")]
-        [JsonInclude]
-        public SpendingLimit? SpendingLimit { get; internal set; }
+        public StateJsonConverter() { }
+        public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for State, got '{reader.TokenType}'.");
+        public override void Write(Utf8JsonWriter writer, State value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
     }
+}
 
+#endregion Types
+
+#region Model Factory
+
+/// <summary>
+/// Model factory for creating instances of Arm models.
+/// Use these factory methods to construct model instances in tests and scenarios
+/// where output-only properties (with internal setters) need to be populated.
+/// </summary>
+public static class ArmModelFactory
+{
     /// <summary>
-    /// Response for List subscriptions
+    /// Creates a new instance of <see cref="LocationListResult"/>.
     /// </summary>
-    public class SubscriptionListResult : IPageable<Subscription>
+    public static LocationListResult LocationListResult(
+        List<Location> value = default)
     {
-        /// <summary>The subscriptions.</summary>
-        [JsonPropertyName("value")]
-        public List<Subscription> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Read a template deployment
-    /// </summary>
-    public class DeploymentExtended
-    {
-        /// <summary>The ID of the deployment.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>The name of the deployment.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public DeploymentPropertiesExtended Properties { get; set; }
-    }
-
-    /// <summary>
-    /// properties
-    /// </summary>
-    public class DeploymentPropertiesExtended
-    {
-        /// <summary>The state of the provisioning.</summary>
-        [JsonPropertyName("provisioningState")]
-        [JsonInclude]
-        public string ProvisioningState { get; internal set; }
-
-        /// <summary>The correlation ID of the deployment.</summary>
-        [JsonPropertyName("correlationId")]
-        [JsonInclude]
-        public string CorrelationId { get; internal set; }
-
-        /// <summary>The timestamp of the template deployment.</summary>
-        [JsonPropertyName("timestamp")]
-        [JsonInclude]
-        public DateTime? Timestamp { get; internal set; }
-
-        /// <summary>Key/value pairs that represent deploymentoutput.</summary>
-        [JsonPropertyName("outputs")]
-        [JsonInclude]
-        public object Outputs { get; internal set; }
-
-        /// <summary>The list of resource providers needed for the deployment.</summary>
-        [JsonPropertyName("providers")]
-        [JsonInclude]
-        public List<Provider> Providers { get; internal set; }
-
-        /// <summary>The list of deployment dependencies.</summary>
-        [JsonPropertyName("dependencies")]
-        [JsonInclude]
-        public List<Dependency> Dependencies { get; internal set; }
-
-        /// <summary>The template content. Use only one of Template or TemplateLink.</summary>
-        [JsonPropertyName("template")]
-        public object Template { get; set; }
-
-        /// <summary>templateLink</summary>
-        [JsonPropertyName("templateLink")]
-        public TemplateLink TemplateLink { get; set; }
-
-        /// <summary>Deployment parameters. Use only one of Parameters or ParametersLink.</summary>
-        [JsonPropertyName("parameters")]
-        public object Parameters { get; set; }
-
-        /// <summary>parametersLink</summary>
-        [JsonPropertyName("parametersLink")]
-        public ParametersLink ParametersLink { get; set; }
-
-        /// <summary>The deployment mode.</summary>
-        [JsonPropertyName("mode")]
-        public Mode? DeploymentMode { get; set; }
-
-        /// <summary>debugSetting</summary>
-        [JsonPropertyName("debugSetting")]
-        public DebugSetting DebugSetting { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The list of resource providers needed for the deployment.
-    /// </summary>
-    public class Provider
-    {
-        /// <summary>The provider id.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>The namespace of the provider.</summary>
-        [JsonPropertyName("namespace")]
-        public string Namespace { get; set; }
-
-        /// <summary>The registration state of the provider.</summary>
-        [JsonPropertyName("registrationState")]
-        [JsonInclude]
-        public string RegistrationState { get; internal set; }
-
-        /// <summary>The collection of provider resource types.</summary>
-        [JsonPropertyName("resourceTypes")]
-        [JsonInclude]
-        public List<ProviderResourceType> ResourceType { get; internal set; }
-    }
-
-    /// <summary>
-    /// Item in The collection of provider resource types.
-    /// </summary>
-    public class ProviderResourceType
-    {
-        /// <summary>The resource type.</summary>
-        [JsonPropertyName("resourceType")]
-        public string ResourceType { get; set; }
-
-        /// <summary>The collection of locations where this resource type can be created in.</summary>
-        [JsonPropertyName("locations")]
-        public List<ObjectWithoutType> Locations { get; set; }
-
-        /// <summary>The aliases that are supported by this resource type.</summary>
-        [JsonPropertyName("aliases")]
-        public List<AliasType> Aliases { get; set; }
-
-        /// <summary>The api version.</summary>
-        [JsonPropertyName("apiVersions")]
-        public List<string> ApiVersions { get; set; }
-
-        /// <summary>The properties.</summary>
-        [JsonPropertyName("properties")]
-        public object Properties { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The collection of locations where this resource type can be created in.
-    /// </summary>
-    public class ObjectWithoutType
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Item in The aliases that are supported by this resource type.
-    /// </summary>
-    public class AliasType
-    {
-        /// <summary>The alias name.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>The paths for an alias.</summary>
-        [JsonPropertyName("paths")]
-        public List<AliasPathType> Paths { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The paths for an alias.
-    /// </summary>
-    public class AliasPathType
-    {
-        /// <summary>The path of an alias.</summary>
-        [JsonPropertyName("path")]
-        public string Path { get; set; }
-
-        /// <summary>The api versions.</summary>
-        [JsonPropertyName("apiVersions")]
-        public List<string> ApiVersions { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The list of deployment dependencies.
-    /// </summary>
-    public class Dependency
-    {
-        /// <summary>The list of dependencies.</summary>
-        [JsonPropertyName("dependsOn")]
-        public List<BasicDependency> DependsOn { get; set; }
-
-        /// <summary>The ID of the dependency.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The dependency resource type.</summary>
-        [JsonPropertyName("resourceType")]
-        public string ResourceType { get; set; }
-
-        /// <summary>The dependency resource name.</summary>
-        [JsonPropertyName("resourceName")]
-        public string ResourceName { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The list of dependencies.
-    /// </summary>
-    public class BasicDependency
-    {
-        /// <summary>The ID of the dependency.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The dependency resource type.</summary>
-        [JsonPropertyName("resourceType")]
-        public string ResourceType { get; set; }
-
-        /// <summary>The dependency resource name.</summary>
-        [JsonPropertyName("resourceName")]
-        public string ResourceName { get; set; }
-    }
-
-    /// <summary>
-    /// templateLink
-    /// </summary>
-    public class TemplateLink
-    {
-        /// <summary>URI referencing the template.</summary>
-        [JsonPropertyName("uri")]
-        public string TemplateURI { get; set; }
-
-        /// <summary>If included it must match the ContentVersion in the template.</summary>
-        [JsonPropertyName("contentVersion")]
-        public string TemplateContentVersion { get; set; }
-    }
-
-    /// <summary>
-    /// parametersLink
-    /// </summary>
-    public class ParametersLink
-    {
-        /// <summary>URI referencing the template.</summary>
-        [JsonPropertyName("uri")]
-        public string ParametersURI { get; set; }
-
-        /// <summary>If included it must match the ContentVersion in the template.</summary>
-        [JsonPropertyName("contentVersion")]
-        public string ParametersContentVersion { get; set; }
-    }
-
-    /// <summary>
-    /// debugSetting
-    /// </summary>
-    public class DebugSetting
-    {
-        /// <summary>The debug detail level.</summary>
-        [JsonPropertyName("detailLevel")]
-        public string DetailLevel { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Validate a template deployment
-    /// </summary>
-    public class DeploymentValidateResult
-    {
-        /// <summary>error</summary>
-        [JsonPropertyName("error")]
-        public ResourceManagementErrorWithDetails Error { get; set; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public DeploymentPropertiesExtended Properties { get; set; }
-    }
-
-    /// <summary>
-    /// error
-    /// </summary>
-    public class ResourceManagementErrorWithDetails
-    {
-        /// <summary>The error code returned from the server.</summary>
-        [JsonPropertyName("code")]
-        [JsonInclude]
-        public string Code { get; internal set; }
-
-        /// <summary>The error message returned from the server.</summary>
-        [JsonPropertyName("message")]
-        [JsonInclude]
-        public string Message { get; internal set; }
-
-        /// <summary>The target of the error.</summary>
-        [JsonPropertyName("target")]
-        [JsonInclude]
-        public string Target { get; internal set; }
-
-        /// <summary>Validation error.</summary>
-        [JsonPropertyName("details")]
-        [JsonInclude]
-        public List<object> Details { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for Export deployment template
-    /// </summary>
-    public class DeploymentExportResult
-    {
-        /// <summary>The template content.</summary>
-        [JsonPropertyName("template")]
-        public object Template { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List template deployments
-    /// </summary>
-    public class DeploymentListResult : IPageable<DeploymentExtended>
-    {
-        /// <summary>The list of deployments.</summary>
-        [JsonPropertyName("value")]
-        public List<DeploymentExtended> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for Read a template deployment operation
-    /// </summary>
-    public class DeploymentOperation
-    {
-        /// <summary>Full deployment operation id.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>Deployment operation id.</summary>
-        [JsonPropertyName("operationId")]
-        [JsonInclude]
-        public string OperationId { get; internal set; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public DeploymentOperationProperties Properties { get; set; }
-    }
-
-    /// <summary>
-    /// properties
-    /// </summary>
-    public class DeploymentOperationProperties
-    {
-        /// <summary>The state of the provisioning.</summary>
-        [JsonPropertyName("provisioningState")]
-        [JsonInclude]
-        public string ProvisioningState { get; internal set; }
-
-        /// <summary>The date and time of the operation.</summary>
-        [JsonPropertyName("timestamp")]
-        [JsonInclude]
-        public DateTime? Timestamp { get; internal set; }
-
-        /// <summary>Deployment operation service request id.</summary>
-        [JsonPropertyName("serviceRequestId")]
-        [JsonInclude]
-        public string ServiceRequestId { get; internal set; }
-
-        /// <summary>Operation status code.</summary>
-        [JsonPropertyName("statusCode")]
-        [JsonInclude]
-        public string StatusCode { get; internal set; }
-
-        /// <summary>Operation status message.</summary>
-        [JsonPropertyName("statusMessage")]
-        [JsonInclude]
-        public object StatusMessage { get; internal set; }
-
-        /// <summary>targetResource</summary>
-        [JsonPropertyName("targetResource")]
-        public TargetResource TargetResource { get; set; }
-
-        /// <summary>request</summary>
-        [JsonPropertyName("request")]
-        public HttpMessage Request { get; set; }
-
-        /// <summary>response</summary>
-        [JsonPropertyName("response")]
-        public HttpMessage Response { get; set; }
-    }
-
-    /// <summary>
-    /// targetResource
-    /// </summary>
-    public class TargetResource
-    {
-        /// <summary>The ID of the resource.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The name of the resource.</summary>
-        [JsonPropertyName("resourceName")]
-        public string Name { get; set; }
-
-        /// <summary>The type of the resource.</summary>
-        [JsonPropertyName("resourceType")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
-    /// request
-    /// </summary>
-    public class HttpMessage
-    {
-        /// <summary>HTTP message content.</summary>
-        [JsonPropertyName("content")]
-        public object Content { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Lists template deployment operations
-    /// </summary>
-    public class DeploymentOperationsListResult : IPageable<DeploymentOperation>
-    {
-        /// <summary>The list of deployments.</summary>
-        [JsonPropertyName("value")]
-        public List<DeploymentOperation> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for List resource providers
-    /// </summary>
-    public class ProviderListResult : IPageable<Provider>
-    {
-        /// <summary>The list of resource providers.</summary>
-        [JsonPropertyName("value")]
-        public List<Provider> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for List resources by resource group
-    /// </summary>
-    public class ResourceListResult : IPageable<GenericResource>
-    {
-        /// <summary>The list of resources.</summary>
-        [JsonPropertyName("value")]
-        public List<GenericResource> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
-    }
-
-    /// <summary>
-    /// Item in The list of resources.
-    /// </summary>
-    public class GenericResource
-    {
-        /// <summary>Resource Id</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>Resource name</summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; internal set; }
-
-        /// <summary>Resource type</summary>
-        [JsonPropertyName("type")]
-        [JsonInclude]
-        public string Type { get; internal set; }
-
-        /// <summary>Resource location</summary>
-        [JsonPropertyName("location")]
-        public string Location { get; set; }
-
-        /// <summary>Resource tags</summary>
-        [JsonPropertyName("tags")]
-        public object Tags { get; set; }
-
-        /// <summary>plan</summary>
-        [JsonPropertyName("plan")]
-        public Plan Plan { get; set; }
-
-        /// <summary>The kind of the resource.</summary>
-        [JsonPropertyName("kind")]
-        public string Kind { get; set; }
-
-        /// <summary>Id of the resource that manages this resource.</summary>
-        [JsonPropertyName("managedBy")]
-        [JsonInclude]
-        public string ManagedBy { get; internal set; }
-
-        /// <summary>sku</summary>
-        [JsonPropertyName("sku")]
-        public Sku Sku { get; set; }
-
-        /// <summary>identity</summary>
-        [JsonPropertyName("identity")]
-        public Identity Identity { get; set; }
-
-        /// <summary>The resource properties.</summary>
-        [JsonPropertyName("properties")]
-        public object Properties { get; set; }
-    }
-
-    /// <summary>
-    /// plan
-    /// </summary>
-    public class Plan
-    {
-        /// <summary>The plan ID.</summary>
-        [JsonPropertyName("name")]
-        public string Id { get; set; }
-
-        /// <summary>The publisher ID.</summary>
-        [JsonPropertyName("publisher")]
-        public string Publisher { get; set; }
-
-        /// <summary>The offer ID.</summary>
-        [JsonPropertyName("product")]
-        public string Product { get; set; }
-
-        /// <summary>The promotion code.</summary>
-        [JsonPropertyName("promotionCode")]
-        public string PromotionCode { get; set; }
-    }
-
-    /// <summary>
-    /// sku
-    /// </summary>
-    public class Sku
-    {
-        /// <summary>The sku name.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>The sku tier.</summary>
-        [JsonPropertyName("tier")]
-        public string Tier { get; set; }
-
-        /// <summary>The sku size.</summary>
-        [JsonPropertyName("size")]
-        public string Size { get; set; }
-
-        /// <summary>The sku family.</summary>
-        [JsonPropertyName("family")]
-        public string Family { get; set; }
-
-        /// <summary>The sku model.</summary>
-        [JsonPropertyName("model")]
-        public string Model { get; set; }
-
-        /// <summary>The sku capacity.</summary>
-        [JsonPropertyName("capacity")]
-        public int? Capacity { get; set; }
-    }
-
-    /// <summary>
-    /// identity
-    /// </summary>
-    public class Identity
-    {
-        /// <summary>The principal id of resource identity.</summary>
-        [JsonPropertyName("principalId")]
-        [JsonInclude]
-        public string PrincipalId { get; internal set; }
-
-        /// <summary>The tenant id of resource.</summary>
-        [JsonPropertyName("tenantId")]
-        [JsonInclude]
-        public string TenantId { get; internal set; }
-
-        /// <summary>The identity type.</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Read a resource group
-    /// </summary>
-    public class ResourceGroup
-    {
-        /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY).</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; internal set; }
-
-        /// <summary>The Name of the resource group.</summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; internal set; }
-
-        /// <summary>The location of the resource group. It cannot be changed after the resource group has been created. Has to be one of the supported Azure Locations, such as West US, East US, West Europe, East Asia, etc.</summary>
-        [JsonPropertyName("location")]
-        public string Location { get; set; }
-
-        /// <summary>Id of the resource that manages this resource group.</summary>
-        [JsonPropertyName("managedBy")]
-        [JsonInclude]
-        public string ManagedBy { get; internal set; }
-
-        /// <summary>The tags attached to the resource group.</summary>
-        [JsonPropertyName("tags")]
-        public object Tags { get; set; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public ResourceGroupProperties Properties { get; set; }
-    }
-
-    /// <summary>
-    /// properties
-    /// </summary>
-    public class ResourceGroupProperties
-    {
-        /// <summary>The provisioning state.</summary>
-        [JsonPropertyName("provisioningState")]
-        [JsonInclude]
-        public string ProvisioningState { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for Export a resource group template
-    /// </summary>
-    public class ResourceGroupExportResult
-    {
-        /// <summary>The template content.</summary>
-        [JsonPropertyName("template")]
-        public object Template { get; set; }
-
-        /// <summary>error</summary>
-        [JsonPropertyName("error")]
-        public ResourceManagementErrorWithDetails Error { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List resource groups
-    /// </summary>
-    public class ResourceGroupListResult : IPageable<ResourceGroup>
-    {
-        /// <summary>The list of resource groups.</summary>
-        [JsonPropertyName("value")]
-        public List<ResourceGroup> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
-    }
-
-    /// <summary>
-    /// Invoke resource operation
-    /// </summary>
-    public class ResourcesInvokeInput
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Invoke resource operation
-    /// </summary>
-    public class ResourcesInvokeResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Invoke resource operation in provider
-    /// </summary>
-    public class ProviderResourcesInvokeInput
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Invoke resource operation in provider
-    /// </summary>
-    public class ProviderResourcesInvokeResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Create or update a subscription resource tag value
-    /// </summary>
-    public class TagValue
-    {
-        /// <summary>The tag ID.</summary>
-        [JsonPropertyName("id")]
-        public string TagId { get; set; }
-
-        /// <summary>The tag value.</summary>
-        [JsonPropertyName("tagValue")]
-        public string TagValueValue { get; set; }
-
-        /// <summary>count</summary>
-        [JsonPropertyName("count")]
-        public TagCount Count { get; set; }
-    }
-
-    /// <summary>
-    /// count
-    /// </summary>
-    public class TagCount
-    {
-        /// <summary>Type of count.</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-
-        /// <summary>Value of count.</summary>
-        [JsonPropertyName("value")]
-        public int? Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create or update a subscription resource tag name
-    /// </summary>
-    public class TagDetails
-    {
-        /// <summary>The tag ID.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The tag name.</summary>
-        [JsonPropertyName("tagName")]
-        public string Name { get; set; }
-
-        /// <summary>count</summary>
-        [JsonPropertyName("count")]
-        public TagCount Count { get; set; }
-
-        /// <summary>The list of tag values.</summary>
-        [JsonPropertyName("values")]
-        public List<TagValue> Values { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List subscription resource tags
-    /// </summary>
-    public class TagsListResult : IPageable<TagDetails>
-    {
-        /// <summary>The list of tags.</summary>
-        [JsonPropertyName("value")]
-        public List<TagDetails> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
-    }
-
-    /// <summary>
-    /// DeploymentProperties
-    /// </summary>
-    public class DeploymentProperties
-    {
-        /// <summary>The template content. It can be a JObject or a well formed JSON string. Use only one of Template or TemplateLink.</summary>
-        [JsonPropertyName("template")]
-        public object TemplateContent { get; set; }
-
-        /// <summary>templateLink</summary>
-        [JsonPropertyName("templateLink")]
-        public TemplateLink TemplateLink { get; set; }
-
-        /// <summary>Deployment parameters. It can be a JObject or a well formed JSON string. Use only one of Parameters or ParametersLink.</summary>
-        [JsonPropertyName("parameters")]
-        public object Parameters { get; set; }
-
-        /// <summary>parametersLink</summary>
-        [JsonPropertyName("parametersLink")]
-        public ParametersLink ParametersLink { get; set; }
-
-        /// <summary>The deployment mode.</summary>
-        [JsonPropertyName("mode")]
-        public Mode? DeploymentMode { get; set; }
-
-        /// <summary>debugSetting</summary>
-        [JsonPropertyName("debugSetting")]
-        public DebugSetting DebugSetting { get; set; }
-    }
-
-    /// <summary>
-    /// Deployment
-    /// </summary>
-    public class Deployment
-    {
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public DeploymentProperties Properties { get; set; }
-    }
-
-    /// <summary>
-    /// ExportTemplateRequest
-    /// </summary>
-    public class ExportTemplateRequest
-    {
-        /// <summary>The ids of the resources. The only supported string currently is &apos;*&apos; (all resources). Future api updates will support exporting specific resources.</summary>
-        [JsonPropertyName("resources")]
-        public List<string> Resources { get; set; }
-
-        /// <summary>The export template options. Supported values include &apos;IncludeParameterDefaultValue&apos;, &apos;IncludeComments&apos; or &apos;IncludeParameterDefaultValue, IncludeComments</summary>
-        [JsonPropertyName("options")]
-        public Options? Options { get; set; }
-    }
-
-    /// <summary>
-    /// Extensible enum for known Mode values.
-    /// </summary>
-    [JsonConverter(typeof(Mode.ModeJsonConverter))]
-    public readonly struct Mode : IEquatable<Mode>
-    {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Mode"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Mode(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>Incremental</summary>
-        public static Mode Incremental { get; } = new("Incremental");
-
-        /// <summary>Complete</summary>
-        public static Mode Complete { get; } = new("Complete");
-
-        /// <summary>Converts a string to <see cref="Mode"/>.</summary>
-        public static implicit operator Mode(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Mode"/> to its string representation.</summary>
-        public static implicit operator string(Mode value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Mode other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Mode other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Mode left, Mode right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Mode left, Mode right) => !left.Equals(right);
-
-        internal sealed class ModeJsonConverter : JsonConverter<Mode>
+        return new LocationListResult
         {
-            public ModeJsonConverter() { }
-            public override Mode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Mode, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Mode value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            Value = value,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known Options values.
+    /// Creates a new instance of <see cref="Location"/>.
     /// </summary>
-    [JsonConverter(typeof(Options.OptionsJsonConverter))]
-    public readonly struct Options : IEquatable<Options>
+    public static Location Location(
+        string id = default,
+        string subscriptionId = default,
+        string locationName = default,
+        string displayName = default,
+        string latitude = default,
+        string longitude = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Options"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public Options(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>IncludeParameterDefaultValue</summary>
-        public static Options IncludeParameterDefaultValue { get; } = new("IncludeParameterDefaultValue");
-
-        /// <summary>IncludeComments</summary>
-        public static Options IncludeComments { get; } = new("IncludeComments");
-
-        /// <summary>IncludeParameterDefaultValue, IncludeComments</summary>
-        public static Options IncludeParameterDefaultValueIncludeComments { get; } = new("IncludeParameterDefaultValue, IncludeComments");
-
-        /// <summary>Converts a string to <see cref="Options"/>.</summary>
-        public static implicit operator Options(string value) => new(value);
-
-        /// <summary>Converts a <see cref="Options"/> to its string representation.</summary>
-        public static implicit operator string(Options value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(Options other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Options other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(Options left, Options right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Options left, Options right) => !left.Equals(right);
-
-        internal sealed class OptionsJsonConverter : JsonConverter<Options>
+        return new Location
         {
-            public OptionsJsonConverter() { }
-            public override Options Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Options, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Options value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            Id = id,
+            SubscriptionId = subscriptionId,
+            LocationName = locationName,
+            DisplayName = displayName,
+            Latitude = latitude,
+            Longitude = longitude,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known SpendingLimit values.
+    /// Creates a new instance of <see cref="Subscription"/>.
     /// </summary>
-    [JsonConverter(typeof(SpendingLimit.SpendingLimitJsonConverter))]
-    public readonly struct SpendingLimit : IEquatable<SpendingLimit>
+    public static Subscription Subscription(
+        string id = default,
+        string subscriptionId = default,
+        string tenantId = default,
+        string displayName = default,
+        State? state = default,
+        SubscriptionPolicies subscriptionPolicies = default,
+        string authorizationSource = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SpendingLimit"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public SpendingLimit(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>On</summary>
-        public static SpendingLimit On { get; } = new("On");
-
-        /// <summary>Off</summary>
-        public static SpendingLimit Off { get; } = new("Off");
-
-        /// <summary>CurrentPeriodOff</summary>
-        public static SpendingLimit CurrentPeriodOff { get; } = new("CurrentPeriodOff");
-
-        /// <summary>Converts a string to <see cref="SpendingLimit"/>.</summary>
-        public static implicit operator SpendingLimit(string value) => new(value);
-
-        /// <summary>Converts a <see cref="SpendingLimit"/> to its string representation.</summary>
-        public static implicit operator string(SpendingLimit value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(SpendingLimit other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is SpendingLimit other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(SpendingLimit left, SpendingLimit right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(SpendingLimit left, SpendingLimit right) => !left.Equals(right);
-
-        internal sealed class SpendingLimitJsonConverter : JsonConverter<SpendingLimit>
+        return new Subscription
         {
-            public SpendingLimitJsonConverter() { }
-            public override SpendingLimit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SpendingLimit, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, SpendingLimit value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            Id = id,
+            SubscriptionId = subscriptionId,
+            TenantId = tenantId,
+            DisplayName = displayName,
+            State = state,
+            SubscriptionPolicies = subscriptionPolicies,
+            AuthorizationSource = authorizationSource,
+        };
     }
 
     /// <summary>
-    /// Extensible enum for known State values.
+    /// Creates a new instance of <see cref="SubscriptionPolicies"/>.
     /// </summary>
-    [JsonConverter(typeof(State.StateJsonConverter))]
-    public readonly struct State : IEquatable<State>
+    public static SubscriptionPolicies SubscriptionPolicies(
+        string locationPlacementId = default,
+        string quotaId = default,
+        SpendingLimit? spendingLimit = default)
     {
-        private readonly string _value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="State"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public State(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>Enabled</summary>
-        public static State Enabled { get; } = new("Enabled");
-
-        /// <summary>Warned</summary>
-        public static State Warned { get; } = new("Warned");
-
-        /// <summary>PastDue</summary>
-        public static State PastDue { get; } = new("PastDue");
-
-        /// <summary>Disabled</summary>
-        public static State Disabled { get; } = new("Disabled");
-
-        /// <summary>Deleted</summary>
-        public static State Deleted { get; } = new("Deleted");
-
-        /// <summary>Converts a string to <see cref="State"/>.</summary>
-        public static implicit operator State(string value) => new(value);
-
-        /// <summary>Converts a <see cref="State"/> to its string representation.</summary>
-        public static implicit operator string(State value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(State other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is State other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(State left, State right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(State left, State right) => !left.Equals(right);
-
-        internal sealed class StateJsonConverter : JsonConverter<State>
+        return new SubscriptionPolicies
         {
-            public StateJsonConverter() { }
-            public override State Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for State, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, State value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+            LocationPlacementId = locationPlacementId,
+            QuotaId = quotaId,
+            SpendingLimit = spendingLimit,
+        };
     }
-
-    #endregion Types
-
-    #region Model Factory
 
     /// <summary>
-    /// Model factory for creating instances of Arm models.
-    /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// Creates a new instance of <see cref="SubscriptionListResult"/>.
     /// </summary>
-    public static class ArmModelFactory
+    public static SubscriptionListResult SubscriptionListResult(
+        List<Subscription> value = default,
+        string nextLink = default)
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="LocationListResult"/>.
-        /// </summary>
-        public static LocationListResult LocationListResult(
-            List<Location> value = default)
+        return new SubscriptionListResult
         {
-            return new LocationListResult
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Location"/>.
-        /// </summary>
-        public static Location Location(
-            string id = default,
-            string subscriptionId = default,
-            string locationName = default,
-            string displayName = default,
-            string latitude = default,
-            string longitude = default)
-        {
-            return new Location
-            {
-                Id = id,
-                SubscriptionId = subscriptionId,
-                LocationName = locationName,
-                DisplayName = displayName,
-                Latitude = latitude,
-                Longitude = longitude,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Subscription"/>.
-        /// </summary>
-        public static Subscription Subscription(
-            string id = default,
-            string subscriptionId = default,
-            string tenantId = default,
-            string displayName = default,
-            State? state = default,
-            SubscriptionPolicies subscriptionPolicies = default,
-            string authorizationSource = default)
-        {
-            return new Subscription
-            {
-                Id = id,
-                SubscriptionId = subscriptionId,
-                TenantId = tenantId,
-                DisplayName = displayName,
-                State = state,
-                SubscriptionPolicies = subscriptionPolicies,
-                AuthorizationSource = authorizationSource,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SubscriptionPolicies"/>.
-        /// </summary>
-        public static SubscriptionPolicies SubscriptionPolicies(
-            string locationPlacementId = default,
-            string quotaId = default,
-            SpendingLimit? spendingLimit = default)
-        {
-            return new SubscriptionPolicies
-            {
-                LocationPlacementId = locationPlacementId,
-                QuotaId = quotaId,
-                SpendingLimit = spendingLimit,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SubscriptionListResult"/>.
-        /// </summary>
-        public static SubscriptionListResult SubscriptionListResult(
-            List<Subscription> value = default,
-            string nextLink = default)
-        {
-            return new SubscriptionListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentExtended"/>.
-        /// </summary>
-        public static DeploymentExtended DeploymentExtended(
-            string id = default,
-            string name = default,
-            DeploymentPropertiesExtended properties = default)
-        {
-            return new DeploymentExtended
-            {
-                Id = id,
-                Name = name,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentPropertiesExtended"/>.
-        /// </summary>
-        public static DeploymentPropertiesExtended DeploymentPropertiesExtended(
-            string provisioningState = default,
-            string correlationId = default,
-            DateTime? timestamp = default,
-            object outputs = default,
-            List<Provider> providers = default,
-            List<Dependency> dependencies = default,
-            object template = default,
-            TemplateLink templateLink = default,
-            object parameters = default,
-            ParametersLink parametersLink = default,
-            Mode? deploymentMode = default,
-            DebugSetting debugSetting = default)
-        {
-            return new DeploymentPropertiesExtended
-            {
-                ProvisioningState = provisioningState,
-                CorrelationId = correlationId,
-                Timestamp = timestamp,
-                Outputs = outputs,
-                Providers = providers,
-                Dependencies = dependencies,
-                Template = template,
-                TemplateLink = templateLink,
-                Parameters = parameters,
-                ParametersLink = parametersLink,
-                DeploymentMode = deploymentMode,
-                DebugSetting = debugSetting,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Provider"/>.
-        /// </summary>
-        public static Provider Provider(
-            string id = default,
-            string @namespace = default,
-            string registrationState = default,
-            List<ProviderResourceType> resourceType = default)
-        {
-            return new Provider
-            {
-                Id = id,
-                Namespace = @namespace,
-                RegistrationState = registrationState,
-                ResourceType = resourceType,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ProviderResourceType"/>.
-        /// </summary>
-        public static ProviderResourceType ProviderResourceType(
-            string resourceType = default,
-            List<ObjectWithoutType> locations = default,
-            List<AliasType> aliases = default,
-            List<string> apiVersions = default,
-            object properties = default)
-        {
-            return new ProviderResourceType
-            {
-                ResourceType = resourceType,
-                Locations = locations,
-                Aliases = aliases,
-                ApiVersions = apiVersions,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AliasType"/>.
-        /// </summary>
-        public static AliasType AliasType(
-            string name = default,
-            List<AliasPathType> paths = default)
-        {
-            return new AliasType
-            {
-                Name = name,
-                Paths = paths,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AliasPathType"/>.
-        /// </summary>
-        public static AliasPathType AliasPathType(
-            string path = default,
-            List<string> apiVersions = default)
-        {
-            return new AliasPathType
-            {
-                Path = path,
-                ApiVersions = apiVersions,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Dependency"/>.
-        /// </summary>
-        public static Dependency Dependency(
-            List<BasicDependency> dependsOn = default,
-            string id = default,
-            string resourceType = default,
-            string resourceName = default)
-        {
-            return new Dependency
-            {
-                DependsOn = dependsOn,
-                Id = id,
-                ResourceType = resourceType,
-                ResourceName = resourceName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BasicDependency"/>.
-        /// </summary>
-        public static BasicDependency BasicDependency(
-            string id = default,
-            string resourceType = default,
-            string resourceName = default)
-        {
-            return new BasicDependency
-            {
-                Id = id,
-                ResourceType = resourceType,
-                ResourceName = resourceName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TemplateLink"/>.
-        /// </summary>
-        public static TemplateLink TemplateLink(
-            string templateURI = default,
-            string templateContentVersion = default)
-        {
-            return new TemplateLink
-            {
-                TemplateURI = templateURI,
-                TemplateContentVersion = templateContentVersion,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ParametersLink"/>.
-        /// </summary>
-        public static ParametersLink ParametersLink(
-            string parametersURI = default,
-            string parametersContentVersion = default)
-        {
-            return new ParametersLink
-            {
-                ParametersURI = parametersURI,
-                ParametersContentVersion = parametersContentVersion,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DebugSetting"/>.
-        /// </summary>
-        public static DebugSetting DebugSetting(
-            string detailLevel = default)
-        {
-            return new DebugSetting
-            {
-                DetailLevel = detailLevel,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentValidateResult"/>.
-        /// </summary>
-        public static DeploymentValidateResult DeploymentValidateResult(
-            ResourceManagementErrorWithDetails error = default,
-            DeploymentPropertiesExtended properties = default)
-        {
-            return new DeploymentValidateResult
-            {
-                Error = error,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResourceManagementErrorWithDetails"/>.
-        /// </summary>
-        public static ResourceManagementErrorWithDetails ResourceManagementErrorWithDetails(
-            string code = default,
-            string message = default,
-            string target = default,
-            List<object> details = default)
-        {
-            return new ResourceManagementErrorWithDetails
-            {
-                Code = code,
-                Message = message,
-                Target = target,
-                Details = details,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentExportResult"/>.
-        /// </summary>
-        public static DeploymentExportResult DeploymentExportResult(
-            object template = default)
-        {
-            return new DeploymentExportResult
-            {
-                Template = template,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentListResult"/>.
-        /// </summary>
-        public static DeploymentListResult DeploymentListResult(
-            List<DeploymentExtended> value = default,
-            string nextLink = default)
-        {
-            return new DeploymentListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentOperation"/>.
-        /// </summary>
-        public static DeploymentOperation DeploymentOperation(
-            string id = default,
-            string operationId = default,
-            DeploymentOperationProperties properties = default)
-        {
-            return new DeploymentOperation
-            {
-                Id = id,
-                OperationId = operationId,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentOperationProperties"/>.
-        /// </summary>
-        public static DeploymentOperationProperties DeploymentOperationProperties(
-            string provisioningState = default,
-            DateTime? timestamp = default,
-            string serviceRequestId = default,
-            string statusCode = default,
-            object statusMessage = default,
-            TargetResource targetResource = default,
-            HttpMessage request = default,
-            HttpMessage response = default)
-        {
-            return new DeploymentOperationProperties
-            {
-                ProvisioningState = provisioningState,
-                Timestamp = timestamp,
-                ServiceRequestId = serviceRequestId,
-                StatusCode = statusCode,
-                StatusMessage = statusMessage,
-                TargetResource = targetResource,
-                Request = request,
-                Response = response,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TargetResource"/>.
-        /// </summary>
-        public static TargetResource TargetResource(
-            string id = default,
-            string name = default,
-            string type = default)
-        {
-            return new TargetResource
-            {
-                Id = id,
-                Name = name,
-                Type = type,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HttpMessage"/>.
-        /// </summary>
-        public static HttpMessage HttpMessage(
-            object content = default)
-        {
-            return new HttpMessage
-            {
-                Content = content,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentOperationsListResult"/>.
-        /// </summary>
-        public static DeploymentOperationsListResult DeploymentOperationsListResult(
-            List<DeploymentOperation> value = default,
-            string nextLink = default)
-        {
-            return new DeploymentOperationsListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ProviderListResult"/>.
-        /// </summary>
-        public static ProviderListResult ProviderListResult(
-            List<Provider> value = default,
-            string nextLink = default)
-        {
-            return new ProviderListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResourceListResult"/>.
-        /// </summary>
-        public static ResourceListResult ResourceListResult(
-            List<GenericResource> value = default,
-            string nextLink = default)
-        {
-            return new ResourceListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GenericResource"/>.
-        /// </summary>
-        public static GenericResource GenericResource(
-            string id = default,
-            string name = default,
-            string type = default,
-            string location = default,
-            object tags = default,
-            Plan plan = default,
-            string kind = default,
-            string managedBy = default,
-            Sku sku = default,
-            Identity identity = default,
-            object properties = default)
-        {
-            return new GenericResource
-            {
-                Id = id,
-                Name = name,
-                Type = type,
-                Location = location,
-                Tags = tags,
-                Plan = plan,
-                Kind = kind,
-                ManagedBy = managedBy,
-                Sku = sku,
-                Identity = identity,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Plan"/>.
-        /// </summary>
-        public static Plan Plan(
-            string id = default,
-            string publisher = default,
-            string product = default,
-            string promotionCode = default)
-        {
-            return new Plan
-            {
-                Id = id,
-                Publisher = publisher,
-                Product = product,
-                PromotionCode = promotionCode,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Sku"/>.
-        /// </summary>
-        public static Sku Sku(
-            string name = default,
-            string tier = default,
-            string size = default,
-            string family = default,
-            string model = default,
-            int? capacity = default)
-        {
-            return new Sku
-            {
-                Name = name,
-                Tier = tier,
-                Size = size,
-                Family = family,
-                Model = model,
-                Capacity = capacity,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Identity"/>.
-        /// </summary>
-        public static Identity Identity(
-            string principalId = default,
-            string tenantId = default,
-            string type = default)
-        {
-            return new Identity
-            {
-                PrincipalId = principalId,
-                TenantId = tenantId,
-                Type = type,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResourceGroup"/>.
-        /// </summary>
-        public static ResourceGroup ResourceGroup(
-            string id = default,
-            string name = default,
-            string location = default,
-            string managedBy = default,
-            object tags = default,
-            ResourceGroupProperties properties = default)
-        {
-            return new ResourceGroup
-            {
-                Id = id,
-                Name = name,
-                Location = location,
-                ManagedBy = managedBy,
-                Tags = tags,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResourceGroupProperties"/>.
-        /// </summary>
-        public static ResourceGroupProperties ResourceGroupProperties(
-            string provisioningState = default)
-        {
-            return new ResourceGroupProperties
-            {
-                ProvisioningState = provisioningState,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResourceGroupExportResult"/>.
-        /// </summary>
-        public static ResourceGroupExportResult ResourceGroupExportResult(
-            object template = default,
-            ResourceManagementErrorWithDetails error = default)
-        {
-            return new ResourceGroupExportResult
-            {
-                Template = template,
-                Error = error,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ResourceGroupListResult"/>.
-        /// </summary>
-        public static ResourceGroupListResult ResourceGroupListResult(
-            List<ResourceGroup> value = default,
-            string nextLink = default)
-        {
-            return new ResourceGroupListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TagValue"/>.
-        /// </summary>
-        public static TagValue TagValue(
-            string tagId = default,
-            string tagValueValue = default,
-            TagCount count = default)
-        {
-            return new TagValue
-            {
-                TagId = tagId,
-                TagValueValue = tagValueValue,
-                Count = count,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TagCount"/>.
-        /// </summary>
-        public static TagCount TagCount(
-            string type = default,
-            int? value = default)
-        {
-            return new TagCount
-            {
-                Type = type,
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TagDetails"/>.
-        /// </summary>
-        public static TagDetails TagDetails(
-            string id = default,
-            string name = default,
-            TagCount count = default,
-            List<TagValue> values = default)
-        {
-            return new TagDetails
-            {
-                Id = id,
-                Name = name,
-                Count = count,
-                Values = values,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TagsListResult"/>.
-        /// </summary>
-        public static TagsListResult TagsListResult(
-            List<TagDetails> value = default,
-            string nextLink = default)
-        {
-            return new TagsListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DeploymentProperties"/>.
-        /// </summary>
-        public static DeploymentProperties DeploymentProperties(
-            object templateContent = default,
-            TemplateLink templateLink = default,
-            object parameters = default,
-            ParametersLink parametersLink = default,
-            Mode? deploymentMode = default,
-            DebugSetting debugSetting = default)
-        {
-            return new DeploymentProperties
-            {
-                TemplateContent = templateContent,
-                TemplateLink = templateLink,
-                Parameters = parameters,
-                ParametersLink = parametersLink,
-                DeploymentMode = deploymentMode,
-                DebugSetting = debugSetting,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Deployment"/>.
-        /// </summary>
-        public static Deployment Deployment(
-            DeploymentProperties properties = default)
-        {
-            return new Deployment
-            {
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ExportTemplateRequest"/>.
-        /// </summary>
-        public static ExportTemplateRequest ExportTemplateRequest(
-            List<string> resources = default,
-            Options? options = default)
-        {
-            return new ExportTemplateRequest
-            {
-                Resources = resources,
-                Options = options,
-            };
-        }
+            Value = value,
+            NextLink = nextLink,
+        };
     }
 
-    #endregion Model Factory
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentExtended"/>.
+    /// </summary>
+    public static DeploymentExtended DeploymentExtended(
+        string id = default,
+        string name = default,
+        DeploymentPropertiesExtended properties = default)
+    {
+        return new DeploymentExtended
+        {
+            Id = id,
+            Name = name,
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentPropertiesExtended"/>.
+    /// </summary>
+    public static DeploymentPropertiesExtended DeploymentPropertiesExtended(
+        string provisioningState = default,
+        string correlationId = default,
+        DateTime? timestamp = default,
+        object outputs = default,
+        List<Provider> providers = default,
+        List<Dependency> dependencies = default,
+        object template = default,
+        TemplateLink templateLink = default,
+        object parameters = default,
+        ParametersLink parametersLink = default,
+        Mode? deploymentMode = default,
+        DebugSetting debugSetting = default)
+    {
+        return new DeploymentPropertiesExtended
+        {
+            ProvisioningState = provisioningState,
+            CorrelationId = correlationId,
+            Timestamp = timestamp,
+            Outputs = outputs,
+            Providers = providers,
+            Dependencies = dependencies,
+            Template = template,
+            TemplateLink = templateLink,
+            Parameters = parameters,
+            ParametersLink = parametersLink,
+            DeploymentMode = deploymentMode,
+            DebugSetting = debugSetting,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="Provider"/>.
+    /// </summary>
+    public static Provider Provider(
+        string id = default,
+        string @namespace = default,
+        string registrationState = default,
+        List<ProviderResourceType> resourceType = default)
+    {
+        return new Provider
+        {
+            Id = id,
+            Namespace = @namespace,
+            RegistrationState = registrationState,
+            ResourceType = resourceType,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ProviderResourceType"/>.
+    /// </summary>
+    public static ProviderResourceType ProviderResourceType(
+        string resourceType = default,
+        List<ObjectWithoutType> locations = default,
+        List<AliasType> aliases = default,
+        List<string> apiVersions = default,
+        object properties = default)
+    {
+        return new ProviderResourceType
+        {
+            ResourceType = resourceType,
+            Locations = locations,
+            Aliases = aliases,
+            ApiVersions = apiVersions,
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AliasType"/>.
+    /// </summary>
+    public static AliasType AliasType(
+        string name = default,
+        List<AliasPathType> paths = default)
+    {
+        return new AliasType
+        {
+            Name = name,
+            Paths = paths,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AliasPathType"/>.
+    /// </summary>
+    public static AliasPathType AliasPathType(
+        string path = default,
+        List<string> apiVersions = default)
+    {
+        return new AliasPathType
+        {
+            Path = path,
+            ApiVersions = apiVersions,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="Dependency"/>.
+    /// </summary>
+    public static Dependency Dependency(
+        List<BasicDependency> dependsOn = default,
+        string id = default,
+        string resourceType = default,
+        string resourceName = default)
+    {
+        return new Dependency
+        {
+            DependsOn = dependsOn,
+            Id = id,
+            ResourceType = resourceType,
+            ResourceName = resourceName,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="BasicDependency"/>.
+    /// </summary>
+    public static BasicDependency BasicDependency(
+        string id = default,
+        string resourceType = default,
+        string resourceName = default)
+    {
+        return new BasicDependency
+        {
+            Id = id,
+            ResourceType = resourceType,
+            ResourceName = resourceName,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="TemplateLink"/>.
+    /// </summary>
+    public static TemplateLink TemplateLink(
+        string templateURI = default,
+        string templateContentVersion = default)
+    {
+        return new TemplateLink
+        {
+            TemplateURI = templateURI,
+            TemplateContentVersion = templateContentVersion,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ParametersLink"/>.
+    /// </summary>
+    public static ParametersLink ParametersLink(
+        string parametersURI = default,
+        string parametersContentVersion = default)
+    {
+        return new ParametersLink
+        {
+            ParametersURI = parametersURI,
+            ParametersContentVersion = parametersContentVersion,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DebugSetting"/>.
+    /// </summary>
+    public static DebugSetting DebugSetting(
+        string detailLevel = default)
+    {
+        return new DebugSetting
+        {
+            DetailLevel = detailLevel,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentValidateResult"/>.
+    /// </summary>
+    public static DeploymentValidateResult DeploymentValidateResult(
+        ResourceManagementErrorWithDetails error = default,
+        DeploymentPropertiesExtended properties = default)
+    {
+        return new DeploymentValidateResult
+        {
+            Error = error,
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ResourceManagementErrorWithDetails"/>.
+    /// </summary>
+    public static ResourceManagementErrorWithDetails ResourceManagementErrorWithDetails(
+        string code = default,
+        string message = default,
+        string target = default,
+        List<object> details = default)
+    {
+        return new ResourceManagementErrorWithDetails
+        {
+            Code = code,
+            Message = message,
+            Target = target,
+            Details = details,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentExportResult"/>.
+    /// </summary>
+    public static DeploymentExportResult DeploymentExportResult(
+        object template = default)
+    {
+        return new DeploymentExportResult
+        {
+            Template = template,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentListResult"/>.
+    /// </summary>
+    public static DeploymentListResult DeploymentListResult(
+        List<DeploymentExtended> value = default,
+        string nextLink = default)
+    {
+        return new DeploymentListResult
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentOperation"/>.
+    /// </summary>
+    public static DeploymentOperation DeploymentOperation(
+        string id = default,
+        string operationId = default,
+        DeploymentOperationProperties properties = default)
+    {
+        return new DeploymentOperation
+        {
+            Id = id,
+            OperationId = operationId,
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentOperationProperties"/>.
+    /// </summary>
+    public static DeploymentOperationProperties DeploymentOperationProperties(
+        string provisioningState = default,
+        DateTime? timestamp = default,
+        string serviceRequestId = default,
+        string statusCode = default,
+        object statusMessage = default,
+        TargetResource targetResource = default,
+        HttpMessage request = default,
+        HttpMessage response = default)
+    {
+        return new DeploymentOperationProperties
+        {
+            ProvisioningState = provisioningState,
+            Timestamp = timestamp,
+            ServiceRequestId = serviceRequestId,
+            StatusCode = statusCode,
+            StatusMessage = statusMessage,
+            TargetResource = targetResource,
+            Request = request,
+            Response = response,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="TargetResource"/>.
+    /// </summary>
+    public static TargetResource TargetResource(
+        string id = default,
+        string name = default,
+        string type = default)
+    {
+        return new TargetResource
+        {
+            Id = id,
+            Name = name,
+            Type = type,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="HttpMessage"/>.
+    /// </summary>
+    public static HttpMessage HttpMessage(
+        object content = default)
+    {
+        return new HttpMessage
+        {
+            Content = content,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentOperationsListResult"/>.
+    /// </summary>
+    public static DeploymentOperationsListResult DeploymentOperationsListResult(
+        List<DeploymentOperation> value = default,
+        string nextLink = default)
+    {
+        return new DeploymentOperationsListResult
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ProviderListResult"/>.
+    /// </summary>
+    public static ProviderListResult ProviderListResult(
+        List<Provider> value = default,
+        string nextLink = default)
+    {
+        return new ProviderListResult
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ResourceListResult"/>.
+    /// </summary>
+    public static ResourceListResult ResourceListResult(
+        List<GenericResource> value = default,
+        string nextLink = default)
+    {
+        return new ResourceListResult
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="GenericResource"/>.
+    /// </summary>
+    public static GenericResource GenericResource(
+        string id = default,
+        string name = default,
+        string type = default,
+        string location = default,
+        object tags = default,
+        Plan plan = default,
+        string kind = default,
+        string managedBy = default,
+        Sku sku = default,
+        Identity identity = default,
+        object properties = default)
+    {
+        return new GenericResource
+        {
+            Id = id,
+            Name = name,
+            Type = type,
+            Location = location,
+            Tags = tags,
+            Plan = plan,
+            Kind = kind,
+            ManagedBy = managedBy,
+            Sku = sku,
+            Identity = identity,
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="Plan"/>.
+    /// </summary>
+    public static Plan Plan(
+        string id = default,
+        string publisher = default,
+        string product = default,
+        string promotionCode = default)
+    {
+        return new Plan
+        {
+            Id = id,
+            Publisher = publisher,
+            Product = product,
+            PromotionCode = promotionCode,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="Sku"/>.
+    /// </summary>
+    public static Sku Sku(
+        string name = default,
+        string tier = default,
+        string size = default,
+        string family = default,
+        string model = default,
+        int? capacity = default)
+    {
+        return new Sku
+        {
+            Name = name,
+            Tier = tier,
+            Size = size,
+            Family = family,
+            Model = model,
+            Capacity = capacity,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="Identity"/>.
+    /// </summary>
+    public static Identity Identity(
+        string principalId = default,
+        string tenantId = default,
+        string type = default)
+    {
+        return new Identity
+        {
+            PrincipalId = principalId,
+            TenantId = tenantId,
+            Type = type,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ResourceGroup"/>.
+    /// </summary>
+    public static ResourceGroup ResourceGroup(
+        string id = default,
+        string name = default,
+        string location = default,
+        string managedBy = default,
+        object tags = default,
+        ResourceGroupProperties properties = default)
+    {
+        return new ResourceGroup
+        {
+            Id = id,
+            Name = name,
+            Location = location,
+            ManagedBy = managedBy,
+            Tags = tags,
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ResourceGroupProperties"/>.
+    /// </summary>
+    public static ResourceGroupProperties ResourceGroupProperties(
+        string provisioningState = default)
+    {
+        return new ResourceGroupProperties
+        {
+            ProvisioningState = provisioningState,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ResourceGroupExportResult"/>.
+    /// </summary>
+    public static ResourceGroupExportResult ResourceGroupExportResult(
+        object template = default,
+        ResourceManagementErrorWithDetails error = default)
+    {
+        return new ResourceGroupExportResult
+        {
+            Template = template,
+            Error = error,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ResourceGroupListResult"/>.
+    /// </summary>
+    public static ResourceGroupListResult ResourceGroupListResult(
+        List<ResourceGroup> value = default,
+        string nextLink = default)
+    {
+        return new ResourceGroupListResult
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="TagValue"/>.
+    /// </summary>
+    public static TagValue TagValue(
+        string tagId = default,
+        string tagValueValue = default,
+        TagCount count = default)
+    {
+        return new TagValue
+        {
+            TagId = tagId,
+            TagValueValue = tagValueValue,
+            Count = count,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="TagCount"/>.
+    /// </summary>
+    public static TagCount TagCount(
+        string type = default,
+        int? value = default)
+    {
+        return new TagCount
+        {
+            Type = type,
+            Value = value,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="TagDetails"/>.
+    /// </summary>
+    public static TagDetails TagDetails(
+        string id = default,
+        string name = default,
+        TagCount count = default,
+        List<TagValue> values = default)
+    {
+        return new TagDetails
+        {
+            Id = id,
+            Name = name,
+            Count = count,
+            Values = values,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="TagsListResult"/>.
+    /// </summary>
+    public static TagsListResult TagsListResult(
+        List<TagDetails> value = default,
+        string nextLink = default)
+    {
+        return new TagsListResult
+        {
+            Value = value,
+            NextLink = nextLink,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="DeploymentProperties"/>.
+    /// </summary>
+    public static DeploymentProperties DeploymentProperties(
+        object templateContent = default,
+        TemplateLink templateLink = default,
+        object parameters = default,
+        ParametersLink parametersLink = default,
+        Mode? deploymentMode = default,
+        DebugSetting debugSetting = default)
+    {
+        return new DeploymentProperties
+        {
+            TemplateContent = templateContent,
+            TemplateLink = templateLink,
+            Parameters = parameters,
+            ParametersLink = parametersLink,
+            DeploymentMode = deploymentMode,
+            DebugSetting = debugSetting,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="Deployment"/>.
+    /// </summary>
+    public static Deployment Deployment(
+        DeploymentProperties properties = default)
+    {
+        return new Deployment
+        {
+            Properties = properties,
+        };
+    }
+
+    /// <summary>
+    /// Creates a new instance of <see cref="ExportTemplateRequest"/>.
+    /// </summary>
+    public static ExportTemplateRequest ExportTemplateRequest(
+        List<string> resources = default,
+        Options? options = default)
+    {
+        return new ExportTemplateRequest
+        {
+            Resources = resources,
+            Options = options,
+        };
+    }
+}
+
+#endregion Model Factory
 
 }
 
 namespace Azure.Connectors.Sdk.Arm
 {
 
-    #region Client
+#region Client
 
+/// <summary>
+/// Typed client for arm connector.
+/// </summary>
+public class ArmClient : ConnectorClientBase
+{
     /// <summary>
-    /// Typed client for arm connector.
+    /// Creates a new ArmClient with the specified connection runtime URL.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
     /// </summary>
-    public class ArmClient : ConnectorClientBase
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public ArmClient(Uri connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
     {
-        /// <summary>
-        /// Creates a new ArmClient with the specified connection runtime URL.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
-        /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public ArmClient(Uri connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new ArmClient with the specified connection runtime URL and credential.
-        /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="credential">The Azure credential for authentication.</param>
-        /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public ArmClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
-            : base(connectionRuntimeUrl, credential, options)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new ArmClient with the specified connection runtime URL and credential.
-        /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        /// <param name="credential">The Azure credential for authentication.</param>
-        public ArmClient(Uri connectionRuntimeUrl, TokenCredential credential)
-            : base(connectionRuntimeUrl, credential)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new ArmClient with the specified connection runtime URL string.
-        /// Uses <see cref="ManagedIdentityCredential"/> by default.
-        /// </summary>
-        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public ArmClient(string connectionRuntimeUrl)
-            : base(connectionRuntimeUrl)
-        {
-        }
-
-        protected ArmClient() : this(new Uri("https://localhost")) { }
-
-        public override string ConnectorName => "arm";
-
-        /// <summary>
-        /// Lists the subscription locations
-        /// </summary>
-        /// <remarks>Lists the locations available for the subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Lists the subscription locations response.</returns>
-        public virtual async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations";
-            return await this
-                .CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Read a subscription
-        /// </summary>
-        /// <remarks>Reads the details for a particular subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read a subscription response.</returns>
-        public virtual async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}";
-            return await this
-                .CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List subscriptions
-        /// </summary>
-        /// <remarks>Gets a list of all the subscriptions to which the principal has access.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-        public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions";
-            return this.CreatePageable<SubscriptionListResult, Subscription>(
-                ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Read a template deployment
-        /// </summary>
-        /// <remarks>Reads a template deployment within a resource group.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="waitForDeployment">Wait for Deployment</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read a template deployment response.</returns>
-        public virtual async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool waitForDeployment = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (waitForDeployment != default)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create or update a template deployment
-        /// </summary>
-        /// <remarks>Create or update a named resource group template deployment. A template and parameters are expected for the request to succeed.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="waitForDeployment">Wait for Deployment</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create or update a template deployment response.</returns>
-        public virtual async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool waitForDeployment = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (waitForDeployment != default)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete template deployment
-        /// </summary>
-        /// <remarks>Deletes a resource group template deployment. The resources will not be deleted; only the metadata about the template deployment.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Cancel a template deployment
-        /// </summary>
-        /// <remarks>Cancel a currently running template deployment. All pending template operations will be suspended.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Validate a template deployment
-        /// </summary>
-        /// <remarks>Validates a deployment template. This operation does not have side effects and can be used to test a template deployment for syntax or logical errors.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Validate a template deployment response.</returns>
-        public virtual async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate";
-            return await this
-                .CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Export deployment template
-        /// </summary>
-        /// <remarks>Exports a template from a past resource group deployment.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Export deployment template response.</returns>
-        public virtual async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate";
-            return await this
-                .CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List template deployments
-        /// </summary>
-        /// <remarks>Lists all the resource group template deployments. This operation is useful to know what has been provisioned thus far.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="filter">Filter</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
-        public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<DeploymentListResult, DeploymentExtended>(
-                ct => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Read a template deployment operation
-        /// </summary>
-        /// <remarks>Reads a particular resource group template deployment operation. This is useful for troubleshooting failed template deployments.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="operationId">Operation Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read a template deployment operation response.</returns>
-        public virtual async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}";
-            return await this
-                .CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Lists template deployment operations
-        /// </summary>
-        /// <remarks>Lists all the template deployment operations. This is useful for troubleshooting failed template deployments.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="deploymentName">Deployment Name</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
-        public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<DeploymentOperationsListResult, DeploymentOperation>(
-                ct => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Unregister resource provider
-        /// </summary>
-        /// <remarks>Unregisters provider from a subscription. This operation will fail if there are any resources from that resource provider in the subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Unregister resource provider response.</returns>
-        public virtual async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister";
-            return await this
-                .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Register resource provider
-        /// </summary>
-        /// <remarks>Registers a resource provider to be used with a subscription. This will provision permissions for the service into your subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Register resource provider response.</returns>
-        public virtual async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register";
-            return await this
-                .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List resource providers
-        /// </summary>
-        /// <remarks>Lists the resource providers available for the subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="top">Top</param>
-        /// <param name="expand">Expand</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
-        public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ProviderListResult, Provider>(
-                ct => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Read resource provider
-        /// </summary>
-        /// <remarks>Reads a particular resource provider within the subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="expand">Expand</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read resource provider response.</returns>
-        public virtual async Task<Provider> ProvidersGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string expand = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List resources by resource group
-        /// </summary>
-        /// <remarks>Lists all the resources under a resource group.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="filter">Filter</param>
-        /// <param name="expand">Expand</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-        public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ResourceListResult, GenericResource>(
-                ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Read a resource group
-        /// </summary>
-        /// <remarks>Reads a particular resource group within the subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read a resource group response.</returns>
-        public virtual async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
-            return await this
-                .CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create or update a resource group
-        /// </summary>
-        /// <remarks>Creates or updates a resource group. The response code can be used to distinguish between a create (201) or update (200).</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroupName">Resource Group Name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create or update a resource group response.</returns>
-        public virtual async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}";
-            return await this
-                .CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a resource group
-        /// </summary>
-        /// <remarks>Delete a particular resource group within the subscription.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Update an existing resource group
-        /// </summary>
-        /// <remarks>Updates an existing resource group. If the resource does not exist, this request will fail.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update an existing resource group response.</returns>
-        public virtual async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}";
-            return await this
-                .CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Export a resource group template
-        /// </summary>
-        /// <remarks>Exports a deployment template from an existing resource group. This can only be successful if the underlying resources have a schema defined by Microsoft.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Export a resource group template response.</returns>
-        public virtual async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate";
-            return await this
-                .CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List resource groups
-        /// </summary>
-        /// <remarks>Lists all the resource groups within the subscription. The results are paginated at 1,000+ records.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="filter">Filter</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
-                ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List resources by subscription
-        /// </summary>
-        /// <remarks>Reads all of the resources under a particular subscription. The results are paginated at 1,000+ records.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="filter">Filter</param>
-        /// <param name="expand">Expand</param>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-        public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ResourceListResult, GenericResource>(
-                ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Read a resource
-        /// </summary>
-        /// <remarks>Reads a resource object.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="shortResourceId">Short Resource Id</param>
-        /// <param name="clientApiVersion">Client Api Version</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read a resource response.</returns>
-        public virtual async Task<GenericResource> ResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create or update a resource
-        /// </summary>
-        /// <remarks>Creates or updates a resource. The response code can be used to distinguish between a create (201) or update (200).</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="shortResourceId">Short Resource Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="clientApiVersion">Client Api Version</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create or update a resource response.</returns>
-        public virtual async Task<GenericResource> ResourcesCreateOrUpdateByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, GenericResource input, string clientApiVersion, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a resource
-        /// </summary>
-        /// <remarks>Deletes a resource.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="shortResourceId">Short Resource Id</param>
-        /// <param name="clientApiVersion">Client Api Version</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ResourcesDeleteByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Invoke resource operation
-        /// </summary>
-        /// <remarks>Invokes an operation on an Azure resource.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="shortResourceId">Short Resource Id</param>
-        /// <param name="actionName">Action name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="clientApiVersion">Client Api Version</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Invoke resource operation response.</returns>
-        public virtual async Task<ResourcesInvokeResponse> ResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string actionName, ResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Read a resource in provider
-        /// </summary>
-        /// <remarks>Reads a resource object.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="shortResourceId">Short Resource Id</param>
-        /// <param name="clientApiVersion">Client Api Version</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Read a resource in provider response.</returns>
-        public virtual async Task<GenericResource> ProviderResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Invoke resource operation in provider
-        /// </summary>
-        /// <remarks>Invokes an operation on an Azure resource.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceProvider">Resource Provider</param>
-        /// <param name="shortResourceId">Short Resource Id</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="clientApiVersion">Client Api Version</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Invoke resource operation in provider response.</returns>
-        public virtual async Task<ProviderResourcesInvokeResponse> ProviderResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, ProviderResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create or update a subscription resource tag value
-        /// </summary>
-        /// <remarks>Create or update a subscription resource tag value.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="tagName">Tag Name</param>
-        /// <param name="tagValue">Tag Value</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create or update a subscription resource tag value response.</returns>
-        public virtual async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}";
-            return await this
-                .CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a subscription resource tag value
-        /// </summary>
-        /// <remarks>Delete a subscription resource tag value.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="tagName">Tag Name</param>
-        /// <param name="tagValue">Tag Value</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create or update a subscription resource tag name
-        /// </summary>
-        /// <remarks>Create or update a subscription resource tag name.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="tagName">Tag Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create or update a subscription resource tag name response.</returns>
-        public virtual async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}";
-            return await this
-                .CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a subscription resource tag name
-        /// </summary>
-        /// <remarks>Delete a subscription resource tag name.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="tagName">Tag Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List subscription resource tags
-        /// </summary>
-        /// <remarks>Lists all the subscription resource tags.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
-        public virtual AsyncPageable<TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
-        {
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames";
-            return this.CreatePageable<TagsListResult, TagDetails>(
-                ct => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
     }
 
-    #endregion Client
+    /// <summary>
+    /// Creates a new ArmClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    /// <param name="options">Optional client options for retry, timeout, etc.</param>
+    public ArmClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        : base(connectionRuntimeUrl, credential, options)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new ArmClient with the specified connection runtime URL and credential.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    /// <param name="credential">The Azure credential for authentication.</param>
+    public ArmClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        : base(connectionRuntimeUrl, credential)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new ArmClient with the specified connection runtime URL string.
+    /// Uses <see cref="ManagedIdentityCredential"/> by default.
+    /// </summary>
+    /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+    public ArmClient(string connectionRuntimeUrl)
+        : base(connectionRuntimeUrl)
+    {
+    }
+
+    protected ArmClient() : this(new Uri("https://localhost")) { }
+
+    public override string ConnectorName => "arm";
+
+    /// <summary>
+    /// Lists the subscription locations
+    /// </summary>
+    /// <remarks>Lists the locations available for the subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Lists the subscription locations response.</returns>
+    public virtual async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Read a subscription
+    /// </summary>
+    /// <remarks>Reads the details for a particular subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read a subscription response.</returns>
+    public virtual async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List subscriptions
+    /// </summary>
+    /// <remarks>Gets a list of all the subscriptions to which the principal has access.</remarks>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
+    public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<SubscriptionListResult, Subscription>(
+            ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Read a template deployment
+    /// </summary>
+    /// <remarks>Reads a template deployment within a resource group.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="waitForDeployment">Wait for Deployment</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read a template deployment response.</returns>
+    public virtual async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool waitForDeployment = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (waitForDeployment != default)
+            queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create or update a template deployment
+    /// </summary>
+    /// <remarks>Create or update a named resource group template deployment. A template and parameters are expected for the request to succeed.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="waitForDeployment">Wait for Deployment</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create or update a template deployment response.</returns>
+    public virtual async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool waitForDeployment = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (waitForDeployment != default)
+            queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete template deployment
+    /// </summary>
+    /// <remarks>Deletes a resource group template deployment. The resources will not be deleted; only the metadata about the template deployment.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Cancel a template deployment
+    /// </summary>
+    /// <remarks>Cancel a currently running template deployment. All pending template operations will be suspended.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Validate a template deployment
+    /// </summary>
+    /// <remarks>Validates a deployment template. This operation does not have side effects and can be used to test a template deployment for syntax or logical errors.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Validate a template deployment response.</returns>
+    public virtual async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Export deployment template
+    /// </summary>
+    /// <remarks>Exports a template from a past resource group deployment.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Export deployment template response.</returns>
+    public virtual async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List template deployments
+    /// </summary>
+    /// <remarks>Lists all the resource group template deployments. This operation is useful to know what has been provisioned thus far.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="filter">Filter</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
+    public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (filter != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<DeploymentListResult, DeploymentExtended>(
+            ct => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Read a template deployment operation
+    /// </summary>
+    /// <remarks>Reads a particular resource group template deployment operation. This is useful for troubleshooting failed template deployments.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="operationId">Operation Id</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read a template deployment operation response.</returns>
+    public virtual async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Lists template deployment operations
+    /// </summary>
+    /// <remarks>Lists all the template deployment operations. This is useful for troubleshooting failed template deployments.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="deploymentName">Deployment Name</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
+    public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<DeploymentOperationsListResult, DeploymentOperation>(
+            ct => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Unregister resource provider
+    /// </summary>
+    /// <remarks>Unregisters provider from a subscription. This operation will fail if there are any resources from that resource provider in the subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Unregister resource provider response.</returns>
+    public virtual async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Register resource provider
+    /// </summary>
+    /// <remarks>Registers a resource provider to be used with a subscription. This will provision permissions for the service into your subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Register resource provider response.</returns>
+    public virtual async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List resource providers
+    /// </summary>
+    /// <remarks>Lists the resource providers available for the subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="top">Top</param>
+    /// <param name="expand">Expand</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
+    public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        if (expand != default)
+            queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<ProviderListResult, Provider>(
+            ct => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Read resource provider
+    /// </summary>
+    /// <remarks>Reads a particular resource provider within the subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="expand">Expand</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read resource provider response.</returns>
+    public virtual async Task<Provider> ProvidersGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string expand = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (expand != default)
+            queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List resources by resource group
+    /// </summary>
+    /// <remarks>Lists all the resources under a resource group.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="filter">Filter</param>
+    /// <param name="expand">Expand</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
+    public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (filter != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+        if (expand != default)
+            queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<ResourceListResult, GenericResource>(
+            ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Read a resource group
+    /// </summary>
+    /// <remarks>Reads a particular resource group within the subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read a resource group response.</returns>
+    public virtual async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create or update a resource group
+    /// </summary>
+    /// <remarks>Creates or updates a resource group. The response code can be used to distinguish between a create (201) or update (200).</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroupName">Resource Group Name</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create or update a resource group response.</returns>
+    public virtual async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete a resource group
+    /// </summary>
+    /// <remarks>Delete a particular resource group within the subscription.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Update an existing resource group
+    /// </summary>
+    /// <remarks>Updates an existing resource group. If the resource does not exist, this request will fail.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Update an existing resource group response.</returns>
+    public virtual async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Export a resource group template
+    /// </summary>
+    /// <remarks>Exports a deployment template from an existing resource group. This can only be successful if the underlying resources have a schema defined by Microsoft.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Export a resource group template response.</returns>
+    public virtual async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List resource groups
+    /// </summary>
+    /// <remarks>Lists all the resource groups within the subscription. The results are paginated at 1,000+ records.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="filter">Filter</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
+    public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (filter != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
+            ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// List resources by subscription
+    /// </summary>
+    /// <remarks>Reads all of the resources under a particular subscription. The results are paginated at 1,000+ records.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="filter">Filter</param>
+    /// <param name="expand">Expand</param>
+    /// <param name="top">Top</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
+    public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        if (filter != default)
+            queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+        if (expand != default)
+            queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+        if (top != default)
+            queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<ResourceListResult, GenericResource>(
+            ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+    /// <summary>
+    /// Read a resource
+    /// </summary>
+    /// <remarks>Reads a resource object.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="shortResourceId">Short Resource Id</param>
+    /// <param name="clientApiVersion">Client Api Version</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read a resource response.</returns>
+    public virtual async Task<GenericResource> ResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (clientApiVersion != default)
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create or update a resource
+    /// </summary>
+    /// <remarks>Creates or updates a resource. The response code can be used to distinguish between a create (201) or update (200).</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="shortResourceId">Short Resource Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="clientApiVersion">Client Api Version</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create or update a resource response.</returns>
+    public virtual async Task<GenericResource> ResourcesCreateOrUpdateByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, GenericResource input, string clientApiVersion, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (clientApiVersion != default)
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete a resource
+    /// </summary>
+    /// <remarks>Deletes a resource.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="shortResourceId">Short Resource Id</param>
+    /// <param name="clientApiVersion">Client Api Version</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task ResourcesDeleteByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (clientApiVersion != default)
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Invoke resource operation
+    /// </summary>
+    /// <remarks>Invokes an operation on an Azure resource.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceGroup">Resource Group</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="shortResourceId">Short Resource Id</param>
+    /// <param name="actionName">Action name</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="clientApiVersion">Client Api Version</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Invoke resource operation response.</returns>
+    public virtual async Task<ResourcesInvokeResponse> ResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string actionName, ResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (clientApiVersion != default)
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Read a resource in provider
+    /// </summary>
+    /// <remarks>Reads a resource object.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="shortResourceId">Short Resource Id</param>
+    /// <param name="clientApiVersion">Client Api Version</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Read a resource in provider response.</returns>
+    public virtual async Task<GenericResource> ProviderResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (clientApiVersion != default)
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Invoke resource operation in provider
+    /// </summary>
+    /// <remarks>Invokes an operation on an Azure resource.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="resourceProvider">Resource Provider</param>
+    /// <param name="shortResourceId">Short Resource Id</param>
+    /// <param name="input">The request body.</param>
+    /// <param name="clientApiVersion">Client Api Version</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Invoke resource operation in provider response.</returns>
+    public virtual async Task<ProviderResourcesInvokeResponse> ProviderResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, ProviderResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        if (clientApiVersion != default)
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create or update a subscription resource tag value
+    /// </summary>
+    /// <remarks>Create or update a subscription resource tag value.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="tagName">Tag Name</param>
+    /// <param name="tagValue">Tag Value</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create or update a subscription resource tag value response.</returns>
+    public virtual async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete a subscription resource tag value
+    /// </summary>
+    /// <remarks>Delete a subscription resource tag value.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="tagName">Tag Name</param>
+    /// <param name="tagValue">Tag Value</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Create or update a subscription resource tag name
+    /// </summary>
+    /// <remarks>Create or update a subscription resource tag name.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="tagName">Tag Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The Create or update a subscription resource tag name response.</returns>
+    public virtual async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return await this
+            .CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Delete a subscription resource tag name
+    /// </summary>
+    /// <remarks>Delete a subscription resource tag name.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="tagName">Tag Name</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public virtual async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        await this
+            .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// List subscription resource tags
+    /// </summary>
+    /// <remarks>Lists all the subscription resource tags.</remarks>
+    /// <param name="subscription">Subscription</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
+    public virtual AsyncPageable<TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
+    {
+        var queryParams = new List<string>();
+        queryParams.Add("x-ms-api-version=2016-06-01");
+        var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+        return this.CreatePageable<TagsListResult, TagDetails>(
+            ct => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: ct),
+            (nextLink, ct) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            cancellationToken);
+    }
+
+}
+
+#endregion Client
 }
