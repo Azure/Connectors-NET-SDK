@@ -861,107 +861,211 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="AzureAutomationClient"/> as a singleton.
+        /// Registers <see cref="AzureAutomationClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddAzureAutomationClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureAutomationClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureAutomationClient>(services, configurationSection, connectorName: ConnectorNames.AzureAutomation, factory: (connectionRuntimeUrl, credential) => new AzureAutomationClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureAutomationClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureAutomation,
+                factory: (connectionRuntimeUrl, credential) => new AzureAutomationClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="AzureDataFactoryClient"/> as a singleton.
+        /// Registers <see cref="AzureDataFactoryClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddAzureDataFactoryClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureDataFactoryClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureDataFactoryClient>(services, configurationSection, connectorName: ConnectorNames.AzureDataFactory, factory: (connectionRuntimeUrl, credential) => new AzureDataFactoryClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureDataFactoryClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureDataFactory,
+                factory: (connectionRuntimeUrl, credential) => new AzureDataFactoryClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="AzureDigitalTwinsClient"/> as a singleton.
+        /// Registers <see cref="AzureDigitalTwinsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddAzureDigitalTwinsClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureDigitalTwinsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureDigitalTwinsClient>(services, configurationSection, connectorName: ConnectorNames.AzureDigitalTwins, factory: (connectionRuntimeUrl, credential) => new AzureDigitalTwinsClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureDigitalTwinsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureDigitalTwins,
+                factory: (connectionRuntimeUrl, credential) => new AzureDigitalTwinsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="AzureVMClient"/> as a singleton.
+        /// Registers <see cref="AzureVMClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddAzureVMClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureVMClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureVMClient>(services, configurationSection, connectorName: ConnectorNames.AzureVM, factory: (connectionRuntimeUrl, credential) => new AzureVMClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureVMClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureVM,
+                factory: (connectionRuntimeUrl, credential) => new AzureVMClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="KeyVaultClient"/> as a singleton.
+        /// Registers <see cref="KeyVaultClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddKeyVaultClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddKeyVaultClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<KeyVaultClient>(services, configurationSection, connectorName: ConnectorNames.KeyVault, factory: (connectionRuntimeUrl, credential) => new KeyVaultClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<KeyVaultClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.KeyVault,
+                factory: (connectionRuntimeUrl, credential) => new KeyVaultClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="MicrosoftBookingsClient"/> as a singleton.
+        /// Registers <see cref="MicrosoftBookingsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddMicrosoftBookingsClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddMicrosoftBookingsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<MicrosoftBookingsClient>(services, configurationSection, connectorName: ConnectorNames.MicrosoftBookings, factory: (connectionRuntimeUrl, credential) => new MicrosoftBookingsClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MicrosoftBookingsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.MicrosoftBookings,
+                factory: (connectionRuntimeUrl, credential) => new MicrosoftBookingsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="Office365GroupsClient"/> as a singleton.
+        /// Registers <see cref="Office365GroupsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddOffice365GroupsClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOffice365GroupsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365GroupsClient>(services, configurationSection, connectorName: ConnectorNames.Office365Groups, factory: (connectionRuntimeUrl, credential) => new Office365GroupsClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365GroupsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Office365Groups,
+                factory: (connectionRuntimeUrl, credential) => new Office365GroupsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="Office365GroupsMailClient"/> as a singleton.
+        /// Registers <see cref="Office365GroupsMailClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddOffice365GroupsMailClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOffice365GroupsMailClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365GroupsMailClient>(services, configurationSection, connectorName: ConnectorNames.Office365GroupsMail, factory: (connectionRuntimeUrl, credential) => new Office365GroupsMailClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365GroupsMailClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Office365GroupsMail,
+                factory: (connectionRuntimeUrl, credential) => new Office365GroupsMailClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="OnenoteClient"/> as a singleton.
+        /// Registers <see cref="OnenoteClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddOnenoteClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOnenoteClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<OnenoteClient>(services, configurationSection, connectorName: ConnectorNames.Onenote, factory: (connectionRuntimeUrl, credential) => new OnenoteClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OnenoteClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Onenote,
+                factory: (connectionRuntimeUrl, credential) => new OnenoteClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="PlannerClient"/> as a singleton.
+        /// Registers <see cref="PlannerClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddPlannerClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddPlannerClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlannerClient>(services, configurationSection, connectorName: ConnectorNames.Planner, factory: (connectionRuntimeUrl, credential) => new PlannerClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlannerClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Planner,
+                factory: (connectionRuntimeUrl, credential) => new PlannerClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="PowerBIClient"/> as a singleton.
+        /// Registers <see cref="PowerBIClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddPowerBIClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddPowerBIClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<PowerBIClient>(services, configurationSection, connectorName: ConnectorNames.PowerBI, factory: (connectionRuntimeUrl, credential) => new PowerBIClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PowerBIClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.PowerBI,
+                factory: (connectionRuntimeUrl, credential) => new PowerBIClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="ShiftsClient"/> as a singleton.
+        /// Registers <see cref="ShiftsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddShiftsClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddShiftsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ShiftsClient>(services, configurationSection, connectorName: ConnectorNames.Shifts, factory: (connectionRuntimeUrl, credential) => new ShiftsClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ShiftsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Shifts,
+                factory: (connectionRuntimeUrl, credential) => new ShiftsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="TodoClient"/> as a singleton.
+        /// Registers <see cref="TodoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
-        public static IServiceCollection AddTodoClient(this IServiceCollection services, IConfiguration configurationSection)
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddTodoClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<TodoClient>(services, configurationSection, connectorName: ConnectorNames.Todo, factory: (connectionRuntimeUrl, credential) => new TodoClient(connectionRuntimeUrl, credential));
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TodoClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Todo,
+                factory: (connectionRuntimeUrl, credential) => new TodoClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

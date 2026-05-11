@@ -37,7 +37,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
     /// <summary>
     /// Response for When an appointment is created
     /// </summary>
-    public class Webhookresponse
+    public class WebhookResponse
     {
         /// <summary>Webhook ID.</summary>
         [JsonPropertyName("webhookId")]
@@ -112,12 +112,12 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Webhookresponse"/>.
+        /// Creates a new instance of <see cref="WebhookResponse"/>.
         /// </summary>
-        public static Webhookresponse Webhookresponse(
+        public static WebhookResponse WebhookResponse(
             string webhookId = default)
         {
-            return new Webhookresponse
+            return new WebhookResponse
             {
                 WebhookId = webhookId,
             };
