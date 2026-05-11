@@ -4,7 +4,9 @@
 
 using Azure.Connectors.Sdk.Arm;
 using Azure.Connectors.Sdk.AzureBlob;
+using Azure.Connectors.Sdk.AzureEventGrid;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
+using Azure.Connectors.Sdk.ExcelOnline;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
@@ -14,6 +16,9 @@ using Azure.Connectors.Sdk.OneDriveForBusiness;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.UniversalPrint;
+using Azure.Connectors.Sdk.Wdatp;
+using Azure.Connectors.Sdk.Yammer;
 using Azure.Core;
 using Azure.Identity;
 using Microsoft.Extensions.Configuration;
@@ -93,6 +98,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureEventGridClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureEventGridClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureEventGrid,
+                factory: (connectionRuntimeUrl, credential) => new AzureEventGridClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -106,6 +127,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.AzureMonitorLogs,
                 factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddExcelOnlineClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ExcelOnline,
+                factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -250,6 +287,54 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.Teams,
                 factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="UniversalPrintClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddUniversalPrintClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<UniversalPrintClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.UniversalPrint,
+                factory: (connectionRuntimeUrl, credential) => new UniversalPrintClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="WdatpClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddWdatpClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<WdatpClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Wdatp,
+                factory: (connectionRuntimeUrl, credential) => new WdatpClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddYammerClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<YammerClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Yammer,
+                factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
