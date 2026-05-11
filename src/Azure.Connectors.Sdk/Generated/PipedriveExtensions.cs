@@ -96,7 +96,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("stage_change_time")]
         [JsonInclude]
-        public DateTime? StageUodatedDateTime { get; internal set; }
+        public DateTime? StageUpdatedDateTime { get; internal set; }
 
         /// <summary>True if the deal is active.</summary>
         [JsonPropertyName("active")]
@@ -132,7 +132,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
 
         /// <summary>Owner, followers or entire company.</summary>
         [JsonPropertyName("visible_to")]
-        public string Visiblity { get; set; }
+        public string Visibility { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("close_time")]
@@ -171,7 +171,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         [JsonPropertyName("done_activities_count")]
         public int? DoneActivitiesCount { get; set; }
 
-        /// <summary>Number of undone activitie associated with the deals.</summary>
+        /// <summary>Number of undone activities associated with the deals.</summary>
         [JsonPropertyName("undone_activities_count")]
         public int? UndoneActivitiesCount { get; set; }
 
@@ -273,7 +273,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("update_time")]
         [JsonInclude]
-        public DateTime? UpdatesDateTime { get; internal set; }
+        public DateTime? UpdatedDateTime { get; internal set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("marked_as_done_time")]
@@ -408,7 +408,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
 
         /// <summary>Owner, followers or entire company.</summary>
         [JsonPropertyName("visible_to")]
-        public VisibleTo? Visiblity { get; set; }
+        public VisibleTo? Visibility { get; set; }
     }
 
     /// <summary>
@@ -535,7 +535,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
             DateTime? updatedDateTime = default,
             int? stageId = default,
             string stageName = default,
-            DateTime? stageUodatedDateTime = default,
+            DateTime? stageUpdatedDateTime = default,
             bool? isActive = default,
             bool? isDeleted = default,
             string nextActivityDate = default,
@@ -544,7 +544,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
             int? lastActivityId = default,
             string lastActivityDate = default,
             string lostReason = default,
-            string visiblity = default,
+            string visibility = default,
             DateTime? closedDateTime = default,
             int? pipelineId = default,
             int? productsCount = default,
@@ -578,7 +578,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
                 UpdatedDateTime = updatedDateTime,
                 StageId = stageId,
                 StageName = stageName,
-                StageUodatedDateTime = stageUodatedDateTime,
+                StageUpdatedDateTime = stageUpdatedDateTime,
                 IsActive = isActive,
                 IsDeleted = isDeleted,
                 NextActivityDate = nextActivityDate,
@@ -587,7 +587,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
                 LastActivityId = lastActivityId,
                 LastActivityDate = lastActivityDate,
                 LostReason = lostReason,
-                Visiblity = visiblity,
+                Visibility = visibility,
                 ClosedDateTime = closedDateTime,
                 PipelineId = pipelineId,
                 ProductsCount = productsCount,
@@ -627,7 +627,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
             int? contactId = default,
             string contactName = default,
             DateTime? createdDateTime = default,
-            DateTime? updatesDateTime = default,
+            DateTime? updatedDateTime = default,
             DateTime? completedDateTime = default,
             string googleCalendarEventId = default,
             string googleCalendarId = default,
@@ -653,7 +653,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
                 ContactId = contactId,
                 ContactName = contactName,
                 CreatedDateTime = createdDateTime,
-                UpdatesDateTime = updatesDateTime,
+                UpdatedDateTime = updatedDateTime,
                 CompletedDateTime = completedDateTime,
                 GoogleCalendarEventId = googleCalendarEventId,
                 GoogleCalendarId = googleCalendarId,
@@ -721,7 +721,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
             string contactId = default,
             string organizationId = default,
             string expectedCloseDate = default,
-            VisibleTo? visiblity = default)
+            VisibleTo? visibility = default)
         {
             return new AddDealRequest
             {
@@ -734,7 +734,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
                 ContactId = contactId,
                 OrganizationId = organizationId,
                 ExpectedCloseDate = expectedCloseDate,
-                Visiblity = visiblity,
+                Visibility = visibility,
             };
         }
 
