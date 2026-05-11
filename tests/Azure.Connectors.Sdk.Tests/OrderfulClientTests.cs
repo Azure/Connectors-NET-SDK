@@ -24,7 +24,7 @@ namespace Azure.Connectors.Sdk.Tests
         private static Mock<TokenCredential> CreateMockCredential()
         {
             var mock = new Mock<TokenCredential>();
-            mock.Setup(c => c.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+            mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
             return mock;
         }

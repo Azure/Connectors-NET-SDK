@@ -24,7 +24,7 @@ namespace Azure.Connectors.Sdk.Tests
         private static Mock<TokenCredential> CreateMockCredential()
         {
             var mock = new Mock<TokenCredential>();
-            mock.Setup(c => c.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+            mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
             return mock;
         }
@@ -79,7 +79,11 @@ namespace Azure.Connectors.Sdk.Tests
             };
             using var client = CreateMockedClient(responseMessage);
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.GetMessagesByContactPhoneAsync(idOfTheDashboardToMakeThisCallOn: 1, contactSPhoneNumberToSearchBy: "555-0100", numberPageToGet: 1, amountOfEachEntityToGetPerPage: 10, cancellationToken: CancellationToken.None))
+                client.GetMessagesByContactPhoneAsync(idOfTheDashboardToMakeThisCallOn: 1,
+                    contactSPhoneNumberToSearchBy: "555-0100",
+                    numberPageToGet: 1,
+                    amountOfEachEntityToGetPerPage: 10,
+                    cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
     }
