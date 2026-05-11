@@ -304,7 +304,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void AllConnectorExtensionMethods_RegisterCorrectClientAndConnectorName()
         {
-            // Arrange — register all 32 connectors.
+            // Arrange — register all 47 connectors.
             var services = new ServiceCollection();
             var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
                 "https://test.azure.com/apim/connector/abc123");

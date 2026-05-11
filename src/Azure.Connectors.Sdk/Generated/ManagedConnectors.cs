@@ -22,6 +22,12 @@
 //   using Azure.Connectors.Sdk.CloudmersiveConvert;
 //   using Azure.Connectors.Sdk.CloudmersiveConvert.Models;
 //   var client = new CloudmersiveConvertClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Docuware;
+//   using Azure.Connectors.Sdk.Docuware.Models;
+//   var client = new DocuwareClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ElfsquadData;
+//   using Azure.Connectors.Sdk.ElfsquadData.Models;
+//   var client = new ElfsquadDataClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Etsy;
 //   using Azure.Connectors.Sdk.Etsy.Models;
 //   var client = new EtsyClient(connectionRuntimeUrl);
@@ -34,15 +40,24 @@
 //   using Azure.Connectors.Sdk.FreshService;
 //   using Azure.Connectors.Sdk.FreshService.Models;
 //   var client = new FreshServiceClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Impexium;
+//   using Azure.Connectors.Sdk.Impexium.Models;
+//   var client = new ImpexiumClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Infusionsoft;
 //   using Azure.Connectors.Sdk.Infusionsoft.Models;
 //   var client = new InfusionsoftClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Insightly;
 //   using Azure.Connectors.Sdk.Insightly.Models;
 //   var client = new InsightlyClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.JedoxOdataHub;
+//   using Azure.Connectors.Sdk.JedoxOdataHub.Models;
+//   var client = new JedoxOdataHubClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Kusto;
 //   using Azure.Connectors.Sdk.Kusto.Models;
 //   var client = new KustoClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.MeetingRoomMap;
+//   using Azure.Connectors.Sdk.MeetingRoomMap.Models;
+//   var client = new MeetingRoomMapClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Mq;
 //   using Azure.Connectors.Sdk.Mq.Models;
 //   var client = new MqClient(connectionRuntimeUrl);
@@ -58,6 +73,12 @@
 //   using Azure.Connectors.Sdk.OneDriveForBusiness;
 //   using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 //   var client = new OneDriveForBusinessClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Orderful;
+//   using Azure.Connectors.Sdk.Orderful.Models;
+//   var client = new OrderfulClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.PdfCo;
+//   using Azure.Connectors.Sdk.PdfCo.Models;
+//   var client = new PdfCoClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Pipedrive;
 //   using Azure.Connectors.Sdk.Pipedrive.Models;
 //   var client = new PipedriveClient(connectionRuntimeUrl);
@@ -67,12 +88,18 @@
 //   using Azure.Connectors.Sdk.Plumsail;
 //   using Azure.Connectors.Sdk.Plumsail.Models;
 //   var client = new PlumsailClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Projectplace;
+//   using Azure.Connectors.Sdk.Projectplace.Models;
+//   var client = new ProjectplaceClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Replicon;
 //   using Azure.Connectors.Sdk.Replicon.Models;
 //   var client = new RepliconClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Revai;
 //   using Azure.Connectors.Sdk.Revai.Models;
 //   var client = new RevaiClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.SeismicPlanner;
+//   using Azure.Connectors.Sdk.SeismicPlanner.Models;
+//   var client = new SeismicPlannerClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.SharePointOnline;
 //   using Azure.Connectors.Sdk.SharePointOnline.Models;
 //   var client = new SharePointOnlineClient(connectionRuntimeUrl);
@@ -82,48 +109,6 @@
 //   using Azure.Connectors.Sdk.Smtp;
 //   using Azure.Connectors.Sdk.Smtp.Models;
 //   var client = new SmtpClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Teams;
-//   using Azure.Connectors.Sdk.Teams.Models;
-//   var client = new TeamsClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.UniversalPrint;
-//   using Azure.Connectors.Sdk.UniversalPrint.Models;
-//   var client = new UniversalPrintClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Wdatp;
-//   using Azure.Connectors.Sdk.Wdatp.Models;
-//   var client = new WdatpClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Yammer;
-//   using Azure.Connectors.Sdk.Yammer.Models;
-//   var client = new YammerClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.ZohoSign;
-//   using Azure.Connectors.Sdk.ZohoSign.Models;
-//   var client = new ZohoSignClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Docuware;
-//   using Azure.Connectors.Sdk.Docuware.Models;
-//   var client = new DocuwareClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.ElfsquadData;
-//   using Azure.Connectors.Sdk.ElfsquadData.Models;
-//   var client = new ElfsquadDataClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Impexium;
-//   using Azure.Connectors.Sdk.Impexium.Models;
-//   var client = new ImpexiumClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.JedoxOdataHub;
-//   using Azure.Connectors.Sdk.JedoxOdataHub.Models;
-//   var client = new JedoxOdataHubClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.MeetingRoomMap;
-//   using Azure.Connectors.Sdk.MeetingRoomMap.Models;
-//   var client = new MeetingRoomMapClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Orderful;
-//   using Azure.Connectors.Sdk.Orderful.Models;
-//   var client = new OrderfulClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.PdfCo;
-//   using Azure.Connectors.Sdk.PdfCo.Models;
-//   var client = new PdfCoClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Projectplace;
-//   using Azure.Connectors.Sdk.Projectplace.Models;
-//   var client = new ProjectplaceClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.SeismicPlanner;
-//   using Azure.Connectors.Sdk.SeismicPlanner.Models;
-//   var client = new SeismicPlannerClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Starmind;
 //   using Azure.Connectors.Sdk.Starmind.Models;
 //   var client = new StarmindClient(connectionRuntimeUrl);
@@ -133,15 +118,30 @@
 //   using Azure.Connectors.Sdk.Tallyfy;
 //   using Azure.Connectors.Sdk.Tallyfy.Models;
 //   var client = new TallyfyClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Teams;
+//   using Azure.Connectors.Sdk.Teams.Models;
+//   var client = new TeamsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.TextRequest;
 //   using Azure.Connectors.Sdk.TextRequest.Models;
 //   var client = new TextRequestClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Ticketmaster;
 //   using Azure.Connectors.Sdk.Ticketmaster.Models;
 //   var client = new TicketmasterClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.UniversalPrint;
+//   using Azure.Connectors.Sdk.UniversalPrint.Models;
+//   var client = new UniversalPrintClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Waywedo;
 //   using Azure.Connectors.Sdk.Waywedo.Models;
 //   var client = new WaywedoClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Wdatp;
+//   using Azure.Connectors.Sdk.Wdatp.Models;
+//   var client = new WdatpClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Yammer;
+//   using Azure.Connectors.Sdk.Yammer.Models;
+//   var client = new YammerClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ZohoSign;
+//   using Azure.Connectors.Sdk.ZohoSign.Models;
+//   var client = new ZohoSignClient(connectionRuntimeUrl);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -163,45 +163,45 @@ public static class SdkConnectors
         "campfire",
         "clicksendsms",
         "cloudmersiveconvert",
+        "docuware",
+        "elfsquaddata",
         "etsy",
         "excelonline",
         "formstackforms",
         "freshservice",
+        "impexium",
         "infusionsoft",
         "insightly",
+        "jedoxodatahub",
         "kusto",
+        "meetingroommap",
         "mq",
         "msgraphgroupsanduser",
         "office365",
         "office365users",
         "onedriveforbusiness",
+        "orderful",
+        "pdfco",
         "pipedrive",
         "plivo",
         "plumsail",
+        "projectplace",
         "replicon",
         "revai",
+        "seismicplanner",
         "sharepointonline",
         "signinghub",
         "smtp",
-        "teams",
-        "universalprint",
-        "wdatp",
-        "yammer",
-        "zohosign",
-        "docuware",
-        "elfsquaddata",
-        "impexium",
-        "jedoxodatahub",
-        "meetingroommap",
-        "orderful",
-        "pdfco",
-        "projectplace",
-        "seismicplanner",
         "starmind",
         "starrezrestv1",
         "tallyfy",
+        "teams",
         "textrequest",
         "ticketmaster",
+        "universalprint",
         "waywedo",
+        "wdatp",
+        "yammer",
+        "zohosign",
     ];
 }

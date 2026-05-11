@@ -95,8 +95,7 @@ namespace Azure.Connectors.Sdk
         private const string ConnectionRuntimeUrlKey = "ConnectionRuntimeUrl";
         private const string ManagedIdentityClientIdKey = "ManagedIdentityClientId";
 
-        /// <summary>
-        /// Registers <see cref="ArmClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="ArmClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -111,8 +110,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ArmClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -127,8 +125,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new AzureBlobClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="AzureEventGridClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -143,8 +140,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new AzureEventGridClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -159,8 +155,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="CampfireClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="CampfireClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -175,8 +170,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new CampfireClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="ClickSendSmsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="ClickSendSmsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -191,8 +185,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ClickSendSmsClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="CloudmersiveConvertClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="CloudmersiveConvertClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -207,408 +200,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new CloudmersiveConvertClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="EtsyClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddEtsyClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<EtsyClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Etsy,
-                factory: (connectionRuntimeUrl, credential) => new EtsyClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddExcelOnlineClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.ExcelOnline,
-                factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="FormstackFormsClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddFormstackFormsClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<FormstackFormsClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.FormstackForms,
-                factory: (connectionRuntimeUrl, credential) => new FormstackFormsClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="FreshServiceClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddFreshServiceClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<FreshServiceClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.FreshService,
-                factory: (connectionRuntimeUrl, credential) => new FreshServiceClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="InfusionsoftClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddInfusionsoftClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<InfusionsoftClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Infusionsoft,
-                factory: (connectionRuntimeUrl, credential) => new InfusionsoftClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="InsightlyClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddInsightlyClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<InsightlyClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Insightly,
-                factory: (connectionRuntimeUrl, credential) => new InsightlyClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="KustoClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddKustoClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<KustoClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Kusto,
-                factory: (connectionRuntimeUrl, credential) => new KustoClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="MqClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddMqClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<MqClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Mq,
-                factory: (connectionRuntimeUrl, credential) => new MqClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="MsGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddMsGraphGroupsAndUsersClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<MsGraphGroupsAndUsersClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.MsGraphGroupsAndUsers,
-                factory: (connectionRuntimeUrl, credential) => new MsGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="Office365Client"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddOffice365Client(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365Client>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Office365,
-                factory: (connectionRuntimeUrl, credential) => new Office365Client(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="Office365UsersClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddOffice365UsersClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365UsersClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Office365Users,
-                factory: (connectionRuntimeUrl, credential) => new Office365UsersClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="OneDriveForBusinessClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddOneDriveForBusinessClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<OneDriveForBusinessClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.OneDriveForBusiness,
-                factory: (connectionRuntimeUrl, credential) => new OneDriveForBusinessClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="PipedriveClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddPipedriveClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<PipedriveClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Pipedrive,
-                factory: (connectionRuntimeUrl, credential) => new PipedriveClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="PlivoClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddPlivoClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlivoClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Plivo,
-                factory: (connectionRuntimeUrl, credential) => new PlivoClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="PlumsailClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddPlumsailClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlumsailClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Plumsail,
-                factory: (connectionRuntimeUrl, credential) => new PlumsailClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="RepliconClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddRepliconClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<RepliconClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Replicon,
-                factory: (connectionRuntimeUrl, credential) => new RepliconClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="RevaiClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddRevaiClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<RevaiClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Revai,
-                factory: (connectionRuntimeUrl, credential) => new RevaiClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="SharePointOnlineClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddSharePointOnlineClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<SharePointOnlineClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.SharePointOnline,
-                factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="SigningHubClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddSigningHubClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<SigningHubClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.SigningHub,
-                factory: (connectionRuntimeUrl, credential) => new SigningHubClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="SmtpClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddSmtpClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<SmtpClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Smtp,
-                factory: (connectionRuntimeUrl, credential) => new SmtpClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="TeamsClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddTeamsClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<TeamsClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Teams,
-                factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="UniversalPrintClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddUniversalPrintClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<UniversalPrintClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.UniversalPrint,
-                factory: (connectionRuntimeUrl, credential) => new UniversalPrintClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="WdatpClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddWdatpClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<WdatpClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Wdatp,
-                factory: (connectionRuntimeUrl, credential) => new WdatpClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddYammerClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<YammerClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.Yammer,
-                factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="ZohoSignClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddZohoSignClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ZohoSignClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.ZohoSign,
-                factory: (connectionRuntimeUrl, credential) => new ZohoSignClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="DocuwareClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="DocuwareClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -623,8 +215,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new DocuwareClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="ElfsquadDataClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="ElfsquadDataClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -639,8 +230,67 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ElfsquadDataClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="ImpexiumClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="EtsyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddEtsyClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<EtsyClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Etsy,
+                factory: (connectionRuntimeUrl, credential) => new EtsyClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddExcelOnlineClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ExcelOnline,
+                factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="FormstackFormsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddFormstackFormsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<FormstackFormsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.FormstackForms,
+                factory: (connectionRuntimeUrl, credential) => new FormstackFormsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="FreshServiceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddFreshServiceClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<FreshServiceClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.FreshService,
+                factory: (connectionRuntimeUrl, credential) => new FreshServiceClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="ImpexiumClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -655,8 +305,37 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ImpexiumClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="JedoxOdataHubClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="InfusionsoftClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddInfusionsoftClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<InfusionsoftClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Infusionsoft,
+                factory: (connectionRuntimeUrl, credential) => new InfusionsoftClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="InsightlyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddInsightlyClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<InsightlyClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Insightly,
+                factory: (connectionRuntimeUrl, credential) => new InsightlyClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="JedoxOdataHubClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -671,8 +350,22 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new JedoxOdataHubClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="MeetingRoomMapClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="KustoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddKustoClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<KustoClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Kusto,
+                factory: (connectionRuntimeUrl, credential) => new KustoClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="MeetingRoomMapClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -687,8 +380,82 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new MeetingRoomMapClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="OrderfulClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="MqClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddMqClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MqClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Mq,
+                factory: (connectionRuntimeUrl, credential) => new MqClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="MsGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddMsGraphGroupsAndUsersClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MsGraphGroupsAndUsersClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.MsGraphGroupsAndUsers,
+                factory: (connectionRuntimeUrl, credential) => new MsGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="Office365Client"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOffice365Client(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365Client>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Office365,
+                factory: (connectionRuntimeUrl, credential) => new Office365Client(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="Office365UsersClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOffice365UsersClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365UsersClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Office365Users,
+                factory: (connectionRuntimeUrl, credential) => new Office365UsersClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="OneDriveForBusinessClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOneDriveForBusinessClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OneDriveForBusinessClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.OneDriveForBusiness,
+                factory: (connectionRuntimeUrl, credential) => new OneDriveForBusinessClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="OrderfulClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -703,8 +470,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new OrderfulClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -719,8 +485,52 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new PdfCoClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="ProjectplaceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="PipedriveClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddPipedriveClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PipedriveClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Pipedrive,
+                factory: (connectionRuntimeUrl, credential) => new PipedriveClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="PlivoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddPlivoClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlivoClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Plivo,
+                factory: (connectionRuntimeUrl, credential) => new PlivoClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="PlumsailClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddPlumsailClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlumsailClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Plumsail,
+                factory: (connectionRuntimeUrl, credential) => new PlumsailClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="ProjectplaceClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -735,8 +545,37 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new ProjectplaceClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="SeismicPlannerClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="RepliconClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddRepliconClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<RepliconClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Replicon,
+                factory: (connectionRuntimeUrl, credential) => new RepliconClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="RevaiClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddRevaiClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<RevaiClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Revai,
+                factory: (connectionRuntimeUrl, credential) => new RevaiClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="SeismicPlannerClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -751,8 +590,52 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new SeismicPlannerClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="StarmindClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="SharePointOnlineClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddSharePointOnlineClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SharePointOnlineClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.SharePointOnline,
+                factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="SigningHubClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddSigningHubClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SigningHubClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.SigningHub,
+                factory: (connectionRuntimeUrl, credential) => new SigningHubClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="SmtpClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddSmtpClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SmtpClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Smtp,
+                factory: (connectionRuntimeUrl, credential) => new SmtpClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="StarmindClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -767,8 +650,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new StarmindClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="StarrezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="StarrezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -783,8 +665,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new StarrezRestV1Client(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="TallyfyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="TallyfyClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -799,8 +680,22 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TallyfyClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="TextRequestClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="TeamsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddTeamsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TeamsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Teams,
+                factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="TextRequestClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -815,8 +710,7 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TextRequestClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="TicketmasterClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="TicketmasterClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -831,8 +725,22 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new TicketmasterClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Registers <see cref="WaywedoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// <summary>        /// Registers <see cref="UniversalPrintClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddUniversalPrintClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<UniversalPrintClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.UniversalPrint,
+                factory: (connectionRuntimeUrl, credential) => new UniversalPrintClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="WaywedoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -847,8 +755,52 @@ namespace Azure.Connectors.Sdk
                 factory: (connectionRuntimeUrl, credential) => new WaywedoClient(connectionRuntimeUrl, credential));
         }
 
-        /// <summary>
-        /// Common helper that validates configuration eagerly and registers a connector client singleton.
+        /// <summary>        /// Registers <see cref="WdatpClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddWdatpClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<WdatpClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Wdatp,
+                factory: (connectionRuntimeUrl, credential) => new WdatpClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddYammerClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<YammerClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Yammer,
+                factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Registers <see cref="ZohoSignClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddZohoSignClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ZohoSignClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ZohoSign,
+                factory: (connectionRuntimeUrl, credential) => new ZohoSignClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>        /// Common helper that validates configuration eagerly and registers a connector client singleton.
         /// </summary>
         private static IServiceCollection AddConnectorClient<TClient>(
             IServiceCollection services,
