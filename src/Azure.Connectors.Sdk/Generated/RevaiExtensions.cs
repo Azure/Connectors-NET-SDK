@@ -1426,12 +1426,12 @@ namespace Azure.Connectors.Sdk.Revai
         }
 
         /// <summary>
-        /// Delete topic extraction jo
+        /// Delete topic extraction job
         /// </summary>
         /// <remarks>Deletes a topic extraction job. All data related to the job will be permanently deleted.</remarks>
         /// <param name="iD">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete topic extraction jo response.</returns>
+        /// <returns>The Delete topic extraction job response.</returns>
         public virtual async Task<string> ExtractionDeleteAsync(string iD, CancellationToken cancellationToken = default)
         {
             var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
