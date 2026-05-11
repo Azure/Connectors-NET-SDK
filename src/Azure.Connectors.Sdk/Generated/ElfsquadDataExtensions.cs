@@ -323,12 +323,12 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="skipTheFirstNItems">Skip the first n items</param>
         /// <param name="orderResults">Order results</param>
         /// <param name="filterItemsByPropertyValues">Filter items by property values</param>
-        /// <param name="commaSeperatedPropertyNamesYouWantToSelect">Comma-seperated property names you want to select</param>
+        /// <param name="commaSeparatedPropertyNamesYouWantToSelect">Comma-separated property names you want to select</param>
         /// <param name="expandRelatedEntities">Expand related entities</param>
         /// <param name="includeCountOfItems">Include count of items</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> GetEntitiesAsync([DynamicValues("get_schemas")] string nameOfTheEntity, int showOnlyTheFirstNItems = default, int skipTheFirstNItems = default, string orderResults = default, string filterItemsByPropertyValues = default, string commaSeperatedPropertyNamesYouWantToSelect = default, string expandRelatedEntities = default, bool includeCountOfItems = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<object> GetEntitiesAsync([DynamicValues("get_schemas")] string nameOfTheEntity, int showOnlyTheFirstNItems = default, int skipTheFirstNItems = default, string orderResults = default, string filterItemsByPropertyValues = default, string commaSeparatedPropertyNamesYouWantToSelect = default, string expandRelatedEntities = default, bool includeCountOfItems = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (showOnlyTheFirstNItems != default)
@@ -339,8 +339,8 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderResults.ToString())}");
             if (filterItemsByPropertyValues != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterItemsByPropertyValues.ToString())}");
-            if (commaSeperatedPropertyNamesYouWantToSelect != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(commaSeperatedPropertyNamesYouWantToSelect.ToString())}");
+            if (commaSeparatedPropertyNamesYouWantToSelect != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(commaSeparatedPropertyNamesYouWantToSelect.ToString())}");
             if (expandRelatedEntities != default)
                 queryParams.Add($"$expand={Uri.EscapeDataString(expandRelatedEntities.ToString())}");
             if (includeCountOfItems != default)

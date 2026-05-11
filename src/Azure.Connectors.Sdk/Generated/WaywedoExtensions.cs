@@ -285,7 +285,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         [JsonPropertyName("url")]
         public string ProcedureURL { get; set; }
 
-        /// <summary>Wether the procedure is restricted or not.</summary>
+        /// <summary>Whether the procedure is restricted or not.</summary>
         [JsonPropertyName("restricted")]
         public bool? Restricted { get; set; }
 
