@@ -211,6 +211,19 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | TextRequest | 🔄 SDK Generated | GetMessagesByContactPhone, SendMessageByPhoneNumber |
 | Ticketmaster | 🔄 SDK Generated | EventsGet, EventsGetDetails |
 | Way We Do | 🔄 SDK Generated | GetAllChecklistInstances, CommentAdd |
+| Azure Automation | 🔄 SDK Generated | CreateJob, GetJob, GetJobOutput |
+| Azure Data Factory | 🔄 SDK Generated | GetPipelineRun, CreateRun |
+| Azure Digital Twins | 🔄 SDK Generated | DigitalTwinsAdd, DigitalTwinsGetById |
+| Azure VM | 🔄 SDK Generated | ListVirtualMachines, StartVirtualMachine |
+| Key Vault | 🔄 SDK Generated | GetSecret, ListSecrets, CreateOrUpdateSecret |
+| Microsoft Bookings | 🔄 SDK Generated | ListBusinesses, GetCalendarView |
+| Office 365 Groups | 🔄 SDK Generated | ListGroups, GetGroup, ListGroupMembers |
+| Office 365 Groups Mail | 🔄 SDK Generated | SendEmail, ListGroupConversations |
+| OneNote | 🔄 SDK Generated | ListNotebooks, CreatePage, GetPage |
+| Planner | 🔄 SDK Generated | ListMyTasks, CreateTask, UpdateTask |
+| Power BI | 🔄 SDK Generated | GetDatasets, GetTables, AddRows |
+| Shifts | 🔄 SDK Generated | GetAllShifts, GetAllOpenShifts, GetSchedule |
+| To Do | 🔄 SDK Generated | ListTaskLists, CreateTask, GetTask |
 
 ## Related Projects
 

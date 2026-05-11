@@ -3,9 +3,13 @@
 //------------------------------------------------------------
 
 using Azure.Connectors.Sdk.Arm;
+using Azure.Connectors.Sdk.AzureAutomation;
 using Azure.Connectors.Sdk.AzureBlob;
+using Azure.Connectors.Sdk.AzureDataFactory;
+using Azure.Connectors.Sdk.AzureDigitalTwins;
 using Azure.Connectors.Sdk.AzureEventGrid;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
+using Azure.Connectors.Sdk.AzureVM;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
@@ -19,23 +23,31 @@ using Azure.Connectors.Sdk.Impexium;
 using Azure.Connectors.Sdk.Infusionsoft;
 using Azure.Connectors.Sdk.Insightly;
 using Azure.Connectors.Sdk.JedoxOdataHub;
+using Azure.Connectors.Sdk.KeyVault;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.MeetingRoomMap;
+using Azure.Connectors.Sdk.MicrosoftBookings;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk.Office365Groups;
+using Azure.Connectors.Sdk.Office365GroupsMail;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.Onenote;
 using Azure.Connectors.Sdk.Orderful;
 using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
+using Azure.Connectors.Sdk.Planner;
 using Azure.Connectors.Sdk.Plivo;
 using Azure.Connectors.Sdk.Plumsail;
+using Azure.Connectors.Sdk.PowerBI;
 using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.Revai;
 using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.SharePointOnline;
+using Azure.Connectors.Sdk.Shifts;
 using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Starmind;
@@ -44,6 +56,7 @@ using Azure.Connectors.Sdk.Tallyfy;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Connectors.Sdk.TextRequest;
 using Azure.Connectors.Sdk.Ticketmaster;
+using Azure.Connectors.Sdk.Todo;
 using Azure.Connectors.Sdk.UniversalPrint;
 using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
@@ -304,7 +317,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void AllConnectorExtensionMethods_RegisterCorrectClientAndConnectorName()
         {
-            // Arrange — register all 47 connectors.
+            // Arrange — register all 60 connectors.
             var services = new ServiceCollection();
             var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
                 "https://test.azure.com/apim/connector/abc123");
@@ -356,7 +369,20 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddTallyfyClient(configuration)
                 .AddTextRequestClient(configuration)
                 .AddTicketmasterClient(configuration)
-                .AddWaywedoClient(configuration);
+                .AddWaywedoClient(configuration)
+                .AddAzureAutomationClient(configuration)
+                .AddAzureDataFactoryClient(configuration)
+                .AddAzureDigitalTwinsClient(configuration)
+                .AddAzureVMClient(configuration)
+                .AddKeyVaultClient(configuration)
+                .AddMicrosoftBookingsClient(configuration)
+                .AddOffice365GroupsClient(configuration)
+                .AddOffice365GroupsMailClient(configuration)
+                .AddOnenoteClient(configuration)
+                .AddPlannerClient(configuration)
+                .AddPowerBIClient(configuration)
+                .AddShiftsClient(configuration)
+                .AddTodoClient(configuration);
 
             var provider = services.BuildServiceProvider();
 
@@ -405,6 +431,19 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("ticketmaster", provider.GetRequiredService<TicketmasterClient>().ConnectorName);
             Assert.AreEqual("universalprint", provider.GetRequiredService<UniversalPrintClient>().ConnectorName);
             Assert.AreEqual("waywedo", provider.GetRequiredService<WaywedoClient>().ConnectorName);
+            Assert.AreEqual("azureautomation", provider.GetRequiredService<AzureAutomationClient>().ConnectorName);
+            Assert.AreEqual("azuredatafactory", provider.GetRequiredService<AzureDataFactoryClient>().ConnectorName);
+            Assert.AreEqual("azuredigitaltwins", provider.GetRequiredService<AzureDigitalTwinsClient>().ConnectorName);
+            Assert.AreEqual("azurevm", provider.GetRequiredService<AzureVMClient>().ConnectorName);
+            Assert.AreEqual("keyvault", provider.GetRequiredService<KeyVaultClient>().ConnectorName);
+            Assert.AreEqual("microsoftbookings", provider.GetRequiredService<MicrosoftBookingsClient>().ConnectorName);
+            Assert.AreEqual("office365groups", provider.GetRequiredService<Office365GroupsClient>().ConnectorName);
+            Assert.AreEqual("office365groupsmail", provider.GetRequiredService<Office365GroupsMailClient>().ConnectorName);
+            Assert.AreEqual("onenote", provider.GetRequiredService<OnenoteClient>().ConnectorName);
+            Assert.AreEqual("planner", provider.GetRequiredService<PlannerClient>().ConnectorName);
+            Assert.AreEqual("powerbi", provider.GetRequiredService<PowerBIClient>().ConnectorName);
+            Assert.AreEqual("shifts", provider.GetRequiredService<ShiftsClient>().ConnectorName);
+            Assert.AreEqual("todo", provider.GetRequiredService<TodoClient>().ConnectorName);
             Assert.AreEqual("wdatp", provider.GetRequiredService<WdatpClient>().ConnectorName);
             Assert.AreEqual("yammer", provider.GetRequiredService<YammerClient>().ConnectorName);
             Assert.AreEqual("zohosign", provider.GetRequiredService<ZohoSignClient>().ConnectorName);

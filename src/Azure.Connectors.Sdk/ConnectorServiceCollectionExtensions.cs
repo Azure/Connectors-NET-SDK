@@ -3,9 +3,13 @@
 //------------------------------------------------------------
 
 using Azure.Connectors.Sdk.Arm;
+using Azure.Connectors.Sdk.AzureAutomation;
 using Azure.Connectors.Sdk.AzureBlob;
+using Azure.Connectors.Sdk.AzureDataFactory;
+using Azure.Connectors.Sdk.AzureDigitalTwins;
 using Azure.Connectors.Sdk.AzureEventGrid;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
+using Azure.Connectors.Sdk.AzureVM;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
@@ -19,23 +23,31 @@ using Azure.Connectors.Sdk.Impexium;
 using Azure.Connectors.Sdk.Infusionsoft;
 using Azure.Connectors.Sdk.Insightly;
 using Azure.Connectors.Sdk.JedoxOdataHub;
+using Azure.Connectors.Sdk.KeyVault;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.MeetingRoomMap;
+using Azure.Connectors.Sdk.MicrosoftBookings;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
+using Azure.Connectors.Sdk.Office365Groups;
+using Azure.Connectors.Sdk.Office365GroupsMail;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.Onenote;
 using Azure.Connectors.Sdk.Orderful;
 using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
+using Azure.Connectors.Sdk.Planner;
 using Azure.Connectors.Sdk.Plivo;
 using Azure.Connectors.Sdk.Plumsail;
+using Azure.Connectors.Sdk.PowerBI;
 using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.Revai;
 using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.SharePointOnline;
+using Azure.Connectors.Sdk.Shifts;
 using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Starmind;
@@ -44,6 +56,7 @@ using Azure.Connectors.Sdk.Tallyfy;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Connectors.Sdk.TextRequest;
 using Azure.Connectors.Sdk.Ticketmaster;
+using Azure.Connectors.Sdk.Todo;
 using Azure.Connectors.Sdk.UniversalPrint;
 using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
@@ -845,6 +858,110 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.ZohoSign,
                 factory: (connectionRuntimeUrl, credential) => new ZohoSignClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureAutomationClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddAzureAutomationClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureAutomationClient>(services, configurationSection, connectorName: ConnectorNames.AzureAutomation, factory: (connectionRuntimeUrl, credential) => new AzureAutomationClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureDataFactoryClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddAzureDataFactoryClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureDataFactoryClient>(services, configurationSection, connectorName: ConnectorNames.AzureDataFactory, factory: (connectionRuntimeUrl, credential) => new AzureDataFactoryClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureDigitalTwinsClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddAzureDigitalTwinsClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureDigitalTwinsClient>(services, configurationSection, connectorName: ConnectorNames.AzureDigitalTwins, factory: (connectionRuntimeUrl, credential) => new AzureDigitalTwinsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureVMClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddAzureVMClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureVMClient>(services, configurationSection, connectorName: ConnectorNames.AzureVM, factory: (connectionRuntimeUrl, credential) => new AzureVMClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="KeyVaultClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddKeyVaultClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<KeyVaultClient>(services, configurationSection, connectorName: ConnectorNames.KeyVault, factory: (connectionRuntimeUrl, credential) => new KeyVaultClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="MicrosoftBookingsClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddMicrosoftBookingsClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MicrosoftBookingsClient>(services, configurationSection, connectorName: ConnectorNames.MicrosoftBookings, factory: (connectionRuntimeUrl, credential) => new MicrosoftBookingsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="Office365GroupsClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddOffice365GroupsClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365GroupsClient>(services, configurationSection, connectorName: ConnectorNames.Office365Groups, factory: (connectionRuntimeUrl, credential) => new Office365GroupsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="Office365GroupsMailClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddOffice365GroupsMailClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365GroupsMailClient>(services, configurationSection, connectorName: ConnectorNames.Office365GroupsMail, factory: (connectionRuntimeUrl, credential) => new Office365GroupsMailClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="OnenoteClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddOnenoteClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OnenoteClient>(services, configurationSection, connectorName: ConnectorNames.Onenote, factory: (connectionRuntimeUrl, credential) => new OnenoteClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="PlannerClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddPlannerClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PlannerClient>(services, configurationSection, connectorName: ConnectorNames.Planner, factory: (connectionRuntimeUrl, credential) => new PlannerClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="PowerBIClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddPowerBIClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PowerBIClient>(services, configurationSection, connectorName: ConnectorNames.PowerBI, factory: (connectionRuntimeUrl, credential) => new PowerBIClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ShiftsClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddShiftsClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ShiftsClient>(services, configurationSection, connectorName: ConnectorNames.Shifts, factory: (connectionRuntimeUrl, credential) => new ShiftsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="TodoClient"/> as a singleton.
+        /// </summary>
+        public static IServiceCollection AddTodoClient(this IServiceCollection services, IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TodoClient>(services, configurationSection, connectorName: ConnectorNames.Todo, factory: (connectionRuntimeUrl, credential) => new TodoClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
