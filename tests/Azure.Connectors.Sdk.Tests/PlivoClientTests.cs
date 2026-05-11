@@ -9,7 +9,6 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Plivo;
-using Azure.Connectors.Sdk.Plivo.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
