@@ -337,7 +337,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>The ID of the alert.</summary>
         [JsonPropertyName("alertId")]
-        public string AlertID { get; set; }
+        public string AlertId { get; set; }
 
         /// <summary>The title of the alert.</summary>
         [JsonPropertyName("alertTitle")]
@@ -345,7 +345,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>The ID of the group.</summary>
         [JsonPropertyName("groupId")]
-        public string GroupID { get; set; }
+        public string GroupId { get; set; }
     }
 
     /// <summary>
@@ -1361,15 +1361,15 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="Alert"/>.
         /// </summary>
         public static Alert Alert(
-            string alertID = default,
+            string alertId = default,
             string alertTitle = default,
-            string groupID = default)
+            string groupId = default)
         {
             return new Alert
             {
-                AlertID = alertID,
+                AlertId = alertId,
                 AlertTitle = alertTitle,
-                GroupID = groupID,
+                GroupId = groupId,
             };
         }
 
@@ -2028,7 +2028,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get scorecards response.</returns>
         public virtual async Task<ListedScorecards> GetScorecardsAsync([DynamicValues("ListGroups")] string workspace, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListedScorecards>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2044,7 +2046,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Create a scorecard response.</returns>
         public virtual async Task<CreatedScorecard> CreateScorecardAsync([DynamicValues("ListGroups")] string workspace, CreateScorecardRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CreatedScorecard>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2060,7 +2064,10 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get multiple goals response.</returns>
         public virtual async Task<FetchedGoals> GetMultipleGoalsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals";
+            var queryParams = new List<string>();
+            queryParams.Add("$expand=aggregations");
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<FetchedGoals>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2077,7 +2084,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Create a goal response.</returns>
         public virtual async Task<CreateGoalResponse> CreateGoalAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, CreateGoalRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CreateGoalResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2094,7 +2103,10 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get a goal response.</returns>
         public virtual async Task<FetchedGoal> GetGoalAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            queryParams.Add("$expand=aggregations");
+            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<FetchedGoal>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2111,7 +2123,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateGoalAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, UpdateGoalRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2125,7 +2139,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get alerts from Power BI response.</returns>
         public virtual async Task<List<Alert>> GetAlertsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/metadata/v201606/alerts";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/metadata/v201606/alerts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<List<Alert>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2142,7 +2158,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Run a query against a dataset response.</returns>
         public virtual async Task<QueryExecutionResults> ExecuteDatasetQueryAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, QuerySpecification input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<QueryExecutionResults>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2159,7 +2177,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Run a json query against a dataset response.</returns>
         public virtual async Task<ExecuteDatasetQueriesJsonResponse> ExecuteDatasetQueriesJsonAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, ExecuteDatasetQueriesJsonInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ExecuteDatasetQueriesJsonResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2176,7 +2196,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddRowsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, [DynamicValues("ListTables")] string table, Payload input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/rows";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2190,7 +2212,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The ListGroups response.</returns>
         public virtual async Task<Groups> ListGroupsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Groups>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2205,7 +2229,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The ListDatasets response.</returns>
         public virtual async Task<Datasets> ListDatasetsAsync([DynamicValues("ListGroups")] string workspace, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Datasets>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2221,7 +2247,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The ListTables response.</returns>
         public virtual async Task<Tables> ListTablesAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Tables>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2238,7 +2266,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The GetColumns response.</returns>
         public virtual async Task<Columns> GetColumnsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, [DynamicValues("ListTables")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/columns";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Columns>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2256,7 +2286,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GoalValueCheckinNoteAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, string checkInDate, string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})/notes";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2273,7 +2305,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GoalValueCheckinAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, GoalValueCheckinRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2290,7 +2324,10 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get goal check-ins response.</returns>
         public virtual async Task<GetGoalCheckinsResponse> GetGoalCheckinsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            queryParams.Add("$expand=notes");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetGoalCheckinsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2308,7 +2345,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateGoalCheckinAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, string checkInDate, GoalValueCheckinUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2326,7 +2365,10 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get a goal check-in response.</returns>
         public virtual async Task<GetGoalCheckinResponse> GetGoalCheckinAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, string checkInDate, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            queryParams.Add("$expand=notes");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetGoalCheckinResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2356,7 +2398,9 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RefreshDatasetAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/refreshes";
+            var queryParams = new List<string>();
+            queryParams.Add("pbi_source=powerAutomate");
+            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/refreshes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

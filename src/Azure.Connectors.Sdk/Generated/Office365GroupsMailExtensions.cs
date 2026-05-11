@@ -46,7 +46,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>The conversations&apos;s unique identifier.</summary>
         [JsonPropertyName("id")]
-        public string ConversationID { get; set; }
+        public string ConversationId { get; set; }
 
         /// <summary>The topic of the conversation.</summary>
         [JsonPropertyName("topic")]
@@ -81,7 +81,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>The conversation thread&apos;s unique identifier.</summary>
         [JsonPropertyName("id")]
-        public string ConversationThreadID { get; set; }
+        public string ConversationThreadId { get; set; }
 
         /// <summary>The topic of the conversation.</summary>
         [JsonPropertyName("topic")]
@@ -138,7 +138,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>The post&apos;s unique identifier.</summary>
         [JsonPropertyName("id")]
-        public string PostID { get; set; }
+        public string PostId { get; set; }
 
         /// <summary>createdDateTime</summary>
         [JsonPropertyName("createdDateTime")]
@@ -156,11 +156,11 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
 
         /// <summary>Unique ID of the conversation the post belongs to.</summary>
         [JsonPropertyName("conversationId")]
-        public string PostConversationID { get; set; }
+        public string PostConversationId { get; set; }
 
         /// <summary>Unique ID of the conversation thread the post belongs to.</summary>
         [JsonPropertyName("conversationThreadId")]
-        public string PostConversationThreadID { get; set; }
+        public string PostConversationThreadId { get; set; }
 
         /// <summary>The categories associated with the post.</summary>
         [JsonPropertyName("categories")]
@@ -217,7 +217,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>Id of the attachment.</summary>
         [JsonPropertyName("id")]
-        public string AttachmentID { get; set; }
+        public string AttachmentId { get; set; }
 
         /// <summary>Name of attachment.</summary>
         [JsonPropertyName("name")]
@@ -247,7 +247,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
 
         /// <summary>New Conversation ID.</summary>
         [JsonPropertyName("id")]
-        public string ConversationID { get; set; }
+        public string ConversationId { get; set; }
 
         /// <summary>The threads@odata.context link.</summary>
         [JsonPropertyName("threads@odata.context")]
@@ -287,7 +287,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
 
         /// <summary>New conversation thread ID.</summary>
         [JsonPropertyName("id")]
-        public string ConversationThreadID { get; set; }
+        public string ConversationThreadId { get; set; }
     }
 
     /// <summary>
@@ -367,7 +367,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>The conversation unique identifier.</summary>
         [JsonPropertyName("id")]
-        public string ConversationID { get; set; }
+        public string ConversationId { get; set; }
 
         /// <summary>The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time.</summary>
         [JsonPropertyName("lastDeliveredDateTime")]
@@ -386,7 +386,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>The conversation thread&apos;s unique identifier.</summary>
         [JsonPropertyName("id")]
-        public string ConversationThreadID { get; set; }
+        public string ConversationThreadId { get; set; }
 
         /// <summary>posts</summary>
         [JsonPropertyName("posts")]
@@ -400,7 +400,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>The post&apos;s unique identifier.</summary>
         [JsonPropertyName("id")]
-        public string PostID { get; set; }
+        public string PostId { get; set; }
 
         /// <summary>lastModifiedDateTime</summary>
         [JsonPropertyName("lastModifiedDateTime")]
@@ -539,7 +539,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="Conversation"/>.
         /// </summary>
         public static Conversation Conversation(
-            string conversationID = default,
+            string conversationId = default,
             string conversationTopic = default,
             bool? hasAttachments = default,
             DateTime? lastDeliveredTimestamp = default,
@@ -549,7 +549,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         {
             return new Conversation
             {
-                ConversationID = conversationID,
+                ConversationId = conversationId,
                 ConversationTopic = conversationTopic,
                 HasAttachments = hasAttachments,
                 LastDeliveredTimestamp = lastDeliveredTimestamp,
@@ -563,7 +563,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="ConversationThread"/>.
         /// </summary>
         public static ConversationThread ConversationThread(
-            string conversationThreadID = default,
+            string conversationThreadId = default,
             string conversationTopic = default,
             bool? hasAttachments = default,
             DateTime? lastDeliveredTimestamp = default,
@@ -576,7 +576,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         {
             return new ConversationThread
             {
-                ConversationThreadID = conversationThreadID,
+                ConversationThreadId = conversationThreadId,
                 ConversationTopic = conversationTopic,
                 HasAttachments = hasAttachments,
                 LastDeliveredTimestamp = lastDeliveredTimestamp,
@@ -605,12 +605,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="Post"/>.
         /// </summary>
         public static Post Post(
-            string postID = default,
+            string postId = default,
             DateTime? postCreatedTimestamp = default,
             DateTime? postLastModifiedTimestamp = default,
             string postChangeKey = default,
-            string postConversationID = default,
-            string postConversationThreadID = default,
+            string postConversationId = default,
+            string postConversationThreadId = default,
             List<string> postCategories = default,
             DateTime? postReceivedTimestamp = default,
             bool? hasAttachments = default,
@@ -622,12 +622,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         {
             return new Post
             {
-                PostID = postID,
+                PostId = postId,
                 PostCreatedTimestamp = postCreatedTimestamp,
                 PostLastModifiedTimestamp = postLastModifiedTimestamp,
                 PostChangeKey = postChangeKey,
-                PostConversationID = postConversationID,
-                PostConversationThreadID = postConversationThreadID,
+                PostConversationId = postConversationId,
+                PostConversationThreadId = postConversationThreadId,
                 PostCategories = postCategories,
                 PostReceivedTimestamp = postReceivedTimestamp,
                 HasAttachments = hasAttachments,
@@ -657,7 +657,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="Attachment"/>.
         /// </summary>
         public static Attachment Attachment(
-            string attachmentID = default,
+            string attachmentId = default,
             string attachmentName = default,
             string attachmentContentType = default,
             int? attachmentSize = default,
@@ -665,7 +665,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         {
             return new Attachment
             {
-                AttachmentID = attachmentID,
+                AttachmentId = attachmentId,
                 AttachmentName = attachmentName,
                 AttachmentContentType = attachmentContentType,
                 AttachmentSize = attachmentSize,
@@ -678,14 +678,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// </summary>
         public static CreateConversationResponse CreateConversationResponse(
             string context = default,
-            string conversationID = default,
+            string conversationId = default,
             string threadsOdataContext = default,
             List<object> conversationThreads = default)
         {
             return new CreateConversationResponse
             {
                 Context = context,
-                ConversationID = conversationID,
+                ConversationId = conversationId,
                 ThreadsOdataContext = threadsOdataContext,
                 ConversationThreads = conversationThreads,
             };
@@ -712,12 +712,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// </summary>
         public static NewConversationThreadResponse NewConversationThreadResponse(
             string context = default,
-            string conversationThreadID = default)
+            string conversationThreadId = default)
         {
             return new NewConversationThreadResponse
             {
                 Context = context,
-                ConversationThreadID = conversationThreadID,
+                ConversationThreadId = conversationThreadId,
             };
         }
 
@@ -795,13 +795,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="ConversationTriggerResponse"/>.
         /// </summary>
         public static ConversationTriggerResponse ConversationTriggerResponse(
-            string conversationID = default,
+            string conversationId = default,
             DateTime? lastDeliveredTimestamp = default,
             List<ConversationThreadTriggerResponse> threads = default)
         {
             return new ConversationTriggerResponse
             {
-                ConversationID = conversationID,
+                ConversationId = conversationId,
                 LastDeliveredTimestamp = lastDeliveredTimestamp,
                 Threads = threads,
             };
@@ -811,12 +811,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="ConversationThreadTriggerResponse"/>.
         /// </summary>
         public static ConversationThreadTriggerResponse ConversationThreadTriggerResponse(
-            string conversationThreadID = default,
+            string conversationThreadId = default,
             List<PostTriggerResponse> posts = default)
         {
             return new ConversationThreadTriggerResponse
             {
-                ConversationThreadID = conversationThreadID,
+                ConversationThreadId = conversationThreadId,
                 Posts = posts,
             };
         }
@@ -825,13 +825,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="PostTriggerResponse"/>.
         /// </summary>
         public static PostTriggerResponse PostTriggerResponse(
-            string postID = default,
+            string postId = default,
             DateTime? postLastModifiedTimestamp = default,
             string postChangeKey = default)
         {
             return new PostTriggerResponse
             {
-                PostID = postID,
+                PostId = postId,
                 PostLastModifiedTimestamp = postLastModifiedTimestamp,
                 PostChangeKey = postChangeKey,
             };
@@ -1083,12 +1083,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// List the conversations of a group
         /// </summary>
         /// <remarks>Get all the conversations in this group.</remarks>
-        /// <param name="groupID">Group ID</param>
+        /// <param name="groupId">Group ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Conversation"/> items across all pages.</returns>
-        public virtual AsyncPageable<Conversation> ListConversationsAsync([DynamicValues("ListGroups")] string groupID, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Conversation> ListConversationsAsync([DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/conversations";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations";
             return this.CreatePageable<ListConversationsResponse, Conversation>(
                 ct => this.CallConnectorAsync<ListConversationsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListConversationsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1099,13 +1099,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Create a new conversation in a group
         /// </summary>
         /// <remarks>Create a new conversation in this group.</remarks>
-        /// <param name="groupID">Group ID</param>
+        /// <param name="groupId">Group ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a new conversation in a group response.</returns>
-        public virtual async Task<CreateConversationResponse> CreateConversationAsync([DynamicValues("ListGroups")] string groupID, CreateConversationBody input, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateConversationResponse> CreateConversationAsync([DynamicValues("ListGroups")] string groupId, CreateConversationBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/conversations";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations";
             return await this
                 .CallConnectorAsync<CreateConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1115,13 +1115,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Get a group conversation
         /// </summary>
         /// <remarks>Retrieves the properties of a particular conversation.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="conversationID">Conversation ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="conversationId">Conversation ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a group conversation response.</returns>
-        public virtual async Task<Conversation> GetGroupConversationAsync([DynamicValues("ListGroups")] string groupID, string conversationID, CancellationToken cancellationToken = default)
+        public virtual async Task<Conversation> GetGroupConversationAsync([DynamicValues("ListGroups")] string groupId, string conversationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/conversations/{Uri.EscapeDataString(conversationID.ToString())}";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}";
             return await this
                 .CallConnectorAsync<Conversation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1131,13 +1131,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// List the conversation threads of a conversation
         /// </summary>
         /// <remarks>Get all the threads in a group conversation.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="conversationID">Conversation ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="conversationId">Conversation ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="ConversationThread"/> items across all pages.</returns>
-        public virtual AsyncPageable<ConversationThread> ListConversationThreadsAsync([DynamicValues("ListGroups")] string groupID, string conversationID, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ConversationThread> ListConversationThreadsAsync([DynamicValues("ListGroups")] string groupId, string conversationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/conversations/{Uri.EscapeDataString(conversationID.ToString())}/threads";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads";
             return this.CreatePageable<ListConversationThreadsResponse, ConversationThread>(
                 ct => this.CallConnectorAsync<ListConversationThreadsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListConversationThreadsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1148,14 +1148,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Create a conversation thread
         /// </summary>
         /// <remarks>Create a new thread in the specified conversation.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="conversationID">Conversation ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="conversationId">Conversation ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a conversation thread response.</returns>
-        public virtual async Task<NewConversationThreadResponse> CreateConversationThreadAsync([DynamicValues("ListGroups")] string groupID, string conversationID, CreateConversationBody input, CancellationToken cancellationToken = default)
+        public virtual async Task<NewConversationThreadResponse> CreateConversationThreadAsync([DynamicValues("ListGroups")] string groupId, string conversationId, CreateConversationBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/conversations/{Uri.EscapeDataString(conversationID.ToString())}/threads";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads";
             return await this
                 .CallConnectorAsync<NewConversationThreadResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1165,12 +1165,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// List the threads of a group
         /// </summary>
         /// <remarks>Get all the threads of a group.</remarks>
-        /// <param name="groupID">Group ID</param>
+        /// <param name="groupId">Group ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="ConversationThread"/> items across all pages.</returns>
-        public virtual AsyncPageable<ConversationThread> ListGroupThreadsAsync([DynamicValues("ListGroups")] string groupID, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ConversationThread> ListGroupThreadsAsync([DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads";
             return this.CreatePageable<ListGroupThreadsResponse, ConversationThread>(
                 ct => this.CallConnectorAsync<ListGroupThreadsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupThreadsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1181,13 +1181,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Start a new group conversation by creating a thread
         /// </summary>
         /// <remarks>Start a new group conversation by first creating a thread.</remarks>
-        /// <param name="groupID">Group ID</param>
+        /// <param name="groupId">Group ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Start a new group conversation by creating a thread response.</returns>
-        public virtual async Task<NewConversationThreadResponse> CreateGroupThreadAsync([DynamicValues("ListGroups")] string groupID, CreateConversationBody input, CancellationToken cancellationToken = default)
+        public virtual async Task<NewConversationThreadResponse> CreateGroupThreadAsync([DynamicValues("ListGroups")] string groupId, CreateConversationBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads";
             return await this
                 .CallConnectorAsync<NewConversationThreadResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1197,13 +1197,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Get a conversation thread
         /// </summary>
         /// <remarks>Get a specific thread that belongs to a group.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a conversation thread response.</returns>
-        public virtual async Task<ConversationThread> GetConversationThreadAsync([DynamicValues("ListGroups")] string groupID, string threadID, CancellationToken cancellationToken = default)
+        public virtual async Task<ConversationThread> GetConversationThreadAsync([DynamicValues("ListGroups")] string groupId, string threadId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}";
             return await this
                 .CallConnectorAsync<ConversationThread>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1213,12 +1213,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Delete a conversation thread
         /// </summary>
         /// <remarks>Deletes the specified conversation thread.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteConversationThreadAsync([DynamicValues("ListGroups")] string groupID, string threadID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteConversationThreadAsync([DynamicValues("ListGroups")] string groupId, string threadId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1228,13 +1228,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// List the posts of a conversation thread
         /// </summary>
         /// <remarks>Get all the posts of the specified conversation thread.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Post"/> items across all pages.</returns>
-        public virtual AsyncPageable<Post> ListThreadPostsAsync([DynamicValues("ListGroups")] string groupID, string threadID, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Post> ListThreadPostsAsync([DynamicValues("ListGroups")] string groupId, string threadId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}/posts";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts";
             return this.CreatePageable<ListThreadPostsResponse, Post>(
                 ct => this.CallConnectorAsync<ListThreadPostsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListThreadPostsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1245,14 +1245,16 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Get a thread post
         /// </summary>
         /// <remarks>Retrieves a post in a specified thread.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
-        /// <param name="postID">Post ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
+        /// <param name="postId">Post ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a thread post response.</returns>
-        public virtual async Task<Post> GetThreadAsync([DynamicValues("ListGroups")] string groupID, string threadID, string postID, CancellationToken cancellationToken = default)
+        public virtual async Task<Post> GetThreadAsync([DynamicValues("ListGroups")] string groupId, string threadId, string postId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}/posts/{Uri.EscapeDataString(postID.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("$expand=attachments");
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Post>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1262,14 +1264,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// List the attachments of a post
         /// </summary>
         /// <remarks>Retrieve a list of attachments that belong to a post.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
-        /// <param name="postID">Post ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
+        /// <param name="postId">Post ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Attachment"/> items across all pages.</returns>
-        public virtual AsyncPageable<Attachment> GetAttachmentsAsync([DynamicValues("ListGroups")] string groupID, string threadID, string postID, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Attachment> GetAttachmentsAsync([DynamicValues("ListGroups")] string groupId, string threadId, string postId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}/posts/{Uri.EscapeDataString(postID.ToString())}/attachments";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/attachments";
             return this.CreatePageable<GetAttachmentsResponse, Attachment>(
                 ct => this.CallConnectorAsync<GetAttachmentsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetAttachmentsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1284,7 +1286,11 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// <returns>The List user groups response.</returns>
         public virtual async Task<ListGroupsResponse> ListGroupsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/me/memberOf/$/microsoft.graph.group";
+            var queryParams = new List<string>();
+            queryParams.Add("$filter=groupTypes%2Fany%28c%3Ac%20eq%20%27Unified%27%29");
+            queryParams.Add("$select=id%2CdisplayName");
+            queryParams.Add("$top=999");
+            var path = $"/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1294,13 +1300,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Reply to a conversation thread
         /// </summary>
         /// <remarks>Reply to a thread in a group conversation and add a new post to it.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ReplyToAThreadAsync([DynamicValues("ListGroups")] string groupID, string threadID, ReplyConversationThreadBody input, CancellationToken cancellationToken = default)
+        public virtual async Task ReplyToAThreadAsync([DynamicValues("ListGroups")] string groupId, string threadId, ReplyConversationThreadBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}/reply";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/reply";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1310,14 +1316,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// Reply to a post
         /// </summary>
         /// <remarks>Reply to a post and add a new post to the specified thread in a group conversation.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="threadID">Thread ID</param>
-        /// <param name="postID">Post ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="threadId">Thread ID</param>
+        /// <param name="postId">Post ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ReplyAsync([DynamicValues("ListGroups")] string groupID, string threadID, string postID, ReplyConversationThreadBody input, CancellationToken cancellationToken = default)
+        public virtual async Task ReplyAsync([DynamicValues("ListGroups")] string groupId, string threadId, string postId, ReplyConversationThreadBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}/posts/{Uri.EscapeDataString(postID.ToString())}/reply";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/reply";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1343,14 +1349,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// </summary>
         /// <remarks>Forward a post to a recipient.</remarks>
         /// <param name="groupMail">Group mail</param>
-        /// <param name="conversationID">Conversation ID</param>
-        /// <param name="threadID">Thread ID</param>
-        /// <param name="postID">Post ID</param>
+        /// <param name="conversationId">Conversation ID</param>
+        /// <param name="threadId">Thread ID</param>
+        /// <param name="postId">Post ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ForwardAsync([DynamicValues("ListGroups")] string groupMail, string conversationID, string threadID, string postID, ForwardPostBody input, CancellationToken cancellationToken = default)
+        public virtual async Task ForwardAsync([DynamicValues("ListGroups")] string groupMail, string conversationId, string threadId, string postId, ForwardPostBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/groups/{Uri.EscapeDataString(groupMail.ToString())}/conversations/{Uri.EscapeDataString(conversationID.ToString())}/threads/{Uri.EscapeDataString(threadID.ToString())}/posts/{Uri.EscapeDataString(postID.ToString())}/forward";
+            var path = $"/beta/groups/{Uri.EscapeDataString(groupMail.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/forward";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

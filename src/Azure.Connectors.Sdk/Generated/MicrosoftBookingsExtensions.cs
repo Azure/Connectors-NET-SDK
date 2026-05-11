@@ -25,7 +25,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
     #region Types
 
     /// <summary>
-    /// When a appointment is Created
+    /// When an appointment is created
     /// </summary>
     public class CreateAppointmentInput
     {
@@ -35,9 +35,9 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
     }
 
     /// <summary>
-    /// Response for When a appointment is Created
+    /// Response for When an appointment is created
     /// </summary>
-    public class WebhookResponse
+    public class Webhookresponse
     {
         /// <summary>Webhook ID.</summary>
         [JsonPropertyName("webhookId")]
@@ -112,12 +112,12 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookResponse"/>.
+        /// Creates a new instance of <see cref="Webhookresponse"/>.
         /// </summary>
-        public static WebhookResponse WebhookResponse(
+        public static Webhookresponse Webhookresponse(
             string webhookId = default)
         {
-            return new WebhookResponse
+            return new Webhookresponse
             {
                 WebhookId = webhookId,
             };
@@ -195,7 +195,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
     public static class MicrosoftBookingsTriggerOperations
     {
         /// <summary>
-        /// When a appointment is Created.
+        /// When an appointment is created.
         /// </summary>
         public const string OnCreateAppointment = "CreateAppointment";
 

@@ -44,7 +44,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Schedule.</summary>
         [JsonPropertyName("id")]
-        public string ScheduleID { get; set; }
+        public string ScheduleId { get; set; }
 
         /// <summary>The Time Zone of the Schedule.</summary>
         [JsonPropertyName("timeZone")]
@@ -94,7 +94,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>Assigned To User ID.</summary>
         [JsonPropertyName("userId")]
-        public string AssignedToUserID { get; set; }
+        public string AssignedToUserId { get; set; }
 
         /// <summary>userInfo</summary>
         [JsonPropertyName("userInfo")]
@@ -148,7 +148,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>Time Off Reason ID.</summary>
         [JsonPropertyName("timeOffReasonId")]
-        public string TimeOffReasonID { get; set; }
+        public string TimeOffReasonId { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("startDateTime")]
@@ -170,7 +170,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>Time Off Reason ID.</summary>
         [JsonPropertyName("timeOffReasonId")]
-        public string TimeOffReasonID { get; set; }
+        public string TimeOffReasonId { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("startDateTime")]
@@ -220,11 +220,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>Assigned To User ID.</summary>
         [JsonPropertyName("userId")]
-        public string AssignedToUserID { get; set; }
+        public string AssignedToUserId { get; set; }
 
         /// <summary>Scheduling Group ID.</summary>
         [JsonPropertyName("schedulingGroupId")]
-        public string SchedulingGroupID { get; set; }
+        public string SchedulingGroupId { get; set; }
 
         /// <summary>schedulingGroupInfo</summary>
         [JsonPropertyName("schedulingGroupInfo")]
@@ -360,7 +360,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>Scheduling Group ID</summary>
         [JsonPropertyName("schedulingGroupId")]
-        public string SchedulingGroupID { get; set; }
+        public string SchedulingGroupId { get; set; }
 
         /// <summary>schedulingGroupInfo</summary>
         [JsonPropertyName("schedulingGroupInfo")]
@@ -547,7 +547,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the user that sent the request</summary>
         [JsonPropertyName("senderUserId")]
-        public string SenderID { get; set; }
+        public string SenderId { get; set; }
 
         /// <summary>Time when the manager responded</summary>
         [JsonPropertyName("managerActionDateTime")]
@@ -559,7 +559,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the manager that responded</summary>
         [JsonPropertyName("managerUserId")]
-        public string ManagerID { get; set; }
+        public string ManagerId { get; set; }
 
         /// <summary>Start of time requested off</summary>
         [JsonPropertyName("startDateTime")]
@@ -571,7 +571,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the Time Off Reason</summary>
         [JsonPropertyName("timeOffReasonId")]
-        public string TimeOffReasonID { get; set; }
+        public string TimeOffReasonId { get; set; }
     }
 
     /// <summary>
@@ -668,11 +668,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the user that sent the request</summary>
         [JsonPropertyName("senderUserId")]
-        public string SenderID { get; set; }
+        public string SenderId { get; set; }
 
         /// <summary>The ID of the Shift from the sender</summary>
         [JsonPropertyName("senderShiftId")]
-        public string SenderShiftID { get; set; }
+        public string SenderShiftId { get; set; }
 
         /// <summary>Time when the recipient responded</summary>
         [JsonPropertyName("recipientActionDateTime")]
@@ -684,7 +684,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the recipient of the request</summary>
         [JsonPropertyName("recipientUserId")]
-        public string RecipientID { get; set; }
+        public string RecipientId { get; set; }
 
         /// <summary>Time when the manager responded</summary>
         [JsonPropertyName("managerActionDateTime")]
@@ -696,7 +696,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the manager that responded</summary>
         [JsonPropertyName("managerUserId")]
-        public string ManagerID { get; set; }
+        public string ManagerId { get; set; }
     }
 
     /// <summary>
@@ -793,11 +793,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the user that sent the request</summary>
         [JsonPropertyName("senderUserId")]
-        public string SenderID { get; set; }
+        public string SenderId { get; set; }
 
         /// <summary>The ID of the Shift from the sender</summary>
         [JsonPropertyName("senderShiftId")]
-        public string SenderShiftID { get; set; }
+        public string SenderShiftId { get; set; }
 
         /// <summary>Time when the recipient responded</summary>
         [JsonPropertyName("recipientActionDateTime")]
@@ -809,11 +809,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the recipient of the request</summary>
         [JsonPropertyName("recipientUserId")]
-        public string RecipientID { get; set; }
+        public string RecipientId { get; set; }
 
         /// <summary>The ID of the Shift from the recipient</summary>
         [JsonPropertyName("recipientShiftId")]
-        public string RecipientShiftID { get; set; }
+        public string RecipientShiftId { get; set; }
 
         /// <summary>Time when the manager responded</summary>
         [JsonPropertyName("managerActionDateTime")]
@@ -825,7 +825,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the manager that responded</summary>
         [JsonPropertyName("managerUserId")]
-        public string ManagerID { get; set; }
+        public string ManagerId { get; set; }
     }
 
     /// <summary>
@@ -922,7 +922,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the user that sent the request</summary>
         [JsonPropertyName("senderUserId")]
-        public string SenderID { get; set; }
+        public string SenderId { get; set; }
 
         /// <summary>Time when the manager responded</summary>
         [JsonPropertyName("managerActionDateTime")]
@@ -934,11 +934,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The ID of the manager that responded</summary>
         [JsonPropertyName("managerUserId")]
-        public string ManagerID { get; set; }
+        public string ManagerId { get; set; }
 
         /// <summary>The ID of the Open Shift being requested</summary>
         [JsonPropertyName("openShiftId")]
-        public string OpenShiftID { get; set; }
+        public string OpenShiftId { get; set; }
     }
 
     /// <summary>
@@ -1044,7 +1044,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>Scheduling Group ID</summary>
         [JsonPropertyName("schedulingGroupId")]
-        public string SchedulingGroupID { get; set; }
+        public string SchedulingGroupId { get; set; }
 
         /// <summary>sharedOpenShift</summary>
         [JsonPropertyName("sharedOpenShift")]
@@ -1058,7 +1058,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>Scheduling Group ID</summary>
         [JsonPropertyName("schedulingGroupId")]
-        public string SchedulingGroupID { get; set; }
+        public string SchedulingGroupId { get; set; }
 
         /// <summary>Shared version of the Shift.</summary>
         [JsonPropertyName("sharedShift")]
@@ -1066,7 +1066,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>Assigned to User ID</summary>
         [JsonPropertyName("userId")]
-        public string UserID { get; set; }
+        public string UserId { get; set; }
     }
 
     /// <summary>
@@ -1080,7 +1080,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>Assigned to User ID</summary>
         [JsonPropertyName("userId")]
-        public string UserID { get; set; }
+        public string UserId { get; set; }
     }
 
     /// <summary>
@@ -1164,14 +1164,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// Creates a new instance of <see cref="ScheduleResponse"/>.
         /// </summary>
         public static ScheduleResponse ScheduleResponse(
-            string scheduleID = default,
+            string scheduleId = default,
             string scheduleTimeZone = default,
             string scheduleProvisionStatus = default,
             string scheduleProvisionStatusCode = default)
         {
             return new ScheduleResponse
             {
-                ScheduleID = scheduleID,
+                ScheduleId = scheduleId,
                 ScheduleTimeZone = scheduleTimeZone,
                 ScheduleProvisionStatus = scheduleProvisionStatus,
                 ScheduleProvisionStatusCode = scheduleProvisionStatusCode,
@@ -1199,7 +1199,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string id = default,
             DateTime? createdDateTime = default,
             DateTime? modifiedDateTime = default,
-            string assignedToUserID = default,
+            string assignedToUserId = default,
             UserInfo userInfo = default,
             TeamInfo teamInfo = default,
             SharedTimeOff sharedTimeOff = default,
@@ -1210,7 +1210,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 ID = id,
                 CreatedDateTime = createdDateTime,
                 ModifiedDateTime = modifiedDateTime,
-                AssignedToUserID = assignedToUserID,
+                AssignedToUserId = assignedToUserId,
                 UserInfo = userInfo,
                 TeamInfo = teamInfo,
                 SharedTimeOff = sharedTimeOff,
@@ -1250,14 +1250,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// Creates a new instance of <see cref="SharedTimeOff"/>.
         /// </summary>
         public static SharedTimeOff SharedTimeOff(
-            string timeOffReasonID = default,
+            string timeOffReasonId = default,
             DateTime? startTime = default,
             DateTime? endTime = default,
             string theme = default)
         {
             return new SharedTimeOff
             {
-                TimeOffReasonID = timeOffReasonID,
+                TimeOffReasonId = timeOffReasonId,
                 StartTime = startTime,
                 EndTime = endTime,
                 Theme = theme,
@@ -1268,14 +1268,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// Creates a new instance of <see cref="DraftTimeOff"/>.
         /// </summary>
         public static DraftTimeOff DraftTimeOff(
-            string timeOffReasonID = default,
+            string timeOffReasonId = default,
             DateTime? startTime = default,
             DateTime? endTime = default,
             string theme = default)
         {
             return new DraftTimeOff
             {
-                TimeOffReasonID = timeOffReasonID,
+                TimeOffReasonId = timeOffReasonId,
                 StartTime = startTime,
                 EndTime = endTime,
                 Theme = theme,
@@ -1303,8 +1303,8 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string id = default,
             DateTime? createdDateTime = default,
             DateTime? modifiedDateTime = default,
-            string assignedToUserID = default,
-            string schedulingGroupID = default,
+            string assignedToUserId = default,
+            string schedulingGroupId = default,
             SchedulingGroupInfo schedulingGroupInfo = default,
             UserInfo userInfo = default,
             TeamInfo teamInfo = default,
@@ -1316,8 +1316,8 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 ID = id,
                 CreatedDateTime = createdDateTime,
                 ModifiedDateTime = modifiedDateTime,
-                AssignedToUserID = assignedToUserID,
-                SchedulingGroupID = schedulingGroupID,
+                AssignedToUserId = assignedToUserId,
+                SchedulingGroupId = schedulingGroupId,
                 SchedulingGroupInfo = schedulingGroupInfo,
                 UserInfo = userInfo,
                 TeamInfo = teamInfo,
@@ -1407,7 +1407,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string id = default,
             DateTime? createdDateTime = default,
             DateTime? modifiedDateTime = default,
-            string schedulingGroupID = default,
+            string schedulingGroupId = default,
             SchedulingGroupInfo schedulingGroupInfo = default,
             TeamInfo teamInfo = default,
             SharedOpenShift sharedOpenShift = default,
@@ -1418,7 +1418,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 ID = id,
                 CreatedDateTime = createdDateTime,
                 ModifiedDateTime = modifiedDateTime,
-                SchedulingGroupID = schedulingGroupID,
+                SchedulingGroupId = schedulingGroupId,
                 SchedulingGroupInfo = schedulingGroupInfo,
                 TeamInfo = teamInfo,
                 SharedOpenShift = sharedOpenShift,
@@ -1545,13 +1545,13 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string state = default,
             DateTime? senderTime = default,
             string senderMessage = default,
-            string senderID = default,
+            string senderId = default,
             DateTime? managerActionTime = default,
             string managerMessage = default,
-            string managerID = default,
+            string managerId = default,
             DateTime? startTime = default,
             DateTime? endTime = default,
-            string timeOffReasonID = default)
+            string timeOffReasonId = default)
         {
             return new TimeOffRequestResponse
             {
@@ -1562,13 +1562,13 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 State = state,
                 SenderTime = senderTime,
                 SenderMessage = senderMessage,
-                SenderID = senderID,
+                SenderId = senderId,
                 ManagerActionTime = managerActionTime,
                 ManagerMessage = managerMessage,
-                ManagerID = managerID,
+                ManagerId = managerId,
                 StartTime = startTime,
                 EndTime = endTime,
-                TimeOffReasonID = timeOffReasonID,
+                TimeOffReasonId = timeOffReasonId,
             };
         }
 
@@ -1621,14 +1621,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string state = default,
             DateTime? senderTime = default,
             string senderMessage = default,
-            string senderID = default,
-            string senderShiftID = default,
+            string senderId = default,
+            string senderShiftId = default,
             DateTime? receiverTime = default,
             string recipientMessage = default,
-            string recipientID = default,
+            string recipientId = default,
             DateTime? managerActionTime = default,
             string managerMessage = default,
-            string managerID = default)
+            string managerId = default)
         {
             return new OfferShiftRequestResponse
             {
@@ -1639,14 +1639,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 State = state,
                 SenderTime = senderTime,
                 SenderMessage = senderMessage,
-                SenderID = senderID,
-                SenderShiftID = senderShiftID,
+                SenderId = senderId,
+                SenderShiftId = senderShiftId,
                 ReceiverTime = receiverTime,
                 RecipientMessage = recipientMessage,
-                RecipientID = recipientID,
+                RecipientId = recipientId,
                 ManagerActionTime = managerActionTime,
                 ManagerMessage = managerMessage,
-                ManagerID = managerID,
+                ManagerId = managerId,
             };
         }
 
@@ -1699,15 +1699,15 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string state = default,
             DateTime? senderTime = default,
             string senderMessage = default,
-            string senderID = default,
-            string senderShiftID = default,
+            string senderId = default,
+            string senderShiftId = default,
             DateTime? receiverTime = default,
             string recipientMessage = default,
-            string recipientID = default,
-            string recipientShiftID = default,
+            string recipientId = default,
+            string recipientShiftId = default,
             DateTime? managerActionTime = default,
             string managerMessage = default,
-            string managerID = default)
+            string managerId = default)
         {
             return new SwapShiftsChangeRequestResponse
             {
@@ -1718,15 +1718,15 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 State = state,
                 SenderTime = senderTime,
                 SenderMessage = senderMessage,
-                SenderID = senderID,
-                SenderShiftID = senderShiftID,
+                SenderId = senderId,
+                SenderShiftId = senderShiftId,
                 ReceiverTime = receiverTime,
                 RecipientMessage = recipientMessage,
-                RecipientID = recipientID,
-                RecipientShiftID = recipientShiftID,
+                RecipientId = recipientId,
+                RecipientShiftId = recipientShiftId,
                 ManagerActionTime = managerActionTime,
                 ManagerMessage = managerMessage,
-                ManagerID = managerID,
+                ManagerId = managerId,
             };
         }
 
@@ -1779,11 +1779,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string state = default,
             DateTime? senderTime = default,
             string senderMessage = default,
-            string senderID = default,
+            string senderId = default,
             DateTime? managerActionTime = default,
             string managerMessage = default,
-            string managerID = default,
-            string openShiftID = default)
+            string managerId = default,
+            string openShiftId = default)
         {
             return new OpenShiftChangeRequestResponse
             {
@@ -1794,11 +1794,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
                 State = state,
                 SenderTime = senderTime,
                 SenderMessage = senderMessage,
-                SenderID = senderID,
+                SenderId = senderId,
                 ManagerActionTime = managerActionTime,
                 ManagerMessage = managerMessage,
-                ManagerID = managerID,
-                OpenShiftID = openShiftID,
+                ManagerId = managerId,
+                OpenShiftId = openShiftId,
             };
         }
 
@@ -1884,12 +1884,12 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// Creates a new instance of <see cref="EditOpenShiftRequest"/>.
         /// </summary>
         public static EditOpenShiftRequest EditOpenShiftRequest(
-            string schedulingGroupID = default,
+            string schedulingGroupId = default,
             object sharedOpenShift = default)
         {
             return new EditOpenShiftRequest
             {
-                SchedulingGroupID = schedulingGroupID,
+                SchedulingGroupId = schedulingGroupId,
                 SharedOpenShift = sharedOpenShift,
             };
         }
@@ -1898,15 +1898,15 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// Creates a new instance of <see cref="CreateShiftRequest"/>.
         /// </summary>
         public static CreateShiftRequest CreateShiftRequest(
-            string schedulingGroupID = default,
+            string schedulingGroupId = default,
             object value = default,
-            string userID = default)
+            string userId = default)
         {
             return new CreateShiftRequest
             {
-                SchedulingGroupID = schedulingGroupID,
+                SchedulingGroupId = schedulingGroupId,
                 Value = value,
-                UserID = userID,
+                UserId = userId,
             };
         }
 
@@ -1915,12 +1915,12 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static CreateTimeOffRequest CreateTimeOffRequest(
             object value = default,
-            string userID = default)
+            string userId = default)
         {
             return new CreateTimeOffRequest
             {
                 Value = value,
-                UserID = userID,
+                UserId = userId,
             };
         }
     }
@@ -2097,12 +2097,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns details for a Time Off using its unique ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="timeOffID">Time Off ID</param>
+        /// <param name="timeOffId">Time Off ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a Time Off instance response.</returns>
-        public virtual async Task<TimeOffResponse> GetTimeOffAsync([DynamicValues("GetAllTeams")] string team, string timeOffID, CancellationToken cancellationToken = default)
+        public virtual async Task<TimeOffResponse> GetTimeOffAsync([DynamicValues("GetAllTeams")] string team, string timeOffId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
             return await this
                 .CallConnectorAsync<TimeOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2113,11 +2113,11 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation deletes a Time Off using its unique ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="timeOffID">Time Off ID</param>
+        /// <param name="timeOffId">Time Off ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteTimeOffAsync([DynamicValues("GetAllTeams")] string team, string timeOffID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteTimeOffAsync([DynamicValues("GetAllTeams")] string team, string timeOffId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2169,12 +2169,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns details for a Shift using the Shift&apos;s unique ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="shiftID">Shift ID</param>
+        /// <param name="shiftId">Shift ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a Shift response.</returns>
-        public virtual async Task<ShiftResponse> GetShiftAsync([DynamicValues("GetAllTeams")] string team, string shiftID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShiftResponse> GetShiftAsync([DynamicValues("GetAllTeams")] string team, string shiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
             return await this
                 .CallConnectorAsync<ShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2185,11 +2185,11 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation deletes a Shift using the Shift&apos;s unique ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="shiftID">Shift ID</param>
+        /// <param name="shiftId">Shift ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteShiftAsync([DynamicValues("GetAllTeams")] string team, string shiftID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteShiftAsync([DynamicValues("GetAllTeams")] string team, string shiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2241,12 +2241,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns details for an Open Shift.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="openShiftID">Open Shift ID</param>
+        /// <param name="openShiftId">Open Shift ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get an Open Shift response.</returns>
-        public virtual async Task<OpenShiftResponse> GetOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftID, CancellationToken cancellationToken = default)
+        public virtual async Task<OpenShiftResponse> GetOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
             return await this
                 .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2257,13 +2257,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>Update an Open Shift in a Schedule.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="openShiftID">Open Shift ID</param>
+        /// <param name="openShiftId">Open Shift ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update an Open Shift response.</returns>
-        public virtual async Task<OpenShiftResponse> UpdateOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftID, EditOpenShiftRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<OpenShiftResponse> UpdateOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftId, EditOpenShiftRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
             return await this
                 .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2274,11 +2274,11 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation deletes an Open Shift.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="openShiftID">Open Shift ID</param>
+        /// <param name="openShiftId">Open Shift ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2327,12 +2327,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns details for a Scheduling Group using its unique ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="schedulingGroupID">Scheduling Group ID</param>
+        /// <param name="schedulingGroupId">Scheduling Group ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a Scheduling Group response.</returns>
-        public virtual async Task<SchedulingGroupResponse> GetSchedulingGroupAsync([DynamicValues("GetAllTeams")] string team, string schedulingGroupID, CancellationToken cancellationToken = default)
+        public virtual async Task<SchedulingGroupResponse> GetSchedulingGroupAsync([DynamicValues("GetAllTeams")] string team, string schedulingGroupId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups/{Uri.EscapeDataString(schedulingGroupID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups/{Uri.EscapeDataString(schedulingGroupId.ToString())}";
             return await this
                 .CallConnectorAsync<SchedulingGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2365,12 +2365,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns a Time Off request by ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="timeOffRequestID">Time Off Request ID</param>
+        /// <param name="timeOffRequestId">Time Off Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a Time Off request response.</returns>
-        public virtual async Task<TimeOffRequestResponse> GetTimeOffShiftRequestAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestID, CancellationToken cancellationToken = default)
+        public virtual async Task<TimeOffRequestResponse> GetTimeOffShiftRequestAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}";
             return await this
                 .CallConnectorAsync<TimeOffRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2381,13 +2381,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows managers to approve a Time Off request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="timeOffRequestID">Time Off Request ID</param>
+        /// <param name="timeOffRequestId">Time Off Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Approve a Time Off request response.</returns>
-        public virtual async Task<TimeOffRequestApproveResponse> TimeOffRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestID, TimeOffRequestApproveInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<TimeOffRequestApproveResponse> TimeOffRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestId, TimeOffRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestID.ToString())}/approve";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/approve";
             return await this
                 .CallConnectorAsync<TimeOffRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2398,13 +2398,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows managers to decline a Time Off request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="timeOffRequestID">Time Off Request ID</param>
+        /// <param name="timeOffRequestId">Time Off Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Decline a Time Off request response.</returns>
-        public virtual async Task<TimeOffRequestDeclineResponse> TimeOffRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestID, TimeOffRequestDeclineInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<TimeOffRequestDeclineResponse> TimeOffRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestId, TimeOffRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestID.ToString())}/decline";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/decline";
             return await this
                 .CallConnectorAsync<TimeOffRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2437,12 +2437,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns an Offer Shift request by ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="offerShiftRequestID">Offer Shift Request ID</param>
+        /// <param name="offerShiftRequestId">Offer Shift Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get an Offer Shift request response.</returns>
-        public virtual async Task<OfferShiftRequestResponse> GetOfferShiftRequestAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestID, CancellationToken cancellationToken = default)
+        public virtual async Task<OfferShiftRequestResponse> GetOfferShiftRequestAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}";
             return await this
                 .CallConnectorAsync<OfferShiftRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2453,13 +2453,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows recipients/managers to approve an Offer Shift request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="offerShiftRequestID">Offer Shift Request ID</param>
+        /// <param name="offerShiftRequestId">Offer Shift Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Approve an Offer Shift request response.</returns>
-        public virtual async Task<OfferShiftRequestApproveResponse> OfferShiftRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestID, OfferShiftRequestApproveInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<OfferShiftRequestApproveResponse> OfferShiftRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestId, OfferShiftRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestID.ToString())}/approve";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/approve";
             return await this
                 .CallConnectorAsync<OfferShiftRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2470,13 +2470,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows users to decline an Offer Shift request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="offerShiftRequestID">Offer Shift Request ID</param>
+        /// <param name="offerShiftRequestId">Offer Shift Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Decline an Offer Shift request response.</returns>
-        public virtual async Task<OfferShiftRequestDeclineResponse> OfferShiftRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestID, OfferShiftRequestDeclineInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<OfferShiftRequestDeclineResponse> OfferShiftRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestId, OfferShiftRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestID.ToString())}/decline";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/decline";
             return await this
                 .CallConnectorAsync<OfferShiftRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2509,12 +2509,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns a Swap Shifts request by ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="swapShiftsChangeRequestID">Swap Shifts Change Request ID</param>
+        /// <param name="swapShiftsChangeRequestId">Swap Shifts Change Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a Swap Shifts request response.</returns>
-        public virtual async Task<SwapShiftsChangeRequestResponse> GetSwapShiftsChangeRequestAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestID, CancellationToken cancellationToken = default)
+        public virtual async Task<SwapShiftsChangeRequestResponse> GetSwapShiftsChangeRequestAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}";
             return await this
                 .CallConnectorAsync<SwapShiftsChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2525,13 +2525,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows a user to approve a Swap Shifts request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="swapShiftsChangeRequestID">Swap Shifts Change Request ID</param>
+        /// <param name="swapShiftsChangeRequestId">Swap Shifts Change Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Approve a Swap Shifts request response.</returns>
-        public virtual async Task<SwapShiftsChangeRequestApproveResponse> SwapShiftsChangeRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestID, SwapShiftsChangeRequestApproveInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<SwapShiftsChangeRequestApproveResponse> SwapShiftsChangeRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestId, SwapShiftsChangeRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestID.ToString())}/approve";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/approve";
             return await this
                 .CallConnectorAsync<SwapShiftsChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2542,13 +2542,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows users to decline a Swap Shifts request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="swapShiftsChangeRequestID">Swap Shifts Change Request ID</param>
+        /// <param name="swapShiftsChangeRequestId">Swap Shifts Change Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Decline a Swap Shifts request response.</returns>
-        public virtual async Task<SwapShiftsChangeRequestDeclineResponse> SwapShiftsChangeRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestID, SwapShiftsChangeRequestDeclineInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<SwapShiftsChangeRequestDeclineResponse> SwapShiftsChangeRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestId, SwapShiftsChangeRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestID.ToString())}/decline";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/decline";
             return await this
                 .CallConnectorAsync<SwapShiftsChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2581,12 +2581,12 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation returns an Open Shift change request by ID.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="openShiftChangeRequestID">Open Shift Change Request ID</param>
+        /// <param name="openShiftChangeRequestId">Open Shift Change Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get an Open Shift request response.</returns>
-        public virtual async Task<OpenShiftChangeRequestResponse> GetOpenShiftChangeRequestAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestID, CancellationToken cancellationToken = default)
+        public virtual async Task<OpenShiftChangeRequestResponse> GetOpenShiftChangeRequestAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}";
             return await this
                 .CallConnectorAsync<OpenShiftChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2597,13 +2597,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows managers to approve an Open Shift request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="openShiftChangeRequestID">Open Shift Change Request ID</param>
+        /// <param name="openShiftChangeRequestId">Open Shift Change Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Approve an Open Shift request response.</returns>
-        public virtual async Task<OpenShiftChangeRequestApproveResponse> OpenShiftChangeRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestID, OpenShiftChangeRequestApproveInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<OpenShiftChangeRequestApproveResponse> OpenShiftChangeRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestId, OpenShiftChangeRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestID.ToString())}/approve";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/approve";
             return await this
                 .CallConnectorAsync<OpenShiftChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -2614,13 +2614,13 @@ namespace Azure.Connectors.Sdk.Shifts
         /// </summary>
         /// <remarks>This operation allows managers to decline an Open Shift request.</remarks>
         /// <param name="team">Team</param>
-        /// <param name="openShiftChangeRequestID">Open Shift Change Request ID</param>
+        /// <param name="openShiftChangeRequestId">Open Shift Change Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Decline an Open Shift request response.</returns>
-        public virtual async Task<OpenShiftChangeRequestDeclineResponse> OpenShiftChangeRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestID, OpenShiftChangeRequestDeclineInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<OpenShiftChangeRequestDeclineResponse> OpenShiftChangeRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestId, OpenShiftChangeRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestID.ToString())}/decline";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/decline";
             return await this
                 .CallConnectorAsync<OpenShiftChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

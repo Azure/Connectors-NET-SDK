@@ -614,7 +614,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Add Model response.</returns>
         public virtual async Task<List<object>> AddModelsAsync(List<object> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/models";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/models" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -632,6 +634,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         public virtual AsyncPageable<object> ListModelsAsync(string dependenciesForModel = default, string includeModelDefinition = default, string continuationToken = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
             if (dependenciesForModel != default)
                 queryParams.Add($"dependenciesFor={Uri.EscapeDataString(dependenciesForModel.ToString())}");
             if (includeModelDefinition != default)
@@ -653,7 +656,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteModelAsync(string modelId, CancellationToken cancellationToken = default)
         {
-            var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -670,6 +675,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         public virtual async Task<GetModelByIdResponse> GetModelByIdAsync(string modelId, string includeModelDefinition = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
             if (includeModelDefinition != default)
                 queryParams.Add($"includeModelDefinition={Uri.EscapeDataString(includeModelDefinition.ToString())}");
             var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -687,7 +693,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateModelAsync(string modelId, UpdateModelInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -702,7 +710,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Get Twin by Id response.</returns>
         public virtual async Task<TwinResult> GetTwinByIdAsync(string digitalTwinId, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TwinResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -716,7 +726,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteTwinAsync(string digitalTwinId, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -732,7 +744,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Add Twin response.</returns>
         public virtual async Task<TwinResult> AddTwinAsync(string digitalTwinId, AddTwinInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TwinResult>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -747,7 +761,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateTwinAsync(string digitalTwinId, UpdateTwinInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -763,7 +779,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Get Component response.</returns>
         public virtual async Task<GetComponentResult> GetComponentAsync(string digitalTwinId, string dTDLComponent, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetComponentResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -779,7 +797,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateComponentAsync(string digitalTwinId, string dTDLComponent, UpdateComponentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -795,7 +815,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Get Relationship by Id response.</returns>
         public virtual async Task<TwinRelationship> GetRelationshipByIdAsync(string digitalTwinId, string relationshipId, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TwinRelationship>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -810,7 +832,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteRelationshipAsync(string digitalTwinId, string relationshipId, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -827,7 +851,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Add Relationship response.</returns>
         public virtual async Task<TwinRelationship> AddRelationshipAsync(string digitalTwinId, string relationshipId, AddRelationshipInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TwinRelationship>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -843,7 +869,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateRelationshipAsync(string digitalTwinId, string relationshipId, UpdateRelationshipInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -860,6 +888,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         public virtual AsyncPageable<IncomingRelationship> ListIncomingRelationshipsAsync(string digitalTwinId, string continuationToken = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
             if (continuationToken != default)
                 queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken.ToString())}");
             var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/incomingrelationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -878,7 +907,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendTelemetryAsync(string digitalTwinId, SendTelemetryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/telemetry";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -894,7 +925,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendComponentTelemetryAsync(string digitalTwinId, string dTDLComponent, SendComponentTelemetryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}/telemetry";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -911,6 +944,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         public virtual AsyncPageable<TwinRelationship> ListRelationshipsAsync(string digitalTwinId, string continuationToken = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
             if (continuationToken != default)
                 queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken.ToString())}");
             var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -929,7 +963,9 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>The Query API response.</returns>
         public virtual async Task<QueryResult> QueryTwinsAsync(QueryTwinsInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/query";
+            var queryParams = new List<string>();
+            queryParams.Add("api-version=2020-10-31");
+            var path = $"/query" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<QueryResult>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

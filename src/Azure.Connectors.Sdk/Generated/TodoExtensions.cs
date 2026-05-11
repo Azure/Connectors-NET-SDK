@@ -699,13 +699,13 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// List to-do&apos;s by folder (V2)
+        /// List to-dos by folder (V2)
         /// </summary>
-        /// <remarks>This operation is used to retrieve all to-do&apos;s from a specific list.</remarks>
+        /// <remarks>This operation is used to retrieve all to-dos from a specific list.</remarks>
         /// <param name="toDoList">To-do List</param>
         /// <param name="topCount">Top Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List to-do&apos;s by folder (V2) response.</returns>
+        /// <returns>The List to-dos by folder (V2) response.</returns>
         public virtual async Task<List<ToDo>> ListToDosByFolderAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, int topCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();

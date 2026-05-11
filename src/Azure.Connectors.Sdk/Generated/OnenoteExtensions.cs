@@ -929,6 +929,7 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task<string> GetPageContentAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("preAuthenticated=true");
             if (notebookKey != default)
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
             if (notebookSection != default)
