@@ -171,7 +171,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         [JsonPropertyName("done_activities_count")]
         public int? DoneActivitiesCount { get; set; }
 
-        /// <summary>Number of undone activitie associated with the deals.</summary>
+        /// <summary>Number of undone activities associated with the deals.</summary>
         [JsonPropertyName("undone_activities_count")]
         public int? UndoneActivitiesCount { get; set; }
 
