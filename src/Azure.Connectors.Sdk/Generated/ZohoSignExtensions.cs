@@ -64,9 +64,9 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         [JsonPropertyName("purpose")]
         public string Purpose { get; set; }
 
-        /// <summary>appName</summary>
-        [JsonPropertyName("appName")]
-        public string AppName { get; set; }
+        /// <summary>appname</summary>
+        [JsonPropertyName("appname")]
+        public string Appname { get; set; }
     }
 
     /// <summary>
@@ -272,14 +272,14 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
             string webhookUrl = default,
             WebhookActions? webhookActions = default,
             string purpose = default,
-            string appName = default)
+            string appname = default)
         {
             return new ZohoSignTriggersInput
             {
                 WebhookUrl = webhookUrl,
                 WebhookActions = webhookActions,
                 Purpose = purpose,
-                AppName = appName,
+                Appname = appname,
             };
         }
 
@@ -442,6 +442,16 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <param name="options">Optional client options for retry, timeout, etc.</param>
         public ZohoSignClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
             : base(connectionRuntimeUrl, credential, options)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new ZohoSignClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public ZohoSignClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
         {
         }
 

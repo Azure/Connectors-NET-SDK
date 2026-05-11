@@ -1188,6 +1188,16 @@ namespace Azure.Connectors.Sdk.Revai
         }
 
         /// <summary>
+        /// Creates a new RevaiClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public RevaiClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
         /// Creates a new RevaiClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
@@ -1426,12 +1436,12 @@ namespace Azure.Connectors.Sdk.Revai
         }
 
         /// <summary>
-        /// Delete topic extraction job
+        /// Delete topic extraction jo
         /// </summary>
         /// <remarks>Deletes a topic extraction job. All data related to the job will be permanently deleted.</remarks>
         /// <param name="iD">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete topic extraction job response.</returns>
+        /// <returns>The Delete topic extraction jo response.</returns>
         public virtual async Task<string> ExtractionDeleteAsync(string iD, CancellationToken cancellationToken = default)
         {
             var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
