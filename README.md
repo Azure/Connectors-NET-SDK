@@ -196,6 +196,21 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
 | SigningHub | 🔄 SDK Generated | AttachmentGetAttachments, AttachmentDeleteAttachment |
 | Zoho Sign | 🔄 SDK Generated | InvokeAPI, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
+| Docuware | 🔄 SDK Generated | GetOrganization, StoreToFileCabinet |
+| Elfsquad Data | 🔄 SDK Generated | GetSchemas, GetEntities |
+| Impexium | 🔄 SDK Generated | GetAbandonedCheckouts, ListAllExhibitors |
+| Jedox OData Hub | 🔄 SDK Generated | Databases, GetCubes |
+| Meeting Room Map | 🔄 SDK Generated | GetCategories, GetCustomLocations |
+| Orderful | 🔄 SDK Generated | ListTransactions |
+| PDF.co | 🔄 SDK Generated | HtmlToPdf, UrlToPdf, PdfFiller |
+| Projectplace | 🔄 SDK Generated | ListBoards, CreateCard |
+| Seismic Planner | 🔄 SDK Generated | GetComments, CreateComment |
+| Starmind | 🔄 SDK Generated | FindExperts, FindQuestions |
+| StarRez REST V1 | 🔄 SDK Generated | SelectEntry, CreateEntry, UpdateEntry |
+| Tallyfy | 🔄 SDK Generated | GetUserOrganizations, EditTaskDeadline |
+| TextRequest | 🔄 SDK Generated | GetMessagesByContactPhone, SendMessageByPhoneNumber |
+| Ticketmaster | 🔄 SDK Generated | EventsGet, EventsGetDetails |
+| Way We Do | 🔄 SDK Generated | GetAllChecklistInstances, CommentAdd |
 
 ## Related Projects
 

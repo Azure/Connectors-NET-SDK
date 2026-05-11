@@ -97,6 +97,51 @@
 //   using Azure.Connectors.Sdk.ZohoSign;
 //   using Azure.Connectors.Sdk.ZohoSign.Models;
 //   var client = new ZohoSignClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Docuware;
+//   using Azure.Connectors.Sdk.Docuware.Models;
+//   var client = new DocuwareClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ElfsquadData;
+//   using Azure.Connectors.Sdk.ElfsquadData.Models;
+//   var client = new ElfsquadDataClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Impexium;
+//   using Azure.Connectors.Sdk.Impexium.Models;
+//   var client = new ImpexiumClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.JedoxOdataHub;
+//   using Azure.Connectors.Sdk.JedoxOdataHub.Models;
+//   var client = new JedoxOdataHubClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.MeetingRoomMap;
+//   using Azure.Connectors.Sdk.MeetingRoomMap.Models;
+//   var client = new MeetingRoomMapClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Orderful;
+//   using Azure.Connectors.Sdk.Orderful.Models;
+//   var client = new OrderfulClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.PdfCo;
+//   using Azure.Connectors.Sdk.PdfCo.Models;
+//   var client = new PdfCoClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Projectplace;
+//   using Azure.Connectors.Sdk.Projectplace.Models;
+//   var client = new ProjectplaceClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.SeismicPlanner;
+//   using Azure.Connectors.Sdk.SeismicPlanner.Models;
+//   var client = new SeismicPlannerClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Starmind;
+//   using Azure.Connectors.Sdk.Starmind.Models;
+//   var client = new StarmindClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.StarrezRestV1;
+//   using Azure.Connectors.Sdk.StarrezRestV1.Models;
+//   var client = new StarrezRestV1Client(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Tallyfy;
+//   using Azure.Connectors.Sdk.Tallyfy.Models;
+//   var client = new TallyfyClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.TextRequest;
+//   using Azure.Connectors.Sdk.TextRequest.Models;
+//   var client = new TextRequestClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Ticketmaster;
+//   using Azure.Connectors.Sdk.Ticketmaster.Models;
+//   var client = new TicketmasterClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Waywedo;
+//   using Azure.Connectors.Sdk.Waywedo.Models;
+//   var client = new WaywedoClient(connectionRuntimeUrl);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -143,5 +188,20 @@ public static class SdkConnectors
         "wdatp",
         "yammer",
         "zohosign",
+        "docuware",
+        "elfsquaddata",
+        "impexium",
+        "jedoxodatahub",
+        "meetingroommap",
+        "orderful",
+        "pdfco",
+        "projectplace",
+        "seismicplanner",
+        "starmind",
+        "starrezrestv1",
+        "tallyfy",
+        "textrequest",
+        "ticketmaster",
+        "waywedo",
     ];
 }

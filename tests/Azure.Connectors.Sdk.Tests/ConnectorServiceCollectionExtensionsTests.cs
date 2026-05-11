@@ -9,28 +9,43 @@ using Azure.Connectors.Sdk.AzureMonitorLogs;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
+using Azure.Connectors.Sdk.Docuware;
+using Azure.Connectors.Sdk.ElfsquadData;
 using Azure.Connectors.Sdk.Etsy;
 using Azure.Connectors.Sdk.ExcelOnline;
 using Azure.Connectors.Sdk.FormstackForms;
 using Azure.Connectors.Sdk.FreshService;
+using Azure.Connectors.Sdk.Impexium;
 using Azure.Connectors.Sdk.Infusionsoft;
 using Azure.Connectors.Sdk.Insightly;
+using Azure.Connectors.Sdk.JedoxOdataHub;
 using Azure.Connectors.Sdk.Kusto;
+using Azure.Connectors.Sdk.MeetingRoomMap;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.Orderful;
+using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
 using Azure.Connectors.Sdk.Plivo;
 using Azure.Connectors.Sdk.Plumsail;
+using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.Revai;
+using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
+using Azure.Connectors.Sdk.Starmind;
+using Azure.Connectors.Sdk.StarrezRestV1;
+using Azure.Connectors.Sdk.Tallyfy;
 using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.TextRequest;
+using Azure.Connectors.Sdk.Ticketmaster;
 using Azure.Connectors.Sdk.UniversalPrint;
+using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.Yammer;
 using Azure.Connectors.Sdk.ZohoSign;
@@ -326,7 +341,22 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddUniversalPrintClient(configuration)
                 .AddWdatpClient(configuration)
                 .AddYammerClient(configuration)
-                .AddZohoSignClient(configuration);
+                .AddZohoSignClient(configuration)
+                .AddDocuwareClient(configuration)
+                .AddElfsquadDataClient(configuration)
+                .AddImpexiumClient(configuration)
+                .AddJedoxOdataHubClient(configuration)
+                .AddMeetingRoomMapClient(configuration)
+                .AddOrderfulClient(configuration)
+                .AddPdfCoClient(configuration)
+                .AddProjectplaceClient(configuration)
+                .AddSeismicPlannerClient(configuration)
+                .AddStarmindClient(configuration)
+                .AddStarrezRestV1Client(configuration)
+                .AddTallyfyClient(configuration)
+                .AddTextRequestClient(configuration)
+                .AddTicketmasterClient(configuration)
+                .AddWaywedoClient(configuration);
 
             var provider = services.BuildServiceProvider();
 
@@ -363,6 +393,21 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("wdatp", provider.GetRequiredService<WdatpClient>().ConnectorName);
             Assert.AreEqual("yammer", provider.GetRequiredService<YammerClient>().ConnectorName);
             Assert.AreEqual("zohosign", provider.GetRequiredService<ZohoSignClient>().ConnectorName);
+            Assert.AreEqual("docuware", provider.GetRequiredService<DocuwareClient>().ConnectorName);
+            Assert.AreEqual("elfsquaddata", provider.GetRequiredService<ElfsquadDataClient>().ConnectorName);
+            Assert.AreEqual("impexium", provider.GetRequiredService<ImpexiumClient>().ConnectorName);
+            Assert.AreEqual("jedoxodatahub", provider.GetRequiredService<JedoxOdataHubClient>().ConnectorName);
+            Assert.AreEqual("meetingroommap", provider.GetRequiredService<MeetingRoomMapClient>().ConnectorName);
+            Assert.AreEqual("orderful", provider.GetRequiredService<OrderfulClient>().ConnectorName);
+            Assert.AreEqual("pdfco", provider.GetRequiredService<PdfCoClient>().ConnectorName);
+            Assert.AreEqual("projectplace", provider.GetRequiredService<ProjectplaceClient>().ConnectorName);
+            Assert.AreEqual("seismicplanner", provider.GetRequiredService<SeismicPlannerClient>().ConnectorName);
+            Assert.AreEqual("starmind", provider.GetRequiredService<StarmindClient>().ConnectorName);
+            Assert.AreEqual("starrezrestv1", provider.GetRequiredService<StarrezRestV1Client>().ConnectorName);
+            Assert.AreEqual("tallyfy", provider.GetRequiredService<TallyfyClient>().ConnectorName);
+            Assert.AreEqual("textrequest", provider.GetRequiredService<TextRequestClient>().ConnectorName);
+            Assert.AreEqual("ticketmaster", provider.GetRequiredService<TicketmasterClient>().ConnectorName);
+            Assert.AreEqual("waywedo", provider.GetRequiredService<WaywedoClient>().ConnectorName);
         }
 
         private static IConfiguration BuildMockConfiguration(

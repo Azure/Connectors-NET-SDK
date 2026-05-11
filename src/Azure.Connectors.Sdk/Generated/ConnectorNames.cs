@@ -176,4 +176,79 @@ public static class ConnectorNames
     /// </summary>
     public const string ZohoSign = "zohosign";
 
+    /// <summary>
+    /// The <c>docuware</c> connector.
+    /// </summary>
+    public const string Docuware = "docuware";
+
+    /// <summary>
+    /// The <c>elfsquaddata</c> connector.
+    /// </summary>
+    public const string ElfsquadData = "elfsquaddata";
+
+    /// <summary>
+    /// The <c>impexium</c> connector.
+    /// </summary>
+    public const string Impexium = "impexium";
+
+    /// <summary>
+    /// The <c>jedoxodatahub</c> connector.
+    /// </summary>
+    public const string JedoxOdataHub = "jedoxodatahub";
+
+    /// <summary>
+    /// The <c>meetingroommap</c> connector.
+    /// </summary>
+    public const string MeetingRoomMap = "meetingroommap";
+
+    /// <summary>
+    /// The <c>orderful</c> connector.
+    /// </summary>
+    public const string Orderful = "orderful";
+
+    /// <summary>
+    /// The <c>pdfco</c> connector.
+    /// </summary>
+    public const string PdfCo = "pdfco";
+
+    /// <summary>
+    /// The <c>projectplace</c> connector.
+    /// </summary>
+    public const string Projectplace = "projectplace";
+
+    /// <summary>
+    /// The <c>seismicplanner</c> connector.
+    /// </summary>
+    public const string SeismicPlanner = "seismicplanner";
+
+    /// <summary>
+    /// The <c>starmind</c> connector.
+    /// </summary>
+    public const string Starmind = "starmind";
+
+    /// <summary>
+    /// The <c>starrezrestv1</c> connector.
+    /// </summary>
+    public const string StarrezRestV1 = "starrezrestv1";
+
+    /// <summary>
+    /// The <c>tallyfy</c> connector.
+    /// </summary>
+    public const string Tallyfy = "tallyfy";
+
+    /// <summary>
+    /// The <c>textrequest</c> connector.
+    /// </summary>
+    public const string TextRequest = "textrequest";
+
+    /// <summary>
+    /// The <c>ticketmaster</c> connector.
+    /// </summary>
+    public const string Ticketmaster = "ticketmaster";
+
+    /// <summary>
+    /// The <c>waywedo</c> connector.
+    /// </summary>
+    public const string Waywedo = "waywedo";
+
 }

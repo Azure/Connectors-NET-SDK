@@ -9,28 +9,43 @@ using Azure.Connectors.Sdk.AzureMonitorLogs;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
+using Azure.Connectors.Sdk.Docuware;
+using Azure.Connectors.Sdk.ElfsquadData;
 using Azure.Connectors.Sdk.Etsy;
 using Azure.Connectors.Sdk.ExcelOnline;
 using Azure.Connectors.Sdk.FormstackForms;
 using Azure.Connectors.Sdk.FreshService;
+using Azure.Connectors.Sdk.Impexium;
 using Azure.Connectors.Sdk.Infusionsoft;
 using Azure.Connectors.Sdk.Insightly;
+using Azure.Connectors.Sdk.JedoxOdataHub;
 using Azure.Connectors.Sdk.Kusto;
+using Azure.Connectors.Sdk.MeetingRoomMap;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
+using Azure.Connectors.Sdk.Orderful;
+using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
 using Azure.Connectors.Sdk.Plivo;
 using Azure.Connectors.Sdk.Plumsail;
+using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.Revai;
+using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
+using Azure.Connectors.Sdk.Starmind;
+using Azure.Connectors.Sdk.StarrezRestV1;
+using Azure.Connectors.Sdk.Tallyfy;
 using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.TextRequest;
+using Azure.Connectors.Sdk.Ticketmaster;
 using Azure.Connectors.Sdk.UniversalPrint;
+using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.Yammer;
 using Azure.Connectors.Sdk.ZohoSign;
@@ -590,6 +605,246 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.ZohoSign,
                 factory: (connectionRuntimeUrl, credential) => new ZohoSignClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="DocuwareClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddDocuwareClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocuwareClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Docuware,
+                factory: (connectionRuntimeUrl, credential) => new DocuwareClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ElfsquadDataClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddElfsquadDataClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ElfsquadDataClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ElfsquadData,
+                factory: (connectionRuntimeUrl, credential) => new ElfsquadDataClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ImpexiumClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddImpexiumClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ImpexiumClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Impexium,
+                factory: (connectionRuntimeUrl, credential) => new ImpexiumClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="JedoxOdataHubClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddJedoxOdataHubClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<JedoxOdataHubClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.JedoxOdataHub,
+                factory: (connectionRuntimeUrl, credential) => new JedoxOdataHubClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="MeetingRoomMapClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddMeetingRoomMapClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MeetingRoomMapClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.MeetingRoomMap,
+                factory: (connectionRuntimeUrl, credential) => new MeetingRoomMapClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="OrderfulClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOrderfulClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OrderfulClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Orderful,
+                factory: (connectionRuntimeUrl, credential) => new OrderfulClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddPdfCoClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<PdfCoClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.PdfCo,
+                factory: (connectionRuntimeUrl, credential) => new PdfCoClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ProjectplaceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddProjectplaceClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ProjectplaceClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Projectplace,
+                factory: (connectionRuntimeUrl, credential) => new ProjectplaceClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="SeismicPlannerClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddSeismicPlannerClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<SeismicPlannerClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.SeismicPlanner,
+                factory: (connectionRuntimeUrl, credential) => new SeismicPlannerClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="StarmindClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddStarmindClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<StarmindClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Starmind,
+                factory: (connectionRuntimeUrl, credential) => new StarmindClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="StarrezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddStarrezRestV1Client(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<StarrezRestV1Client>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.StarrezRestV1,
+                factory: (connectionRuntimeUrl, credential) => new StarrezRestV1Client(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="TallyfyClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddTallyfyClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TallyfyClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Tallyfy,
+                factory: (connectionRuntimeUrl, credential) => new TallyfyClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="TextRequestClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddTextRequestClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TextRequestClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.TextRequest,
+                factory: (connectionRuntimeUrl, credential) => new TextRequestClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="TicketmasterClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddTicketmasterClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<TicketmasterClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Ticketmaster,
+                factory: (connectionRuntimeUrl, credential) => new TicketmasterClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="WaywedoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddWaywedoClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<WaywedoClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Waywedo,
+                factory: (connectionRuntimeUrl, credential) => new WaywedoClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
