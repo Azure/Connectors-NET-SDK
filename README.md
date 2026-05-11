@@ -181,21 +181,21 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
-| Campfire | 🔄 SDK Generated | CreateMessage, GetRooms, GetPeople |
-| ClickSend SMS | 🔄 SDK Generated | SmsSend, GetContactLists, CreateList |
+| Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
+| ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
 | Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryID |
-| Formstack Forms | 🔄 SDK Generated | GetAvailableForms (trigger: OnNewSubmission) |
-| FreshService | 🔄 SDK Generated | CreateTicket (trigger: OnNewTicket) |
-| Infusionsoft (Keap) | 🔄 SDK Generated | CreateTask, GetContact |
-| Insightly | 🔄 SDK Generated | ListTasks, ListContacts, ListOrganisations |
-| Pipedrive | 🔄 SDK Generated | GetDeal, ListDeals, GetPerson |
+| Formstack Forms | 🔄 SDK Generated | GetAvailableForms (trigger: OnFormstackFormSubmitted) |
+| FreshService | 🔄 SDK Generated | AddNote, CreateTicket, UpdateTicket (trigger: OnTicketCreated) |
+| Infusionsoft (Keap) | 🔄 SDK Generated | CreateTask, UpdateTask, ListTasks (trigger: OnNewTask) |
+| Insightly | 🔄 SDK Generated | ListTasks, UpdateTask, AddTask (trigger: OnTaskAssignedToMe) |
+| Pipedrive | 🔄 SDK Generated | ListDeals, GetDeal, UpdateDealStatus (trigger: OnTrigNewActivity) |
 | Plivo | 🔄 SDK Generated | MakeCall, ListMessages, SendSMS |
-| Plumsail | 🔄 SDK Generated | FlowV1DocumentsFlowSchemaAddWatermarkToPdf, FlowV1DocumentsFlowSchemaParseCsv |
-| Replicon | 🔄 SDK Generated | BulkGetProjectDetails3, UserListServiceGetData |
+| Plumsail | 🔄 SDK Generated | AddWatermarkToPdf, RegExpMatch, ParseCsv |
+| Replicon | 🔄 SDK Generated | BulkGetProjectDetails3, CreateProjectOrApplyModifications |
 | Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
 | SigningHub | 🔄 SDK Generated | AttachmentGetAttachments, AttachmentDeleteAttachment |
-| Zoho Sign | 🔄 SDK Generated | InvokeAPI (trigger: ZohoSignTriggers) |
+| Zoho Sign | 🔄 SDK Generated | InvokeAPI, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
 
 ## Related Projects
 
