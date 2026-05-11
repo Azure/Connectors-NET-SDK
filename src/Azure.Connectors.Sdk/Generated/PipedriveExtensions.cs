@@ -273,7 +273,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("update_time")]
         [JsonInclude]
-        public DateTime? UpdatesDateTime { get; internal set; }
+        public DateTime? UpdatedDateTime { get; internal set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("marked_as_done_time")]
@@ -627,7 +627,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
             int? contactId = default,
             string contactName = default,
             DateTime? createdDateTime = default,
-            DateTime? updatesDateTime = default,
+            DateTime? updatedDateTime = default,
             DateTime? completedDateTime = default,
             string googleCalendarEventId = default,
             string googleCalendarId = default,
@@ -653,7 +653,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
                 ContactId = contactId,
                 ContactName = contactName,
                 CreatedDateTime = createdDateTime,
-                UpdatesDateTime = updatesDateTime,
+                UpdatedDateTime = updatedDateTime,
                 CompletedDateTime = completedDateTime,
                 GoogleCalendarEventId = googleCalendarEventId,
                 GoogleCalendarId = googleCalendarId,

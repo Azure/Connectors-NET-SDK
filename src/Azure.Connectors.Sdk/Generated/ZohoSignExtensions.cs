@@ -64,9 +64,9 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         [JsonPropertyName("purpose")]
         public string Purpose { get; set; }
 
-        /// <summary>appname</summary>
-        [JsonPropertyName("appname")]
-        public string Appname { get; set; }
+        /// <summary>appName</summary>
+        [JsonPropertyName("appName")]
+        public string AppName { get; set; }
     }
 
     /// <summary>
@@ -272,14 +272,14 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
             string webhookUrl = default,
             WebhookActions? webhookActions = default,
             string purpose = default,
-            string appname = default)
+            string appName = default)
         {
             return new ZohoSignTriggersInput
             {
                 WebhookUrl = webhookUrl,
                 WebhookActions = webhookActions,
                 Purpose = purpose,
-                Appname = appname,
+                AppName = appName,
             };
         }
 
