@@ -3,7 +3,7 @@
 
 # Azure Connectors .NET SDK
 
-Type-safe .NET clients for [Azure connectors](https://learn.microsoft.com/connectors/connector-reference/) — call Office 365, SharePoint, Teams, Dataverse, and 1,000+ connectors directly from Azure Functions and other .NET apps.
+Type-safe .NET clients for [Azure connectors](https://learn.microsoft.com/connectors/connector-reference/) — 60 generated connector clients for Office 365, SharePoint, Teams, Dataverse, and 1,000+ connectors directly from Azure Functions and other .NET apps.
 
 > [!CAUTION]
 > **Early Preview — Not for Production Use**
