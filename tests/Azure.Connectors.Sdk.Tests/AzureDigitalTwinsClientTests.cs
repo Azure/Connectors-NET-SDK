@@ -3,16 +3,11 @@
 //------------------------------------------------------------
 
 using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading;
-using System.Threading.Tasks;
 using Azure.Connectors.Sdk.AzureDigitalTwins;
 using global::Azure.Core;
-using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Moq.Protected;
 
 namespace Azure.Connectors.Sdk.Tests
 {
