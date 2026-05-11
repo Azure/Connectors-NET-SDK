@@ -94,7 +94,9 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .BulkGetProjectDetails3Async(input: new BulkGetProjectDetails3Input(), hostUrlForReplicon: "https://test.replicon.com", cancellationToken: CancellationToken.None)
+                .BulkGetProjectDetails3Async(input: new BulkGetProjectDetails3Input(),
+                    hostUrlForReplicon: "https://test.replicon.com",
+                    cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
@@ -112,7 +114,9 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.BulkGetProjectDetails3Async(input: new BulkGetProjectDetails3Input(), hostUrlForReplicon: "https://test.replicon.com", cancellationToken: CancellationToken.None))
+                client.BulkGetProjectDetails3Async(input: new BulkGetProjectDetails3Input(),
+                    hostUrlForReplicon: "https://test.replicon.com",
+                    cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 

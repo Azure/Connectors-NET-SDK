@@ -93,7 +93,10 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .CreateMessageAsync(roomId: "room1", account: "acct1", messageTextToBeCreated: "hello", cancellationToken: CancellationToken.None)
+                .CreateMessageAsync(roomId: "room1",
+                    account: "acct1",
+                    messageTextToBeCreated: "hello",
+                    cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
@@ -111,7 +114,10 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.CreateMessageAsync(roomId: "room1", account: "acct1", messageTextToBeCreated: "hello", cancellationToken: CancellationToken.None))
+                client.CreateMessageAsync(roomId: "room1",
+                    account: "acct1",
+                    messageTextToBeCreated: "hello",
+                    cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 

@@ -94,7 +94,10 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .InvokeAPIAsync(uRLPath: "/api/v1/test", input: new InvokeAPIInput(), method: "GET", cancellationToken: CancellationToken.None)
+                .InvokeAPIAsync(uRLPath: "/api/v1/test",
+                    input: new InvokeAPIInput(),
+                    method: "GET",
+                    cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
@@ -112,7 +115,10 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.InvokeAPIAsync(uRLPath: "/api/v1/test", input: new InvokeAPIInput(), method: "GET", cancellationToken: CancellationToken.None))
+                client.InvokeAPIAsync(uRLPath: "/api/v1/test",
+                    input: new InvokeAPIInput(),
+                    method: "GET",
+                    cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
