@@ -143,6 +143,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.AzureMonitorLogs,
                 factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="CampfireClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -158,6 +159,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Campfire,
                 factory: (connectionRuntimeUrl, credential) => new CampfireClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="ClickSendSmsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -173,6 +175,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.ClickSendSms,
                 factory: (connectionRuntimeUrl, credential) => new ClickSendSmsClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="CloudmersiveConvertClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -188,6 +191,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.CloudmersiveConvert,
                 factory: (connectionRuntimeUrl, credential) => new CloudmersiveConvertClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="EtsyClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -219,6 +223,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.ExcelOnline,
                 factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="FormstackFormsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -234,6 +239,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.FormstackForms,
                 factory: (connectionRuntimeUrl, credential) => new FormstackFormsClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="FreshServiceClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -249,6 +255,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.FreshService,
                 factory: (connectionRuntimeUrl, credential) => new FreshServiceClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="InfusionsoftClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -264,6 +271,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Infusionsoft,
                 factory: (connectionRuntimeUrl, credential) => new InfusionsoftClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="InsightlyClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -375,6 +383,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.OneDriveForBusiness,
                 factory: (connectionRuntimeUrl, credential) => new OneDriveForBusinessClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="PipedriveClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -390,6 +399,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Pipedrive,
                 factory: (connectionRuntimeUrl, credential) => new PipedriveClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="PlivoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -405,6 +415,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Plivo,
                 factory: (connectionRuntimeUrl, credential) => new PlivoClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="PlumsailClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -420,6 +431,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Plumsail,
                 factory: (connectionRuntimeUrl, credential) => new PlumsailClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="RepliconClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -435,6 +447,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Replicon,
                 factory: (connectionRuntimeUrl, credential) => new RepliconClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="RevaiClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -466,6 +479,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.SharePointOnline,
                 factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="SigningHubClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
@@ -561,6 +575,7 @@ namespace Azure.Connectors.Sdk
                 connectorName: ConnectorNames.Yammer,
                 factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
         }
+
         /// <summary>
         /// Registers <see cref="ZohoSignClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
