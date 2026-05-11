@@ -181,6 +181,21 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
+| Campfire | 🔄 SDK Generated | GetGroups, PostMessage, GetMessages |
+| ClickSend SMS | 🔄 SDK Generated | SendSms, GetSmsHistory, GetContacts |
+| Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentPdfToDocx, ConvertImageImageFormatConvert |
+| Etsy | 🔄 SDK Generated | GetListingsByShop, CreateDraftListing, GetShopReceipts |
+| Formstack Forms | 🔄 SDK Generated | GetForms, GetFormSubmissions |
+| FreshService | 🔄 SDK Generated | CreateTicket, GetTicket, ListTickets |
+| Infusionsoft (Keap) | 🔄 SDK Generated | ListContacts, CreateContact, GetContact |
+| Insightly | 🔄 SDK Generated | GetContacts, GetOrganisations, GetOpportunities |
+| Pipedrive | 🔄 SDK Generated | GetDeals, CreateDeal, GetPersons |
+| Plivo | 🔄 SDK Generated | SendMessage, GetMessage, ListMessages |
+| Plumsail | 🔄 SDK Generated | CreateDocumentFromTemplate, ConvertHtmlToPdf |
+| Replicon | 🔄 SDK Generated | GetTimesheets, SubmitTimesheet |
+| Rev.ai | 🔄 SDK Generated | SubmitTranscriptionJob, GetTranscriptionJob |
+| SigningHub | 🔄 SDK Generated | GetDocuments, ShareDocument, InviteToSign |
+| Zoho Sign | 🔄 SDK Generated | CreateDocument, GetDocument, UpdateDocument |
 
 ## Related Projects
 

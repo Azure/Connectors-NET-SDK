@@ -37,9 +37,49 @@ public static class ConnectorNames
     public const string AzureMonitorLogs = "azuremonitorlogs";
 
     /// <summary>
+    /// The <c>campfire</c> connector.
+    /// </summary>
+    public const string Campfire = "campfire";
+
+    /// <summary>
+    /// The <c>clicksendsms</c> connector.
+    /// </summary>
+    public const string ClickSendSms = "clicksendsms";
+
+    /// <summary>
+    /// The <c>cloudmersiveconvert</c> connector.
+    /// </summary>
+    public const string CloudmersiveConvert = "cloudmersiveconvert";
+
+    /// <summary>
+    /// The <c>etsy</c> connector.
+    /// </summary>
+    public const string Etsy = "etsy";
+
+    /// <summary>
     /// The <c>excelonline</c> connector.
     /// </summary>
     public const string ExcelOnline = "excelonline";
+
+    /// <summary>
+    /// The <c>formstackforms</c> connector.
+    /// </summary>
+    public const string FormstackForms = "formstackforms";
+
+    /// <summary>
+    /// The <c>freshservice</c> connector.
+    /// </summary>
+    public const string FreshService = "freshservice";
+
+    /// <summary>
+    /// The <c>infusionsoft</c> connector.
+    /// </summary>
+    public const string Infusionsoft = "infusionsoft";
+
+    /// <summary>
+    /// The <c>insightly</c> connector.
+    /// </summary>
+    public const string Insightly = "insightly";
 
     /// <summary>
     /// The <c>kusto</c> connector.
@@ -72,9 +112,39 @@ public static class ConnectorNames
     public const string OneDriveForBusiness = "onedriveforbusiness";
 
     /// <summary>
+    /// The <c>pipedrive</c> connector.
+    /// </summary>
+    public const string Pipedrive = "pipedrive";
+
+    /// <summary>
+    /// The <c>plivo</c> connector.
+    /// </summary>
+    public const string Plivo = "plivo";
+
+    /// <summary>
+    /// The <c>plumsail</c> connector.
+    /// </summary>
+    public const string Plumsail = "plumsail";
+
+    /// <summary>
+    /// The <c>replicon</c> connector.
+    /// </summary>
+    public const string Replicon = "replicon";
+
+    /// <summary>
+    /// The <c>revai</c> connector.
+    /// </summary>
+    public const string Revai = "revai";
+
+    /// <summary>
     /// The <c>sharepointonline</c> connector.
     /// </summary>
     public const string SharePointOnline = "sharepointonline";
+
+    /// <summary>
+    /// The <c>signinghub</c> connector.
+    /// </summary>
+    public const string SigningHub = "signinghub";
 
     /// <summary>
     /// The <c>smtp</c> connector.
@@ -100,5 +170,10 @@ public static class ConnectorNames
     /// The <c>yammer</c> connector.
     /// </summary>
     public const string Yammer = "yammer";
+
+    /// <summary>
+    /// The <c>zohosign</c> connector.
+    /// </summary>
+    public const string ZohoSign = "zohosign";
 
 }
