@@ -181,21 +181,21 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
-| Campfire | 🔄 SDK Generated | GetGroups, PostMessage, GetMessages |
-| ClickSend SMS | 🔄 SDK Generated | SendSms, GetSmsHistory, GetContacts |
-| Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentPdfToDocx, ConvertImageImageFormatConvert |
-| Etsy | 🔄 SDK Generated | GetListingsByShop, CreateDraftListing, GetShopReceipts |
-| Formstack Forms | 🔄 SDK Generated | GetForms, GetFormSubmissions |
-| FreshService | 🔄 SDK Generated | CreateTicket, GetTicket, ListTickets |
-| Infusionsoft (Keap) | 🔄 SDK Generated | ListContacts, CreateContact, GetContact |
-| Insightly | 🔄 SDK Generated | GetContacts, GetOrganisations, GetOpportunities |
-| Pipedrive | 🔄 SDK Generated | GetDeals, CreateDeal, GetPersons |
-| Plivo | 🔄 SDK Generated | SendMessage, GetMessage, ListMessages |
-| Plumsail | 🔄 SDK Generated | CreateDocumentFromTemplate, ConvertHtmlToPdf |
-| Replicon | 🔄 SDK Generated | GetTimesheets, SubmitTimesheet |
-| Rev.ai | 🔄 SDK Generated | SubmitTranscriptionJob, GetTranscriptionJob |
-| SigningHub | 🔄 SDK Generated | GetDocuments, ShareDocument, InviteToSign |
-| Zoho Sign | 🔄 SDK Generated | CreateDocument, GetDocument, UpdateDocument |
+| Campfire | 🔄 SDK Generated | CreateMessage, GetRooms, GetPeople |
+| ClickSend SMS | 🔄 SDK Generated | SmsSend, GetContactLists, CreateList |
+| Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
+| Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryID |
+| Formstack Forms | 🔄 SDK Generated | GetAvailableForms (trigger: OnNewSubmission) |
+| FreshService | 🔄 SDK Generated | CreateTicket (trigger: OnNewTicket) |
+| Infusionsoft (Keap) | 🔄 SDK Generated | CreateTask, GetContact |
+| Insightly | 🔄 SDK Generated | ListTasks, ListContacts, ListOrganisations |
+| Pipedrive | 🔄 SDK Generated | GetDeal, ListDeals, GetPerson |
+| Plivo | 🔄 SDK Generated | MakeCall, ListMessages, SendSMS |
+| Plumsail | 🔄 SDK Generated | FlowV1DocumentsFlowSchemaAddWatermarkToPdf, FlowV1DocumentsFlowSchemaParseCsv |
+| Replicon | 🔄 SDK Generated | BulkGetProjectDetails3, UserListServiceGetData |
+| Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
+| SigningHub | 🔄 SDK Generated | AttachmentGetAttachments, AttachmentDeleteAttachment |
+| Zoho Sign | 🔄 SDK Generated | InvokeAPI (trigger: ZohoSignTriggers) |
 
 ## Related Projects
 
