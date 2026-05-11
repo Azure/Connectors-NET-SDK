@@ -223,6 +223,16 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         }
 
         /// <summary>
+        /// Creates a new AzureEventGridClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public AzureEventGridClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
         /// Creates a new AzureEventGridClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
@@ -244,7 +254,9 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         /// <returns>The TopicTypes_List response.</returns>
         public virtual async Task<TopicTypesResponse> TopicTypesListAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/providers/Microsoft.EventGrid/topicTypes";
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2017-09-15-preview");
+            var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -258,7 +270,9 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         /// <returns>The List subscriptions response.</returns>
         public virtual async Task<SubscriptionListResult> SubscriptionsListAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/subscriptions";
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2015-11-01");
+            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);

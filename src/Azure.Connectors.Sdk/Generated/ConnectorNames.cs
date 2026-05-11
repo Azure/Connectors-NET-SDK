@@ -27,6 +27,21 @@ public static class ConnectorNames
     public const string AzureBlob = "azureblob";
 
     /// <summary>
+    /// The <c>azureautomation</c> connector.
+    /// </summary>
+    public const string AzureAutomation = "azureautomation";
+
+    /// <summary>
+    /// The <c>azuredatafactory</c> connector.
+    /// </summary>
+    public const string AzureDataFactory = "azuredatafactory";
+
+    /// <summary>
+    /// The <c>azuredigitaltwins</c> connector.
+    /// </summary>
+    public const string AzureDigitalTwins = "azuredigitaltwins";
+
+    /// <summary>
     /// The <c>azureeventgrid</c> connector.
     /// </summary>
     public const string AzureEventGrid = "azureeventgrid";
@@ -35,6 +50,11 @@ public static class ConnectorNames
     /// The <c>azuremonitorlogs</c> connector.
     /// </summary>
     public const string AzureMonitorLogs = "azuremonitorlogs";
+
+    /// <summary>
+    /// The <c>azurevm</c> connector.
+    /// </summary>
+    public const string AzureVM = "azurevm";
 
     /// <summary>
     /// The <c>campfire</c> connector.
@@ -107,6 +127,11 @@ public static class ConnectorNames
     public const string Kusto = "kusto";
 
     /// <summary>
+    /// The <c>keyvault</c> connector.
+    /// </summary>
+    public const string KeyVault = "keyvault";
+
+    /// <summary>
     /// The <c>meetingroommap</c> connector.
     /// </summary>
     public const string MeetingRoomMap = "meetingroommap";
@@ -115,6 +140,11 @@ public static class ConnectorNames
     /// The <c>mq</c> connector.
     /// </summary>
     public const string Mq = "mq";
+
+    /// <summary>
+    /// The <c>microsoftbookings</c> connector.
+    /// </summary>
+    public const string MicrosoftBookings = "microsoftbookings";
 
     /// <summary>
     /// The <c>msgraphgroupsanduser</c> connector.
@@ -127,6 +157,16 @@ public static class ConnectorNames
     public const string Office365 = "office365";
 
     /// <summary>
+    /// The <c>office365groups</c> connector.
+    /// </summary>
+    public const string Office365Groups = "office365groups";
+
+    /// <summary>
+    /// The <c>office365groupsmail</c> connector.
+    /// </summary>
+    public const string Office365GroupsMail = "office365groupsmail";
+
+    /// <summary>
     /// The <c>office365users</c> connector.
     /// </summary>
     public const string Office365Users = "office365users";
@@ -135,6 +175,11 @@ public static class ConnectorNames
     /// The <c>onedriveforbusiness</c> connector.
     /// </summary>
     public const string OneDriveForBusiness = "onedriveforbusiness";
+
+    /// <summary>
+    /// The <c>onenote</c> connector.
+    /// </summary>
+    public const string Onenote = "onenote";
 
     /// <summary>
     /// The <c>orderful</c> connector.
@@ -152,6 +197,11 @@ public static class ConnectorNames
     public const string Pipedrive = "pipedrive";
 
     /// <summary>
+    /// The <c>planner</c> connector.
+    /// </summary>
+    public const string Planner = "planner";
+
+    /// <summary>
     /// The <c>plivo</c> connector.
     /// </summary>
     public const string Plivo = "plivo";
@@ -160,6 +210,11 @@ public static class ConnectorNames
     /// The <c>plumsail</c> connector.
     /// </summary>
     public const string Plumsail = "plumsail";
+
+    /// <summary>
+    /// The <c>powerbi</c> connector.
+    /// </summary>
+    public const string PowerBI = "powerbi";
 
     /// <summary>
     /// The <c>projectplace</c> connector.
@@ -185,6 +240,11 @@ public static class ConnectorNames
     /// The <c>sharepointonline</c> connector.
     /// </summary>
     public const string SharePointOnline = "sharepointonline";
+
+    /// <summary>
+    /// The <c>shifts</c> connector.
+    /// </summary>
+    public const string Shifts = "shifts";
 
     /// <summary>
     /// The <c>signinghub</c> connector.
@@ -215,6 +275,11 @@ public static class ConnectorNames
     /// The <c>teams</c> connector.
     /// </summary>
     public const string Teams = "teams";
+
+    /// <summary>
+    /// The <c>todo</c> connector.
+    /// </summary>
+    public const string Todo = "todo";
 
     /// <summary>
     /// The <c>textrequest</c> connector.

@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **5 new connector clients** — `ExcelOnlineClient`, `AzureEventGridClient`, `YammerClient`, `WdatpClient` (Microsoft Defender ATP), `UniversalPrintClient` (#7)
 - **15 more connector clients (batch 2)** — `CampfireClient`, `ClickSendSmsClient`, `CloudmersiveConvertClient`, `EtsyClient`, `FormstackFormsClient`, `FreshServiceClient`, `InfusionsoftClient`, `InsightlyClient`, `PipedriveClient`, `PlivoClient`, `PlumsailClient`, `RepliconClient`, `RevaiClient`, `SigningHubClient`, `ZohoSignClient` (#7)
 - **15 more connector clients (batch 3)** — `DocuwareClient`, `ElfsquadDataClient`, `ImpexiumClient`, `JedoxOdataHubClient`, `MeetingRoomMapClient`, `OrderfulClient`, `PdfCoClient`, `ProjectplaceClient`, `SeismicPlannerClient`, `StarmindClient`, `StarrezRestV1Client`, `TallyfyClient`, `TextRequestClient`, `TicketmasterClient`, `WaywedoClient` (#7)
+- **13 Microsoft 1st-party connector clients (batch 4)** — `AzureAutomationClient`, `AzureDataFactoryClient`, `AzureDigitalTwinsClient`, `AzureVMClient`, `KeyVaultClient`, `MicrosoftBookingsClient`, `Office365GroupsClient`, `Office365GroupsMailClient`, `OnenoteClient`, `PlannerClient`, `PowerBIClient`, `ShiftsClient`, `TodoClient` (#7)
 
 ### Changed
 
