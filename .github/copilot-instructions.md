@@ -375,7 +375,7 @@ See [GENERATION.md](../GENERATION.md) for how to run the CodefulSdkGenerator.
 
 ### Steps
 
-1. Generate: `LogicAppsCompiler <outputDir> unused --directClient --connectors=<connectorName>`
+1. Generate: `LogicAppsCompiler.exe <outputDir> unused --directClient --connectors=<connectorName>`
 2. Copy generated `{Connector}Extensions.cs` to `src/Azure.Connectors.Sdk/Generated/`
 3. Update `ConnectorNames.cs` — add constant in alphabetical order
 4. Update `ManagedConnectors.cs` — add entry in alphabetical order
@@ -442,13 +442,13 @@ The build appends suffixes based on context (see `eng/build/Version.targets` and
 4. Create GitHub Release: `gh release create v{version} --title "v{version}" --prerelease --notes "..."`
 5. Wait for `code-mirror` (1717) to complete for both the branch and tag
 6. Verify `official-build` (1718) runs automatically from the tag — check it produced a clean `.nupkg` (no `.ci.` suffix)
-7. If the tag build is not the latest, re-queue it: `az pipelines run --org $org --project internal --id 1718 --branch "refs/tags/v{version}"`
+7. If the tag build is not the latest, re-queue it: `az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1718 --branch "refs/tags/v{version}"`
 8. **Run the release pipeline from `main`:**
    ```powershell
    az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1719 --branch "main" --parameters "isReleaseBranchOrTag=True" "publishToNugetOrg=True" --output json | ConvertFrom-Json | Select-Object id, status
    ```
    The release pipeline picks up the **latest** `connectors-sdk.official` artifact. It must be the clean tag build.
-9. Approve the release gate (approvers: David Burg, Rama Krishna Rayudu, Varad Meru's Team)
+9. Approve the release gate (see the pipeline's environment approval check for the current approvers list)
 
 ### Critical: release pipeline must run from `main`
 
