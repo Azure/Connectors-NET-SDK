@@ -254,18 +254,23 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     public class ClientPhotoMetadata
     {
         /// <summary>Has photo</summary>
+        [JsonPropertyName("HasPhoto")]
         public bool? HasPhoto { get; set; }
 
         /// <summary>Height of photo</summary>
+        [JsonPropertyName("Height")]
         public int? Height { get; set; }
 
         /// <summary>Width of photo</summary>
+        [JsonPropertyName("Width")]
         public int? Width { get; set; }
 
         /// <summary>Content Type of photo</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>File extension for the photo (ex: &quot;.jpg&quot;)</summary>
+        [JsonPropertyName("ImageFileExtension")]
         [JsonInclude]
         public string ImageFileExtension { get; internal set; }
     }
@@ -586,31 +591,40 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
         public string UserId { get; set; }
 
         /// <summary>true if the account is enabled; otherwise, false. This property is required when a user is created.</summary>
+        [JsonPropertyName("AccountEnabled")]
         public bool? AccountEnabled { get; set; }
 
         /// <summary>A list of business phone numbers for the user</summary>
+        [JsonPropertyName("BusinessPhones")]
         [JsonInclude]
         public List<string> BusinessPhones { get; internal set; }
 
         /// <summary>The city in which the user is located.</summary>
+        [JsonPropertyName("City")]
         public string City { get; set; }
 
         /// <summary>The name of the company in which the user works.</summary>
+        [JsonPropertyName("CompanyName")]
         public string CompanyName { get; set; }
 
         /// <summary>The country/region in which the user is located; for example, &quot;US&quot; or &quot;UK&quot;.</summary>
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
         /// <summary>The name of the department in which the user works.</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>The name displayed in the address book for the user. This is usually the combination of the user&apos;s first name, middle initial and last name. This property is required when a user is created and it cannot be cleared during updates.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The given name (first name) of the user.</summary>
+        [JsonPropertyName("GivenName")]
         public string GivenName { get; set; }
 
         /// <summary>The user&apos;s job title.</summary>
+        [JsonPropertyName("JobTitle")]
         public string JobTitle { get; set; }
 
         /// <summary>The SMTP/email address for the user, for example, &quot;jeff@contoso.onmicrosoft.com&quot;. Read-Only.</summary>
@@ -626,15 +640,19 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
         public string MobilePhone { get; set; }
 
         /// <summary>The office location in the user&apos;s place of business.</summary>
+        [JsonPropertyName("OfficeLocation")]
         public string OfficeLocation { get; set; }
 
         /// <summary>The postal code for the user&apos;s postal address. The postal code is specific to the user&apos;s country/region. In the United States of America, this attribute contains the ZIP code.</summary>
+        [JsonPropertyName("PostalCode")]
         public string PostalCode { get; set; }
 
         /// <summary>The user&apos;s surname (family name or last name).</summary>
+        [JsonPropertyName("Surname")]
         public string Surname { get; set; }
 
         /// <summary>The primary cellular telephone number for the user.</summary>
+        [JsonPropertyName("TelephoneNumber")]
         public string TelephoneNumber { get; set; }
 
         /// <summary>The user principal name (UPN) of the user. The UPN is an Internet-style login name for the user based on the Internet standard RFC 822. By convention, this should map to the user&apos;s email name. The general format is alias@domain, where domain must be present in the tenant&apos;s collection of verified domains.</summary>
@@ -1434,3 +1452,4 @@ namespace Azure.Connectors.Sdk.Office365Users
 
     #endregion Client
 }
+

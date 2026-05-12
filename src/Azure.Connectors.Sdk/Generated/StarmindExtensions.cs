@@ -648,12 +648,12 @@ namespace Azure.Connectors.Sdk.Starmind
         /// Get user by id
         /// </summary>
         /// <remarks>Retrieves user information based on the provided user id.</remarks>
-        /// <param name="theIDOfTheUser">The ID of the user</param>
+        /// <param name="theIdOfTheUser">The ID of the user</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user by id response.</returns>
-        public virtual async Task<GraphQLUserResponse> GetUserByIdAsync(string theIDOfTheUser, CancellationToken cancellationToken = default)
+        public virtual async Task<GraphQLUserResponse> GetUserByIdAsync(string theIdOfTheUser, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v3/users/{Uri.EscapeDataString(theIDOfTheUser.ToString())}";
+            var path = $"/api/v3/users/{Uri.EscapeDataString(theIdOfTheUser.ToString())}";
             return await this
                 .CallConnectorAsync<GraphQLUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -678,12 +678,12 @@ namespace Azure.Connectors.Sdk.Starmind
         /// Publish a question
         /// </summary>
         /// <remarks>Publishes a question draft. Publishing the question triggers expert search, makes the question discoverable, and allows other users to answer it. Questions are always published anonymously.</remarks>
-        /// <param name="iDOfTheQuestionToPublish">ID of the question to publish</param>
+        /// <param name="idOfTheQuestionToPublish">ID of the question to publish</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Publish a question response.</returns>
-        public virtual async Task<PublishQuestionDraftResponse> PublishQuestionDraftAsync(int iDOfTheQuestionToPublish, CancellationToken cancellationToken = default)
+        public virtual async Task<PublishQuestionDraftResponse> PublishQuestionDraftAsync(int idOfTheQuestionToPublish, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v3/questions/{Uri.EscapeDataString(iDOfTheQuestionToPublish.ToString())}/publish";
+            var path = $"/api/v3/questions/{Uri.EscapeDataString(idOfTheQuestionToPublish.ToString())}/publish";
             return await this
                 .CallConnectorAsync<PublishQuestionDraftResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -693,3 +693,4 @@ namespace Azure.Connectors.Sdk.Starmind
 
     #endregion Client
 }
+

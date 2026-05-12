@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
 
         /// <summary>The operation ID of the control command</summary>
         [JsonPropertyName("operationId")]
-        public string OperationID { get; set; }
+        public string OperationId { get; set; }
     }
 
     /// <summary>
@@ -296,13 +296,13 @@ namespace Azure.Connectors.Sdk.Kusto.Models
         public static AsyncCommandResult AsyncCommandResult(
             string state = default,
             string status = default,
-            string operationID = default)
+            string operationId = default)
         {
             return new AsyncCommandResult
             {
                 State = state,
                 Status = status,
-                OperationID = operationID,
+                OperationId = operationId,
             };
         }
 
@@ -593,3 +593,4 @@ namespace Azure.Connectors.Sdk.Kusto
 
     #endregion Client
 }
+

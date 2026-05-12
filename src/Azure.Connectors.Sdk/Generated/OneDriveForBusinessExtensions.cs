@@ -31,9 +31,11 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     public class BlobMetadata
     {
         /// <summary>The unique identifier of the file or folder.</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>The name of the file or folder.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The name of the file or folder, without the file extension.</summary>
@@ -41,9 +43,11 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
         public string NameWithoutExtension { get; set; }
 
         /// <summary>The display name of the file or folder.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The path of the file or folder.</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>The date and time the file or folder was last modified.</summary>
@@ -52,22 +56,28 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
         public DateTime? LastModifiedTime { get; internal set; }
 
         /// <summary>The file or folder size in bytes.</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>The media type of the file or folder.</summary>
+        [JsonPropertyName("MediaType")]
         public string MediaType { get; set; }
 
         /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
 
         /// <summary>The etag of the file or folder.</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>The file locator of the file or folder.</summary>
+        [JsonPropertyName("FileLocator")]
         public string FileLocator { get; set; }
 
         /// <summary>The user who last modified the file or folder.</summary>
+        [JsonPropertyName("LastModifiedBy")]
         public string LastModifiedBy { get; set; }
     }
 
@@ -77,12 +87,15 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     public class Thumbnail
     {
         /// <summary>A URL that points to the thumbnail.</summary>
+        [JsonPropertyName("Url")]
         public string Url { get; set; }
 
         /// <summary>The thumbnail width in pixels.</summary>
+        [JsonPropertyName("Width")]
         public int? Width { get; set; }
 
         /// <summary>The thumbnail height in pixels.</summary>
+        [JsonPropertyName("Height")]
         public int? Height { get; set; }
     }
 
@@ -503,9 +516,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="file">File</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get file metadata response.</returns>
-        public virtual async Task<BlobMetadata> GetFileMetadataAsync(string file, CancellationToken cancellationToken = default)
+        public virtual async Task<BlobMetadata> GetFileMetadataAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
             return await this
                 .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -519,9 +532,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update file response.</returns>
-        public virtual async Task<BlobMetadata> UpdateFileAsync(string file, byte[] input, CancellationToken cancellationToken = default)
+        public virtual async Task<BlobMetadata> UpdateFileAsync(string @file, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
             return await this
                 .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -533,9 +546,9 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <remarks>This operation deletes a file.</remarks>
         /// <param name="file">File</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteFileAsync(string file, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteFileAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}";
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -588,12 +601,12 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="inferContentType">Infer Content Type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get file content response.</returns>
-        public virtual async Task<byte[]> GetFileContentAsync(string file, bool inferContentType = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetFileContentAsync(string @file, bool inferContentType = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (inferContentType != default)
                 queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -654,14 +667,14 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="overwrite">Overwrite</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Copy file response.</returns>
-        public virtual async Task<BlobMetadata> CopyDriveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BlobMetadata> CopyDriveFileAsync(string @file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (destinationFilePath != default)
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -700,14 +713,14 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="overwrite">Overwrite</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Move or rename a file response.</returns>
-        public virtual async Task<BlobMetadata> MoveFileAsync(string file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BlobMetadata> MoveFileAsync(string @file, string destinationFilePath, bool overwrite = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (destinationFilePath != default)
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
             if (overwrite != default)
                 queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -745,12 +758,12 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="targetType">Target type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert file response.</returns>
-        public virtual async Task<byte[]> ConvertFileAsync(string file, string targetType = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> ConvertFileAsync(string @file, string targetType = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (targetType != default)
                 queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -785,12 +798,12 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="thumbnailSize">Thumbnail Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get file thumbnail response.</returns>
-        public virtual async Task<Thumbnail> GetFileThumbnailAsync(string file, string thumbnailSize, CancellationToken cancellationToken = default)
+        public virtual async Task<Thumbnail> GetFileThumbnailAsync(string @file, string thumbnailSize, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (thumbnailSize != default)
                 queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -871,14 +884,14 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <param name="linkScope">Link scope</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create share link response.</returns>
-        public virtual async Task<SharingLink> CreateShareLinkAsync(string file, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SharingLink> CreateShareLinkAsync(string @file, string linkType, string linkScope = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (linkType != default)
                 queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
             if (linkScope != default)
                 queryParams.Add($"scope={Uri.EscapeDataString(linkScope.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -941,7 +954,10 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
         public virtual AsyncPageable<BlobMetadata> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("skipToken=");
+            queryParams.Add("top=20");
+            var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
                 ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -952,3 +968,4 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
 
     #endregion Client
 }
+

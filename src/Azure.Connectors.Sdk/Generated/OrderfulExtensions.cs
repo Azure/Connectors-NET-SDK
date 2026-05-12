@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.Orderful.Models
     {
         /// <summary>id</summary>
         [JsonPropertyName("id")]
-        public int? WebhookCommunicationChannelID { get; set; }
+        public int? WebhookCommunicationChannelId { get; set; }
     }
 
     #endregion Types
@@ -101,11 +101,11 @@ namespace Azure.Connectors.Sdk.Orderful.Models
         /// Creates a new instance of <see cref="CommunicationChannelCreationResponse"/>.
         /// </summary>
         public static CommunicationChannelCreationResponse CommunicationChannelCreationResponse(
-            int? webhookCommunicationChannelID = default)
+            int? webhookCommunicationChannelId = default)
         {
             return new CommunicationChannelCreationResponse
             {
-                WebhookCommunicationChannelID = webhookCommunicationChannelID,
+                WebhookCommunicationChannelId = webhookCommunicationChannelId,
             };
         }
     }
@@ -222,11 +222,11 @@ namespace Azure.Connectors.Sdk.Orderful
         /// Get Transaction by ID
         /// </summary>
         /// <remarks>Get transaction by ID.</remarks>
-        /// <param name="transactionID">Transaction ID</param>
+        /// <param name="transactionId">Transaction ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetTransactionByIdAsync(int transactionID, CancellationToken cancellationToken = default)
+        public virtual async Task GetTransactionByIdAsync(int transactionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/transactions/{Uri.EscapeDataString(transactionID.ToString())}";
+            var path = $"/v2/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -236,3 +236,4 @@ namespace Azure.Connectors.Sdk.Orderful
 
     #endregion Client
 }
+

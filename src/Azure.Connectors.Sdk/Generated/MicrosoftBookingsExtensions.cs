@@ -283,3 +283,4 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
 
     #endregion Client
 }
+

@@ -90,7 +90,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Resolve_PartialConnectorGateway_OnlyGatewayName_ThrowsPartialMessage()
+        public void Resolve_PartialConnectorNamespace_OnlyGatewayName_ThrowsPartialMessage()
         {
             ClearConnectionEnvVars("Partial");
             Environment.SetEnvironmentVariable("Partial__connectorGatewayName", "my-gateway");
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Resolve_PartialConnectorGateway_OnlyConnectionName_ThrowsPartialMessage()
+        public void Resolve_PartialConnectorNamespace_OnlyConnectionName_ThrowsPartialMessage()
         {
             ClearConnectionEnvVars("OnlyConn");
             Environment.SetEnvironmentVariable("OnlyConn__connectionName", "my-connection");

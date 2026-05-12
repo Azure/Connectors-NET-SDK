@@ -32,11 +32,11 @@ This page explains the key concepts, components, and terminology used across the
  │          AZURE  (ARM Resource Provider + Runtime)
  │
  │  ┌─────────────────────────────────────────────────────────────┐
- │  │          Connector Namespaces RP  (Microsoft.Web)            │
+ │  │          Connector Namespaces RP  (Microsoft.Web)           │
  │  │                                                             │
  │  │  ┌─────────────────────────────────────────────────────┐    │
- │  │  │        Connector Namespace  (ARM resource)            │    │
- │  │  │        /connectorGateways/{gatewayName}             │    │
+ │  │  │        Connector Namespace  (ARM resource)          │    │
+ │  │  │        /connectorGateways/{namespaceName}           │    │
  │  │  │                                                     │    │
  │  │  │  ┌───────────────┐  ┌───────────────┐               │    │
  │  │  │  │  Connection   │  │  Connection   │  …            │    │
@@ -86,7 +86,7 @@ Connector (e.g. "office365")
 
 ### Connector Namespaces (ARM Resource Type)
 
-**Connector Namespaces** refers to the Azure Resource Manager (ARM) resource type `connectorGateways` under the `Microsoft.Web` resource provider. This resource type manages the lifecycle of gateways, connections, access policies, and trigger registrations. It is the control plane that you interact with via the Azure CLI, ARM templates, or the Azure Portal.
+**Connector Namespaces** refer to the Azure Resource Manager (ARM) resource type `connectorGateways` under the `Microsoft.Web` resource provider. This resource type manages the lifecycle of namespaces, connections, access policies, and trigger registrations. It is the control plane that you interact with via the Azure CLI, ARM templates, or the Azure Portal.
 
 ARM namespace: `Microsoft.Web`
 
@@ -94,23 +94,23 @@ Key API operations:
 
 | Operation | ARM Path |
 |-----------|----------|
-| List gateways | `GET .../connectorGateways` |
-| Create/update gateway | `PUT .../connectorGateways/{name}` |
+| List namespaces | `GET .../connectorGateways` |
+| Create/update namespace | `PUT .../connectorGateways/{name}` |
 | Create connection | `PUT .../connectorGateways/{name}/connections/{name}` |
 | Add access policy | `PUT .../connections/{name}/accessPolicies/{name}` |
 | Register trigger | `PUT .../connections/{name}/triggerConfigs/{name}` |
 
 ### Connector Namespace (ARM Resource)
 
-A **Connector Namespace** is a specific ARM resource (`Microsoft.Web/connectorGateways/{gatewayName}`) deployed in a resource group. It acts as a container for one or more **connections** and provides:
+A **Connector Namespace** is a specific ARM resource (`Microsoft.Web/connectorGateways/{namespaceName}`) deployed in a resource group. It acts as a container for one or more **connections** and provides:
 
-- **Managed identity** — A system-assigned identity used by the gateway to authenticate trigger callbacks to your compute host.
-- **Regional endpoint** — The gateway must be located in a [supported region](connection-setup.md).
-- **Connection grouping** — Multiple connections for different connectors can live under one gateway.
+- **Managed identity** — A system-assigned identity used by the Connector Namespace to authenticate trigger callbacks to your compute host.
+- **Regional endpoint** — The Connector Namespace must be located in a [supported region](connection-setup.md).
+- **Connection grouping** — Multiple connections for different connectors can live under one Connector Namespace.
 
 ```text
 Resource Group: "my-rg"
- └── Connector Namespace: "my-gateway"  (Microsoft.Web/connectorGateways)
+ └── Connector Namespace: "my-namespace"  (Microsoft.Web/connectorGateways)
        ├── Connection: "office365-conn"
        ├── Connection: "teams-conn"
        └── Connection: "sharepoint-conn"
@@ -118,7 +118,7 @@ Resource Group: "my-rg"
 
 ### Connection
 
-A **connection** is a child resource of a Connector Namespace (`Microsoft.Web/connectorGateways/{gateway}/connections/{name}`). It represents an authenticated session to a specific connector and contains:
+A **connection** is a child resource of a Connector Namespace (`Microsoft.Web/connectorGateways/{namespaceName}/connections/{name}`). It represents an authenticated session to a specific connector and contains:
 
 | Property | Description |
 |----------|-------------|
@@ -179,7 +179,7 @@ Connection: "office365-conn"
        └── Parameters: { folderId: "Inbox" }
 ```
 
-The Connector Namespace polls the trigger endpoint on a schedule. When new items are found, it POSTs the payload to your callback URL using the gateway's managed identity for authentication.
+The Connector Namespace polls the trigger endpoint on a schedule. When new items are found, it POSTs the payload to your callback URL using the namespace's managed identity for authentication.
 
 ### Trigger Callback Payload
 
@@ -335,13 +335,13 @@ Triggers follow a different pattern — the Connector Namespace polls for events
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐
-  │  2. Connector Namespace polls the connector trigger    │
+  │  2. Connector Namespace polls the connector trigger  │
   │     endpoint on a schedule (server-side)             │
   └──────────────────────┬───────────────────────────────┘
                          │ new items found
   ┌──────────────────────▼───────────────────────────────┐
-  │  3. Gateway POSTs TriggerCallbackPayload<T> to your  │
-  │     callback URL (authenticated with gateway MSI)    │
+  │  3. Namespace POSTs TriggerCallbackPayload<T> to     │
+  │     your callback URL (authenticated with MSI)       │
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐
@@ -360,7 +360,7 @@ The SDK resolves connection settings from Azure Functions app configuration usin
 
 ```json
 {
-  "office365__connectorGatewayName": "my-gateway",
+  "office365__connectorGatewayName": "my-namespace",
   "office365__connectionName": "office365-conn"
 }
 ```

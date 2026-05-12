@@ -486,6 +486,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     public class PowerBiButtonClickedOutputs
     {
         /// <summary>PowerBiInputs</summary>
+        [JsonPropertyName("PowerBiInputs")]
         public object PowerBiInputs { get; set; }
     }
 
@@ -671,6 +672,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         public string Format { get; set; }
 
         /// <summary>Power BI report Export to file configuration</summary>
+        [JsonPropertyName("PowerBIReportExportConfiguration")]
         public object PowerBIReportExportConfiguration { get; set; }
     }
 
@@ -2459,3 +2461,4 @@ namespace Azure.Connectors.Sdk.PowerBI
 
     #endregion Client
 }
+

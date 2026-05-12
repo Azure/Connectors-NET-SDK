@@ -160,9 +160,11 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     public class Notebook
     {
         /// <summary>FileName</summary>
+        [JsonPropertyName("FileName")]
         public string FileName { get; set; }
 
         /// <summary>Key</summary>
+        [JsonPropertyName("Key")]
         public string Key { get; set; }
     }
 
@@ -1003,3 +1005,4 @@ namespace Azure.Connectors.Sdk.Onenote
 
     #endregion Client
 }
+

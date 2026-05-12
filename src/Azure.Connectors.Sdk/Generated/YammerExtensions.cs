@@ -31,7 +31,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     {
         /// <summary>Unique identifier of the network.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>Summary of the network.</summary>
         [JsonPropertyName("name")]
@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>Unique identifier of the group.</summary>
         [JsonPropertyName("id")]
-        public long? GroupID { get; set; }
+        public long? GroupId { get; set; }
 
         /// <summary>Name of the Viva Engage entity.</summary>
         [JsonPropertyName("full_name")]
@@ -123,7 +123,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     {
         /// <summary>ID associated with the post.</summary>
         [JsonPropertyName("id")]
-        public long? ID { get; set; }
+        public long? Id { get; set; }
 
         /// <summary>Text Content of the post.</summary>
         [JsonPropertyName("content_excerpt")]
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>Unique ID of group who posted the message.</summary>
         [JsonPropertyName("group_id")]
-        public long? GroupID { get; set; }
+        public long? GroupId { get; set; }
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -171,7 +171,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>Unique ID of thread.</summary>
         [JsonPropertyName("thread_id")]
-        public long? ThreadID { get; set; }
+        public long? ThreadId { get; set; }
 
         /// <summary>Flag to specify if the post is a  a direct message.</summary>
         [JsonPropertyName("direct_message")]
@@ -255,7 +255,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     {
         /// <summary>ID associated with the post.</summary>
         [JsonPropertyName("id")]
-        public long? ID { get; set; }
+        public long? Id { get; set; }
 
         /// <summary>Text Content of the post.</summary>
         [JsonPropertyName("content_excerpt")]
@@ -295,7 +295,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>Unique ID of group who posted the message.</summary>
         [JsonPropertyName("group_id")]
-        public long? GroupID { get; set; }
+        public long? GroupId { get; set; }
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -303,7 +303,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>Unique ID of thread.</summary>
         [JsonPropertyName("thread_id")]
-        public long? ThreadID { get; set; }
+        public long? ThreadId { get; set; }
 
         /// <summary>Flag to specify if the post is a  a direct message.</summary>
         [JsonPropertyName("direct_message")]
@@ -345,7 +345,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     {
         /// <summary>The group to post a message to (0 = All Company/Network).</summary>
         [JsonPropertyName("group_id")]
-        public long? GroupID { get; set; }
+        public long? GroupId { get; set; }
 
         /// <summary>Your message to be posted into your network.</summary>
         [JsonPropertyName("body")]
@@ -389,7 +389,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         {
             return new Network
             {
-                ID = id,
+                Id = id,
                 Name = name,
                 Link = link,
             };
@@ -400,13 +400,13 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         /// </summary>
         public static YammerEntity YammerEntity(
             string description = default,
-            long? groupID = default,
+            long? groupId = default,
             string fullName = default)
         {
             return new YammerEntity
             {
                 Description = description,
-                GroupID = groupID,
+                GroupId = groupId,
                 FullName = fullName,
             };
         }
@@ -467,9 +467,9 @@ namespace Azure.Connectors.Sdk.Yammer.Models
             string senderType = default,
             string url = default,
             string webUrl = default,
-            long? groupID = default,
+            long? groupId = default,
             MessageBody body = default,
-            long? threadID = default,
+            long? threadId = default,
             bool? directMessage = default,
             string clientId = default,
             string clientURL = default,
@@ -481,7 +481,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         {
             return new MessageV2
             {
-                ID = id,
+                Id = id,
                 Text = text,
                 Sender = sender,
                 RepliedTo = repliedTo,
@@ -491,9 +491,9 @@ namespace Azure.Connectors.Sdk.Yammer.Models
                 SenderType = senderType,
                 Url = url,
                 WebUrl = webUrl,
-                GroupID = groupID,
+                GroupId = groupId,
                 Body = body,
-                ThreadID = threadID,
+                ThreadId = threadId,
                 DirectMessage = directMessage,
                 ClientId = clientId,
                 ClientURL = clientURL,
@@ -561,9 +561,9 @@ namespace Azure.Connectors.Sdk.Yammer.Models
             string senderType = default,
             string url = default,
             string webUrl = default,
-            long? groupID = default,
+            long? groupId = default,
             MessageBody body = default,
-            long? threadID = default,
+            long? threadId = default,
             bool? directMessage = default,
             string clientId = default,
             string clientURL = default,
@@ -575,7 +575,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         {
             return new Message
             {
-                ID = id,
+                Id = id,
                 Text = text,
                 Sender = sender,
                 RepliedTo = repliedTo,
@@ -585,9 +585,9 @@ namespace Azure.Connectors.Sdk.Yammer.Models
                 SenderType = senderType,
                 Url = url,
                 WebUrl = webUrl,
-                GroupID = groupID,
+                GroupId = groupId,
                 Body = body,
-                ThreadID = threadID,
+                ThreadId = threadId,
                 DirectMessage = directMessage,
                 ClientId = clientId,
                 ClientURL = clientURL,
@@ -603,7 +603,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         /// Creates a new instance of <see cref="PostOperationRequest"/>.
         /// </summary>
         public static PostOperationRequest PostOperationRequest(
-            long? groupID = default,
+            long? groupId = default,
             string messageText = default,
             long? repliedToId = default,
             long? directToId = default,
@@ -612,7 +612,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         {
             return new PostOperationRequest
             {
-                GroupID = groupID,
+                GroupId = groupId,
                 MessageText = messageText,
                 RepliedToId = repliedToId,
                 DirectToId = directToId,
@@ -735,6 +735,16 @@ namespace Azure.Connectors.Sdk.Yammer
         }
 
         /// <summary>
+        /// Creates a new YammerClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public YammerClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
         /// Creates a new YammerClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
@@ -766,16 +776,16 @@ namespace Azure.Connectors.Sdk.Yammer
         /// Get groups
         /// </summary>
         /// <remarks>Gets all groups. If mine = 1, get only groups to which the user belongs</remarks>
-        /// <param name="networkID">Network ID</param>
+        /// <param name="networkId">Network ID</param>
         /// <param name="mine">mine</param>
         /// <param name="showAllCompanyGroup">Show All Company Group</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get groups response.</returns>
-        public virtual async Task<List<YammerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkID = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<YammerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkId = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (networkID != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (networkId != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
             if (mine != default)
                 queryParams.Add($"mine={Uri.EscapeDataString(mine.ToString())}");
             if (showAllCompanyGroup != default)
@@ -790,12 +800,12 @@ namespace Azure.Connectors.Sdk.Yammer
         /// Get user details
         /// </summary>
         /// <remarks>This operation returns user profile details.</remarks>
-        /// <param name="userID">User ID</param>
+        /// <param name="userId">User ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user details response.</returns>
-        public virtual async Task<User> GetUserDetailsByIdAsync(int userID, CancellationToken cancellationToken = default)
+        public virtual async Task<User> GetUserDetailsByIdAsync(int userId, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/{Uri.EscapeDataString(userID.ToString())}.json";
+            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json";
             return await this
                 .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -805,13 +815,13 @@ namespace Azure.Connectors.Sdk.Yammer
         /// Like message
         /// </summary>
         /// <remarks>This operation is used to like the specified message.</remarks>
-        /// <param name="messageID">Message ID</param>
+        /// <param name="messageId">Message ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task LikeMessageAsync(string messageID, CancellationToken cancellationToken = default)
+        public virtual async Task LikeMessageAsync(string messageId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (messageID != default)
-                queryParams.Add($"message_id={Uri.EscapeDataString(messageID.ToString())}");
+            if (messageId != default)
+                queryParams.Add($"message_id={Uri.EscapeDataString(messageId.ToString())}");
             var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -852,18 +862,18 @@ namespace Azure.Connectors.Sdk.Yammer
         /// Get the messages from my Following feed (V3)
         /// </summary>
         /// <remarks>This operation returns the messages from Following feed which is conversations involving people, groups and topics that the user is following.</remarks>
-        /// <param name="networkID">Network ID</param>
+        /// <param name="networkId">Network ID</param>
         /// <param name="olderThan">Older than</param>
         /// <param name="newerThan">Newer than</param>
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get the messages from my Following feed (V3) response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkID = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (networkID != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (networkId != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
             if (olderThan != default)
                 queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
             if (newerThan != default)
@@ -882,19 +892,19 @@ namespace Azure.Connectors.Sdk.Yammer
         /// Get messages in a group (V3)
         /// </summary>
         /// <remarks>This operation returns the messages posted in a group.</remarks>
-        /// <param name="groupID">Group ID</param>
-        /// <param name="networkID">Network ID</param>
+        /// <param name="groupId">Group ID</param>
+        /// <param name="networkId">Network ID</param>
         /// <param name="olderThan">Older than</param>
         /// <param name="newerThan">Newer than</param>
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get messages in a group (V3) response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupID, [DynamicValues("GetNetworks")] string networkID = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (networkID != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (networkId != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
             if (olderThan != default)
                 queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
             if (newerThan != default)
@@ -903,7 +913,7 @@ namespace Azure.Connectors.Sdk.Yammer
                 queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupID.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -913,12 +923,12 @@ namespace Azure.Connectors.Sdk.Yammer
         /// Get messages in a thread (V3)
         /// </summary>
         /// <remarks>This operation returns the messages posted in a thread.</remarks>
-        /// <param name="threadID">Thread ID</param>
+        /// <param name="threadId">Thread ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get messages in a thread (V3) response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadID, CancellationToken cancellationToken = default)
+        public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadID.ToString())}.json";
+            var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadId.ToString())}.json";
             return await this
                 .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -929,14 +939,14 @@ namespace Azure.Connectors.Sdk.Yammer
         /// </summary>
         /// <remarks>This operation is used to post a Message to a Group or All Company Feed. If group ID is provided, message will be posted to the specified group else it will be posted in All Company Feed.</remarks>
         /// <param name="input">The request body.</param>
-        /// <param name="networkID">Network ID</param>
+        /// <param name="networkId">Network ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Post message (V2) response.</returns>
-        public virtual async Task<MessageList> PostMessageAsync(PostOperationRequest input, [DynamicValues("GetNetworks")] string networkID = default, CancellationToken cancellationToken = default)
+        public virtual async Task<MessageList> PostMessageAsync(PostOperationRequest input, [DynamicValues("GetNetworks")] string networkId = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (networkID != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkID.ToString())}");
+            if (networkId != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
             var path = $"/v2/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<MessageList>(HttpMethod.Post, path, input, cancellationToken)
@@ -947,3 +957,4 @@ namespace Azure.Connectors.Sdk.Yammer
 
     #endregion Client
 }
+

@@ -792,7 +792,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     /// <summary>
     /// Response for List Completed User Tasks by User ID or Email
     /// </summary>
-    public class ListCompletedUserTasksByUserIDOrEmailResponse
+    public class ListCompletedUserTasksByUserIdOrEmailResponse
     {
         /// <summary>Page Number.</summary>
         [JsonPropertyName("pageNumber")]
@@ -848,7 +848,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     /// <summary>
     /// Response for List Pending User Tasks by User ID or Email
     /// </summary>
-    public class ListPendingUserTasksByUserIDOrEmailResponse
+    public class ListPendingUserTasksByUserIdOrEmailResponse
     {
         /// <summary>Page Number.</summary>
         [JsonPropertyName("pageNumber")]
@@ -2382,7 +2382,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     /// <summary>
     /// Response for Find Individual by Id or Email or Record Number
     /// </summary>
-    public class FindIndividualIDOrEmailResponse
+    public class FindIndividualIdOrEmailResponse
     {
         /// <summary>Page Number.</summary>
         [JsonPropertyName("pageNumber")]
@@ -3457,9 +3457,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     public class BaseNoteData
     {
         /// <summary>Content.</summary>
+        [JsonPropertyName("Content")]
         public string Content { get; set; }
 
         /// <summary>Category.</summary>
+        [JsonPropertyName("Category")]
         public string Category { get; set; }
 
         /// <summary>Is Internal.</summary>
@@ -4565,13 +4567,13 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ListCompletedUserTasksByUserIDOrEmailResponse"/>.
+        /// Creates a new instance of <see cref="ListCompletedUserTasksByUserIdOrEmailResponse"/>.
         /// </summary>
-        public static ListCompletedUserTasksByUserIDOrEmailResponse ListCompletedUserTasksByUserIDOrEmailResponse(
+        public static ListCompletedUserTasksByUserIdOrEmailResponse ListCompletedUserTasksByUserIdOrEmailResponse(
             int? pageNumber = default,
             List<UserTaskData> dataList = default)
         {
-            return new ListCompletedUserTasksByUserIDOrEmailResponse
+            return new ListCompletedUserTasksByUserIdOrEmailResponse
             {
                 PageNumber = pageNumber,
                 DataList = dataList,
@@ -4607,13 +4609,13 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ListPendingUserTasksByUserIDOrEmailResponse"/>.
+        /// Creates a new instance of <see cref="ListPendingUserTasksByUserIdOrEmailResponse"/>.
         /// </summary>
-        public static ListPendingUserTasksByUserIDOrEmailResponse ListPendingUserTasksByUserIDOrEmailResponse(
+        public static ListPendingUserTasksByUserIdOrEmailResponse ListPendingUserTasksByUserIdOrEmailResponse(
             int? pageNumber = default,
             List<UserTaskData> dataList = default)
         {
-            return new ListPendingUserTasksByUserIDOrEmailResponse
+            return new ListPendingUserTasksByUserIdOrEmailResponse
             {
                 PageNumber = pageNumber,
                 DataList = dataList,
@@ -5759,13 +5761,13 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="FindIndividualIDOrEmailResponse"/>.
+        /// Creates a new instance of <see cref="FindIndividualIdOrEmailResponse"/>.
         /// </summary>
-        public static FindIndividualIDOrEmailResponse FindIndividualIDOrEmailResponse(
+        public static FindIndividualIdOrEmailResponse FindIndividualIdOrEmailResponse(
             int? pageNumber = default,
             List<IndividualData> dataList = default)
         {
-            return new FindIndividualIDOrEmailResponse
+            return new FindIndividualIdOrEmailResponse
             {
                 PageNumber = pageNumber,
                 DataList = dataList,
@@ -7408,14 +7410,14 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Purchases for an Individual
         /// </summary>
         /// <remarks>Get Purchases for an Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number.</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number.</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="productCode">Product Code.</param>
         /// <param name="purchasedSince">Purchased Since</param>
         /// <param name="productCategoryCode">Product Category Code.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Purchases for an Individual response.</returns>
-        public virtual async Task<GetPurchasesForAnIndividualResponse> GetPurchasesForAnIndividualAsync(string individualIDOrRecordNumber, int pageNumber, string productCode = default, string purchasedSince = default, string productCategoryCode = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetPurchasesForAnIndividualResponse> GetPurchasesForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, string productCode = default, string purchasedSince = default, string productCategoryCode = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (productCode != default)
@@ -7424,7 +7426,7 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add($"purchasedSince={Uri.EscapeDataString(purchasedSince.ToString())}");
             if (productCategoryCode != default)
                 queryParams.Add($"productCategoryCode={Uri.EscapeDataString(productCategoryCode.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Purchases/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Purchases/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetPurchasesForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7434,13 +7436,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add or Update a List of Custom Fields Per Organization
         /// </summary>
         /// <remarks>Add or Update a List of Custom Fields Per Organization</remarks>
-        /// <param name="organizationIDOrRecordNumber">Organization ID or Record Number.</param>
+        /// <param name="organizationIdOrRecordNumber">Organization ID or Record Number.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add or Update a List of Custom Fields Per Organization response.</returns>
-        public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerOrganizationAsync(string organizationIDOrRecordNumber, List<CustomFieldValueData> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerOrganizationAsync(string organizationIdOrRecordNumber, List<CustomFieldValueData> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIDOrRecordNumber.ToString())}/CustomFieldsList";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/CustomFieldsList";
             return await this
                 .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7465,12 +7467,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Individual Custom Field Values
         /// </summary>
         /// <remarks>Get Individual Custom Field Values</remarks>
-        /// <param name="individualID">Individual ID</param>
+        /// <param name="individualId">Individual ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Individual Custom Field Values response.</returns>
-        public virtual async Task<List<CustomFieldData>> GetIndividualCustomFieldValuesAsync(string individualID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CustomFieldData>> GetIndividualCustomFieldValuesAsync(string individualId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/CustomFields";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/CustomFields";
             return await this
                 .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7480,12 +7482,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Update Individual Custom Field Values
         /// </summary>
         /// <remarks>Update Individual Custom Field Values.</remarks>
-        /// <param name="customerID">Customer ID</param>
+        /// <param name="customerId">Customer ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateCustomFieldValueAsync(string customerID, CustomFieldData input, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateCustomFieldValueAsync(string customerId, CustomFieldData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(customerID.ToString())}/CustomFields";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(customerId.ToString())}/CustomFields";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7518,14 +7520,14 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get All Open Orders for an Individual
         /// </summary>
         /// <remarks>Get All Open Orders for an Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number.</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number.</param>
         /// <param name="pageNumber">Page Number.</param>
         /// <param name="includeLineItems">Include Line Items.</param>
         /// <param name="fromDate">From Date.</param>
         /// <param name="toDate">To Date.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get All Open Orders for an Individual response.</returns>
-        public virtual async Task<GetAllOpenOrdersForAnIndividualResponse> GetAllOpenOrdersForAnIndividualAsync(string individualIDOrRecordNumber, int pageNumber, bool includeLineItems = default, string fromDate = default, string toDate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAllOpenOrdersForAnIndividualResponse> GetAllOpenOrdersForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, bool includeLineItems = default, string fromDate = default, string toDate = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (includeLineItems != default)
@@ -7534,7 +7536,7 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add($"fromDate={Uri.EscapeDataString(fromDate.ToString())}");
             if (toDate != default)
                 queryParams.Add($"toDate={Uri.EscapeDataString(toDate.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Orders/Open/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Orders/Open/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetAllOpenOrdersForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7544,15 +7546,15 @@ namespace Azure.Connectors.Sdk.Impexium
         /// List Completed User Tasks by User ID or Email
         /// </summary>
         /// <remarks>List Completed User Tasks by User ID or Email</remarks>
-        /// <param name="userIDOrEmail">User ID or Email</param>
+        /// <param name="userIdOrEmail">User ID or Email</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List Completed User Tasks by User ID or Email response.</returns>
-        public virtual async Task<ListCompletedUserTasksByUserIDOrEmailResponse> ListCompletedUserTasksByUserIDOrEmailAsync(string userIDOrEmail, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<ListCompletedUserTasksByUserIdOrEmailResponse> ListCompletedUserTasksByUserIdOrEmailAsync(string userIdOrEmail, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIDOrEmail.ToString())}/Completed/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Completed/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
-                .CallConnectorAsync<ListCompletedUserTasksByUserIDOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .CallConnectorAsync<ListCompletedUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
@@ -7560,15 +7562,15 @@ namespace Azure.Connectors.Sdk.Impexium
         /// List Pending User Tasks by User ID or Email
         /// </summary>
         /// <remarks>List Pending User Tasks by User ID or Email</remarks>
-        /// <param name="userIDOrEmail">User ID or Email</param>
+        /// <param name="userIdOrEmail">User ID or Email</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List Pending User Tasks by User ID or Email response.</returns>
-        public virtual async Task<ListPendingUserTasksByUserIDOrEmailResponse> ListPendingUserTasksByUserIDOrEmailAsync(string userIDOrEmail, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<ListPendingUserTasksByUserIdOrEmailResponse> ListPendingUserTasksByUserIdOrEmailAsync(string userIdOrEmail, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIDOrEmail.ToString())}/Pending/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Pending/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
-                .CallConnectorAsync<ListPendingUserTasksByUserIDOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .CallConnectorAsync<ListPendingUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
@@ -7576,12 +7578,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Note to Sales Opportunity
         /// </summary>
         /// <remarks>Add Note to Sales Opportunity</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddNoteToSalesOpportunityAsync(string iD, BaseNoteData input, CancellationToken cancellationToken = default)
+        public virtual async Task AddNoteToSalesOpportunityAsync(string id, BaseNoteData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(iD.ToString())}/Notes";
+            var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Notes";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7591,12 +7593,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Activity to Sales Opportunity
         /// </summary>
         /// <remarks>Add Activity to Sales Opportunity</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddActivityToSalesOpportunityAsync(string iD, ActivityData input, CancellationToken cancellationToken = default)
+        public virtual async Task AddActivityToSalesOpportunityAsync(string id, ActivityData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(iD.ToString())}/Activities";
+            var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Activities";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7637,13 +7639,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get All States by Country
         /// </summary>
         /// <remarks>Get All States by Country</remarks>
-        /// <param name="countryID">Country ID</param>
+        /// <param name="countryId">Country ID</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get All States by Country response.</returns>
-        public virtual async Task<GetAllStatesByCountryResponse> GetAllStatesByCountryAsync(string countryID, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAllStatesByCountryResponse> GetAllStatesByCountryAsync(string countryId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Countries/{Uri.EscapeDataString(countryID.ToString())}/States/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/Countries/{Uri.EscapeDataString(countryId.ToString())}/States/All/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
                 .CallConnectorAsync<GetAllStatesByCountryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7757,12 +7759,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Organization Inactive Memberships
         /// </summary>
         /// <remarks>Get Organization Inactive Memberships</remarks>
-        /// <param name="organizationID">Organization ID</param>
+        /// <param name="organizationId">Organization ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Organization Inactive Memberships response.</returns>
-        public virtual async Task<MembershipData> GetOrganizationInactiveMembershipsAsync(string organizationID, CancellationToken cancellationToken = default)
+        public virtual async Task<MembershipData> GetOrganizationInactiveMembershipsAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Memberships/Inactive";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Inactive";
             return await this
                 .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7773,11 +7775,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// </summary>
         /// <remarks>Delete Record From Custom Data Table</remarks>
         /// <param name="tableName">Table Name</param>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteRecordFromCustomDataTableAsync(string tableName, string iD, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteRecordFromCustomDataTableAsync(string tableName, string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/CustomData/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/api/v1/CustomData/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(id.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7787,13 +7789,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Update User Task Progress or Mark as Completed
         /// </summary>
         /// <remarks>Update User Task Progress or Mark as Completed</remarks>
-        /// <param name="userIDOrEmail">User ID or Email</param>
+        /// <param name="userIdOrEmail">User ID or Email</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update User Task Progress or Mark as Completed response.</returns>
-        public virtual async Task<UserTaskData> UpdateUserTaskProgressOrMarkAsCompletedAsync(string userIDOrEmail, UserTaskData input, CancellationToken cancellationToken = default)
+        public virtual async Task<UserTaskData> UpdateUserTaskProgressOrMarkAsCompletedAsync(string userIdOrEmail, UserTaskData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIDOrEmail.ToString())}";
+            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}";
             return await this
                 .CallConnectorAsync<UserTaskData>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7843,12 +7845,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Create a new task or Assign Task to a User
         /// </summary>
         /// <remarks>Create a new task or Assign Task to a User</remarks>
-        /// <param name="userIDOrEmail">User ID or Email</param>
+        /// <param name="userIdOrEmail">User ID or Email</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AssignTaskToAUserAsync(string userIDOrEmail, UserTaskData input, CancellationToken cancellationToken = default)
+        public virtual async Task AssignTaskToAUserAsync(string userIdOrEmail, UserTaskData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIDOrEmail.ToString())}/Task";
+            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Task";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7873,12 +7875,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Notification to Individual
         /// </summary>
         /// <remarks>Add Notification to Individual</remarks>
-        /// <param name="individualID">Individual ID.</param>
+        /// <param name="individualId">Individual ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddNotificationToIndividualAsync(string individualID, NotificationData input, CancellationToken cancellationToken = default)
+        public virtual async Task AddNotificationToIndividualAsync(string individualId, NotificationData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Notifications";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notifications";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8052,13 +8054,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get List of Active Certifications for an Organization
         /// </summary>
         /// <remarks>Get List of Active Certifications for an Organization</remarks>
-        /// <param name="organizationIDOrRecordNumber">Organization ID or Record Number.</param>
+        /// <param name="organizationIdOrRecordNumber">Organization ID or Record Number.</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get List of Active Certifications for an Organization response.</returns>
-        public virtual async Task<GetListOfActiveCertificationsForAnOrganizationResponse> GetListOfActiveCertificationsForAnOrganizationAsync(string organizationIDOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<GetListOfActiveCertificationsForAnOrganizationResponse> GetListOfActiveCertificationsForAnOrganizationAsync(string organizationIdOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIDOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
                 .CallConnectorAsync<GetListOfActiveCertificationsForAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8068,13 +8070,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get List of Active Certifications for an Individual
         /// </summary>
         /// <remarks>Get List of Active Certifications for an Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number.</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number.</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get List of Active Certifications for an Individual response.</returns>
-        public virtual async Task<GetListOfActiveCertificationsForAnIndividualResponse> GetListOfActiveCertificationsForAnIndividualAsync(string individualIDOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<GetListOfActiveCertificationsForAnIndividualResponse> GetListOfActiveCertificationsForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
                 .CallConnectorAsync<GetListOfActiveCertificationsForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8084,12 +8086,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Individual Inactive Memberships
         /// </summary>
         /// <remarks>Get Individual Inactive Memberships</remarks>
-        /// <param name="individualID">Individual ID.</param>
+        /// <param name="individualId">Individual ID.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Individual Inactive Memberships response.</returns>
-        public virtual async Task<MembershipData> GetIndividualInactiveMembershipsAsync(string individualID, CancellationToken cancellationToken = default)
+        public virtual async Task<MembershipData> GetIndividualInactiveMembershipsAsync(string individualId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Memberships/Inactive";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Inactive";
             return await this
                 .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8099,12 +8101,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Activity to Organization
         /// </summary>
         /// <remarks>Add Activity to Organization</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddActivityToOrganizationAsync(string organizationID, ActivityData input, CancellationToken cancellationToken = default)
+        public virtual async Task AddActivityToOrganizationAsync(string organizationId, ActivityData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Activities";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Activities";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8115,16 +8117,16 @@ namespace Azure.Connectors.Sdk.Impexium
         /// </summary>
         /// <remarks>Register an Individual for a Free Session</remarks>
         /// <param name="eventCode">Event Code</param>
-        /// <param name="customerIDOrRecordNumber">Customer ID or Record Number</param>
+        /// <param name="customerIdOrRecordNumber">Customer ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="registrationNumber">Registration Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RegisterAnIndividualForAFreeSessionAsync(string eventCode, string customerIDOrRecordNumber, List<SessionRegistrationData> input, string registrationNumber = default, CancellationToken cancellationToken = default)
+        public virtual async Task RegisterAnIndividualForAFreeSessionAsync(string eventCode, string customerIdOrRecordNumber, List<SessionRegistrationData> input, string registrationNumber = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (registrationNumber != default)
                 queryParams.Add($"registrationNumber={Uri.EscapeDataString(registrationNumber.ToString())}");
-            var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Sessions/Register/{Uri.EscapeDataString(customerIDOrRecordNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Sessions/Register/{Uri.EscapeDataString(customerIdOrRecordNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8134,13 +8136,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get a List of Licenses
         /// </summary>
         /// <remarks>Get a List of Licenses</remarks>
-        /// <param name="individualID">Individual ID.</param>
+        /// <param name="individualId">Individual ID.</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a List of Licenses response.</returns>
-        public virtual async Task<GetAListOfLicensesResponse> GetAListOfLicensesAsync(string individualID, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAListOfLicensesResponse> GetAListOfLicensesAsync(string individualId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Licenses/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Licenses/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
                 .CallConnectorAsync<GetAListOfLicensesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8189,12 +8191,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get a List of All Services of an Organization
         /// </summary>
         /// <remarks>Get a List of All Services of an Organization</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a List of All Services of an Organization response.</returns>
-        public virtual async Task<GetAListOfAllServicesOfAnOrganizationResponse> GetAListOfAllServicesOfAnOrganizationAsync(string organizationID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAListOfAllServicesOfAnOrganizationResponse> GetAListOfAllServicesOfAnOrganizationAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Services";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
             return await this
                 .CallConnectorAsync<GetAListOfAllServicesOfAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8204,13 +8206,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add a Service to an Organization
         /// </summary>
         /// <remarks>Add a Service to an Organization</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add a Service to an Organization response.</returns>
-        public virtual async Task<ServiceData> AddAServiceToAnOrganizationAsync(string organizationID, ServiceData input, CancellationToken cancellationToken = default)
+        public virtual async Task<ServiceData> AddAServiceToAnOrganizationAsync(string organizationId, ServiceData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Services";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
             return await this
                 .CallConnectorAsync<ServiceData>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8220,14 +8222,14 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Update Phone for an Individual
         /// </summary>
         /// <remarks>Update Phone for an Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number.</param>
-        /// <param name="phoneID">Phone ID.</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number.</param>
+        /// <param name="phoneId">Phone ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Phone for an Individual response.</returns>
-        public virtual async Task<PhoneDataSet> UpdatePhoneForAnIndividualAsync(string individualIDOrRecordNumber, string phoneID, PhoneSaveData input, CancellationToken cancellationToken = default)
+        public virtual async Task<PhoneDataSet> UpdatePhoneForAnIndividualAsync(string individualIdOrRecordNumber, string phoneId, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneID.ToString())}";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
             return await this
                 .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8237,14 +8239,14 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Update Phone for an Organization
         /// </summary>
         /// <remarks>Update Phone for an Organization</remarks>
-        /// <param name="organizationIDOrRecordNumber">Organization ID or Record Number.</param>
-        /// <param name="phoneID">Phone ID.</param>
+        /// <param name="organizationIdOrRecordNumber">Organization ID or Record Number.</param>
+        /// <param name="phoneId">Phone ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Phone for an Organization response.</returns>
-        public virtual async Task<PhoneDataSet> UpdatePhoneForAnOrganizationAsync(string organizationIDOrRecordNumber, string phoneID, PhoneSaveData input, CancellationToken cancellationToken = default)
+        public virtual async Task<PhoneDataSet> UpdatePhoneForAnOrganizationAsync(string organizationIdOrRecordNumber, string phoneId, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIDOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneID.ToString())}";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
             return await this
                 .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8254,12 +8256,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Delete an Individual Web Link
         /// </summary>
         /// <remarks>Delete an Individual Web Link</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteAnIndividualWebLinkAsync(string individualIDOrRecordNumber, DeleteAnIndividualWebLinkInput input, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAnIndividualWebLinkAsync(string individualIdOrRecordNumber, DeleteAnIndividualWebLinkInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Links";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Links";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8269,12 +8271,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Web Link for Individual
         /// </summary>
         /// <remarks>Add Web Link for Individual</remarks>
-        /// <param name="iDOrRecordNumber">ID or Record Number</param>
+        /// <param name="idOrRecordNumber">ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddWebLinkForIndividualAsync(string iDOrRecordNumber, AddWebLinkForIndividualInput input, CancellationToken cancellationToken = default)
+        public virtual async Task AddWebLinkForIndividualAsync(string idOrRecordNumber, AddWebLinkForIndividualInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(iDOrRecordNumber.ToString())}/Links";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8284,13 +8286,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Phone to Organization
         /// </summary>
         /// <remarks>Add Phone to Organization</remarks>
-        /// <param name="organizationIDOrRecordNumber">Organization ID or Record Number</param>
+        /// <param name="organizationIdOrRecordNumber">Organization ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Phone to Organization response.</returns>
-        public virtual async Task<PhoneDataSet> AddPhoneToOrganizationAsync(string organizationIDOrRecordNumber, PhoneSaveData input, CancellationToken cancellationToken = default)
+        public virtual async Task<PhoneDataSet> AddPhoneToOrganizationAsync(string organizationIdOrRecordNumber, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIDOrRecordNumber.ToString())}/Phones";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones";
             return await this
                 .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8320,13 +8322,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Organization&apos;s Active Subscriptions
         /// </summary>
         /// <remarks>Get Organization&apos;s Active Subscriptions</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="pageNumber">Page Number.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Organization&apos;s Active Subscriptions response.</returns>
-        public virtual async Task<GetOrganizationsActiveSubscriptionsResponse> GetOrganizationsActiveSubscriptionsAsync(string organizationID, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<GetOrganizationsActiveSubscriptionsResponse> GetOrganizationsActiveSubscriptionsAsync(string organizationId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Subscriptions/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Subscriptions/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
                 .CallConnectorAsync<GetOrganizationsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8336,12 +8338,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Delete an Organization Web Link
         /// </summary>
         /// <remarks>Delete an Organization Web Link</remarks>
-        /// <param name="iDOrRecordNumber">ID or Record Number</param>
+        /// <param name="idOrRecordNumber">ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteAnOrganizationWebLinkAsync(string iDOrRecordNumber, DeleteAnOrganizationWebLinkInput input, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAnOrganizationWebLinkAsync(string idOrRecordNumber, DeleteAnOrganizationWebLinkInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(iDOrRecordNumber.ToString())}/Links";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8351,12 +8353,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Web Link for Organization
         /// </summary>
         /// <remarks>Add Web Link for Organization</remarks>
-        /// <param name="iDOrRecordNumber">ID or Record Number</param>
+        /// <param name="idOrRecordNumber">ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddWebLinkForOrganizationAsync(string iDOrRecordNumber, AddWebLinkForOrganizationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task AddWebLinkForOrganizationAsync(string idOrRecordNumber, AddWebLinkForOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(iDOrRecordNumber.ToString())}/Links";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8366,12 +8368,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Email to Organization
         /// </summary>
         /// <remarks>Add Email to Organization</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AddEmailToOrganizationAsync(string organizationID, EmailData input, CancellationToken cancellationToken = default)
+        public virtual async Task AddEmailToOrganizationAsync(string organizationId, EmailData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Emails";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Emails";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8381,20 +8383,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Organization&apos;s Relationships
         /// </summary>
         /// <remarks>Get Organization&apos;s Relationships</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="pageNumber">Page Number.</param>
         /// <param name="relationshipName">Relationship Name.</param>
         /// <param name="includesDetails">Includes Details.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Organization&apos;s Relationships response.</returns>
-        public virtual async Task<GetOrganizationsRelationshipsResponse> GetOrganizationsRelationshipsAsync(string organizationID, int pageNumber, string relationshipName = default, bool includesDetails = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetOrganizationsRelationshipsResponse> GetOrganizationsRelationshipsAsync(string organizationId, int pageNumber, string relationshipName = default, bool includesDetails = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (relationshipName != default)
                 queryParams.Add($"relationshipName.={Uri.EscapeDataString(relationshipName.ToString())}");
             if (includesDetails != default)
                 queryParams.Add($"includesDetails={Uri.EscapeDataString(includesDetails.ToString())}");
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetOrganizationsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8404,13 +8406,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add or Update Address to Organization
         /// </summary>
         /// <remarks>Add or Update Address to Organization</remarks>
-        /// <param name="organizationIDOrRecordNumber">Organization ID or Record Number.</param>
+        /// <param name="organizationIdOrRecordNumber">Organization ID or Record Number.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add or Update Address to Organization response.</returns>
-        public virtual async Task<AddressSaveData> AddOrUpdateAddressToOrganizationAsync(string organizationIDOrRecordNumber, AddressSaveData input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddressSaveData> AddOrUpdateAddressToOrganizationAsync(string organizationIdOrRecordNumber, AddressSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIDOrRecordNumber.ToString())}/Addresses";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Addresses";
             return await this
                 .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8420,13 +8422,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add or Update a List of Custom Fields Per Individual
         /// </summary>
         /// <remarks>Add or Update a List of Custom Fields Per Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number.</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add or Update a List of Custom Fields Per Individual response.</returns>
-        public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerIndividualAsync(string individualIDOrRecordNumber, List<object> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerIndividualAsync(string individualIdOrRecordNumber, List<object> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/CustomFieldsList";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/CustomFieldsList";
             return await this
                 .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8451,13 +8453,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Phone to Individual
         /// </summary>
         /// <remarks>Add Phone to Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Phone to Individual response.</returns>
-        public virtual async Task<PhoneDataSet> AddPhoneToIndividualAsync(string individualIDOrRecordNumber, PhoneSaveData input, CancellationToken cancellationToken = default)
+        public virtual async Task<PhoneDataSet> AddPhoneToIndividualAsync(string individualIdOrRecordNumber, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Phones";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones";
             return await this
                 .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8467,17 +8469,17 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Committee Information for an Individual
         /// </summary>
         /// <remarks>Get Committee Information for an Individual</remarks>
-        /// <param name="individualID">Individual ID.</param>
+        /// <param name="individualId">Individual ID.</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="includeInactive">Include Inactive</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Committee Information for an Individual response.</returns>
-        public virtual async Task<GetCommitteeInformationForAnIndividualResponse> GetCommitteeInformationForAnIndividualAsync(string individualID, int pageNumber, bool includeInactive = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetCommitteeInformationForAnIndividualResponse> GetCommitteeInformationForAnIndividualAsync(string individualId, int pageNumber, bool includeInactive = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (includeInactive != default)
                 queryParams.Add($"includeInactive={Uri.EscapeDataString(includeInactive.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetCommitteeInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8487,12 +8489,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Organization Custom Field Values
         /// </summary>
         /// <remarks>Get Organization Custom Field Values</remarks>
-        /// <param name="organizationID">Organization ID</param>
+        /// <param name="organizationId">Organization ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Organization Custom Field Values response.</returns>
-        public virtual async Task<List<CustomFieldData>> GetOrganizationCustomFieldValuesAsync(string organizationID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CustomFieldData>> GetOrganizationCustomFieldValuesAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/CustomFields";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/CustomFields";
             return await this
                 .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8502,12 +8504,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Organization Active Memberships
         /// </summary>
         /// <remarks>Get Organization Active Memberships</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Organization Active Memberships response.</returns>
-        public virtual async Task<List<MembershipData>> GetOrganizationActiveMembershipsAsync(string organizationID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<MembershipData>> GetOrganizationActiveMembershipsAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Memberships/Active";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Active";
             return await this
                 .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8542,12 +8544,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Individual Active Memberships
         /// </summary>
         /// <remarks>Get Individual Active Memberships</remarks>
-        /// <param name="individualID">Individual ID</param>
+        /// <param name="individualId">Individual ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Individual Active Memberships response.</returns>
-        public virtual async Task<List<MembershipData>> GetIndividualActiveMembershipsAsync(string individualID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<MembershipData>> GetIndividualActiveMembershipsAsync(string individualId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Memberships/Active";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Active";
             return await this
                 .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8557,17 +8559,17 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get All Event Registrations Information for an Individual
         /// </summary>
         /// <remarks>Get All Event Registrations Information for an Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="eventCode">Event Code.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get All Event Registrations Information for an Individual response.</returns>
-        public virtual async Task<GetAllEventRegistrationsInformationForAnIndividualResponse> GetAllEventRegistrationsInformationForAnIndividualAsync(string individualIDOrRecordNumber, int pageNumber, string eventCode = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAllEventRegistrationsInformationForAnIndividualResponse> GetAllEventRegistrationsInformationForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, string eventCode = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (eventCode != default)
                 queryParams.Add($"eventCode={Uri.EscapeDataString(eventCode.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetAllEventRegistrationsInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8577,20 +8579,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Individual&apos;s Relationships
         /// </summary>
         /// <remarks>Get Individual&apos;s Relationships</remarks>
-        /// <param name="individualID">Individual ID</param>
+        /// <param name="individualId">Individual ID</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="relationshipName">Relationship Name</param>
         /// <param name="includeDetails">Include Details.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Individual&apos;s Relationships response.</returns>
-        public virtual async Task<GetIndividualsRelationshipsResponse> GetIndividualsRelationshipsAsync(string individualID, int pageNumber, string relationshipName = default, bool includeDetails = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetIndividualsRelationshipsResponse> GetIndividualsRelationshipsAsync(string individualId, int pageNumber, string relationshipName = default, bool includeDetails = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (relationshipName != default)
                 queryParams.Add($"relationshipName={Uri.EscapeDataString(relationshipName.ToString())}");
             if (includeDetails != default)
                 queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetIndividualsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8600,13 +8602,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Update an Individual Email
         /// </summary>
         /// <remarks>Update an Individual Email</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number</param>
         /// <param name="currentEmailAddress">Current Email Address</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateAnIndividualEmailAsync(string individualIDOrRecordNumber, string currentEmailAddress, UpdateAnIndividualEmailInput input, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateAnIndividualEmailAsync(string individualIdOrRecordNumber, string currentEmailAddress, UpdateAnIndividualEmailInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Emails/{Uri.EscapeDataString(currentEmailAddress.ToString())}";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails/{Uri.EscapeDataString(currentEmailAddress.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8616,12 +8618,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Save Relationship for Organization
         /// </summary>
         /// <remarks>Save Relationship for Organization</remarks>
-        /// <param name="organizationID">Organization ID.</param>
+        /// <param name="organizationId">Organization ID.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SaveRelationshipForOrganizationAsync(string organizationID, SaveRelationshipForOrganizationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task SaveRelationshipForOrganizationAsync(string organizationId, SaveRelationshipForOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationID.ToString())}/Relationships";
+            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8650,13 +8652,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add Email to Individual
         /// </summary>
         /// <remarks>Add Email to Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID Or Record Number.</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID Or Record Number.</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Email to Individual response.</returns>
-        public virtual async Task<EmailData> AddEmailToIndividualAsync(string individualIDOrRecordNumber, AddEmailToIndividualInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmailData> AddEmailToIndividualAsync(string individualIdOrRecordNumber, AddEmailToIndividualInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Emails";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails";
             return await this
                 .CallConnectorAsync<EmailData>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8666,13 +8668,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Add or Update Address to Individual
         /// </summary>
         /// <remarks>Add or Update Address to Individual</remarks>
-        /// <param name="individualIDOrRecordNumber">Individual ID or Record Number</param>
+        /// <param name="individualIdOrRecordNumber">Individual ID or Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add or Update Address to Individual response.</returns>
-        public virtual async Task<AddressSaveData> AddOrUpdateAddressToIndividualAsync(string individualIDOrRecordNumber, AddressSaveData input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddressSaveData> AddOrUpdateAddressToIndividualAsync(string individualIdOrRecordNumber, AddressSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIDOrRecordNumber.ToString())}/Addresses";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Addresses";
             return await this
                 .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8703,19 +8705,19 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Committee Members by committee ID or code
         /// </summary>
         /// <remarks>Get Committee Members by Committee ID or Code</remarks>
-        /// <param name="committeeIDOrCode">Committee ID or Code</param>
+        /// <param name="committeeIdOrCode">Committee ID or Code</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="term">Term</param>
         /// <param name="positionCodes">Position Codes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetCommitteeMembersByCommitteeIDOrCodeAsync(string committeeIDOrCode, int pageNumber, int term = default, string positionCodes = default, CancellationToken cancellationToken = default)
+        public virtual async Task GetCommitteeMembersByCommitteeIdOrCodeAsync(string committeeIdOrCode, int pageNumber, int term = default, string positionCodes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (term != default)
                 queryParams.Add($"Term={Uri.EscapeDataString(term.ToString())}");
             if (positionCodes != default)
                 queryParams.Add($"positionCodes={Uri.EscapeDataString(positionCodes.ToString())}");
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeIDOrCode.ToString())}/Members/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeIdOrCode.ToString())}/Members/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8744,11 +8746,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="pageNumber">pageNumber</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find Individual by Id or Email or Record Number response.</returns>
-        public virtual async Task<FindIndividualIDOrEmailResponse> FindIndividualIDOrEmailAsync(string idOrRecordNumberOrEmail, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<FindIndividualIdOrEmailResponse> FindIndividualIdOrEmailAsync(string idOrRecordNumberOrEmail, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/Profile/{Uri.EscapeDataString(idOrRecordNumberOrEmail.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/";
+            var queryParams = new List<string>();
+            queryParams.Add("IncludeDetails=true");
+            var path = $"/api/v1/Individuals/Profile/{Uri.EscapeDataString(idOrRecordNumberOrEmail.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
-                .CallConnectorAsync<FindIndividualIDOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .CallConnectorAsync<FindIndividualIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
@@ -8808,6 +8812,7 @@ namespace Azure.Connectors.Sdk.Impexium
         public virtual async Task<IndividualsLookupByNameResponse> IndividualsLookupByNameAsync(int pageNumber, string lookupValue, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("includeOrgAddresses=true");
             if (lookupValue != default)
                 queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
             var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -8890,7 +8895,9 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Organization by Id or Record Number response.</returns>
         public virtual async Task<OrganizationData> OrganizationGetProfileAsync(string idOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/Profile/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("includeDescription=true");
+            var path = $"/api/v1/Organizations/Profile/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<OrganizationData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8922,6 +8929,7 @@ namespace Azure.Connectors.Sdk.Impexium
         public virtual async Task<OrganizationLookupByNameResponse> OrganizationLookupByNameAsync(int pageNumber, string lookupValue, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("includeAddresses=true");
             if (lookupValue != default)
                 queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
             var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -8993,13 +9001,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// Get Individual&apos;s Active Subscriptions
         /// </summary>
         /// <remarks>Get Individual&apos;s Active Subscriptions</remarks>
-        /// <param name="individualID">Individual ID</param>
+        /// <param name="individualId">Individual ID</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Individual&apos;s Active Subscriptions response.</returns>
-        public virtual async Task<GetIndividualsActiveSubscriptionsResponse> GetIndividualsActiveSubscriptionsAsync(string individualID, int pageNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<GetIndividualsActiveSubscriptionsResponse> GetIndividualsActiveSubscriptionsAsync(string individualId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualID.ToString())}/Subscriptions/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Subscriptions/All/{Uri.EscapeDataString(pageNumber.ToString())}";
             return await this
                 .CallConnectorAsync<GetIndividualsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -9012,18 +9020,18 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="pageNumber">Page Number</param>
         /// <param name="individualName">Individual Name.</param>
         /// <param name="includeDetails">Include Details.</param>
-        /// <param name="individualOldID">Individual Old ID.</param>
+        /// <param name="individualOldId">Individual Old ID.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List all Individuals response.</returns>
-        public virtual async Task<ListAllIndividualsResponse> ListAllIndividualsAsync(int pageNumber, string individualName = default, bool includeDetails = default, string individualOldID = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListAllIndividualsResponse> ListAllIndividualsAsync(int pageNumber, string individualName = default, bool includeDetails = default, string individualOldId = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (individualName != default)
                 queryParams.Add($"Name={Uri.EscapeDataString(individualName.ToString())}");
             if (includeDetails != default)
                 queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.ToString())}");
-            if (individualOldID != default)
-                queryParams.Add($"oldID={Uri.EscapeDataString(individualOldID.ToString())}");
+            if (individualOldId != default)
+                queryParams.Add($"oldID={Uri.EscapeDataString(individualOldId.ToString())}");
             var path = $"/api/v1/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListAllIndividualsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -9041,6 +9049,9 @@ namespace Azure.Connectors.Sdk.Impexium
         public virtual async Task<FindCustomerPhoneResponse> FindCustomerPhoneAsync(string pageNumber, string phoneNumber, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("includeAddress=true");
+            queryParams.Add("includePhone=true");
+            queryParams.Add("includeEmail=true");
             if (phoneNumber != default)
                 queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
             var path = $"/api/v1/Customers/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -9105,7 +9116,9 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Award Individual Recipients response.</returns>
         public virtual async Task<AwardsGetIndividualAwardRecipientsResponse> AwardsGetIndividualAwardRecipientsAsync(int pageNumber, string awardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("includeDetails=true");
+            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<AwardsGetIndividualAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -9121,7 +9134,9 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Award Organization Recipients response.</returns>
         public virtual async Task<AwardsGetOrganizationAwardRecipientsResponse> AwardsGetOrganizationAwardRecipientsAsync(int pageNumber, string awardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Organizations/{Uri.EscapeDataString(pageNumber.ToString())}";
+            var queryParams = new List<string>();
+            queryParams.Add("includeDetails=true");
+            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Organizations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<AwardsGetOrganizationAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -9131,3 +9146,4 @@ namespace Azure.Connectors.Sdk.Impexium
 
     #endregion Client
 }
+

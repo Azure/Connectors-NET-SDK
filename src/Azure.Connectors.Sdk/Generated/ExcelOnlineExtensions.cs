@@ -240,6 +240,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     public class TableToCreate
     {
         /// <summary>Enter the Excel table name.</summary>
+        [JsonPropertyName("TableName")]
         public string TableName { get; set; }
 
         /// <summary>Enter the table address using A1 notation.</summary>
@@ -247,6 +248,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
         public string TableRange { get; set; }
 
         /// <summary>Enter the columns names separated by &apos;;&apos; or &apos;,&apos;.</summary>
+        [JsonPropertyName("ColumnsNames")]
         public string ColumnsNames { get; set; }
     }
 
@@ -494,6 +496,16 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         }
 
         /// <summary>
+        /// Creates a new ExcelOnlineClient with the specified connection runtime URL and credential.
+        /// </summary>
+        /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
+        /// <param name="credential">The Azure credential for authentication.</param>
+        public ExcelOnlineClient(Uri connectionRuntimeUrl, TokenCredential credential)
+            : base(connectionRuntimeUrl, credential)
+        {
+        }
+
+        /// <summary>
         /// Creates a new ExcelOnlineClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
@@ -516,9 +528,11 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create table response.</returns>
-        public virtual async Task<TableMetadata> CreateTableAsync(string documentLibrary, string file, TableToCreate input, CancellationToken cancellationToken = default)
+        public virtual async Task<TableMetadata> CreateTableAsync(string documentLibrary, string @file, TableToCreate input, CancellationToken cancellationToken = default)
         {
-            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables";
+            var queryParams = new List<string>();
+            queryParams.Add("source=me");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TableMetadata>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -533,12 +547,14 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="table">Table</param>
         /// <param name="keyColumn">Key Column</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task CreateIdColumnAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyColumn = default, CancellationToken cancellationToken = default)
+        public virtual async Task CreateIdColumnAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string keyColumn = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("source=me");
+            queryParams.Add("populateColumn=false");
             if (keyColumn != default)
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -559,9 +575,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="dateTimeFormat">DateTime Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List rows present in a table response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string selectQuery = default, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ItemsList> GetItemsAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string selectQuery = default, string dateTimeFormat = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("source=me");
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
@@ -574,7 +591,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
             if (dateTimeFormat != default)
                 queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -592,14 +609,15 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="dateTimeFormat">DateTime Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a row response.</returns>
-        public virtual async Task<Item> GetItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Item> GetItemAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("source=me");
             if (keyColumn != default)
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
             if (dateTimeFormat != default)
                 queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -615,12 +633,13 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="keyValue">Key Value</param>
         /// <param name="keyColumn">Key Column</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteItemAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string keyValue, [DynamicValues("GetColumns")] string keyColumn, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("source=me");
             if (keyColumn != default)
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -639,14 +658,15 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="dateTimeFormat">DateTime Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a row response.</returns>
-        public virtual async Task<Item> PatchItemAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, string keyValue, Item input, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Item> PatchItemAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string keyValue, Item input, [DynamicValues("GetColumns")] string keyColumn, string dateTimeFormat = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("source=me");
             if (keyColumn != default)
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
             if (dateTimeFormat != default)
                 queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -660,9 +680,11 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="file">File</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get worksheets response.</returns>
-        public virtual async Task<GetAllWorksheetsResponse> GetAllWorksheetsAsync(string documentLibrary, string file, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAllWorksheetsResponse> GetAllWorksheetsAsync(string documentLibrary, string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/worksheets";
+            var queryParams = new List<string>();
+            queryParams.Add("source=me");
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetAllWorksheetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -677,9 +699,11 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create worksheet response.</returns>
-        public virtual async Task<WorksheetMetadata> CreateWorksheetAsync(string documentLibrary, string file, CreateWorksheetInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<WorksheetMetadata> CreateWorksheetAsync(string documentLibrary, string @file, CreateWorksheetInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/worksheets";
+            var queryParams = new List<string>();
+            queryParams.Add("source=me");
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<WorksheetMetadata>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -693,9 +717,11 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="file">File</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get tables response.</returns>
-        public virtual async Task<GetTablesResponse> GetTablesAsync(string documentLibrary, string file, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTablesResponse> GetTablesAsync(string documentLibrary, string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables";
+            var queryParams = new List<string>();
+            queryParams.Add("source=me");
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -710,9 +736,11 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="table">Table</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get table columns response.</returns>
-        public virtual async Task<GetColumnsResponse> GetColumnsAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
+        public virtual async Task<GetColumnsResponse> GetColumnsAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns";
+            var queryParams = new List<string>();
+            queryParams.Add("source=me");
+            var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -729,12 +757,13 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="dateTimeFormat">DateTime Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add a row into a table response.</returns>
-        public virtual async Task<Item> AddRowAsync(string documentLibrary, string file, [DynamicValues("GetTables")] string table, Item input, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Item> AddRowAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, Item input, string dateTimeFormat = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("source=me");
             if (dateTimeFormat != default)
                 queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-            var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -744,3 +773,4 @@ namespace Azure.Connectors.Sdk.ExcelOnline
 
     #endregion Client
 }
+

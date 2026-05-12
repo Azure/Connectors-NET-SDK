@@ -650,3 +650,4 @@ namespace Azure.Connectors.Sdk.Projectplace
 
     #endregion Client
 }
+

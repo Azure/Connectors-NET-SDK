@@ -539,6 +539,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         public virtual async Task<ListGroupsByDisplayNameSearchResponse> ListGroupsByDisplayNameSearchAsync(string searchByDisplayName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("$count=true");
             if (searchByDisplayName != default)
                 queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
             var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -565,19 +566,20 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// List Direct Group Members
         /// </summary>
         /// <remarks>Retrieve direct members of a group with count</remarks>
-        /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
+        /// <param name="objectIdOfTheMicrosoftEntraIdGroup">Object ID of the Microsoft Entra ID group</param>
         /// <param name="filterBy">Filter By</param>
         /// <param name="dataPointColumnSelection">Data point (column) selection</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List Direct Group Members response.</returns>
-        public virtual async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIDOfTheMicrosoftEntraIDGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIdOfTheMicrosoftEntraIdGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("$count=true");
             if (filterBy != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterBy.ToString())}");
             if (dataPointColumnSelection != default)
                 queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -587,16 +589,16 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// Get Member License Details
         /// </summary>
         /// <remarks>Retrieve group member(user)&apos;s license details</remarks>
-        /// <param name="objectIDOfTheMicrosoftEntraIDMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
+        /// <param name="objectIdOfTheMicrosoftEntraIdMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
         /// <param name="selectionOfDataPointsColumns">Selection of data points(columns)</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Member License Details response.</returns>
-        public virtual async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIdOfTheMicrosoftEntraIdMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (selectionOfDataPointsColumns != default)
                 queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
-            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -606,12 +608,12 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// Get Group Properties
         /// </summary>
         /// <remarks>Retrieve properties and relationships of an Microsoft Entra ID group</remarks>
-        /// <param name="objectIDOfTheMicrosoftEntraIDGroup">Object ID of the Microsoft Entra ID group</param>
+        /// <param name="objectIdOfTheMicrosoftEntraIdGroup">Object ID of the Microsoft Entra ID group</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Group Properties response.</returns>
-        public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIDOfTheMicrosoftEntraIDGroup, CancellationToken cancellationToken = default)
+        public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIdOfTheMicrosoftEntraIdGroup, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDGroup.ToString())}";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}";
             return await this
                 .CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -621,13 +623,13 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// Get Member Groups
         /// </summary>
         /// <remarks>Group memberships for a user (member)</remarks>
-        /// <param name="objectIDOfTheMicrosoftEntraIDMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
+        /// <param name="objectIdOfTheMicrosoftEntraIdMemberUser">Object ID of the Microsoft Entra ID member(user)</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Member Groups response.</returns>
-        public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIDOfTheMicrosoftEntraIDMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIdOfTheMicrosoftEntraIdMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIDOfTheMicrosoftEntraIDMemberUser.ToString())}/getMemberGroups";
+            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/getMemberGroups";
             return await this
                 .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -637,3 +639,4 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
 
     #endregion Client
 }
+

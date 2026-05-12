@@ -44,63 +44,82 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class OutlookReceiveMessage
     {
         /// <summary>Internet Message Id</summary>
+        [JsonPropertyName("InternetMessageId")]
         public string InternetMessageId { get; set; }
 
         /// <summary>Body preview</summary>
+        [JsonPropertyName("BodyPreview")]
         public string BodyPreview { get; set; }
 
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>Conversation Id</summary>
+        [JsonPropertyName("ConversationId")]
         public string ConversationId { get; set; }
 
         /// <summary>Has attachments</summary>
+        [JsonPropertyName("HasAttachments")]
         public bool? HasAttachments { get; set; }
 
         /// <summary>Is read</summary>
+        [JsonPropertyName("IsRead")]
         public bool? IsRead { get; set; }
 
         /// <summary>Created date and time</summary>
+        [JsonPropertyName("CreatedDateTime")]
         [JsonInclude]
         public DateTime? CreatedDateTime { get; internal set; }
 
         /// <summary>Received date and time</summary>
+        [JsonPropertyName("ReceivedDateTime")]
         [JsonInclude]
         public DateTime? ReceivedDateTime { get; internal set; }
 
         /// <summary>Last modified date and time</summary>
+        [JsonPropertyName("LastModifiedDateTime")]
         [JsonInclude]
         public DateTime? LastModifiedDateTime { get; internal set; }
 
         /// <summary>Attachments</summary>
+        [JsonPropertyName("Attachments")]
         public List<OutlookReceiveAttachment> Attachments { get; set; }
 
         /// <summary>To Recipient</summary>
+        [JsonPropertyName("ToRecipients")]
         public List<Recipient> ToRecipients { get; set; }
 
         /// <summary>Cc Recipients</summary>
+        [JsonPropertyName("CcRecipients")]
         public List<Recipient> CcRecipients { get; set; }
 
         /// <summary>Bcc Recipients</summary>
+        [JsonPropertyName("BccRecipients")]
         public List<Recipient> BccRecipients { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
+        [JsonPropertyName("ReplyTo")]
         public List<Recipient> ReplyTo { get; set; }
 
         /// <summary>Subject</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>Body</summary>
+        [JsonPropertyName("Body")]
         public ItemBody Body { get; set; }
 
         /// <summary>From</summary>
+        [JsonPropertyName("From")]
         public Recipient From { get; set; }
 
         /// <summary>Importance</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
 
         /// <summary>Internet message headers</summary>
+        [JsonPropertyName("InternetMessageHeaders")]
         public List<InternetMessageHeader> InternetMessageHeaders { get; set; }
     }
 
@@ -114,37 +133,48 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string Type { get; set; }
 
         /// <summary>Attachment Id</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>Attachment name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Attachment content</summary>
+        [JsonPropertyName("ContentBytes")]
         public string ContentBytes { get; set; }
 
         /// <summary>Attachment content type</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>Attachment size in bytes</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>Permission associated with a reference attachment</summary>
+        [JsonPropertyName("Permission")]
         public string Permission { get; set; }
 
         /// <summary>Provider for the reference attachment</summary>
+        [JsonPropertyName("ProviderType")]
         public string ProviderType { get; set; }
 
         /// <summary>Reference attachment source url</summary>
+        [JsonPropertyName("SourceUrl")]
         public string SourceUrl { get; set; }
 
         /// <summary>Set to true if this is an inline attachment</summary>
+        [JsonPropertyName("IsInline")]
         public bool? IsInline { get; set; }
 
         /// <summary>The date and time when the attachment was last modified</summary>
+        [JsonPropertyName("LastModifiedDateTime")]
         [JsonInclude]
         public DateTime? LastModifiedDateTime { get; internal set; }
 
         /// <summary>Content Id</summary>
+        [JsonPropertyName("ContentId")]
         public string ContentId { get; set; }
     }
 
@@ -154,6 +184,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class Recipient
     {
         /// <summary>EmailAddress</summary>
+        [JsonPropertyName("EmailAddress")]
         public EmailAddress EmailAddress { get; set; }
     }
 
@@ -163,9 +194,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class EmailAddress
     {
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Address</summary>
+        [JsonPropertyName("Address")]
         public string Address { get; set; }
     }
 
@@ -175,9 +208,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ItemBody
     {
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public ContentType? ContentType { get; set; }
 
         /// <summary>Content</summary>
+        [JsonPropertyName("Content")]
         public string Content { get; set; }
     }
 
@@ -187,9 +222,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class InternetMessageHeader
     {
         /// <summary>Header name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Header value</summary>
+        [JsonPropertyName("Value")]
         public string Value { get; set; }
     }
 
@@ -213,9 +250,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class BatchItemFailureResult
     {
         /// <summary>The ID of the failed message.</summary>
+        [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
         /// <summary>The error message of the failure.</summary>
+        [JsonPropertyName("Error")]
         public string Error { get; set; }
     }
 
@@ -448,12 +487,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class GraphCalendarEventClientWithActionType
     {
         /// <summary>Changed action type of the event - added, updated or deleted.</summary>
+        [JsonPropertyName("ActionType")]
         public ActionType? ActionType { get; set; }
 
         /// <summary>Flag that indicates whether the event was added since the last poll of the trigger.</summary>
+        [JsonPropertyName("IsAdded")]
         public bool? IsAdded { get; set; }
 
         /// <summary>Flag that indicates whether the event was updated since the last poll of the trigger.</summary>
+        [JsonPropertyName("IsUpdated")]
         public bool? IsUpdated { get; set; }
 
         /// <summary>Event subject</summary>
@@ -963,7 +1005,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     {
         /// <summary>The ID of the contacts folder</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>The name of the contacts folder</summary>
         [JsonPropertyName("displayName")]
@@ -971,7 +1013,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The ID of the parent folder</summary>
         [JsonPropertyName("parentFolderId")]
-        public string ParentFolderID { get; set; }
+        public string ParentFolderId { get; set; }
     }
 
     /// <summary>
@@ -980,15 +1022,19 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class FindMeetingTimesInput
     {
         /// <summary>List of semicolon separated email addresses</summary>
+        [JsonPropertyName("RequiredAttendees")]
         public string RequiredAttendees { get; set; }
 
         /// <summary>List of semicolon separated email addresses</summary>
+        [JsonPropertyName("OptionalAttendees")]
         public string OptionalAttendees { get; set; }
 
         /// <summary>Resource attendees for the event separated by semicolons</summary>
+        [JsonPropertyName("ResourceAttendees")]
         public string ResourceAttendees { get; set; }
 
         /// <summary>Duration of the meeting in minutes</summary>
+        [JsonPropertyName("MeetingDuration")]
         public int? MeetingDuration { get; set; }
 
         /// <summary>Start time for meeting time suggestions</summary>
@@ -1000,15 +1046,19 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public DateTime? EndTime { get; set; }
 
         /// <summary>The maximum number of meeting suggestions to return in the response</summary>
+        [JsonPropertyName("MaxCandidates")]
         public int? MaxCandidates { get; set; }
 
         /// <summary>The minimum required confidence for a time slot to be returned in the response</summary>
+        [JsonPropertyName("MinimumAttendeePercentage")]
         public string MinimumAttendeePercentage { get; set; }
 
         /// <summary>true if the organizer doesn&apos;t have to attend. The default is false</summary>
+        [JsonPropertyName("IsOrganizerOptional")]
         public bool? IsOrganizerOptional { get; set; }
 
         /// <summary>Work, Personal, Unrestricted, or Unknown</summary>
+        [JsonPropertyName("ActivityDomain")]
         public ActivityDomain? ActivityDomain { get; set; }
     }
 
@@ -1263,6 +1313,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string FlagsThatRepresentsTheMailtips { get; set; }
 
         /// <summary>Address of the mailbox to get mail tips for.</summary>
+        [JsonPropertyName("EmailAddresses")]
         public List<string> EmailAddresses { get; set; }
     }
 
@@ -1422,6 +1473,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ClientSendAttachment
     {
         /// <summary>Attachment name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Attachment content</summary>
@@ -1435,12 +1487,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class SendEmailInput
     {
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Specify the subject of the mail</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>Specify the body of the mail</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
@@ -1456,15 +1511,19 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string BCC { get; set; }
 
         /// <summary>Attachments</summary>
+        [JsonPropertyName("Attachments")]
         public List<ClientSendAttachment> Attachments { get; set; }
 
         /// <summary>Sensitivity</summary>
+        [JsonPropertyName("Sensitivity")]
         public string Sensitivity { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
+        [JsonPropertyName("ReplyTo")]
         public string ReplyTo { get; set; }
 
         /// <summary>Importance</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
     }
 
@@ -1474,12 +1533,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class DraftEmailInput
     {
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Specify the subject of the mail</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>Specify the body of the mail</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>Email address to send mail from (requires &quot;Send as&quot; or &quot;Send on behalf of&quot; permission for that mailbox). For more info on granting permissions please refer https://docs.microsoft.com/office365/admin/manage/send-email-as-distribution-list</summary>
@@ -1495,15 +1557,19 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string BCC { get; set; }
 
         /// <summary>Attachments</summary>
+        [JsonPropertyName("Attachments")]
         public List<ClientSendAttachment> Attachments { get; set; }
 
         /// <summary>Sensitivity</summary>
+        [JsonPropertyName("Sensitivity")]
         public string Sensitivity { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
+        [JsonPropertyName("ReplyTo")]
         public string ReplyTo { get; set; }
 
         /// <summary>Importance</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
     }
 
@@ -1513,6 +1579,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ReplyEmailInput
     {
         /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
@@ -1524,18 +1591,23 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string BCC { get; set; }
 
         /// <summary>Email subject (if empty, the original subject used).</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>Content of the email.</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>True to reply to all recipients. (default: False)</summary>
+        [JsonPropertyName("ReplyAll")]
         public bool? ReplyAll { get; set; }
 
         /// <summary>Pick an importance. (default: Low)</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
 
         /// <summary>Details of attachments to be sent along with the reply.</summary>
+        [JsonPropertyName("Attachments")]
         public List<ClientSendAttachment> Attachments { get; set; }
     }
 
@@ -1545,9 +1617,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class OptionsEmailSubscription
     {
         /// <summary>Gets or sets callback url to flow engine. It is expected as part of request</summary>
+        [JsonPropertyName("NotificationUrl")]
         public string NotificationUrl { get; set; }
 
         /// <summary>Message</summary>
+        [JsonPropertyName("Message")]
         public MessageWithOptions Message { get; set; }
     }
 
@@ -1557,9 +1631,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class MessageWithOptions
     {
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Subject of the email</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>List of comma separated options for the email response</summary>
@@ -1567,30 +1643,39 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string UserOptions { get; set; }
 
         /// <summary>Header text for email body</summary>
+        [JsonPropertyName("HeaderText")]
         public string HeaderText { get; set; }
 
         /// <summary>Header text for users options selection</summary>
+        [JsonPropertyName("SelectionText")]
         public string SelectionText { get; set; }
 
         /// <summary>Body of the email</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>Importance</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
 
         /// <summary>Attachments</summary>
+        [JsonPropertyName("Attachments")]
         public List<ClientSendAttachment> Attachments { get; set; }
 
         /// <summary>Use only HTML message</summary>
+        [JsonPropertyName("UseOnlyHTMLMessage")]
         public bool? UseOnlyHTMLMessage { get; set; }
 
         /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
+        [JsonPropertyName("HideHTMLMessage")]
         public bool? HideHTMLMessage { get; set; }
 
         /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
+        [JsonPropertyName("ShowHTMLConfirmationDialog")]
         public bool? ShowHTMLConfirmationDialog { get; set; }
 
         /// <summary>If set to Yes, then the Microsoft footer is hidden in the email body.</summary>
+        [JsonPropertyName("HideMicrosoftFooter")]
         public bool? HideMicrosoftFooter { get; set; }
     }
 
@@ -1600,9 +1685,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ApprovalEmailSubscription
     {
         /// <summary>Gets or sets callback url to flow engine. It is expected as part of request</summary>
+        [JsonPropertyName("NotificationUrl")]
         public string NotificationUrl { get; set; }
 
         /// <summary>Message</summary>
+        [JsonPropertyName("Message")]
         public ApprovalMessage Message { get; set; }
     }
 
@@ -1612,9 +1699,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ApprovalMessage
     {
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Subject</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>User Options</summary>
@@ -1622,27 +1711,35 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string UserOptions { get; set; }
 
         /// <summary>Header text for email body</summary>
+        [JsonPropertyName("HeaderText")]
         public string HeaderText { get; set; }
 
         /// <summary>Header text for users options selection</summary>
+        [JsonPropertyName("SelectionText")]
         public string SelectionText { get; set; }
 
         /// <summary>Body</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>Importance</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
 
         /// <summary>Attachments</summary>
+        [JsonPropertyName("Attachments")]
         public List<ClientSendAttachment> Attachments { get; set; }
 
         /// <summary>Use only HTML message</summary>
+        [JsonPropertyName("UseOnlyHTMLMessage")]
         public bool? UseOnlyHTMLMessage { get; set; }
 
         /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
+        [JsonPropertyName("HideHTMLMessage")]
         public bool? HideHTMLMessage { get; set; }
 
         /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
+        [JsonPropertyName("ShowHTMLConfirmationDialog")]
         public bool? ShowHTMLConfirmationDialog { get; set; }
     }
 
@@ -1656,12 +1753,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string OriginalMailboxAddress { get; set; }
 
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Specify the subject of the mail</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>Specify the body of the mail</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
@@ -1673,15 +1773,19 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public string BCC { get; set; }
 
         /// <summary>Attachments</summary>
+        [JsonPropertyName("Attachments")]
         public List<ClientSendAttachment> Attachments { get; set; }
 
         /// <summary>Sensitivity</summary>
+        [JsonPropertyName("Sensitivity")]
         public string Sensitivity { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
+        [JsonPropertyName("ReplyTo")]
         public string ReplyTo { get; set; }
 
         /// <summary>Importance</summary>
+        [JsonPropertyName("Importance")]
         public string Importance { get; set; }
     }
 
@@ -1821,9 +1925,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class ResponseToEventInvite
     {
         /// <summary>Comment</summary>
+        [JsonPropertyName("Comment")]
         public string Comment { get; set; }
 
         /// <summary>Send response to organizer?</summary>
+        [JsonPropertyName("SendResponse")]
         public bool? SendResponse { get; set; }
     }
 
@@ -1833,6 +1939,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     public class DirectForwardMessage
     {
         /// <summary>Comment</summary>
+        [JsonPropertyName("Comment")]
         public string Comment { get; set; }
 
         /// <summary>Semicolon separated list of recipients to forward the message to</summary>
@@ -3655,13 +3762,13 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static GraphContactFolder GraphContactFolder(
             string id = default,
             string displayName = default,
-            string parentFolderID = default)
+            string parentFolderId = default)
         {
             return new GraphContactFolder
             {
-                ID = id,
+                Id = id,
                 DisplayName = displayName,
-                ParentFolderID = parentFolderID,
+                ParentFolderId = parentFolderId,
             };
         }
 
@@ -5351,7 +5458,11 @@ namespace Azure.Connectors.Sdk.Office365
         /// <returns>The Get calendars (V2) response.</returns>
         public virtual async Task<CalendarGetTablesResponse> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/v1.0/me/calendars";
+            var queryParams = new List<string>();
+            queryParams.Add("skip=0");
+            queryParams.Add("top=256");
+            queryParams.Add("orderBy=name");
+            var path = $"/codeless/v1.0/me/calendars" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CalendarGetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5665,6 +5776,7 @@ namespace Azure.Connectors.Sdk.Office365
         public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool onlyWithAttachments = default, string subjectFilter = default, bool fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool includeAttachments = default, string searchQuery = default, int top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("fetchOnlyFlagged=false");
             if (folder != default)
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
             if (to != default)
@@ -5917,3 +6029,4 @@ namespace Azure.Connectors.Sdk.Office365
 
     #endregion Client
 }
+

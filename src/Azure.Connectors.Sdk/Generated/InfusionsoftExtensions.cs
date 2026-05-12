@@ -459,7 +459,9 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The List tasks response.</returns>
         public virtual async Task<ListTasksResponse> ListTasksAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/crm/rest/v1/tasks/search";
+            var queryParams = new List<string>();
+            queryParams.Add("order=-due_date");
+            var path = $"/crm/rest/v1/tasks/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -469,3 +471,4 @@ namespace Azure.Connectors.Sdk.Infusionsoft
 
     #endregion Client
 }
+

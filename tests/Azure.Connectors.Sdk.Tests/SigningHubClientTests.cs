@@ -95,8 +95,8 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .AttachmentGetAttachmentsAsync(packageID: 1,
-                    documentID: 1,
+                .AttachmentGetAttachmentsAsync(packageId: 1,
+                    documentId: 1,
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
@@ -115,8 +115,8 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.AttachmentGetAttachmentsAsync(packageID: 1,
-                    documentID: 1,
+                client.AttachmentGetAttachmentsAsync(packageId: 1,
+                    documentId: 1,
                     cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }

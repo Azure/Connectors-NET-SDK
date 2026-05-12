@@ -192,7 +192,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange & Act
             var meeting = new NewMeetingResponse
             {
-                ID = "meeting-123",
+                Id = "meeting-123",
                 Subject = "Team Standup",
                 Importance = "normal",
                 IsOrganizer = true,
@@ -201,7 +201,7 @@ namespace Azure.Connectors.Sdk.Tests
             };
 
             // Assert
-            Assert.AreEqual("meeting-123", meeting.ID);
+            Assert.AreEqual("meeting-123", meeting.Id);
             Assert.AreEqual("Team Standup", meeting.Subject);
             Assert.AreEqual("normal", meeting.Importance);
             Assert.AreEqual(true, meeting.IsOrganizer);
@@ -214,7 +214,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange
             var channel = new CreateChannelResponse
             {
-                ID = "channel-abc",
+                Id = "channel-abc",
                 DisplayName = "General",
                 Description = "General discussion channel"
             };
@@ -225,7 +225,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual(channel.ID, deserialized.ID);
+            Assert.AreEqual(channel.Id, deserialized.Id);
             Assert.AreEqual(channel.DisplayName, deserialized.DisplayName);
             Assert.AreEqual(channel.Description, deserialized.Description);
         }
@@ -236,9 +236,9 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange
             var team = new AssociatedTeamInfo
             {
-                TeamID = "team-456",
+                TeamId = "team-456",
                 DisplayName = "Engineering",
-                TenantID = "tenant-789"
+                TenantId = "tenant-789"
             };
 
             // Act
@@ -247,9 +247,9 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual(team.TeamID, deserialized.TeamID);
+            Assert.AreEqual(team.TeamId, deserialized.TeamId);
             Assert.AreEqual(team.DisplayName, deserialized.DisplayName);
-            Assert.AreEqual(team.TenantID, deserialized.TenantID);
+            Assert.AreEqual(team.TenantId, deserialized.TenantId);
         }
     }
 }

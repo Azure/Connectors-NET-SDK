@@ -462,6 +462,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     public class GetUsersGraphAction
     {
         /// <summary>User email address.</summary>
+        [JsonPropertyName("EmailAddress")]
         public object EmailAddress { get; set; }
     }
 
@@ -489,6 +490,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     public class ForwardPostBody
     {
         /// <summary>Comment to forward with the post.</summary>
+        [JsonPropertyName("Comment")]
         public string Comment { get; set; }
 
         /// <summary>The recipients to whom the threaded is forwarded to.</summary>
@@ -1366,3 +1368,4 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
 
     #endregion Client
 }
+

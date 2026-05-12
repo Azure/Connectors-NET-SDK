@@ -721,17 +721,17 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// </summary>
         /// <remarks>Find events and filter your search by location, date, availability, and much more.</remarks>
         /// <param name="size">Size</param>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="keyword">Keyword</param>
-        /// <param name="attractionID">Attraction ID</param>
-        /// <param name="venueID">Venue ID</param>
+        /// <param name="attractionId">Attraction ID</param>
+        /// <param name="venueId">Venue ID</param>
         /// <param name="postalCode">Postal Code</param>
         /// <param name="latitudeLongitude">Latitude Longitude</param>
         /// <param name="radius">Radius</param>
         /// <param name="unit">Unit</param>
         /// <param name="source">Source</param>
         /// <param name="locale">Locale</param>
-        /// <param name="marketID">Market ID</param>
+        /// <param name="marketId">Market ID</param>
         /// <param name="startDateTime">Start Date Time</param>
         /// <param name="endDateTime">End Date Time</param>
         /// <param name="includeTBA">Include TBA</param>
@@ -745,8 +745,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="countryCode">Country Code</param>
         /// <param name="stateCode">State Code</param>
         /// <param name="classificationName">Classification Name</param>
-        /// <param name="classificationID">Classification ID</param>
-        /// <param name="dMAID">DMA ID</param>
+        /// <param name="classificationId">Classification ID</param>
+        /// <param name="dMAId">DMA ID</param>
         /// <param name="localStartDateTime">Local Start Date Time</param>
         /// <param name="localStartEndDateTime">Local Start End Date Time</param>
         /// <param name="startEndDateTime">Start End Date Time</param>
@@ -754,34 +754,34 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="preSaleDateTime">Pre Sale Date Time</param>
         /// <param name="onsaleOnStartDate">Onsale On Start Date</param>
         /// <param name="onsaleOnAfterStartDate">Onsale On After Start Date</param>
-        /// <param name="collectionID">Collection ID</param>
-        /// <param name="segmentID">Segment ID</param>
+        /// <param name="collectionId">Collection ID</param>
+        /// <param name="segmentId">Segment ID</param>
         /// <param name="segmentName">Segment Name</param>
         /// <param name="includeFamily">Include Family</param>
-        /// <param name="promoterID">Promoter ID</param>
-        /// <param name="genreID">Genre ID</param>
-        /// <param name="subGenreID">Sub-genre ID</param>
-        /// <param name="typeID">Type ID</param>
-        /// <param name="subTypeID">Sub Type ID</param>
+        /// <param name="promoterId">Promoter ID</param>
+        /// <param name="genreId">Genre ID</param>
+        /// <param name="subGenreId">Sub-genre ID</param>
+        /// <param name="typeId">Type ID</param>
+        /// <param name="subTypeId">Sub Type ID</param>
         /// <param name="geoPoint">Geo Point</param>
         /// <param name="preferredCountry">Preferred Country</param>
         /// <param name="includeSpellcheck">Include Spellcheck</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Event search response.</returns>
-        public virtual async Task<EventsGetResponse> EventsGetAsync(int size = default, string iD = default, string keyword = default, string attractionID = default, string venueID = default, string postalCode = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string marketID = default, string startDateTime = default, string endDateTime = default, string includeTBA = default, string includeTBD = default, string includeTest = default, string page = default, string sort = default, string onsaleStartDateTime = default, string onsaleEndDateTime = default, object[] city = default, string countryCode = default, string stateCode = default, object[] classificationName = default, object[] classificationID = default, string dMAID = default, object[] localStartDateTime = default, object[] localStartEndDateTime = default, object[] startEndDateTime = default, object[] publicVisibilityStartDateTime = default, object[] preSaleDateTime = default, string onsaleOnStartDate = default, string onsaleOnAfterStartDate = default, object[] collectionID = default, object[] segmentID = default, object[] segmentName = default, string includeFamily = default, string promoterID = default, object[] genreID = default, object[] subGenreID = default, object[] typeID = default, object[] subTypeID = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EventsGetResponse> EventsGetAsync(int size = default, string id = default, string keyword = default, string attractionId = default, string venueId = default, string postalCode = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string marketId = default, string startDateTime = default, string endDateTime = default, string includeTBA = default, string includeTBD = default, string includeTest = default, string page = default, string sort = default, string onsaleStartDateTime = default, string onsaleEndDateTime = default, object[] city = default, string countryCode = default, string stateCode = default, object[] classificationName = default, object[] classificationId = default, string dMAId = default, object[] localStartDateTime = default, object[] localStartEndDateTime = default, object[] startEndDateTime = default, object[] publicVisibilityStartDateTime = default, object[] preSaleDateTime = default, string onsaleOnStartDate = default, string onsaleOnAfterStartDate = default, object[] collectionId = default, object[] segmentId = default, object[] segmentName = default, string includeFamily = default, string promoterId = default, object[] genreId = default, object[] subGenreId = default, object[] typeId = default, object[] subTypeId = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (size != default)
                 queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
-            if (iD != default)
-                queryParams.Add($"id={Uri.EscapeDataString(iD.ToString())}");
+            if (id != default)
+                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
             if (keyword != default)
                 queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
-            if (attractionID != default)
-                queryParams.Add($"attractionId={Uri.EscapeDataString(attractionID.ToString())}");
-            if (venueID != default)
-                queryParams.Add($"venueId={Uri.EscapeDataString(venueID.ToString())}");
+            if (attractionId != default)
+                queryParams.Add($"attractionId={Uri.EscapeDataString(attractionId.ToString())}");
+            if (venueId != default)
+                queryParams.Add($"venueId={Uri.EscapeDataString(venueId.ToString())}");
             if (postalCode != default)
                 queryParams.Add($"postalCode={Uri.EscapeDataString(postalCode.ToString())}");
             if (latitudeLongitude != default)
@@ -794,8 +794,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (marketID != default)
-                queryParams.Add($"marketId={Uri.EscapeDataString(marketID.ToString())}");
+            if (marketId != default)
+                queryParams.Add($"marketId={Uri.EscapeDataString(marketId.ToString())}");
             if (startDateTime != default)
                 queryParams.Add($"startDateTime={Uri.EscapeDataString(startDateTime.ToString())}");
             if (endDateTime != default)
@@ -822,10 +822,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
             if (classificationName != default)
                 queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
-            if (classificationID != default)
-                queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationID))}");
-            if (dMAID != default)
-                queryParams.Add($"dmaId={Uri.EscapeDataString(dMAID.ToString())}");
+            if (classificationId != default)
+                queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
+            if (dMAId != default)
+                queryParams.Add($"dmaId={Uri.EscapeDataString(dMAId.ToString())}");
             if (localStartDateTime != default)
                 queryParams.Add($"localStartDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartDateTime))}");
             if (localStartEndDateTime != default)
@@ -840,24 +840,24 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 queryParams.Add($"onsaleOnStartDate={Uri.EscapeDataString(onsaleOnStartDate.ToString())}");
             if (onsaleOnAfterStartDate != default)
                 queryParams.Add($"onsaleOnAfterStartDate={Uri.EscapeDataString(onsaleOnAfterStartDate.ToString())}");
-            if (collectionID != default)
-                queryParams.Add($"collectionId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(collectionID))}");
-            if (segmentID != default)
-                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentID))}");
+            if (collectionId != default)
+                queryParams.Add($"collectionId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(collectionId))}");
+            if (segmentId != default)
+                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
             if (segmentName != default)
                 queryParams.Add($"segmentName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentName))}");
             if (includeFamily != default)
                 queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
-            if (promoterID != default)
-                queryParams.Add($"promoterId={Uri.EscapeDataString(promoterID.ToString())}");
-            if (genreID != default)
-                queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreID))}");
-            if (subGenreID != default)
-                queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreID))}");
-            if (typeID != default)
-                queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeID))}");
-            if (subTypeID != default)
-                queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeID))}");
+            if (promoterId != default)
+                queryParams.Add($"promoterId={Uri.EscapeDataString(promoterId.ToString())}");
+            if (genreId != default)
+                queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
+            if (subGenreId != default)
+                queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreId))}");
+            if (typeId != default)
+                queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeId))}");
+            if (subTypeId != default)
+                queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
             if (geoPoint != default)
                 queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
             if (preferredCountry != default)
@@ -876,19 +876,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get event details
         /// </summary>
         /// <remarks>Get details for a specific event using the unique identifier for the event. This includes the venue and location, the attraction(s), and the Ticketmaster Website URL for purchasing tickets for the event</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get event details response.</returns>
-        public virtual async Task<EventGetResponse> EventGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EventGetResponse> EventGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/events/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<EventGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -898,19 +898,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get event images
         /// </summary>
         /// <remarks>Get images for a specific event using the unique identifier for the event.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get event images response.</returns>
-        public virtual async Task<EventImagesGetResponse> EventImagesGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EventImagesGetResponse> EventImagesGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/events/{Uri.EscapeDataString(iD.ToString())}/images" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}/images" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<EventImagesGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -920,7 +920,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Attraction search
         /// </summary>
         /// <remarks>Find attractions (artists, sports, packages, plays and so on) and filter your search by name, and much more.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="keyword">Keyword</param>
         /// <param name="source">Source</param>
         /// <param name="locale">Locale</param>
@@ -929,24 +929,24 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="page">Page</param>
         /// <param name="sort">Sort</param>
         /// <param name="classificationName">Classification Name</param>
-        /// <param name="classificationID">Classification ID</param>
+        /// <param name="classificationId">Classification ID</param>
         /// <param name="includeFamily">Include Family</param>
-        /// <param name="segmentID">Segment ID</param>
-        /// <param name="genreID">Genre ID</param>
-        /// <param name="subGenreID">Sub-genre ID</param>
-        /// <param name="typeID">Type ID</param>
-        /// <param name="subTypeID">Sub Type ID</param>
+        /// <param name="segmentId">Segment ID</param>
+        /// <param name="genreId">Genre ID</param>
+        /// <param name="subGenreId">Sub-genre ID</param>
+        /// <param name="typeId">Type ID</param>
+        /// <param name="subTypeId">Sub Type ID</param>
         /// <param name="countryCode">Country Code</param>
         /// <param name="preferredCountry">Preferred Country</param>
         /// <param name="includeSpellcheck">Include Spellcheck</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Attraction search response.</returns>
-        public virtual async Task<AttractionsGetResponse> AttractionsGetAsync(string iD = default, string keyword = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, object[] classificationName = default, object[] classificationID = default, string includeFamily = default, object[] segmentID = default, object[] genreID = default, object[] subGenreID = default, object[] typeID = default, object[] subTypeID = default, string countryCode = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<AttractionsGetResponse> AttractionsGetAsync(string id = default, string keyword = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, object[] classificationName = default, object[] classificationId = default, string includeFamily = default, object[] segmentId = default, object[] genreId = default, object[] subGenreId = default, object[] typeId = default, object[] subTypeId = default, string countryCode = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (iD != default)
-                queryParams.Add($"id={Uri.EscapeDataString(iD.ToString())}");
+            if (id != default)
+                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
             if (keyword != default)
                 queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
             if (source != default)
@@ -963,20 +963,20 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
             if (classificationName != default)
                 queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
-            if (classificationID != default)
-                queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationID))}");
+            if (classificationId != default)
+                queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
             if (includeFamily != default)
                 queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
-            if (segmentID != default)
-                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentID))}");
-            if (genreID != default)
-                queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreID))}");
-            if (subGenreID != default)
-                queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreID))}");
-            if (typeID != default)
-                queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeID))}");
-            if (subTypeID != default)
-                queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeID))}");
+            if (segmentId != default)
+                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
+            if (genreId != default)
+                queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
+            if (subGenreId != default)
+                queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreId))}");
+            if (typeId != default)
+                queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeId))}");
+            if (subTypeId != default)
+                queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
             if (countryCode != default)
                 queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
             if (preferredCountry != default)
@@ -995,19 +995,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get attraction details
         /// </summary>
         /// <remarks>Get details for a specific attraction using the unique identifier for the attraction.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get attraction details response.</returns>
-        public virtual async Task<AttractionGetResponse> AttractionGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<AttractionGetResponse> AttractionGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/attractions/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/attractions/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<AttractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1017,7 +1017,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Classification search
         /// </summary>
         /// <remarks>Find classifications and filter your search by name, and much more. Classifications help define the nature of attractions and events.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="keyword">Keyword</param>
         /// <param name="source">Source</param>
         /// <param name="locale">Locale</param>
@@ -1031,11 +1031,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Classification search response.</returns>
-        public virtual async Task<ClassificationsGetResponse> ClassificationsGetAsync(string iD = default, string keyword = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, string countryCode = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClassificationsGetResponse> ClassificationsGetAsync(string id = default, string keyword = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, string countryCode = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (iD != default)
-                queryParams.Add($"id={Uri.EscapeDataString(iD.ToString())}");
+            if (id != default)
+                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
             if (keyword != default)
                 queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
             if (source != default)
@@ -1068,19 +1068,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get classification details
         /// </summary>
         /// <remarks>Get details for a specific segment, genre, or sub-genre using its unique identifier.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get classification details response.</returns>
-        public virtual async Task<ClassificationGetResponse> ClassificationGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClassificationGetResponse> ClassificationGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/classifications/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ClassificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1090,19 +1090,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get genre details
         /// </summary>
         /// <remarks>Get details for a specific genre using its unique identifier.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get genre details response.</returns>
-        public virtual async Task<GenreGetResponse> GenreGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GenreGetResponse> GenreGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/genres/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/classifications/genres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1112,19 +1112,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get segment details
         /// </summary>
         /// <remarks>Get details for a specific segment using its unique identifier.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get segment details response.</returns>
-        public virtual async Task<SegmentGetResponse> SegmentGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SegmentGetResponse> SegmentGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/segments/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/classifications/segments/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SegmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1134,19 +1134,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get sub-genre details
         /// </summary>
         /// <remarks>Get details for a specific sub-genre using its unique identifier.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get sub-genre details response.</returns>
-        public virtual async Task<SubGenreGetResponse> SubGenreGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SubGenreGetResponse> SubGenreGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/subgenres/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/classifications/subgenres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SubGenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1156,7 +1156,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Venue search
         /// </summary>
         /// <remarks>Find venues and filter your search by name, and much more.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="keyword">Keyword</param>
         /// <param name="latitudeLongitude">Latitude Longitude</param>
         /// <param name="radius">Radius</param>
@@ -1175,11 +1175,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Venue search response.</returns>
-        public virtual async Task<VenuesGetResponse> VenuesGetAsync(string iD = default, string keyword = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, string countryCode = default, string stateCode = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<VenuesGetResponse> VenuesGetAsync(string id = default, string keyword = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, string countryCode = default, string stateCode = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (iD != default)
-                queryParams.Add($"id={Uri.EscapeDataString(iD.ToString())}");
+            if (id != default)
+                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
             if (keyword != default)
                 queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
             if (latitudeLongitude != default)
@@ -1222,19 +1222,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// Get venue details
         /// </summary>
         /// <remarks>Get details for a specific venue using the unique identifier for the venue.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="locale">Locale</param>
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get venue details response.</returns>
-        public virtual async Task<VenueGetResponse> VenueGetAsync(string iD, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<VenueGetResponse> VenueGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (locale != default)
                 queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
             if (domain != default)
                 queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/venues/{Uri.EscapeDataString(iD.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/discovery/v2/venues/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<VenueGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1255,7 +1255,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="includeTest">Include Test</param>
         /// <param name="size">Size</param>
         /// <param name="countryCode">Country Code</param>
-        /// <param name="segmentID">Segment ID</param>
+        /// <param name="segmentId">Segment ID</param>
         /// <param name="geoPoint">Geo Point</param>
         /// <param name="resource">Resource</param>
         /// <param name="preferredCountry">Preferred Country</param>
@@ -1265,7 +1265,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find suggestions response.</returns>
-        public virtual async Task<SuggestionsGetResponse> SuggestionsGetAsync(string keyword = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string includeTBA = default, string includeTBD = default, string includeTest = default, string size = default, string countryCode = default, object[] segmentID = default, string geoPoint = default, object[] resource = default, string preferredCountry = default, object[] startEndDateTime = default, object[] localStartEndDateTime = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SuggestionsGetResponse> SuggestionsGetAsync(string keyword = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string includeTBA = default, string includeTBD = default, string includeTest = default, string size = default, string countryCode = default, object[] segmentId = default, string geoPoint = default, object[] resource = default, string preferredCountry = default, object[] startEndDateTime = default, object[] localStartEndDateTime = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (keyword != default)
@@ -1290,8 +1290,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
             if (countryCode != default)
                 queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
-            if (segmentID != default)
-                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentID))}");
+            if (segmentId != default)
+                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
             if (geoPoint != default)
                 queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
             if (resource != default)
@@ -1316,3 +1316,4 @@ namespace Azure.Connectors.Sdk.Ticketmaster
 
     #endregion Client
 }
+

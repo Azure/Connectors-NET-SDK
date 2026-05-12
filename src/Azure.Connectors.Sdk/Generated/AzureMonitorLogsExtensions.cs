@@ -121,38 +121,25 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     }
 
     /// <summary>
-    /// Response for List time range types
+    /// Run query and list results V2
     /// </summary>
-    public class TimeRangeListResult : IPageable<TimeRangeItem>
+    public class QueryDataInput
     {
-        /// <summary>The list of time range. </summary>
-        [JsonPropertyName("value")]
-        public List<TimeRangeItem> Value { get; set; }
+        /// <summary>Specify the query you would like to run. </summary>
+        [JsonPropertyName("query")]
+        public string Query { get; set; }
 
-        /// <summary>The URL to get the next set of results. </summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; internal set; }
+        /// <summary>Select Time Range type. </summary>
+        [JsonPropertyName("timerangetype")]
+        public string TimeRangeType { get; set; }
+
+        /// <summary>Time Range</summary>
+        [JsonPropertyName("timerange")]
+        public object TimeRange { get; set; }
     }
 
     /// <summary>
-    /// Item in The list of time range. 
-    /// </summary>
-    public class TimeRangeItem
-    {
-        /// <summary>The ID of the item. </summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public int? Id { get; internal set; }
-
-        /// <summary>The Name of the item. </summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; internal set; }
-    }
-
-    /// <summary>
-    /// Response for Run query and list results
+    /// Response for Run query and list results V2
     /// </summary>
     public class Table
     {
@@ -164,8 +151,8 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     /// <summary>
     /// Item in value
     /// </summary>
-    [DynamicSchema("QuerySchema")]
-    public class Row
+    [DynamicSchema("QuerySchemaV2")]
+    public class RowV2
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -188,7 +175,25 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     }
 
     /// <summary>
-    /// Response for Run query and visualize results
+    /// Run query and visualize results V2
+    /// </summary>
+    public class VisualizeQueryInput
+    {
+        /// <summary>Specify the query you would like to run. </summary>
+        [JsonPropertyName("query")]
+        public string Query { get; set; }
+
+        /// <summary>Select Time Range type. </summary>
+        [JsonPropertyName("timerangetype")]
+        public string TimeRangeType { get; set; }
+
+        /// <summary>Time Range</summary>
+        [JsonPropertyName("timerange")]
+        public object TimeRange { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Run query and visualize results V2
     /// </summary>
     public class VisualizeResults
     {
@@ -206,39 +211,17 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     }
 
     /// <summary>
-    /// Run query and list results V2
+    /// RowV2
     /// </summary>
-    public class QueryDataInput
+    [DynamicSchema("QuerySchemaV2")]
+    public class Row
     {
-        /// <summary>Specify the query you would like to run. </summary>
-        [JsonPropertyName("query")]
-        public string Query { get; set; }
-
-        /// <summary>Select Time Range type. </summary>
-        [JsonPropertyName("timerangetype")]
-        public string TimeRangeType { get; set; }
-
-        /// <summary>Time Range</summary>
-        [JsonPropertyName("timerange")]
-        public object Timerange { get; set; }
-    }
-
-    /// <summary>
-    /// Run query and visualize results V2
-    /// </summary>
-    public class VisualizeQueryInput
-    {
-        /// <summary>Specify the query you would like to run. </summary>
-        [JsonPropertyName("query")]
-        public string Query { get; set; }
-
-        /// <summary>Select Time Range type. </summary>
-        [JsonPropertyName("timerangetype")]
-        public string TimeRangeType { get; set; }
-
-        /// <summary>Time Range</summary>
-        [JsonPropertyName("timerange")]
-        public object Timerange { get; set; }
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     #endregion Types
@@ -339,30 +322,18 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TimeRangeListResult"/>.
+        /// Creates a new instance of <see cref="QueryDataInput"/>.
         /// </summary>
-        public static TimeRangeListResult TimeRangeListResult(
-            List<TimeRangeItem> value = default,
-            string nextLink = default)
+        public static QueryDataInput QueryDataInput(
+            string query = default,
+            string timeRangeType = default,
+            object timeRange = default)
         {
-            return new TimeRangeListResult
+            return new QueryDataInput
             {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TimeRangeItem"/>.
-        /// </summary>
-        public static TimeRangeItem TimeRangeItem(
-            int? id = default,
-            string name = default)
-        {
-            return new TimeRangeItem
-            {
-                Id = id,
-                Name = name,
+                Query = query,
+                TimeRangeType = timeRangeType,
+                TimeRange = timeRange,
             };
         }
 
@@ -379,6 +350,22 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="VisualizeQueryInput"/>.
+        /// </summary>
+        public static VisualizeQueryInput VisualizeQueryInput(
+            string query = default,
+            string timeRangeType = default,
+            object timeRange = default)
+        {
+            return new VisualizeQueryInput
+            {
+                Query = query,
+                TimeRangeType = timeRangeType,
+                TimeRange = timeRange,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="VisualizeResults"/>.
         /// </summary>
         public static VisualizeResults VisualizeResults(
@@ -391,38 +378,6 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
                 Body = body,
                 AttachmentContent = attachmentContent,
                 AttachmentName = attachmentName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="QueryDataInput"/>.
-        /// </summary>
-        public static QueryDataInput QueryDataInput(
-            string query = default,
-            string timeRangeType = default,
-            object timerange = default)
-        {
-            return new QueryDataInput
-            {
-                Query = query,
-                TimeRangeType = timeRangeType,
-                Timerange = timerange,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="VisualizeQueryInput"/>.
-        /// </summary>
-        public static VisualizeQueryInput VisualizeQueryInput(
-            string query = default,
-            string timeRangeType = default,
-            object timerange = default)
-        {
-            return new VisualizeQueryInput
-            {
-                Query = query,
-                TimeRangeType = timeRangeType,
-                Timerange = timerange,
             };
         }
     }
@@ -546,122 +501,6 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         }
 
         /// <summary>
-        /// List time range types
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="resourceType">Resource Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
-        public virtual AsyncPageable<TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
-                ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
-                (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, input, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Run query and list results
-        /// </summary>
-        /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceType">Resource Type</param>
-        /// <param name="resourceName">Resource Name</param>
-        /// <param name="timeRange">Time Range</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Run query and list results response.</returns>
-        public virtual async Task<Table> QueryDataAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            if (resourceName != default)
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            if (timeRange != default)
-                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-            var path = $"/queryData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Get query schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceType">Resource Type</param>
-        /// <param name="resourceName">Resource Name</param>
-        /// <param name="timeRange">Time Range</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get query schema response.</returns>
-        public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            if (resourceName != default)
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            if (timeRange != default)
-                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-            var path = $"/querySchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Run query and visualize results
-        /// </summary>
-        /// <remarks>Returns all rows in the result set as a single formatted object. Use this action when you want to use the result set together in the rest of the workflow. </remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceType">Resource Type</param>
-        /// <param name="resourceName">Resource Name</param>
-        /// <param name="timeRange">Time Range</param>
-        /// <param name="chartType">Chart Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Run query and visualize results response.</returns>
-        public virtual async Task<VisualizeResults> VisualizeQueryAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, string chartType, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            if (resourceName != default)
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            if (timeRange != default)
-                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-            if (chartType != default)
-                queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
-            var path = $"/visualizeQuery" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
         /// Run query and list results V2
         /// </summary>
         /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
@@ -752,3 +591,4 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
 
     #endregion Client
 }
+

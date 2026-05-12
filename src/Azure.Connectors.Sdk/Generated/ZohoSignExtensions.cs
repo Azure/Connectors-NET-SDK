@@ -493,12 +493,12 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Download Completion Certificate
         /// </summary>
         /// <remarks>Downloads the completion certificate of a specific envelope</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download Completion Certificate response.</returns>
-        public virtual async Task<byte[]> DownloadCompletionCertificateAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> DownloadCompletionCertificateAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/completioncertificate";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/completioncertificate";
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -508,12 +508,12 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Download Document
         /// </summary>
         /// <remarks>Downloads a specific envelope</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download Document response.</returns>
-        public virtual async Task<byte[]> DownloadDocumentAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> DownloadDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/pdf";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/pdf";
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -523,13 +523,13 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Download File
         /// </summary>
         /// <remarks>Downloads a specific document or file</remarks>
-        /// <param name="requestID">Request ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="requestId">Request ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download File response.</returns>
-        public virtual async Task<byte[]> DownloadFileAsync(int requestID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> DownloadFileAsync(int requestId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/pdf";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/pdf";
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -539,12 +539,12 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Get data of completed request
         /// </summary>
         /// <remarks>Shows the details of a signed envelope</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get data of completed request response.</returns>
-        public virtual async Task<GetFormDataResponse> GetFormDataAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetFormDataResponse> GetFormDataAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/fielddata";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/fielddata";
             return await this
                 .CallConnectorAsync<GetFormDataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -554,11 +554,11 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Recall a particular document
         /// </summary>
         /// <remarks>Recall a particular document</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RecallDocumentAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task RecallDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/recall";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/recall";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -568,11 +568,11 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Reminder for recipients
         /// </summary>
         /// <remarks>Send a reminder to recipients of a particular document.</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RemindDocumentRecipientsAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task RemindDocumentRecipientsAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/remind";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/remind";
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -582,11 +582,11 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Delete Document
         /// </summary>
         /// <remarks>Delete a particular document</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteDocumentAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/delete";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/delete";
             await this
                 .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -610,12 +610,12 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Get a document
         /// </summary>
         /// <remarks>Shows the details of a specific envelope</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a document response.</returns>
-        public virtual async Task<GetDocumentResponse> GetDocumentAsync(int requestID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetDocumentResponse> GetDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
             return await this
                 .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -625,13 +625,13 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Update the properties of a created request
         /// </summary>
         /// <remarks>Update the properties of a created request</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update the properties of a created request response.</returns>
-        public virtual async Task<UpdateDocumentResponse> UpdateDocumentAsync(string requestID, UpdateDocumentInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateDocumentResponse> UpdateDocumentAsync(string requestId, UpdateDocumentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -641,12 +641,12 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// SendSignRequest
         /// </summary>
         /// <remarks>Send the uploaded document out for signature</remarks>
-        /// <param name="requestID">Request ID</param>
+        /// <param name="requestId">Request ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The SendSignRequest response.</returns>
-        public virtual async Task<SendSignRequestResponse> SendSignRequestAsync(string requestID, CancellationToken cancellationToken = default)
+        public virtual async Task<SendSignRequestResponse> SendSignRequestAsync(string requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestID.ToString())}/submit";
+            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/submit";
             return await this
                 .CallConnectorAsync<SendSignRequestResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -684,3 +684,4 @@ namespace Azure.Connectors.Sdk.ZohoSign
 
     #endregion Client
 }
+

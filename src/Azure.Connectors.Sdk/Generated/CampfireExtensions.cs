@@ -375,16 +375,16 @@ namespace Azure.Connectors.Sdk.Campfire
         /// Get user by ID
         /// </summary>
         /// <remarks>Retrieves information about a user by given ID</remarks>
-        /// <param name="userID">User ID</param>
+        /// <param name="userId">User ID</param>
         /// <param name="account">Account</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user by ID response.</returns>
-        public virtual async Task<UserResponse> GetUserAsync(int userID, [DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
+        public virtual async Task<UserResponse> GetUserAsync(int userId, [DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (account != default)
                 queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-            var path = $"/users/{Uri.EscapeDataString(userID.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<UserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -394,3 +394,4 @@ namespace Azure.Connectors.Sdk.Campfire
 
     #endregion Client
 }
+

@@ -19,7 +19,7 @@ Automates the end-to-end connection lifecycle for SDK-supported connectors, keep
 - Azure CLI installed and authenticated (`az login`)
 - Target subscription and resource group known
 - For deployed scenarios: compute host (e.g., Function App, App Service) with managed identity enabled
-- **Supported regions** for Connector Namespace: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the resource group and Function App can be in any region.
+- **Supported regions** for Connector Namespace: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the Connector Namespace `location` must be in a supported region; the resource group and Function App can be in any region.
 
 ## Procedure
 
@@ -39,26 +39,26 @@ az rest --method GET `
 If none exists, create one:
 
 ```powershell
-$gatewayName = "<gateway-name>"
+$namespaceName = "<namespace-name>"
 $location = "<azure-region>"
 
-$gwBody = "{`"location`":`"$location`",`"identity`":{`"type`":`"SystemAssigned`"},`"properties`":{}}"
-$tempFile = Join-Path $env:TEMP "gw-body.json"
-[System.IO.File]::WriteAllText($tempFile, $gwBody)
+$nsBody = "{`"location`":`"$location`",`"identity`":{`"type`":`"SystemAssigned`"},`"properties`":{}}"
+$tempFile = Join-Path $env:TEMP "ns-body.json"
+[System.IO.File]::WriteAllText($tempFile, $nsBody)
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
 
-> **Important:** The gateway must have a managed identity enabled (`SystemAssigned`) for trigger callback authentication. If the gateway was created without an identity, update it:
+> **Important:** The Connector Namespace must have a managed identity enabled (`SystemAssigned`) for trigger callback authentication. If the Connector Namespace was created without an identity, update it:
 >
 > ```powershell
-> $gwBody = "{`"location`":`"$location`",`"identity`":{`"type`":`"SystemAssigned`"},`"properties`":{}}"
-> $tempFile = Join-Path $env:TEMP "gw-identity.json"
-> [System.IO.File]::WriteAllText($tempFile, $gwBody)
+> $nsBody = "{`"location`":`"$location`",`"identity`":{`"type`":`"SystemAssigned`"},`"properties`":{}}"
+> $tempFile = Join-Path $env:TEMP "ns-identity.json"
+> [System.IO.File]::WriteAllText($tempFile, $nsBody)
 > az rest --method PUT `
->     --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
+>     --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName?api-version=2026-05-01-preview" `
 >     --body "@$tempFile" --headers "Content-Type=application/json" -o json
 > Remove-Item $tempFile -ErrorAction SilentlyContinue
 > ```
@@ -71,12 +71,12 @@ Supported SDK connector names: `arm`, `azureblob`, `azureeventgrid`, `azuremonit
 $connectorName = "<connector-name>"      # e.g., "arm", "azureblob", "azuremonitorlogs", "kusto", "mq", "msgraphgroupsanduser", "office365", "office365users", "onedriveforbusiness", "sharepointonline", "smtp", "teams"
 $connectionName = "<connection-name>"    # e.g., "office365-test", "sharepoint-test"
 
-$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName"
+$nsId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName"
 $connBody = "{`"properties`":{`"connectorName`":`"$connectorName`"}}"
 $tempFile = Join-Path $env:TEMP "conn-body.json"
 [System.IO.File]::WriteAllText($tempFile, $connBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name, @{n='status';e={$_.properties.statuses[0].status}}
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -92,7 +92,7 @@ $consentBody = '{"parameters":[{"redirectUrl":"https://portal.azure.com","parame
 $tempFile = Join-Path $env:TEMP "consent-body.json"
 [System.IO.File]::WriteAllText($tempFile, $consentBody)
 $result = az rest --method POST `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}/listConsentLinks?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}/listConsentLinks?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 
@@ -104,7 +104,7 @@ The user completes OAuth in the browser. After consent, verify:
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json | Select-Object @{n='status';e={$_.properties.statuses[0].status}}
 ```
 
@@ -114,7 +114,7 @@ Expected: `Connected`.
 
 ```powershell
 $conn = az rest --method GET `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json
 $runtimeUrl = $conn.properties.connectionRuntimeUrl
 Write-Output "Runtime URL: $runtimeUrl"
@@ -134,7 +134,7 @@ $policyBody = "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"id
 $tempFile = Join-Path $env:TEMP "policy-body.json"
 [System.IO.File]::WriteAllText($tempFile, $policyBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}/accessPolicies/local-dev?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}/accessPolicies/local-dev?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -150,7 +150,7 @@ $policyBody = "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"id
 $tempFile = Join-Path $env:TEMP "msi-policy-body.json"
 [System.IO.File]::WriteAllText($tempFile, $policyBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${gwId}/connections/${connectionName}/accessPolicies/functionapp-msi?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}/accessPolicies/functionapp-msi?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -181,7 +181,7 @@ Add to `local.settings.json` under `"Values"`:
 
 ```json
 {
-  "{connectionSettingName}__connectorGatewayName": "<gateway-name>",
+  "{connectionSettingName}__connectorGatewayName": "<namespace-name>",
   "{connectionSettingName}__connectionName": "<connection-name>"
 }
 ```
@@ -201,7 +201,7 @@ Format A:
 ```powershell
 az functionapp config appsettings set `
     -g $resourceGroup -n $functionAppName `
-    --settings "{connectionSettingName}__connectorGatewayName=$gatewayName" "{connectionSettingName}__connectionName=$connectionName"
+    --settings "{connectionSettingName}__connectorGatewayName=$namespaceName" "{connectionSettingName}__connectionName=$connectionName"
 ```
 
 ### Step 7: Verify Connection

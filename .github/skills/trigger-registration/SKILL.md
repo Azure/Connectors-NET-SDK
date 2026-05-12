@@ -18,9 +18,9 @@ Registers polling trigger configs on a Connector Namespace so that connector eve
 
 - Azure CLI installed and authenticated (`az login`)
 - Connector Namespace with a connected connector (see `connection-setup` skill)
-- The gateway must have a **system-assigned managed identity** enabled (required for trigger callback authentication)
+- The Connector Namespace must have a **system-assigned managed identity** enabled (required for trigger callback authentication)
 - Deployed Azure Function App with a connector trigger function
-- **Supported regions** for Connector Namespace: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the Function App can be in any region.
+- **Supported regions** for Connector Namespace: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the Connector Namespace `location` must be in a supported region; the Function App can be in any region.
 - For .NET: the Function App project must reference:
   - `Microsoft.Azure.Functions.Worker.Extensions.Connector` — provides the `[ConnectorTrigger]` attribute
   - `Azure.Connectors.Sdk` — provides typed connector clients and trigger payload types
@@ -190,8 +190,8 @@ az rest --method GET `
 ```powershell
 $subscriptionId = "<subscription-id>"
 $resourceGroup = "<resource-group>"
-$gatewayName = "<gateway-name>"
-$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName"
+$namespaceName = "<namespace-name>"
+$nsId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName"
 
 $triggerName = "<trigger-config-name>"   # e.g., "onedrive-newfile-binary"
 $connectionName = "<connection-name>"    # e.g., "onedrive-test"
@@ -224,7 +224,7 @@ $body = @{
     }
 } | ConvertTo-Json -Depth 4
 
-$uri = "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
+$uri = "https://management.azure.com${nsId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
 try {
     $response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
         -ContentType "application/json" `
@@ -252,7 +252,7 @@ Expected: HTTP 201 Created.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
     --query "properties.{operation:operationName, state:state, hasCallback:notificationDetails.callbackUrl!=null}" `
     -o table
 ```
@@ -263,7 +263,7 @@ Expected: `state = Enabled`, `hasCallback = True`.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/triggerConfigs?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/triggerConfigs?api-version=2026-05-01-preview" `
     --query "value[].{name:name, operation:properties.operationName, state:properties.state}" `
     -o table
 ```

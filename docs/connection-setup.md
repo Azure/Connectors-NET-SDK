@@ -44,12 +44,12 @@ Connector Namespace connections are required for connector triggers (Connector N
 ```powershell
 $subscriptionId = "<your-subscription-id>"
 $resourceGroup = "<your-resource-group>"
-$gatewayName = "<your-gateway-name>"
+$namespaceName = "<your-namespace-name>"
 $location = "<azure-region>"  # e.g., "brazilsouth"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
-    --body "{`"location`":`"$location`",`"properties`":{}}"
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName?api-version=2026-05-01-preview" `
+    --body "{`"location`":`"$location`",`"properties`":{},`"identity`":{`"type`":`"SystemAssigned`"}}"
 ```
 
 #### A2. Create a Connection in the Connector Namespace
@@ -59,7 +59,7 @@ $connectorName = "office365"  # API connector name
 $connectionName = "office365-test"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName/connections/$connectionName?api-version=2026-05-01-preview" `
     --body "{`"properties`":{`"connectorName`":`"$connectorName`"}}"
 ```
 
@@ -84,7 +84,7 @@ After OAuth consent, the connection runtime URL is available:
 
 ```powershell
 $result = az rest --method GET `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName/connections/$connectionName?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json
 $result.properties.connectionRuntimeUrl
 ```
@@ -99,7 +99,7 @@ $tenantId = "<aad-tenant-id>"
 $policyName = "functionapp-msi"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName/accessPolicies/$policyName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName/connections/$connectionName/accessPolicies/$policyName?api-version=2026-05-01-preview" `
     --body "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"identity`":{`"objectId`":`"$msiObjectId`",`"tenantId`":`"$tenantId`"}}}}" `
     --headers "Content-Type=application/json"
 ```

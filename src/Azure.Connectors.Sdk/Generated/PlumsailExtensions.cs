@@ -2130,7 +2130,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Locale Ia001 { get; } = new("ia-001");
 
         /// <summary>id-ID</summary>
-        public static Locale IdID { get; } = new("id-ID");
+        public static Locale IdId { get; } = new("id-ID");
 
         /// <summary>ig-NG</summary>
         public static Locale IgNG { get; } = new("ig-NG");
@@ -2169,7 +2169,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Locale JmcTZ { get; } = new("jmc-TZ");
 
         /// <summary>jv-ID</summary>
-        public static Locale JvID { get; } = new("jv-ID");
+        public static Locale JvId { get; } = new("jv-ID");
 
         /// <summary>ka-GE</summary>
         public static Locale KaGE { get; } = new("ka-GE");
@@ -6696,3 +6696,4 @@ namespace Azure.Connectors.Sdk.Plumsail
 
     #endregion Client
 }
+

@@ -280,7 +280,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 State = "Completed",
                 Status = "Success",
-                OperationID = "op-12345"
+                OperationId = "op-12345"
             };
 
             // Act
@@ -291,7 +291,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("Completed", deserialized!.State);
             Assert.AreEqual("Success", deserialized.Status);
-            Assert.AreEqual("op-12345", deserialized.OperationID);
+            Assert.AreEqual("op-12345", deserialized.OperationId);
         }
 
         [TestMethod]

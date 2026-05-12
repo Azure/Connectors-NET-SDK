@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIID { get; set; }
+        public string APIId { get; set; }
 
         /// <summary>Response obtained when the call was made.</summary>
         [JsonPropertyName("message")]
@@ -48,7 +48,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIID { get; set; }
+        public string APIId { get; set; }
 
         /// <summary>Meta information about the response.</summary>
         [JsonPropertyName("meta")]
@@ -66,7 +66,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIID { get; set; }
+        public string APIId { get; set; }
 
         /// <summary>Response of the sent message.</summary>
         [JsonPropertyName("message")]
@@ -84,7 +84,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIID { get; set; }
+        public string APIId { get; set; }
 
         /// <summary>Delivery error code if the message isn&apos;t delivered.</summary>
         [JsonPropertyName("error_code")]
@@ -191,13 +191,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="MakeCallResponse"/>.
         /// </summary>
         public static MakeCallResponse MakeCallResponse(
-            string apiid = default,
+            string apiId = default,
             string response = default,
             string callUUID = default)
         {
             return new MakeCallResponse
             {
-                APIID = apiid,
+                APIId = apiId,
                 Response = response,
                 CallUUID = callUUID,
             };
@@ -207,13 +207,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="ListMessagesResponse"/>.
         /// </summary>
         public static ListMessagesResponse ListMessagesResponse(
-            string apiid = default,
+            string apiId = default,
             object metaInformation = default,
             List<object> messageList = default)
         {
             return new ListMessagesResponse
             {
-                APIID = apiid,
+                APIId = apiId,
                 MetaInformation = metaInformation,
                 MessageList = messageList,
             };
@@ -223,13 +223,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="SendSMSResponse"/>.
         /// </summary>
         public static SendSMSResponse SendSMSResponse(
-            string apiid = default,
+            string apiId = default,
             string response = default,
             List<string> messageUUID = default)
         {
             return new SendSMSResponse
             {
-                APIID = apiid,
+                APIId = apiId,
                 Response = response,
                 MessageUUID = messageUUID,
             };
@@ -239,7 +239,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="GetMessageResponse"/>.
         /// </summary>
         public static GetMessageResponse GetMessageResponse(
-            string apiid = default,
+            string apiId = default,
             string errorCode = default,
             string from = default,
             string messageDirection = default,
@@ -255,7 +255,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         {
             return new GetMessageResponse
             {
-                APIID = apiid,
+                APIId = apiId,
                 ErrorCode = errorCode,
                 From = from,
                 MessageDirection = messageDirection,
@@ -369,13 +369,13 @@ namespace Azure.Connectors.Sdk.Plivo
         /// Make a call
         /// </summary>
         /// <remarks>This operation is used to make a call.</remarks>
-        /// <param name="authID">Auth ID</param>
+        /// <param name="authId">Auth ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Make a call response.</returns>
-        public virtual async Task<MakeCallResponse> MakeCallAsync(string authID, Call input, CancellationToken cancellationToken = default)
+        public virtual async Task<MakeCallResponse> MakeCallAsync(string authId, Call input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authID.ToString())}/Call/";
+            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Call/";
             return await this
                 .CallConnectorAsync<MakeCallResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -385,12 +385,12 @@ namespace Azure.Connectors.Sdk.Plivo
         /// List all messages
         /// </summary>
         /// <remarks>This operation returns a list of all messages associated with your Plivo account.</remarks>
-        /// <param name="authID">Auth ID</param>
+        /// <param name="authId">Auth ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List all messages response.</returns>
-        public virtual async Task<ListMessagesResponse> ListMessagesAsync(string authID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListMessagesResponse> ListMessagesAsync(string authId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authID.ToString())}/Message/";
+            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
             return await this
                 .CallConnectorAsync<ListMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -400,13 +400,13 @@ namespace Azure.Connectors.Sdk.Plivo
         /// Send SMS
         /// </summary>
         /// <remarks>This operation is used to send a text message.</remarks>
-        /// <param name="authID">Auth ID</param>
+        /// <param name="authId">Auth ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Send SMS response.</returns>
-        public virtual async Task<SendSMSResponse> SendSMSAsync(string authID, SMS input, CancellationToken cancellationToken = default)
+        public virtual async Task<SendSMSResponse> SendSMSAsync(string authId, SMS input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authID.ToString())}/Message/";
+            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
             return await this
                 .CallConnectorAsync<SendSMSResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -416,13 +416,13 @@ namespace Azure.Connectors.Sdk.Plivo
         /// Get message
         /// </summary>
         /// <remarks>This operation is used to fetch the details of a message, given the message ID.</remarks>
-        /// <param name="authID">Auth ID</param>
+        /// <param name="authId">Auth ID</param>
         /// <param name="messageUUID">Message UUID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get message response.</returns>
-        public virtual async Task<GetMessageResponse> GetMessageAsync(string authID, string messageUUID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMessageResponse> GetMessageAsync(string authId, string messageUUID, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authID.ToString())}/Message/{Uri.EscapeDataString(messageUUID.ToString())}/";
+            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/{Uri.EscapeDataString(messageUUID.ToString())}/";
             return await this
                 .CallConnectorAsync<GetMessageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -432,3 +432,4 @@ namespace Azure.Connectors.Sdk.Plivo
 
     #endregion Client
 }
+
