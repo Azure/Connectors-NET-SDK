@@ -401,6 +401,7 @@ A complete PR for adding connector client(s) must include:
 | `CHANGELOG.md` | Entry under `## [Unreleased]` / `### Added` |
 
 **Verification before opening PR:**
+
 ```powershell
 dotnet build --nologo      # 0 errors, 0 warnings
 dotnet test --nologo       # all tests pass (including ConnectorNames_AllConstantsAreRegistered)
@@ -419,11 +420,11 @@ Three pipelines run in sequence in `azfunc/internal`:
 |----------|-----|---------|----------|
 | `connectors-sdk.code-mirror` | 1717 | Auto on `release/*`, `v*` tags pushed to GitHub | Mirrors GitHub → internal ADO repo |
 | `connectors-sdk.official` | 1718 | Auto after mirror lands (on `release/*`, `v*` tags) | Builds, tests, signs, produces `.nupkg` artifact |
-| `connectors-sdk.release` | 1719 | **Manual** — run after official-build succeeds | Downloads artifact, validates, publishes to nuget.org |
+| `connectors-sdk.release` | 1719 | **Manual** — run after `connectors-sdk.official` succeeds | Downloads artifact, validates, publishes to nuget.org |
 
 ### Version suffixes and `PublicRelease`
 
-The build appends suffixes based on context (see `eng/build/Version.targets` and `Release.props`):
+The build appends suffixes based on context (see `eng/build/Version.targets` and `eng/build/Release.props`):
 
 | Build source | `PublicRelease` | Package version example |
 |--------------|----------------|------------------------|
@@ -441,12 +442,14 @@ The build appends suffixes based on context (see `eng/build/Version.targets` and
 3. Tag and push: `git tag v{version} && git push origin v{version}`
 4. Create GitHub Release: `gh release create v{version} --title "v{version}" --prerelease --notes "..."`
 5. Wait for `code-mirror` (1717) to complete for both the branch and tag
-6. Verify `official-build` (1718) runs automatically from the tag — check it produced a clean `.nupkg` (no `.ci.` suffix)
+6. Verify `connectors-sdk.official` (1718) runs automatically from the tag — check it produced a clean `.nupkg` (no `.ci.` suffix)
 7. If the tag build is not the latest, re-queue it: `az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1718 --branch "refs/tags/v{version}"`
 8. **Run the release pipeline from `main`:**
+
    ```powershell
    az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1719 --branch "main" --parameters "isReleaseBranchOrTag=True" "publishToNugetOrg=True" --output json | ConvertFrom-Json | Select-Object id, status
    ```
+
    The release pipeline picks up the **latest** `connectors-sdk.official` artifact. It must be the clean tag build.
 9. Approve the release gate (see the pipeline's environment approval check for the current approvers list)
 
@@ -461,6 +464,7 @@ The release pipeline's `self` repo reference doesn't resolve on tag refs, and ru
 ### GitHub authentication for push
 
 The `Azure/Connectors-NET-SDK` repo requires a personal GitHub account with push access to the Azure org (not an EMU `*_microsoft` account). If push fails with 403:
+
 ```powershell
 gh auth status                      # check which account is active
 gh auth switch --user <personal>    # switch to the account with push access
