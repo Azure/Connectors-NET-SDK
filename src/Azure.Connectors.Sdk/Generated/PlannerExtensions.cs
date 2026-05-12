@@ -857,7 +857,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
 
     /// <summary>
     /// Typed trigger payload for the OnCompleteTask trigger (Planner "When a task is completed", operationId: OnCompleteTask_V3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnCompleteTaskTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnCompleteTaskTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class PlannerOnCompleteTaskTriggerPayload : TriggerCallbackPayload<GetTaskResponse>
     {
@@ -865,7 +865,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewTask trigger (Planner "When a new task is created", operationId: OnNewTask_V3).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnNewTaskTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnNewTaskTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class PlannerOnNewTaskTriggerPayload : TriggerCallbackPayload<GetTaskResponse>
     {
@@ -873,7 +873,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
 
     /// <summary>
     /// Typed trigger payload for the OnTaskAssignedToMe trigger (Planner "When a task is assigned to me", operationId: OnTaskAssignedToMe_V2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnTaskAssignedToMeTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnTaskAssignedToMeTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class PlannerOnTaskAssignedToMeTriggerPayload : TriggerCallbackPayload<GetTaskResponse>
     {
@@ -913,7 +913,7 @@ namespace Azure.Connectors.Sdk.Planner
     /// <summary>
     /// Trigger operation name constants for the Planner connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class PlannerTriggerOperations
     {
@@ -943,7 +943,7 @@ namespace Azure.Connectors.Sdk.Planner
 
     /// <summary>
     /// Trigger input parameter name constants for the Planner connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class PlannerTriggerParameters
     {

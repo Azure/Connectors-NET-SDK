@@ -561,7 +561,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedFiles trigger (AzureBlob "When a blob is added or modified (properties only) (V2)", operationId: OnUpdatedFiles_V2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureBlobOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureBlobOnUpdatedFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class AzureBlobOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
@@ -599,7 +599,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
     /// <summary>
     /// Trigger operation name constants for the AzureBlob connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class AzureBlobTriggerOperations
     {
@@ -617,7 +617,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
 
     /// <summary>
     /// Trigger input parameter name constants for the AzureBlob connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class AzureBlobTriggerParameters
     {

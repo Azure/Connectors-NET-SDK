@@ -184,7 +184,7 @@ namespace Azure.Connectors.Sdk.Campfire
     /// <summary>
     /// Trigger operation name constants for the Campfire connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class CampfireTriggerOperations
     {
@@ -211,7 +211,7 @@ namespace Azure.Connectors.Sdk.Campfire
 
     /// <summary>
     /// Trigger input parameter name constants for the Campfire connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class CampfireTriggerParameters
     {

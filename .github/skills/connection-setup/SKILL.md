@@ -1,9 +1,9 @@
 ---
 name: connection-setup
-description: 'Create and configure Connector Gateway connections for SDK-supported connectors. USE WHEN: setting up a new connector connection, creating a Connector Gateway, authorizing OAuth consent, adding access policies, or configuring local.settings.json / app settings. Covers Office365, SharePoint, Teams, and any Microsoft.Web/connections connector. NOT FOR: general SDK usage, trigger registration, or code generation.'
+description: 'Create and configure Connector Namespace connections for SDK-supported connectors. USE WHEN: setting up a new connector connection, creating a Connector Namespace, authorizing OAuth consent, adding access policies, or configuring local.settings.json / app settings. Covers Office365, SharePoint, Teams, and any Microsoft.Web/connections connector. NOT FOR: general SDK usage, trigger registration, or code generation.'
 ---
 
-# Connector Gateway Connection Setup
+# Connector Namespace Connection Setup
 
 Automates the end-to-end connection lifecycle for SDK-supported connectors, keeping the developer in VS Code.
 
@@ -19,13 +19,13 @@ Automates the end-to-end connection lifecycle for SDK-supported connectors, keep
 - Azure CLI installed and authenticated (`az login`)
 - Target subscription and resource group known
 - For deployed scenarios: compute host (e.g., Function App, App Service) with managed identity enabled
-- **Supported regions** for Connector Gateway: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the resource group and Function App can be in any region.
+- **Supported regions** for Connector Namespace: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the resource group and Function App can be in any region.
 
 ## Procedure
 
-### Step 1: Create or Select Connector Gateway
+### Step 1: Create or Select Connector Namespace
 
-Check for an existing Connector Gateway in the resource group:
+Check for an existing Connector Namespace in the resource group:
 
 ```powershell
 $subscriptionId = "<subscription-id>"
@@ -122,7 +122,7 @@ Write-Output "Runtime URL: $runtimeUrl"
 
 ### Step 5: Add Access Policies
 
-> **Note:** Access policies control which identities can call the connection's runtime URL for connector **actions** (e.g., send email, list files). For **trigger-only** scenarios, the Connector Gateway polls server-side and does not need an access policy on the connection. Skip this step if your function only receives trigger callbacks and does not call connector actions at runtime.
+> **Note:** Access policies control which identities can call the connection's runtime URL for connector **actions** (e.g., send email, list files). For **trigger-only** scenarios, the Connector Namespace polls server-side and does not need an access policy on the connection. Skip this step if your function only receives trigger callbacks and does not call connector actions at runtime.
 
 #### For local development (Azure CLI identity)
 
@@ -159,7 +159,7 @@ Remove-Item $tempFile -ErrorAction SilentlyContinue
 
 ### Step 6: Configure App Settings
 
-> **Note:** Connection app settings are only needed when your function code calls connector **actions** at runtime using `ConnectorConnectionResolver`. For **trigger-only** scenarios, the function receives callbacks directly from the Connector Gateway and does not need these settings. Skip this step if your function only receives trigger callbacks.
+> **Note:** Connection app settings are only needed when your function code calls connector **actions** at runtime using `ConnectorConnectionResolver`. For **trigger-only** scenarios, the function receives callbacks directly from the Connector Namespace and does not need these settings. Skip this step if your function only receives trigger callbacks.
 
 The SDK's `ConnectorConnectionResolver` reads connection settings using the Azure Functions `__` (double-underscore) environment variable separator convention.
 
@@ -177,7 +177,7 @@ Add to `local.settings.json` under `"Values"`:
 }
 ```
 
-#### Format A — Connector Gateway (triggers + actions)
+#### Format A — Connector Namespace (triggers + actions)
 
 ```json
 {

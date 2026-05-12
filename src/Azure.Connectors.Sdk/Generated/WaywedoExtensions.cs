@@ -784,7 +784,7 @@ namespace Azure.Connectors.Sdk.Waywedo
     /// <summary>
     /// Trigger operation name constants for the Waywedo connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class WaywedoTriggerOperations
     {

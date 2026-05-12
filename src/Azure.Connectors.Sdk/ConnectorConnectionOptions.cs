@@ -11,13 +11,13 @@ namespace Azure.Connectors.Sdk
     public class ConnectorConnectionOptions
     {
         /// <summary>
-        /// Gets or sets the Connector Gateway name (Format A).
+        /// Gets or sets the Connector Namespace name (Format A).
         /// Resolved from <c>{connectionSettingName}__connectorGatewayName</c> app setting.
         /// </summary>
         public string? ConnectorGatewayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the connection name within the Connector Gateway (Format A).
+        /// Gets or sets the connection name within the Connector Namespace (Format A).
         /// Resolved from <c>{connectionSettingName}__connectionName</c> app setting.
         /// </summary>
         public string? ConnectionName { get; set; }
@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk
         public string? ConnectionRuntimeUrl { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this is a Connector Gateway connection (Format A).
+        /// Gets a value indicating whether this is a Connector Namespace connection (Format A).
         /// True when both <see cref="ConnectorGatewayName"/> and <see cref="ConnectionName"/> are set.
         /// </summary>
         public bool IsConnectorGatewayConnection =>

@@ -205,7 +205,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewFiles trigger (OneDriveForBusiness "When a file is created (properties only)", operationId: OnNewFilesV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnNewFilesTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnNewFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class OneDriveForBusinessOnNewFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
@@ -213,7 +213,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedFiles trigger (OneDriveForBusiness "When a file is modified (properties only)", operationId: OnUpdatedFilesV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OneDriveForBusinessOnUpdatedFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class OneDriveForBusinessOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
@@ -252,7 +252,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
     /// <summary>
     /// Trigger operation name constants for the OneDriveForBusiness connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class OneDriveForBusinessTriggerOperations
     {
@@ -286,7 +286,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
 
     /// <summary>
     /// Trigger input parameter name constants for the OneDriveForBusiness connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class OneDriveForBusinessTriggerParameters
     {

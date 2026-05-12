@@ -190,7 +190,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
     /// <summary>
     /// Trigger operation name constants for the MicrosoftBookings connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class MicrosoftBookingsTriggerOperations
     {

@@ -101,8 +101,8 @@ namespace Azure.Connectors.Sdk.Tests
                     () => ConnectorConnectionResolver.Resolve("Partial"));
 
                 Assert.IsTrue(
-                    exception.Message.Contains("Partial Connector Gateway", StringComparison.OrdinalIgnoreCase),
-                    $"Expected partial Connector Gateway message but got: {exception.Message}");
+                    exception.Message.Contains("Partial Connector Namespace", StringComparison.OrdinalIgnoreCase),
+                    $"Expected partial Connector Namespace message but got: {exception.Message}");
             }
             finally
             {
@@ -122,8 +122,8 @@ namespace Azure.Connectors.Sdk.Tests
                     () => ConnectorConnectionResolver.Resolve("OnlyConn"));
 
                 Assert.IsTrue(
-                    exception.Message.Contains("Partial Connector Gateway", StringComparison.OrdinalIgnoreCase),
-                    $"Expected partial Connector Gateway message but got: {exception.Message}");
+                    exception.Message.Contains("Partial Connector Namespace", StringComparison.OrdinalIgnoreCase),
+                    $"Expected partial Connector Namespace message but got: {exception.Message}");
             }
             finally
             {

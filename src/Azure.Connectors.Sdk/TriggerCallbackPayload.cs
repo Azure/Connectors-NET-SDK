@@ -8,8 +8,8 @@ using System.Text.Json.Serialization;
 namespace Azure.Connectors.Sdk;
 
 /// <summary>
-/// Envelope type for Connector Gateway trigger callback payloads.
-/// The Connector Gateway wraps triggerBody() in a <c>{"body":{"value":[...]}}</c> structure.
+/// Envelope type for Connector Namespace trigger callback payloads.
+/// The Connector Namespace wraps triggerBody() in a <c>{"body":{"value":[...]}}</c> structure.
 /// </summary>
 /// <typeparam name="T">The connector-specific trigger item type (e.g., <c>GraphClientReceiveMessage</c> for Office 365 email triggers).</typeparam>
 public class TriggerCallbackPayload<T>
@@ -22,7 +22,7 @@ public class TriggerCallbackPayload<T>
 }
 
 /// <summary>
-/// Inner body of the Connector Gateway trigger callback, containing the array of trigger items.
+/// Inner body of the Connector Namespace trigger callback, containing the array of trigger items.
 /// </summary>
 /// <typeparam name="T">The connector-specific trigger item type.</typeparam>
 public class TriggerCallbackBody<T>

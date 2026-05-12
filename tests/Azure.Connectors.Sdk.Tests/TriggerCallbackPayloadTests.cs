@@ -17,7 +17,7 @@ namespace Azure.Connectors.Sdk.Tests
     public class TriggerCallbackPayloadTests
     {
         /// <summary>
-        /// Captured Connector Gateway trigger callback payload from production (2026-03-16).
+        /// Captured Connector Namespace trigger callback payload from production (2026-03-16).
         /// </summary>
         private const string CapturedTriggerPayload = """
             {

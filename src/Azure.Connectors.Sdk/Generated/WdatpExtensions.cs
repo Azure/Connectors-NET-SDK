@@ -2351,7 +2351,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewRemediationActivity trigger (Wdatp "Triggers when a new remediation activity is created (Preview)", operationId: OnNewRemediationActivity).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;WdatpOnNewRemediationActivityTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WdatpOnNewRemediationActivityTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class WdatpOnNewRemediationActivityTriggerPayload : TriggerCallbackPayload<RemediationActivity>
     {
@@ -2389,7 +2389,7 @@ namespace Azure.Connectors.Sdk.Wdatp
     /// <summary>
     /// Trigger operation name constants for the Wdatp connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class WdatpTriggerOperations
     {
@@ -2412,7 +2412,7 @@ namespace Azure.Connectors.Sdk.Wdatp
 
     /// <summary>
     /// Trigger input parameter name constants for the Wdatp connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class WdatpTriggerParameters
     {

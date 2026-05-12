@@ -32,10 +32,10 @@ This page explains the key concepts, components, and terminology used across the
  │          AZURE  (ARM Resource Provider + Runtime)
  │
  │  ┌─────────────────────────────────────────────────────────────┐
- │  │          Connector Gateways RP  (Microsoft.Web)            │
+ │  │          Connector Namespaces RP  (Microsoft.Web)            │
  │  │                                                             │
  │  │  ┌─────────────────────────────────────────────────────┐    │
- │  │  │        Connector Gateway  (ARM resource)            │    │
+ │  │  │        Connector Namespace  (ARM resource)            │    │
  │  │  │        /connectorGateways/{gatewayName}             │    │
  │  │  │                                                     │    │
  │  │  │  ┌───────────────┐  ┌───────────────┐               │    │
@@ -84,9 +84,9 @@ Connector (e.g. "office365")
 
 > **Connector vs. API:** A connector is not the same as the underlying SaaS API. The connector is a managed proxy layer that normalizes authentication, pagination, throttling, and schema across hundreds of backend services.
 
-### Connector Gateways (ARM Resource Type)
+### Connector Namespaces (ARM Resource Type)
 
-**Connector Gateways** refers to the Azure Resource Manager (ARM) resource type `connectorGateways` under the `Microsoft.Web` resource provider. This resource type manages the lifecycle of gateways, connections, access policies, and trigger registrations. It is the control plane that you interact with via the Azure CLI, ARM templates, or the Azure Portal.
+**Connector Namespaces** refers to the Azure Resource Manager (ARM) resource type `connectorGateways` under the `Microsoft.Web` resource provider. This resource type manages the lifecycle of gateways, connections, access policies, and trigger registrations. It is the control plane that you interact with via the Azure CLI, ARM templates, or the Azure Portal.
 
 ARM namespace: `Microsoft.Web`
 
@@ -100,9 +100,9 @@ Key API operations:
 | Add access policy | `PUT .../connections/{name}/accessPolicies/{name}` |
 | Register trigger | `PUT .../connections/{name}/triggerConfigs/{name}` |
 
-### Connector Gateway (ARM Resource)
+### Connector Namespace (ARM Resource)
 
-A **Connector Gateway** is a specific ARM resource (`Microsoft.Web/connectorGateways/{gatewayName}`) deployed in a resource group. It acts as a container for one or more **connections** and provides:
+A **Connector Namespace** is a specific ARM resource (`Microsoft.Web/connectorGateways/{gatewayName}`) deployed in a resource group. It acts as a container for one or more **connections** and provides:
 
 - **Managed identity** — A system-assigned identity used by the gateway to authenticate trigger callbacks to your compute host.
 - **Regional endpoint** — The gateway must be located in a [supported region](connection-setup.md).
@@ -110,7 +110,7 @@ A **Connector Gateway** is a specific ARM resource (`Microsoft.Web/connectorGate
 
 ```text
 Resource Group: "my-rg"
- └── Connector Gateway: "my-gateway"  (Microsoft.Web/connectorGateways)
+ └── Connector Namespace: "my-gateway"  (Microsoft.Web/connectorGateways)
        ├── Connection: "office365-conn"
        ├── Connection: "teams-conn"
        └── Connection: "sharepoint-conn"
@@ -118,7 +118,7 @@ Resource Group: "my-rg"
 
 ### Connection
 
-A **connection** is a child resource of a Connector Gateway (`Microsoft.Web/connectorGateways/{gateway}/connections/{name}`). It represents an authenticated session to a specific connector and contains:
+A **connection** is a child resource of a Connector Namespace (`Microsoft.Web/connectorGateways/{gateway}/connections/{name}`). It represents an authenticated session to a specific connector and contains:
 
 | Property | Description |
 |----------|-------------|
@@ -128,7 +128,7 @@ A **connection** is a child resource of a Connector Gateway (`Microsoft.Web/conn
 | **Access policies** | Which Azure AD identities (users, managed identities) can use this connection |
 | **Trigger registrations** | Optional polling trigger configurations attached to this connection |
 
-A connection starts in an **unauthenticated** state. You complete OAuth consent (via browser or the Connector Gateway Manager Portal) to move it to `Connected`.
+A connection starts in an **unauthenticated** state. You complete OAuth consent (via browser or the Connector Namespace Manager Portal) to move it to `Connected`.
 
 ```text
 Connection lifecycle:
@@ -138,7 +138,7 @@ Connection lifecycle:
                   (no auth)              (token stored)        via runtime URL
 ```
 
-> **Note:** There are also standalone ARM connections (`Microsoft.Web/connections`), called **API Connection** in the Azure Portal. These can be created through Logic Apps (any SKU). They support actions but not Connector Gateway triggers.
+> **Note:** There are also standalone ARM connections (`Microsoft.Web/connections`), called **API Connection** in the Azure Portal. These can be created through Logic Apps (any SKU). They support actions but not Connector Namespace triggers.
 
 ### Connection Runtime URL
 
@@ -165,11 +165,11 @@ Typical identities:
 - **Local development** — Your Azure CLI user identity
 - **Deployed app** — The Azure Function or App Service managed identity
 
-> Access policies apply to **actions** (outbound API calls your code makes). Trigger callbacks flow from the Connector Gateway to your compute host and do not require access policies on the connection.
+> Access policies apply to **actions** (outbound API calls your code makes). Trigger callbacks flow from the Connector Namespace to your compute host and do not require access policies on the connection.
 
 ### Trigger Registration (Trigger Config)
 
-A **trigger registration** (or **trigger config**) is a child resource of a connection that tells the Connector Gateway to poll the connector for new events and deliver them to your compute host.
+A **trigger registration** (or **trigger config**) is a child resource of a connection that tells the Connector Namespace to poll the connector for new events and deliver them to your compute host.
 
 ```text
 Connection: "office365-conn"
@@ -179,11 +179,11 @@ Connection: "office365-conn"
        └── Parameters: { folderId: "Inbox" }
 ```
 
-The Connector Gateway polls the trigger endpoint on a schedule. When new items are found, it POSTs the payload to your callback URL using the gateway's managed identity for authentication.
+The Connector Namespace polls the trigger endpoint on a schedule. When new items are found, it POSTs the payload to your callback URL using the gateway's managed identity for authentication.
 
 ### Trigger Callback Payload
 
-The **trigger callback payload** is the JSON envelope the Connector Gateway sends to your function when a trigger fires. The SDK provides `TriggerCallbackPayload<T>` for deserialization:
+The **trigger callback payload** is the JSON envelope the Connector Namespace sends to your function when a trigger fires. The SDK provides `TriggerCallbackPayload<T>` for deserialization:
 
 ```text
 {
@@ -326,7 +326,7 @@ Here is the complete path of an SDK call from your code to the SaaS service and 
 
 ## Trigger Flow (Event-Driven)
 
-Triggers follow a different pattern — the Connector Gateway polls for events server-side and pushes results to your compute host:
+Triggers follow a different pattern — the Connector Namespace polls for events server-side and pushes results to your compute host:
 
 ```text
   ┌──────────────────────────────────────────────────────┐
@@ -335,7 +335,7 @@ Triggers follow a different pattern — the Connector Gateway polls for events s
   └──────────────────────┬───────────────────────────────┘
                          │
   ┌──────────────────────▼───────────────────────────────┐
-  │  2. Connector Gateway polls the connector trigger    │
+  │  2. Connector Namespace polls the connector trigger    │
   │     endpoint on a schedule (server-side)             │
   └──────────────────────┬───────────────────────────────┘
                          │ new items found
@@ -356,7 +356,7 @@ Triggers follow a different pattern — the Connector Gateway polls for events s
 
 The SDK resolves connection settings from Azure Functions app configuration using two formats:
 
-### Format A — Connector Gateway (triggers + actions)
+### Format A — Connector Namespace (triggers + actions)
 
 ```json
 {
@@ -365,7 +365,7 @@ The SDK resolves connection settings from Azure Functions app configuration usin
 }
 ```
 
-The SDK resolves the runtime URL at startup by querying the Connector Gateway ARM API.
+The SDK resolves the runtime URL at startup by querying the Connector Namespace ARM API.
 
 ### Format B — Direct URL (actions only)
 

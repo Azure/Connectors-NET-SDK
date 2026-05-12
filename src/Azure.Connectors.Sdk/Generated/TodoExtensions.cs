@@ -458,7 +458,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewToDoInFolder trigger (Todo "When a new to-do in a specific folder is created (V2)", operationId: OnNewToDoInFolderV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;TodoOnNewToDoInFolderTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TodoOnNewToDoInFolderTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class TodoOnNewToDoInFolderTriggerPayload : TriggerCallbackPayload<ToDo>
     {
@@ -466,7 +466,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdateToDoInFolder trigger (Todo "When a to-do in a specific folder is updated (V2)", operationId: OnUpdateToDoInFolderV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;TodoOnUpdateToDoInFolderTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TodoOnUpdateToDoInFolderTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class TodoOnUpdateToDoInFolderTriggerPayload : TriggerCallbackPayload<ToDo>
     {
@@ -505,7 +505,7 @@ namespace Azure.Connectors.Sdk.Todo
     /// <summary>
     /// Trigger operation name constants for the Todo connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class TodoTriggerOperations
     {

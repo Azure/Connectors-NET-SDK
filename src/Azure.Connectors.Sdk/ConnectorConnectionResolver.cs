@@ -51,13 +51,13 @@ namespace Azure.Connectors.Sdk
                     !string.IsNullOrWhiteSpace(options.ConnectionName);
 
                 var message = hasPartialConnectorGateway
-                    ? $"Partial Connector Gateway connection settings found for '{connectionSettingName}'. " +
+                    ? $"Partial Connector Namespace connection settings found for '{connectionSettingName}'. " +
                       $"Both '{connectionSettingName}{ConnectorConnectionResolver.ConnectorGatewayNameSuffix}' and " +
                       $"'{connectionSettingName}{ConnectorConnectionResolver.ConnectionNameSuffix}' must be set together."
                     : $"No connection settings found for '{connectionSettingName}'. " +
                       $"Expected either '{connectionSettingName}{ConnectorConnectionResolver.ConnectorGatewayNameSuffix}' + " +
                       $"'{connectionSettingName}{ConnectorConnectionResolver.ConnectionNameSuffix}' " +
-                      $"(Connector Gateway connection) or " +
+                      $"(Connector Namespace connection) or " +
                       $"'{connectionSettingName}{ConnectorConnectionResolver.ConnectionRuntimeUrlSuffix}' (direct connection).";
 
                 throw new ArgumentException(
