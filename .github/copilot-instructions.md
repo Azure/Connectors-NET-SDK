@@ -369,9 +369,104 @@ public async Task MethodName_Scenario_ExpectedResult()
 - Never push directly to main
 - Always create PR for review
 
+## Adding a New Connector
+
+See [GENERATION.md](../GENERATION.md) for how to run the CodefulSdkGenerator.
+
+### Steps
+
+1. Generate: `LogicAppsCompiler <outputDir> unused --directClient --connectors=<connectorName>`
+2. Copy generated `{Connector}Extensions.cs` to `src/Azure.Connectors.Sdk/Generated/`
+3. Update `ConnectorNames.cs` — add constant in alphabetical order
+4. Update `ManagedConnectors.cs` — add entry in alphabetical order
+5. Add unit tests following existing pattern (constructor, dispose, mocked API, error handling, serialization round-trips)
+6. Run all tests: `dotnet test` must pass with zero failures
+   - `ConnectorNames_AllConstantsAreRegistered` test validates sync between ConnectorNames and ManagedConnectors
+7. Update the validated connectors table in `README.md`
+8. Update the connector names list in `.github/skills/connection-setup/SKILL.md`
+9. Update `CHANGELOG.md` under `## [Unreleased]` / `### Added`
+
+### PR checklist for new connector PRs
+
+A complete PR for adding connector client(s) must include:
+
+| File | Change |
+|------|--------|
+| `src/.../Generated/{Connector}Extensions.cs` | Generated code from CodefulSdkGenerator (never hand-edit) |
+| `src/.../ConnectorNames.cs` | New constant(s) in alphabetical order |
+| `src/.../ManagedConnectors.cs` | New registration(s) in alphabetical order |
+| `tests/.../{Connector}ClientTests.cs` | Unit tests: constructor, dispose, mocked API, error, serialization |
+| `README.md` | Connector count updated + new row(s) in validated connectors table |
+| `.github/skills/connection-setup/SKILL.md` | Connector API name added to supported names list |
+| `CHANGELOG.md` | Entry under `## [Unreleased]` / `### Added` |
+
+**Verification before opening PR:**
+```powershell
+dotnet build --nologo      # 0 errors, 0 warnings
+dotnet test --nologo       # all tests pass (including ConnectorNames_AllConstantsAreRegistered)
+dotnet format --verify-no-changes  # clean formatting
+```
+
 ## Releasing a New Version
 
-The release pipeline is hosted in Azure DevOps (`azfunc/internal`) and publishes to nuget.org. The version comes from `eng/build/Version.props` combined with a build-reason suffix (`.dev`, `.ci`, `.pr`) that is stripped for release builds triggered from tags or release branches.
+The NuGet package version is defined in `eng/build/Version.props` (`VersionPrefix` + `VersionSuffix`). The ADO pipeline infrastructure handles building, signing, and publishing.
+
+### Pipeline architecture
+
+Three pipelines run in sequence in `azfunc/internal`:
+
+| Pipeline | ID | Trigger | Purpose |
+|----------|-----|---------|----------|
+| `connectors-sdk.code-mirror` | 1717 | Auto on `release/*`, `v*` tags pushed to GitHub | Mirrors GitHub → internal ADO repo |
+| `connectors-sdk.official` | 1718 | Auto after mirror lands (on `release/*`, `v*` tags) | Builds, tests, signs, produces `.nupkg` artifact |
+| `connectors-sdk.release` | 1719 | **Manual** — run after official-build succeeds | Downloads artifact, validates, publishes to nuget.org |
+
+### Version suffixes and `PublicRelease`
+
+The build appends suffixes based on context (see `eng/build/Version.targets` and `Release.props`):
+
+| Build source | `PublicRelease` | Package version example |
+|--------------|----------------|------------------------|
+| `refs/tags/v*` | `true` | `0.10.0-preview.1` (clean) |
+| `refs/heads/release/*` | `true` (intended) | `0.10.0-preview.1` (clean) |
+| Any other CI build | `false` | `0.10.0-preview.1.ci.26261.7` (has `.ci.` suffix) |
+| Local dev | N/A | `0.10.0-preview.1.dev` |
+
+**Only clean packages (no `.ci.`/`.dev.`/`.pr.` suffix) pass the release pipeline validation gate.**
+
+### Release steps
+
+1. Create `release/v{version}` branch with version bump in `Version.props`, finalized `CHANGELOG.md`, updated `README.md`
+2. Push the release branch: `git push origin release/v{version}`
+3. Tag and push: `git tag v{version} && git push origin v{version}`
+4. Create GitHub Release: `gh release create v{version} --title "v{version}" --prerelease --notes "..."`
+5. Wait for `code-mirror` (1717) to complete for both the branch and tag
+6. Verify `official-build` (1718) runs automatically from the tag — check it produced a clean `.nupkg` (no `.ci.` suffix)
+7. If the tag build is not the latest, re-queue it: `az pipelines run --org $org --project internal --id 1718 --branch "refs/tags/v{version}"`
+8. **Run the release pipeline from `main`:**
+   ```powershell
+   az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1719 --branch "main" --parameters "isReleaseBranchOrTag=True" "publishToNugetOrg=True" --output json | ConvertFrom-Json | Select-Object id, status
+   ```
+   The release pipeline picks up the **latest** `connectors-sdk.official` artifact. It must be the clean tag build.
+9. Approve the release gate (approvers: David Burg, Rama Krishna Rayudu, Varad Meru's Team)
+
+### Critical: release pipeline must run from `main`
+
+**DO:** `az pipelines run ... --branch "main" --parameters "isReleaseBranchOrTag=True" "publishToNugetOrg=True"`
+
+**DO NOT:** `az pipelines run ... --branch "release/v{version}"` or `--branch "refs/tags/v{version}"` — these fail with 0 timeline records (template validation failure).
+
+The release pipeline's `self` repo reference doesn't resolve on tag refs, and running from `release/*` branches silently picks up the wrong artifact. The proven pattern (verified across v0.8.0, v0.9.0, v0.10.0) is to **always run from `main`**.
+
+### GitHub authentication for push
+
+The `Azure/Connectors-NET-SDK` repo requires a personal GitHub account with push access to the Azure org (not an EMU `*_microsoft` account). If push fails with 403:
+```powershell
+gh auth status                      # check which account is active
+gh auth switch --user <personal>    # switch to the account with push access
+git push origin release/v{version}
+git push origin v{version}
+```
 
 ### ADO Pipeline IDs
 

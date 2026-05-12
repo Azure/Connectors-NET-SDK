@@ -243,26 +243,9 @@ LogicAppsCompiler.exe ./generated unused --directClient --connectors=office365,s
 
 ## Releasing a New Version
 
-The version comes from the git tag — there is no version file to update.
+The version is defined in `eng/build/Version.props` (`VersionPrefix` + `VersionSuffix`). Three ADO pipelines in `azfunc/internal` handle mirroring, building/signing, and publishing to nuget.org.
 
-**Standard release:**
-
-```shell
-git checkout main && git pull origin main
-git tag v1.2.3
-git push origin v1.2.3
-```
-
-**Pre-release:**
-
-```shell
-git tag v1.2.3-preview.1
-git push origin v1.2.3-preview.1
-```
-
-The release workflow will build, test, pack, publish to GitHub Packages, and create a GitHub Release with the `.nupkg` attached.
-
-See the [Releasing a New Version](.github/copilot-instructions.md#releasing-a-new-version) section in the copilot instructions for re-release and manual dispatch options.
+See the [Releasing a New Version](.github/copilot-instructions.md#releasing-a-new-version) section in the copilot instructions for the full step-by-step procedure, pipeline IDs, version suffix behavior, and common pitfalls.
 
 ## License
 
