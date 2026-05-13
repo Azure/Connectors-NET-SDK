@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var network = new Network
             {
-                ID = "net-1",
+                Id = "net-1",
                 Name = "Test Network",
             };
 
@@ -101,7 +101,7 @@ namespace Azure.Connectors.Sdk.Tests
             var deserialized = JsonSerializer.Deserialize<Network>(json);
 
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual("net-1", deserialized!.ID);
+            Assert.AreEqual("net-1", deserialized!.Id);
             Assert.AreEqual("Test Network", deserialized.Name);
         }
 
@@ -130,8 +130,8 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var expectedResponse = new List<Network>
             {
-                new Network { ID = "1", Name = "Contoso" },
-                new Network { ID = "2", Name = "Fabrikam" }
+                new Network { Id = "1", Name = "Contoso" },
+                new Network { Id = "2", Name = "Fabrikam" }
             };
 
             using var responseMessage = new HttpResponseMessage

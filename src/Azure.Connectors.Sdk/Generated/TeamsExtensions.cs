@@ -32,7 +32,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>Unique identifier for the event</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>Timestamp the event was created</summary>
         [JsonPropertyName("createdDateTime")]
@@ -188,7 +188,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The unique identifier of the team</summary>
         [JsonPropertyName("id")]
-        public string TeamID { get; set; }
+        public string TeamId { get; set; }
 
         /// <summary>The name of the team</summary>
         [JsonPropertyName("displayName")]
@@ -196,7 +196,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The ID of the Microsoft Entra tenant this team belongs to</summary>
         [JsonPropertyName("tenantId")]
-        public string TenantID { get; set; }
+        public string TenantId { get; set; }
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The unique identifier of the channel</summary>
         [JsonPropertyName("id")]
-        public string ChannelID { get; set; }
+        public string ChannelId { get; set; }
 
         /// <summary>The name of the channel</summary>
         [JsonPropertyName("displayName")]
@@ -285,7 +285,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The channel&apos;s unique identifier</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
     }
 
     /// <summary>
@@ -309,7 +309,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The unique identifier of the channel</summary>
         [JsonPropertyName("id")]
-        public string ChannelID { get; set; }
+        public string ChannelId { get; set; }
 
         /// <summary>The name of the channel</summary>
         [JsonPropertyName("displayName")]
@@ -346,7 +346,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The ID of the team that owns the channel</summary>
         [JsonPropertyName("ownerTeamId")]
-        public string OwnerTeamID { get; set; }
+        public string OwnerTeamId { get; set; }
     }
 
     /// <summary>
@@ -402,11 +402,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>Unique identifier of the tag</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>ID of the team in which the tag is defined</summary>
         [JsonPropertyName("teamId")]
-        public string TeamID { get; set; }
+        public string TeamId { get; set; }
 
         /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
         [JsonPropertyName("displayName")]
@@ -424,7 +424,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
         [JsonPropertyName("userId")]
-        public string UserSID { get; set; }
+        public string UserSId { get; set; }
     }
 
     /// <summary>
@@ -434,7 +434,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>User ID of the member added to the tag</summary>
         [JsonPropertyName("userId")]
-        public string ID { get; set; }
+        public string Id { get; set; }
     }
 
     /// <summary>
@@ -579,9 +579,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
     public class SelectedMessageTriggerMetadata
     {
         /// <summary>TeamsFlowRunContext</summary>
+        [JsonPropertyName("TeamsFlowRunContext")]
         public ObjectEntity TeamsFlowRunContext { get; set; }
 
         /// <summary>CardOutputs</summary>
+        [JsonPropertyName("CardOutputs")]
         public ObjectEntity CardOutputs { get; set; }
     }
 
@@ -591,9 +593,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
     public class ComposeMessageTriggerMetadata
     {
         /// <summary>TeamsFlowRunContext</summary>
+        [JsonPropertyName("TeamsFlowRunContext")]
         public ObjectEntity TeamsFlowRunContext { get; set; }
 
         /// <summary>CardOutputs</summary>
+        [JsonPropertyName("CardOutputs")]
         public ObjectEntity CardOutputs { get; set; }
     }
 
@@ -603,9 +607,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
     public class CardResponseTriggerMetadata
     {
         /// <summary>TeamsFlowRunContext</summary>
+        [JsonPropertyName("TeamsFlowRunContext")]
         public ObjectEntity TeamsFlowRunContext { get; set; }
 
         /// <summary>CardOutputs</summary>
+        [JsonPropertyName("CardOutputs")]
         public ObjectEntity CardOutputs { get; set; }
     }
 
@@ -616,7 +622,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The unique identifier of the team</summary>
         [JsonPropertyName("id")]
-        public string TeamID { get; set; }
+        public string TeamId { get; set; }
 
         /// <summary>The name of the team</summary>
         [JsonPropertyName("displayName")]
@@ -628,7 +634,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The internal ID of the team</summary>
         [JsonPropertyName("internalId")]
-        public string InternalID { get; set; }
+        public string InternalId { get; set; }
 
         /// <summary>A hyperlink that will go to the team in the Microsoft Teams client</summary>
         [JsonPropertyName("webUrl")]
@@ -774,7 +780,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>Unique id of the user</summary>
         [JsonPropertyName("id")]
-        public string UserID { get; set; }
+        public string UserId { get; set; }
     }
 
     /// <summary>
@@ -784,7 +790,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The chat&apos;s unique identifier</summary>
         [JsonPropertyName("id")]
-        public string ConversationID { get; set; }
+        public string ConversationId { get; set; }
     }
 
     /// <summary>
@@ -812,7 +818,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>Team ID of the team that was just created</summary>
         [JsonPropertyName("newTeamId")]
-        public string NewTeamID { get; set; }
+        public string NewTeamId { get; set; }
     }
 
     /// <summary>
@@ -850,7 +856,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>Unique message ID</summary>
         [JsonPropertyName("id")]
-        public string MessageID { get; set; }
+        public string MessageId { get; set; }
 
         /// <summary>Link to the message in Microsoft Teams</summary>
         [JsonPropertyName("messageLink")]
@@ -858,7 +864,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The chat&apos;s unique identifier</summary>
         [JsonPropertyName("conversationId")]
-        public string ConversationID { get; set; }
+        public string ConversationId { get; set; }
     }
 
     /// <summary>
@@ -1542,7 +1548,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         {
             return new NewMeetingResponse
             {
-                ID = id,
+                Id = id,
                 CreatedTimestamp = createdTimestamp,
                 LastModifiedTimestamp = lastModifiedTimestamp,
                 Categories = categories,
@@ -1607,15 +1613,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="AssociatedTeamInfo"/>.
         /// </summary>
         public static AssociatedTeamInfo AssociatedTeamInfo(
-            string teamID = default,
+            string teamId = default,
             string displayName = default,
-            string tenantID = default)
+            string tenantId = default)
         {
             return new AssociatedTeamInfo
             {
-                TeamID = teamID,
+                TeamId = teamId,
                 DisplayName = displayName,
-                TenantID = tenantID,
+                TenantId = tenantId,
             };
         }
 
@@ -1637,7 +1643,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="GetChannelResponse"/>.
         /// </summary>
         public static GetChannelResponse GetChannelResponse(
-            string channelID = default,
+            string channelId = default,
             string displayName = default,
             string descriptionOfChannel = default,
             string theEmailAddressForTheChannel = default,
@@ -1649,7 +1655,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         {
             return new GetChannelResponse
             {
-                ChannelID = channelID,
+                ChannelId = channelId,
                 DisplayName = displayName,
                 DescriptionOfChannel = descriptionOfChannel,
                 TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
@@ -1687,7 +1693,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 Description = description,
                 DisplayName = displayName,
-                ID = id,
+                Id = id,
             };
         }
 
@@ -1709,7 +1715,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="ChannelWithOwnerTeamId"/>.
         /// </summary>
         public static ChannelWithOwnerTeamId ChannelWithOwnerTeamId(
-            string channelID = default,
+            string channelId = default,
             string displayName = default,
             string descriptionOfChannel = default,
             string theEmailAddressForTheChannel = default,
@@ -1718,11 +1724,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string sharePointFolderURLForChannel = default,
             DateTime? channelCreationTime = default,
             MembershipType? theTypeOfTheChannel = default,
-            string ownerTeamID = default)
+            string ownerTeamId = default)
         {
             return new ChannelWithOwnerTeamId
             {
-                ChannelID = channelID,
+                ChannelId = channelId,
                 DisplayName = displayName,
                 DescriptionOfChannel = descriptionOfChannel,
                 TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
@@ -1731,7 +1737,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 SharePointFolderURLForChannel = sharePointFolderURLForChannel,
                 ChannelCreationTime = channelCreationTime,
                 TheTypeOfTheChannel = theTypeOfTheChannel,
-                OwnerTeamID = ownerTeamID,
+                OwnerTeamId = ownerTeamId,
             };
         }
 
@@ -1783,15 +1789,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static CreateTagResponseSchema CreateTagResponseSchema(
             string type = default,
             string id = default,
-            string teamID = default,
+            string teamId = default,
             string displayName = default,
             int? memberCount = default)
         {
             return new CreateTagResponseSchema
             {
                 Type = type,
-                ID = id,
-                TeamID = teamID,
+                Id = id,
+                TeamId = teamId,
                 DisplayName = displayName,
                 MemberCount = memberCount,
             };
@@ -1801,11 +1807,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
         /// </summary>
         public static AddMemberToTagInput AddMemberToTagInput(
-            string userSID = default)
+            string userSId = default)
         {
             return new AddMemberToTagInput
             {
-                UserSID = userSID,
+                UserSId = userSId,
             };
         }
 
@@ -1817,7 +1823,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         {
             return new AddMemberToTagResponseSchema
             {
-                ID = id,
+                Id = id,
             };
         }
 
@@ -1985,10 +1991,10 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="GetTeamResponse"/>.
         /// </summary>
         public static GetTeamResponse GetTeamResponse(
-            string teamID = default,
+            string teamId = default,
             string displayName = default,
             string descriptionOfTeam = default,
-            string internalID = default,
+            string internalId = default,
             string teamSWebUrl = default,
             bool? archived = default,
             MemberSettings memberSettings = default,
@@ -1999,10 +2005,10 @@ namespace Azure.Connectors.Sdk.Teams.Models
         {
             return new GetTeamResponse
             {
-                TeamID = teamID,
+                TeamId = teamId,
                 DisplayName = displayName,
                 DescriptionOfTeam = descriptionOfTeam,
-                InternalID = internalID,
+                InternalId = internalId,
                 TeamSWebUrl = teamSWebUrl,
                 Archived = archived,
                 MemberSettings = memberSettings,
@@ -2113,11 +2119,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="OnGroupMemberChangeResponseItem"/>.
         /// </summary>
         public static OnGroupMemberChangeResponseItem OnGroupMemberChangeResponseItem(
-            string userID = default)
+            string userId = default)
         {
             return new OnGroupMemberChangeResponseItem
             {
-                UserID = userID,
+                UserId = userId,
             };
         }
 
@@ -2125,11 +2131,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="NewChatResponse"/>.
         /// </summary>
         public static NewChatResponse NewChatResponse(
-            string conversationID = default)
+            string conversationId = default)
         {
             return new NewChatResponse
             {
-                ConversationID = conversationID,
+                ConversationId = conversationId,
             };
         }
 
@@ -2153,11 +2159,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="CreateATeamResponse"/>.
         /// </summary>
         public static CreateATeamResponse CreateATeamResponse(
-            string newTeamID = default)
+            string newTeamId = default)
         {
             return new CreateATeamResponse
             {
-                NewTeamID = newTeamID,
+                NewTeamId = newTeamId,
             };
         }
 
@@ -2193,15 +2199,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="PostToConversationResponse"/>.
         /// </summary>
         public static PostToConversationResponse PostToConversationResponse(
-            string messageID = default,
+            string messageId = default,
             string messageLink = default,
-            string conversationID = default)
+            string conversationId = default)
         {
             return new PostToConversationResponse
             {
-                MessageID = messageID,
+                MessageId = messageId,
                 MessageLink = messageLink,
-                ConversationID = conversationID,
+                ConversationId = conversationId,
             };
         }
 
@@ -2396,7 +2402,7 @@ namespace Azure.Connectors.Sdk.Teams
     /// <summary>
     /// Trigger operation name constants for the Teams connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class TeamsTriggerOperations
     {
@@ -2453,7 +2459,7 @@ namespace Azure.Connectors.Sdk.Teams
 
     /// <summary>
     /// Trigger input parameter name constants for the Teams connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class TeamsTriggerParameters
     {
@@ -2825,11 +2831,11 @@ namespace Azure.Connectors.Sdk.Teams
         /// <remarks>Deletes a member from a team tag</remarks>
         /// <param name="team">Team</param>
         /// <param name="tag">Tag</param>
-        /// <param name="tagMemberID">Tag Member ID</param>
+        /// <param name="tagMemberId">Tag Member ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberId, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberID.ToString())}";
+            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -3192,13 +3198,13 @@ namespace Azure.Connectors.Sdk.Teams
         /// Get messages in a chat
         /// </summary>
         /// <remarks>Retrieves messages from a one on one or group chat</remarks>
-        /// <param name="conversationID">Conversation ID</param>
+        /// <param name="conversationId">Conversation ID</param>
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="orderBy">Order By</param>
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
-        public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationID, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationId, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
@@ -3207,7 +3213,7 @@ namespace Azure.Connectors.Sdk.Teams
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
             if (top != default)
                 queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-            var path = $"/beta/chats/{Uri.EscapeDataString(conversationID.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/beta/chats/{Uri.EscapeDataString(conversationId.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
                 ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -3266,11 +3272,11 @@ namespace Azure.Connectors.Sdk.Teams
         /// <remarks>Removes a direct member from a channel in Microsoft Teams</remarks>
         /// <param name="team">Team</param>
         /// <param name="channel">Channel</param>
-        /// <param name="membershipID">Membership ID</param>
+        /// <param name="membershipId">Membership ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipID, CancellationToken cancellationToken = default)
+        public virtual async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipID.ToString())}";
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -3505,3 +3511,4 @@ namespace Azure.Connectors.Sdk.Teams
 
     #endregion Client
 }
+

@@ -1694,7 +1694,7 @@ namespace Azure.Connectors.Sdk.TextRequest
     /// <summary>
     /// Trigger operation name constants for the TextRequest connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class TextRequestTriggerOperations
     {
@@ -2342,3 +2342,4 @@ namespace Azure.Connectors.Sdk.TextRequest
 
     #endregion Client
 }
+

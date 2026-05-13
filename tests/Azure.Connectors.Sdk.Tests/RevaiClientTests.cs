@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .TranscriptionGetAsync(iD: "j1", cancellationToken: CancellationToken.None)
+                .TranscriptionGetAsync(id: "j1", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.TranscriptionGetAsync(iD: "j1", cancellationToken: CancellationToken.None))
+                client.TranscriptionGetAsync(id: "j1", cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 

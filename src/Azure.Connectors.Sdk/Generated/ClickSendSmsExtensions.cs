@@ -1001,7 +1001,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
     /// <summary>
     /// Trigger operation name constants for the ClickSendSms connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class ClickSendSmsTriggerOperations
     {
@@ -1136,12 +1136,12 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// Delete List
         /// </summary>
         /// <remarks>Delete a specific contact list</remarks>
-        /// <param name="listID">List ID</param>
+        /// <param name="listId">List ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete List response.</returns>
-        public virtual async Task<DeleteListResponse> DeleteListAsync(int listID, CancellationToken cancellationToken = default)
+        public virtual async Task<DeleteListResponse> DeleteListAsync(int listId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listID.ToString())}";
+            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}";
             return await this
                 .CallConnectorAsync<DeleteListResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1151,13 +1151,13 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// Create New Contact
         /// </summary>
         /// <remarks>Create New Contact</remarks>
-        /// <param name="listID">List ID</param>
+        /// <param name="listId">List ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create New Contact response.</returns>
-        public virtual async Task<CreateListContactResponse> CreateListContactAsync(int listID, CreateListContactInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateListContactResponse> CreateListContactAsync(int listId, CreateListContactInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listID.ToString())}/contacts";
+            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
             return await this
                 .CallConnectorAsync<CreateListContactResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1167,12 +1167,12 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// Get Contacts in a List
         /// </summary>
         /// <remarks>Get all Contacts in a List</remarks>
-        /// <param name="listID">List ID</param>
+        /// <param name="listId">List ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Contacts in a List response.</returns>
-        public virtual async Task<ViewListContactsResponse> ViewListContactsAsync(int listID, CancellationToken cancellationToken = default)
+        public virtual async Task<ViewListContactsResponse> ViewListContactsAsync(int listId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listID.ToString())}/contacts";
+            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
             return await this
                 .CallConnectorAsync<ViewListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1182,13 +1182,13 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// Delete a Contact
         /// </summary>
         /// <remarks>Delete a Contact</remarks>
-        /// <param name="listID">List ID</param>
-        /// <param name="contactID">Contact ID</param>
+        /// <param name="listId">List ID</param>
+        /// <param name="contactId">Contact ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete a Contact response.</returns>
-        public virtual async Task<DeleteListContactResponse> DeleteListContactAsync(int listID, int contactID, CancellationToken cancellationToken = default)
+        public virtual async Task<DeleteListContactResponse> DeleteListContactAsync(int listId, int contactId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listID.ToString())}/contacts/{Uri.EscapeDataString(contactID.ToString())}";
+            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts/{Uri.EscapeDataString(contactId.ToString())}";
             return await this
                 .CallConnectorAsync<DeleteListContactResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1295,3 +1295,4 @@ namespace Azure.Connectors.Sdk.ClickSendSms
 
     #endregion Client
 }
+

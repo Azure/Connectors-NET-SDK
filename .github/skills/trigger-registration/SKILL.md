@@ -1,26 +1,26 @@
 ---
 name: trigger-registration
-description: 'Register Connector Gateway trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur, creating a .NET Function App project with ConnectorTrigger, or wiring post-deploy trigger config scripts. Covers function app scaffolding, trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill).'
+description: 'Register Connector Namespace trigger configs for SDK-supported connectors. USE WHEN: setting up polling triggers (e.g., OnNewEmail, OnNewFile, OnUpdatedFile) that call back to an Azure Function when events occur, creating a .NET Function App project with ConnectorTrigger, or wiring post-deploy trigger config scripts. Covers function app scaffolding, trigger config creation, callback URL wiring, parameter discovery, and binary vs metadata payload handling. NOT FOR: connection setup (use connection-setup skill).'
 ---
 
-# Connector Gateway Trigger Registration
+# Connector Namespace Trigger Registration
 
-Registers polling trigger configs on a Connector Gateway so that connector events (new email, new file, etc.) call back to your Azure Function endpoint. Also covers scaffolding a .NET Function App project with the connector extension packages.
+Registers polling trigger configs on a Connector Namespace so that connector events (new email, new file, etc.) call back to your Azure Function endpoint. Also covers scaffolding a .NET Function App project with the connector extension packages.
 
 ## When to Use
 
 - Developer needs a connector trigger (e.g., "when a new file is created in OneDrive")
-- Developer has an existing Connector Gateway connection (use the `connection-setup` skill first if not)
+- Developer has an existing Connector Namespace connection (use the `connection-setup` skill first if not)
 - Developer needs to wire up the callback URL from a deployed Azure Function
 - Developer needs to understand binary vs metadata trigger payload shapes
 
 ## Prerequisites
 
 - Azure CLI installed and authenticated (`az login`)
-- Connector Gateway with a connected connector (see `connection-setup` skill)
-- The gateway must have a **system-assigned managed identity** enabled (required for trigger callback authentication)
+- Connector Namespace with a connected connector (see `connection-setup` skill)
+- The Connector Namespace must have a **system-assigned managed identity** enabled (required for trigger callback authentication)
 - Deployed Azure Function App with a connector trigger function
-- **Supported regions** for Connector Gateway: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the gateway `location` must be in a supported region; the Function App can be in any region.
+- **Supported regions** for Connector Namespace: `brazilsouth`, `centraluseuap`, `eastus2euap`, `centralusstage`, `eastusstage`. Only the Connector Namespace `location` must be in a supported region; the Function App can be in any region.
 - For .NET: the Function App project must reference:
   - `Microsoft.Azure.Functions.Worker.Extensions.Connector` — provides the `[ConnectorTrigger]` attribute
   - `Azure.Connectors.Sdk` — provides typed connector clients and trigger payload types
@@ -29,10 +29,10 @@ Registers polling trigger configs on a Connector Gateway so that connector event
 
 ### Trigger Config vs Connection
 
-Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the Connector Gateway to **poll** the connector for events and **POST callbacks** to your function when events occur.
+Connections (managed by the `connection-setup` skill) authenticate your app to the connector API. Trigger configs tell the Connector Namespace to **poll** the connector for events and **POST callbacks** to your function when events occur.
 
 ```text
-Connector Gateway
+Connector Namespace
 ├── connections/
 │   └── onedrive-test          ← auth + runtime URL (connection-setup skill)
 └── triggerConfigs/
@@ -190,8 +190,8 @@ az rest --method GET `
 ```powershell
 $subscriptionId = "<subscription-id>"
 $resourceGroup = "<resource-group>"
-$gatewayName = "<gateway-name>"
-$gwId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName"
+$namespaceName = "<namespace-name>"
+$nsId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName"
 
 $triggerName = "<trigger-config-name>"   # e.g., "onedrive-newfile-binary"
 $connectionName = "<connection-name>"    # e.g., "onedrive-test"
@@ -224,7 +224,7 @@ $body = @{
     }
 } | ConvertTo-Json -Depth 4
 
-$uri = "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
+$uri = "https://management.azure.com${nsId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
 try {
     $response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
         -ContentType "application/json" `
@@ -252,7 +252,7 @@ Expected: HTTP 201 Created.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
     --query "properties.{operation:operationName, state:state, hasCallback:notificationDetails.callbackUrl!=null}" `
     -o table
 ```
@@ -263,7 +263,7 @@ Expected: `state = Enabled`, `hasCallback = True`.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${gwId}/triggerConfigs?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com${nsId}/triggerConfigs?api-version=2026-05-01-preview" `
     --query "value[].{name:name, operation:properties.operationName, state:properties.state}" `
     -o table
 ```
@@ -281,7 +281,7 @@ Invoke-RestMethod -Uri "$baseUrl/onedrive/upload?code=$functionKey" `
     -Method POST -Body $uploadBody -ContentType "application/json"
 ```
 
-The Connector Gateway polls the connector every 1-5 minutes. After polling detects the new content, it POSTs the trigger payload to your callback URL.
+The Connector Namespace polls the connector every 1-5 minutes. After polling detects the new content, it POSTs the trigger payload to your callback URL.
 
 ### Step 7: Verify Callback Received
 

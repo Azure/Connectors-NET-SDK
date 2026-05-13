@@ -100,12 +100,12 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var channel = TeamsModelFactory.GetChannelResponse(
-                channelID: "channel-789",
+                channelId: "channel-789",
                 displayName: "General",
                 channelCreationTime: creationTime);
 
             // Assert
-            Assert.AreEqual("channel-789", channel.ChannelID);
+            Assert.AreEqual("channel-789", channel.ChannelId);
             Assert.AreEqual("General", channel.DisplayName);
             Assert.AreEqual(creationTime, channel.ChannelCreationTime);
         }
@@ -182,14 +182,14 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void TeamsModelFactory_CreateATeamResponse_SetsNewTeamID()
+        public void TeamsModelFactory_CreateATeamResponse_SetsNewTeamId()
         {
             // Act
             var response = TeamsModelFactory.CreateATeamResponse(
-                newTeamID: "team-new-123");
+                newTeamId: "team-new-123");
 
             // Assert
-            Assert.AreEqual("team-new-123", response.NewTeamID);
+            Assert.AreEqual("team-new-123", response.NewTeamId);
         }
 
         [TestMethod]
@@ -202,7 +202,7 @@ namespace Azure.Connectors.Sdk.Tests
                 lastModifiedTimestamp: "2025-06-01T10:05:00Z");
 
             // Assert
-            Assert.AreEqual("meeting-001", meeting.ID);
+            Assert.AreEqual("meeting-001", meeting.Id);
             Assert.AreEqual("2025-06-01T10:00:00Z", meeting.CreatedTimestamp);
             Assert.AreEqual("2025-06-01T10:05:00Z", meeting.LastModifiedTimestamp);
         }

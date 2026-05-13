@@ -108,12 +108,11 @@ namespace Azure.Connectors.Sdk.Tests
             // Act
             var result = await client
                 .QueryDataAsync(
-                    input: "Heartbeat | take 10",
+                    input: new QueryDataInput { Query = "Heartbeat | take 10" },
                     subscription: "sub-1",
                     resourceGroup: "rg-1",
                     resourceType: "Microsoft.OperationalInsights/workspaces",
                     resourceName: "my-workspace",
-                    timeRange: "Last 24 hours",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
@@ -168,12 +167,11 @@ namespace Azure.Connectors.Sdk.Tests
                 .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
                         .QueryDataAsync(
-                            input: "invalid query |||",
+                            input: new QueryDataInput { Query = "invalid query |||" },
                             subscription: "sub-1",
                             resourceGroup: "rg-1",
                             resourceType: "Microsoft.OperationalInsights/workspaces",
                             resourceName: "my-workspace",
-                            timeRange: "Last 24 hours",
                             cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -229,12 +227,11 @@ namespace Azure.Connectors.Sdk.Tests
             // Act
             var result = await client
                 .VisualizeQueryAsync(
-                    input: "Heartbeat | summarize count() by Computer",
+                    input: new VisualizeQueryInput { Query = "Heartbeat | summarize count() by Computer" },
                     subscription: "sub-1",
                     resourceGroup: "rg-1",
                     resourceType: "Microsoft.OperationalInsights/workspaces",
                     resourceName: "my-workspace",
-                    timeRange: "Last 24 hours",
                     chartType: "piechart",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -308,7 +305,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(attribute, message: "Row should have [DynamicSchema] attribute.");
-            Assert.AreEqual("QuerySchema", attribute!.OperationId);
+            Assert.AreEqual("QuerySchemaV2", attribute!.OperationId);
         }
 
         [TestMethod]
@@ -340,7 +337,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Query = "Heartbeat | summarize count()",
                 TimeRangeType = "Relative",
-                Timerange = "Last 24 hours"
+                TimeRange = "Last 24 hours"
             };
 
             // Act
@@ -361,7 +358,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Query = "Heartbeat | summarize count() by Computer",
                 TimeRangeType = "Relative",
-                Timerange = "Last 7 days"
+                TimeRange = "Last 7 days"
             };
 
             // Act
@@ -371,7 +368,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("Heartbeat | summarize count() by Computer", deserialized!.Query);
-            Assert.AreEqual("Last 7 days", deserialized.Timerange?.ToString());
+            Assert.AreEqual("Last 7 days", deserialized.TimeRange?.ToString());
         }
 
         [TestMethod]

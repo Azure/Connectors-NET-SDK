@@ -24,74 +24,94 @@ namespace Azure.Connectors.Sdk.Mq.Models
     #region Types
 
     /// <summary>
-    /// Response for Browse message
+    /// Response for Delete message (v2)
     /// </summary>
     public class Item
     {
         /// <summary>ItemInternalId</summary>
+        [JsonPropertyName("ItemInternalId")]
         public string ItemInternalId { get; set; }
 
         /// <summary>MessageData</summary>
+        [JsonPropertyName("MessageData")]
         public string MessageData { get; set; }
 
         /// <summary>MessageId</summary>
+        [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
         /// <summary>CorrelationId</summary>
+        [JsonPropertyName("CorrelationId")]
         public string CorrelationId { get; set; }
 
         /// <summary>PutDateTime</summary>
+        [JsonPropertyName("PutDateTime")]
         [JsonInclude]
         public DateTime? PutDateTime { get; internal set; }
 
         /// <summary>UserIdentifier</summary>
+        [JsonPropertyName("UserIdentifier")]
         public string UserIdentifier { get; set; }
 
         /// <summary>PutApplicationName</summary>
+        [JsonPropertyName("PutApplicationName")]
         public string PutApplicationName { get; set; }
 
         /// <summary>PutApplicationType</summary>
+        [JsonPropertyName("PutApplicationType")]
         public string PutApplicationType { get; set; }
 
         /// <summary>Format</summary>
+        [JsonPropertyName("Format")]
         public string Format { get; set; }
 
         /// <summary>AccountingToken</summary>
+        [JsonPropertyName("AccountingToken")]
         public string AccountingToken { get; set; }
 
         /// <summary>Ccsid</summary>
+        [JsonPropertyName("Ccsid")]
         public int? Ccsid { get; set; }
 
         /// <summary>GroupId</summary>
+        [JsonPropertyName("GroupId")]
         public string GroupId { get; set; }
 
         /// <summary>LogicalSequenceNumber</summary>
+        [JsonPropertyName("LogicalSequenceNumber")]
         public int? LogicalSequenceNumber { get; set; }
 
         /// <summary>MessageType</summary>
+        [JsonPropertyName("MessageType")]
         public string MessageType { get; set; }
 
         /// <summary>Offset</summary>
+        [JsonPropertyName("Offset")]
         public int? Offset { get; set; }
 
         /// <summary>OriginalLength</summary>
+        [JsonPropertyName("OriginalLength")]
         public int? OriginalLength { get; set; }
 
         /// <summary>Persistence</summary>
+        [JsonPropertyName("Persistence")]
         public string Persistence { get; set; }
 
         /// <summary>Priority</summary>
+        [JsonPropertyName("Priority")]
         public int? Priority { get; set; }
 
         /// <summary>ReplyToQueue</summary>
+        [JsonPropertyName("ReplyToQueue")]
         public string ReplyToQueue { get; set; }
 
         /// <summary>ReplyToQueueManager</summary>
+        [JsonPropertyName("ReplyToQueueManager")]
         public string ReplyToQueueManager { get; set; }
     }
 
     /// <summary>
-    /// Response for Browse messages
+    /// Response for Delete messages (v2)
     /// </summary>
     public class ItemsList
     {
@@ -101,20 +121,24 @@ namespace Azure.Connectors.Sdk.Mq.Models
     }
 
     /// <summary>
-    /// Response for Send message
+    /// Response for Send message (v2)
     /// </summary>
     public class SendResponse
     {
         /// <summary>ItemInternalId</summary>
+        [JsonPropertyName("ItemInternalId")]
         public string ItemInternalId { get; set; }
 
         /// <summary>MessageData</summary>
+        [JsonPropertyName("MessageData")]
         public string MessageData { get; set; }
 
         /// <summary>MessageId</summary>
+        [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
         /// <summary>CorrelationId</summary>
+        [JsonPropertyName("CorrelationId")]
         public string CorrelationId { get; set; }
     }
 
@@ -124,30 +148,39 @@ namespace Azure.Connectors.Sdk.Mq.Models
     public class SingleGetValidOptions
     {
         /// <summary>When specified, overrides the queue defined in the connection.</summary>
+        [JsonPropertyName("Queue")]
         public string Queue { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("CorrelationId")]
         public string CorrelationId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("GroupId")]
         public string GroupId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 16 bytes.</summary>
+        [JsonPropertyName("MessageToken")]
         public string MessageToken { get; set; }
 
         /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
+        [JsonPropertyName("Offset")]
         public double? Offset { get; set; }
 
         /// <summary>Sequence number of a logical message within a group.</summary>
+        [JsonPropertyName("LogicalSequenceNumber")]
         public double? LogicalSequenceNumber { get; set; }
 
         /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
+        [JsonPropertyName("IncludeInfo")]
         public IncludeInfo? IncludeInfo { get; set; }
 
         /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
+        [JsonPropertyName("Timeout")]
         public string Timeout { get; set; }
     }
 
@@ -157,33 +190,43 @@ namespace Azure.Connectors.Sdk.Mq.Models
     public class MultipleGetValidOptions
     {
         /// <summary>When specified, overrides the queue defined in the connection.</summary>
+        [JsonPropertyName("Queue")]
         public string Queue { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("CorrelationId")]
         public string CorrelationId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("GroupId")]
         public string GroupId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 16 bytes.</summary>
+        [JsonPropertyName("MessageToken")]
         public string MessageToken { get; set; }
 
         /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
+        [JsonPropertyName("Offset")]
         public double? Offset { get; set; }
 
         /// <summary>Sequence number of a logical message within a group.</summary>
+        [JsonPropertyName("LogicalSequenceNumber")]
         public double? LogicalSequenceNumber { get; set; }
 
         /// <summary>Indicates if additional message info should be included. Expects true or false.</summary>
+        [JsonPropertyName("IncludeInfo")]
         public IncludeInfo? IncludeInfo { get; set; }
 
         /// <summary>Wait time for a message to appear in the queue, expects an XML duration or hh:mm:ss.</summary>
+        [JsonPropertyName("Timeout")]
         public string Timeout { get; set; }
 
         /// <summary>Maximum number of messages to be retrieved from the queue.</summary>
+        [JsonPropertyName("BatchSize")]
         public double? BatchSize { get; set; }
     }
 
@@ -193,33 +236,43 @@ namespace Azure.Connectors.Sdk.Mq.Models
     public class SendValidDataOptions
     {
         /// <summary>When specified, overrides the queue defined in the connection.</summary>
+        [JsonPropertyName("Queue")]
         public string Queue { get; set; }
 
         /// <summary>Message data</summary>
+        [JsonPropertyName("Message")]
         public string Message { get; set; }
 
         /// <summary>Message type</summary>
+        [JsonPropertyName("MessageType")]
         public MessageType? MessageType { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("CorrelationId")]
         public string CorrelationId { get; set; }
 
         /// <summary>Base64 string that represents a byte array with 24 bytes.</summary>
+        [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
         /// <summary>Reply-to queue</summary>
+        [JsonPropertyName("ReplyToQueue")]
         public string ReplyToQueue { get; set; }
 
         /// <summary>Reply-to queue manager</summary>
+        [JsonPropertyName("ReplyToQueueManager")]
         public string ReplyToQueueManager { get; set; }
 
         /// <summary>Character set for the message.</summary>
+        [JsonPropertyName("CodeCharSetId")]
         public double? CodeCharSetId { get; set; }
 
         /// <summary>Offset in bytes of the data in the physical message from the start of the logical message.</summary>
+        [JsonPropertyName("Offset")]
         public double? Offset { get; set; }
 
         /// <summary>Format field for the message.</summary>
+        [JsonPropertyName("Format")]
         public string Format { get; set; }
     }
 
@@ -570,105 +623,105 @@ namespace Azure.Connectors.Sdk.Mq
         public override string ConnectorName => "mq";
 
         /// <summary>
-        /// Browse message
-        /// </summary>
-        /// <remarks>Browse one message from the queue.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Browse message response.</returns>
-        public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/read";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Browse messages
-        /// </summary>
-        /// <remarks>Browse messages in a queue.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Browse messages response.</returns>
-        public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/readall";
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Receive message
-        /// </summary>
-        /// <remarks>Returns one message from the queue, by doing a destructive get.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Receive message response.</returns>
-        public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/receive";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Receive messages
-        /// </summary>
-        /// <remarks>Returns messages from the queue, by doing a destructive get.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Receive messages response.</returns>
-        public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/receiveall";
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete message
+        /// Delete message (v2)
         /// </summary>
         /// <remarks>Deletes one message from the queue, by doing a destructive get.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete message response.</returns>
+        /// <returns>The Delete message (v2) response.</returns>
         public virtual async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/delete";
+            var path = $"/v2/delete";
             return await this
                 .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
-        /// Delete messages
+        /// Delete messages (v2)
         /// </summary>
         /// <remarks>Deletes messages from the queue, by doing a destructive get.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete messages response.</returns>
+        /// <returns>The Delete messages (v2) response.</returns>
         public virtual async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/deleteall";
+            var path = $"/v2/deleteall";
             return await this
                 .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
         /// <summary>
-        /// Send message
+        /// Browse message (v2)
+        /// </summary>
+        /// <remarks>Browse one message from the queue.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Browse message (v2) response.</returns>
+        public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/read";
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Browse messages (v2)
+        /// </summary>
+        /// <remarks>Browse messages in a queue.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Browse messages (v2) response.</returns>
+        public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/readall";
+            return await this
+                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Receive message (v2)
+        /// </summary>
+        /// <remarks>Returns one message from the queue, by doing a destructive get.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Receive message (v2) response.</returns>
+        public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/receive";
+            return await this
+                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Receive messages (v2)
+        /// </summary>
+        /// <remarks>Returns messages from the queue, by doing a destructive get.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Receive messages (v2) response.</returns>
+        public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
+        {
+            var path = $"/v2/receiveall";
+            return await this
+                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Send message (v2)
         /// </summary>
         /// <remarks>Send a message to a queue.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send message response.</returns>
+        /// <returns>The Send message (v2) response.</returns>
         public virtual async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/send";
+            var path = $"/v2/send";
             return await this
                 .CallConnectorAsync<SendResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -678,3 +731,4 @@ namespace Azure.Connectors.Sdk.Mq
 
     #endregion Client
 }
+

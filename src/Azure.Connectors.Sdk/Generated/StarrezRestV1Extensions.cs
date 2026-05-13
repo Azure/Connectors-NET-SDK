@@ -45,107 +45,139 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Address type of the entry&apos;s active address record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>The gender of the entry at birth.</summary>
         [JsonPropertyName("Birth_GenderEnum")]
         public BirthGenderEnum? BirthGenderEnum { get; set; }
 
         /// <summary>Pointer to the active booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>The category that the entry belongs to.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>The email that is used to identify a student through Conference registration.</summary>
+        [JsonPropertyName("ConferenceEmail")]
         public string ConferenceEmail { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
         [JsonPropertyName("CreatedBy_SecurityUserID")]
-        public int? CreatedBySecurityUserID { get; set; }
+        public int? CreatedBySecurityUserId { get; set; }
 
         /// <summary>DateCreated</summary>
+        [JsonPropertyName("DateCreated")]
         public object DateCreated { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Determines if the entry has elected to remain private.</summary>
+        [JsonPropertyName("DirectoryFlagPrivacy")]
         public bool? DirectoryFlagPrivacy { get; set; }
 
         /// <summary>DOB</summary>
+        [JsonPropertyName("DOB")]
         public object DOB { get; set; }
 
         /// <summary>Pointer to the active application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Unique ID for this Entry field.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>The status of the entry.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Pointer to the event record.</summary>
-        public int? EventID { get; set; }
+        [JsonPropertyName("EventID")]
+        public int? EventId { get; set; }
 
         /// <summary>Entry gender.</summary>
+        [JsonPropertyName("GenderEnum")]
         public GenderEnum? GenderEnum { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID1")]
         public string ID1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID2")]
         public string ID2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID3")]
         public string ID3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID4")]
         public int? ID4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID5")]
         public int? ID5 { get; set; }
 
         /// <summary>LastCheckInOutDate</summary>
+        [JsonPropertyName("LastCheckInOutDate")]
         public object LastCheckInOutDate { get; set; }
 
         /// <summary>The first or given name of the entry.</summary>
+        [JsonPropertyName("NameFirst")]
         public string NameFirst { get; set; }
 
         /// <summary>Name initials.</summary>
+        [JsonPropertyName("NameInitials")]
         public string NameInitials { get; set; }
 
         /// <summary>The surname, family name or last name of the entry.</summary>
+        [JsonPropertyName("NameLast")]
         public string NameLast { get; set; }
 
         /// <summary>Alternative name.</summary>
+        [JsonPropertyName("NameOther")]
         public string NameOther { get; set; }
 
         /// <summary>Preferred name.</summary>
+        [JsonPropertyName("NamePreferred")]
         public string NamePreferred { get; set; }
 
         /// <summary>Additional occupant name.</summary>
+        [JsonPropertyName("NameSharer")]
         public string NameSharer { get; set; }
 
         /// <summary>The title or salutation of the entry.</summary>
+        [JsonPropertyName("NameTitle")]
         public string NameTitle { get; set; }
 
         /// <summary>A name to display for this entry on the Web.</summary>
+        [JsonPropertyName("NameWeb")]
         public string NameWeb { get; set; }
 
         /// <summary>Personal Identification Number.</summary>
+        [JsonPropertyName("PinNumber")]
         public int? PinNumber { get; set; }
 
         /// <summary>User identification used to identify the entry in PortalX. This could be an email, username or other identifier.</summary>
-        public string PortalAuthProviderUserID { get; set; }
+        [JsonPropertyName("PortalAuthProviderUserID")]
+        public string PortalAuthProviderUserId { get; set; }
 
         /// <summary>The email that is used by the student to login to the portal.</summary>
+        [JsonPropertyName("PortalEmail")]
         public string PortalEmail { get; set; }
 
         /// <summary>Entry position in the institution.</summary>
+        [JsonPropertyName("Position")]
         public string Position { get; set; }
 
         /// <summary>The previous entry status.</summary>
@@ -153,9 +185,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public PreviousEntryStatusEnum? PreviousEntryStatusEnum { get; set; }
 
         /// <summary>Tax exemption.</summary>
+        [JsonPropertyName("TaxExemptionEnum")]
         public TaxExemptionEnum? TaxExemptionEnum { get; set; }
 
         /// <summary>Testing User.</summary>
+        [JsonPropertyName("Testing")]
         public bool? Testing { get; set; }
     }
 
@@ -165,100 +199,131 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateEntryInput
     {
         /// <summary>Address type of the entry&apos;s active address record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>The gender of the entry at birth.</summary>
         [JsonPropertyName("Birth_GenderEnum")]
         public BirthGenderEnum? BirthGenderEnum { get; set; }
 
         /// <summary>Pointer to the active booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>The category that the entry belongs to.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>The email that is used to identify a student through Conference registration.</summary>
+        [JsonPropertyName("ConferenceEmail")]
         public string ConferenceEmail { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Determines if the entry has elected to remain private.</summary>
+        [JsonPropertyName("DirectoryFlagPrivacy")]
         public bool? DirectoryFlagPrivacy { get; set; }
 
         /// <summary>Date of birth.</summary>
+        [JsonPropertyName("DOB")]
         public DateTime? DOB { get; set; }
 
         /// <summary>Pointer to the active application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Unique ID for this Entry field.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>The status of the entry.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Pointer to the event record.</summary>
-        public int? EventID { get; set; }
+        [JsonPropertyName("EventID")]
+        public int? EventId { get; set; }
 
         /// <summary>Entry gender.</summary>
+        [JsonPropertyName("GenderEnum")]
         public GenderEnum? GenderEnum { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID1")]
         public string ID1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID2")]
         public string ID2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID3")]
         public string ID3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID4")]
         public int? ID4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID5")]
         public int? ID5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
+        [JsonPropertyName("LastCheckInOutDate")]
         public DateTime? LastCheckInOutDate { get; set; }
 
         /// <summary>The first or given name of the entry.</summary>
+        [JsonPropertyName("NameFirst")]
         public string NameFirst { get; set; }
 
         /// <summary>Name initials.</summary>
+        [JsonPropertyName("NameInitials")]
         public string NameInitials { get; set; }
 
         /// <summary>The surname, family name or last name of the entry.</summary>
+        [JsonPropertyName("NameLast")]
         public string NameLast { get; set; }
 
         /// <summary>Alternative name.</summary>
+        [JsonPropertyName("NameOther")]
         public string NameOther { get; set; }
 
         /// <summary>Preferred name.</summary>
+        [JsonPropertyName("NamePreferred")]
         public string NamePreferred { get; set; }
 
         /// <summary>Additional occupant name.</summary>
+        [JsonPropertyName("NameSharer")]
         public string NameSharer { get; set; }
 
         /// <summary>The title or salutation of the entry.</summary>
+        [JsonPropertyName("NameTitle")]
         public string NameTitle { get; set; }
 
         /// <summary>A name to display for this entry on the Web.</summary>
+        [JsonPropertyName("NameWeb")]
         public string NameWeb { get; set; }
 
         /// <summary>Password</summary>
+        [JsonPropertyName("Password")]
         public string Password { get; set; }
 
         /// <summary>Personal Identification Number.</summary>
+        [JsonPropertyName("PinNumber")]
         public int? PinNumber { get; set; }
 
         /// <summary>User identification used to identify the entry in PortalX. This could be an email, username or other identifier.</summary>
-        public string PortalAuthProviderUserID { get; set; }
+        [JsonPropertyName("PortalAuthProviderUserID")]
+        public string PortalAuthProviderUserId { get; set; }
 
         /// <summary>The email that is used by the student to login to the portal.</summary>
+        [JsonPropertyName("PortalEmail")]
         public string PortalEmail { get; set; }
 
         /// <summary>Entry position in the institution.</summary>
+        [JsonPropertyName("Position")]
         public string Position { get; set; }
 
         /// <summary>The previous entry status.</summary>
@@ -266,9 +331,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public PreviousEntryStatusEnum? PreviousEntryStatusEnum { get; set; }
 
         /// <summary>Tax exemption.</summary>
+        [JsonPropertyName("TaxExemptionEnum")]
         public TaxExemptionEnum? TaxExemptionEnum { get; set; }
 
         /// <summary>Testing User.</summary>
+        [JsonPropertyName("Testing")]
         public bool? Testing { get; set; }
     }
 
@@ -278,100 +345,131 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateEntryResponse
     {
         /// <summary>Address type of the entry&apos;s active address record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>The gender of the entry at birth.</summary>
         [JsonPropertyName("Birth_GenderEnum")]
         public string BirthGenderEnum { get; set; }
 
         /// <summary>Pointer to the active booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>The category that the entry belongs to.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>The email that is used to identify a student through Conference registration.</summary>
+        [JsonPropertyName("ConferenceEmail")]
         public string ConferenceEmail { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Determines if the entry has elected to remain private.</summary>
+        [JsonPropertyName("DirectoryFlagPrivacy")]
         public bool? DirectoryFlagPrivacy { get; set; }
 
         /// <summary>Date of birth.</summary>
+        [JsonPropertyName("DOB")]
         public string DOB { get; set; }
 
         /// <summary>Pointer to the active application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Unique ID for this Entry field.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>The status of the entry.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public string EntryStatusEnum { get; set; }
 
         /// <summary>Pointer to the event record.</summary>
-        public int? EventID { get; set; }
+        [JsonPropertyName("EventID")]
+        public int? EventId { get; set; }
 
         /// <summary>Entry gender.</summary>
+        [JsonPropertyName("GenderEnum")]
         public string GenderEnum { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID1")]
         public string ID1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID2")]
         public string ID2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID3")]
         public string ID3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID4")]
         public int? ID4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID5")]
         public int? ID5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
+        [JsonPropertyName("LastCheckInOutDate")]
         public string LastCheckInOutDate { get; set; }
 
         /// <summary>The first or given name of the entry.</summary>
+        [JsonPropertyName("NameFirst")]
         public string NameFirst { get; set; }
 
         /// <summary>Initials in name.</summary>
+        [JsonPropertyName("NameInitials")]
         public string NameInitials { get; set; }
 
         /// <summary>The surname, family name or last name of the entry.</summary>
+        [JsonPropertyName("NameLast")]
         public string NameLast { get; set; }
 
         /// <summary>Alternative name.</summary>
+        [JsonPropertyName("NameOther")]
         public string NameOther { get; set; }
 
         /// <summary>Preferred name.</summary>
+        [JsonPropertyName("NamePreferred")]
         public string NamePreferred { get; set; }
 
         /// <summary>Additional occupant name.</summary>
+        [JsonPropertyName("NameSharer")]
         public string NameSharer { get; set; }
 
         /// <summary>The title or salutation of the entry.</summary>
+        [JsonPropertyName("NameTitle")]
         public string NameTitle { get; set; }
 
         /// <summary>A name to display for this entry on the Web.</summary>
+        [JsonPropertyName("NameWeb")]
         public string NameWeb { get; set; }
 
         /// <summary>Password</summary>
+        [JsonPropertyName("Password")]
         public string Password { get; set; }
 
         /// <summary>Personal Identification Number.</summary>
+        [JsonPropertyName("PinNumber")]
         public int? PinNumber { get; set; }
 
         /// <summary>User identification used to identify the entry in PortalX. This could be an email, username or other identifier.</summary>
-        public string PortalAuthProviderUserID { get; set; }
+        [JsonPropertyName("PortalAuthProviderUserID")]
+        public string PortalAuthProviderUserId { get; set; }
 
         /// <summary>Portal email.</summary>
+        [JsonPropertyName("PortalEmail")]
         public string PortalEmail { get; set; }
 
         /// <summary>Entry position in the institution.</summary>
+        [JsonPropertyName("Position")]
         public string Position { get; set; }
 
         /// <summary>The previous entry status.</summary>
@@ -379,9 +477,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string PreviousEntryStatusEnum { get; set; }
 
         /// <summary>Tax exemption.</summary>
+        [JsonPropertyName("TaxExemptionEnum")]
         public string TaxExemptionEnum { get; set; }
 
         /// <summary>Testing user.</summary>
+        [JsonPropertyName("Testing")]
         public bool? Testing { get; set; }
     }
 
@@ -391,100 +491,131 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryInput
     {
         /// <summary>Address type of the entry&apos;s active address record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>The gender of the entry at birth.</summary>
         [JsonPropertyName("Birth_GenderEnum")]
         public BirthGenderEnum? BirthGenderEnum { get; set; }
 
         /// <summary>Pointer to the active booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>The category that the entry belongs to.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>The email that is used to identify a student through Conference registration.</summary>
+        [JsonPropertyName("ConferenceEmail")]
         public string ConferenceEmail { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Determines if the entry has elected to remain private.</summary>
+        [JsonPropertyName("DirectoryFlagPrivacy")]
         public bool? DirectoryFlagPrivacy { get; set; }
 
         /// <summary>Date of birth.</summary>
+        [JsonPropertyName("DOB")]
         public DateTime? DOB { get; set; }
 
         /// <summary>Pointer to the active application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Unique ID for this Entry field.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>The status of the entry.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Pointer to the event record.</summary>
-        public int? EventID { get; set; }
+        [JsonPropertyName("EventID")]
+        public int? EventId { get; set; }
 
         /// <summary>Entry gender.</summary>
+        [JsonPropertyName("GenderEnum")]
         public GenderEnum? GenderEnum { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID1")]
         public string ID1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID2")]
         public string ID2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID3")]
         public string ID3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID4")]
         public int? ID4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID5")]
         public int? ID5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
+        [JsonPropertyName("LastCheckInOutDate")]
         public DateTime? LastCheckInOutDate { get; set; }
 
         /// <summary>The first or given name of the entry.</summary>
+        [JsonPropertyName("NameFirst")]
         public string NameFirst { get; set; }
 
         /// <summary>Name initials.</summary>
+        [JsonPropertyName("NameInitials")]
         public string NameInitials { get; set; }
 
         /// <summary>The surname, family name or last name of the entry.</summary>
+        [JsonPropertyName("NameLast")]
         public string NameLast { get; set; }
 
         /// <summary>Alternative name.</summary>
+        [JsonPropertyName("NameOther")]
         public string NameOther { get; set; }
 
         /// <summary>Preferred name.</summary>
+        [JsonPropertyName("NamePreferred")]
         public string NamePreferred { get; set; }
 
         /// <summary>Additional occupant name.</summary>
+        [JsonPropertyName("NameSharer")]
         public string NameSharer { get; set; }
 
         /// <summary>The title or salutation of the entry.</summary>
+        [JsonPropertyName("NameTitle")]
         public string NameTitle { get; set; }
 
         /// <summary>A name to display for this entry on the Web.</summary>
+        [JsonPropertyName("NameWeb")]
         public string NameWeb { get; set; }
 
         /// <summary>Password</summary>
+        [JsonPropertyName("Password")]
         public string Password { get; set; }
 
         /// <summary>Personal Identification Number.</summary>
+        [JsonPropertyName("PinNumber")]
         public int? PinNumber { get; set; }
 
         /// <summary>User identification used to identify the entry in PortalX. This could be an email, username or other identifier.</summary>
-        public string PortalAuthProviderUserID { get; set; }
+        [JsonPropertyName("PortalAuthProviderUserID")]
+        public string PortalAuthProviderUserId { get; set; }
 
         /// <summary>The email that is used by the student to login to the portal.</summary>
+        [JsonPropertyName("PortalEmail")]
         public string PortalEmail { get; set; }
 
         /// <summary>Entry position in the institution.</summary>
+        [JsonPropertyName("Position")]
         public string Position { get; set; }
 
         /// <summary>The previous entry status.</summary>
@@ -492,9 +623,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public PreviousEntryStatusEnum? PreviousEntryStatusEnum { get; set; }
 
         /// <summary>Tax exemption.</summary>
+        [JsonPropertyName("TaxExemptionEnum")]
         public TaxExemptionEnum? TaxExemptionEnum { get; set; }
 
         /// <summary>Testing User.</summary>
+        [JsonPropertyName("Testing")]
         public bool? Testing { get; set; }
     }
 
@@ -504,100 +637,131 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryResponse
     {
         /// <summary>Pointer to this entry&apos;s active address record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>The gender of the entry at birth.</summary>
         [JsonPropertyName("Birth_GenderEnum")]
         public string BirthGenderEnum { get; set; }
 
         /// <summary>Pointer to the active booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>The category that the entry belongs to.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>The email that is used to identify a student through Conference registration.</summary>
+        [JsonPropertyName("ConferenceEmail")]
         public string ConferenceEmail { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Determines if the entry has elected to remain private.</summary>
+        [JsonPropertyName("DirectoryFlagPrivacy")]
         public bool? DirectoryFlagPrivacy { get; set; }
 
         /// <summary>Date of birth.</summary>
+        [JsonPropertyName("DOB")]
         public string DOB { get; set; }
 
         /// <summary>Pointer to the active application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Unique ID for this Entry field.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>The status of the entry.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public string EntryStatusEnum { get; set; }
 
         /// <summary>Pointer to the event record.</summary>
-        public int? EventID { get; set; }
+        [JsonPropertyName("EventID")]
+        public int? EventId { get; set; }
 
         /// <summary>Entry gender.</summary>
+        [JsonPropertyName("GenderEnum")]
         public string GenderEnum { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID1")]
         public string ID1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID2")]
         public string ID2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID3")]
         public string ID3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID4")]
         public int? ID4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
+        [JsonPropertyName("ID5")]
         public int? ID5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
+        [JsonPropertyName("LastCheckInOutDate")]
         public string LastCheckInOutDate { get; set; }
 
         /// <summary>The first or given name of the entry.</summary>
+        [JsonPropertyName("NameFirst")]
         public string NameFirst { get; set; }
 
         /// <summary>Name initials.</summary>
+        [JsonPropertyName("NameInitials")]
         public string NameInitials { get; set; }
 
         /// <summary>The surname, family name or last name of the entry.</summary>
+        [JsonPropertyName("NameLast")]
         public string NameLast { get; set; }
 
         /// <summary>Alternative name.</summary>
+        [JsonPropertyName("NameOther")]
         public string NameOther { get; set; }
 
         /// <summary>Preferred name.</summary>
+        [JsonPropertyName("NamePreferred")]
         public string NamePreferred { get; set; }
 
         /// <summary>Additional occupant name.</summary>
+        [JsonPropertyName("NameSharer")]
         public string NameSharer { get; set; }
 
         /// <summary>The title or salutation of the entry.</summary>
+        [JsonPropertyName("NameTitle")]
         public string NameTitle { get; set; }
 
         /// <summary>A name to display for this entry on the Web.</summary>
+        [JsonPropertyName("NameWeb")]
         public string NameWeb { get; set; }
 
         /// <summary>Password</summary>
+        [JsonPropertyName("Password")]
         public string Password { get; set; }
 
         /// <summary>Personal Identification Number.</summary>
+        [JsonPropertyName("PinNumber")]
         public int? PinNumber { get; set; }
 
         /// <summary>User identification used to identify the entry in PortalX. This could be an email, username or other identifier.</summary>
-        public string PortalAuthProviderUserID { get; set; }
+        [JsonPropertyName("PortalAuthProviderUserID")]
+        public string PortalAuthProviderUserId { get; set; }
 
         /// <summary>The email that is used by the student to login to the portal.</summary>
+        [JsonPropertyName("PortalEmail")]
         public string PortalEmail { get; set; }
 
         /// <summary>Entry position in the institution.</summary>
+        [JsonPropertyName("Position")]
         public string Position { get; set; }
 
         /// <summary>The previous entry status.</summary>
@@ -605,9 +769,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string PreviousEntryStatusEnum { get; set; }
 
         /// <summary>Tax exemption.</summary>
+        [JsonPropertyName("TaxExemptionEnum")]
         public string TaxExemptionEnum { get; set; }
 
         /// <summary>Testing User.</summary>
+        [JsonPropertyName("Testing")]
         public bool? Testing { get; set; }
     }
 
@@ -645,33 +811,43 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Pointer to the custom field definition record.</summary>
-        public int? CustomFieldDefinitionID { get; set; }
+        [JsonPropertyName("CustomFieldDefinitionID")]
+        public int? CustomFieldDefinitionId { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Unique ID for this entry custom field record.</summary>
-        public int? EntryCustomFieldID { get; set; }
+        [JsonPropertyName("EntryCustomFieldID")]
+        public int? EntryCustomFieldId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Field data type.</summary>
+        [JsonPropertyName("FieldDataTypeEnum")]
         public FieldDataTypeEnum? FieldDataTypeEnum { get; set; }
 
         /// <summary>Boolean value.</summary>
+        [JsonPropertyName("ValueBoolean")]
         public bool? ValueBoolean { get; set; }
 
         /// <summary>ValueDate</summary>
+        [JsonPropertyName("ValueDate")]
         public object ValueDate { get; set; }
 
         /// <summary>Integer value.</summary>
+        [JsonPropertyName("ValueInteger")]
         public int? ValueInteger { get; set; }
 
         /// <summary>Money value.</summary>
+        [JsonPropertyName("ValueMoney")]
         public double? ValueMoney { get; set; }
 
         /// <summary>String value.</summary>
+        [JsonPropertyName("ValueString")]
         public string ValueString { get; set; }
     }
 
@@ -681,30 +857,39 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryCustomFieldInput
     {
         /// <summary>Pointer to the custom field definition record.</summary>
-        public int? CustomFieldDefinitionID { get; set; }
+        [JsonPropertyName("CustomFieldDefinitionID")]
+        public int? CustomFieldDefinitionId { get; set; }
 
         /// <summary>Unique ID for this entry custom field record.</summary>
-        public int? EntryCustomFieldID { get; set; }
+        [JsonPropertyName("EntryCustomFieldID")]
+        public int? EntryCustomFieldId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Field data type.</summary>
+        [JsonPropertyName("FieldDataTypeEnum")]
         public FieldDataTypeEnum? FieldDataTypeEnum { get; set; }
 
         /// <summary>Boolean value.</summary>
+        [JsonPropertyName("ValueBoolean")]
         public bool? ValueBoolean { get; set; }
 
         /// <summary>Date value.</summary>
+        [JsonPropertyName("ValueDate")]
         public DateTime? ValueDate { get; set; }
 
         /// <summary>Integer value.</summary>
+        [JsonPropertyName("ValueInteger")]
         public int? ValueInteger { get; set; }
 
         /// <summary>Money value.</summary>
+        [JsonPropertyName("ValueMoney")]
         public double? ValueMoney { get; set; }
 
         /// <summary>String value.</summary>
+        [JsonPropertyName("ValueString")]
         public string ValueString { get; set; }
     }
 
@@ -714,30 +899,39 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryCustomFieldResponse
     {
         /// <summary>Pointer to the custom field definition record.</summary>
-        public int? CustomFieldDefinitionID { get; set; }
+        [JsonPropertyName("CustomFieldDefinitionID")]
+        public int? CustomFieldDefinitionId { get; set; }
 
         /// <summary>Unique ID for this entry custom field record.</summary>
-        public int? EntryCustomFieldID { get; set; }
+        [JsonPropertyName("EntryCustomFieldID")]
+        public int? EntryCustomFieldId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Field data type.</summary>
+        [JsonPropertyName("FieldDataTypeEnum")]
         public string FieldDataTypeEnum { get; set; }
 
         /// <summary>Boolean value.</summary>
+        [JsonPropertyName("ValueBoolean")]
         public bool? ValueBoolean { get; set; }
 
         /// <summary>Date value.</summary>
+        [JsonPropertyName("ValueDate")]
         public string ValueDate { get; set; }
 
         /// <summary>Integer value.</summary>
+        [JsonPropertyName("ValueInteger")]
         public int? ValueInteger { get; set; }
 
         /// <summary>Money value.</summary>
+        [JsonPropertyName("ValueMoney")]
         public double? ValueMoney { get; set; }
 
         /// <summary>String value.</summary>
+        [JsonPropertyName("ValueString")]
         public string ValueString { get; set; }
     }
 
@@ -763,39 +957,51 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Current active state.</summary>
+        [JsonPropertyName("Active")]
         public bool? Active { get; set; }
 
         /// <summary>ActiveDateClose</summary>
+        [JsonPropertyName("ActiveDateClose")]
         public object ActiveDateClose { get; set; }
 
         /// <summary>ActiveDateOpen</summary>
+        [JsonPropertyName("ActiveDateOpen")]
         public object ActiveDateOpen { get; set; }
 
         /// <summary>Pointer to the category record.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>Term comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Term description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Record type.</summary>
+        [JsonPropertyName("RecordTypeEnum")]
         public RecordTypeEnum? RecordTypeEnum { get; set; }
 
         /// <summary>Term code.</summary>
+        [JsonPropertyName("TermCode")]
         public string TermCode { get; set; }
 
         /// <summary>Unique ID for this term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Pointer to the term type record.</summary>
-        public int? TermTypeID { get; set; }
+        [JsonPropertyName("TermTypeID")]
+        public int? TermTypeId { get; set; }
 
         /// <summary>Term displayed in the Portal.</summary>
+        [JsonPropertyName("WebDescription")]
         public string WebDescription { get; set; }
     }
 
@@ -821,72 +1027,95 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>ActiveDateEnd</summary>
+        [JsonPropertyName("ActiveDateEnd")]
         public object ActiveDateEnd { get; set; }
 
         /// <summary>ActiveDateStart</summary>
+        [JsonPropertyName("ActiveDateStart")]
         public object ActiveDateStart { get; set; }
 
         /// <summary>Pointer to the address type record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>City</summary>
+        [JsonPropertyName("City")]
         public string City { get; set; }
 
         /// <summary>Address comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact name.</summary>
+        [JsonPropertyName("ContactName")]
         public string ContactName { get; set; }
 
         /// <summary>Contact name 2.</summary>
+        [JsonPropertyName("ContactName2")]
         public string ContactName2 { get; set; }
 
         /// <summary>Pointer to the country record.</summary>
-        public int? CountryID { get; set; }
+        [JsonPropertyName("CountryID")]
+        public int? CountryId { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Email</summary>
+        [JsonPropertyName("Email")]
         public string Email { get; set; }
 
         /// <summary>Unique ID for this entry address record.</summary>
-        public int? EntryAddressID { get; set; }
+        [JsonPropertyName("EntryAddressID")]
+        public int? EntryAddressId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Phone</summary>
+        [JsonPropertyName("Phone")]
         public string Phone { get; set; }
 
         /// <summary>Mobile/Cell</summary>
+        [JsonPropertyName("PhoneMobileCell")]
         public string PhoneMobileCell { get; set; }
 
         /// <summary>Alternative phone.</summary>
+        [JsonPropertyName("PhoneOther")]
         public string PhoneOther { get; set; }
 
         /// <summary>Alternative phone 2.</summary>
+        [JsonPropertyName("PhoneOther2")]
         public string PhoneOther2 { get; set; }
 
         /// <summary>Reference</summary>
+        [JsonPropertyName("Reference")]
         public string Reference { get; set; }
 
         /// <summary>Relationship this address has to the entry.</summary>
+        [JsonPropertyName("Relationship")]
         public string Relationship { get; set; }
 
         /// <summary>Salutation</summary>
+        [JsonPropertyName("Salutation")]
         public string Salutation { get; set; }
 
         /// <summary>State/Province</summary>
+        [JsonPropertyName("StateProvince")]
         public string StateProvince { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street")]
         public string Street { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street2")]
         public string Street2 { get; set; }
 
         /// <summary>Zip/Postcode</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -896,69 +1125,91 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryAddressInput
     {
         /// <summary>End active date.</summary>
+        [JsonPropertyName("ActiveDateEnd")]
         public DateTime? ActiveDateEnd { get; set; }
 
         /// <summary>Date when this address becomes active.</summary>
+        [JsonPropertyName("ActiveDateStart")]
         public DateTime? ActiveDateStart { get; set; }
 
         /// <summary>Pointer to the address type record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>City</summary>
+        [JsonPropertyName("City")]
         public string City { get; set; }
 
         /// <summary>Address comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact name.</summary>
+        [JsonPropertyName("ContactName")]
         public string ContactName { get; set; }
 
         /// <summary>Contact name 2.</summary>
+        [JsonPropertyName("ContactName2")]
         public string ContactName2 { get; set; }
 
         /// <summary>Pointer to the country record.</summary>
-        public int? CountryID { get; set; }
+        [JsonPropertyName("CountryID")]
+        public int? CountryId { get; set; }
 
         /// <summary>Email</summary>
+        [JsonPropertyName("Email")]
         public string Email { get; set; }
 
         /// <summary>Unique ID for this entry address record.</summary>
-        public int? EntryAddressID { get; set; }
+        [JsonPropertyName("EntryAddressID")]
+        public int? EntryAddressId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Phone</summary>
+        [JsonPropertyName("Phone")]
         public string Phone { get; set; }
 
         /// <summary>Mobile/Cell</summary>
+        [JsonPropertyName("PhoneMobileCell")]
         public string PhoneMobileCell { get; set; }
 
         /// <summary>Alternative phone.</summary>
+        [JsonPropertyName("PhoneOther")]
         public string PhoneOther { get; set; }
 
         /// <summary>Alternative phone 2.</summary>
+        [JsonPropertyName("PhoneOther2")]
         public string PhoneOther2 { get; set; }
 
         /// <summary>Reference</summary>
+        [JsonPropertyName("Reference")]
         public string Reference { get; set; }
 
         /// <summary>Relationship this address has to the entry.</summary>
+        [JsonPropertyName("Relationship")]
         public string Relationship { get; set; }
 
         /// <summary>Salutation</summary>
+        [JsonPropertyName("Salutation")]
         public string Salutation { get; set; }
 
         /// <summary>State/Province</summary>
+        [JsonPropertyName("StateProvince")]
         public string StateProvince { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street")]
         public string Street { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street2")]
         public string Street2 { get; set; }
 
         /// <summary>Zip/Postcode</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -968,69 +1219,91 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryAddressResponse
     {
         /// <summary>End active date.</summary>
+        [JsonPropertyName("ActiveDateEnd")]
         public string ActiveDateEnd { get; set; }
 
         /// <summary>Date when this address becomes active.</summary>
+        [JsonPropertyName("ActiveDateStart")]
         public string ActiveDateStart { get; set; }
 
         /// <summary>Pointer to the address type record.</summary>
-        public int? AddressTypeID { get; set; }
+        [JsonPropertyName("AddressTypeID")]
+        public int? AddressTypeId { get; set; }
 
         /// <summary>City</summary>
+        [JsonPropertyName("City")]
         public string City { get; set; }
 
         /// <summary>Address comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact name.</summary>
+        [JsonPropertyName("ContactName")]
         public string ContactName { get; set; }
 
         /// <summary>Contact name 2.</summary>
+        [JsonPropertyName("ContactName2")]
         public string ContactName2 { get; set; }
 
         /// <summary>Pointer to the country record.</summary>
-        public int? CountryID { get; set; }
+        [JsonPropertyName("CountryID")]
+        public int? CountryId { get; set; }
 
         /// <summary>Email</summary>
+        [JsonPropertyName("Email")]
         public string Email { get; set; }
 
         /// <summary>Unique ID for this entry address record.</summary>
-        public int? EntryAddressID { get; set; }
+        [JsonPropertyName("EntryAddressID")]
+        public int? EntryAddressId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Phone</summary>
+        [JsonPropertyName("Phone")]
         public string Phone { get; set; }
 
         /// <summary>Mobile/Cell</summary>
+        [JsonPropertyName("PhoneMobileCell")]
         public string PhoneMobileCell { get; set; }
 
         /// <summary>Alternative phone.</summary>
+        [JsonPropertyName("PhoneOther")]
         public string PhoneOther { get; set; }
 
         /// <summary>Alternative phone 2.</summary>
+        [JsonPropertyName("PhoneOther2")]
         public string PhoneOther2 { get; set; }
 
         /// <summary>Reference</summary>
+        [JsonPropertyName("Reference")]
         public string Reference { get; set; }
 
         /// <summary>Relationship this address has to the entry.</summary>
+        [JsonPropertyName("Relationship")]
         public string Relationship { get; set; }
 
         /// <summary>Salutation</summary>
+        [JsonPropertyName("Salutation")]
         public string Salutation { get; set; }
 
         /// <summary>State/Province</summary>
+        [JsonPropertyName("StateProvince")]
         public string StateProvince { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street")]
         public string Street { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street2")]
         public string Street2 { get; set; }
 
         /// <summary>Zip/Postcode</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -1056,178 +1329,231 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Allocate option.</summary>
+        [JsonPropertyName("AllocateOptionEnum")]
         public AllocateOptionEnum? AllocateOptionEnum { get; set; }
 
         /// <summary>ApplicationDate</summary>
+        [JsonPropertyName("ApplicationDate")]
         public object ApplicationDate { get; set; }
 
         /// <summary>Pointer to the application status record.</summary>
-        public int? ApplicationStatusID { get; set; }
+        [JsonPropertyName("ApplicationStatusID")]
+        public int? ApplicationStatusId { get; set; }
 
         /// <summary>CancelDate</summary>
+        [JsonPropertyName("CancelDate")]
         public object CancelDate { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Application comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Internal comments.</summary>
+        [JsonPropertyName("CommentsInternal")]
         public string CommentsInternal { get; set; }
 
         /// <summary>CompleteDate</summary>
+        [JsonPropertyName("CompleteDate")]
         public object CompleteDate { get; set; }
 
         /// <summary>ContractSignedDate</summary>
+        [JsonPropertyName("ContractSignedDate")]
         public object ContractSignedDate { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>CustomDate1</summary>
+        [JsonPropertyName("CustomDate1")]
         public object CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
+        [JsonPropertyName("CustomDate2")]
         public object CustomDate2 { get; set; }
 
         /// <summary>CustomDate3</summary>
+        [JsonPropertyName("CustomDate3")]
         public object CustomDate3 { get; set; }
 
         /// <summary>CustomDate4</summary>
+        [JsonPropertyName("CustomDate4")]
         public object CustomDate4 { get; set; }
 
         /// <summary>DateCreated</summary>
+        [JsonPropertyName("DateCreated")]
         public object DateCreated { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>EnquiryDate</summary>
+        [JsonPropertyName("EnquiryDate")]
         public object EnquiryDate { get; set; }
 
         /// <summary>Unique ID for this entry application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>ExpectedArrivalDate</summary>
+        [JsonPropertyName("ExpectedArrivalDate")]
         public object ExpectedArrivalDate { get; set; }
 
         /// <summary>ExpectedArrivalDateLatest</summary>
+        [JsonPropertyName("ExpectedArrivalDateLatest")]
         public object ExpectedArrivalDateLatest { get; set; }
 
         /// <summary>ExpectedDepartureDate</summary>
+        [JsonPropertyName("ExpectedDepartureDate")]
         public object ExpectedDepartureDate { get; set; }
 
         /// <summary>OfferedDate</summary>
+        [JsonPropertyName("OfferedDate")]
         public object OfferedDate { get; set; }
 
         /// <summary>OfferReplyDate</summary>
+        [JsonPropertyName("OfferReplyDate")]
         public object OfferReplyDate { get; set; }
 
         /// <summary>Offer reply.</summary>
+        [JsonPropertyName("OfferReplyEnum")]
         public OfferReplyEnum? OfferReplyEnum { get; set; }
 
         /// <summary>Offer reply reason.</summary>
+        [JsonPropertyName("OfferReplyReason")]
         public string OfferReplyReason { get; set; }
 
         /// <summary>OfferSentDate</summary>
+        [JsonPropertyName("OfferSentDate")]
         public object OfferSentDate { get; set; }
 
         /// <summary>Whether this application is just for the portal to track progress.</summary>
+        [JsonPropertyName("PortalTrackingOnly")]
         public bool? PortalTrackingOnly { get; set; }
 
         /// <summary>Preference comments.</summary>
+        [JsonPropertyName("PreferenceComments")]
         public string PreferenceComments { get; set; }
 
         /// <summary>Application rating.</summary>
+        [JsonPropertyName("Rating")]
         public string Rating { get; set; }
 
         /// <summary>ReceivedDate</summary>
+        [JsonPropertyName("ReceivedDate")]
         public object ReceivedDate { get; set; }
 
         /// <summary>Indicates if the deposit has been received.</summary>
+        [JsonPropertyName("ReceivedDeposit")]
         public bool? ReceivedDeposit { get; set; }
 
         /// <summary>Date deposit was waived.</summary>
+        [JsonPropertyName("ReceivedDepositWaived")]
         public bool? ReceivedDepositWaived { get; set; }
 
         /// <summary>Pointer to the payment record for the received fee.</summary>
         [JsonPropertyName("ReceivedDeposit_PaymentID")]
-        public int? ReceivedDepositPaymentID { get; set; }
+        public int? ReceivedDepositPaymentId { get; set; }
 
         /// <summary>Most recent fee payment that was attempted.</summary>
         [JsonPropertyName("ReceivedDeposit_WebPaymentID")]
-        public int? ReceivedDepositWebPaymentID { get; set; }
+        public int? ReceivedDepositWebPaymentId { get; set; }
 
         /// <summary>Received deposit amount.</summary>
+        [JsonPropertyName("ReceivedDepositAmount")]
         public double? ReceivedDepositAmount { get; set; }
 
         /// <summary>ReceivedDepositDate</summary>
+        [JsonPropertyName("ReceivedDepositDate")]
         public object ReceivedDepositDate { get; set; }
 
         /// <summary>Indicates if the fee has been received.</summary>
+        [JsonPropertyName("ReceivedFee")]
         public bool? ReceivedFee { get; set; }
 
         /// <summary>Pointer to the payment record for the received fee.</summary>
         [JsonPropertyName("ReceivedFee_PaymentID")]
-        public int? ReceivedFeePaymentID { get; set; }
+        public int? ReceivedFeePaymentId { get; set; }
 
         /// <summary>Most recent fee payment that was attempted.</summary>
         [JsonPropertyName("ReceivedFee_WebPaymentID")]
-        public int? ReceivedFeeWebPaymentID { get; set; }
+        public int? ReceivedFeeWebPaymentId { get; set; }
 
         /// <summary>Received fee amount.</summary>
+        [JsonPropertyName("ReceivedFeeAmount")]
         public double? ReceivedFeeAmount { get; set; }
 
         /// <summary>ReceivedFeeDate</summary>
+        [JsonPropertyName("ReceivedFeeDate")]
         public object ReceivedFeeDate { get; set; }
 
         /// <summary>ReceivedPhotoDate</summary>
+        [JsonPropertyName("ReceivedPhotoDate")]
         public object ReceivedPhotoDate { get; set; }
 
         /// <summary>Indicates if the entry has been here before and is returning.</summary>
+        [JsonPropertyName("Returning")]
         public bool? Returning { get; set; }
 
         /// <summary>Description the applicant can write which is displayed in the roommate module.</summary>
+        [JsonPropertyName("RoomMateDescription")]
         public string RoomMateDescription { get; set; }
 
         /// <summary>Pointer to the Roommate group record.</summary>
-        public int? RoommateGroupID { get; set; }
+        [JsonPropertyName("RoommateGroupID")]
+        public int? RoommateGroupId { get; set; }
 
         /// <summary>Order that group members should be processed in.</summary>
+        [JsonPropertyName("RoomMateGroupSortOrder")]
         public int? RoomMateGroupSortOrder { get; set; }
 
         /// <summary>Whether to include this applicant in roommate searches.</summary>
+        [JsonPropertyName("RoomMateShowInSearch")]
         public bool? RoomMateShowInSearch { get; set; }
 
         /// <summary>Room preference comments.</summary>
+        [JsonPropertyName("RoomPreferenceComments")]
         public string RoomPreferenceComments { get; set; }
 
         /// <summary>Room selection number.</summary>
+        [JsonPropertyName("RoomSelectionNumber")]
         public int? RoomSelectionNumber { get; set; }
 
         /// <summary>Room selection timeslot.</summary>
+        [JsonPropertyName("RoomSelectionTimeslot")]
         public string RoomSelectionTimeslot { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Defines the period this application is for.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Indicates if this application was created on the web.</summary>
+        [JsonPropertyName("Web")]
         public bool? Web { get; set; }
     }
 
@@ -1237,172 +1563,223 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateEntryApplicationInput
     {
         /// <summary>Allocate option.</summary>
+        [JsonPropertyName("AllocateOptionEnum")]
         public AllocateOptionEnum? AllocateOptionEnum { get; set; }
 
         /// <summary>Date of application.</summary>
+        [JsonPropertyName("ApplicationDate")]
         public DateTime? ApplicationDate { get; set; }
 
         /// <summary>Pointer to the application status record.</summary>
-        public int? ApplicationStatusID { get; set; }
+        [JsonPropertyName("ApplicationStatusID")]
+        public int? ApplicationStatusId { get; set; }
 
         /// <summary>Cancellation date.</summary>
+        [JsonPropertyName("CancelDate")]
         public DateTime? CancelDate { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Application comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Internal comments.</summary>
+        [JsonPropertyName("CommentsInternal")]
         public string CommentsInternal { get; set; }
 
         /// <summary>Completion date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public DateTime? CompleteDate { get; set; }
 
         /// <summary>Date contract was signed.</summary>
+        [JsonPropertyName("ContractSignedDate")]
         public DateTime? ContractSignedDate { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public DateTime? CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public DateTime? CustomDate4 { get; set; }
 
         /// <summary>Date of enquiry.</summary>
+        [JsonPropertyName("EnquiryDate")]
         public DateTime? EnquiryDate { get; set; }
 
         /// <summary>Unique ID for this entry application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Date entry is expected to arrive.</summary>
+        [JsonPropertyName("ExpectedArrivalDate")]
         public DateTime? ExpectedArrivalDate { get; set; }
 
         /// <summary>Latest expected arrival date.</summary>
+        [JsonPropertyName("ExpectedArrivalDateLatest")]
         public DateTime? ExpectedArrivalDateLatest { get; set; }
 
         /// <summary>Date entry is expected to depart.</summary>
+        [JsonPropertyName("ExpectedDepartureDate")]
         public DateTime? ExpectedDepartureDate { get; set; }
 
         /// <summary>Date application was offered.</summary>
+        [JsonPropertyName("OfferedDate")]
         public DateTime? OfferedDate { get; set; }
 
         /// <summary>Date offer was replied to.</summary>
+        [JsonPropertyName("OfferReplyDate")]
         public DateTime? OfferReplyDate { get; set; }
 
         /// <summary>Offer reply.</summary>
+        [JsonPropertyName("OfferReplyEnum")]
         public OfferReplyEnum? OfferReplyEnum { get; set; }
 
         /// <summary>Offer reply reason.</summary>
+        [JsonPropertyName("OfferReplyReason")]
         public string OfferReplyReason { get; set; }
 
         /// <summary>Date offer sent.</summary>
+        [JsonPropertyName("OfferSentDate")]
         public DateTime? OfferSentDate { get; set; }
 
         /// <summary>Whether this application is just for the portal to track progress.</summary>
+        [JsonPropertyName("PortalTrackingOnly")]
         public bool? PortalTrackingOnly { get; set; }
 
         /// <summary>Preference comments.</summary>
+        [JsonPropertyName("PreferenceComments")]
         public string PreferenceComments { get; set; }
 
         /// <summary>Application rating.</summary>
+        [JsonPropertyName("Rating")]
         public string Rating { get; set; }
 
         /// <summary>Date received.</summary>
+        [JsonPropertyName("ReceivedDate")]
         public DateTime? ReceivedDate { get; set; }
 
         /// <summary>Indicates if the deposit has been received.</summary>
+        [JsonPropertyName("ReceivedDeposit")]
         public bool? ReceivedDeposit { get; set; }
 
         /// <summary>Pointer to the payment record for the received deposit.</summary>
         [JsonPropertyName("ReceivedDeposit_PaymentID")]
-        public int? ReceivedDepositPaymentID { get; set; }
+        public int? ReceivedDepositPaymentId { get; set; }
 
         /// <summary>Most recent deposit payment that was attempted.</summary>
         [JsonPropertyName("ReceivedDeposit_WebPaymentID")]
-        public int? ReceivedDepositWebPaymentID { get; set; }
+        public int? ReceivedDepositWebPaymentId { get; set; }
 
         /// <summary>Received deposit amount.</summary>
+        [JsonPropertyName("ReceivedDepositAmount")]
         public double? ReceivedDepositAmount { get; set; }
 
         /// <summary>Date deposit was received.</summary>
+        [JsonPropertyName("ReceivedDepositDate")]
         public DateTime? ReceivedDepositDate { get; set; }
 
         /// <summary>Date deposit was waived.</summary>
+        [JsonPropertyName("ReceivedDepositWaived")]
         public bool? ReceivedDepositWaived { get; set; }
 
         /// <summary>Indicates if the fee has been received.</summary>
+        [JsonPropertyName("ReceivedFee")]
         public bool? ReceivedFee { get; set; }
 
         /// <summary>Pointer to the payment record for the received fee.</summary>
         [JsonPropertyName("ReceivedFee_PaymentID")]
-        public int? ReceivedFeePaymentID { get; set; }
+        public int? ReceivedFeePaymentId { get; set; }
 
         /// <summary>Most recent fee payment that was attempted.</summary>
         [JsonPropertyName("ReceivedFee_WebPaymentID")]
-        public int? ReceivedFeeWebPaymentID { get; set; }
+        public int? ReceivedFeeWebPaymentId { get; set; }
 
         /// <summary>Received fee amount.</summary>
+        [JsonPropertyName("ReceivedFeeAmount")]
         public double? ReceivedFeeAmount { get; set; }
 
         /// <summary>Date fee was received.</summary>
+        [JsonPropertyName("ReceivedFeeDate")]
         public DateTime? ReceivedFeeDate { get; set; }
 
         /// <summary>Date photo was received.</summary>
+        [JsonPropertyName("ReceivedPhotoDate")]
         public DateTime? ReceivedPhotoDate { get; set; }
 
         /// <summary>Indicates if the entry has been here before and is returning.</summary>
+        [JsonPropertyName("Returning")]
         public bool? Returning { get; set; }
 
         /// <summary>Description the applicant can write which is displayed in the roommate module.</summary>
+        [JsonPropertyName("RoomMateDescription")]
         public string RoomMateDescription { get; set; }
 
         /// <summary>Pointer to the Roommate group record.</summary>
-        public int? RoommateGroupID { get; set; }
+        [JsonPropertyName("RoommateGroupID")]
+        public int? RoommateGroupId { get; set; }
 
         /// <summary>Order that group members should be processed in.</summary>
+        [JsonPropertyName("RoomMateGroupSortOrder")]
         public int? RoomMateGroupSortOrder { get; set; }
 
         /// <summary>Whether to include this applicant in roommate searches.</summary>
+        [JsonPropertyName("RoomMateShowInSearch")]
         public bool? RoomMateShowInSearch { get; set; }
 
         /// <summary>Room preference comments.</summary>
+        [JsonPropertyName("RoomPreferenceComments")]
         public string RoomPreferenceComments { get; set; }
 
         /// <summary>Room selection number.</summary>
+        [JsonPropertyName("RoomSelectionNumber")]
         public int? RoomSelectionNumber { get; set; }
 
         /// <summary>Room selection timeslot.</summary>
+        [JsonPropertyName("RoomSelectionTimeslot")]
         public string RoomSelectionTimeslot { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Defines the period this application is for.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Indicates if this application was created on the web.</summary>
+        [JsonPropertyName("Web")]
         public bool? Web { get; set; }
     }
 
@@ -1412,172 +1789,223 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateEntryApplicationResponse
     {
         /// <summary>Allocate option.</summary>
+        [JsonPropertyName("AllocateOptionEnum")]
         public string AllocateOptionEnum { get; set; }
 
         /// <summary>Date of application.</summary>
+        [JsonPropertyName("ApplicationDate")]
         public string ApplicationDate { get; set; }
 
         /// <summary>Pointer to the application status record.</summary>
-        public int? ApplicationStatusID { get; set; }
+        [JsonPropertyName("ApplicationStatusID")]
+        public int? ApplicationStatusId { get; set; }
 
         /// <summary>Cancellation date.</summary>
+        [JsonPropertyName("CancelDate")]
         public string CancelDate { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Application comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Internal comments.</summary>
+        [JsonPropertyName("CommentsInternal")]
         public string CommentsInternal { get; set; }
 
         /// <summary>Completion date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public string CompleteDate { get; set; }
 
         /// <summary>Date contract was signed.</summary>
+        [JsonPropertyName("ContractSignedDate")]
         public string ContractSignedDate { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public string CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public string CustomDate4 { get; set; }
 
         /// <summary>Unique ID for this entry application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Date of enquiry.</summary>
+        [JsonPropertyName("EnquiryDate")]
         public string EnquiryDate { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Date entry is expected to arrive.</summary>
+        [JsonPropertyName("ExpectedArrivalDate")]
         public string ExpectedArrivalDate { get; set; }
 
         /// <summary>Latest expected arrival date.</summary>
+        [JsonPropertyName("ExpectedArrivalDateLatest")]
         public string ExpectedArrivalDateLatest { get; set; }
 
         /// <summary>Date entry is expected to depart.</summary>
+        [JsonPropertyName("ExpectedDepartureDate")]
         public string ExpectedDepartureDate { get; set; }
 
         /// <summary>Date application was offered.</summary>
+        [JsonPropertyName("OfferedDate")]
         public string OfferedDate { get; set; }
 
         /// <summary>Date offer was replied to.</summary>
+        [JsonPropertyName("OfferReplyDate")]
         public string OfferReplyDate { get; set; }
 
         /// <summary>Offer reply.</summary>
+        [JsonPropertyName("OfferReplyEnum")]
         public string OfferReplyEnum { get; set; }
 
         /// <summary>Offer reply reason.</summary>
+        [JsonPropertyName("OfferReplyReason")]
         public string OfferReplyReason { get; set; }
 
         /// <summary>Date offer sent.</summary>
+        [JsonPropertyName("OfferSentDate")]
         public string OfferSentDate { get; set; }
 
         /// <summary>Whether this application is just for the portal to track progress.</summary>
+        [JsonPropertyName("PortalTrackingOnly")]
         public bool? PortalTrackingOnly { get; set; }
 
         /// <summary>Preference comments.</summary>
+        [JsonPropertyName("PreferenceComments")]
         public string PreferenceComments { get; set; }
 
         /// <summary>Application rating.</summary>
+        [JsonPropertyName("Rating")]
         public string Rating { get; set; }
 
         /// <summary>Date received.</summary>
+        [JsonPropertyName("ReceivedDate")]
         public string ReceivedDate { get; set; }
 
         /// <summary>Indicates if the deposit has been received.</summary>
+        [JsonPropertyName("ReceivedDeposit")]
         public bool? ReceivedDeposit { get; set; }
 
         /// <summary>Pointer to the payment record for the received deposit.</summary>
         [JsonPropertyName("ReceivedDeposit_PaymentID")]
-        public int? ReceivedDepositPaymentID { get; set; }
+        public int? ReceivedDepositPaymentId { get; set; }
 
         /// <summary>Most recent deposit payment that was attempted.</summary>
         [JsonPropertyName("ReceivedDeposit_WebPaymentID")]
-        public int? ReceivedDepositWebPaymentID { get; set; }
+        public int? ReceivedDepositWebPaymentId { get; set; }
 
         /// <summary>Received deposit amount.</summary>
+        [JsonPropertyName("ReceivedDepositAmount")]
         public double? ReceivedDepositAmount { get; set; }
 
         /// <summary>Date deposit was received.</summary>
+        [JsonPropertyName("ReceivedDepositDate")]
         public string ReceivedDepositDate { get; set; }
 
         /// <summary>Date deposit was waived.</summary>
+        [JsonPropertyName("ReceivedDepositWaived")]
         public bool? ReceivedDepositWaived { get; set; }
 
         /// <summary>Indicates if the fee has been received.</summary>
+        [JsonPropertyName("ReceivedFee")]
         public bool? ReceivedFee { get; set; }
 
         /// <summary>Pointer to the payment record for the received fee.</summary>
         [JsonPropertyName("ReceivedFee_PaymentID")]
-        public int? ReceivedFeePaymentID { get; set; }
+        public int? ReceivedFeePaymentId { get; set; }
 
         /// <summary>Most recent fee payment that was attempted.</summary>
         [JsonPropertyName("ReceivedFee_WebPaymentID")]
-        public int? ReceivedFeeWebPaymentID { get; set; }
+        public int? ReceivedFeeWebPaymentId { get; set; }
 
         /// <summary>Received fee amount.</summary>
+        [JsonPropertyName("ReceivedFeeAmount")]
         public double? ReceivedFeeAmount { get; set; }
 
         /// <summary>Date fee was received.</summary>
+        [JsonPropertyName("ReceivedFeeDate")]
         public string ReceivedFeeDate { get; set; }
 
         /// <summary>Date photo was received.</summary>
+        [JsonPropertyName("ReceivedPhotoDate")]
         public string ReceivedPhotoDate { get; set; }
 
         /// <summary>Indicates if the entry has been here before and is returning.</summary>
+        [JsonPropertyName("Returning")]
         public bool? Returning { get; set; }
 
         /// <summary>Description the applicant can write which is displayed in the roommate module.</summary>
+        [JsonPropertyName("RoomMateDescription")]
         public string RoomMateDescription { get; set; }
 
         /// <summary>Pointer to the Roommate group record.</summary>
-        public int? RoommateGroupID { get; set; }
+        [JsonPropertyName("RoommateGroupID")]
+        public int? RoommateGroupId { get; set; }
 
         /// <summary>Order that group members should be processed in.</summary>
+        [JsonPropertyName("RoomMateGroupSortOrder")]
         public int? RoomMateGroupSortOrder { get; set; }
 
         /// <summary>Whether to include this applicant in roommate searches.</summary>
+        [JsonPropertyName("RoomMateShowInSearch")]
         public bool? RoomMateShowInSearch { get; set; }
 
         /// <summary>Room preference comments.</summary>
+        [JsonPropertyName("RoomPreferenceComments")]
         public string RoomPreferenceComments { get; set; }
 
         /// <summary>Room selection number.</summary>
+        [JsonPropertyName("RoomSelectionNumber")]
         public int? RoomSelectionNumber { get; set; }
 
         /// <summary>Room selection timeslot.</summary>
+        [JsonPropertyName("RoomSelectionTimeslot")]
         public string RoomSelectionTimeslot { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Defines the period this application is for.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Indicates if this application was created on the web.</summary>
+        [JsonPropertyName("Web")]
         public bool? Web { get; set; }
     }
 
@@ -1587,172 +2015,223 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryApplicationInput
     {
         /// <summary>Allocate option.</summary>
+        [JsonPropertyName("AllocateOptionEnum")]
         public AllocateOptionEnum? AllocateOptionEnum { get; set; }
 
         /// <summary>Date of application.</summary>
+        [JsonPropertyName("ApplicationDate")]
         public DateTime? ApplicationDate { get; set; }
 
         /// <summary>Pointer to the application status record.</summary>
-        public int? ApplicationStatusID { get; set; }
+        [JsonPropertyName("ApplicationStatusID")]
+        public int? ApplicationStatusId { get; set; }
 
         /// <summary>Cancellation date.</summary>
+        [JsonPropertyName("CancelDate")]
         public DateTime? CancelDate { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Application comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Internal comments.</summary>
+        [JsonPropertyName("CommentsInternal")]
         public string CommentsInternal { get; set; }
 
         /// <summary>Completion date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public DateTime? CompleteDate { get; set; }
 
         /// <summary>Date contract was signed.</summary>
+        [JsonPropertyName("ContractSignedDate")]
         public DateTime? ContractSignedDate { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public DateTime? CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public DateTime? CustomDate4 { get; set; }
 
         /// <summary>Unique ID for this entry application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Date of enquiry.</summary>
+        [JsonPropertyName("EnquiryDate")]
         public DateTime? EnquiryDate { get; set; }
 
         /// <summary>Date entry is expected to arrive.</summary>
+        [JsonPropertyName("ExpectedArrivalDate")]
         public DateTime? ExpectedArrivalDate { get; set; }
 
         /// <summary>Latest expected arrival date.</summary>
+        [JsonPropertyName("ExpectedArrivalDateLatest")]
         public DateTime? ExpectedArrivalDateLatest { get; set; }
 
         /// <summary>Date entry is expected to depart.</summary>
+        [JsonPropertyName("ExpectedDepartureDate")]
         public DateTime? ExpectedDepartureDate { get; set; }
 
         /// <summary>Date application was offered.</summary>
+        [JsonPropertyName("OfferedDate")]
         public DateTime? OfferedDate { get; set; }
 
         /// <summary>Date offer was replied to.</summary>
+        [JsonPropertyName("OfferReplyDate")]
         public DateTime? OfferReplyDate { get; set; }
 
         /// <summary>Offer reply.</summary>
+        [JsonPropertyName("OfferReplyEnum")]
         public OfferReplyEnum? OfferReplyEnum { get; set; }
 
         /// <summary>Offer reply reason.</summary>
+        [JsonPropertyName("OfferReplyReason")]
         public string OfferReplyReason { get; set; }
 
         /// <summary>Date offer sent.</summary>
+        [JsonPropertyName("OfferSentDate")]
         public DateTime? OfferSentDate { get; set; }
 
         /// <summary>Whether this application is just for the portal to track progress.</summary>
+        [JsonPropertyName("PortalTrackingOnly")]
         public bool? PortalTrackingOnly { get; set; }
 
         /// <summary>Preference comments.</summary>
+        [JsonPropertyName("PreferenceComments")]
         public string PreferenceComments { get; set; }
 
         /// <summary>Application rating.</summary>
+        [JsonPropertyName("Rating")]
         public string Rating { get; set; }
 
         /// <summary>Date received.</summary>
+        [JsonPropertyName("ReceivedDate")]
         public DateTime? ReceivedDate { get; set; }
 
         /// <summary>Indicates if the deposit has been received.</summary>
+        [JsonPropertyName("ReceivedDeposit")]
         public bool? ReceivedDeposit { get; set; }
 
         /// <summary>Pointer to the payment record for the received deposit.</summary>
         [JsonPropertyName("ReceivedDeposit_PaymentID")]
-        public int? ReceivedDepositPaymentID { get; set; }
+        public int? ReceivedDepositPaymentId { get; set; }
 
         /// <summary>Most recent deposit payment that was attempted.</summary>
         [JsonPropertyName("ReceivedDeposit_WebPaymentID")]
-        public int? ReceivedDepositWebPaymentID { get; set; }
+        public int? ReceivedDepositWebPaymentId { get; set; }
 
         /// <summary>Received deposit amount.</summary>
+        [JsonPropertyName("ReceivedDepositAmount")]
         public double? ReceivedDepositAmount { get; set; }
 
         /// <summary>Date deposit was received.</summary>
+        [JsonPropertyName("ReceivedDepositDate")]
         public DateTime? ReceivedDepositDate { get; set; }
 
         /// <summary>Date deposit was waived.</summary>
+        [JsonPropertyName("ReceivedDepositWaived")]
         public bool? ReceivedDepositWaived { get; set; }
 
         /// <summary>Indicates if the fee has been received.</summary>
+        [JsonPropertyName("ReceivedFee")]
         public bool? ReceivedFee { get; set; }
 
         /// <summary>Pointer to the payment record for the received fee.</summary>
         [JsonPropertyName("ReceivedFee_PaymentID")]
-        public int? ReceivedFeePaymentID { get; set; }
+        public int? ReceivedFeePaymentId { get; set; }
 
         /// <summary>Most recent fee payment that was attempted.</summary>
         [JsonPropertyName("ReceivedFee_WebPaymentID")]
-        public int? ReceivedFeeWebPaymentID { get; set; }
+        public int? ReceivedFeeWebPaymentId { get; set; }
 
         /// <summary>Received fee amount.</summary>
+        [JsonPropertyName("ReceivedFeeAmount")]
         public double? ReceivedFeeAmount { get; set; }
 
         /// <summary>Date fee was received.</summary>
+        [JsonPropertyName("ReceivedFeeDate")]
         public DateTime? ReceivedFeeDate { get; set; }
 
         /// <summary>Date photo was received.</summary>
+        [JsonPropertyName("ReceivedPhotoDate")]
         public DateTime? ReceivedPhotoDate { get; set; }
 
         /// <summary>Indicates if the entry has been here before and is returning.</summary>
+        [JsonPropertyName("Returning")]
         public bool? Returning { get; set; }
 
         /// <summary>Description the applicant can write which is displayed in the roommate module.</summary>
+        [JsonPropertyName("RoomMateDescription")]
         public string RoomMateDescription { get; set; }
 
         /// <summary>Pointer to the Roommate group record.</summary>
-        public int? RoommateGroupID { get; set; }
+        [JsonPropertyName("RoommateGroupID")]
+        public int? RoommateGroupId { get; set; }
 
         /// <summary>Order that group members should be processed in.</summary>
+        [JsonPropertyName("RoomMateGroupSortOrder")]
         public int? RoomMateGroupSortOrder { get; set; }
 
         /// <summary>Whether to include this applicant in roommate searches.</summary>
+        [JsonPropertyName("RoomMateShowInSearch")]
         public bool? RoomMateShowInSearch { get; set; }
 
         /// <summary>Room preference comments.</summary>
+        [JsonPropertyName("RoomPreferenceComments")]
         public string RoomPreferenceComments { get; set; }
 
         /// <summary>Room selection number.</summary>
+        [JsonPropertyName("RoomSelectionNumber")]
         public int? RoomSelectionNumber { get; set; }
 
         /// <summary>Room selection timeslot.</summary>
+        [JsonPropertyName("RoomSelectionTimeslot")]
         public string RoomSelectionTimeslot { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Defines the period this application is for.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Indicates if this application was created on the web.</summary>
+        [JsonPropertyName("Web")]
         public bool? Web { get; set; }
     }
 
@@ -1762,172 +2241,223 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryApplicationResponse
     {
         /// <summary>Allocate option.</summary>
+        [JsonPropertyName("AllocateOptionEnum")]
         public string AllocateOptionEnum { get; set; }
 
         /// <summary>Date of application.</summary>
+        [JsonPropertyName("ApplicationDate")]
         public string ApplicationDate { get; set; }
 
         /// <summary>Pointer to the application status record.</summary>
-        public int? ApplicationStatusID { get; set; }
+        [JsonPropertyName("ApplicationStatusID")]
+        public int? ApplicationStatusId { get; set; }
 
         /// <summary>Cancellation date.</summary>
+        [JsonPropertyName("CancelDate")]
         public string CancelDate { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Application comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Internal comments.</summary>
+        [JsonPropertyName("CommentsInternal")]
         public string CommentsInternal { get; set; }
 
         /// <summary>Completion date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public string CompleteDate { get; set; }
 
         /// <summary>Date contract was signed.</summary>
+        [JsonPropertyName("ContractSignedDate")]
         public string ContractSignedDate { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public string CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public string CustomDate4 { get; set; }
 
         /// <summary>Unique ID for this entry application record.</summary>
-        public int? EntryApplicationID { get; set; }
+        [JsonPropertyName("EntryApplicationID")]
+        public int? EntryApplicationId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Date of enquiry.</summary>
+        [JsonPropertyName("EnquiryDate")]
         public string EnquiryDate { get; set; }
 
         /// <summary>Date entry is expected to arrive.</summary>
+        [JsonPropertyName("ExpectedArrivalDate")]
         public string ExpectedArrivalDate { get; set; }
 
         /// <summary>Latest expected arrival date.</summary>
+        [JsonPropertyName("ExpectedArrivalDateLatest")]
         public string ExpectedArrivalDateLatest { get; set; }
 
         /// <summary>Date entry is expected to depart.</summary>
+        [JsonPropertyName("ExpectedDepartureDate")]
         public string ExpectedDepartureDate { get; set; }
 
         /// <summary>Date application was offered.</summary>
+        [JsonPropertyName("OfferedDate")]
         public string OfferedDate { get; set; }
 
         /// <summary>Date offer was replied to.</summary>
+        [JsonPropertyName("OfferReplyDate")]
         public string OfferReplyDate { get; set; }
 
         /// <summary>Offer reply.</summary>
+        [JsonPropertyName("OfferReplyEnum")]
         public string OfferReplyEnum { get; set; }
 
         /// <summary>Offer reply reason.</summary>
+        [JsonPropertyName("OfferReplyReason")]
         public string OfferReplyReason { get; set; }
 
         /// <summary>Date offer sent.</summary>
+        [JsonPropertyName("OfferSentDate")]
         public string OfferSentDate { get; set; }
 
         /// <summary>Whether this application is just for the portal to track progress.</summary>
+        [JsonPropertyName("PortalTrackingOnly")]
         public bool? PortalTrackingOnly { get; set; }
 
         /// <summary>Preference comments.</summary>
+        [JsonPropertyName("PreferenceComments")]
         public string PreferenceComments { get; set; }
 
         /// <summary>Application rating.</summary>
+        [JsonPropertyName("Rating")]
         public string Rating { get; set; }
 
         /// <summary>Date received.</summary>
+        [JsonPropertyName("ReceivedDate")]
         public string ReceivedDate { get; set; }
 
         /// <summary>Indicates if the deposit has been received.</summary>
+        [JsonPropertyName("ReceivedDeposit")]
         public bool? ReceivedDeposit { get; set; }
 
         /// <summary>Pointer to the payment record for the received deposit.</summary>
         [JsonPropertyName("ReceivedDeposit_PaymentID")]
-        public int? ReceivedDepositPaymentID { get; set; }
+        public int? ReceivedDepositPaymentId { get; set; }
 
         /// <summary>Most recent deposit payment that was attempted.</summary>
         [JsonPropertyName("ReceivedDeposit_WebPaymentID")]
-        public int? ReceivedDepositWebPaymentID { get; set; }
+        public int? ReceivedDepositWebPaymentId { get; set; }
 
         /// <summary>Received deposit amount.</summary>
+        [JsonPropertyName("ReceivedDepositAmount")]
         public double? ReceivedDepositAmount { get; set; }
 
         /// <summary>Date deposit was received.</summary>
+        [JsonPropertyName("ReceivedDepositDate")]
         public string ReceivedDepositDate { get; set; }
 
         /// <summary>Date deposit was waived.</summary>
+        [JsonPropertyName("ReceivedDepositWaived")]
         public bool? ReceivedDepositWaived { get; set; }
 
         /// <summary>Indicates if the fee has been received.</summary>
+        [JsonPropertyName("ReceivedFee")]
         public bool? ReceivedFee { get; set; }
 
         /// <summary>Pointer to the payment record for the received fee.</summary>
         [JsonPropertyName("ReceivedFee_PaymentID")]
-        public int? ReceivedFeePaymentID { get; set; }
+        public int? ReceivedFeePaymentId { get; set; }
 
         /// <summary>Most recent fee payment that was attempted.</summary>
         [JsonPropertyName("ReceivedFee_WebPaymentID")]
-        public int? ReceivedFeeWebPaymentID { get; set; }
+        public int? ReceivedFeeWebPaymentId { get; set; }
 
         /// <summary>Received fee amount.</summary>
+        [JsonPropertyName("ReceivedFeeAmount")]
         public double? ReceivedFeeAmount { get; set; }
 
         /// <summary>Date fee was received.</summary>
+        [JsonPropertyName("ReceivedFeeDate")]
         public string ReceivedFeeDate { get; set; }
 
         /// <summary>Date photo was received.</summary>
+        [JsonPropertyName("ReceivedPhotoDate")]
         public string ReceivedPhotoDate { get; set; }
 
         /// <summary>Indicates if the entry has been here before and is returning.</summary>
+        [JsonPropertyName("Returning")]
         public bool? Returning { get; set; }
 
         /// <summary>Description the applicant can write which is displayed in the roommate module.</summary>
+        [JsonPropertyName("RoomMateDescription")]
         public string RoomMateDescription { get; set; }
 
         /// <summary>Pointer to the Roommate group record.</summary>
-        public int? RoommateGroupID { get; set; }
+        [JsonPropertyName("RoommateGroupID")]
+        public int? RoommateGroupId { get; set; }
 
         /// <summary>Order that group members should be processed in.</summary>
+        [JsonPropertyName("RoomMateGroupSortOrder")]
         public int? RoomMateGroupSortOrder { get; set; }
 
         /// <summary>Whether to include this applicant in roommate searches.</summary>
+        [JsonPropertyName("RoomMateShowInSearch")]
         public bool? RoomMateShowInSearch { get; set; }
 
         /// <summary>Room preference comments.</summary>
+        [JsonPropertyName("RoomPreferenceComments")]
         public string RoomPreferenceComments { get; set; }
 
         /// <summary>Room selection number.</summary>
+        [JsonPropertyName("RoomSelectionNumber")]
         public int? RoomSelectionNumber { get; set; }
 
         /// <summary>Room selection timeslot.</summary>
+        [JsonPropertyName("RoomSelectionTimeslot")]
         public string RoomSelectionTimeslot { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Defines the period this application is for.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Indicates if this application was created on the web.</summary>
+        [JsonPropertyName("Web")]
         public bool? Web { get; set; }
     }
 
@@ -1953,17 +2483,19 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Pointer to the booking type record.</summary>
-        public int? BookingTypeID { get; set; }
+        [JsonPropertyName("BookingTypeID")]
+        public int? BookingTypeId { get; set; }
 
         /// <summary>The default booking end reason when cancelling a booking.</summary>
         [JsonPropertyName("CancelBookingDefaultEnd_BookingReasonID")]
-        public int? CancelBookingDefaultEndBookingReasonID { get; set; }
+        public int? CancelBookingDefaultEndBookingReasonId { get; set; }
 
         /// <summary>Update booking end reason on booking cancel.</summary>
         [JsonPropertyName("CancelBookingUpdateEndBookingReason_BooleanAskEnum")]
         public CancelBookingUpdateEndBookingReasonBooleanAskEnum? CancelBookingUpdateEndBookingReasonBooleanAskEnum { get; set; }
 
         /// <summary>CheckInDate</summary>
+        [JsonPropertyName("CheckInDate")]
         public object CheckInDate { get; set; }
 
         /// <summary>Update CheckInDateActual if check-in date moves backward (in the past).</summary>
@@ -1976,13 +2508,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>The default booking start reason when checking in.</summary>
         [JsonPropertyName("CheckInDefaultStart_BookingReasonID")]
-        public int? CheckInDefaultStartBookingReasonID { get; set; }
+        public int? CheckInDefaultStartBookingReasonId { get; set; }
 
         /// <summary>Update booking start reason on check-in.</summary>
         [JsonPropertyName("CheckInUpdateStartBookingReason_BooleanAskEnum")]
         public CheckInUpdateStartBookingReasonBooleanAskEnum? CheckInUpdateStartBookingReasonBooleanAskEnum { get; set; }
 
         /// <summary>CheckOutDate</summary>
+        [JsonPropertyName("CheckOutDate")]
         public object CheckOutDate { get; set; }
 
         /// <summary>Update CheckOutDateActual if check-in date moves backward (in the past).</summary>
@@ -1995,7 +2528,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>The default booking end reason when checking out.</summary>
         [JsonPropertyName("CheckOutDefaultEnd_BookingReasonID")]
-        public int? CheckOutDefaultEndBookingReasonID { get; set; }
+        public int? CheckOutDefaultEndBookingReasonId { get; set; }
 
         /// <summary>Update booking end reason on check-out.</summary>
         [JsonPropertyName("CheckOutUpdateEndBookingReason_BooleanAskEnum")]
@@ -2018,98 +2551,127 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public ContractDateCheckOutIncreaseBooleanAskEnum? ContractDateCheckOutIncreaseBooleanAskEnum { get; set; }
 
         /// <summary>ContractDateEnd</summary>
+        [JsonPropertyName("ContractDateEnd")]
         public object ContractDateEnd { get; set; }
 
         /// <summary>ContractDateStart</summary>
+        [JsonPropertyName("ContractDateStart")]
         public object ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>CustomDate1</summary>
+        [JsonPropertyName("CustomDate1")]
         public object CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
+        [JsonPropertyName("CustomDate2")]
         public object CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Term description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Pointer to the end booking reason record.</summary>
         [JsonPropertyName("End_BookingReasonID")]
-        public int? EndBookingReasonID { get; set; }
+        public int? EndBookingReasonId { get; set; }
 
         /// <summary>Entry status.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Minutes since midnight for estimated time of arrival.</summary>
+        [JsonPropertyName("ETA")]
         public string ETA { get; set; }
 
         /// <summary>Minutes since midnight for estimated time of departure.</summary>
+        [JsonPropertyName("ETD")]
         public string ETD { get; set; }
 
         /// <summary>Pointer to the house-keeping record.</summary>
-        public int? HousekeepingID { get; set; }
+        [JsonPropertyName("HousekeepingID")]
+        public int? HousekeepingId { get; set; }
 
         /// <summary>Record type.</summary>
+        [JsonPropertyName("RecordTypeEnum")]
         public RecordTypeEnum? RecordTypeEnum { get; set; }
 
         /// <summary>Fixed room location.</summary>
+        [JsonPropertyName("RoomLocationFixed")]
         public bool? RoomLocationFixed { get; set; }
 
         /// <summary>Pointer to the address room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>Room rate amount.</summary>
+        [JsonPropertyName("RoomRateAmount")]
         public double? RoomRateAmount { get; set; }
 
         /// <summary>Pointer to the room rate record.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Pointer to the room type record.</summary>
-        public int? RoomTypeID { get; set; }
+        [JsonPropertyName("RoomTypeID")]
+        public int? RoomTypeId { get; set; }
 
         /// <summary>Pointer to the start booking reason record.</summary>
         [JsonPropertyName("Start_BookingReasonID")]
-        public int? StartBookingReasonID { get; set; }
+        public int? StartBookingReasonId { get; set; }
 
         /// <summary>Pointer to the term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Term session code.</summary>
+        [JsonPropertyName("TermSessionCode")]
         public string TermSessionCode { get; set; }
 
         /// <summary>Unique ID for this term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
 
         /// <summary>Indicates if the active booking should be used as a template.</summary>
+        [JsonPropertyName("UseActiveBookingAsTemplate")]
         public bool? UseActiveBookingAsTemplate { get; set; }
 
         /// <summary>Term Session displayed in PortalX.</summary>
+        [JsonPropertyName("WebDescription")]
         public string WebDescription { get; set; }
     }
 
@@ -2135,274 +2697,359 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Indicates if the academic hold flag has been set.</summary>
+        [JsonPropertyName("AcademicHold")]
         public bool? AcademicHold { get; set; }
 
         /// <summary>Pointer to the payment type record.</summary>
         [JsonPropertyName("Account_PaymentTypeID")]
-        public int? AccountPaymentTypeID { get; set; }
+        public int? AccountPaymentTypeId { get; set; }
 
         /// <summary>Indicates if the account hold flag has been set.</summary>
+        [JsonPropertyName("AccountHold")]
         public bool? AccountHold { get; set; }
 
         /// <summary>Account bank name.</summary>
+        [JsonPropertyName("AccountBankName")]
         public string AccountBankName { get; set; }
 
         /// <summary>Account bank number.</summary>
+        [JsonPropertyName("AccountBankNumber")]
         public string AccountBankNumber { get; set; }
 
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Account comments.</summary>
+        [JsonPropertyName("AccountComments")]
         public string AccountComments { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail1")]
         public string AccountDetail1 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail2")]
         public string AccountDetail2 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail3")]
         public string AccountDetail3 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail4")]
         public string AccountDetail4 { get; set; }
 
         /// <summary>AccountDueDate</summary>
+        [JsonPropertyName("AccountDueDate")]
         public object AccountDueDate { get; set; }
 
         /// <summary>Indicates if the athlete flag has been set.</summary>
+        [JsonPropertyName("Athlete")]
         public bool? Athlete { get; set; }
 
         /// <summary>Athlete team.</summary>
+        [JsonPropertyName("AthleteTeam")]
         public string AthleteTeam { get; set; }
 
         /// <summary>Attendee status.</summary>
+        [JsonPropertyName("AttendeeStatusEnum")]
         public AttendeeStatusEnum? AttendeeStatusEnum { get; set; }
 
         /// <summary>Intended career.</summary>
+        [JsonPropertyName("Career")]
         public string Career { get; set; }
 
         /// <summary>Reasons for choosing intended career.</summary>
+        [JsonPropertyName("CareerComments")]
         public string CareerComments { get; set; }
 
         /// <summary>Pointer to the citizenship record.</summary>
         [JsonPropertyName("Citizenship_CountryID")]
-        public int? CitizenshipCountryID { get; set; }
+        public int? CitizenshipCountryId { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Classification override.</summary>
+        [JsonPropertyName("ClassificationOverride")]
         public bool? ClassificationOverride { get; set; }
 
         /// <summary>Comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the country of birth record.</summary>
         [JsonPropertyName("CountryOfBirth_CountryID")]
-        public int? CountryOfBirthCountryID { get; set; }
+        public int? CountryOfBirthCountryId { get; set; }
 
         /// <summary>Pointer to the country of residence record.</summary>
         [JsonPropertyName("CountryOfResidence_CountryID")]
-        public int? CountryOfResidenceCountryID { get; set; }
+        public int? CountryOfResidenceCountryId { get; set; }
 
         /// <summary>Cumulative GPA.</summary>
+        [JsonPropertyName("CumulativeGPA")]
         public double? CumulativeGPA { get; set; }
 
         /// <summary>Cumulative hours.</summary>
+        [JsonPropertyName("CumulativeHours")]
         public double? CumulativeHours { get; set; }
 
         /// <summary>Current GPA.</summary>
+        [JsonPropertyName("CurrentGPA")]
         public double? CurrentGPA { get; set; }
 
         /// <summary>Current hours.</summary>
+        [JsonPropertyName("CurrentHours")]
         public double? CurrentHours { get; set; }
 
         /// <summary>The major chosen by the Entry.</summary>
+        [JsonPropertyName("CurrentMajor")]
         public string CurrentMajor { get; set; }
 
         /// <summary>The minor chosen by the Entry.</summary>
+        [JsonPropertyName("CurrentMinor")]
         public string CurrentMinor { get; set; }
 
         /// <summary>DateEntry</summary>
+        [JsonPropertyName("DateEntry")]
         public object DateEntry { get; set; }
 
         /// <summary>DateExit</summary>
+        [JsonPropertyName("DateExit")]
         public object DateExit { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Indicates if the Entry is deceased.</summary>
+        [JsonPropertyName("Deceased")]
         public bool? Deceased { get; set; }
 
         /// <summary>DeceasedDate</summary>
+        [JsonPropertyName("DeceasedDate")]
         public object DeceasedDate { get; set; }
 
         /// <summary>Dietary requirements.</summary>
+        [JsonPropertyName("Dietary")]
         public string Dietary { get; set; }
 
         /// <summary>Disability.</summary>
+        [JsonPropertyName("Disability")]
         public string Disability { get; set; }
 
         /// <summary>Employment details.</summary>
+        [JsonPropertyName("EmploymentDetails")]
         public string EmploymentDetails { get; set; }
 
         /// <summary>First year, freshman, sophomore, etc.</summary>
+        [JsonPropertyName("EnrollmentClass")]
         public string EnrollmentClass { get; set; }
 
         /// <summary>Undergraduate, post graduate, etc.</summary>
+        [JsonPropertyName("EnrollmentLevel")]
         public string EnrollmentLevel { get; set; }
 
         /// <summary>Newly admitted, current, active, etc.</summary>
+        [JsonPropertyName("EnrollmentStatus")]
         public string EnrollmentStatus { get; set; }
 
         /// <summary>Spring, fall, post graduate, etc.</summary>
+        [JsonPropertyName("EnrollmentTerm")]
         public string EnrollmentTerm { get; set; }
 
         /// <summary>Year/Level of enrollment.</summary>
+        [JsonPropertyName("EnrollmentYear")]
         public int? EnrollmentYear { get; set; }
 
         /// <summary>Unique ID for this entry detail record.</summary>
-        public int? EntryDetailID { get; set; }
+        [JsonPropertyName("EntryDetailID")]
+        public int? EntryDetailId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Ethnicity.</summary>
+        [JsonPropertyName("Ethnicity")]
         public string Ethnicity { get; set; }
 
         /// <summary>Pointer to the event registration fee record.</summary>
-        public int? EventRegistrationFeeID { get; set; }
+        [JsonPropertyName("EventRegistrationFeeID")]
+        public int? EventRegistrationFeeId { get; set; }
 
         /// <summary>ExpectedGraduationDate</summary>
+        [JsonPropertyName("ExpectedGraduationDate")]
         public object ExpectedGraduationDate { get; set; }
 
         /// <summary>Financial support comments.</summary>
+        [JsonPropertyName("FinancialComments")]
         public string FinancialComments { get; set; }
 
         /// <summary>Pointer to the financial support record.</summary>
-        public int? FinancialSupportID { get; set; }
+        [JsonPropertyName("FinancialSupportID")]
+        public int? FinancialSupportId { get; set; }
 
         /// <summary>How did the Entry hear about us.</summary>
+        [JsonPropertyName("HearAboutUs")]
         public string HearAboutUs { get; set; }
 
         /// <summary>Honors indicator.</summary>
+        [JsonPropertyName("HonorsIndicator")]
         public bool? HonorsIndicator { get; set; }
 
         /// <summary>Immunizations hold.</summary>
+        [JsonPropertyName("ImmunizationsHold")]
         public bool? ImmunizationsHold { get; set; }
 
         /// <summary>Incident hold.</summary>
+        [JsonPropertyName("IncidentHold")]
         public bool? IncidentHold { get; set; }
 
         /// <summary>Incident hold comments.</summary>
+        [JsonPropertyName("IncidentHoldComments")]
         public string IncidentHoldComments { get; set; }
 
         /// <summary>Indicates if the Entry is considered an international student.</summary>
+        [JsonPropertyName("International")]
         public bool? International { get; set; }
 
         /// <summary>International details.</summary>
+        [JsonPropertyName("InternationalDetails")]
         public string InternationalDetails { get; set; }
 
         /// <summary>Living with dependents.</summary>
+        [JsonPropertyName("LivingWithDependents")]
         public bool? LivingWithDependents { get; set; }
 
         /// <summary>Indicates if the Entry is married.</summary>
+        [JsonPropertyName("Married")]
         public bool? Married { get; set; }
 
         /// <summary>Medical details.</summary>
+        [JsonPropertyName("Medical")]
         public string Medical { get; set; }
 
         /// <summary>Pointer to the nationality record.</summary>
-        public int? NationalityID { get; set; }
+        [JsonPropertyName("NationalityID")]
+        public int? NationalityId { get; set; }
 
         /// <summary>Occupation.</summary>
+        [JsonPropertyName("Occupation")]
         public string Occupation { get; set; }
 
         /// <summary>Photo path.</summary>
+        [JsonPropertyName("PhotoPath")]
         public string PhotoPath { get; set; }
 
         /// <summary>Previous member name.</summary>
+        [JsonPropertyName("PreviousMemberName")]
         public string PreviousMemberName { get; set; }
 
         /// <summary>Previous member relationship.</summary>
+        [JsonPropertyName("PreviousMemberRelationship")]
         public string PreviousMemberRelationship { get; set; }
 
         /// <summary>Previous membership.</summary>
+        [JsonPropertyName("PreviousMembership")]
         public string PreviousMembership { get; set; }
 
         /// <summary>Previous membership years.</summary>
+        [JsonPropertyName("PreviousMembershipYears")]
         public string PreviousMembershipYears { get; set; }
 
         /// <summary>Previous member years.</summary>
+        [JsonPropertyName("PreviousMemberYears")]
         public string PreviousMemberYears { get; set; }
 
         /// <summary>Profile interests.</summary>
+        [JsonPropertyName("ProfileInterests")]
         public string ProfileInterests { get; set; }
 
         /// <summary>Pointer to the Region of birth record.</summary>
-        public int? RegionOfBirthID { get; set; }
+        [JsonPropertyName("RegionOfBirthID")]
+        public int? RegionOfBirthId { get; set; }
 
         /// <summary>Religion.</summary>
+        [JsonPropertyName("Religion")]
         public string Religion { get; set; }
 
         /// <summary>Residency.</summary>
+        [JsonPropertyName("Residency")]
         public string Residency { get; set; }
 
         /// <summary>Resident status.</summary>
+        [JsonPropertyName("ResidentStatus")]
         public string ResidentStatus { get; set; }
 
         /// <summary>Resident year.</summary>
+        [JsonPropertyName("ResidentYear")]
         public int? ResidentYear { get; set; }
 
         /// <summary>Situation response comments.</summary>
+        [JsonPropertyName("SituationResponseComments")]
         public string SituationResponseComments { get; set; }
 
         /// <summary>Situation response detail.</summary>
+        [JsonPropertyName("SituationResponseDetail")]
         public string SituationResponseDetail { get; set; }
 
         /// <summary>Situation response.</summary>
+        [JsonPropertyName("SituationResponseEnum")]
         public SituationResponseEnum? SituationResponseEnum { get; set; }
 
         /// <summary>SituationResponseExpiryDate</summary>
+        [JsonPropertyName("SituationResponseExpiryDate")]
         public object SituationResponseExpiryDate { get; set; }
 
         /// <summary>SituationResponseModifiedDate</summary>
+        [JsonPropertyName("SituationResponseModifiedDate")]
         public object SituationResponseModifiedDate { get; set; }
 
         /// <summary>Situation response situation.</summary>
+        [JsonPropertyName("SituationResponseSituation")]
         public string SituationResponseSituation { get; set; }
 
         /// <summary>Special needs.</summary>
+        [JsonPropertyName("SpecialNeeds")]
         public string SpecialNeeds { get; set; }
 
         /// <summary>Pointer to the staff record.</summary>
-        public int? StaffID { get; set; }
+        [JsonPropertyName("StaffID")]
+        public int? StaffId { get; set; }
 
         /// <summary>Uses screen reader.</summary>
+        [JsonPropertyName("UsesScreenReader")]
         public bool? UsesScreenReader { get; set; }
 
         /// <summary>Vehicle details.</summary>
+        [JsonPropertyName("VehicleDetails")]
         public string VehicleDetails { get; set; }
 
         /// <summary>Vehicle permit.</summary>
+        [JsonPropertyName("VehiclePermit")]
         public string VehiclePermit { get; set; }
 
         /// <summary>Vehicle registration.</summary>
+        [JsonPropertyName("VehicleRegistration")]
         public string VehicleRegistration { get; set; }
 
         /// <summary>Veteran status.</summary>
+        [JsonPropertyName("VeteranStatus")]
         public string VeteranStatus { get; set; }
 
         /// <summary>Indicates if the Entry holds a visa.</summary>
+        [JsonPropertyName("Visa")]
         public bool? Visa { get; set; }
 
         /// <summary>Visa details.</summary>
+        [JsonPropertyName("VisaDetails")]
         public string VisaDetails { get; set; }
 
         /// <summary>Visitor hold.</summary>
+        [JsonPropertyName("VisitorHold")]
         public bool? VisitorHold { get; set; }
     }
 
@@ -2412,271 +3059,355 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryDetailInput
     {
         /// <summary>Indicates if the academic hold flag has been set.</summary>
+        [JsonPropertyName("AcademicHold")]
         public bool? AcademicHold { get; set; }
 
         /// <summary>Pointer to the preferred payment type record.</summary>
         [JsonPropertyName("Account_PaymentTypeID")]
-        public int? AccountPaymentTypeID { get; set; }
+        public int? AccountPaymentTypeId { get; set; }
 
         /// <summary>Account bank name.</summary>
+        [JsonPropertyName("AccountBankName")]
         public string AccountBankName { get; set; }
 
         /// <summary>Account bank number.</summary>
+        [JsonPropertyName("AccountBankNumber")]
         public string AccountBankNumber { get; set; }
 
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Account comments.</summary>
+        [JsonPropertyName("AccountComments")]
         public string AccountComments { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail1")]
         public string AccountDetail1 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail2")]
         public string AccountDetail2 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail3")]
         public string AccountDetail3 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail4")]
         public string AccountDetail4 { get; set; }
 
         /// <summary>Paid to date.</summary>
+        [JsonPropertyName("AccountDueDate")]
         public DateTime? AccountDueDate { get; set; }
 
         /// <summary>Indicates if the account hold flag has been set.</summary>
+        [JsonPropertyName("AccountHold")]
         public bool? AccountHold { get; set; }
 
         /// <summary>Indicates if the athlete flag has been set.</summary>
+        [JsonPropertyName("Athlete")]
         public bool? Athlete { get; set; }
 
         /// <summary>Athlete team.</summary>
+        [JsonPropertyName("AthleteTeam")]
         public string AthleteTeam { get; set; }
 
         /// <summary>Attendee status.</summary>
+        [JsonPropertyName("AttendeeStatusEnum")]
         public AttendeeStatusEnum? AttendeeStatusEnum { get; set; }
 
         /// <summary>Intended career.</summary>
+        [JsonPropertyName("Career")]
         public string Career { get; set; }
 
         /// <summary>Reasons for choosing intended career.</summary>
+        [JsonPropertyName("CareerComments")]
         public string CareerComments { get; set; }
 
         /// <summary>Pointer to the citizenship record.</summary>
         [JsonPropertyName("Citizenship_CountryID")]
-        public int? CitizenshipCountryID { get; set; }
+        public int? CitizenshipCountryId { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Classification override.</summary>
+        [JsonPropertyName("ClassificationOverride")]
         public bool? ClassificationOverride { get; set; }
 
         /// <summary>Comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the country of birth record.</summary>
         [JsonPropertyName("CountryOfBirth_CountryID")]
-        public int? CountryOfBirthCountryID { get; set; }
+        public int? CountryOfBirthCountryId { get; set; }
 
         /// <summary>Pointer to the country of residence record.</summary>
         [JsonPropertyName("CountryOfResidence_CountryID")]
-        public int? CountryOfResidenceCountryID { get; set; }
+        public int? CountryOfResidenceCountryId { get; set; }
 
         /// <summary>Cumulative GPA.</summary>
+        [JsonPropertyName("CumulativeGPA")]
         public double? CumulativeGPA { get; set; }
 
         /// <summary>Cumulative hours.</summary>
+        [JsonPropertyName("CumulativeHours")]
         public double? CumulativeHours { get; set; }
 
         /// <summary>Current GPA.</summary>
+        [JsonPropertyName("CurrentGPA")]
         public double? CurrentGPA { get; set; }
 
         /// <summary>Current hours.</summary>
+        [JsonPropertyName("CurrentHours")]
         public double? CurrentHours { get; set; }
 
         /// <summary>The major chosen by the Entry.</summary>
+        [JsonPropertyName("CurrentMajor")]
         public string CurrentMajor { get; set; }
 
         /// <summary>The minor chosen by the Entry.</summary>
+        [JsonPropertyName("CurrentMinor")]
         public string CurrentMinor { get; set; }
 
         /// <summary>Entry date.</summary>
+        [JsonPropertyName("DateEntry")]
         public DateTime? DateEntry { get; set; }
 
         /// <summary>Exit date.</summary>
+        [JsonPropertyName("DateExit")]
         public DateTime? DateExit { get; set; }
 
         /// <summary>Indicates if the Entry is deceased.</summary>
+        [JsonPropertyName("Deceased")]
         public bool? Deceased { get; set; }
 
         /// <summary>Deceased date.</summary>
+        [JsonPropertyName("DeceasedDate")]
         public DateTime? DeceasedDate { get; set; }
 
         /// <summary>Dietary requirements.</summary>
+        [JsonPropertyName("Dietary")]
         public string Dietary { get; set; }
 
         /// <summary>Disability.</summary>
+        [JsonPropertyName("Disability")]
         public string Disability { get; set; }
 
         /// <summary>Employment details.</summary>
+        [JsonPropertyName("EmploymentDetails")]
         public string EmploymentDetails { get; set; }
 
         /// <summary>First year, freshman, sophomore, etc.</summary>
+        [JsonPropertyName("EnrollmentClass")]
         public string EnrollmentClass { get; set; }
 
         /// <summary>Undergraduate, post graduate, etc.</summary>
+        [JsonPropertyName("EnrollmentLevel")]
         public string EnrollmentLevel { get; set; }
 
         /// <summary>Newly admitted, current, active, etc.</summary>
+        [JsonPropertyName("EnrollmentStatus")]
         public string EnrollmentStatus { get; set; }
 
         /// <summary>Spring, fall, post graduate, etc.</summary>
+        [JsonPropertyName("EnrollmentTerm")]
         public string EnrollmentTerm { get; set; }
 
         /// <summary>Year/Level of enrollment.</summary>
+        [JsonPropertyName("EnrollmentYear")]
         public int? EnrollmentYear { get; set; }
 
         /// <summary>Unique ID for this entry detail record.</summary>
-        public int? EntryDetailID { get; set; }
+        [JsonPropertyName("EntryDetailID")]
+        public int? EntryDetailId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Ethnicity.</summary>
+        [JsonPropertyName("Ethnicity")]
         public string Ethnicity { get; set; }
 
         /// <summary>Pointer to the Event registration fee record.</summary>
-        public int? EventRegistrationFeeID { get; set; }
+        [JsonPropertyName("EventRegistrationFeeID")]
+        public int? EventRegistrationFeeId { get; set; }
 
         /// <summary>Expected graduation date.</summary>
+        [JsonPropertyName("ExpectedGraduationDate")]
         public DateTime? ExpectedGraduationDate { get; set; }
 
         /// <summary>Financial support comments.</summary>
+        [JsonPropertyName("FinancialComments")]
         public string FinancialComments { get; set; }
 
         /// <summary>Pointer to the financial support record.</summary>
-        public int? FinancialSupportID { get; set; }
+        [JsonPropertyName("FinancialSupportID")]
+        public int? FinancialSupportId { get; set; }
 
         /// <summary>How did the Entry hear about us.</summary>
+        [JsonPropertyName("HearAboutUs")]
         public string HearAboutUs { get; set; }
 
         /// <summary>Honors indicator.</summary>
+        [JsonPropertyName("HonorsIndicator")]
         public bool? HonorsIndicator { get; set; }
 
         /// <summary>Immunizations hold.</summary>
+        [JsonPropertyName("ImmunizationsHold")]
         public bool? ImmunizationsHold { get; set; }
 
         /// <summary>Incident hold.</summary>
+        [JsonPropertyName("IncidentHold")]
         public bool? IncidentHold { get; set; }
 
         /// <summary>Incident hold comments.</summary>
+        [JsonPropertyName("IncidentHoldComments")]
         public string IncidentHoldComments { get; set; }
 
         /// <summary>Indicates if the Entry is considered an international student.</summary>
+        [JsonPropertyName("International")]
         public bool? International { get; set; }
 
         /// <summary>International details.</summary>
+        [JsonPropertyName("InternationalDetails")]
         public string InternationalDetails { get; set; }
 
         /// <summary>Living with dependents.</summary>
+        [JsonPropertyName("LivingWithDependents")]
         public bool? LivingWithDependents { get; set; }
 
         /// <summary>Indicates if the Entry is married.</summary>
+        [JsonPropertyName("Married")]
         public bool? Married { get; set; }
 
         /// <summary>Medical details.</summary>
+        [JsonPropertyName("Medical")]
         public string Medical { get; set; }
 
         /// <summary>Pointer to the nationality record.</summary>
-        public int? NationalityID { get; set; }
+        [JsonPropertyName("NationalityID")]
+        public int? NationalityId { get; set; }
 
         /// <summary>Occupation.</summary>
+        [JsonPropertyName("Occupation")]
         public string Occupation { get; set; }
 
         /// <summary>Photo path.</summary>
+        [JsonPropertyName("PhotoPath")]
         public string PhotoPath { get; set; }
 
         /// <summary>Previous member name.</summary>
+        [JsonPropertyName("PreviousMemberName")]
         public string PreviousMemberName { get; set; }
 
         /// <summary>Previous member relationship.</summary>
+        [JsonPropertyName("PreviousMemberRelationship")]
         public string PreviousMemberRelationship { get; set; }
 
         /// <summary>Previous membership.</summary>
+        [JsonPropertyName("PreviousMembership")]
         public string PreviousMembership { get; set; }
 
         /// <summary>Previous membership years.</summary>
+        [JsonPropertyName("PreviousMembershipYears")]
         public string PreviousMembershipYears { get; set; }
 
         /// <summary>Previous member years.</summary>
+        [JsonPropertyName("PreviousMemberYears")]
         public string PreviousMemberYears { get; set; }
 
         /// <summary>Profile interests.</summary>
+        [JsonPropertyName("ProfileInterests")]
         public string ProfileInterests { get; set; }
 
         /// <summary>Pointer to the region of birth record.</summary>
-        public int? RegionOfBirthID { get; set; }
+        [JsonPropertyName("RegionOfBirthID")]
+        public int? RegionOfBirthId { get; set; }
 
         /// <summary>Religion.</summary>
+        [JsonPropertyName("Religion")]
         public string Religion { get; set; }
 
         /// <summary>Residency.</summary>
+        [JsonPropertyName("Residency")]
         public string Residency { get; set; }
 
         /// <summary>Resident status.</summary>
+        [JsonPropertyName("ResidentStatus")]
         public string ResidentStatus { get; set; }
 
         /// <summary>Resident year.</summary>
+        [JsonPropertyName("ResidentYear")]
         public int? ResidentYear { get; set; }
 
         /// <summary>Situation response comments.</summary>
+        [JsonPropertyName("SituationResponseComments")]
         public string SituationResponseComments { get; set; }
 
         /// <summary>Situation response detail.</summary>
+        [JsonPropertyName("SituationResponseDetail")]
         public string SituationResponseDetail { get; set; }
 
         /// <summary>Situation response.</summary>
+        [JsonPropertyName("SituationResponseEnum")]
         public SituationResponseEnum? SituationResponseEnum { get; set; }
 
         /// <summary>The date when the response ends (e.g because the emergency is over)</summary>
+        [JsonPropertyName("SituationResponseExpiryDate")]
         public DateTime? SituationResponseExpiryDate { get; set; }
 
         /// <summary>The date the response was last modified.</summary>
+        [JsonPropertyName("SituationResponseModifiedDate")]
         public DateTime? SituationResponseModifiedDate { get; set; }
 
         /// <summary>Situation response situation.</summary>
+        [JsonPropertyName("SituationResponseSituation")]
         public string SituationResponseSituation { get; set; }
 
         /// <summary>Special needs.</summary>
+        [JsonPropertyName("SpecialNeeds")]
         public string SpecialNeeds { get; set; }
 
         /// <summary>Pointer to the staff record.</summary>
-        public int? StaffID { get; set; }
+        [JsonPropertyName("StaffID")]
+        public int? StaffId { get; set; }
 
         /// <summary>Uses screen reader.</summary>
+        [JsonPropertyName("UsesScreenReader")]
         public bool? UsesScreenReader { get; set; }
 
         /// <summary>Vehicle details.</summary>
+        [JsonPropertyName("VehicleDetails")]
         public string VehicleDetails { get; set; }
 
         /// <summary>Vehicle permit.</summary>
+        [JsonPropertyName("VehiclePermit")]
         public string VehiclePermit { get; set; }
 
         /// <summary>Vehicle registration.</summary>
+        [JsonPropertyName("VehicleRegistration")]
         public string VehicleRegistration { get; set; }
 
         /// <summary>Veteran status.</summary>
+        [JsonPropertyName("VeteranStatus")]
         public string VeteranStatus { get; set; }
 
         /// <summary>Indicates if the Entry holds a visa.</summary>
+        [JsonPropertyName("Visa")]
         public bool? Visa { get; set; }
 
         /// <summary>Visa details.</summary>
+        [JsonPropertyName("VisaDetails")]
         public string VisaDetails { get; set; }
 
         /// <summary>Visitor hold.</summary>
+        [JsonPropertyName("VisitorHold")]
         public bool? VisitorHold { get; set; }
     }
 
@@ -2686,271 +3417,355 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryDetailResponse
     {
         /// <summary>Indicates if the academic hold flag has been set.</summary>
+        [JsonPropertyName("AcademicHold")]
         public bool? AcademicHold { get; set; }
 
         /// <summary>Pointer to the preferred payment type record.</summary>
         [JsonPropertyName("Account_PaymentTypeID")]
-        public int? AccountPaymentTypeID { get; set; }
+        public int? AccountPaymentTypeId { get; set; }
 
         /// <summary>Account bank name.</summary>
+        [JsonPropertyName("AccountBankName")]
         public string AccountBankName { get; set; }
 
         /// <summary>Account bank number.</summary>
+        [JsonPropertyName("AccountBankNumber")]
         public string AccountBankNumber { get; set; }
 
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Account comments.</summary>
+        [JsonPropertyName("AccountComments")]
         public string AccountComments { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail1")]
         public string AccountDetail1 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail2")]
         public string AccountDetail2 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail3")]
         public string AccountDetail3 { get; set; }
 
         /// <summary>Account detail.</summary>
+        [JsonPropertyName("AccountDetail4")]
         public string AccountDetail4 { get; set; }
 
         /// <summary>Paid to date.</summary>
+        [JsonPropertyName("AccountDueDate")]
         public string AccountDueDate { get; set; }
 
         /// <summary>Indicates if the account hold flag has been set.</summary>
+        [JsonPropertyName("AccountHold")]
         public bool? AccountHold { get; set; }
 
         /// <summary>Indicates if the athlete flag has been set.</summary>
+        [JsonPropertyName("Athlete")]
         public bool? Athlete { get; set; }
 
         /// <summary>Athlete team.</summary>
+        [JsonPropertyName("AthleteTeam")]
         public string AthleteTeam { get; set; }
 
         /// <summary>Attendee status.</summary>
+        [JsonPropertyName("AttendeeStatusEnum")]
         public string AttendeeStatusEnum { get; set; }
 
         /// <summary>Intended career.</summary>
+        [JsonPropertyName("Career")]
         public string Career { get; set; }
 
         /// <summary>Reasons for choosing intended career.</summary>
+        [JsonPropertyName("CareerComments")]
         public string CareerComments { get; set; }
 
         /// <summary>Pointer to the citizenship record.</summary>
         [JsonPropertyName("Citizenship_CountryID")]
-        public int? CitizenshipCountryID { get; set; }
+        public int? CitizenshipCountryId { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
-        public int? ClassificationID { get; set; }
+        [JsonPropertyName("ClassificationID")]
+        public int? ClassificationId { get; set; }
 
         /// <summary>Classification override.</summary>
+        [JsonPropertyName("ClassificationOverride")]
         public bool? ClassificationOverride { get; set; }
 
         /// <summary>Comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the country of birth record.</summary>
         [JsonPropertyName("CountryOfBirth_CountryID")]
-        public int? CountryOfBirthCountryID { get; set; }
+        public int? CountryOfBirthCountryId { get; set; }
 
         /// <summary>Pointer to the country of residence record.</summary>
         [JsonPropertyName("CountryOfResidence_CountryID")]
-        public int? CountryOfResidenceCountryID { get; set; }
+        public int? CountryOfResidenceCountryId { get; set; }
 
         /// <summary>Cumulative GPA.</summary>
+        [JsonPropertyName("CumulativeGPA")]
         public double? CumulativeGPA { get; set; }
 
         /// <summary>Cumulative hours.</summary>
+        [JsonPropertyName("CumulativeHours")]
         public double? CumulativeHours { get; set; }
 
         /// <summary>Current GPA.</summary>
+        [JsonPropertyName("CurrentGPA")]
         public double? CurrentGPA { get; set; }
 
         /// <summary>Current hours.</summary>
+        [JsonPropertyName("CurrentHours")]
         public double? CurrentHours { get; set; }
 
         /// <summary>The major chosen by the Entry.</summary>
+        [JsonPropertyName("CurrentMajor")]
         public string CurrentMajor { get; set; }
 
         /// <summary>The minor chosen by the Entry.</summary>
+        [JsonPropertyName("CurrentMinor")]
         public string CurrentMinor { get; set; }
 
         /// <summary>Entry date.</summary>
+        [JsonPropertyName("DateEntry")]
         public string DateEntry { get; set; }
 
         /// <summary>Exit date.</summary>
+        [JsonPropertyName("DateExit")]
         public string DateExit { get; set; }
 
         /// <summary>Indicates if the Entry is deceased.</summary>
+        [JsonPropertyName("Deceased")]
         public bool? Deceased { get; set; }
 
         /// <summary>Deceased date.</summary>
+        [JsonPropertyName("DeceasedDate")]
         public string DeceasedDate { get; set; }
 
         /// <summary>Dietary requirements.</summary>
+        [JsonPropertyName("Dietary")]
         public string Dietary { get; set; }
 
         /// <summary>Disability.</summary>
+        [JsonPropertyName("Disability")]
         public string Disability { get; set; }
 
         /// <summary>Employment details.</summary>
+        [JsonPropertyName("EmploymentDetails")]
         public string EmploymentDetails { get; set; }
 
         /// <summary>First year, freshman, sophomore, etc.</summary>
+        [JsonPropertyName("EnrollmentClass")]
         public string EnrollmentClass { get; set; }
 
         /// <summary>Undergraduate, post graduate, etc.</summary>
+        [JsonPropertyName("EnrollmentLevel")]
         public string EnrollmentLevel { get; set; }
 
         /// <summary>Newly admitted, current, active, etc.</summary>
+        [JsonPropertyName("EnrollmentStatus")]
         public string EnrollmentStatus { get; set; }
 
         /// <summary>Spring, fall, post graduate, etc.</summary>
+        [JsonPropertyName("EnrollmentTerm")]
         public string EnrollmentTerm { get; set; }
 
         /// <summary>Year/Level of enrollment.</summary>
+        [JsonPropertyName("EnrollmentYear")]
         public int? EnrollmentYear { get; set; }
 
         /// <summary>Unique ID for this entry detail record.</summary>
-        public int? EntryDetailID { get; set; }
+        [JsonPropertyName("EntryDetailID")]
+        public int? EntryDetailId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Ethnicity.</summary>
+        [JsonPropertyName("Ethnicity")]
         public string Ethnicity { get; set; }
 
         /// <summary>Pointer to the event registration fee record.</summary>
-        public int? EventRegistrationFeeID { get; set; }
+        [JsonPropertyName("EventRegistrationFeeID")]
+        public int? EventRegistrationFeeId { get; set; }
 
         /// <summary>Expected graduation date.</summary>
+        [JsonPropertyName("ExpectedGraduationDate")]
         public string ExpectedGraduationDate { get; set; }
 
         /// <summary>Financial support comments.</summary>
+        [JsonPropertyName("FinancialComments")]
         public string FinancialComments { get; set; }
 
         /// <summary>Pointer to the financial support fee record.</summary>
-        public int? FinancialSupportID { get; set; }
+        [JsonPropertyName("FinancialSupportID")]
+        public int? FinancialSupportId { get; set; }
 
         /// <summary>How did the Entry hear about us.</summary>
+        [JsonPropertyName("HearAboutUs")]
         public string HearAboutUs { get; set; }
 
         /// <summary>Honors indicator.</summary>
+        [JsonPropertyName("HonorsIndicator")]
         public bool? HonorsIndicator { get; set; }
 
         /// <summary>Immunizations hold.</summary>
+        [JsonPropertyName("ImmunizationsHold")]
         public bool? ImmunizationsHold { get; set; }
 
         /// <summary>Incident hold.</summary>
+        [JsonPropertyName("IncidentHold")]
         public bool? IncidentHold { get; set; }
 
         /// <summary>Incident hold comments.</summary>
+        [JsonPropertyName("IncidentHoldComments")]
         public string IncidentHoldComments { get; set; }
 
         /// <summary>Indicates if the Entry is considered an international student.</summary>
+        [JsonPropertyName("International")]
         public bool? International { get; set; }
 
         /// <summary>International details.</summary>
+        [JsonPropertyName("InternationalDetails")]
         public string InternationalDetails { get; set; }
 
         /// <summary>Living with dependents.</summary>
+        [JsonPropertyName("LivingWithDependents")]
         public bool? LivingWithDependents { get; set; }
 
         /// <summary>Indicates if the Entry is married.</summary>
+        [JsonPropertyName("Married")]
         public bool? Married { get; set; }
 
         /// <summary>Medical details.</summary>
+        [JsonPropertyName("Medical")]
         public string Medical { get; set; }
 
         /// <summary>Pointer to the nationality record.</summary>
-        public int? NationalityID { get; set; }
+        [JsonPropertyName("NationalityID")]
+        public int? NationalityId { get; set; }
 
         /// <summary>Occupation.</summary>
+        [JsonPropertyName("Occupation")]
         public string Occupation { get; set; }
 
         /// <summary>Photo path.</summary>
+        [JsonPropertyName("PhotoPath")]
         public string PhotoPath { get; set; }
 
         /// <summary>Previous member name.</summary>
+        [JsonPropertyName("PreviousMemberName")]
         public string PreviousMemberName { get; set; }
 
         /// <summary>Previous member relationship.</summary>
+        [JsonPropertyName("PreviousMemberRelationship")]
         public string PreviousMemberRelationship { get; set; }
 
         /// <summary>Previous membership.</summary>
+        [JsonPropertyName("PreviousMembership")]
         public string PreviousMembership { get; set; }
 
         /// <summary>Previous membership years.</summary>
+        [JsonPropertyName("PreviousMembershipYears")]
         public string PreviousMembershipYears { get; set; }
 
         /// <summary>Previous member years.</summary>
+        [JsonPropertyName("PreviousMemberYears")]
         public string PreviousMemberYears { get; set; }
 
         /// <summary>Profile interests.</summary>
+        [JsonPropertyName("ProfileInterests")]
         public string ProfileInterests { get; set; }
 
         /// <summary>Pointer to the region of birth record.</summary>
-        public int? RegionOfBirthID { get; set; }
+        [JsonPropertyName("RegionOfBirthID")]
+        public int? RegionOfBirthId { get; set; }
 
         /// <summary>Religion.</summary>
+        [JsonPropertyName("Religion")]
         public string Religion { get; set; }
 
         /// <summary>Residency.</summary>
+        [JsonPropertyName("Residency")]
         public string Residency { get; set; }
 
         /// <summary>Resident status.</summary>
+        [JsonPropertyName("ResidentStatus")]
         public string ResidentStatus { get; set; }
 
         /// <summary>Resident year.</summary>
+        [JsonPropertyName("ResidentYear")]
         public int? ResidentYear { get; set; }
 
         /// <summary>Situation response comments.</summary>
+        [JsonPropertyName("SituationResponseComments")]
         public string SituationResponseComments { get; set; }
 
         /// <summary>Situation response detail.</summary>
+        [JsonPropertyName("SituationResponseDetail")]
         public string SituationResponseDetail { get; set; }
 
         /// <summary>Situation response.</summary>
+        [JsonPropertyName("SituationResponseEnum")]
         public string SituationResponseEnum { get; set; }
 
         /// <summary>The date when the response ends (e.g. because the emergency is over)</summary>
+        [JsonPropertyName("SituationResponseExpiryDate")]
         public string SituationResponseExpiryDate { get; set; }
 
         /// <summary>The date the response was last modified.</summary>
+        [JsonPropertyName("SituationResponseModifiedDate")]
         public string SituationResponseModifiedDate { get; set; }
 
         /// <summary>Situation response situation.</summary>
+        [JsonPropertyName("SituationResponseSituation")]
         public string SituationResponseSituation { get; set; }
 
         /// <summary>Special needs.</summary>
+        [JsonPropertyName("SpecialNeeds")]
         public string SpecialNeeds { get; set; }
 
         /// <summary>Pointer to the staff record.</summary>
-        public int? StaffID { get; set; }
+        [JsonPropertyName("StaffID")]
+        public int? StaffId { get; set; }
 
         /// <summary>Uses screen reader.</summary>
+        [JsonPropertyName("UsesScreenReader")]
         public bool? UsesScreenReader { get; set; }
 
         /// <summary>Vehicle details.</summary>
+        [JsonPropertyName("VehicleDetails")]
         public string VehicleDetails { get; set; }
 
         /// <summary>Vehicle permit.</summary>
+        [JsonPropertyName("VehiclePermit")]
         public string VehiclePermit { get; set; }
 
         /// <summary>Vehicle registration.</summary>
+        [JsonPropertyName("VehicleRegistration")]
         public string VehicleRegistration { get; set; }
 
         /// <summary>Veteran status.</summary>
+        [JsonPropertyName("VeteranStatus")]
         public string VeteranStatus { get; set; }
 
         /// <summary>Indicates if the Entry holds a visa.</summary>
+        [JsonPropertyName("Visa")]
         public bool? Visa { get; set; }
 
         /// <summary>Visa details.</summary>
+        [JsonPropertyName("VisaDetails")]
         public string VisaDetails { get; set; }
 
         /// <summary>Visitor hold.</summary>
+        [JsonPropertyName("VisitorHold")]
         public bool? VisitorHold { get; set; }
     }
 
@@ -2976,108 +3791,143 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Campus where entry is enrolled.</summary>
+        [JsonPropertyName("Campus")]
         public string Campus { get; set; }
 
         /// <summary>Enrollment comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the course record.</summary>
-        public int? CourseID { get; set; }
+        [JsonPropertyName("CourseID")]
+        public int? CourseId { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>CustomDate1</summary>
+        [JsonPropertyName("CustomDate1")]
         public object CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
+        [JsonPropertyName("CustomDate2")]
         public object CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>DateEnd</summary>
+        [JsonPropertyName("DateEnd")]
         public object DateEnd { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>DateStart</summary>
+        [JsonPropertyName("DateStart")]
         public object DateStart { get; set; }
 
         /// <summary>Department entry is enrolled in.</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>Field of enrollment.</summary>
+        [JsonPropertyName("EnrollmentField")]
         public string EnrollmentField { get; set; }
 
         /// <summary>Enrollment order.</summary>
+        [JsonPropertyName("EnrollmentOrder")]
         public int? EnrollmentOrder { get; set; }
 
         /// <summary>Enrollment type.</summary>
+        [JsonPropertyName("EnrollmentTypeEnum")]
         public EnrollmentTypeEnum? EnrollmentTypeEnum { get; set; }
 
         /// <summary>Unique ID for this entry enrollment record.</summary>
-        public int? EntryEnrollmentID { get; set; }
+        [JsonPropertyName("EntryEnrollmentID")]
+        public int? EntryEnrollmentId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Course faculty.</summary>
+        [JsonPropertyName("Faculty")]
         public string Faculty { get; set; }
 
         /// <summary>Indicates if the entry is enrolled full time.</summary>
+        [JsonPropertyName("FullTime")]
         public bool? FullTime { get; set; }
 
         /// <summary>GraduationDate</summary>
+        [JsonPropertyName("GraduationDate")]
         public object GraduationDate { get; set; }
 
         /// <summary>Course institution.</summary>
+        [JsonPropertyName("Institution")]
         public string Institution { get; set; }
 
         /// <summary>Indicates if the entry is enrolled.</summary>
+        [JsonPropertyName("IsEnrolled")]
         public bool? IsEnrolled { get; set; }
 
         /// <summary>Course Major.</summary>
+        [JsonPropertyName("Major")]
         public string Major { get; set; }
 
         /// <summary>Major category.</summary>
+        [JsonPropertyName("MajorCategory")]
         public string MajorCategory { get; set; }
 
         /// <summary>Course Minor.</summary>
+        [JsonPropertyName("Minor")]
         public string Minor { get; set; }
 
         /// <summary>Indicates if this is a post graduate course.</summary>
+        [JsonPropertyName("PostGrad")]
         public bool? PostGrad { get; set; }
 
         /// <summary>Sequence</summary>
+        [JsonPropertyName("Sequence")]
         public int? Sequence { get; set; }
 
         /// <summary>The subjects the entry is enrolled in.</summary>
+        [JsonPropertyName("Subjects")]
         public string Subjects { get; set; }
 
         /// <summary>Pointer to the term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Years enrolled.</summary>
+        [JsonPropertyName("Years")]
         public string Years { get; set; }
     }
 
@@ -3087,105 +3937,139 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateEntryEnrollmentInput
     {
         /// <summary>Campus where entry is enrolled.</summary>
+        [JsonPropertyName("Campus")]
         public string Campus { get; set; }
 
         /// <summary>Enrollment comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the course record.</summary>
-        public int? CourseID { get; set; }
+        [JsonPropertyName("CourseID")]
+        public int? CourseId { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date enrollment ends.</summary>
+        [JsonPropertyName("DateEnd")]
         public DateTime? DateEnd { get; set; }
 
         /// <summary>Date enrollment starts.</summary>
+        [JsonPropertyName("DateStart")]
         public DateTime? DateStart { get; set; }
 
         /// <summary>Department entry is enrolled in.</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>Field of enrollment.</summary>
+        [JsonPropertyName("EnrollmentField")]
         public string EnrollmentField { get; set; }
 
         /// <summary>Enrollment order.</summary>
+        [JsonPropertyName("EnrollmentOrder")]
         public int? EnrollmentOrder { get; set; }
 
         /// <summary>Enrollment type.</summary>
+        [JsonPropertyName("EnrollmentTypeEnum")]
         public EnrollmentTypeEnum? EnrollmentTypeEnum { get; set; }
 
         /// <summary>Unique ID for this entry enrollment record.</summary>
-        public int? EntryEnrollmentID { get; set; }
+        [JsonPropertyName("EntryEnrollmentID")]
+        public int? EntryEnrollmentId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Course faculty.</summary>
+        [JsonPropertyName("Faculty")]
         public string Faculty { get; set; }
 
         /// <summary>Indicates if the entry is enrolled full time.</summary>
+        [JsonPropertyName("FullTime")]
         public bool? FullTime { get; set; }
 
         /// <summary>Date of graduation.</summary>
+        [JsonPropertyName("GraduationDate")]
         public DateTime? GraduationDate { get; set; }
 
         /// <summary>Course institution.</summary>
+        [JsonPropertyName("Institution")]
         public string Institution { get; set; }
 
         /// <summary>Indicates if the entry is enrolled.</summary>
+        [JsonPropertyName("IsEnrolled")]
         public bool? IsEnrolled { get; set; }
 
         /// <summary>Course Major.</summary>
+        [JsonPropertyName("Major")]
         public string Major { get; set; }
 
         /// <summary>Major category.</summary>
+        [JsonPropertyName("MajorCategory")]
         public string MajorCategory { get; set; }
 
         /// <summary>Course Minor.</summary>
+        [JsonPropertyName("Minor")]
         public string Minor { get; set; }
 
         /// <summary>Indicates if this is a post graduate course.</summary>
+        [JsonPropertyName("PostGrad")]
         public bool? PostGrad { get; set; }
 
         /// <summary>Sequence</summary>
+        [JsonPropertyName("Sequence")]
         public int? Sequence { get; set; }
 
         /// <summary>The subjects the entry is enrolled in.</summary>
+        [JsonPropertyName("Subjects")]
         public string Subjects { get; set; }
 
         /// <summary>Pointer to the term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Years enrolled.</summary>
+        [JsonPropertyName("Years")]
         public string Years { get; set; }
     }
 
@@ -3195,105 +4079,139 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateEntryEnrollmentResponse
     {
         /// <summary>Campus where entry is enrolled.</summary>
+        [JsonPropertyName("Campus")]
         public string Campus { get; set; }
 
         /// <summary>Enrollment comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the course record.</summary>
-        public int? CourseID { get; set; }
+        [JsonPropertyName("CourseID")]
+        public int? CourseId { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date enrollment ends.</summary>
+        [JsonPropertyName("DateEnd")]
         public string DateEnd { get; set; }
 
         /// <summary>Date enrollment starts.</summary>
+        [JsonPropertyName("DateStart")]
         public string DateStart { get; set; }
 
         /// <summary>Department entry is enrolled in.</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>Field of enrollment.</summary>
+        [JsonPropertyName("EnrollmentField")]
         public string EnrollmentField { get; set; }
 
         /// <summary>Enrollment order.</summary>
+        [JsonPropertyName("EnrollmentOrder")]
         public int? EnrollmentOrder { get; set; }
 
         /// <summary>Enrollment type.</summary>
+        [JsonPropertyName("EnrollmentTypeEnum")]
         public string EnrollmentTypeEnum { get; set; }
 
         /// <summary>Unique ID for this entry enrollment record.</summary>
-        public int? EntryEnrollmentID { get; set; }
+        [JsonPropertyName("EntryEnrollmentID")]
+        public int? EntryEnrollmentId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Course faculty.</summary>
+        [JsonPropertyName("Faculty")]
         public string Faculty { get; set; }
 
         /// <summary>Indicates if the entry is enrolled full time.</summary>
+        [JsonPropertyName("FullTime")]
         public bool? FullTime { get; set; }
 
         /// <summary>Date of graduation.</summary>
+        [JsonPropertyName("GraduationDate")]
         public string GraduationDate { get; set; }
 
         /// <summary>Course institution.</summary>
+        [JsonPropertyName("Institution")]
         public string Institution { get; set; }
 
         /// <summary>Indicates if the entry is enrolled.</summary>
+        [JsonPropertyName("IsEnrolled")]
         public bool? IsEnrolled { get; set; }
 
         /// <summary>Course Major.</summary>
+        [JsonPropertyName("Major")]
         public string Major { get; set; }
 
         /// <summary>Major category.</summary>
+        [JsonPropertyName("MajorCategory")]
         public string MajorCategory { get; set; }
 
         /// <summary>Course Minor.</summary>
+        [JsonPropertyName("Minor")]
         public string Minor { get; set; }
 
         /// <summary>Indicates if this is a post graduate course.</summary>
+        [JsonPropertyName("PostGrad")]
         public bool? PostGrad { get; set; }
 
         /// <summary>Sequence</summary>
+        [JsonPropertyName("Sequence")]
         public int? Sequence { get; set; }
 
         /// <summary>The subjects the entry is enrolled in.</summary>
+        [JsonPropertyName("Subjects")]
         public string Subjects { get; set; }
 
         /// <summary>Pointer to the term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Years enrolled.</summary>
+        [JsonPropertyName("Years")]
         public string Years { get; set; }
     }
 
@@ -3303,105 +4221,139 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryEnrollmentInput
     {
         /// <summary>Campus where entry is enrolled.</summary>
+        [JsonPropertyName("Campus")]
         public string Campus { get; set; }
 
         /// <summary>Enrollment comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the course record.</summary>
-        public int? CourseID { get; set; }
+        [JsonPropertyName("CourseID")]
+        public int? CourseId { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date enrollment ends.</summary>
+        [JsonPropertyName("DateEnd")]
         public DateTime? DateEnd { get; set; }
 
         /// <summary>Date enrollment starts.</summary>
+        [JsonPropertyName("DateStart")]
         public DateTime? DateStart { get; set; }
 
         /// <summary>Department entry is enrolled in.</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>Field of enrollment.</summary>
+        [JsonPropertyName("EnrollmentField")]
         public string EnrollmentField { get; set; }
 
         /// <summary>Enrollment order.</summary>
+        [JsonPropertyName("EnrollmentOrder")]
         public int? EnrollmentOrder { get; set; }
 
         /// <summary>Enrollment type.</summary>
+        [JsonPropertyName("EnrollmentTypeEnum")]
         public EnrollmentTypeEnum? EnrollmentTypeEnum { get; set; }
 
         /// <summary>Unique ID for this entry enrollment record.</summary>
-        public int? EntryEnrollmentID { get; set; }
+        [JsonPropertyName("EntryEnrollmentID")]
+        public int? EntryEnrollmentId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Course faculty.</summary>
+        [JsonPropertyName("Faculty")]
         public string Faculty { get; set; }
 
         /// <summary>Indicates if the entry is enrolled full time.</summary>
+        [JsonPropertyName("FullTime")]
         public bool? FullTime { get; set; }
 
         /// <summary>Date of graduation.</summary>
+        [JsonPropertyName("GraduationDate")]
         public DateTime? GraduationDate { get; set; }
 
         /// <summary>Course institution.</summary>
+        [JsonPropertyName("Institution")]
         public string Institution { get; set; }
 
         /// <summary>Indicates if the entry is enrolled.</summary>
+        [JsonPropertyName("IsEnrolled")]
         public bool? IsEnrolled { get; set; }
 
         /// <summary>Course Major.</summary>
+        [JsonPropertyName("Major")]
         public string Major { get; set; }
 
         /// <summary>Major category.</summary>
+        [JsonPropertyName("MajorCategory")]
         public string MajorCategory { get; set; }
 
         /// <summary>Course Minor.</summary>
+        [JsonPropertyName("Minor")]
         public string Minor { get; set; }
 
         /// <summary>Indicates if this is a post graduate course.</summary>
+        [JsonPropertyName("PostGrad")]
         public bool? PostGrad { get; set; }
 
         /// <summary>Sequence</summary>
+        [JsonPropertyName("Sequence")]
         public int? Sequence { get; set; }
 
         /// <summary>The subjects the entry is enrolled in.</summary>
+        [JsonPropertyName("Subjects")]
         public string Subjects { get; set; }
 
         /// <summary>Pointer to the term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Years enrolled.</summary>
+        [JsonPropertyName("Years")]
         public string Years { get; set; }
     }
 
@@ -3411,105 +4363,139 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateEntryEnrollmentResponse
     {
         /// <summary>Campus where entry is enrolled.</summary>
+        [JsonPropertyName("Campus")]
         public string Campus { get; set; }
 
         /// <summary>Enrollment comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the course record.</summary>
-        public int? CourseID { get; set; }
+        [JsonPropertyName("CourseID")]
+        public int? CourseId { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date enrollment ends.</summary>
+        [JsonPropertyName("DateEnd")]
         public string DateEnd { get; set; }
 
         /// <summary>Date enrollment starts.</summary>
+        [JsonPropertyName("DateStart")]
         public string DateStart { get; set; }
 
         /// <summary>Department entry is enrolled in.</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>Field of enrollment.</summary>
+        [JsonPropertyName("EnrollmentField")]
         public string EnrollmentField { get; set; }
 
         /// <summary>Enrollment order.</summary>
+        [JsonPropertyName("EnrollmentOrder")]
         public int? EnrollmentOrder { get; set; }
 
         /// <summary>Enrollment type.</summary>
+        [JsonPropertyName("EnrollmentTypeEnum")]
         public string EnrollmentTypeEnum { get; set; }
 
         /// <summary>Unique ID for this entry enrollment record.</summary>
-        public int? EntryEnrollmentID { get; set; }
+        [JsonPropertyName("EntryEnrollmentID")]
+        public int? EntryEnrollmentId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Course faculty.</summary>
+        [JsonPropertyName("Faculty")]
         public string Faculty { get; set; }
 
         /// <summary>Indicates if the entry is enrolled full time.</summary>
+        [JsonPropertyName("FullTime")]
         public bool? FullTime { get; set; }
 
         /// <summary>Date of graduation.</summary>
+        [JsonPropertyName("GraduationDate")]
         public string GraduationDate { get; set; }
 
         /// <summary>Course institution.</summary>
+        [JsonPropertyName("Institution")]
         public string Institution { get; set; }
 
         /// <summary>Indicates if the entry is enrolled.</summary>
+        [JsonPropertyName("IsEnrolled")]
         public bool? IsEnrolled { get; set; }
 
         /// <summary>Course Major.</summary>
+        [JsonPropertyName("Major")]
         public string Major { get; set; }
 
         /// <summary>Major category.</summary>
+        [JsonPropertyName("MajorCategory")]
         public string MajorCategory { get; set; }
 
         /// <summary>Course Minor.</summary>
+        [JsonPropertyName("Minor")]
         public string Minor { get; set; }
 
         /// <summary>Indicates if this is a post graduate course.</summary>
+        [JsonPropertyName("PostGrad")]
         public bool? PostGrad { get; set; }
 
         /// <summary>Sequence</summary>
+        [JsonPropertyName("Sequence")]
         public int? Sequence { get; set; }
 
         /// <summary>The subjects the entry is enrolled in.</summary>
+        [JsonPropertyName("Subjects")]
         public string Subjects { get; set; }
 
         /// <summary>Pointer to the term record.</summary>
-        public int? TermID { get; set; }
+        [JsonPropertyName("TermID")]
+        public int? TermId { get; set; }
 
         /// <summary>Years enrolled.</summary>
+        [JsonPropertyName("Years")]
         public string Years { get; set; }
     }
 
@@ -3535,195 +4521,256 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>The number of additional human occupants in this booking.</summary>
+        [JsonPropertyName("AdditionalOccupantCount")]
         public int? AdditionalOccupantCount { get; set; }
 
         /// <summary>Details of the auto allocation.</summary>
+        [JsonPropertyName("AutoAllocationDetail")]
         public string AutoAllocationDetail { get; set; }
 
         /// <summary>Unique ID for this booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>Booking link type.</summary>
+        [JsonPropertyName("BookingLinkTypeEnum")]
         public BookingLinkTypeEnum? BookingLinkTypeEnum { get; set; }
 
         /// <summary>Pointer to the booking type record.</summary>
-        public int? BookingTypeID { get; set; }
+        [JsonPropertyName("BookingTypeID")]
+        public int? BookingTypeId { get; set; }
 
         /// <summary>CheckInDate</summary>
+        [JsonPropertyName("CheckInDate")]
         public object CheckInDate { get; set; }
 
         /// <summary>CheckInDateActual</summary>
+        [JsonPropertyName("CheckInDateActual")]
         public object CheckInDateActual { get; set; }
 
         /// <summary>CheckOutDate</summary>
+        [JsonPropertyName("CheckOutDate")]
         public object CheckOutDate { get; set; }
 
         /// <summary>CheckOutDateActual</summary>
+        [JsonPropertyName("CheckOutDateActual")]
         public object CheckOutDateActual { get; set; }
 
         /// <summary>Comments</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>ContractDateEnd</summary>
+        [JsonPropertyName("ContractDateEnd")]
         public object ContractDateEnd { get; set; }
 
         /// <summary>ContractDateStart</summary>
+        [JsonPropertyName("ContractDateStart")]
         public object ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>CustomDate1</summary>
+        [JsonPropertyName("CustomDate1")]
         public object CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
+        [JsonPropertyName("CustomDate2")]
         public object CustomDate2 { get; set; }
 
         /// <summary>CustomDate3</summary>
+        [JsonPropertyName("CustomDate3")]
         public object CustomDate3 { get; set; }
 
         /// <summary>CustomDate4</summary>
+        [JsonPropertyName("CustomDate4")]
         public object CustomDate4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString7")]
         public string CustomString7 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString8")]
         public string CustomString8 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString9")]
         public string CustomString9 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString10")]
         public string CustomString10 { get; set; }
 
         /// <summary>DateBilled</summary>
+        [JsonPropertyName("DateBilled")]
         public object DateBilled { get; set; }
 
         /// <summary>DateChargedTo</summary>
+        [JsonPropertyName("DateChargedTo")]
         public object DateChargedTo { get; set; }
 
         /// <summary>DateCreated</summary>
+        [JsonPropertyName("DateCreated")]
         public object DateCreated { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>DateModifiedBilling</summary>
+        [JsonPropertyName("DateModifiedBilling")]
         public object DateModifiedBilling { get; set; }
 
         /// <summary>The number of additional Emotional Support Animal occupants in this booking.</summary>
+        [JsonPropertyName("EmotionalSupportAnimalCount")]
         public int? EmotionalSupportAnimalCount { get; set; }
 
         /// <summary>The reason this booking finished.</summary>
         [JsonPropertyName("End_BookingReasonID")]
-        public int? EndBookingReasonID { get; set; }
+        public int? EndBookingReasonId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Identifies the entry invitation that the booking is created for.</summary>
-        public int? EntryInvitationID { get; set; }
+        [JsonPropertyName("EntryInvitationID")]
+        public int? EntryInvitationId { get; set; }
 
         /// <summary>The status of the booking.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Minutes since midnight for estimated time of arrival.</summary>
+        [JsonPropertyName("ETA")]
         public string ETA { get; set; }
 
         /// <summary>Minutes since midnight for estimated time of departure.</summary>
+        [JsonPropertyName("ETD")]
         public string ETD { get; set; }
 
         /// <summary>Amount of excess.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Pointer to the group record.</summary>
-        public int? GroupID { get; set; }
+        [JsonPropertyName("GroupID")]
+        public int? GroupId { get; set; }
 
         /// <summary>The housekeeping rules that should be applied to this booking.</summary>
-        public int? HousekeepingID { get; set; }
+        [JsonPropertyName("HousekeepingID")]
+        public int? HousekeepingId { get; set; }
 
         /// <summary>The number of children in the booking.</summary>
+        [JsonPropertyName("NumberOfChildren")]
         public int? NumberOfChildren { get; set; }
 
         /// <summary>The number of children that are free to stay.</summary>
+        [JsonPropertyName("NumberOfChildrenFree")]
         public int? NumberOfChildrenFree { get; set; }
 
         /// <summary>The number of guests in the booking.</summary>
+        [JsonPropertyName("NumberOfGuests")]
         public int? NumberOfGuests { get; set; }
 
         /// <summary>The number of guests that are free to stay.</summary>
+        [JsonPropertyName("NumberOfGuestsFree")]
         public int? NumberOfGuestsFree { get; set; }
 
         /// <summary>PaidTo</summary>
+        [JsonPropertyName("PaidTo")]
         public object PaidTo { get; set; }
 
         /// <summary>The number of additional pet occupants in this booking.</summary>
+        [JsonPropertyName("PetCount")]
         public int? PetCount { get; set; }
 
         /// <summary>Whether reservation charges are charged to the entry or group master account.</summary>
+        [JsonPropertyName("ResvChargeToEntry")]
         public bool? ResvChargeToEntry { get; set; }
 
         /// <summary>Indicates if the location was manually selected, and should not be changed by Auto Room Allocations.</summary>
+        [JsonPropertyName("RoomLocationFixed")]
         public bool? RoomLocationFixed { get; set; }
 
         /// <summary>Pointer to the room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>Actual dollar amount of room rate.</summary>
+        [JsonPropertyName("RoomRateAmount")]
         public double? RoomRateAmount { get; set; }
 
         /// <summary>Selected room rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room type record.</summary>
-        public int? RoomTypeID { get; set; }
+        [JsonPropertyName("RoomTypeID")]
+        public int? RoomTypeId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>The number of additional Service Animal occupants in this booking.</summary>
+        [JsonPropertyName("ServiceAnimalCount")]
         public int? ServiceAnimalCount { get; set; }
 
         /// <summary>Special requirements for this booking.</summary>
+        [JsonPropertyName("SpecialRequirement")]
         public string SpecialRequirement { get; set; }
 
         /// <summary>Reason for this booking (normal, room change etc.).</summary>
         [JsonPropertyName("Start_BookingReasonID")]
-        public int? StartBookingReasonID { get; set; }
+        public int? StartBookingReasonId { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
     }
 
     /// <summary>
@@ -3732,186 +4779,244 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateBookingInput
     {
         /// <summary>The number of additional human occupants in this booking.</summary>
+        [JsonPropertyName("AdditionalOccupantCount")]
         public int? AdditionalOccupantCount { get; set; }
 
         /// <summary>Details of the auto allocation.</summary>
+        [JsonPropertyName("AutoAllocationDetail")]
         public string AutoAllocationDetail { get; set; }
 
         /// <summary>Unique ID for this booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>Booking link type.</summary>
+        [JsonPropertyName("BookingLinkTypeEnum")]
         public BookingLinkTypeEnum? BookingLinkTypeEnum { get; set; }
 
         /// <summary>Pointer to the booking type record.</summary>
-        public int? BookingTypeID { get; set; }
+        [JsonPropertyName("BookingTypeID")]
+        public int? BookingTypeId { get; set; }
 
         /// <summary>Main (contract) check-in date.</summary>
+        [JsonPropertyName("CheckInDate")]
         public DateTime? CheckInDate { get; set; }
 
         /// <summary>Actual date the entry arrives.</summary>
+        [JsonPropertyName("CheckInDateActual")]
         public DateTime? CheckInDateActual { get; set; }
 
         /// <summary>Main (contract) check-out date.</summary>
+        [JsonPropertyName("CheckOutDate")]
         public DateTime? CheckOutDate { get; set; }
 
         /// <summary>Actual date the entry departs.</summary>
+        [JsonPropertyName("CheckOutDateActual")]
         public DateTime? CheckOutDateActual { get; set; }
 
         /// <summary>Comments</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact chargeable date end.</summary>
+        [JsonPropertyName("ContractDateEnd")]
         public DateTime? ContractDateEnd { get; set; }
 
         /// <summary>Contact chargeable date start.</summary>
+        [JsonPropertyName("ContractDateStart")]
         public DateTime? ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public DateTime? CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public DateTime? CustomDate4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString7")]
         public string CustomString7 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString8")]
         public string CustomString8 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString9")]
         public string CustomString9 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString10")]
         public string CustomString10 { get; set; }
 
         /// <summary>Date when this booking was processed for billing.</summary>
+        [JsonPropertyName("DateBilled")]
         public DateTime? DateBilled { get; set; }
 
         /// <summary>Date this booking has been charged up to (using reservation charges).</summary>
+        [JsonPropertyName("DateChargedTo")]
         public DateTime? DateChargedTo { get; set; }
 
         /// <summary>The number of additional Emotional Support Animal occupants in this booking.</summary>
+        [JsonPropertyName("EmotionalSupportAnimalCount")]
         public int? EmotionalSupportAnimalCount { get; set; }
 
         /// <summary>The reason this booking finished.</summary>
         [JsonPropertyName("End_BookingReasonID")]
-        public int? EndBookingReasonID { get; set; }
+        public int? EndBookingReasonId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Identifies the entry invitation that the booking is created for.</summary>
-        public int? EntryInvitationID { get; set; }
+        [JsonPropertyName("EntryInvitationID")]
+        public int? EntryInvitationId { get; set; }
 
         /// <summary>The status of the booking.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Date and time of estimated arrival.</summary>
+        [JsonPropertyName("ETA")]
         public DateTime? ETA { get; set; }
 
         /// <summary>Date and time of estimated departure.</summary>
+        [JsonPropertyName("ETD")]
         public DateTime? ETD { get; set; }
 
         /// <summary>Amount of excess.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Pointer to the group record.</summary>
-        public int? GroupID { get; set; }
+        [JsonPropertyName("GroupID")]
+        public int? GroupId { get; set; }
 
         /// <summary>The housekeeping rules that should be applied to this booking.</summary>
-        public int? HousekeepingID { get; set; }
+        [JsonPropertyName("HousekeepingID")]
+        public int? HousekeepingId { get; set; }
 
         /// <summary>The number of children in the booking.</summary>
+        [JsonPropertyName("NumberOfChildren")]
         public int? NumberOfChildren { get; set; }
 
         /// <summary>The number of children that are free to stay.</summary>
+        [JsonPropertyName("NumberOfChildrenFree")]
         public int? NumberOfChildrenFree { get; set; }
 
         /// <summary>The number of guests in the booking.</summary>
+        [JsonPropertyName("NumberOfGuests")]
         public int? NumberOfGuests { get; set; }
 
         /// <summary>The number of guests that are free to stay.</summary>
+        [JsonPropertyName("NumberOfGuestsFree")]
         public int? NumberOfGuestsFree { get; set; }
 
         /// <summary>Date the booking is paid to.</summary>
+        [JsonPropertyName("PaidTo")]
         public DateTime? PaidTo { get; set; }
 
         /// <summary>The number of additional pet occupants in this booking.</summary>
+        [JsonPropertyName("PetCount")]
         public int? PetCount { get; set; }
 
         /// <summary>Whether reservation charges are charged to the entry or group master account.</summary>
+        [JsonPropertyName("ResvChargeToEntry")]
         public bool? ResvChargeToEntry { get; set; }
 
         /// <summary>Indicates if the location was manually selected, and should not be changed by Auto Room Allocations.</summary>
+        [JsonPropertyName("RoomLocationFixed")]
         public bool? RoomLocationFixed { get; set; }
 
         /// <summary>Pointer to the room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>Actual dollar amount of room rate.</summary>
+        [JsonPropertyName("RoomRateAmount")]
         public double? RoomRateAmount { get; set; }
 
         /// <summary>Selected room rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room type record.</summary>
-        public int? RoomTypeID { get; set; }
+        [JsonPropertyName("RoomTypeID")]
+        public int? RoomTypeId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>The number of additional Service Animal occupants in this booking.</summary>
+        [JsonPropertyName("ServiceAnimalCount")]
         public int? ServiceAnimalCount { get; set; }
 
         /// <summary>Special requirements for this booking.</summary>
+        [JsonPropertyName("SpecialRequirement")]
         public string SpecialRequirement { get; set; }
 
         /// <summary>Reason for this booking (normal, room change etc.).</summary>
         [JsonPropertyName("Start_BookingReasonID")]
-        public int? StartBookingReasonID { get; set; }
+        public int? StartBookingReasonId { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
     }
 
     /// <summary>
@@ -3920,189 +5025,248 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateBookingResponse
     {
         /// <summary>The number of additional human occupants in this booking.</summary>
+        [JsonPropertyName("AdditionalOccupantCount")]
         public int? AdditionalOccupantCount { get; set; }
 
         /// <summary>Details of the auto allocation.</summary>
+        [JsonPropertyName("AutoAllocationDetail")]
         public string AutoAllocationDetail { get; set; }
 
         /// <summary>Unique ID for this booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>Booking link type.</summary>
+        [JsonPropertyName("BookingLinkTypeEnum")]
         public string BookingLinkTypeEnum { get; set; }
 
         /// <summary>Pointer to the booking type record.</summary>
-        public int? BookingTypeID { get; set; }
+        [JsonPropertyName("BookingTypeID")]
+        public int? BookingTypeId { get; set; }
 
         /// <summary>Main (contract) check-in date.</summary>
+        [JsonPropertyName("CheckInDate")]
         public string CheckInDate { get; set; }
 
         /// <summary>Actual date the entry arrives.</summary>
+        [JsonPropertyName("CheckInDateActual")]
         public string CheckInDateActual { get; set; }
 
         /// <summary>Main (contract) check-out date.</summary>
+        [JsonPropertyName("CheckOutDate")]
         public string CheckOutDate { get; set; }
 
         /// <summary>Actual date the entry departs.</summary>
+        [JsonPropertyName("CheckOutDateActual")]
         public string CheckOutDateActual { get; set; }
 
         /// <summary>Comments</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact chargeable date end.</summary>
+        [JsonPropertyName("ContractDateEnd")]
         public string ContractDateEnd { get; set; }
 
         /// <summary>Contact chargeable date start.</summary>
+        [JsonPropertyName("ContractDateStart")]
         public string ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public string CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public string CustomDate4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString7")]
         public string CustomString7 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString8")]
         public string CustomString8 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString9")]
         public string CustomString9 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString10")]
         public string CustomString10 { get; set; }
 
         /// <summary>Date when this booking was processed for billing.</summary>
+        [JsonPropertyName("DateBilled")]
         public string DateBilled { get; set; }
 
         /// <summary>Date this booking has been charged up to (using reservation charges).</summary>
+        [JsonPropertyName("DateChargedTo")]
         public string DateChargedTo { get; set; }
 
         /// <summary>Indicates when critical booking fields are modified.</summary>
+        [JsonPropertyName("DateModifiedBilling")]
         public string DateModifiedBilling { get; set; }
 
         /// <summary>The number of additional Emotional Support Animal occupants in this booking.</summary>
+        [JsonPropertyName("EmotionalSupportAnimalCount")]
         public int? EmotionalSupportAnimalCount { get; set; }
 
         /// <summary>The reason this booking finished.</summary>
         [JsonPropertyName("End_BookingReasonID")]
-        public int? EndBookingReasonID { get; set; }
+        public int? EndBookingReasonId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Identifies the entry invitation that the booking is created for.</summary>
-        public int? EntryInvitationID { get; set; }
+        [JsonPropertyName("EntryInvitationID")]
+        public int? EntryInvitationId { get; set; }
 
         /// <summary>The status of the booking.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public string EntryStatusEnum { get; set; }
 
         /// <summary>Date and time of estimated arrival.</summary>
+        [JsonPropertyName("ETA")]
         public string ETA { get; set; }
 
         /// <summary>Date and time of estimated departure.</summary>
+        [JsonPropertyName("ETD")]
         public string ETD { get; set; }
 
         /// <summary>Amount of excess.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Pointer to the group record.</summary>
-        public int? GroupID { get; set; }
+        [JsonPropertyName("GroupID")]
+        public int? GroupId { get; set; }
 
         /// <summary>The housekeeping rules that should be applied to this booking.</summary>
-        public int? HousekeepingID { get; set; }
+        [JsonPropertyName("HousekeepingID")]
+        public int? HousekeepingId { get; set; }
 
         /// <summary>The number of children in the booking.</summary>
+        [JsonPropertyName("NumberOfChildren")]
         public int? NumberOfChildren { get; set; }
 
         /// <summary>The number of children that are free to stay.</summary>
+        [JsonPropertyName("NumberOfChildrenFree")]
         public int? NumberOfChildrenFree { get; set; }
 
         /// <summary>The number of guests in the booking.</summary>
+        [JsonPropertyName("NumberOfGuests")]
         public int? NumberOfGuests { get; set; }
 
         /// <summary>The number of guests that are free to stay.</summary>
+        [JsonPropertyName("NumberOfGuestsFree")]
         public int? NumberOfGuestsFree { get; set; }
 
         /// <summary>Date the booking is paid to.</summary>
+        [JsonPropertyName("PaidTo")]
         public string PaidTo { get; set; }
 
         /// <summary>The number of additional pet occupants in this booking.</summary>
+        [JsonPropertyName("PetCount")]
         public int? PetCount { get; set; }
 
         /// <summary>Whether reservation charges are charged to the entry or group master account.</summary>
+        [JsonPropertyName("ResvChargeToEntry")]
         public bool? ResvChargeToEntry { get; set; }
 
         /// <summary>Indicates if the location was manually selected, and should not be changed by Auto Room Allocations.</summary>
+        [JsonPropertyName("RoomLocationFixed")]
         public bool? RoomLocationFixed { get; set; }
 
         /// <summary>Pointer to the room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>Actual dollar amount of room rate.</summary>
+        [JsonPropertyName("RoomRateAmount")]
         public double? RoomRateAmount { get; set; }
 
         /// <summary>Selected room rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room type record.</summary>
-        public int? RoomTypeID { get; set; }
+        [JsonPropertyName("RoomTypeID")]
+        public int? RoomTypeId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>The number of additional Service Animal occupants in this booking.</summary>
+        [JsonPropertyName("ServiceAnimalCount")]
         public int? ServiceAnimalCount { get; set; }
 
         /// <summary>Special requirements for this booking.</summary>
+        [JsonPropertyName("SpecialRequirement")]
         public string SpecialRequirement { get; set; }
 
         /// <summary>Reason for this booking (normal, room change etc.).</summary>
         [JsonPropertyName("Start_BookingReasonID")]
-        public int? StartBookingReasonID { get; set; }
+        public int? StartBookingReasonId { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
     }
 
     /// <summary>
@@ -4111,186 +5275,244 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateBookingInput
     {
         /// <summary>The number of additional human occupants in this booking.</summary>
+        [JsonPropertyName("AdditionalOccupantCount")]
         public int? AdditionalOccupantCount { get; set; }
 
         /// <summary>Details of the auto allocation.</summary>
+        [JsonPropertyName("AutoAllocationDetail")]
         public string AutoAllocationDetail { get; set; }
 
         /// <summary>Unique ID for this booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>Booking link type.</summary>
+        [JsonPropertyName("BookingLinkTypeEnum")]
         public BookingLinkTypeEnum? BookingLinkTypeEnum { get; set; }
 
         /// <summary>Pointer to the booking type record.</summary>
-        public int? BookingTypeID { get; set; }
+        [JsonPropertyName("BookingTypeID")]
+        public int? BookingTypeId { get; set; }
 
         /// <summary>Main (contract) check-in date.</summary>
+        [JsonPropertyName("CheckInDate")]
         public DateTime? CheckInDate { get; set; }
 
         /// <summary>Actual date the entry arrives.</summary>
+        [JsonPropertyName("CheckInDateActual")]
         public DateTime? CheckInDateActual { get; set; }
 
         /// <summary>Main (contract) check-out date.</summary>
+        [JsonPropertyName("CheckOutDate")]
         public DateTime? CheckOutDate { get; set; }
 
         /// <summary>Actual date the entry departs.</summary>
+        [JsonPropertyName("CheckOutDateActual")]
         public DateTime? CheckOutDateActual { get; set; }
 
         /// <summary>Comments</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact chargeable date end.</summary>
+        [JsonPropertyName("ContractDateEnd")]
         public DateTime? ContractDateEnd { get; set; }
 
         /// <summary>Contact chargeable date start.</summary>
+        [JsonPropertyName("ContractDateStart")]
         public DateTime? ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public DateTime? CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public DateTime? CustomDate4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString7")]
         public string CustomString7 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString8")]
         public string CustomString8 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString9")]
         public string CustomString9 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString10")]
         public string CustomString10 { get; set; }
 
         /// <summary>Date when this booking was processed for billing.</summary>
+        [JsonPropertyName("DateBilled")]
         public DateTime? DateBilled { get; set; }
 
         /// <summary>Date this booking has been charged up to (using reservation charges).</summary>
+        [JsonPropertyName("DateChargedTo")]
         public DateTime? DateChargedTo { get; set; }
 
         /// <summary>The number of additional Emotional Support Animal occupants in this booking.</summary>
+        [JsonPropertyName("EmotionalSupportAnimalCount")]
         public int? EmotionalSupportAnimalCount { get; set; }
 
         /// <summary>The reason this booking finished.</summary>
         [JsonPropertyName("End_BookingReasonID")]
-        public int? EndBookingReasonID { get; set; }
+        public int? EndBookingReasonId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Identifies the entry invitation that the booking is created for.</summary>
-        public int? EntryInvitationID { get; set; }
+        [JsonPropertyName("EntryInvitationID")]
+        public int? EntryInvitationId { get; set; }
 
         /// <summary>The status of the booking.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public EntryStatusEnum? EntryStatusEnum { get; set; }
 
         /// <summary>Date and time of estimated arrival.</summary>
+        [JsonPropertyName("ETA")]
         public DateTime? ETA { get; set; }
 
         /// <summary>Date and time of estimated departure.</summary>
+        [JsonPropertyName("ETD")]
         public DateTime? ETD { get; set; }
 
         /// <summary>Amount of excess.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Pointer to the group record.</summary>
-        public int? GroupID { get; set; }
+        [JsonPropertyName("GroupID")]
+        public int? GroupId { get; set; }
 
         /// <summary>The housekeeping rules that should be applied to this booking.</summary>
-        public int? HousekeepingID { get; set; }
+        [JsonPropertyName("HousekeepingID")]
+        public int? HousekeepingId { get; set; }
 
         /// <summary>The number of children in the booking.</summary>
+        [JsonPropertyName("NumberOfChildren")]
         public int? NumberOfChildren { get; set; }
 
         /// <summary>The number of children that are free to stay.</summary>
+        [JsonPropertyName("NumberOfChildrenFree")]
         public int? NumberOfChildrenFree { get; set; }
 
         /// <summary>The number of guests in the booking.</summary>
+        [JsonPropertyName("NumberOfGuests")]
         public int? NumberOfGuests { get; set; }
 
         /// <summary>The number of guests that are free to stay.</summary>
+        [JsonPropertyName("NumberOfGuestsFree")]
         public int? NumberOfGuestsFree { get; set; }
 
         /// <summary>Date the booking is paid to.</summary>
+        [JsonPropertyName("PaidTo")]
         public DateTime? PaidTo { get; set; }
 
         /// <summary>The number of additional pet occupants in this booking.</summary>
+        [JsonPropertyName("PetCount")]
         public int? PetCount { get; set; }
 
         /// <summary>Whether reservation charges are charged to the entry or group master account.</summary>
+        [JsonPropertyName("ResvChargeToEntry")]
         public bool? ResvChargeToEntry { get; set; }
 
         /// <summary>Indicates if the location was manually selected, and should not be changed by Auto Room Allocations.</summary>
+        [JsonPropertyName("RoomLocationFixed")]
         public bool? RoomLocationFixed { get; set; }
 
         /// <summary>Pointer to the room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>Actual dollar amount of room rate.</summary>
+        [JsonPropertyName("RoomRateAmount")]
         public double? RoomRateAmount { get; set; }
 
         /// <summary>Selected room rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room type record.</summary>
-        public int? RoomTypeID { get; set; }
+        [JsonPropertyName("RoomTypeID")]
+        public int? RoomTypeId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>The number of additional Service Animal occupants in this booking.</summary>
+        [JsonPropertyName("ServiceAnimalCount")]
         public int? ServiceAnimalCount { get; set; }
 
         /// <summary>Special requirements for this booking.</summary>
+        [JsonPropertyName("SpecialRequirement")]
         public string SpecialRequirement { get; set; }
 
         /// <summary>Reason for this booking (normal, room change etc.).</summary>
         [JsonPropertyName("Start_BookingReasonID")]
-        public int? StartBookingReasonID { get; set; }
+        public int? StartBookingReasonId { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
     }
 
     /// <summary>
@@ -4299,189 +5521,248 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateBookingResponse
     {
         /// <summary>The number of additional human occupants in this booking.</summary>
+        [JsonPropertyName("AdditionalOccupantCount")]
         public int? AdditionalOccupantCount { get; set; }
 
         /// <summary>Details of the auto allocation.</summary>
+        [JsonPropertyName("AutoAllocationDetail")]
         public string AutoAllocationDetail { get; set; }
 
         /// <summary>Unique ID for this booking record.</summary>
-        public int? BookingID { get; set; }
+        [JsonPropertyName("BookingID")]
+        public int? BookingId { get; set; }
 
         /// <summary>Booking link type.</summary>
+        [JsonPropertyName("BookingLinkTypeEnum")]
         public string BookingLinkTypeEnum { get; set; }
 
         /// <summary>Pointer to the booking type record.</summary>
-        public int? BookingTypeID { get; set; }
+        [JsonPropertyName("BookingTypeID")]
+        public int? BookingTypeId { get; set; }
 
         /// <summary>Main (contract) check-in date.</summary>
+        [JsonPropertyName("CheckInDate")]
         public string CheckInDate { get; set; }
 
         /// <summary>Actual date the entry arrives.</summary>
+        [JsonPropertyName("CheckInDateActual")]
         public string CheckInDateActual { get; set; }
 
         /// <summary>Main (contract) check-out date.</summary>
+        [JsonPropertyName("CheckOutDate")]
         public string CheckOutDate { get; set; }
 
         /// <summary>Actual date the entry departs.</summary>
+        [JsonPropertyName("CheckOutDateActual")]
         public string CheckOutDateActual { get; set; }
 
         /// <summary>Comments</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Contact chargeable date end.</summary>
+        [JsonPropertyName("ContractDateEnd")]
         public string ContractDateEnd { get; set; }
 
         /// <summary>Contact chargeable date start.</summary>
+        [JsonPropertyName("ContractDateStart")]
         public string ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit3")]
         public bool? CustomBit3 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit4")]
         public bool? CustomBit4 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate3")]
         public string CustomDate3 { get; set; }
 
         /// <summary>Custom date field value.</summary>
+        [JsonPropertyName("CustomDate4")]
         public string CustomDate4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString7")]
         public string CustomString7 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString8")]
         public string CustomString8 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString9")]
         public string CustomString9 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString10")]
         public string CustomString10 { get; set; }
 
         /// <summary>Date when this booking was processed for billing.</summary>
+        [JsonPropertyName("DateBilled")]
         public string DateBilled { get; set; }
 
         /// <summary>Date this booking has been charged up to (using reservation charges).</summary>
+        [JsonPropertyName("DateChargedTo")]
         public string DateChargedTo { get; set; }
 
         /// <summary>Indicates when critical booking fields are modified.</summary>
+        [JsonPropertyName("DateModifiedBilling")]
         public string DateModifiedBilling { get; set; }
 
         /// <summary>The number of additional Emotional Support Animal occupants in this booking.</summary>
+        [JsonPropertyName("EmotionalSupportAnimalCount")]
         public int? EmotionalSupportAnimalCount { get; set; }
 
         /// <summary>The reason this booking finished.</summary>
         [JsonPropertyName("End_BookingReasonID")]
-        public int? EndBookingReasonID { get; set; }
+        public int? EndBookingReasonId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Identifies the entry invitation that the booking is created for.</summary>
-        public int? EntryInvitationID { get; set; }
+        [JsonPropertyName("EntryInvitationID")]
+        public int? EntryInvitationId { get; set; }
 
         /// <summary>The status of the booking.</summary>
+        [JsonPropertyName("EntryStatusEnum")]
         public string EntryStatusEnum { get; set; }
 
         /// <summary>Date and time of estimated arrival.</summary>
+        [JsonPropertyName("ETA")]
         public string ETA { get; set; }
 
         /// <summary>Date and time of estimated departure.</summary>
+        [JsonPropertyName("ETD")]
         public string ETD { get; set; }
 
         /// <summary>Amount of excess.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Pointer to the group record.</summary>
-        public int? GroupID { get; set; }
+        [JsonPropertyName("GroupID")]
+        public int? GroupId { get; set; }
 
         /// <summary>The housekeeping rules that should be applied to this booking.</summary>
-        public int? HousekeepingID { get; set; }
+        [JsonPropertyName("HousekeepingID")]
+        public int? HousekeepingId { get; set; }
 
         /// <summary>The number of children in the booking.</summary>
+        [JsonPropertyName("NumberOfChildren")]
         public int? NumberOfChildren { get; set; }
 
         /// <summary>The number of children that are free to stay.</summary>
+        [JsonPropertyName("NumberOfChildrenFree")]
         public int? NumberOfChildrenFree { get; set; }
 
         /// <summary>The number of guests in the booking.</summary>
+        [JsonPropertyName("NumberOfGuests")]
         public int? NumberOfGuests { get; set; }
 
         /// <summary>The number of guests that are free to stay.</summary>
+        [JsonPropertyName("NumberOfGuestsFree")]
         public int? NumberOfGuestsFree { get; set; }
 
         /// <summary>Date the booking is paid to.</summary>
+        [JsonPropertyName("PaidTo")]
         public string PaidTo { get; set; }
 
         /// <summary>The number of additional pet occupants in this booking.</summary>
+        [JsonPropertyName("PetCount")]
         public int? PetCount { get; set; }
 
         /// <summary>Whether reservation charges are charged to the entry or group master account.</summary>
+        [JsonPropertyName("ResvChargeToEntry")]
         public bool? ResvChargeToEntry { get; set; }
 
         /// <summary>Indicates if the location was manually selected, and should not be changed by Auto Room Allocations.</summary>
+        [JsonPropertyName("RoomLocationFixed")]
         public bool? RoomLocationFixed { get; set; }
 
         /// <summary>Pointer to the room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>Actual dollar amount of room rate.</summary>
+        [JsonPropertyName("RoomRateAmount")]
         public double? RoomRateAmount { get; set; }
 
         /// <summary>Selected room rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room type record.</summary>
-        public int? RoomTypeID { get; set; }
+        [JsonPropertyName("RoomTypeID")]
+        public int? RoomTypeId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>The number of additional Service Animal occupants in this booking.</summary>
+        [JsonPropertyName("ServiceAnimalCount")]
         public int? ServiceAnimalCount { get; set; }
 
         /// <summary>Special requirements for this booking.</summary>
+        [JsonPropertyName("SpecialRequirement")]
         public string SpecialRequirement { get; set; }
 
         /// <summary>Reason for this booking (normal, room change etc.).</summary>
         [JsonPropertyName("Start_BookingReasonID")]
-        public int? StartBookingReasonID { get; set; }
+        public int? StartBookingReasonId { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
     }
 
     /// <summary>
@@ -4506,69 +5787,91 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Room Allocation - Do not include room in allocations.</summary>
+        [JsonPropertyName("AllocateExclude")]
         public bool? AllocateExclude { get; set; }
 
         /// <summary>Room Allocation - Allows allocating nicer rooms first.</summary>
+        [JsonPropertyName("AllocateSortOrder")]
         public int? AllocateSortOrder { get; set; }
 
         /// <summary>The number of bathrooms available.</summary>
+        [JsonPropertyName("Bathrooms")]
         public int? Bathrooms { get; set; }
 
         /// <summary>The number of beds available.</summary>
+        [JsonPropertyName("BedCapacity")]
         public int? BedCapacity { get; set; }
 
         /// <summary>Room space comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>The actual room name.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Link to extension table. 0 means no phone in the room.</summary>
-        public int? ExtensionID { get; set; }
+        [JsonPropertyName("ExtensionID")]
+        public int? ExtensionId { get; set; }
 
         /// <summary>Space is held for any reason. Will warn the user when allocating this space.</summary>
+        [JsonPropertyName("Hold")]
         public bool? Hold { get; set; }
 
         /// <summary>Indicates if the room space is networked.</summary>
+        [JsonPropertyName("Networked")]
         public bool? Networked { get; set; }
 
         /// <summary>Record type.</summary>
+        [JsonPropertyName("RecordTypeEnum")]
         public RecordTypeEnum? RecordTypeEnum { get; set; }
 
         /// <summary>Pointer to the room base record.</summary>
-        public int? RoomBaseID { get; set; }
+        [JsonPropertyName("RoomBaseID")]
+        public int? RoomBaseId { get; set; }
 
         /// <summary>Pointer to the room record.</summary>
-        public int? RoomID { get; set; }
+        [JsonPropertyName("RoomID")]
+        public int? RoomId { get; set; }
 
         /// <summary>Default tariff rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Unique ID for this room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Room space type.</summary>
+        [JsonPropertyName("RoomSpaceTypeEnum")]
         public RoomSpaceTypeEnum? RoomSpaceTypeEnum { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Use to control where the room space is shown when part of a list.</summary>
+        [JsonPropertyName("SortOrder")]
         public int? SortOrder { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street")]
         public string Street { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street2")]
         public string Street2 { get; set; }
 
         /// <summary>The room space displayed in the Portal.</summary>
+        [JsonPropertyName("WebDescription")]
         public string WebDescription { get; set; }
 
         /// <summary>Zip/Postcode</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -4578,66 +5881,87 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateRoomSpaceInput
     {
         /// <summary>Room Allocation - Do not include room in allocations.</summary>
+        [JsonPropertyName("AllocateExclude")]
         public bool? AllocateExclude { get; set; }
 
         /// <summary>Room Allocation - Allows allocating nicer rooms first.</summary>
+        [JsonPropertyName("AllocateSortOrder")]
         public int? AllocateSortOrder { get; set; }
 
         /// <summary>The number of bathrooms available.</summary>
+        [JsonPropertyName("Bathrooms")]
         public int? Bathrooms { get; set; }
 
         /// <summary>The number of beds available.</summary>
+        [JsonPropertyName("BedCapacity")]
         public int? BedCapacity { get; set; }
 
         /// <summary>Room space comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>The actual room name.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Link to extension table. 0 means no phone in the room.</summary>
-        public int? ExtensionID { get; set; }
+        [JsonPropertyName("ExtensionID")]
+        public int? ExtensionId { get; set; }
 
         /// <summary>Space is held for any reason. Will warn the user when allocating this space.</summary>
+        [JsonPropertyName("Hold")]
         public bool? Hold { get; set; }
 
         /// <summary>Indicates if the room space is networked.</summary>
+        [JsonPropertyName("Networked")]
         public bool? Networked { get; set; }
 
         /// <summary>Record type.</summary>
+        [JsonPropertyName("RecordTypeEnum")]
         public RecordTypeEnum? RecordTypeEnum { get; set; }
 
         /// <summary>Pointer to the room base record.</summary>
-        public int? RoomBaseID { get; set; }
+        [JsonPropertyName("RoomBaseID")]
+        public int? RoomBaseId { get; set; }
 
         /// <summary>Pointer to the room record.</summary>
-        public int? RoomID { get; set; }
+        [JsonPropertyName("RoomID")]
+        public int? RoomId { get; set; }
 
         /// <summary>Default tariff rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Unique ID for this room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Room space type.</summary>
+        [JsonPropertyName("RoomSpaceTypeEnum")]
         public RoomSpaceTypeEnum? RoomSpaceTypeEnum { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Use to control where the room space is shown when part of a list.</summary>
+        [JsonPropertyName("SortOrder")]
         public int? SortOrder { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street")]
         public string Street { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street2")]
         public string Street2 { get; set; }
 
         /// <summary>The room space displayed in the Portal.</summary>
+        [JsonPropertyName("WebDescription")]
         public string WebDescription { get; set; }
 
         /// <summary>Zip/Postcode</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -4647,66 +5971,87 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateRoomSpaceResponse
     {
         /// <summary>Room Allocation - Do not include room in allocations.</summary>
+        [JsonPropertyName("AllocateExclude")]
         public bool? AllocateExclude { get; set; }
 
         /// <summary>Room Allocation - allows allocating nicer rooms first.</summary>
+        [JsonPropertyName("AllocateSortOrder")]
         public int? AllocateSortOrder { get; set; }
 
         /// <summary>The number of bathrooms available.</summary>
+        [JsonPropertyName("Bathrooms")]
         public int? Bathrooms { get; set; }
 
         /// <summary>The number of beds available.</summary>
+        [JsonPropertyName("BedCapacity")]
         public int? BedCapacity { get; set; }
 
         /// <summary>Room space comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>The actual room name.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Link to extension table. 0 means no phone in the room.</summary>
-        public int? ExtensionID { get; set; }
+        [JsonPropertyName("ExtensionID")]
+        public int? ExtensionId { get; set; }
 
         /// <summary>Space is held for any reason. Will warn the user when allocating this space.</summary>
+        [JsonPropertyName("Hold")]
         public bool? Hold { get; set; }
 
         /// <summary>Indicates if the room space is networked.</summary>
+        [JsonPropertyName("Networked")]
         public bool? Networked { get; set; }
 
         /// <summary>Record type.</summary>
+        [JsonPropertyName("RecordTypeEnum")]
         public string RecordTypeEnum { get; set; }
 
         /// <summary>Pointer to the room base record.</summary>
-        public int? RoomBaseID { get; set; }
+        [JsonPropertyName("RoomBaseID")]
+        public int? RoomBaseId { get; set; }
 
         /// <summary>Pointer to the room record.</summary>
-        public int? RoomID { get; set; }
+        [JsonPropertyName("RoomID")]
+        public int? RoomId { get; set; }
 
         /// <summary>Default tariff rate.</summary>
-        public int? RoomRateID { get; set; }
+        [JsonPropertyName("RoomRateID")]
+        public int? RoomRateId { get; set; }
 
         /// <summary>Unique ID for this room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Room space type.</summary>
+        [JsonPropertyName("RoomSpaceTypeEnum")]
         public string RoomSpaceTypeEnum { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Use to control where the room space is shown when part of a list.</summary>
+        [JsonPropertyName("SortOrder")]
         public int? SortOrder { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street")]
         public string Street { get; set; }
 
         /// <summary>Street</summary>
+        [JsonPropertyName("Street2")]
         public string Street2 { get; set; }
 
         /// <summary>The room space displayed in the Portal.</summary>
+        [JsonPropertyName("WebDescription")]
         public string WebDescription { get; set; }
 
         /// <summary>Zip/Postcode</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -4732,96 +6077,127 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Allocate sort order.</summary>
+        [JsonPropertyName("AllocateSortOrder")]
         public int? AllocateSortOrder { get; set; }
 
         /// <summary>Pointer to the category record.</summary>
-        public int? CategoryID { get; set; }
+        [JsonPropertyName("CategoryID")]
+        public int? CategoryId { get; set; }
 
         /// <summary>City</summary>
+        [JsonPropertyName("City")]
         public string City { get; set; }
 
         /// <summary>Room location comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the country record.</summary>
-        public int? CountryID { get; set; }
+        [JsonPropertyName("CountryID")]
+        public int? CountryId { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>CustomDate1</summary>
+        [JsonPropertyName("CustomDate1")]
         public object CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
+        [JsonPropertyName("CustomDate2")]
         public object CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string field value.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Room location description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Gender type suitability.</summary>
+        [JsonPropertyName("GenderTypeEnum")]
         public GenderTypeEnum? GenderTypeEnum { get; set; }
 
         /// <summary>Indicates if the room location is leased.</summary>
+        [JsonPropertyName("Lease")]
         public bool? Lease { get; set; }
 
         /// <summary>Indicates if the room location is managed externally.</summary>
+        [JsonPropertyName("ManagedExternally")]
         public bool? ManagedExternally { get; set; }
 
         /// <summary>Indicates if the room location is non residential.</summary>
+        [JsonPropertyName("NonResidential")]
         public bool? NonResidential { get; set; }
 
         /// <summary>Record type.</summary>
+        [JsonPropertyName("RecordTypeEnum")]
         public RecordTypeEnum? RecordTypeEnum { get; set; }
 
         /// <summary>Pointer to the room location area record.</summary>
-        public int? RoomLocationAreaID { get; set; }
+        [JsonPropertyName("RoomLocationAreaID")]
+        public int? RoomLocationAreaId { get; set; }
 
         /// <summary>Unique ID for this room location record.</summary>
-        public int? RoomLocationID { get; set; }
+        [JsonPropertyName("RoomLocationID")]
+        public int? RoomLocationId { get; set; }
 
         /// <summary>State/Province</summary>
+        [JsonPropertyName("StateProvince")]
         public string StateProvince { get; set; }
 
         /// <summary>Indicates if the room space is viewable on the web.</summary>
+        [JsonPropertyName("ViewOnWeb")]
         public bool? ViewOnWeb { get; set; }
 
         /// <summary>Comments to display if visible on the web.</summary>
+        [JsonPropertyName("WebComments")]
         public string WebComments { get; set; }
 
         /// <summary>Description to display if visible on the web.</summary>
+        [JsonPropertyName("WebDescription")]
         public string WebDescription { get; set; }
 
         /// <summary>Alternate text to display for the image when displayed on the web.</summary>
+        [JsonPropertyName("WebImageAltText")]
         public string WebImageAltText { get; set; }
 
         /// <summary>Path for the web image.</summary>
+        [JsonPropertyName("WebImageLocation")]
         public string WebImageLocation { get; set; }
 
         /// <summary>Zip/Postcode.</summary>
+        [JsonPropertyName("ZipPostcode")]
         public string ZipPostcode { get; set; }
     }
 
@@ -4847,107 +6223,139 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>The total amount for this transaction (including tax).</summary>
+        [JsonPropertyName("Amount")]
         public double? Amount { get; set; }
 
         /// <summary>Call type.</summary>
+        [JsonPropertyName("CallTypeEnum")]
         public CallTypeEnum? CallTypeEnum { get; set; }
 
         /// <summary>Pointer to the charge group record.</summary>
-        public int? ChargeGroupID { get; set; }
+        [JsonPropertyName("ChargeGroupID")]
+        public int? ChargeGroupId { get; set; }
 
         /// <summary>Pointer to the charge item record.</summary>
-        public int? ChargeItemID { get; set; }
+        [JsonPropertyName("ChargeItemID")]
+        public int? ChargeItemId { get; set; }
 
         /// <summary>Transaction comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Pointer to the created by security user record.</summary>
         [JsonPropertyName("CreatedBy_SecurityUserID")]
-        public int? CreatedBySecurityUserID { get; set; }
+        public int? CreatedBySecurityUserId { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>Transaction description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>DueDate</summary>
+        [JsonPropertyName("DueDate")]
         public object DueDate { get; set; }
 
         /// <summary>Phone call duration in seconds.</summary>
+        [JsonPropertyName("Duration")]
         public int? Duration { get; set; }
 
         /// <summary>Pointer to the end of session record.</summary>
-        public int? EndOfSessionID { get; set; }
+        [JsonPropertyName("EndOfSessionID")]
+        public int? EndOfSessionId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Excess amount.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Extension qty.</summary>
+        [JsonPropertyName("Extension")]
         public int? Extension { get; set; }
 
         /// <summary>Stores the (unique) ID from an external system - for imported transactions.</summary>
-        public int? ExternalID { get; set; }
+        [JsonPropertyName("ExternalID")]
+        public int? ExternalId { get; set; }
 
         /// <summary>Pointer to the external receipt record.</summary>
-        public string ExternalReceiptID { get; set; }
+        [JsonPropertyName("ExternalReceiptID")]
+        public string ExternalReceiptId { get; set; }
 
         /// <summary>Pointer to the invoice record.</summary>
-        public int? InvoiceID { get; set; }
+        [JsonPropertyName("InvoiceID")]
+        public int? InvoiceId { get; set; }
 
         /// <summary>PaidFrom</summary>
+        [JsonPropertyName("PaidFrom")]
         public object PaidFrom { get; set; }
 
         /// <summary>PaidTo</summary>
+        [JsonPropertyName("PaidTo")]
         public object PaidTo { get; set; }
 
         /// <summary>Pointer to the payment record.</summary>
-        public int? PaymentID { get; set; }
+        [JsonPropertyName("PaymentID")]
+        public int? PaymentId { get; set; }
 
         /// <summary>ProcessedDate</summary>
+        [JsonPropertyName("ProcessedDate")]
         public object ProcessedDate { get; set; }
 
         /// <summary>The booking (if any) that this transaction relates to.</summary>
         [JsonPropertyName("Reference_BookingID")]
-        public int? ReferenceBookingID { get; set; }
+        public int? ReferenceBookingId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Link to a referencing record (e.g. a BookingID for pro-rating).</summary>
-        public int? TableID { get; set; }
+        [JsonPropertyName("TableID")]
+        public int? TableId { get; set; }
 
         /// <summary>Reference link table.</summary>
+        [JsonPropertyName("TableName")]
         public string TableName { get; set; }
 
         /// <summary>Transaction tag.</summary>
+        [JsonPropertyName("Tag")]
         public string Tag { get; set; }
 
         /// <summary>Finance tag.</summary>
+        [JsonPropertyName("TagFinance")]
         public string TagFinance { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount")]
         public double? TaxAmount { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount2")]
         public double? TaxAmount2 { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount3")]
         public double? TaxAmount3 { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
 
         /// <summary>TransactionDate</summary>
+        [JsonPropertyName("TransactionDate")]
         public object TransactionDate { get; set; }
 
         /// <summary>Unique ID for this transaction record.</summary>
-        public int? TransactionID { get; set; }
+        [JsonPropertyName("TransactionID")]
+        public int? TransactionId { get; set; }
 
         /// <summary>Transaction type.</summary>
+        [JsonPropertyName("TransactionTypeEnum")]
         public TransactionTypeEnum? TransactionTypeEnum { get; set; }
     }
 
@@ -4957,100 +6365,131 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateTransactionInput
     {
         /// <summary>The total amount for this transaction (including tax).</summary>
+        [JsonPropertyName("Amount")]
         public double? Amount { get; set; }
 
         /// <summary>Call type.</summary>
+        [JsonPropertyName("CallTypeEnum")]
         public CallTypeEnum? CallTypeEnum { get; set; }
 
         /// <summary>Pointer to the charge group record.</summary>
-        public int? ChargeGroupID { get; set; }
+        [JsonPropertyName("ChargeGroupID")]
+        public int? ChargeGroupId { get; set; }
 
         /// <summary>This is only required for Adjustments and Charges.</summary>
-        public int? ChargeItemID { get; set; }
+        [JsonPropertyName("ChargeItemID")]
+        public int? ChargeItemId { get; set; }
 
         /// <summary>Transaction comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Transaction description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Due date.</summary>
+        [JsonPropertyName("DueDate")]
         public DateTime? DueDate { get; set; }
 
         /// <summary>Phone call duration in seconds.</summary>
+        [JsonPropertyName("Duration")]
         public int? Duration { get; set; }
 
         /// <summary>Pointer to the end of session record.</summary>
-        public int? EndOfSessionID { get; set; }
+        [JsonPropertyName("EndOfSessionID")]
+        public int? EndOfSessionId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Excess amount.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Extension qty.</summary>
+        [JsonPropertyName("Extension")]
         public int? Extension { get; set; }
 
         /// <summary>Stores the (unique) ID from an external system - for imported transactions.</summary>
-        public int? ExternalID { get; set; }
+        [JsonPropertyName("ExternalID")]
+        public int? ExternalId { get; set; }
 
         /// <summary>Pointer to the external receipt record.</summary>
-        public string ExternalReceiptID { get; set; }
+        [JsonPropertyName("ExternalReceiptID")]
+        public string ExternalReceiptId { get; set; }
 
         /// <summary>Pointer to the invoice record.</summary>
-        public int? InvoiceID { get; set; }
+        [JsonPropertyName("InvoiceID")]
+        public int? InvoiceId { get; set; }
 
         /// <summary>Paid from date.</summary>
+        [JsonPropertyName("PaidFrom")]
         public DateTime? PaidFrom { get; set; }
 
         /// <summary>Paid to date.</summary>
+        [JsonPropertyName("PaidTo")]
         public DateTime? PaidTo { get; set; }
 
         /// <summary>Pointer to the payment record.</summary>
-        public int? PaymentID { get; set; }
+        [JsonPropertyName("PaymentID")]
+        public int? PaymentId { get; set; }
 
         /// <summary>Date transaction was processed.</summary>
+        [JsonPropertyName("ProcessedDate")]
         public DateTime? ProcessedDate { get; set; }
 
         /// <summary>The booking (if any) that this transaction relates to.</summary>
         [JsonPropertyName("Reference_BookingID")]
-        public int? ReferenceBookingID { get; set; }
+        public int? ReferenceBookingId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Link to a referencing record (e.g. a BookingID for pro-rating).</summary>
-        public int? TableID { get; set; }
+        [JsonPropertyName("TableID")]
+        public int? TableId { get; set; }
 
         /// <summary>Reference link table.</summary>
+        [JsonPropertyName("TableName")]
         public string TableName { get; set; }
 
         /// <summary>Transaction tag.</summary>
+        [JsonPropertyName("Tag")]
         public string Tag { get; set; }
 
         /// <summary>Finance tag.</summary>
+        [JsonPropertyName("TagFinance")]
         public string TagFinance { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount")]
         public double? TaxAmount { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount2")]
         public double? TaxAmount2 { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount3")]
         public double? TaxAmount3 { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
 
         /// <summary>Date of the transaction.</summary>
+        [JsonPropertyName("TransactionDate")]
         public DateTime? TransactionDate { get; set; }
 
         /// <summary>Unique ID for this transaction record.</summary>
-        public int? TransactionID { get; set; }
+        [JsonPropertyName("TransactionID")]
+        public int? TransactionId { get; set; }
 
         /// <summary>Transaction type.</summary>
+        [JsonPropertyName("TransactionTypeEnum")]
         public TransactionTypeEnum? TransactionTypeEnum { get; set; }
     }
 
@@ -5060,100 +6499,131 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateTransactionResponse
     {
         /// <summary>The total amount for this transaction (including tax).</summary>
+        [JsonPropertyName("Amount")]
         public double? Amount { get; set; }
 
         /// <summary>Call type.</summary>
+        [JsonPropertyName("CallTypeEnum")]
         public string CallTypeEnum { get; set; }
 
         /// <summary>Pointer to the charge group record.</summary>
-        public int? ChargeGroupID { get; set; }
+        [JsonPropertyName("ChargeGroupID")]
+        public int? ChargeGroupId { get; set; }
 
         /// <summary>Pointer to the charge item record.</summary>
-        public int? ChargeItemID { get; set; }
+        [JsonPropertyName("ChargeItemID")]
+        public int? ChargeItemId { get; set; }
 
         /// <summary>Transaction comments.</summary>
+        [JsonPropertyName("Comments")]
         public string Comments { get; set; }
 
         /// <summary>Transaction description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Due date.</summary>
+        [JsonPropertyName("DueDate")]
         public string DueDate { get; set; }
 
         /// <summary>Phone call duration in seconds.</summary>
+        [JsonPropertyName("Duration")]
         public int? Duration { get; set; }
 
         /// <summary>Pointer to the end of session record.</summary>
-        public int? EndOfSessionID { get; set; }
+        [JsonPropertyName("EndOfSessionID")]
+        public int? EndOfSessionId { get; set; }
 
         /// <summary>Pointer to the entry record.</summary>
-        public int? EntryID { get; set; }
+        [JsonPropertyName("EntryID")]
+        public int? EntryId { get; set; }
 
         /// <summary>Excess amount.</summary>
+        [JsonPropertyName("Excess")]
         public double? Excess { get; set; }
 
         /// <summary>Extension qty.</summary>
+        [JsonPropertyName("Extension")]
         public int? Extension { get; set; }
 
         /// <summary>Stores the (unique) ID from an external system - for imported transactions.</summary>
-        public int? ExternalID { get; set; }
+        [JsonPropertyName("ExternalID")]
+        public int? ExternalId { get; set; }
 
         /// <summary>Pointer to the external receipt record.</summary>
-        public string ExternalReceiptID { get; set; }
+        [JsonPropertyName("ExternalReceiptID")]
+        public string ExternalReceiptId { get; set; }
 
         /// <summary>Pointer to the invoice record.</summary>
-        public int? InvoiceID { get; set; }
+        [JsonPropertyName("InvoiceID")]
+        public int? InvoiceId { get; set; }
 
         /// <summary>Paid from date.</summary>
+        [JsonPropertyName("PaidFrom")]
         public string PaidFrom { get; set; }
 
         /// <summary>Paid to date.</summary>
+        [JsonPropertyName("PaidTo")]
         public string PaidTo { get; set; }
 
         /// <summary>Pointer to the payment record.</summary>
-        public int? PaymentID { get; set; }
+        [JsonPropertyName("PaymentID")]
+        public int? PaymentId { get; set; }
 
         /// <summary>Date transaction was processed.</summary>
+        [JsonPropertyName("ProcessedDate")]
         public string ProcessedDate { get; set; }
 
         /// <summary>The booking (if any) that this transaction relates to.</summary>
         [JsonPropertyName("Reference_BookingID")]
-        public int? ReferenceBookingID { get; set; }
+        public int? ReferenceBookingId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Link to a referencing record (e.g. a BookingID for pro-rating).</summary>
-        public int? TableID { get; set; }
+        [JsonPropertyName("TableID")]
+        public int? TableId { get; set; }
 
         /// <summary>Reference link table.</summary>
+        [JsonPropertyName("TableName")]
         public string TableName { get; set; }
 
         /// <summary>Transaction tag.</summary>
+        [JsonPropertyName("Tag")]
         public string Tag { get; set; }
 
         /// <summary>Finance tag.</summary>
+        [JsonPropertyName("TagFinance")]
         public string TagFinance { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount")]
         public double? TaxAmount { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount2")]
         public double? TaxAmount2 { get; set; }
 
         /// <summary>Tax amount</summary>
+        [JsonPropertyName("TaxAmount3")]
         public double? TaxAmount3 { get; set; }
 
         /// <summary>Pointer to the term session record.</summary>
-        public int? TermSessionID { get; set; }
+        [JsonPropertyName("TermSessionID")]
+        public int? TermSessionId { get; set; }
 
         /// <summary>Date of the transaction.</summary>
+        [JsonPropertyName("TransactionDate")]
         public string TransactionDate { get; set; }
 
         /// <summary>Unique ID for this transaction record.</summary>
-        public int? TransactionID { get; set; }
+        [JsonPropertyName("TransactionID")]
+        public int? TransactionId { get; set; }
 
         /// <summary>Transaction type.</summary>
+        [JsonPropertyName("TransactionTypeEnum")]
         public string TransactionTypeEnum { get; set; }
     }
 
@@ -5179,168 +6649,219 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public string Orderby { get; set; }
 
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Cause.</summary>
+        [JsonPropertyName("Cause")]
         public string Cause { get; set; }
 
         /// <summary>Indicates if a charge should be applied.</summary>
+        [JsonPropertyName("Charge")]
         public bool? Charge { get; set; }
 
         /// <summary>Pointer to the charge entry record.</summary>
         [JsonPropertyName("Charge_EntryID")]
-        public int? ChargeEntryID { get; set; }
+        public int? ChargeEntryId { get; set; }
 
         /// <summary>Charge amount.</summary>
+        [JsonPropertyName("ChargeAmount")]
         public double? ChargeAmount { get; set; }
 
         /// <summary>Indicates if the charge has been invoiced.</summary>
+        [JsonPropertyName("ChargeInvoiced")]
         public bool? ChargeInvoiced { get; set; }
 
         /// <summary>Charge invoice number.</summary>
+        [JsonPropertyName("ChargeInvoiceNumber")]
         public string ChargeInvoiceNumber { get; set; }
 
         /// <summary>Charge type.</summary>
+        [JsonPropertyName("ChargeType")]
         public string ChargeType { get; set; }
 
         /// <summary>CompleteDate</summary>
+        [JsonPropertyName("CompleteDate")]
         public object CompleteDate { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>ContractDate</summary>
+        [JsonPropertyName("ContractDate")]
         public object ContractDate { get; set; }
 
         /// <summary>Contractor cost.</summary>
+        [JsonPropertyName("ContractorCost")]
         public double? ContractorCost { get; set; }
 
         /// <summary>Contractor cost estimate.</summary>
+        [JsonPropertyName("ContractorCostEstimate")]
         public double? ContractorCostEstimate { get; set; }
 
         /// <summary>ContractorDate</summary>
+        [JsonPropertyName("ContractorDate")]
         public object ContractorDate { get; set; }
 
         /// <summary>Contractor ETA.</summary>
+        [JsonPropertyName("ContractorETA")]
         public string ContractorETA { get; set; }
 
         /// <summary>Contractor order number.</summary>
+        [JsonPropertyName("ContractorOrderNumber")]
         public string ContractorOrderNumber { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
         [JsonPropertyName("CreatedBy_SecurityUserID")]
-        public int? CreatedBySecurityUserID { get; set; }
+        public int? CreatedBySecurityUserId { get; set; }
 
         /// <summary>Custom bit 1.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom bit 2.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>CustomDate1</summary>
+        [JsonPropertyName("CustomDate1")]
         public object CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
+        [JsonPropertyName("CustomDate2")]
         public object CustomDate2 { get; set; }
 
         /// <summary>Custom string 1.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string 2.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string 3.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string 4.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string 5.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string 6.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>DateCreated</summary>
+        [JsonPropertyName("DateCreated")]
         public object DateCreated { get; set; }
 
         /// <summary>DateDue</summary>
+        [JsonPropertyName("DateDue")]
         public object DateDue { get; set; }
 
         /// <summary>DateModified</summary>
+        [JsonPropertyName("DateModified")]
         public object DateModified { get; set; }
 
         /// <summary>DateReported</summary>
+        [JsonPropertyName("DateReported")]
         public object DateReported { get; set; }
 
         /// <summary>Description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Indicates if a job has been sent.</summary>
+        [JsonPropertyName("JobSent")]
         public bool? JobSent { get; set; }
 
         /// <summary>Job status.</summary>
+        [JsonPropertyName("JobStatus")]
         public string JobStatus { get; set; }
 
         /// <summary>Location.</summary>
+        [JsonPropertyName("Location")]
         public string Location { get; set; }
 
         /// <summary>Pointer to the occupant entry record.</summary>
         [JsonPropertyName("Occupant_EntryID")]
-        public int? OccupantEntryID { get; set; }
+        public int? OccupantEntryId { get; set; }
 
         /// <summary>Occupant entry name.</summary>
+        [JsonPropertyName("OccupantEntryName")]
         public string OccupantEntryName { get; set; }
 
         /// <summary>Indicates if an occupant is present.</summary>
+        [JsonPropertyName("OccupantPresent")]
         public bool? OccupantPresent { get; set; }
 
         /// <summary>Occupant present reason.</summary>
+        [JsonPropertyName("OccupantPresentReason")]
         public string OccupantPresentReason { get; set; }
 
         /// <summary>Other service number.</summary>
+        [JsonPropertyName("OtherServiceNumber")]
         public string OtherServiceNumber { get; set; }
 
         /// <summary>Pointer to the priority record.</summary>
-        public int? PriorityID { get; set; }
+        [JsonPropertyName("PriorityID")]
+        public int? PriorityId { get; set; }
 
         /// <summary>Repair description.</summary>
+        [JsonPropertyName("RepairDescription")]
         public string RepairDescription { get; set; }
 
         /// <summary>Reported by name.</summary>
+        [JsonPropertyName("ReportedByName")]
         public string ReportedByName { get; set; }
 
         /// <summary>Reported by phone.</summary>
+        [JsonPropertyName("ReportedByPhone")]
         public string ReportedByPhone { get; set; }
 
         /// <summary>Pointer to the room space closed record.</summary>
-        public int? RoomSpaceClosedID { get; set; }
+        [JsonPropertyName("RoomSpaceClosedID")]
+        public int? RoomSpaceClosedId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance category record.</summary>
-        public int? RoomSpaceMaintenanceCategoryID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceCategoryID")]
+        public int? RoomSpaceMaintenanceCategoryId { get; set; }
 
         /// <summary>Unique ID for this room space maintenance record.</summary>
-        public int? RoomSpaceMaintenanceID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceID")]
+        public int? RoomSpaceMaintenanceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance item record.</summary>
-        public int? RoomSpaceMaintenanceItemID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceItemID")]
+        public int? RoomSpaceMaintenanceItemId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>StartDate</summary>
+        [JsonPropertyName("StartDate")]
         public object StartDate { get; set; }
 
         /// <summary>Status.</summary>
+        [JsonPropertyName("Status")]
         public string Status { get; set; }
 
         /// <summary>Technician.</summary>
+        [JsonPropertyName("Technician")]
         public string Technician { get; set; }
 
         /// <summary>Indicates if the room space maintenance is viewable on the web.</summary>
+        [JsonPropertyName("ViewOnWeb")]
         public bool? ViewOnWeb { get; set; }
     }
 
@@ -5350,158 +6871,207 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateRoomSpaceMaintenanceInput
     {
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Cause.</summary>
+        [JsonPropertyName("Cause")]
         public string Cause { get; set; }
 
         /// <summary>Indicates if a charge should be applied.</summary>
+        [JsonPropertyName("Charge")]
         public bool? Charge { get; set; }
 
         /// <summary>Pointer to the charge entry record.</summary>
         [JsonPropertyName("Charge_EntryID")]
-        public int? ChargeEntryID { get; set; }
+        public int? ChargeEntryId { get; set; }
 
         /// <summary>Charge amount.</summary>
+        [JsonPropertyName("ChargeAmount")]
         public double? ChargeAmount { get; set; }
 
         /// <summary>Indicates if the charge has been invoiced.</summary>
+        [JsonPropertyName("ChargeInvoiced")]
         public bool? ChargeInvoiced { get; set; }
 
         /// <summary>Charge invoice number.</summary>
+        [JsonPropertyName("ChargeInvoiceNumber")]
         public string ChargeInvoiceNumber { get; set; }
 
         /// <summary>Charge type.</summary>
+        [JsonPropertyName("ChargeType")]
         public string ChargeType { get; set; }
 
         /// <summary>Complete date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public DateTime? CompleteDate { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Contract date.</summary>
+        [JsonPropertyName("ContractDate")]
         public DateTime? ContractDate { get; set; }
 
         /// <summary>Contractor cost.</summary>
+        [JsonPropertyName("ContractorCost")]
         public double? ContractorCost { get; set; }
 
         /// <summary>Contractor cost estimate.</summary>
+        [JsonPropertyName("ContractorCostEstimate")]
         public double? ContractorCostEstimate { get; set; }
 
         /// <summary>Contractor date.</summary>
+        [JsonPropertyName("ContractorDate")]
         public DateTime? ContractorDate { get; set; }
 
         /// <summary>Contractor ETA.</summary>
+        [JsonPropertyName("ContractorETA")]
         public string ContractorETA { get; set; }
 
         /// <summary>Contractor order number.</summary>
+        [JsonPropertyName("ContractorOrderNumber")]
         public string ContractorOrderNumber { get; set; }
 
         /// <summary>Custom bit 1.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom bit 2.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date 1.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date 2.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom string 1.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string 2.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string 3.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string 4.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string 5.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string 6.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date due.</summary>
+        [JsonPropertyName("DateDue")]
         public DateTime? DateDue { get; set; }
 
         /// <summary>Date reported.</summary>
+        [JsonPropertyName("DateReported")]
         public DateTime? DateReported { get; set; }
 
         /// <summary>Description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Indicates if a job has been sent.</summary>
+        [JsonPropertyName("JobSent")]
         public bool? JobSent { get; set; }
 
         /// <summary>Job status.</summary>
+        [JsonPropertyName("JobStatus")]
         public string JobStatus { get; set; }
 
         /// <summary>Location.</summary>
+        [JsonPropertyName("Location")]
         public string Location { get; set; }
 
         /// <summary>Pointer to the occupant entry record.</summary>
         [JsonPropertyName("Occupant_EntryID")]
-        public int? OccupantEntryID { get; set; }
+        public int? OccupantEntryId { get; set; }
 
         /// <summary>Occupant entry name.</summary>
+        [JsonPropertyName("OccupantEntryName")]
         public string OccupantEntryName { get; set; }
 
         /// <summary>Indicates if an occupant is present.</summary>
+        [JsonPropertyName("OccupantPresent")]
         public bool? OccupantPresent { get; set; }
 
         /// <summary>Occupant present reason.</summary>
+        [JsonPropertyName("OccupantPresentReason")]
         public string OccupantPresentReason { get; set; }
 
         /// <summary>Other service number.</summary>
+        [JsonPropertyName("OtherServiceNumber")]
         public string OtherServiceNumber { get; set; }
 
         /// <summary>Pointer to the priority record.</summary>
-        public int? PriorityID { get; set; }
+        [JsonPropertyName("PriorityID")]
+        public int? PriorityId { get; set; }
 
         /// <summary>Repair description.</summary>
+        [JsonPropertyName("RepairDescription")]
         public string RepairDescription { get; set; }
 
         /// <summary>Reported by name.</summary>
+        [JsonPropertyName("ReportedByName")]
         public string ReportedByName { get; set; }
 
         /// <summary>Reported by phone.</summary>
+        [JsonPropertyName("ReportedByPhone")]
         public string ReportedByPhone { get; set; }
 
         /// <summary>Pointer to the room space closed record.</summary>
-        public int? RoomSpaceClosedID { get; set; }
+        [JsonPropertyName("RoomSpaceClosedID")]
+        public int? RoomSpaceClosedId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance category record.</summary>
-        public int? RoomSpaceMaintenanceCategoryID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceCategoryID")]
+        public int? RoomSpaceMaintenanceCategoryId { get; set; }
 
         /// <summary>Unique ID for this room space maintenance record.</summary>
-        public int? RoomSpaceMaintenanceID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceID")]
+        public int? RoomSpaceMaintenanceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance item record.</summary>
-        public int? RoomSpaceMaintenanceItemID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceItemID")]
+        public int? RoomSpaceMaintenanceItemId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Start date.</summary>
+        [JsonPropertyName("StartDate")]
         public DateTime? StartDate { get; set; }
 
         /// <summary>Status.</summary>
+        [JsonPropertyName("Status")]
         public string Status { get; set; }
 
         /// <summary>Technician.</summary>
+        [JsonPropertyName("Technician")]
         public string Technician { get; set; }
 
         /// <summary>Indicates if the room space maintenance is viewable on the web.</summary>
+        [JsonPropertyName("ViewOnWeb")]
         public bool? ViewOnWeb { get; set; }
     }
 
@@ -5511,168 +7081,219 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class CreateRoomSpaceMaintenanceResponse
     {
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Cause.</summary>
+        [JsonPropertyName("Cause")]
         public string Cause { get; set; }
 
         /// <summary>Indicates if a charge should be applied.</summary>
+        [JsonPropertyName("Charge")]
         public bool? Charge { get; set; }
 
         /// <summary>Pointer to the charge entry record.</summary>
         [JsonPropertyName("Charge_EntryID")]
-        public int? ChargeEntryID { get; set; }
+        public int? ChargeEntryId { get; set; }
 
         /// <summary>Charge amount.</summary>
+        [JsonPropertyName("ChargeAmount")]
         public double? ChargeAmount { get; set; }
 
         /// <summary>Indicates if the charge has been invoiced.</summary>
+        [JsonPropertyName("ChargeInvoiced")]
         public bool? ChargeInvoiced { get; set; }
 
         /// <summary>Charge invoice number.</summary>
+        [JsonPropertyName("ChargeInvoiceNumber")]
         public string ChargeInvoiceNumber { get; set; }
 
         /// <summary>Charge type.</summary>
+        [JsonPropertyName("ChargeType")]
         public string ChargeType { get; set; }
 
         /// <summary>Complete date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public string CompleteDate { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Contract date.</summary>
+        [JsonPropertyName("ContractDate")]
         public string ContractDate { get; set; }
 
         /// <summary>Contractor cost.</summary>
+        [JsonPropertyName("ContractorCost")]
         public double? ContractorCost { get; set; }
 
         /// <summary>Contractor cost estimate.</summary>
+        [JsonPropertyName("ContractorCostEstimate")]
         public double? ContractorCostEstimate { get; set; }
 
         /// <summary>Contractor date.</summary>
+        [JsonPropertyName("ContractorDate")]
         public string ContractorDate { get; set; }
 
         /// <summary>Contractor ETA.</summary>
+        [JsonPropertyName("ContractorETA")]
         public string ContractorETA { get; set; }
 
         /// <summary>Contractor order number.</summary>
+        [JsonPropertyName("ContractorOrderNumber")]
         public string ContractorOrderNumber { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
         [JsonPropertyName("CreatedBy_SecurityUserID")]
-        public int? CreatedBySecurityUserID { get; set; }
+        public int? CreatedBySecurityUserId { get; set; }
 
         /// <summary>Custom bit 1.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom bit 2.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date 1.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date 2.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom string 1.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string 2.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string 3.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string 4.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string 5.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string 6.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date created.</summary>
+        [JsonPropertyName("DateCreated")]
         public string DateCreated { get; set; }
 
         /// <summary>Date due.</summary>
+        [JsonPropertyName("DateDue")]
         public string DateDue { get; set; }
 
         /// <summary>Date modified.</summary>
+        [JsonPropertyName("DateModified")]
         public string DateModified { get; set; }
 
         /// <summary>Date reported.</summary>
+        [JsonPropertyName("DateReported")]
         public string DateReported { get; set; }
 
         /// <summary>Description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Indicates if a job has been sent.</summary>
+        [JsonPropertyName("JobSent")]
         public bool? JobSent { get; set; }
 
         /// <summary>Job status.</summary>
+        [JsonPropertyName("JobStatus")]
         public string JobStatus { get; set; }
 
         /// <summary>Location.</summary>
+        [JsonPropertyName("Location")]
         public string Location { get; set; }
 
         /// <summary>Pointer to the occupant entry record.</summary>
         [JsonPropertyName("Occupant_EntryID")]
-        public int? OccupantEntryID { get; set; }
+        public int? OccupantEntryId { get; set; }
 
         /// <summary>Occupant entry name.</summary>
+        [JsonPropertyName("OccupantEntryName")]
         public string OccupantEntryName { get; set; }
 
         /// <summary>Indicates if an occupant is present.</summary>
+        [JsonPropertyName("OccupantPresent")]
         public bool? OccupantPresent { get; set; }
 
         /// <summary>Occupant present reason.</summary>
+        [JsonPropertyName("OccupantPresentReason")]
         public string OccupantPresentReason { get; set; }
 
         /// <summary>Other service number.</summary>
+        [JsonPropertyName("OtherServiceNumber")]
         public string OtherServiceNumber { get; set; }
 
         /// <summary>Pointer to the priority record.</summary>
-        public int? PriorityID { get; set; }
+        [JsonPropertyName("PriorityID")]
+        public int? PriorityId { get; set; }
 
         /// <summary>Repair description.</summary>
+        [JsonPropertyName("RepairDescription")]
         public string RepairDescription { get; set; }
 
         /// <summary>Reported by name.</summary>
+        [JsonPropertyName("ReportedByName")]
         public string ReportedByName { get; set; }
 
         /// <summary>Reported by phone.</summary>
+        [JsonPropertyName("ReportedByPhone")]
         public string ReportedByPhone { get; set; }
 
         /// <summary>Pointer to the room space closed record.</summary>
-        public int? RoomSpaceClosedID { get; set; }
+        [JsonPropertyName("RoomSpaceClosedID")]
+        public int? RoomSpaceClosedId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance category record.</summary>
-        public int? RoomSpaceMaintenanceCategoryID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceCategoryID")]
+        public int? RoomSpaceMaintenanceCategoryId { get; set; }
 
         /// <summary>Unique ID for this room space maintenance record.</summary>
-        public int? RoomSpaceMaintenanceID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceID")]
+        public int? RoomSpaceMaintenanceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance item record.</summary>
-        public int? RoomSpaceMaintenanceItemID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceItemID")]
+        public int? RoomSpaceMaintenanceItemId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Start date.</summary>
+        [JsonPropertyName("StartDate")]
         public string StartDate { get; set; }
 
         /// <summary>Status.</summary>
+        [JsonPropertyName("Status")]
         public string Status { get; set; }
 
         /// <summary>Technician.</summary>
+        [JsonPropertyName("Technician")]
         public string Technician { get; set; }
 
         /// <summary>Indicates if the room space maintenance is viewable on the web.</summary>
+        [JsonPropertyName("ViewOnWeb")]
         public bool? ViewOnWeb { get; set; }
     }
 
@@ -5682,158 +7303,207 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateRoomSpaceMaintenanceInput
     {
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Cause.</summary>
+        [JsonPropertyName("Cause")]
         public string Cause { get; set; }
 
         /// <summary>Indicates if a charge should be applied.</summary>
+        [JsonPropertyName("Charge")]
         public bool? Charge { get; set; }
 
         /// <summary>Pointer to the charge entry record.</summary>
         [JsonPropertyName("Charge_EntryID")]
-        public int? ChargeEntryID { get; set; }
+        public int? ChargeEntryId { get; set; }
 
         /// <summary>Charge amount.</summary>
+        [JsonPropertyName("ChargeAmount")]
         public double? ChargeAmount { get; set; }
 
         /// <summary>Indicates if the charge has been invoiced.</summary>
+        [JsonPropertyName("ChargeInvoiced")]
         public bool? ChargeInvoiced { get; set; }
 
         /// <summary>Charge invoice number.</summary>
+        [JsonPropertyName("ChargeInvoiceNumber")]
         public string ChargeInvoiceNumber { get; set; }
 
         /// <summary>Charge type.</summary>
+        [JsonPropertyName("ChargeType")]
         public string ChargeType { get; set; }
 
         /// <summary>Complete date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public DateTime? CompleteDate { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Contract date.</summary>
+        [JsonPropertyName("ContractDate")]
         public DateTime? ContractDate { get; set; }
 
         /// <summary>Contractor cost.</summary>
+        [JsonPropertyName("ContractorCost")]
         public double? ContractorCost { get; set; }
 
         /// <summary>Contractor cost estimate.</summary>
+        [JsonPropertyName("ContractorCostEstimate")]
         public double? ContractorCostEstimate { get; set; }
 
         /// <summary>Contractor date.</summary>
+        [JsonPropertyName("ContractorDate")]
         public DateTime? ContractorDate { get; set; }
 
         /// <summary>Contractor ETA.</summary>
+        [JsonPropertyName("ContractorETA")]
         public string ContractorETA { get; set; }
 
         /// <summary>Contractor order number.</summary>
+        [JsonPropertyName("ContractorOrderNumber")]
         public string ContractorOrderNumber { get; set; }
 
         /// <summary>Custom bit 1.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom bit 2.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date 1.</summary>
+        [JsonPropertyName("CustomDate1")]
         public DateTime? CustomDate1 { get; set; }
 
         /// <summary>Custom date 2.</summary>
+        [JsonPropertyName("CustomDate2")]
         public DateTime? CustomDate2 { get; set; }
 
         /// <summary>Custom string 1.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string 2.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string 3.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string 4.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string 5.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string 6.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date due.</summary>
+        [JsonPropertyName("DateDue")]
         public DateTime? DateDue { get; set; }
 
         /// <summary>Date reported.</summary>
+        [JsonPropertyName("DateReported")]
         public DateTime? DateReported { get; set; }
 
         /// <summary>Description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Indicates if a job has been sent.</summary>
+        [JsonPropertyName("JobSent")]
         public bool? JobSent { get; set; }
 
         /// <summary>Job status.</summary>
+        [JsonPropertyName("JobStatus")]
         public string JobStatus { get; set; }
 
         /// <summary>Location.</summary>
+        [JsonPropertyName("Location")]
         public string Location { get; set; }
 
         /// <summary>Pointer to the occupant entry record.</summary>
         [JsonPropertyName("Occupant_EntryID")]
-        public int? OccupantEntryID { get; set; }
+        public int? OccupantEntryId { get; set; }
 
         /// <summary>Occupant entry name.</summary>
+        [JsonPropertyName("OccupantEntryName")]
         public string OccupantEntryName { get; set; }
 
         /// <summary>Indicates if an occupant is present.</summary>
+        [JsonPropertyName("OccupantPresent")]
         public bool? OccupantPresent { get; set; }
 
         /// <summary>Occupant present reason.</summary>
+        [JsonPropertyName("OccupantPresentReason")]
         public string OccupantPresentReason { get; set; }
 
         /// <summary>Other service number.</summary>
+        [JsonPropertyName("OtherServiceNumber")]
         public string OtherServiceNumber { get; set; }
 
         /// <summary>Pointer to the priority record.</summary>
-        public int? PriorityID { get; set; }
+        [JsonPropertyName("PriorityID")]
+        public int? PriorityId { get; set; }
 
         /// <summary>Repair description.</summary>
+        [JsonPropertyName("RepairDescription")]
         public string RepairDescription { get; set; }
 
         /// <summary>Reported by name.</summary>
+        [JsonPropertyName("ReportedByName")]
         public string ReportedByName { get; set; }
 
         /// <summary>Reported by phone.</summary>
+        [JsonPropertyName("ReportedByPhone")]
         public string ReportedByPhone { get; set; }
 
         /// <summary>Pointer to the room space closed record.</summary>
-        public int? RoomSpaceClosedID { get; set; }
+        [JsonPropertyName("RoomSpaceClosedID")]
+        public int? RoomSpaceClosedId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance category record.</summary>
-        public int? RoomSpaceMaintenanceCategoryID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceCategoryID")]
+        public int? RoomSpaceMaintenanceCategoryId { get; set; }
 
         /// <summary>Unique ID for this room space maintenance record.</summary>
-        public int? RoomSpaceMaintenanceID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceID")]
+        public int? RoomSpaceMaintenanceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance item record.</summary>
-        public int? RoomSpaceMaintenanceItemID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceItemID")]
+        public int? RoomSpaceMaintenanceItemId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Start date.</summary>
+        [JsonPropertyName("StartDate")]
         public DateTime? StartDate { get; set; }
 
         /// <summary>Status.</summary>
+        [JsonPropertyName("Status")]
         public string Status { get; set; }
 
         /// <summary>Technician.</summary>
+        [JsonPropertyName("Technician")]
         public string Technician { get; set; }
 
         /// <summary>Indicates if the room space maintenance is viewable on the web.</summary>
+        [JsonPropertyName("ViewOnWeb")]
         public bool? ViewOnWeb { get; set; }
     }
 
@@ -5843,168 +7513,219 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     public class UpdateRoomSpaceMaintenanceResponse
     {
         /// <summary>Account code.</summary>
+        [JsonPropertyName("AccountCode")]
         public string AccountCode { get; set; }
 
         /// <summary>Cause.</summary>
+        [JsonPropertyName("Cause")]
         public string Cause { get; set; }
 
         /// <summary>Indicates if a charge should be applied.</summary>
+        [JsonPropertyName("Charge")]
         public bool? Charge { get; set; }
 
         /// <summary>Pointer to the charge entry record.</summary>
         [JsonPropertyName("Charge_EntryID")]
-        public int? ChargeEntryID { get; set; }
+        public int? ChargeEntryId { get; set; }
 
         /// <summary>Charge amount.</summary>
+        [JsonPropertyName("ChargeAmount")]
         public double? ChargeAmount { get; set; }
 
         /// <summary>Indicates if the charge has been invoiced.</summary>
+        [JsonPropertyName("ChargeInvoiced")]
         public bool? ChargeInvoiced { get; set; }
 
         /// <summary>Charge invoice number.</summary>
+        [JsonPropertyName("ChargeInvoiceNumber")]
         public string ChargeInvoiceNumber { get; set; }
 
         /// <summary>Charge type.</summary>
+        [JsonPropertyName("ChargeType")]
         public string ChargeType { get; set; }
 
         /// <summary>Complete date.</summary>
+        [JsonPropertyName("CompleteDate")]
         public string CompleteDate { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
-        public int? ContactID { get; set; }
+        [JsonPropertyName("ContactID")]
+        public int? ContactId { get; set; }
 
         /// <summary>Contract date.</summary>
+        [JsonPropertyName("ContractDate")]
         public string ContractDate { get; set; }
 
         /// <summary>Contractor cost.</summary>
+        [JsonPropertyName("ContractorCost")]
         public double? ContractorCost { get; set; }
 
         /// <summary>Contractor cost estimate.</summary>
+        [JsonPropertyName("ContractorCostEstimate")]
         public double? ContractorCostEstimate { get; set; }
 
         /// <summary>Contractor date.</summary>
+        [JsonPropertyName("ContractorDate")]
         public string ContractorDate { get; set; }
 
         /// <summary>Contractor ETA.</summary>
+        [JsonPropertyName("ContractorETA")]
         public string ContractorETA { get; set; }
 
         /// <summary>Contractor order number.</summary>
+        [JsonPropertyName("ContractorOrderNumber")]
         public string ContractorOrderNumber { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
         [JsonPropertyName("CreatedBy_SecurityUserID")]
-        public int? CreatedBySecurityUserID { get; set; }
+        public int? CreatedBySecurityUserId { get; set; }
 
         /// <summary>Custom bit 1.</summary>
+        [JsonPropertyName("CustomBit1")]
         public bool? CustomBit1 { get; set; }
 
         /// <summary>Custom bit 2.</summary>
+        [JsonPropertyName("CustomBit2")]
         public bool? CustomBit2 { get; set; }
 
         /// <summary>Custom date 1.</summary>
+        [JsonPropertyName("CustomDate1")]
         public string CustomDate1 { get; set; }
 
         /// <summary>Custom date 2.</summary>
+        [JsonPropertyName("CustomDate2")]
         public string CustomDate2 { get; set; }
 
         /// <summary>Custom string 1.</summary>
+        [JsonPropertyName("CustomString1")]
         public string CustomString1 { get; set; }
 
         /// <summary>Custom string 2.</summary>
+        [JsonPropertyName("CustomString2")]
         public string CustomString2 { get; set; }
 
         /// <summary>Custom string 3.</summary>
+        [JsonPropertyName("CustomString3")]
         public string CustomString3 { get; set; }
 
         /// <summary>Custom string 4.</summary>
+        [JsonPropertyName("CustomString4")]
         public string CustomString4 { get; set; }
 
         /// <summary>Custom string 5.</summary>
+        [JsonPropertyName("CustomString5")]
         public string CustomString5 { get; set; }
 
         /// <summary>Custom string 6.</summary>
+        [JsonPropertyName("CustomString6")]
         public string CustomString6 { get; set; }
 
         /// <summary>Date created.</summary>
+        [JsonPropertyName("DateCreated")]
         public string DateCreated { get; set; }
 
         /// <summary>Date due.</summary>
+        [JsonPropertyName("DateDue")]
         public string DateDue { get; set; }
 
         /// <summary>Date modified.</summary>
+        [JsonPropertyName("DateModified")]
         public string DateModified { get; set; }
 
         /// <summary>Date reported.</summary>
+        [JsonPropertyName("DateReported")]
         public string DateReported { get; set; }
 
         /// <summary>Description.</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Indicates if a job has been sent.</summary>
+        [JsonPropertyName("JobSent")]
         public bool? JobSent { get; set; }
 
         /// <summary>Job status.</summary>
+        [JsonPropertyName("JobStatus")]
         public string JobStatus { get; set; }
 
         /// <summary>Location.</summary>
+        [JsonPropertyName("Location")]
         public string Location { get; set; }
 
         /// <summary>Pointer to the occupant entry record.</summary>
         [JsonPropertyName("Occupant_EntryID")]
-        public int? OccupantEntryID { get; set; }
+        public int? OccupantEntryId { get; set; }
 
         /// <summary>Occupant entry name.</summary>
+        [JsonPropertyName("OccupantEntryName")]
         public string OccupantEntryName { get; set; }
 
         /// <summary>Indicates if an occupant is present.</summary>
+        [JsonPropertyName("OccupantPresent")]
         public bool? OccupantPresent { get; set; }
 
         /// <summary>Occupant present reason.</summary>
+        [JsonPropertyName("OccupantPresentReason")]
         public string OccupantPresentReason { get; set; }
 
         /// <summary>Other service number.</summary>
+        [JsonPropertyName("OtherServiceNumber")]
         public string OtherServiceNumber { get; set; }
 
         /// <summary>Pointer to the priority record.</summary>
-        public int? PriorityID { get; set; }
+        [JsonPropertyName("PriorityID")]
+        public int? PriorityId { get; set; }
 
         /// <summary>Repair description.</summary>
+        [JsonPropertyName("RepairDescription")]
         public string RepairDescription { get; set; }
 
         /// <summary>Reported by name.</summary>
+        [JsonPropertyName("ReportedByName")]
         public string ReportedByName { get; set; }
 
         /// <summary>Reported by phone.</summary>
+        [JsonPropertyName("ReportedByPhone")]
         public string ReportedByPhone { get; set; }
 
         /// <summary>Pointer to the room space closed record.</summary>
-        public int? RoomSpaceClosedID { get; set; }
+        [JsonPropertyName("RoomSpaceClosedID")]
+        public int? RoomSpaceClosedId { get; set; }
 
         /// <summary>Pointer to the room space record.</summary>
-        public int? RoomSpaceID { get; set; }
+        [JsonPropertyName("RoomSpaceID")]
+        public int? RoomSpaceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance category record.</summary>
-        public int? RoomSpaceMaintenanceCategoryID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceCategoryID")]
+        public int? RoomSpaceMaintenanceCategoryId { get; set; }
 
         /// <summary>Unique ID for this room space maintenance record.</summary>
-        public int? RoomSpaceMaintenanceID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceID")]
+        public int? RoomSpaceMaintenanceId { get; set; }
 
         /// <summary>Pointer to the room space maintenance item record.</summary>
-        public int? RoomSpaceMaintenanceItemID { get; set; }
+        [JsonPropertyName("RoomSpaceMaintenanceItemID")]
+        public int? RoomSpaceMaintenanceItemId { get; set; }
 
         /// <summary>Pointer to the security user record.</summary>
-        public int? SecurityUserID { get; set; }
+        [JsonPropertyName("SecurityUserID")]
+        public int? SecurityUserId { get; set; }
 
         /// <summary>Start date.</summary>
+        [JsonPropertyName("StartDate")]
         public string StartDate { get; set; }
 
         /// <summary>Status.</summary>
+        [JsonPropertyName("Status")]
         public string Status { get; set; }
 
         /// <summary>Technician.</summary>
+        [JsonPropertyName("Technician")]
         public string Technician { get; set; }
 
         /// <summary>Indicates if the room space maintenance is viewable on the web.</summary>
+        [JsonPropertyName("ViewOnWeb")]
         public bool? ViewOnWeb { get; set; }
     }
 
@@ -7753,21 +9474,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageSize = default,
             int? pageIndex = default,
             string orderby = default,
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             BirthGenderEnum? birthGenderEnum = default,
-            int? bookingID = default,
-            int? categoryID = default,
+            int? bookingId = default,
+            int? categoryId = default,
             string conferenceEmail = default,
-            int? contactID = default,
-            int? createdBySecurityUserID = default,
+            int? contactId = default,
+            int? createdBySecurityUserId = default,
             object dateCreated = default,
             object dateModified = default,
             bool? directoryFlagPrivacy = default,
             object dob = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             EntryStatusEnum? entryStatusEnum = default,
-            int? eventID = default,
+            int? eventId = default,
             GenderEnum? genderEnum = default,
             string iD1 = default,
             string iD2 = default,
@@ -7784,7 +9505,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string nameTitle = default,
             string nameWeb = default,
             int? pinNumber = default,
-            string portalAuthProviderUserID = default,
+            string portalAuthProviderUserId = default,
             string portalEmail = default,
             string position = default,
             PreviousEntryStatusEnum? previousEntryStatusEnum = default,
@@ -7797,21 +9518,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Orderby = orderby,
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 BirthGenderEnum = birthGenderEnum,
-                BookingID = bookingID,
-                CategoryID = categoryID,
+                BookingId = bookingId,
+                CategoryId = categoryId,
                 ConferenceEmail = conferenceEmail,
-                ContactID = contactID,
-                CreatedBySecurityUserID = createdBySecurityUserID,
+                ContactId = contactId,
+                CreatedBySecurityUserId = createdBySecurityUserId,
                 DateCreated = dateCreated,
                 DateModified = dateModified,
                 DirectoryFlagPrivacy = directoryFlagPrivacy,
                 DOB = dob,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EntryStatusEnum = entryStatusEnum,
-                EventID = eventID,
+                EventId = eventId,
                 GenderEnum = genderEnum,
                 ID1 = iD1,
                 ID2 = iD2,
@@ -7828,7 +9549,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 NameTitle = nameTitle,
                 NameWeb = nameWeb,
                 PinNumber = pinNumber,
-                PortalAuthProviderUserID = portalAuthProviderUserID,
+                PortalAuthProviderUserId = portalAuthProviderUserId,
                 PortalEmail = portalEmail,
                 Position = position,
                 PreviousEntryStatusEnum = previousEntryStatusEnum,
@@ -7841,18 +9562,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// Creates a new instance of <see cref="CreateEntryInput"/>.
         /// </summary>
         public static CreateEntryInput CreateEntryInput(
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             BirthGenderEnum? birthGenderEnum = default,
-            int? bookingID = default,
-            int? categoryID = default,
+            int? bookingId = default,
+            int? categoryId = default,
             string conferenceEmail = default,
-            int? contactID = default,
+            int? contactId = default,
             bool? directoryFlagPrivacy = default,
             DateTime? dob = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             EntryStatusEnum? entryStatusEnum = default,
-            int? eventID = default,
+            int? eventId = default,
             GenderEnum? genderEnum = default,
             string iD1 = default,
             string iD2 = default,
@@ -7870,7 +9591,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string nameWeb = default,
             string password = default,
             int? pinNumber = default,
-            string portalAuthProviderUserID = default,
+            string portalAuthProviderUserId = default,
             string portalEmail = default,
             string position = default,
             PreviousEntryStatusEnum? previousEntryStatusEnum = default,
@@ -7879,18 +9600,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         {
             return new CreateEntryInput
             {
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 BirthGenderEnum = birthGenderEnum,
-                BookingID = bookingID,
-                CategoryID = categoryID,
+                BookingId = bookingId,
+                CategoryId = categoryId,
                 ConferenceEmail = conferenceEmail,
-                ContactID = contactID,
+                ContactId = contactId,
                 DirectoryFlagPrivacy = directoryFlagPrivacy,
                 DOB = dob,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EntryStatusEnum = entryStatusEnum,
-                EventID = eventID,
+                EventId = eventId,
                 GenderEnum = genderEnum,
                 ID1 = iD1,
                 ID2 = iD2,
@@ -7908,7 +9629,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 NameWeb = nameWeb,
                 Password = password,
                 PinNumber = pinNumber,
-                PortalAuthProviderUserID = portalAuthProviderUserID,
+                PortalAuthProviderUserId = portalAuthProviderUserId,
                 PortalEmail = portalEmail,
                 Position = position,
                 PreviousEntryStatusEnum = previousEntryStatusEnum,
@@ -7921,18 +9642,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// Creates a new instance of <see cref="CreateEntryResponse"/>.
         /// </summary>
         public static CreateEntryResponse CreateEntryResponse(
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             string birthGenderEnum = default,
-            int? bookingID = default,
-            int? categoryID = default,
+            int? bookingId = default,
+            int? categoryId = default,
             string conferenceEmail = default,
-            int? contactID = default,
+            int? contactId = default,
             bool? directoryFlagPrivacy = default,
             string dob = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             string entryStatusEnum = default,
-            int? eventID = default,
+            int? eventId = default,
             string genderEnum = default,
             string iD1 = default,
             string iD2 = default,
@@ -7950,7 +9671,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string nameWeb = default,
             string password = default,
             int? pinNumber = default,
-            string portalAuthProviderUserID = default,
+            string portalAuthProviderUserId = default,
             string portalEmail = default,
             string position = default,
             string previousEntryStatusEnum = default,
@@ -7959,18 +9680,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         {
             return new CreateEntryResponse
             {
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 BirthGenderEnum = birthGenderEnum,
-                BookingID = bookingID,
-                CategoryID = categoryID,
+                BookingId = bookingId,
+                CategoryId = categoryId,
                 ConferenceEmail = conferenceEmail,
-                ContactID = contactID,
+                ContactId = contactId,
                 DirectoryFlagPrivacy = directoryFlagPrivacy,
                 DOB = dob,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EntryStatusEnum = entryStatusEnum,
-                EventID = eventID,
+                EventId = eventId,
                 GenderEnum = genderEnum,
                 ID1 = iD1,
                 ID2 = iD2,
@@ -7988,7 +9709,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 NameWeb = nameWeb,
                 Password = password,
                 PinNumber = pinNumber,
-                PortalAuthProviderUserID = portalAuthProviderUserID,
+                PortalAuthProviderUserId = portalAuthProviderUserId,
                 PortalEmail = portalEmail,
                 Position = position,
                 PreviousEntryStatusEnum = previousEntryStatusEnum,
@@ -8001,18 +9722,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// Creates a new instance of <see cref="UpdateEntryInput"/>.
         /// </summary>
         public static UpdateEntryInput UpdateEntryInput(
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             BirthGenderEnum? birthGenderEnum = default,
-            int? bookingID = default,
-            int? categoryID = default,
+            int? bookingId = default,
+            int? categoryId = default,
             string conferenceEmail = default,
-            int? contactID = default,
+            int? contactId = default,
             bool? directoryFlagPrivacy = default,
             DateTime? dob = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             EntryStatusEnum? entryStatusEnum = default,
-            int? eventID = default,
+            int? eventId = default,
             GenderEnum? genderEnum = default,
             string iD1 = default,
             string iD2 = default,
@@ -8030,7 +9751,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string nameWeb = default,
             string password = default,
             int? pinNumber = default,
-            string portalAuthProviderUserID = default,
+            string portalAuthProviderUserId = default,
             string portalEmail = default,
             string position = default,
             PreviousEntryStatusEnum? previousEntryStatusEnum = default,
@@ -8039,18 +9760,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         {
             return new UpdateEntryInput
             {
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 BirthGenderEnum = birthGenderEnum,
-                BookingID = bookingID,
-                CategoryID = categoryID,
+                BookingId = bookingId,
+                CategoryId = categoryId,
                 ConferenceEmail = conferenceEmail,
-                ContactID = contactID,
+                ContactId = contactId,
                 DirectoryFlagPrivacy = directoryFlagPrivacy,
                 DOB = dob,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EntryStatusEnum = entryStatusEnum,
-                EventID = eventID,
+                EventId = eventId,
                 GenderEnum = genderEnum,
                 ID1 = iD1,
                 ID2 = iD2,
@@ -8068,7 +9789,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 NameWeb = nameWeb,
                 Password = password,
                 PinNumber = pinNumber,
-                PortalAuthProviderUserID = portalAuthProviderUserID,
+                PortalAuthProviderUserId = portalAuthProviderUserId,
                 PortalEmail = portalEmail,
                 Position = position,
                 PreviousEntryStatusEnum = previousEntryStatusEnum,
@@ -8081,18 +9802,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// Creates a new instance of <see cref="UpdateEntryResponse"/>.
         /// </summary>
         public static UpdateEntryResponse UpdateEntryResponse(
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             string birthGenderEnum = default,
-            int? bookingID = default,
-            int? categoryID = default,
+            int? bookingId = default,
+            int? categoryId = default,
             string conferenceEmail = default,
-            int? contactID = default,
+            int? contactId = default,
             bool? directoryFlagPrivacy = default,
             string dob = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             string entryStatusEnum = default,
-            int? eventID = default,
+            int? eventId = default,
             string genderEnum = default,
             string iD1 = default,
             string iD2 = default,
@@ -8110,7 +9831,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string nameWeb = default,
             string password = default,
             int? pinNumber = default,
-            string portalAuthProviderUserID = default,
+            string portalAuthProviderUserId = default,
             string portalEmail = default,
             string position = default,
             string previousEntryStatusEnum = default,
@@ -8119,18 +9840,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         {
             return new UpdateEntryResponse
             {
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 BirthGenderEnum = birthGenderEnum,
-                BookingID = bookingID,
-                CategoryID = categoryID,
+                BookingId = bookingId,
+                CategoryId = categoryId,
                 ConferenceEmail = conferenceEmail,
-                ContactID = contactID,
+                ContactId = contactId,
                 DirectoryFlagPrivacy = directoryFlagPrivacy,
                 DOB = dob,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EntryStatusEnum = entryStatusEnum,
-                EventID = eventID,
+                EventId = eventId,
                 GenderEnum = genderEnum,
                 ID1 = iD1,
                 ID2 = iD2,
@@ -8148,7 +9869,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 NameWeb = nameWeb,
                 Password = password,
                 PinNumber = pinNumber,
-                PortalAuthProviderUserID = portalAuthProviderUserID,
+                PortalAuthProviderUserId = portalAuthProviderUserId,
                 PortalEmail = portalEmail,
                 Position = position,
                 PreviousEntryStatusEnum = previousEntryStatusEnum,
@@ -8165,10 +9886,10 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageSize = default,
             int? pageIndex = default,
             string orderby = default,
-            int? customFieldDefinitionID = default,
+            int? customFieldDefinitionId = default,
             object dateModified = default,
-            int? entryCustomFieldID = default,
-            int? entryID = default,
+            int? entryCustomFieldId = default,
+            int? entryId = default,
             FieldDataTypeEnum? fieldDataTypeEnum = default,
             bool? valueBoolean = default,
             object valueDate = default,
@@ -8182,10 +9903,10 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Orderby = orderby,
-                CustomFieldDefinitionID = customFieldDefinitionID,
+                CustomFieldDefinitionId = customFieldDefinitionId,
                 DateModified = dateModified,
-                EntryCustomFieldID = entryCustomFieldID,
-                EntryID = entryID,
+                EntryCustomFieldId = entryCustomFieldId,
+                EntryId = entryId,
                 FieldDataTypeEnum = fieldDataTypeEnum,
                 ValueBoolean = valueBoolean,
                 ValueDate = valueDate,
@@ -8199,9 +9920,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// Creates a new instance of <see cref="UpdateEntryCustomFieldInput"/>.
         /// </summary>
         public static UpdateEntryCustomFieldInput UpdateEntryCustomFieldInput(
-            int? customFieldDefinitionID = default,
-            int? entryCustomFieldID = default,
-            int? entryID = default,
+            int? customFieldDefinitionId = default,
+            int? entryCustomFieldId = default,
+            int? entryId = default,
             FieldDataTypeEnum? fieldDataTypeEnum = default,
             bool? valueBoolean = default,
             DateTime? valueDate = default,
@@ -8211,9 +9932,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         {
             return new UpdateEntryCustomFieldInput
             {
-                CustomFieldDefinitionID = customFieldDefinitionID,
-                EntryCustomFieldID = entryCustomFieldID,
-                EntryID = entryID,
+                CustomFieldDefinitionId = customFieldDefinitionId,
+                EntryCustomFieldId = entryCustomFieldId,
+                EntryId = entryId,
                 FieldDataTypeEnum = fieldDataTypeEnum,
                 ValueBoolean = valueBoolean,
                 ValueDate = valueDate,
@@ -8227,9 +9948,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// Creates a new instance of <see cref="UpdateEntryCustomFieldResponse"/>.
         /// </summary>
         public static UpdateEntryCustomFieldResponse UpdateEntryCustomFieldResponse(
-            int? customFieldDefinitionID = default,
-            int? entryCustomFieldID = default,
-            int? entryID = default,
+            int? customFieldDefinitionId = default,
+            int? entryCustomFieldId = default,
+            int? entryId = default,
             string fieldDataTypeEnum = default,
             bool? valueBoolean = default,
             string valueDate = default,
@@ -8239,9 +9960,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         {
             return new UpdateEntryCustomFieldResponse
             {
-                CustomFieldDefinitionID = customFieldDefinitionID,
-                EntryCustomFieldID = entryCustomFieldID,
-                EntryID = entryID,
+                CustomFieldDefinitionId = customFieldDefinitionId,
+                EntryCustomFieldId = entryCustomFieldId,
+                EntryId = entryId,
                 FieldDataTypeEnum = fieldDataTypeEnum,
                 ValueBoolean = valueBoolean,
                 ValueDate = valueDate,
@@ -8262,14 +9983,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? active = default,
             object activeDateClose = default,
             object activeDateOpen = default,
-            int? categoryID = default,
+            int? categoryId = default,
             string comments = default,
             object dateModified = default,
             string description = default,
             RecordTypeEnum? recordTypeEnum = default,
             string termCode = default,
-            int? termID = default,
-            int? termTypeID = default,
+            int? termId = default,
+            int? termTypeId = default,
             string webDescription = default)
         {
             return new SelectTermInput
@@ -8281,14 +10002,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Active = active,
                 ActiveDateClose = activeDateClose,
                 ActiveDateOpen = activeDateOpen,
-                CategoryID = categoryID,
+                CategoryId = categoryId,
                 Comments = comments,
                 DateModified = dateModified,
                 Description = description,
                 RecordTypeEnum = recordTypeEnum,
                 TermCode = termCode,
-                TermID = termID,
-                TermTypeID = termTypeID,
+                TermId = termId,
+                TermTypeId = termTypeId,
                 WebDescription = webDescription,
             };
         }
@@ -8303,16 +10024,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string orderby = default,
             object activeDateEnd = default,
             object activeDateStart = default,
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             string city = default,
             string comments = default,
             string contactName = default,
             string contactName2 = default,
-            int? countryID = default,
+            int? countryId = default,
             object dateModified = default,
             string email = default,
-            int? entryAddressID = default,
-            int? entryID = default,
+            int? entryAddressId = default,
+            int? entryId = default,
             string phone = default,
             string phoneMobileCell = default,
             string phoneOther = default,
@@ -8333,16 +10054,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Orderby = orderby,
                 ActiveDateEnd = activeDateEnd,
                 ActiveDateStart = activeDateStart,
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 City = city,
                 Comments = comments,
                 ContactName = contactName,
                 ContactName2 = contactName2,
-                CountryID = countryID,
+                CountryId = countryId,
                 DateModified = dateModified,
                 Email = email,
-                EntryAddressID = entryAddressID,
-                EntryID = entryID,
+                EntryAddressId = entryAddressId,
+                EntryId = entryId,
                 Phone = phone,
                 PhoneMobileCell = phoneMobileCell,
                 PhoneOther = phoneOther,
@@ -8363,15 +10084,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateEntryAddressInput UpdateEntryAddressInput(
             DateTime? activeDateEnd = default,
             DateTime? activeDateStart = default,
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             string city = default,
             string comments = default,
             string contactName = default,
             string contactName2 = default,
-            int? countryID = default,
+            int? countryId = default,
             string email = default,
-            int? entryAddressID = default,
-            int? entryID = default,
+            int? entryAddressId = default,
+            int? entryId = default,
             string phone = default,
             string phoneMobileCell = default,
             string phoneOther = default,
@@ -8388,15 +10109,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             {
                 ActiveDateEnd = activeDateEnd,
                 ActiveDateStart = activeDateStart,
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 City = city,
                 Comments = comments,
                 ContactName = contactName,
                 ContactName2 = contactName2,
-                CountryID = countryID,
+                CountryId = countryId,
                 Email = email,
-                EntryAddressID = entryAddressID,
-                EntryID = entryID,
+                EntryAddressId = entryAddressId,
+                EntryId = entryId,
                 Phone = phone,
                 PhoneMobileCell = phoneMobileCell,
                 PhoneOther = phoneOther,
@@ -8417,15 +10138,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateEntryAddressResponse UpdateEntryAddressResponse(
             string activeDateEnd = default,
             string activeDateStart = default,
-            int? addressTypeID = default,
+            int? addressTypeId = default,
             string city = default,
             string comments = default,
             string contactName = default,
             string contactName2 = default,
-            int? countryID = default,
+            int? countryId = default,
             string email = default,
-            int? entryAddressID = default,
-            int? entryID = default,
+            int? entryAddressId = default,
+            int? entryId = default,
             string phone = default,
             string phoneMobileCell = default,
             string phoneOther = default,
@@ -8442,15 +10163,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             {
                 ActiveDateEnd = activeDateEnd,
                 ActiveDateStart = activeDateStart,
-                AddressTypeID = addressTypeID,
+                AddressTypeId = addressTypeId,
                 City = city,
                 Comments = comments,
                 ContactName = contactName,
                 ContactName2 = contactName2,
-                CountryID = countryID,
+                CountryId = countryId,
                 Email = email,
-                EntryAddressID = entryAddressID,
-                EntryID = entryID,
+                EntryAddressId = entryAddressId,
+                EntryId = entryId,
                 Phone = phone,
                 PhoneMobileCell = phoneMobileCell,
                 PhoneOther = phoneOther,
@@ -8475,9 +10196,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string orderby = default,
             AllocateOptionEnum? allocateOptionEnum = default,
             object applicationDate = default,
-            int? applicationStatusID = default,
+            int? applicationStatusId = default,
             object cancelDate = default,
-            int? classificationID = default,
+            int? classificationId = default,
             string comments = default,
             string commentsInternal = default,
             object completeDate = default,
@@ -8493,8 +10214,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             object dateCreated = default,
             object dateModified = default,
             object enquiryDate = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             object expectedArrivalDate = default,
             object expectedArrivalDateLatest = default,
             object expectedDepartureDate = default,
@@ -8509,26 +10230,26 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             object receivedDate = default,
             bool? receivedDeposit = default,
             bool? receivedDepositWaived = default,
-            int? receivedDepositPaymentID = default,
-            int? receivedDepositWebPaymentID = default,
+            int? receivedDepositPaymentId = default,
+            int? receivedDepositWebPaymentId = default,
             double? receivedDepositAmount = default,
             object receivedDepositDate = default,
             bool? receivedFee = default,
-            int? receivedFeePaymentID = default,
-            int? receivedFeeWebPaymentID = default,
+            int? receivedFeePaymentId = default,
+            int? receivedFeeWebPaymentId = default,
             double? receivedFeeAmount = default,
             object receivedFeeDate = default,
             object receivedPhotoDate = default,
             bool? returning = default,
             string roomMateDescription = default,
-            int? roommateGroupID = default,
+            int? roommateGroupId = default,
             int? roomMateGroupSortOrder = default,
             bool? roomMateShowInSearch = default,
             string roomPreferenceComments = default,
             int? roomSelectionNumber = default,
             string roomSelectionTimeslot = default,
-            int? securityUserID = default,
-            int? termID = default,
+            int? securityUserId = default,
+            int? termId = default,
             bool? web = default)
         {
             return new SelectEntryApplicationInput
@@ -8539,9 +10260,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Orderby = orderby,
                 AllocateOptionEnum = allocateOptionEnum,
                 ApplicationDate = applicationDate,
-                ApplicationStatusID = applicationStatusID,
+                ApplicationStatusId = applicationStatusId,
                 CancelDate = cancelDate,
-                ClassificationID = classificationID,
+                ClassificationId = classificationId,
                 Comments = comments,
                 CommentsInternal = commentsInternal,
                 CompleteDate = completeDate,
@@ -8557,8 +10278,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 DateCreated = dateCreated,
                 DateModified = dateModified,
                 EnquiryDate = enquiryDate,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 ExpectedArrivalDate = expectedArrivalDate,
                 ExpectedArrivalDateLatest = expectedArrivalDateLatest,
                 ExpectedDepartureDate = expectedDepartureDate,
@@ -8573,26 +10294,26 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 ReceivedDate = receivedDate,
                 ReceivedDeposit = receivedDeposit,
                 ReceivedDepositWaived = receivedDepositWaived,
-                ReceivedDepositPaymentID = receivedDepositPaymentID,
-                ReceivedDepositWebPaymentID = receivedDepositWebPaymentID,
+                ReceivedDepositPaymentId = receivedDepositPaymentId,
+                ReceivedDepositWebPaymentId = receivedDepositWebPaymentId,
                 ReceivedDepositAmount = receivedDepositAmount,
                 ReceivedDepositDate = receivedDepositDate,
                 ReceivedFee = receivedFee,
-                ReceivedFeePaymentID = receivedFeePaymentID,
-                ReceivedFeeWebPaymentID = receivedFeeWebPaymentID,
+                ReceivedFeePaymentId = receivedFeePaymentId,
+                ReceivedFeeWebPaymentId = receivedFeeWebPaymentId,
                 ReceivedFeeAmount = receivedFeeAmount,
                 ReceivedFeeDate = receivedFeeDate,
                 ReceivedPhotoDate = receivedPhotoDate,
                 Returning = returning,
                 RoomMateDescription = roomMateDescription,
-                RoommateGroupID = roommateGroupID,
+                RoommateGroupId = roommateGroupId,
                 RoomMateGroupSortOrder = roomMateGroupSortOrder,
                 RoomMateShowInSearch = roomMateShowInSearch,
                 RoomPreferenceComments = roomPreferenceComments,
                 RoomSelectionNumber = roomSelectionNumber,
                 RoomSelectionTimeslot = roomSelectionTimeslot,
-                SecurityUserID = securityUserID,
-                TermID = termID,
+                SecurityUserId = securityUserId,
+                TermId = termId,
                 Web = web,
             };
         }
@@ -8603,9 +10324,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateEntryApplicationInput CreateEntryApplicationInput(
             AllocateOptionEnum? allocateOptionEnum = default,
             DateTime? applicationDate = default,
-            int? applicationStatusID = default,
+            int? applicationStatusId = default,
             DateTime? cancelDate = default,
-            int? classificationID = default,
+            int? classificationId = default,
             string comments = default,
             string commentsInternal = default,
             DateTime? completeDate = default,
@@ -8619,8 +10340,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             DateTime? customDate3 = default,
             DateTime? customDate4 = default,
             DateTime? enquiryDate = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             DateTime? expectedArrivalDate = default,
             DateTime? expectedArrivalDateLatest = default,
             DateTime? expectedDepartureDate = default,
@@ -8634,36 +10355,36 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string rating = default,
             DateTime? receivedDate = default,
             bool? receivedDeposit = default,
-            int? receivedDepositPaymentID = default,
-            int? receivedDepositWebPaymentID = default,
+            int? receivedDepositPaymentId = default,
+            int? receivedDepositWebPaymentId = default,
             double? receivedDepositAmount = default,
             DateTime? receivedDepositDate = default,
             bool? receivedDepositWaived = default,
             bool? receivedFee = default,
-            int? receivedFeePaymentID = default,
-            int? receivedFeeWebPaymentID = default,
+            int? receivedFeePaymentId = default,
+            int? receivedFeeWebPaymentId = default,
             double? receivedFeeAmount = default,
             DateTime? receivedFeeDate = default,
             DateTime? receivedPhotoDate = default,
             bool? returning = default,
             string roomMateDescription = default,
-            int? roommateGroupID = default,
+            int? roommateGroupId = default,
             int? roomMateGroupSortOrder = default,
             bool? roomMateShowInSearch = default,
             string roomPreferenceComments = default,
             int? roomSelectionNumber = default,
             string roomSelectionTimeslot = default,
-            int? securityUserID = default,
-            int? termID = default,
+            int? securityUserId = default,
+            int? termId = default,
             bool? web = default)
         {
             return new CreateEntryApplicationInput
             {
                 AllocateOptionEnum = allocateOptionEnum,
                 ApplicationDate = applicationDate,
-                ApplicationStatusID = applicationStatusID,
+                ApplicationStatusId = applicationStatusId,
                 CancelDate = cancelDate,
-                ClassificationID = classificationID,
+                ClassificationId = classificationId,
                 Comments = comments,
                 CommentsInternal = commentsInternal,
                 CompleteDate = completeDate,
@@ -8677,8 +10398,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 CustomDate3 = customDate3,
                 CustomDate4 = customDate4,
                 EnquiryDate = enquiryDate,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 ExpectedArrivalDate = expectedArrivalDate,
                 ExpectedArrivalDateLatest = expectedArrivalDateLatest,
                 ExpectedDepartureDate = expectedDepartureDate,
@@ -8692,27 +10413,27 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Rating = rating,
                 ReceivedDate = receivedDate,
                 ReceivedDeposit = receivedDeposit,
-                ReceivedDepositPaymentID = receivedDepositPaymentID,
-                ReceivedDepositWebPaymentID = receivedDepositWebPaymentID,
+                ReceivedDepositPaymentId = receivedDepositPaymentId,
+                ReceivedDepositWebPaymentId = receivedDepositWebPaymentId,
                 ReceivedDepositAmount = receivedDepositAmount,
                 ReceivedDepositDate = receivedDepositDate,
                 ReceivedDepositWaived = receivedDepositWaived,
                 ReceivedFee = receivedFee,
-                ReceivedFeePaymentID = receivedFeePaymentID,
-                ReceivedFeeWebPaymentID = receivedFeeWebPaymentID,
+                ReceivedFeePaymentId = receivedFeePaymentId,
+                ReceivedFeeWebPaymentId = receivedFeeWebPaymentId,
                 ReceivedFeeAmount = receivedFeeAmount,
                 ReceivedFeeDate = receivedFeeDate,
                 ReceivedPhotoDate = receivedPhotoDate,
                 Returning = returning,
                 RoomMateDescription = roomMateDescription,
-                RoommateGroupID = roommateGroupID,
+                RoommateGroupId = roommateGroupId,
                 RoomMateGroupSortOrder = roomMateGroupSortOrder,
                 RoomMateShowInSearch = roomMateShowInSearch,
                 RoomPreferenceComments = roomPreferenceComments,
                 RoomSelectionNumber = roomSelectionNumber,
                 RoomSelectionTimeslot = roomSelectionTimeslot,
-                SecurityUserID = securityUserID,
-                TermID = termID,
+                SecurityUserId = securityUserId,
+                TermId = termId,
                 Web = web,
             };
         }
@@ -8723,9 +10444,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateEntryApplicationResponse CreateEntryApplicationResponse(
             string allocateOptionEnum = default,
             string applicationDate = default,
-            int? applicationStatusID = default,
+            int? applicationStatusId = default,
             string cancelDate = default,
-            int? classificationID = default,
+            int? classificationId = default,
             string comments = default,
             string commentsInternal = default,
             string completeDate = default,
@@ -8738,9 +10459,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string customDate2 = default,
             string customDate3 = default,
             string customDate4 = default,
-            int? entryApplicationID = default,
+            int? entryApplicationId = default,
             string enquiryDate = default,
-            int? entryID = default,
+            int? entryId = default,
             string expectedArrivalDate = default,
             string expectedArrivalDateLatest = default,
             string expectedDepartureDate = default,
@@ -8754,36 +10475,36 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string rating = default,
             string receivedDate = default,
             bool? receivedDeposit = default,
-            int? receivedDepositPaymentID = default,
-            int? receivedDepositWebPaymentID = default,
+            int? receivedDepositPaymentId = default,
+            int? receivedDepositWebPaymentId = default,
             double? receivedDepositAmount = default,
             string receivedDepositDate = default,
             bool? receivedDepositWaived = default,
             bool? receivedFee = default,
-            int? receivedFeePaymentID = default,
-            int? receivedFeeWebPaymentID = default,
+            int? receivedFeePaymentId = default,
+            int? receivedFeeWebPaymentId = default,
             double? receivedFeeAmount = default,
             string receivedFeeDate = default,
             string receivedPhotoDate = default,
             bool? returning = default,
             string roomMateDescription = default,
-            int? roommateGroupID = default,
+            int? roommateGroupId = default,
             int? roomMateGroupSortOrder = default,
             bool? roomMateShowInSearch = default,
             string roomPreferenceComments = default,
             int? roomSelectionNumber = default,
             string roomSelectionTimeslot = default,
-            int? securityUserID = default,
-            int? termID = default,
+            int? securityUserId = default,
+            int? termId = default,
             bool? web = default)
         {
             return new CreateEntryApplicationResponse
             {
                 AllocateOptionEnum = allocateOptionEnum,
                 ApplicationDate = applicationDate,
-                ApplicationStatusID = applicationStatusID,
+                ApplicationStatusId = applicationStatusId,
                 CancelDate = cancelDate,
-                ClassificationID = classificationID,
+                ClassificationId = classificationId,
                 Comments = comments,
                 CommentsInternal = commentsInternal,
                 CompleteDate = completeDate,
@@ -8796,9 +10517,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 CustomDate2 = customDate2,
                 CustomDate3 = customDate3,
                 CustomDate4 = customDate4,
-                EntryApplicationID = entryApplicationID,
+                EntryApplicationId = entryApplicationId,
                 EnquiryDate = enquiryDate,
-                EntryID = entryID,
+                EntryId = entryId,
                 ExpectedArrivalDate = expectedArrivalDate,
                 ExpectedArrivalDateLatest = expectedArrivalDateLatest,
                 ExpectedDepartureDate = expectedDepartureDate,
@@ -8812,27 +10533,27 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Rating = rating,
                 ReceivedDate = receivedDate,
                 ReceivedDeposit = receivedDeposit,
-                ReceivedDepositPaymentID = receivedDepositPaymentID,
-                ReceivedDepositWebPaymentID = receivedDepositWebPaymentID,
+                ReceivedDepositPaymentId = receivedDepositPaymentId,
+                ReceivedDepositWebPaymentId = receivedDepositWebPaymentId,
                 ReceivedDepositAmount = receivedDepositAmount,
                 ReceivedDepositDate = receivedDepositDate,
                 ReceivedDepositWaived = receivedDepositWaived,
                 ReceivedFee = receivedFee,
-                ReceivedFeePaymentID = receivedFeePaymentID,
-                ReceivedFeeWebPaymentID = receivedFeeWebPaymentID,
+                ReceivedFeePaymentId = receivedFeePaymentId,
+                ReceivedFeeWebPaymentId = receivedFeeWebPaymentId,
                 ReceivedFeeAmount = receivedFeeAmount,
                 ReceivedFeeDate = receivedFeeDate,
                 ReceivedPhotoDate = receivedPhotoDate,
                 Returning = returning,
                 RoomMateDescription = roomMateDescription,
-                RoommateGroupID = roommateGroupID,
+                RoommateGroupId = roommateGroupId,
                 RoomMateGroupSortOrder = roomMateGroupSortOrder,
                 RoomMateShowInSearch = roomMateShowInSearch,
                 RoomPreferenceComments = roomPreferenceComments,
                 RoomSelectionNumber = roomSelectionNumber,
                 RoomSelectionTimeslot = roomSelectionTimeslot,
-                SecurityUserID = securityUserID,
-                TermID = termID,
+                SecurityUserId = securityUserId,
+                TermId = termId,
                 Web = web,
             };
         }
@@ -8843,9 +10564,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateEntryApplicationInput UpdateEntryApplicationInput(
             AllocateOptionEnum? allocateOptionEnum = default,
             DateTime? applicationDate = default,
-            int? applicationStatusID = default,
+            int? applicationStatusId = default,
             DateTime? cancelDate = default,
-            int? classificationID = default,
+            int? classificationId = default,
             string comments = default,
             string commentsInternal = default,
             DateTime? completeDate = default,
@@ -8858,8 +10579,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             DateTime? customDate2 = default,
             DateTime? customDate3 = default,
             DateTime? customDate4 = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             DateTime? enquiryDate = default,
             DateTime? expectedArrivalDate = default,
             DateTime? expectedArrivalDateLatest = default,
@@ -8874,36 +10595,36 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string rating = default,
             DateTime? receivedDate = default,
             bool? receivedDeposit = default,
-            int? receivedDepositPaymentID = default,
-            int? receivedDepositWebPaymentID = default,
+            int? receivedDepositPaymentId = default,
+            int? receivedDepositWebPaymentId = default,
             double? receivedDepositAmount = default,
             DateTime? receivedDepositDate = default,
             bool? receivedDepositWaived = default,
             bool? receivedFee = default,
-            int? receivedFeePaymentID = default,
-            int? receivedFeeWebPaymentID = default,
+            int? receivedFeePaymentId = default,
+            int? receivedFeeWebPaymentId = default,
             double? receivedFeeAmount = default,
             DateTime? receivedFeeDate = default,
             DateTime? receivedPhotoDate = default,
             bool? returning = default,
             string roomMateDescription = default,
-            int? roommateGroupID = default,
+            int? roommateGroupId = default,
             int? roomMateGroupSortOrder = default,
             bool? roomMateShowInSearch = default,
             string roomPreferenceComments = default,
             int? roomSelectionNumber = default,
             string roomSelectionTimeslot = default,
-            int? securityUserID = default,
-            int? termID = default,
+            int? securityUserId = default,
+            int? termId = default,
             bool? web = default)
         {
             return new UpdateEntryApplicationInput
             {
                 AllocateOptionEnum = allocateOptionEnum,
                 ApplicationDate = applicationDate,
-                ApplicationStatusID = applicationStatusID,
+                ApplicationStatusId = applicationStatusId,
                 CancelDate = cancelDate,
-                ClassificationID = classificationID,
+                ClassificationId = classificationId,
                 Comments = comments,
                 CommentsInternal = commentsInternal,
                 CompleteDate = completeDate,
@@ -8916,8 +10637,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 CustomDate2 = customDate2,
                 CustomDate3 = customDate3,
                 CustomDate4 = customDate4,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EnquiryDate = enquiryDate,
                 ExpectedArrivalDate = expectedArrivalDate,
                 ExpectedArrivalDateLatest = expectedArrivalDateLatest,
@@ -8932,27 +10653,27 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Rating = rating,
                 ReceivedDate = receivedDate,
                 ReceivedDeposit = receivedDeposit,
-                ReceivedDepositPaymentID = receivedDepositPaymentID,
-                ReceivedDepositWebPaymentID = receivedDepositWebPaymentID,
+                ReceivedDepositPaymentId = receivedDepositPaymentId,
+                ReceivedDepositWebPaymentId = receivedDepositWebPaymentId,
                 ReceivedDepositAmount = receivedDepositAmount,
                 ReceivedDepositDate = receivedDepositDate,
                 ReceivedDepositWaived = receivedDepositWaived,
                 ReceivedFee = receivedFee,
-                ReceivedFeePaymentID = receivedFeePaymentID,
-                ReceivedFeeWebPaymentID = receivedFeeWebPaymentID,
+                ReceivedFeePaymentId = receivedFeePaymentId,
+                ReceivedFeeWebPaymentId = receivedFeeWebPaymentId,
                 ReceivedFeeAmount = receivedFeeAmount,
                 ReceivedFeeDate = receivedFeeDate,
                 ReceivedPhotoDate = receivedPhotoDate,
                 Returning = returning,
                 RoomMateDescription = roomMateDescription,
-                RoommateGroupID = roommateGroupID,
+                RoommateGroupId = roommateGroupId,
                 RoomMateGroupSortOrder = roomMateGroupSortOrder,
                 RoomMateShowInSearch = roomMateShowInSearch,
                 RoomPreferenceComments = roomPreferenceComments,
                 RoomSelectionNumber = roomSelectionNumber,
                 RoomSelectionTimeslot = roomSelectionTimeslot,
-                SecurityUserID = securityUserID,
-                TermID = termID,
+                SecurityUserId = securityUserId,
+                TermId = termId,
                 Web = web,
             };
         }
@@ -8963,9 +10684,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateEntryApplicationResponse UpdateEntryApplicationResponse(
             string allocateOptionEnum = default,
             string applicationDate = default,
-            int? applicationStatusID = default,
+            int? applicationStatusId = default,
             string cancelDate = default,
-            int? classificationID = default,
+            int? classificationId = default,
             string comments = default,
             string commentsInternal = default,
             string completeDate = default,
@@ -8978,8 +10699,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string customDate2 = default,
             string customDate3 = default,
             string customDate4 = default,
-            int? entryApplicationID = default,
-            int? entryID = default,
+            int? entryApplicationId = default,
+            int? entryId = default,
             string enquiryDate = default,
             string expectedArrivalDate = default,
             string expectedArrivalDateLatest = default,
@@ -8994,36 +10715,36 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string rating = default,
             string receivedDate = default,
             bool? receivedDeposit = default,
-            int? receivedDepositPaymentID = default,
-            int? receivedDepositWebPaymentID = default,
+            int? receivedDepositPaymentId = default,
+            int? receivedDepositWebPaymentId = default,
             double? receivedDepositAmount = default,
             string receivedDepositDate = default,
             bool? receivedDepositWaived = default,
             bool? receivedFee = default,
-            int? receivedFeePaymentID = default,
-            int? receivedFeeWebPaymentID = default,
+            int? receivedFeePaymentId = default,
+            int? receivedFeeWebPaymentId = default,
             double? receivedFeeAmount = default,
             string receivedFeeDate = default,
             string receivedPhotoDate = default,
             bool? returning = default,
             string roomMateDescription = default,
-            int? roommateGroupID = default,
+            int? roommateGroupId = default,
             int? roomMateGroupSortOrder = default,
             bool? roomMateShowInSearch = default,
             string roomPreferenceComments = default,
             int? roomSelectionNumber = default,
             string roomSelectionTimeslot = default,
-            int? securityUserID = default,
-            int? termID = default,
+            int? securityUserId = default,
+            int? termId = default,
             bool? web = default)
         {
             return new UpdateEntryApplicationResponse
             {
                 AllocateOptionEnum = allocateOptionEnum,
                 ApplicationDate = applicationDate,
-                ApplicationStatusID = applicationStatusID,
+                ApplicationStatusId = applicationStatusId,
                 CancelDate = cancelDate,
-                ClassificationID = classificationID,
+                ClassificationId = classificationId,
                 Comments = comments,
                 CommentsInternal = commentsInternal,
                 CompleteDate = completeDate,
@@ -9036,8 +10757,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 CustomDate2 = customDate2,
                 CustomDate3 = customDate3,
                 CustomDate4 = customDate4,
-                EntryApplicationID = entryApplicationID,
-                EntryID = entryID,
+                EntryApplicationId = entryApplicationId,
+                EntryId = entryId,
                 EnquiryDate = enquiryDate,
                 ExpectedArrivalDate = expectedArrivalDate,
                 ExpectedArrivalDateLatest = expectedArrivalDateLatest,
@@ -9052,27 +10773,27 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Rating = rating,
                 ReceivedDate = receivedDate,
                 ReceivedDeposit = receivedDeposit,
-                ReceivedDepositPaymentID = receivedDepositPaymentID,
-                ReceivedDepositWebPaymentID = receivedDepositWebPaymentID,
+                ReceivedDepositPaymentId = receivedDepositPaymentId,
+                ReceivedDepositWebPaymentId = receivedDepositWebPaymentId,
                 ReceivedDepositAmount = receivedDepositAmount,
                 ReceivedDepositDate = receivedDepositDate,
                 ReceivedDepositWaived = receivedDepositWaived,
                 ReceivedFee = receivedFee,
-                ReceivedFeePaymentID = receivedFeePaymentID,
-                ReceivedFeeWebPaymentID = receivedFeeWebPaymentID,
+                ReceivedFeePaymentId = receivedFeePaymentId,
+                ReceivedFeeWebPaymentId = receivedFeeWebPaymentId,
                 ReceivedFeeAmount = receivedFeeAmount,
                 ReceivedFeeDate = receivedFeeDate,
                 ReceivedPhotoDate = receivedPhotoDate,
                 Returning = returning,
                 RoomMateDescription = roomMateDescription,
-                RoommateGroupID = roommateGroupID,
+                RoommateGroupId = roommateGroupId,
                 RoomMateGroupSortOrder = roomMateGroupSortOrder,
                 RoomMateShowInSearch = roomMateShowInSearch,
                 RoomPreferenceComments = roomPreferenceComments,
                 RoomSelectionNumber = roomSelectionNumber,
                 RoomSelectionTimeslot = roomSelectionTimeslot,
-                SecurityUserID = securityUserID,
-                TermID = termID,
+                SecurityUserId = securityUserId,
+                TermId = termId,
                 Web = web,
             };
         }
@@ -9085,18 +10806,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageSize = default,
             int? pageIndex = default,
             string orderby = default,
-            int? bookingTypeID = default,
-            int? cancelBookingDefaultEndBookingReasonID = default,
+            int? bookingTypeId = default,
+            int? cancelBookingDefaultEndBookingReasonId = default,
             CancelBookingUpdateEndBookingReasonBooleanAskEnum? cancelBookingUpdateEndBookingReasonBooleanAskEnum = default,
             object checkInDate = default,
             CheckInDateActualDecreaseBooleanAskEnum? checkInDateActualDecreaseBooleanAskEnum = default,
             CheckInDateActualIncreaseBooleanAskEnum? checkInDateActualIncreaseBooleanAskEnum = default,
-            int? checkInDefaultStartBookingReasonID = default,
+            int? checkInDefaultStartBookingReasonId = default,
             CheckInUpdateStartBookingReasonBooleanAskEnum? checkInUpdateStartBookingReasonBooleanAskEnum = default,
             object checkOutDate = default,
             CheckOutDateActualDecreaseBooleanAskEnum? checkOutDateActualDecreaseBooleanAskEnum = default,
             CheckOutDateActualIncreaseBooleanAskEnum? checkOutDateActualIncreaseBooleanAskEnum = default,
-            int? checkOutDefaultEndBookingReasonID = default,
+            int? checkOutDefaultEndBookingReasonId = default,
             CheckOutUpdateEndBookingReasonBooleanAskEnum? checkOutUpdateEndBookingReasonBooleanAskEnum = default,
             ContractDateCheckInDecreaseBooleanAskEnum? contractDateCheckInDecreaseBooleanAskEnum = default,
             ContractDateCheckInIncreaseBooleanAskEnum? contractDateCheckInIncreaseBooleanAskEnum = default,
@@ -9116,21 +10837,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string customString6 = default,
             object dateModified = default,
             string description = default,
-            int? endBookingReasonID = default,
+            int? endBookingReasonId = default,
             EntryStatusEnum? entryStatusEnum = default,
             string eta = default,
             string etd = default,
-            int? housekeepingID = default,
+            int? housekeepingId = default,
             RecordTypeEnum? recordTypeEnum = default,
             bool? roomLocationFixed = default,
-            int? roomLocationID = default,
+            int? roomLocationId = default,
             double? roomRateAmount = default,
-            int? roomRateID = default,
-            int? roomTypeID = default,
-            int? startBookingReasonID = default,
-            int? termID = default,
+            int? roomRateId = default,
+            int? roomTypeId = default,
+            int? startBookingReasonId = default,
+            int? termId = default,
             string termSessionCode = default,
-            int? termSessionID = default,
+            int? termSessionId = default,
             bool? useActiveBookingAsTemplate = default,
             string webDescription = default)
         {
@@ -9140,18 +10861,18 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 Orderby = orderby,
-                BookingTypeID = bookingTypeID,
-                CancelBookingDefaultEndBookingReasonID = cancelBookingDefaultEndBookingReasonID,
+                BookingTypeId = bookingTypeId,
+                CancelBookingDefaultEndBookingReasonId = cancelBookingDefaultEndBookingReasonId,
                 CancelBookingUpdateEndBookingReasonBooleanAskEnum = cancelBookingUpdateEndBookingReasonBooleanAskEnum,
                 CheckInDate = checkInDate,
                 CheckInDateActualDecreaseBooleanAskEnum = checkInDateActualDecreaseBooleanAskEnum,
                 CheckInDateActualIncreaseBooleanAskEnum = checkInDateActualIncreaseBooleanAskEnum,
-                CheckInDefaultStartBookingReasonID = checkInDefaultStartBookingReasonID,
+                CheckInDefaultStartBookingReasonId = checkInDefaultStartBookingReasonId,
                 CheckInUpdateStartBookingReasonBooleanAskEnum = checkInUpdateStartBookingReasonBooleanAskEnum,
                 CheckOutDate = checkOutDate,
                 CheckOutDateActualDecreaseBooleanAskEnum = checkOutDateActualDecreaseBooleanAskEnum,
                 CheckOutDateActualIncreaseBooleanAskEnum = checkOutDateActualIncreaseBooleanAskEnum,
-                CheckOutDefaultEndBookingReasonID = checkOutDefaultEndBookingReasonID,
+                CheckOutDefaultEndBookingReasonId = checkOutDefaultEndBookingReasonId,
                 CheckOutUpdateEndBookingReasonBooleanAskEnum = checkOutUpdateEndBookingReasonBooleanAskEnum,
                 ContractDateCheckInDecreaseBooleanAskEnum = contractDateCheckInDecreaseBooleanAskEnum,
                 ContractDateCheckInIncreaseBooleanAskEnum = contractDateCheckInIncreaseBooleanAskEnum,
@@ -9171,21 +10892,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 CustomString6 = customString6,
                 DateModified = dateModified,
                 Description = description,
-                EndBookingReasonID = endBookingReasonID,
+                EndBookingReasonId = endBookingReasonId,
                 EntryStatusEnum = entryStatusEnum,
                 ETA = eta,
                 ETD = etd,
-                HousekeepingID = housekeepingID,
+                HousekeepingId = housekeepingId,
                 RecordTypeEnum = recordTypeEnum,
                 RoomLocationFixed = roomLocationFixed,
-                RoomLocationID = roomLocationID,
+                RoomLocationId = roomLocationId,
                 RoomRateAmount = roomRateAmount,
-                RoomRateID = roomRateID,
-                RoomTypeID = roomTypeID,
-                StartBookingReasonID = startBookingReasonID,
-                TermID = termID,
+                RoomRateId = roomRateId,
+                RoomTypeId = roomTypeId,
+                StartBookingReasonId = startBookingReasonId,
+                TermId = termId,
                 TermSessionCode = termSessionCode,
-                TermSessionID = termSessionID,
+                TermSessionId = termSessionId,
                 UseActiveBookingAsTemplate = useActiveBookingAsTemplate,
                 WebDescription = webDescription,
             };
@@ -9200,7 +10921,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageIndex = default,
             string orderby = default,
             bool? academicHold = default,
-            int? accountPaymentTypeID = default,
+            int? accountPaymentTypeId = default,
             bool? accountHold = default,
             string accountBankName = default,
             string accountBankNumber = default,
@@ -9216,12 +10937,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             AttendeeStatusEnum? attendeeStatusEnum = default,
             string career = default,
             string careerComments = default,
-            int? citizenshipCountryID = default,
-            int? classificationID = default,
+            int? citizenshipCountryId = default,
+            int? classificationId = default,
             bool? classificationOverride = default,
             string comments = default,
-            int? countryOfBirthCountryID = default,
-            int? countryOfResidenceCountryID = default,
+            int? countryOfBirthCountryId = default,
+            int? countryOfResidenceCountryId = default,
             double? cumulativeGPA = default,
             double? cumulativeHours = default,
             double? currentGPA = default,
@@ -9241,13 +10962,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentStatus = default,
             string enrollmentTerm = default,
             int? enrollmentYear = default,
-            int? entryDetailID = default,
-            int? entryID = default,
+            int? entryDetailId = default,
+            int? entryId = default,
             string ethnicity = default,
-            int? eventRegistrationFeeID = default,
+            int? eventRegistrationFeeId = default,
             object expectedGraduationDate = default,
             string financialComments = default,
-            int? financialSupportID = default,
+            int? financialSupportId = default,
             string hearAboutUs = default,
             bool? honorsIndicator = default,
             bool? immunizationsHold = default,
@@ -9258,7 +10979,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? livingWithDependents = default,
             bool? married = default,
             string medical = default,
-            int? nationalityID = default,
+            int? nationalityId = default,
             string occupation = default,
             string photoPath = default,
             string previousMemberName = default,
@@ -9267,7 +10988,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string previousMembershipYears = default,
             string previousMemberYears = default,
             string profileInterests = default,
-            int? regionOfBirthID = default,
+            int? regionOfBirthId = default,
             string religion = default,
             string residency = default,
             string residentStatus = default,
@@ -9279,7 +11000,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             object situationResponseModifiedDate = default,
             string situationResponseSituation = default,
             string specialNeeds = default,
-            int? staffID = default,
+            int? staffId = default,
             bool? usesScreenReader = default,
             string vehicleDetails = default,
             string vehiclePermit = default,
@@ -9296,7 +11017,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PageIndex = pageIndex,
                 Orderby = orderby,
                 AcademicHold = academicHold,
-                AccountPaymentTypeID = accountPaymentTypeID,
+                AccountPaymentTypeId = accountPaymentTypeId,
                 AccountHold = accountHold,
                 AccountBankName = accountBankName,
                 AccountBankNumber = accountBankNumber,
@@ -9312,12 +11033,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AttendeeStatusEnum = attendeeStatusEnum,
                 Career = career,
                 CareerComments = careerComments,
-                CitizenshipCountryID = citizenshipCountryID,
-                ClassificationID = classificationID,
+                CitizenshipCountryId = citizenshipCountryId,
+                ClassificationId = classificationId,
                 ClassificationOverride = classificationOverride,
                 Comments = comments,
-                CountryOfBirthCountryID = countryOfBirthCountryID,
-                CountryOfResidenceCountryID = countryOfResidenceCountryID,
+                CountryOfBirthCountryId = countryOfBirthCountryId,
+                CountryOfResidenceCountryId = countryOfResidenceCountryId,
                 CumulativeGPA = cumulativeGPA,
                 CumulativeHours = cumulativeHours,
                 CurrentGPA = currentGPA,
@@ -9337,13 +11058,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentStatus = enrollmentStatus,
                 EnrollmentTerm = enrollmentTerm,
                 EnrollmentYear = enrollmentYear,
-                EntryDetailID = entryDetailID,
-                EntryID = entryID,
+                EntryDetailId = entryDetailId,
+                EntryId = entryId,
                 Ethnicity = ethnicity,
-                EventRegistrationFeeID = eventRegistrationFeeID,
+                EventRegistrationFeeId = eventRegistrationFeeId,
                 ExpectedGraduationDate = expectedGraduationDate,
                 FinancialComments = financialComments,
-                FinancialSupportID = financialSupportID,
+                FinancialSupportId = financialSupportId,
                 HearAboutUs = hearAboutUs,
                 HonorsIndicator = honorsIndicator,
                 ImmunizationsHold = immunizationsHold,
@@ -9354,7 +11075,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 LivingWithDependents = livingWithDependents,
                 Married = married,
                 Medical = medical,
-                NationalityID = nationalityID,
+                NationalityId = nationalityId,
                 Occupation = occupation,
                 PhotoPath = photoPath,
                 PreviousMemberName = previousMemberName,
@@ -9363,7 +11084,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PreviousMembershipYears = previousMembershipYears,
                 PreviousMemberYears = previousMemberYears,
                 ProfileInterests = profileInterests,
-                RegionOfBirthID = regionOfBirthID,
+                RegionOfBirthId = regionOfBirthId,
                 Religion = religion,
                 Residency = residency,
                 ResidentStatus = residentStatus,
@@ -9375,7 +11096,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 SituationResponseModifiedDate = situationResponseModifiedDate,
                 SituationResponseSituation = situationResponseSituation,
                 SpecialNeeds = specialNeeds,
-                StaffID = staffID,
+                StaffId = staffId,
                 UsesScreenReader = usesScreenReader,
                 VehicleDetails = vehicleDetails,
                 VehiclePermit = vehiclePermit,
@@ -9392,7 +11113,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// </summary>
         public static UpdateEntryDetailInput UpdateEntryDetailInput(
             bool? academicHold = default,
-            int? accountPaymentTypeID = default,
+            int? accountPaymentTypeId = default,
             string accountBankName = default,
             string accountBankNumber = default,
             string accountCode = default,
@@ -9408,12 +11129,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             AttendeeStatusEnum? attendeeStatusEnum = default,
             string career = default,
             string careerComments = default,
-            int? citizenshipCountryID = default,
-            int? classificationID = default,
+            int? citizenshipCountryId = default,
+            int? classificationId = default,
             bool? classificationOverride = default,
             string comments = default,
-            int? countryOfBirthCountryID = default,
-            int? countryOfResidenceCountryID = default,
+            int? countryOfBirthCountryId = default,
+            int? countryOfResidenceCountryId = default,
             double? cumulativeGPA = default,
             double? cumulativeHours = default,
             double? currentGPA = default,
@@ -9432,13 +11153,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentStatus = default,
             string enrollmentTerm = default,
             int? enrollmentYear = default,
-            int? entryDetailID = default,
-            int? entryID = default,
+            int? entryDetailId = default,
+            int? entryId = default,
             string ethnicity = default,
-            int? eventRegistrationFeeID = default,
+            int? eventRegistrationFeeId = default,
             DateTime? expectedGraduationDate = default,
             string financialComments = default,
-            int? financialSupportID = default,
+            int? financialSupportId = default,
             string hearAboutUs = default,
             bool? honorsIndicator = default,
             bool? immunizationsHold = default,
@@ -9449,7 +11170,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? livingWithDependents = default,
             bool? married = default,
             string medical = default,
-            int? nationalityID = default,
+            int? nationalityId = default,
             string occupation = default,
             string photoPath = default,
             string previousMemberName = default,
@@ -9458,7 +11179,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string previousMembershipYears = default,
             string previousMemberYears = default,
             string profileInterests = default,
-            int? regionOfBirthID = default,
+            int? regionOfBirthId = default,
             string religion = default,
             string residency = default,
             string residentStatus = default,
@@ -9470,7 +11191,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             DateTime? situationResponseModifiedDate = default,
             string situationResponseSituation = default,
             string specialNeeds = default,
-            int? staffID = default,
+            int? staffId = default,
             bool? usesScreenReader = default,
             string vehicleDetails = default,
             string vehiclePermit = default,
@@ -9483,7 +11204,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             return new UpdateEntryDetailInput
             {
                 AcademicHold = academicHold,
-                AccountPaymentTypeID = accountPaymentTypeID,
+                AccountPaymentTypeId = accountPaymentTypeId,
                 AccountBankName = accountBankName,
                 AccountBankNumber = accountBankNumber,
                 AccountCode = accountCode,
@@ -9499,12 +11220,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AttendeeStatusEnum = attendeeStatusEnum,
                 Career = career,
                 CareerComments = careerComments,
-                CitizenshipCountryID = citizenshipCountryID,
-                ClassificationID = classificationID,
+                CitizenshipCountryId = citizenshipCountryId,
+                ClassificationId = classificationId,
                 ClassificationOverride = classificationOverride,
                 Comments = comments,
-                CountryOfBirthCountryID = countryOfBirthCountryID,
-                CountryOfResidenceCountryID = countryOfResidenceCountryID,
+                CountryOfBirthCountryId = countryOfBirthCountryId,
+                CountryOfResidenceCountryId = countryOfResidenceCountryId,
                 CumulativeGPA = cumulativeGPA,
                 CumulativeHours = cumulativeHours,
                 CurrentGPA = currentGPA,
@@ -9523,13 +11244,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentStatus = enrollmentStatus,
                 EnrollmentTerm = enrollmentTerm,
                 EnrollmentYear = enrollmentYear,
-                EntryDetailID = entryDetailID,
-                EntryID = entryID,
+                EntryDetailId = entryDetailId,
+                EntryId = entryId,
                 Ethnicity = ethnicity,
-                EventRegistrationFeeID = eventRegistrationFeeID,
+                EventRegistrationFeeId = eventRegistrationFeeId,
                 ExpectedGraduationDate = expectedGraduationDate,
                 FinancialComments = financialComments,
-                FinancialSupportID = financialSupportID,
+                FinancialSupportId = financialSupportId,
                 HearAboutUs = hearAboutUs,
                 HonorsIndicator = honorsIndicator,
                 ImmunizationsHold = immunizationsHold,
@@ -9540,7 +11261,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 LivingWithDependents = livingWithDependents,
                 Married = married,
                 Medical = medical,
-                NationalityID = nationalityID,
+                NationalityId = nationalityId,
                 Occupation = occupation,
                 PhotoPath = photoPath,
                 PreviousMemberName = previousMemberName,
@@ -9549,7 +11270,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PreviousMembershipYears = previousMembershipYears,
                 PreviousMemberYears = previousMemberYears,
                 ProfileInterests = profileInterests,
-                RegionOfBirthID = regionOfBirthID,
+                RegionOfBirthId = regionOfBirthId,
                 Religion = religion,
                 Residency = residency,
                 ResidentStatus = residentStatus,
@@ -9561,7 +11282,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 SituationResponseModifiedDate = situationResponseModifiedDate,
                 SituationResponseSituation = situationResponseSituation,
                 SpecialNeeds = specialNeeds,
-                StaffID = staffID,
+                StaffId = staffId,
                 UsesScreenReader = usesScreenReader,
                 VehicleDetails = vehicleDetails,
                 VehiclePermit = vehiclePermit,
@@ -9578,7 +11299,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         /// </summary>
         public static UpdateEntryDetailResponse UpdateEntryDetailResponse(
             bool? academicHold = default,
-            int? accountPaymentTypeID = default,
+            int? accountPaymentTypeId = default,
             string accountBankName = default,
             string accountBankNumber = default,
             string accountCode = default,
@@ -9594,12 +11315,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string attendeeStatusEnum = default,
             string career = default,
             string careerComments = default,
-            int? citizenshipCountryID = default,
-            int? classificationID = default,
+            int? citizenshipCountryId = default,
+            int? classificationId = default,
             bool? classificationOverride = default,
             string comments = default,
-            int? countryOfBirthCountryID = default,
-            int? countryOfResidenceCountryID = default,
+            int? countryOfBirthCountryId = default,
+            int? countryOfResidenceCountryId = default,
             double? cumulativeGPA = default,
             double? cumulativeHours = default,
             double? currentGPA = default,
@@ -9618,13 +11339,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentStatus = default,
             string enrollmentTerm = default,
             int? enrollmentYear = default,
-            int? entryDetailID = default,
-            int? entryID = default,
+            int? entryDetailId = default,
+            int? entryId = default,
             string ethnicity = default,
-            int? eventRegistrationFeeID = default,
+            int? eventRegistrationFeeId = default,
             string expectedGraduationDate = default,
             string financialComments = default,
-            int? financialSupportID = default,
+            int? financialSupportId = default,
             string hearAboutUs = default,
             bool? honorsIndicator = default,
             bool? immunizationsHold = default,
@@ -9635,7 +11356,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? livingWithDependents = default,
             bool? married = default,
             string medical = default,
-            int? nationalityID = default,
+            int? nationalityId = default,
             string occupation = default,
             string photoPath = default,
             string previousMemberName = default,
@@ -9644,7 +11365,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string previousMembershipYears = default,
             string previousMemberYears = default,
             string profileInterests = default,
-            int? regionOfBirthID = default,
+            int? regionOfBirthId = default,
             string religion = default,
             string residency = default,
             string residentStatus = default,
@@ -9656,7 +11377,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string situationResponseModifiedDate = default,
             string situationResponseSituation = default,
             string specialNeeds = default,
-            int? staffID = default,
+            int? staffId = default,
             bool? usesScreenReader = default,
             string vehicleDetails = default,
             string vehiclePermit = default,
@@ -9669,7 +11390,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             return new UpdateEntryDetailResponse
             {
                 AcademicHold = academicHold,
-                AccountPaymentTypeID = accountPaymentTypeID,
+                AccountPaymentTypeId = accountPaymentTypeId,
                 AccountBankName = accountBankName,
                 AccountBankNumber = accountBankNumber,
                 AccountCode = accountCode,
@@ -9685,12 +11406,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AttendeeStatusEnum = attendeeStatusEnum,
                 Career = career,
                 CareerComments = careerComments,
-                CitizenshipCountryID = citizenshipCountryID,
-                ClassificationID = classificationID,
+                CitizenshipCountryId = citizenshipCountryId,
+                ClassificationId = classificationId,
                 ClassificationOverride = classificationOverride,
                 Comments = comments,
-                CountryOfBirthCountryID = countryOfBirthCountryID,
-                CountryOfResidenceCountryID = countryOfResidenceCountryID,
+                CountryOfBirthCountryId = countryOfBirthCountryId,
+                CountryOfResidenceCountryId = countryOfResidenceCountryId,
                 CumulativeGPA = cumulativeGPA,
                 CumulativeHours = cumulativeHours,
                 CurrentGPA = currentGPA,
@@ -9709,13 +11430,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentStatus = enrollmentStatus,
                 EnrollmentTerm = enrollmentTerm,
                 EnrollmentYear = enrollmentYear,
-                EntryDetailID = entryDetailID,
-                EntryID = entryID,
+                EntryDetailId = entryDetailId,
+                EntryId = entryId,
                 Ethnicity = ethnicity,
-                EventRegistrationFeeID = eventRegistrationFeeID,
+                EventRegistrationFeeId = eventRegistrationFeeId,
                 ExpectedGraduationDate = expectedGraduationDate,
                 FinancialComments = financialComments,
-                FinancialSupportID = financialSupportID,
+                FinancialSupportId = financialSupportId,
                 HearAboutUs = hearAboutUs,
                 HonorsIndicator = honorsIndicator,
                 ImmunizationsHold = immunizationsHold,
@@ -9726,7 +11447,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 LivingWithDependents = livingWithDependents,
                 Married = married,
                 Medical = medical,
-                NationalityID = nationalityID,
+                NationalityId = nationalityId,
                 Occupation = occupation,
                 PhotoPath = photoPath,
                 PreviousMemberName = previousMemberName,
@@ -9735,7 +11456,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PreviousMembershipYears = previousMembershipYears,
                 PreviousMemberYears = previousMemberYears,
                 ProfileInterests = profileInterests,
-                RegionOfBirthID = regionOfBirthID,
+                RegionOfBirthId = regionOfBirthId,
                 Religion = religion,
                 Residency = residency,
                 ResidentStatus = residentStatus,
@@ -9747,7 +11468,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 SituationResponseModifiedDate = situationResponseModifiedDate,
                 SituationResponseSituation = situationResponseSituation,
                 SpecialNeeds = specialNeeds,
-                StaffID = staffID,
+                StaffId = staffId,
                 UsesScreenReader = usesScreenReader,
                 VehicleDetails = vehicleDetails,
                 VehiclePermit = vehiclePermit,
@@ -9769,7 +11490,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string orderby = default,
             string campus = default,
             string comments = default,
-            int? courseID = default,
+            int? courseId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             object customDate1 = default,
@@ -9787,8 +11508,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentField = default,
             int? enrollmentOrder = default,
             EnrollmentTypeEnum? enrollmentTypeEnum = default,
-            int? entryEnrollmentID = default,
-            int? entryID = default,
+            int? entryEnrollmentId = default,
+            int? entryId = default,
             string faculty = default,
             bool? fullTime = default,
             object graduationDate = default,
@@ -9800,7 +11521,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? postGrad = default,
             int? sequence = default,
             string subjects = default,
-            int? termID = default,
+            int? termId = default,
             string years = default)
         {
             return new SelectEntryEnrollmentInput
@@ -9811,7 +11532,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Orderby = orderby,
                 Campus = campus,
                 Comments = comments,
-                CourseID = courseID,
+                CourseId = courseId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -9829,8 +11550,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentField = enrollmentField,
                 EnrollmentOrder = enrollmentOrder,
                 EnrollmentTypeEnum = enrollmentTypeEnum,
-                EntryEnrollmentID = entryEnrollmentID,
-                EntryID = entryID,
+                EntryEnrollmentId = entryEnrollmentId,
+                EntryId = entryId,
                 Faculty = faculty,
                 FullTime = fullTime,
                 GraduationDate = graduationDate,
@@ -9842,7 +11563,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PostGrad = postGrad,
                 Sequence = sequence,
                 Subjects = subjects,
-                TermID = termID,
+                TermId = termId,
                 Years = years,
             };
         }
@@ -9853,7 +11574,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateEntryEnrollmentInput CreateEntryEnrollmentInput(
             string campus = default,
             string comments = default,
-            int? courseID = default,
+            int? courseId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             DateTime? customDate1 = default,
@@ -9870,8 +11591,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentField = default,
             int? enrollmentOrder = default,
             EnrollmentTypeEnum? enrollmentTypeEnum = default,
-            int? entryEnrollmentID = default,
-            int? entryID = default,
+            int? entryEnrollmentId = default,
+            int? entryId = default,
             string faculty = default,
             bool? fullTime = default,
             DateTime? graduationDate = default,
@@ -9883,14 +11604,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? postGrad = default,
             int? sequence = default,
             string subjects = default,
-            int? termID = default,
+            int? termId = default,
             string years = default)
         {
             return new CreateEntryEnrollmentInput
             {
                 Campus = campus,
                 Comments = comments,
-                CourseID = courseID,
+                CourseId = courseId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -9907,8 +11628,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentField = enrollmentField,
                 EnrollmentOrder = enrollmentOrder,
                 EnrollmentTypeEnum = enrollmentTypeEnum,
-                EntryEnrollmentID = entryEnrollmentID,
-                EntryID = entryID,
+                EntryEnrollmentId = entryEnrollmentId,
+                EntryId = entryId,
                 Faculty = faculty,
                 FullTime = fullTime,
                 GraduationDate = graduationDate,
@@ -9920,7 +11641,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PostGrad = postGrad,
                 Sequence = sequence,
                 Subjects = subjects,
-                TermID = termID,
+                TermId = termId,
                 Years = years,
             };
         }
@@ -9931,7 +11652,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateEntryEnrollmentResponse CreateEntryEnrollmentResponse(
             string campus = default,
             string comments = default,
-            int? courseID = default,
+            int? courseId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             string customDate1 = default,
@@ -9948,8 +11669,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentField = default,
             int? enrollmentOrder = default,
             string enrollmentTypeEnum = default,
-            int? entryEnrollmentID = default,
-            int? entryID = default,
+            int? entryEnrollmentId = default,
+            int? entryId = default,
             string faculty = default,
             bool? fullTime = default,
             string graduationDate = default,
@@ -9961,14 +11682,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? postGrad = default,
             int? sequence = default,
             string subjects = default,
-            int? termID = default,
+            int? termId = default,
             string years = default)
         {
             return new CreateEntryEnrollmentResponse
             {
                 Campus = campus,
                 Comments = comments,
-                CourseID = courseID,
+                CourseId = courseId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -9985,8 +11706,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentField = enrollmentField,
                 EnrollmentOrder = enrollmentOrder,
                 EnrollmentTypeEnum = enrollmentTypeEnum,
-                EntryEnrollmentID = entryEnrollmentID,
-                EntryID = entryID,
+                EntryEnrollmentId = entryEnrollmentId,
+                EntryId = entryId,
                 Faculty = faculty,
                 FullTime = fullTime,
                 GraduationDate = graduationDate,
@@ -9998,7 +11719,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PostGrad = postGrad,
                 Sequence = sequence,
                 Subjects = subjects,
-                TermID = termID,
+                TermId = termId,
                 Years = years,
             };
         }
@@ -10009,7 +11730,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateEntryEnrollmentInput UpdateEntryEnrollmentInput(
             string campus = default,
             string comments = default,
-            int? courseID = default,
+            int? courseId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             DateTime? customDate1 = default,
@@ -10026,8 +11747,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentField = default,
             int? enrollmentOrder = default,
             EnrollmentTypeEnum? enrollmentTypeEnum = default,
-            int? entryEnrollmentID = default,
-            int? entryID = default,
+            int? entryEnrollmentId = default,
+            int? entryId = default,
             string faculty = default,
             bool? fullTime = default,
             DateTime? graduationDate = default,
@@ -10039,14 +11760,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? postGrad = default,
             int? sequence = default,
             string subjects = default,
-            int? termID = default,
+            int? termId = default,
             string years = default)
         {
             return new UpdateEntryEnrollmentInput
             {
                 Campus = campus,
                 Comments = comments,
-                CourseID = courseID,
+                CourseId = courseId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -10063,8 +11784,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentField = enrollmentField,
                 EnrollmentOrder = enrollmentOrder,
                 EnrollmentTypeEnum = enrollmentTypeEnum,
-                EntryEnrollmentID = entryEnrollmentID,
-                EntryID = entryID,
+                EntryEnrollmentId = entryEnrollmentId,
+                EntryId = entryId,
                 Faculty = faculty,
                 FullTime = fullTime,
                 GraduationDate = graduationDate,
@@ -10076,7 +11797,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PostGrad = postGrad,
                 Sequence = sequence,
                 Subjects = subjects,
-                TermID = termID,
+                TermId = termId,
                 Years = years,
             };
         }
@@ -10087,7 +11808,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateEntryEnrollmentResponse UpdateEntryEnrollmentResponse(
             string campus = default,
             string comments = default,
-            int? courseID = default,
+            int? courseId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             string customDate1 = default,
@@ -10104,8 +11825,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string enrollmentField = default,
             int? enrollmentOrder = default,
             string enrollmentTypeEnum = default,
-            int? entryEnrollmentID = default,
-            int? entryID = default,
+            int? entryEnrollmentId = default,
+            int? entryId = default,
             string faculty = default,
             bool? fullTime = default,
             string graduationDate = default,
@@ -10117,14 +11838,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? postGrad = default,
             int? sequence = default,
             string subjects = default,
-            int? termID = default,
+            int? termId = default,
             string years = default)
         {
             return new UpdateEntryEnrollmentResponse
             {
                 Campus = campus,
                 Comments = comments,
-                CourseID = courseID,
+                CourseId = courseId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -10141,8 +11862,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 EnrollmentField = enrollmentField,
                 EnrollmentOrder = enrollmentOrder,
                 EnrollmentTypeEnum = enrollmentTypeEnum,
-                EntryEnrollmentID = entryEnrollmentID,
-                EntryID = entryID,
+                EntryEnrollmentId = entryEnrollmentId,
+                EntryId = entryId,
                 Faculty = faculty,
                 FullTime = fullTime,
                 GraduationDate = graduationDate,
@@ -10154,7 +11875,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PostGrad = postGrad,
                 Sequence = sequence,
                 Subjects = subjects,
-                TermID = termID,
+                TermId = termId,
                 Years = years,
             };
         }
@@ -10169,9 +11890,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string orderby = default,
             int? additionalOccupantCount = default,
             string autoAllocationDetail = default,
-            int? bookingID = default,
+            int? bookingId = default,
             BookingLinkTypeEnum? bookingLinkTypeEnum = default,
-            int? bookingTypeID = default,
+            int? bookingTypeId = default,
             object checkInDate = default,
             object checkInDateActual = default,
             object checkOutDate = default,
@@ -10203,15 +11924,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             object dateModified = default,
             object dateModifiedBilling = default,
             int? emotionalSupportAnimalCount = default,
-            int? endBookingReasonID = default,
-            int? entryID = default,
-            int? entryInvitationID = default,
+            int? endBookingReasonId = default,
+            int? entryId = default,
+            int? entryInvitationId = default,
             EntryStatusEnum? entryStatusEnum = default,
             string eta = default,
             string etd = default,
             double? excess = default,
-            int? groupID = default,
-            int? housekeepingID = default,
+            int? groupId = default,
+            int? housekeepingId = default,
             int? numberOfChildren = default,
             int? numberOfChildrenFree = default,
             int? numberOfGuests = default,
@@ -10220,16 +11941,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? petCount = default,
             bool? resvChargeToEntry = default,
             bool? roomLocationFixed = default,
-            int? roomLocationID = default,
+            int? roomLocationId = default,
             double? roomRateAmount = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
-            int? roomTypeID = default,
-            int? securityUserID = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
+            int? roomTypeId = default,
+            int? securityUserId = default,
             int? serviceAnimalCount = default,
             string specialRequirement = default,
-            int? startBookingReasonID = default,
-            int? termSessionID = default)
+            int? startBookingReasonId = default,
+            int? termSessionId = default)
         {
             return new SelectBookingInput
             {
@@ -10239,9 +11960,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Orderby = orderby,
                 AdditionalOccupantCount = additionalOccupantCount,
                 AutoAllocationDetail = autoAllocationDetail,
-                BookingID = bookingID,
+                BookingId = bookingId,
                 BookingLinkTypeEnum = bookingLinkTypeEnum,
-                BookingTypeID = bookingTypeID,
+                BookingTypeId = bookingTypeId,
                 CheckInDate = checkInDate,
                 CheckInDateActual = checkInDateActual,
                 CheckOutDate = checkOutDate,
@@ -10273,15 +11994,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 DateModified = dateModified,
                 DateModifiedBilling = dateModifiedBilling,
                 EmotionalSupportAnimalCount = emotionalSupportAnimalCount,
-                EndBookingReasonID = endBookingReasonID,
-                EntryID = entryID,
-                EntryInvitationID = entryInvitationID,
+                EndBookingReasonId = endBookingReasonId,
+                EntryId = entryId,
+                EntryInvitationId = entryInvitationId,
                 EntryStatusEnum = entryStatusEnum,
                 ETA = eta,
                 ETD = etd,
                 Excess = excess,
-                GroupID = groupID,
-                HousekeepingID = housekeepingID,
+                GroupId = groupId,
+                HousekeepingId = housekeepingId,
                 NumberOfChildren = numberOfChildren,
                 NumberOfChildrenFree = numberOfChildrenFree,
                 NumberOfGuests = numberOfGuests,
@@ -10290,16 +12011,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PetCount = petCount,
                 ResvChargeToEntry = resvChargeToEntry,
                 RoomLocationFixed = roomLocationFixed,
-                RoomLocationID = roomLocationID,
+                RoomLocationId = roomLocationId,
                 RoomRateAmount = roomRateAmount,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
-                RoomTypeID = roomTypeID,
-                SecurityUserID = securityUserID,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
+                RoomTypeId = roomTypeId,
+                SecurityUserId = securityUserId,
                 ServiceAnimalCount = serviceAnimalCount,
                 SpecialRequirement = specialRequirement,
-                StartBookingReasonID = startBookingReasonID,
-                TermSessionID = termSessionID,
+                StartBookingReasonId = startBookingReasonId,
+                TermSessionId = termSessionId,
             };
         }
 
@@ -10309,9 +12030,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateBookingInput CreateBookingInput(
             int? additionalOccupantCount = default,
             string autoAllocationDetail = default,
-            int? bookingID = default,
+            int? bookingId = default,
             BookingLinkTypeEnum? bookingLinkTypeEnum = default,
-            int? bookingTypeID = default,
+            int? bookingTypeId = default,
             DateTime? checkInDate = default,
             DateTime? checkInDateActual = default,
             DateTime? checkOutDate = default,
@@ -10340,15 +12061,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             DateTime? dateBilled = default,
             DateTime? dateChargedTo = default,
             int? emotionalSupportAnimalCount = default,
-            int? endBookingReasonID = default,
-            int? entryID = default,
-            int? entryInvitationID = default,
+            int? endBookingReasonId = default,
+            int? entryId = default,
+            int? entryInvitationId = default,
             EntryStatusEnum? entryStatusEnum = default,
             DateTime? eta = default,
             DateTime? etd = default,
             double? excess = default,
-            int? groupID = default,
-            int? housekeepingID = default,
+            int? groupId = default,
+            int? housekeepingId = default,
             int? numberOfChildren = default,
             int? numberOfChildrenFree = default,
             int? numberOfGuests = default,
@@ -10357,24 +12078,24 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? petCount = default,
             bool? resvChargeToEntry = default,
             bool? roomLocationFixed = default,
-            int? roomLocationID = default,
+            int? roomLocationId = default,
             double? roomRateAmount = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
-            int? roomTypeID = default,
-            int? securityUserID = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
+            int? roomTypeId = default,
+            int? securityUserId = default,
             int? serviceAnimalCount = default,
             string specialRequirement = default,
-            int? startBookingReasonID = default,
-            int? termSessionID = default)
+            int? startBookingReasonId = default,
+            int? termSessionId = default)
         {
             return new CreateBookingInput
             {
                 AdditionalOccupantCount = additionalOccupantCount,
                 AutoAllocationDetail = autoAllocationDetail,
-                BookingID = bookingID,
+                BookingId = bookingId,
                 BookingLinkTypeEnum = bookingLinkTypeEnum,
-                BookingTypeID = bookingTypeID,
+                BookingTypeId = bookingTypeId,
                 CheckInDate = checkInDate,
                 CheckInDateActual = checkInDateActual,
                 CheckOutDate = checkOutDate,
@@ -10403,15 +12124,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 DateBilled = dateBilled,
                 DateChargedTo = dateChargedTo,
                 EmotionalSupportAnimalCount = emotionalSupportAnimalCount,
-                EndBookingReasonID = endBookingReasonID,
-                EntryID = entryID,
-                EntryInvitationID = entryInvitationID,
+                EndBookingReasonId = endBookingReasonId,
+                EntryId = entryId,
+                EntryInvitationId = entryInvitationId,
                 EntryStatusEnum = entryStatusEnum,
                 ETA = eta,
                 ETD = etd,
                 Excess = excess,
-                GroupID = groupID,
-                HousekeepingID = housekeepingID,
+                GroupId = groupId,
+                HousekeepingId = housekeepingId,
                 NumberOfChildren = numberOfChildren,
                 NumberOfChildrenFree = numberOfChildrenFree,
                 NumberOfGuests = numberOfGuests,
@@ -10420,16 +12141,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PetCount = petCount,
                 ResvChargeToEntry = resvChargeToEntry,
                 RoomLocationFixed = roomLocationFixed,
-                RoomLocationID = roomLocationID,
+                RoomLocationId = roomLocationId,
                 RoomRateAmount = roomRateAmount,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
-                RoomTypeID = roomTypeID,
-                SecurityUserID = securityUserID,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
+                RoomTypeId = roomTypeId,
+                SecurityUserId = securityUserId,
                 ServiceAnimalCount = serviceAnimalCount,
                 SpecialRequirement = specialRequirement,
-                StartBookingReasonID = startBookingReasonID,
-                TermSessionID = termSessionID,
+                StartBookingReasonId = startBookingReasonId,
+                TermSessionId = termSessionId,
             };
         }
 
@@ -10439,9 +12160,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateBookingResponse CreateBookingResponse(
             int? additionalOccupantCount = default,
             string autoAllocationDetail = default,
-            int? bookingID = default,
+            int? bookingId = default,
             string bookingLinkTypeEnum = default,
-            int? bookingTypeID = default,
+            int? bookingTypeId = default,
             string checkInDate = default,
             string checkInDateActual = default,
             string checkOutDate = default,
@@ -10471,15 +12192,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string dateChargedTo = default,
             string dateModifiedBilling = default,
             int? emotionalSupportAnimalCount = default,
-            int? endBookingReasonID = default,
-            int? entryID = default,
-            int? entryInvitationID = default,
+            int? endBookingReasonId = default,
+            int? entryId = default,
+            int? entryInvitationId = default,
             string entryStatusEnum = default,
             string eta = default,
             string etd = default,
             double? excess = default,
-            int? groupID = default,
-            int? housekeepingID = default,
+            int? groupId = default,
+            int? housekeepingId = default,
             int? numberOfChildren = default,
             int? numberOfChildrenFree = default,
             int? numberOfGuests = default,
@@ -10488,24 +12209,24 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? petCount = default,
             bool? resvChargeToEntry = default,
             bool? roomLocationFixed = default,
-            int? roomLocationID = default,
+            int? roomLocationId = default,
             double? roomRateAmount = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
-            int? roomTypeID = default,
-            int? securityUserID = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
+            int? roomTypeId = default,
+            int? securityUserId = default,
             int? serviceAnimalCount = default,
             string specialRequirement = default,
-            int? startBookingReasonID = default,
-            int? termSessionID = default)
+            int? startBookingReasonId = default,
+            int? termSessionId = default)
         {
             return new CreateBookingResponse
             {
                 AdditionalOccupantCount = additionalOccupantCount,
                 AutoAllocationDetail = autoAllocationDetail,
-                BookingID = bookingID,
+                BookingId = bookingId,
                 BookingLinkTypeEnum = bookingLinkTypeEnum,
-                BookingTypeID = bookingTypeID,
+                BookingTypeId = bookingTypeId,
                 CheckInDate = checkInDate,
                 CheckInDateActual = checkInDateActual,
                 CheckOutDate = checkOutDate,
@@ -10535,15 +12256,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 DateChargedTo = dateChargedTo,
                 DateModifiedBilling = dateModifiedBilling,
                 EmotionalSupportAnimalCount = emotionalSupportAnimalCount,
-                EndBookingReasonID = endBookingReasonID,
-                EntryID = entryID,
-                EntryInvitationID = entryInvitationID,
+                EndBookingReasonId = endBookingReasonId,
+                EntryId = entryId,
+                EntryInvitationId = entryInvitationId,
                 EntryStatusEnum = entryStatusEnum,
                 ETA = eta,
                 ETD = etd,
                 Excess = excess,
-                GroupID = groupID,
-                HousekeepingID = housekeepingID,
+                GroupId = groupId,
+                HousekeepingId = housekeepingId,
                 NumberOfChildren = numberOfChildren,
                 NumberOfChildrenFree = numberOfChildrenFree,
                 NumberOfGuests = numberOfGuests,
@@ -10552,16 +12273,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PetCount = petCount,
                 ResvChargeToEntry = resvChargeToEntry,
                 RoomLocationFixed = roomLocationFixed,
-                RoomLocationID = roomLocationID,
+                RoomLocationId = roomLocationId,
                 RoomRateAmount = roomRateAmount,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
-                RoomTypeID = roomTypeID,
-                SecurityUserID = securityUserID,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
+                RoomTypeId = roomTypeId,
+                SecurityUserId = securityUserId,
                 ServiceAnimalCount = serviceAnimalCount,
                 SpecialRequirement = specialRequirement,
-                StartBookingReasonID = startBookingReasonID,
-                TermSessionID = termSessionID,
+                StartBookingReasonId = startBookingReasonId,
+                TermSessionId = termSessionId,
             };
         }
 
@@ -10571,9 +12292,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateBookingInput UpdateBookingInput(
             int? additionalOccupantCount = default,
             string autoAllocationDetail = default,
-            int? bookingID = default,
+            int? bookingId = default,
             BookingLinkTypeEnum? bookingLinkTypeEnum = default,
-            int? bookingTypeID = default,
+            int? bookingTypeId = default,
             DateTime? checkInDate = default,
             DateTime? checkInDateActual = default,
             DateTime? checkOutDate = default,
@@ -10602,15 +12323,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             DateTime? dateBilled = default,
             DateTime? dateChargedTo = default,
             int? emotionalSupportAnimalCount = default,
-            int? endBookingReasonID = default,
-            int? entryID = default,
-            int? entryInvitationID = default,
+            int? endBookingReasonId = default,
+            int? entryId = default,
+            int? entryInvitationId = default,
             EntryStatusEnum? entryStatusEnum = default,
             DateTime? eta = default,
             DateTime? etd = default,
             double? excess = default,
-            int? groupID = default,
-            int? housekeepingID = default,
+            int? groupId = default,
+            int? housekeepingId = default,
             int? numberOfChildren = default,
             int? numberOfChildrenFree = default,
             int? numberOfGuests = default,
@@ -10619,24 +12340,24 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? petCount = default,
             bool? resvChargeToEntry = default,
             bool? roomLocationFixed = default,
-            int? roomLocationID = default,
+            int? roomLocationId = default,
             double? roomRateAmount = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
-            int? roomTypeID = default,
-            int? securityUserID = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
+            int? roomTypeId = default,
+            int? securityUserId = default,
             int? serviceAnimalCount = default,
             string specialRequirement = default,
-            int? startBookingReasonID = default,
-            int? termSessionID = default)
+            int? startBookingReasonId = default,
+            int? termSessionId = default)
         {
             return new UpdateBookingInput
             {
                 AdditionalOccupantCount = additionalOccupantCount,
                 AutoAllocationDetail = autoAllocationDetail,
-                BookingID = bookingID,
+                BookingId = bookingId,
                 BookingLinkTypeEnum = bookingLinkTypeEnum,
-                BookingTypeID = bookingTypeID,
+                BookingTypeId = bookingTypeId,
                 CheckInDate = checkInDate,
                 CheckInDateActual = checkInDateActual,
                 CheckOutDate = checkOutDate,
@@ -10665,15 +12386,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 DateBilled = dateBilled,
                 DateChargedTo = dateChargedTo,
                 EmotionalSupportAnimalCount = emotionalSupportAnimalCount,
-                EndBookingReasonID = endBookingReasonID,
-                EntryID = entryID,
-                EntryInvitationID = entryInvitationID,
+                EndBookingReasonId = endBookingReasonId,
+                EntryId = entryId,
+                EntryInvitationId = entryInvitationId,
                 EntryStatusEnum = entryStatusEnum,
                 ETA = eta,
                 ETD = etd,
                 Excess = excess,
-                GroupID = groupID,
-                HousekeepingID = housekeepingID,
+                GroupId = groupId,
+                HousekeepingId = housekeepingId,
                 NumberOfChildren = numberOfChildren,
                 NumberOfChildrenFree = numberOfChildrenFree,
                 NumberOfGuests = numberOfGuests,
@@ -10682,16 +12403,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PetCount = petCount,
                 ResvChargeToEntry = resvChargeToEntry,
                 RoomLocationFixed = roomLocationFixed,
-                RoomLocationID = roomLocationID,
+                RoomLocationId = roomLocationId,
                 RoomRateAmount = roomRateAmount,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
-                RoomTypeID = roomTypeID,
-                SecurityUserID = securityUserID,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
+                RoomTypeId = roomTypeId,
+                SecurityUserId = securityUserId,
                 ServiceAnimalCount = serviceAnimalCount,
                 SpecialRequirement = specialRequirement,
-                StartBookingReasonID = startBookingReasonID,
-                TermSessionID = termSessionID,
+                StartBookingReasonId = startBookingReasonId,
+                TermSessionId = termSessionId,
             };
         }
 
@@ -10701,9 +12422,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static UpdateBookingResponse UpdateBookingResponse(
             int? additionalOccupantCount = default,
             string autoAllocationDetail = default,
-            int? bookingID = default,
+            int? bookingId = default,
             string bookingLinkTypeEnum = default,
-            int? bookingTypeID = default,
+            int? bookingTypeId = default,
             string checkInDate = default,
             string checkInDateActual = default,
             string checkOutDate = default,
@@ -10733,15 +12454,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string dateChargedTo = default,
             string dateModifiedBilling = default,
             int? emotionalSupportAnimalCount = default,
-            int? endBookingReasonID = default,
-            int? entryID = default,
-            int? entryInvitationID = default,
+            int? endBookingReasonId = default,
+            int? entryId = default,
+            int? entryInvitationId = default,
             string entryStatusEnum = default,
             string eta = default,
             string etd = default,
             double? excess = default,
-            int? groupID = default,
-            int? housekeepingID = default,
+            int? groupId = default,
+            int? housekeepingId = default,
             int? numberOfChildren = default,
             int? numberOfChildrenFree = default,
             int? numberOfGuests = default,
@@ -10750,24 +12471,24 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? petCount = default,
             bool? resvChargeToEntry = default,
             bool? roomLocationFixed = default,
-            int? roomLocationID = default,
+            int? roomLocationId = default,
             double? roomRateAmount = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
-            int? roomTypeID = default,
-            int? securityUserID = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
+            int? roomTypeId = default,
+            int? securityUserId = default,
             int? serviceAnimalCount = default,
             string specialRequirement = default,
-            int? startBookingReasonID = default,
-            int? termSessionID = default)
+            int? startBookingReasonId = default,
+            int? termSessionId = default)
         {
             return new UpdateBookingResponse
             {
                 AdditionalOccupantCount = additionalOccupantCount,
                 AutoAllocationDetail = autoAllocationDetail,
-                BookingID = bookingID,
+                BookingId = bookingId,
                 BookingLinkTypeEnum = bookingLinkTypeEnum,
-                BookingTypeID = bookingTypeID,
+                BookingTypeId = bookingTypeId,
                 CheckInDate = checkInDate,
                 CheckInDateActual = checkInDateActual,
                 CheckOutDate = checkOutDate,
@@ -10797,15 +12518,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 DateChargedTo = dateChargedTo,
                 DateModifiedBilling = dateModifiedBilling,
                 EmotionalSupportAnimalCount = emotionalSupportAnimalCount,
-                EndBookingReasonID = endBookingReasonID,
-                EntryID = entryID,
-                EntryInvitationID = entryInvitationID,
+                EndBookingReasonId = endBookingReasonId,
+                EntryId = entryId,
+                EntryInvitationId = entryInvitationId,
                 EntryStatusEnum = entryStatusEnum,
                 ETA = eta,
                 ETD = etd,
                 Excess = excess,
-                GroupID = groupID,
-                HousekeepingID = housekeepingID,
+                GroupId = groupId,
+                HousekeepingId = housekeepingId,
                 NumberOfChildren = numberOfChildren,
                 NumberOfChildrenFree = numberOfChildrenFree,
                 NumberOfGuests = numberOfGuests,
@@ -10814,16 +12535,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PetCount = petCount,
                 ResvChargeToEntry = resvChargeToEntry,
                 RoomLocationFixed = roomLocationFixed,
-                RoomLocationID = roomLocationID,
+                RoomLocationId = roomLocationId,
                 RoomRateAmount = roomRateAmount,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
-                RoomTypeID = roomTypeID,
-                SecurityUserID = securityUserID,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
+                RoomTypeId = roomTypeId,
+                SecurityUserId = securityUserId,
                 ServiceAnimalCount = serviceAnimalCount,
                 SpecialRequirement = specialRequirement,
-                StartBookingReasonID = startBookingReasonID,
-                TermSessionID = termSessionID,
+                StartBookingReasonId = startBookingReasonId,
+                TermSessionId = termSessionId,
             };
         }
 
@@ -10842,16 +12563,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string comments = default,
             object dateModified = default,
             string description = default,
-            int? extensionID = default,
+            int? extensionId = default,
             bool? hold = default,
             bool? networked = default,
             RecordTypeEnum? recordTypeEnum = default,
-            int? roomBaseID = default,
-            int? roomID = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
+            int? roomBaseId = default,
+            int? roomId = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
             RoomSpaceTypeEnum? roomSpaceTypeEnum = default,
-            int? securityUserID = default,
+            int? securityUserId = default,
             int? sortOrder = default,
             string street = default,
             string street2 = default,
@@ -10871,16 +12592,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Comments = comments,
                 DateModified = dateModified,
                 Description = description,
-                ExtensionID = extensionID,
+                ExtensionId = extensionId,
                 Hold = hold,
                 Networked = networked,
                 RecordTypeEnum = recordTypeEnum,
-                RoomBaseID = roomBaseID,
-                RoomID = roomID,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
+                RoomBaseId = roomBaseId,
+                RoomId = roomId,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
                 RoomSpaceTypeEnum = roomSpaceTypeEnum,
-                SecurityUserID = securityUserID,
+                SecurityUserId = securityUserId,
                 SortOrder = sortOrder,
                 Street = street,
                 Street2 = street2,
@@ -10899,16 +12620,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? bedCapacity = default,
             string comments = default,
             string description = default,
-            int? extensionID = default,
+            int? extensionId = default,
             bool? hold = default,
             bool? networked = default,
             RecordTypeEnum? recordTypeEnum = default,
-            int? roomBaseID = default,
-            int? roomID = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
+            int? roomBaseId = default,
+            int? roomId = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
             RoomSpaceTypeEnum? roomSpaceTypeEnum = default,
-            int? securityUserID = default,
+            int? securityUserId = default,
             int? sortOrder = default,
             string street = default,
             string street2 = default,
@@ -10923,16 +12644,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 BedCapacity = bedCapacity,
                 Comments = comments,
                 Description = description,
-                ExtensionID = extensionID,
+                ExtensionId = extensionId,
                 Hold = hold,
                 Networked = networked,
                 RecordTypeEnum = recordTypeEnum,
-                RoomBaseID = roomBaseID,
-                RoomID = roomID,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
+                RoomBaseId = roomBaseId,
+                RoomId = roomId,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
                 RoomSpaceTypeEnum = roomSpaceTypeEnum,
-                SecurityUserID = securityUserID,
+                SecurityUserId = securityUserId,
                 SortOrder = sortOrder,
                 Street = street,
                 Street2 = street2,
@@ -10951,16 +12672,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? bedCapacity = default,
             string comments = default,
             string description = default,
-            int? extensionID = default,
+            int? extensionId = default,
             bool? hold = default,
             bool? networked = default,
             string recordTypeEnum = default,
-            int? roomBaseID = default,
-            int? roomID = default,
-            int? roomRateID = default,
-            int? roomSpaceID = default,
+            int? roomBaseId = default,
+            int? roomId = default,
+            int? roomRateId = default,
+            int? roomSpaceId = default,
             string roomSpaceTypeEnum = default,
-            int? securityUserID = default,
+            int? securityUserId = default,
             int? sortOrder = default,
             string street = default,
             string street2 = default,
@@ -10975,16 +12696,16 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 BedCapacity = bedCapacity,
                 Comments = comments,
                 Description = description,
-                ExtensionID = extensionID,
+                ExtensionId = extensionId,
                 Hold = hold,
                 Networked = networked,
                 RecordTypeEnum = recordTypeEnum,
-                RoomBaseID = roomBaseID,
-                RoomID = roomID,
-                RoomRateID = roomRateID,
-                RoomSpaceID = roomSpaceID,
+                RoomBaseId = roomBaseId,
+                RoomId = roomId,
+                RoomRateId = roomRateId,
+                RoomSpaceId = roomSpaceId,
                 RoomSpaceTypeEnum = roomSpaceTypeEnum,
-                SecurityUserID = securityUserID,
+                SecurityUserId = securityUserId,
                 SortOrder = sortOrder,
                 Street = street,
                 Street2 = street2,
@@ -11002,10 +12723,10 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageIndex = default,
             string orderby = default,
             int? allocateSortOrder = default,
-            int? categoryID = default,
+            int? categoryId = default,
             string city = default,
             string comments = default,
-            int? countryID = default,
+            int? countryId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             object customDate1 = default,
@@ -11023,8 +12744,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? managedExternally = default,
             bool? nonResidential = default,
             RecordTypeEnum? recordTypeEnum = default,
-            int? roomLocationAreaID = default,
-            int? roomLocationID = default,
+            int? roomLocationAreaId = default,
+            int? roomLocationId = default,
             string stateProvince = default,
             bool? viewOnWeb = default,
             string webComments = default,
@@ -11040,10 +12761,10 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 PageIndex = pageIndex,
                 Orderby = orderby,
                 AllocateSortOrder = allocateSortOrder,
-                CategoryID = categoryID,
+                CategoryId = categoryId,
                 City = city,
                 Comments = comments,
-                CountryID = countryID,
+                CountryId = countryId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -11061,8 +12782,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 ManagedExternally = managedExternally,
                 NonResidential = nonResidential,
                 RecordTypeEnum = recordTypeEnum,
-                RoomLocationAreaID = roomLocationAreaID,
-                RoomLocationID = roomLocationID,
+                RoomLocationAreaId = roomLocationAreaId,
+                RoomLocationId = roomLocationId,
                 StateProvince = stateProvince,
                 ViewOnWeb = viewOnWeb,
                 WebComments = webComments,
@@ -11083,37 +12804,37 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string orderby = default,
             double? amount = default,
             CallTypeEnum? callTypeEnum = default,
-            int? chargeGroupID = default,
-            int? chargeItemID = default,
+            int? chargeGroupId = default,
+            int? chargeItemId = default,
             string comments = default,
-            int? createdBySecurityUserID = default,
+            int? createdBySecurityUserId = default,
             object dateModified = default,
             string description = default,
             object dueDate = default,
             int? duration = default,
-            int? endOfSessionID = default,
-            int? entryID = default,
+            int? endOfSessionId = default,
+            int? entryId = default,
             double? excess = default,
             int? extension = default,
-            int? externalID = default,
-            string externalReceiptID = default,
-            int? invoiceID = default,
+            int? externalId = default,
+            string externalReceiptId = default,
+            int? invoiceId = default,
             object paidFrom = default,
             object paidTo = default,
-            int? paymentID = default,
+            int? paymentId = default,
             object processedDate = default,
-            int? referenceBookingID = default,
-            int? securityUserID = default,
-            int? tableID = default,
+            int? referenceBookingId = default,
+            int? securityUserId = default,
+            int? tableId = default,
             string tableName = default,
             string tag = default,
             string tagFinance = default,
             double? taxAmount = default,
             double? taxAmount2 = default,
             double? taxAmount3 = default,
-            int? termSessionID = default,
+            int? termSessionId = default,
             object transactionDate = default,
-            int? transactionID = default,
+            int? transactionId = default,
             TransactionTypeEnum? transactionTypeEnum = default)
         {
             return new SelectTransactionInput
@@ -11124,37 +12845,37 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 Orderby = orderby,
                 Amount = amount,
                 CallTypeEnum = callTypeEnum,
-                ChargeGroupID = chargeGroupID,
-                ChargeItemID = chargeItemID,
+                ChargeGroupId = chargeGroupId,
+                ChargeItemId = chargeItemId,
                 Comments = comments,
-                CreatedBySecurityUserID = createdBySecurityUserID,
+                CreatedBySecurityUserId = createdBySecurityUserId,
                 DateModified = dateModified,
                 Description = description,
                 DueDate = dueDate,
                 Duration = duration,
-                EndOfSessionID = endOfSessionID,
-                EntryID = entryID,
+                EndOfSessionId = endOfSessionId,
+                EntryId = entryId,
                 Excess = excess,
                 Extension = extension,
-                ExternalID = externalID,
-                ExternalReceiptID = externalReceiptID,
-                InvoiceID = invoiceID,
+                ExternalId = externalId,
+                ExternalReceiptId = externalReceiptId,
+                InvoiceId = invoiceId,
                 PaidFrom = paidFrom,
                 PaidTo = paidTo,
-                PaymentID = paymentID,
+                PaymentId = paymentId,
                 ProcessedDate = processedDate,
-                ReferenceBookingID = referenceBookingID,
-                SecurityUserID = securityUserID,
-                TableID = tableID,
+                ReferenceBookingId = referenceBookingId,
+                SecurityUserId = securityUserId,
+                TableId = tableId,
                 TableName = tableName,
                 Tag = tag,
                 TagFinance = tagFinance,
                 TaxAmount = taxAmount,
                 TaxAmount2 = taxAmount2,
                 TaxAmount3 = taxAmount3,
-                TermSessionID = termSessionID,
+                TermSessionId = termSessionId,
                 TransactionDate = transactionDate,
-                TransactionID = transactionID,
+                TransactionId = transactionId,
                 TransactionTypeEnum = transactionTypeEnum,
             };
         }
@@ -11165,70 +12886,70 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateTransactionInput CreateTransactionInput(
             double? amount = default,
             CallTypeEnum? callTypeEnum = default,
-            int? chargeGroupID = default,
-            int? chargeItemID = default,
+            int? chargeGroupId = default,
+            int? chargeItemId = default,
             string comments = default,
             string description = default,
             DateTime? dueDate = default,
             int? duration = default,
-            int? endOfSessionID = default,
-            int? entryID = default,
+            int? endOfSessionId = default,
+            int? entryId = default,
             double? excess = default,
             int? extension = default,
-            int? externalID = default,
-            string externalReceiptID = default,
-            int? invoiceID = default,
+            int? externalId = default,
+            string externalReceiptId = default,
+            int? invoiceId = default,
             DateTime? paidFrom = default,
             DateTime? paidTo = default,
-            int? paymentID = default,
+            int? paymentId = default,
             DateTime? processedDate = default,
-            int? referenceBookingID = default,
-            int? securityUserID = default,
-            int? tableID = default,
+            int? referenceBookingId = default,
+            int? securityUserId = default,
+            int? tableId = default,
             string tableName = default,
             string tag = default,
             string tagFinance = default,
             double? taxAmount = default,
             double? taxAmount2 = default,
             double? taxAmount3 = default,
-            int? termSessionID = default,
+            int? termSessionId = default,
             DateTime? transactionDate = default,
-            int? transactionID = default,
+            int? transactionId = default,
             TransactionTypeEnum? transactionTypeEnum = default)
         {
             return new CreateTransactionInput
             {
                 Amount = amount,
                 CallTypeEnum = callTypeEnum,
-                ChargeGroupID = chargeGroupID,
-                ChargeItemID = chargeItemID,
+                ChargeGroupId = chargeGroupId,
+                ChargeItemId = chargeItemId,
                 Comments = comments,
                 Description = description,
                 DueDate = dueDate,
                 Duration = duration,
-                EndOfSessionID = endOfSessionID,
-                EntryID = entryID,
+                EndOfSessionId = endOfSessionId,
+                EntryId = entryId,
                 Excess = excess,
                 Extension = extension,
-                ExternalID = externalID,
-                ExternalReceiptID = externalReceiptID,
-                InvoiceID = invoiceID,
+                ExternalId = externalId,
+                ExternalReceiptId = externalReceiptId,
+                InvoiceId = invoiceId,
                 PaidFrom = paidFrom,
                 PaidTo = paidTo,
-                PaymentID = paymentID,
+                PaymentId = paymentId,
                 ProcessedDate = processedDate,
-                ReferenceBookingID = referenceBookingID,
-                SecurityUserID = securityUserID,
-                TableID = tableID,
+                ReferenceBookingId = referenceBookingId,
+                SecurityUserId = securityUserId,
+                TableId = tableId,
                 TableName = tableName,
                 Tag = tag,
                 TagFinance = tagFinance,
                 TaxAmount = taxAmount,
                 TaxAmount2 = taxAmount2,
                 TaxAmount3 = taxAmount3,
-                TermSessionID = termSessionID,
+                TermSessionId = termSessionId,
                 TransactionDate = transactionDate,
-                TransactionID = transactionID,
+                TransactionId = transactionId,
                 TransactionTypeEnum = transactionTypeEnum,
             };
         }
@@ -11239,70 +12960,70 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
         public static CreateTransactionResponse CreateTransactionResponse(
             double? amount = default,
             string callTypeEnum = default,
-            int? chargeGroupID = default,
-            int? chargeItemID = default,
+            int? chargeGroupId = default,
+            int? chargeItemId = default,
             string comments = default,
             string description = default,
             string dueDate = default,
             int? duration = default,
-            int? endOfSessionID = default,
-            int? entryID = default,
+            int? endOfSessionId = default,
+            int? entryId = default,
             double? excess = default,
             int? extension = default,
-            int? externalID = default,
-            string externalReceiptID = default,
-            int? invoiceID = default,
+            int? externalId = default,
+            string externalReceiptId = default,
+            int? invoiceId = default,
             string paidFrom = default,
             string paidTo = default,
-            int? paymentID = default,
+            int? paymentId = default,
             string processedDate = default,
-            int? referenceBookingID = default,
-            int? securityUserID = default,
-            int? tableID = default,
+            int? referenceBookingId = default,
+            int? securityUserId = default,
+            int? tableId = default,
             string tableName = default,
             string tag = default,
             string tagFinance = default,
             double? taxAmount = default,
             double? taxAmount2 = default,
             double? taxAmount3 = default,
-            int? termSessionID = default,
+            int? termSessionId = default,
             string transactionDate = default,
-            int? transactionID = default,
+            int? transactionId = default,
             string transactionTypeEnum = default)
         {
             return new CreateTransactionResponse
             {
                 Amount = amount,
                 CallTypeEnum = callTypeEnum,
-                ChargeGroupID = chargeGroupID,
-                ChargeItemID = chargeItemID,
+                ChargeGroupId = chargeGroupId,
+                ChargeItemId = chargeItemId,
                 Comments = comments,
                 Description = description,
                 DueDate = dueDate,
                 Duration = duration,
-                EndOfSessionID = endOfSessionID,
-                EntryID = entryID,
+                EndOfSessionId = endOfSessionId,
+                EntryId = entryId,
                 Excess = excess,
                 Extension = extension,
-                ExternalID = externalID,
-                ExternalReceiptID = externalReceiptID,
-                InvoiceID = invoiceID,
+                ExternalId = externalId,
+                ExternalReceiptId = externalReceiptId,
+                InvoiceId = invoiceId,
                 PaidFrom = paidFrom,
                 PaidTo = paidTo,
-                PaymentID = paymentID,
+                PaymentId = paymentId,
                 ProcessedDate = processedDate,
-                ReferenceBookingID = referenceBookingID,
-                SecurityUserID = securityUserID,
-                TableID = tableID,
+                ReferenceBookingId = referenceBookingId,
+                SecurityUserId = securityUserId,
+                TableId = tableId,
                 TableName = tableName,
                 Tag = tag,
                 TagFinance = tagFinance,
                 TaxAmount = taxAmount,
                 TaxAmount2 = taxAmount2,
                 TaxAmount3 = taxAmount3,
-                TermSessionID = termSessionID,
+                TermSessionId = termSessionId,
                 TransactionDate = transactionDate,
-                TransactionID = transactionID,
+                TransactionId = transactionId,
                 TransactionTypeEnum = transactionTypeEnum,
             };
         }
@@ -11318,20 +13039,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string accountCode = default,
             string cause = default,
             bool? charge = default,
-            int? chargeEntryID = default,
+            int? chargeEntryId = default,
             double? chargeAmount = default,
             bool? chargeInvoiced = default,
             string chargeInvoiceNumber = default,
             string chargeType = default,
             object completeDate = default,
-            int? contactID = default,
+            int? contactId = default,
             object contractDate = default,
             double? contractorCost = default,
             double? contractorCostEstimate = default,
             object contractorDate = default,
             string contractorETA = default,
             string contractorOrderNumber = default,
-            int? createdBySecurityUserID = default,
+            int? createdBySecurityUserId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             object customDate1 = default,
@@ -11350,21 +13071,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? jobSent = default,
             string jobStatus = default,
             string location = default,
-            int? occupantEntryID = default,
+            int? occupantEntryId = default,
             string occupantEntryName = default,
             bool? occupantPresent = default,
             string occupantPresentReason = default,
             string otherServiceNumber = default,
-            int? priorityID = default,
+            int? priorityId = default,
             string repairDescription = default,
             string reportedByName = default,
             string reportedByPhone = default,
-            int? roomSpaceClosedID = default,
-            int? roomSpaceID = default,
-            int? roomSpaceMaintenanceCategoryID = default,
-            int? roomSpaceMaintenanceID = default,
-            int? roomSpaceMaintenanceItemID = default,
-            int? securityUserID = default,
+            int? roomSpaceClosedId = default,
+            int? roomSpaceId = default,
+            int? roomSpaceMaintenanceCategoryId = default,
+            int? roomSpaceMaintenanceId = default,
+            int? roomSpaceMaintenanceItemId = default,
+            int? securityUserId = default,
             object startDate = default,
             string status = default,
             string technician = default,
@@ -11379,20 +13100,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AccountCode = accountCode,
                 Cause = cause,
                 Charge = charge,
-                ChargeEntryID = chargeEntryID,
+                ChargeEntryId = chargeEntryId,
                 ChargeAmount = chargeAmount,
                 ChargeInvoiced = chargeInvoiced,
                 ChargeInvoiceNumber = chargeInvoiceNumber,
                 ChargeType = chargeType,
                 CompleteDate = completeDate,
-                ContactID = contactID,
+                ContactId = contactId,
                 ContractDate = contractDate,
                 ContractorCost = contractorCost,
                 ContractorCostEstimate = contractorCostEstimate,
                 ContractorDate = contractorDate,
                 ContractorETA = contractorETA,
                 ContractorOrderNumber = contractorOrderNumber,
-                CreatedBySecurityUserID = createdBySecurityUserID,
+                CreatedBySecurityUserId = createdBySecurityUserId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -11411,21 +13132,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 JobSent = jobSent,
                 JobStatus = jobStatus,
                 Location = location,
-                OccupantEntryID = occupantEntryID,
+                OccupantEntryId = occupantEntryId,
                 OccupantEntryName = occupantEntryName,
                 OccupantPresent = occupantPresent,
                 OccupantPresentReason = occupantPresentReason,
                 OtherServiceNumber = otherServiceNumber,
-                PriorityID = priorityID,
+                PriorityId = priorityId,
                 RepairDescription = repairDescription,
                 ReportedByName = reportedByName,
                 ReportedByPhone = reportedByPhone,
-                RoomSpaceClosedID = roomSpaceClosedID,
-                RoomSpaceID = roomSpaceID,
-                RoomSpaceMaintenanceCategoryID = roomSpaceMaintenanceCategoryID,
-                RoomSpaceMaintenanceID = roomSpaceMaintenanceID,
-                RoomSpaceMaintenanceItemID = roomSpaceMaintenanceItemID,
-                SecurityUserID = securityUserID,
+                RoomSpaceClosedId = roomSpaceClosedId,
+                RoomSpaceId = roomSpaceId,
+                RoomSpaceMaintenanceCategoryId = roomSpaceMaintenanceCategoryId,
+                RoomSpaceMaintenanceId = roomSpaceMaintenanceId,
+                RoomSpaceMaintenanceItemId = roomSpaceMaintenanceItemId,
+                SecurityUserId = securityUserId,
                 StartDate = startDate,
                 Status = status,
                 Technician = technician,
@@ -11440,13 +13161,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string accountCode = default,
             string cause = default,
             bool? charge = default,
-            int? chargeEntryID = default,
+            int? chargeEntryId = default,
             double? chargeAmount = default,
             bool? chargeInvoiced = default,
             string chargeInvoiceNumber = default,
             string chargeType = default,
             DateTime? completeDate = default,
-            int? contactID = default,
+            int? contactId = default,
             DateTime? contractDate = default,
             double? contractorCost = default,
             double? contractorCostEstimate = default,
@@ -11469,21 +13190,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? jobSent = default,
             string jobStatus = default,
             string location = default,
-            int? occupantEntryID = default,
+            int? occupantEntryId = default,
             string occupantEntryName = default,
             bool? occupantPresent = default,
             string occupantPresentReason = default,
             string otherServiceNumber = default,
-            int? priorityID = default,
+            int? priorityId = default,
             string repairDescription = default,
             string reportedByName = default,
             string reportedByPhone = default,
-            int? roomSpaceClosedID = default,
-            int? roomSpaceID = default,
-            int? roomSpaceMaintenanceCategoryID = default,
-            int? roomSpaceMaintenanceID = default,
-            int? roomSpaceMaintenanceItemID = default,
-            int? securityUserID = default,
+            int? roomSpaceClosedId = default,
+            int? roomSpaceId = default,
+            int? roomSpaceMaintenanceCategoryId = default,
+            int? roomSpaceMaintenanceId = default,
+            int? roomSpaceMaintenanceItemId = default,
+            int? securityUserId = default,
             DateTime? startDate = default,
             string status = default,
             string technician = default,
@@ -11494,13 +13215,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AccountCode = accountCode,
                 Cause = cause,
                 Charge = charge,
-                ChargeEntryID = chargeEntryID,
+                ChargeEntryId = chargeEntryId,
                 ChargeAmount = chargeAmount,
                 ChargeInvoiced = chargeInvoiced,
                 ChargeInvoiceNumber = chargeInvoiceNumber,
                 ChargeType = chargeType,
                 CompleteDate = completeDate,
-                ContactID = contactID,
+                ContactId = contactId,
                 ContractDate = contractDate,
                 ContractorCost = contractorCost,
                 ContractorCostEstimate = contractorCostEstimate,
@@ -11523,21 +13244,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 JobSent = jobSent,
                 JobStatus = jobStatus,
                 Location = location,
-                OccupantEntryID = occupantEntryID,
+                OccupantEntryId = occupantEntryId,
                 OccupantEntryName = occupantEntryName,
                 OccupantPresent = occupantPresent,
                 OccupantPresentReason = occupantPresentReason,
                 OtherServiceNumber = otherServiceNumber,
-                PriorityID = priorityID,
+                PriorityId = priorityId,
                 RepairDescription = repairDescription,
                 ReportedByName = reportedByName,
                 ReportedByPhone = reportedByPhone,
-                RoomSpaceClosedID = roomSpaceClosedID,
-                RoomSpaceID = roomSpaceID,
-                RoomSpaceMaintenanceCategoryID = roomSpaceMaintenanceCategoryID,
-                RoomSpaceMaintenanceID = roomSpaceMaintenanceID,
-                RoomSpaceMaintenanceItemID = roomSpaceMaintenanceItemID,
-                SecurityUserID = securityUserID,
+                RoomSpaceClosedId = roomSpaceClosedId,
+                RoomSpaceId = roomSpaceId,
+                RoomSpaceMaintenanceCategoryId = roomSpaceMaintenanceCategoryId,
+                RoomSpaceMaintenanceId = roomSpaceMaintenanceId,
+                RoomSpaceMaintenanceItemId = roomSpaceMaintenanceItemId,
+                SecurityUserId = securityUserId,
                 StartDate = startDate,
                 Status = status,
                 Technician = technician,
@@ -11552,20 +13273,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string accountCode = default,
             string cause = default,
             bool? charge = default,
-            int? chargeEntryID = default,
+            int? chargeEntryId = default,
             double? chargeAmount = default,
             bool? chargeInvoiced = default,
             string chargeInvoiceNumber = default,
             string chargeType = default,
             string completeDate = default,
-            int? contactID = default,
+            int? contactId = default,
             string contractDate = default,
             double? contractorCost = default,
             double? contractorCostEstimate = default,
             string contractorDate = default,
             string contractorETA = default,
             string contractorOrderNumber = default,
-            int? createdBySecurityUserID = default,
+            int? createdBySecurityUserId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             string customDate1 = default,
@@ -11584,21 +13305,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? jobSent = default,
             string jobStatus = default,
             string location = default,
-            int? occupantEntryID = default,
+            int? occupantEntryId = default,
             string occupantEntryName = default,
             bool? occupantPresent = default,
             string occupantPresentReason = default,
             string otherServiceNumber = default,
-            int? priorityID = default,
+            int? priorityId = default,
             string repairDescription = default,
             string reportedByName = default,
             string reportedByPhone = default,
-            int? roomSpaceClosedID = default,
-            int? roomSpaceID = default,
-            int? roomSpaceMaintenanceCategoryID = default,
-            int? roomSpaceMaintenanceID = default,
-            int? roomSpaceMaintenanceItemID = default,
-            int? securityUserID = default,
+            int? roomSpaceClosedId = default,
+            int? roomSpaceId = default,
+            int? roomSpaceMaintenanceCategoryId = default,
+            int? roomSpaceMaintenanceId = default,
+            int? roomSpaceMaintenanceItemId = default,
+            int? securityUserId = default,
             string startDate = default,
             string status = default,
             string technician = default,
@@ -11609,20 +13330,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AccountCode = accountCode,
                 Cause = cause,
                 Charge = charge,
-                ChargeEntryID = chargeEntryID,
+                ChargeEntryId = chargeEntryId,
                 ChargeAmount = chargeAmount,
                 ChargeInvoiced = chargeInvoiced,
                 ChargeInvoiceNumber = chargeInvoiceNumber,
                 ChargeType = chargeType,
                 CompleteDate = completeDate,
-                ContactID = contactID,
+                ContactId = contactId,
                 ContractDate = contractDate,
                 ContractorCost = contractorCost,
                 ContractorCostEstimate = contractorCostEstimate,
                 ContractorDate = contractorDate,
                 ContractorETA = contractorETA,
                 ContractorOrderNumber = contractorOrderNumber,
-                CreatedBySecurityUserID = createdBySecurityUserID,
+                CreatedBySecurityUserId = createdBySecurityUserId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -11641,21 +13362,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 JobSent = jobSent,
                 JobStatus = jobStatus,
                 Location = location,
-                OccupantEntryID = occupantEntryID,
+                OccupantEntryId = occupantEntryId,
                 OccupantEntryName = occupantEntryName,
                 OccupantPresent = occupantPresent,
                 OccupantPresentReason = occupantPresentReason,
                 OtherServiceNumber = otherServiceNumber,
-                PriorityID = priorityID,
+                PriorityId = priorityId,
                 RepairDescription = repairDescription,
                 ReportedByName = reportedByName,
                 ReportedByPhone = reportedByPhone,
-                RoomSpaceClosedID = roomSpaceClosedID,
-                RoomSpaceID = roomSpaceID,
-                RoomSpaceMaintenanceCategoryID = roomSpaceMaintenanceCategoryID,
-                RoomSpaceMaintenanceID = roomSpaceMaintenanceID,
-                RoomSpaceMaintenanceItemID = roomSpaceMaintenanceItemID,
-                SecurityUserID = securityUserID,
+                RoomSpaceClosedId = roomSpaceClosedId,
+                RoomSpaceId = roomSpaceId,
+                RoomSpaceMaintenanceCategoryId = roomSpaceMaintenanceCategoryId,
+                RoomSpaceMaintenanceId = roomSpaceMaintenanceId,
+                RoomSpaceMaintenanceItemId = roomSpaceMaintenanceItemId,
+                SecurityUserId = securityUserId,
                 StartDate = startDate,
                 Status = status,
                 Technician = technician,
@@ -11670,13 +13391,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string accountCode = default,
             string cause = default,
             bool? charge = default,
-            int? chargeEntryID = default,
+            int? chargeEntryId = default,
             double? chargeAmount = default,
             bool? chargeInvoiced = default,
             string chargeInvoiceNumber = default,
             string chargeType = default,
             DateTime? completeDate = default,
-            int? contactID = default,
+            int? contactId = default,
             DateTime? contractDate = default,
             double? contractorCost = default,
             double? contractorCostEstimate = default,
@@ -11699,21 +13420,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? jobSent = default,
             string jobStatus = default,
             string location = default,
-            int? occupantEntryID = default,
+            int? occupantEntryId = default,
             string occupantEntryName = default,
             bool? occupantPresent = default,
             string occupantPresentReason = default,
             string otherServiceNumber = default,
-            int? priorityID = default,
+            int? priorityId = default,
             string repairDescription = default,
             string reportedByName = default,
             string reportedByPhone = default,
-            int? roomSpaceClosedID = default,
-            int? roomSpaceID = default,
-            int? roomSpaceMaintenanceCategoryID = default,
-            int? roomSpaceMaintenanceID = default,
-            int? roomSpaceMaintenanceItemID = default,
-            int? securityUserID = default,
+            int? roomSpaceClosedId = default,
+            int? roomSpaceId = default,
+            int? roomSpaceMaintenanceCategoryId = default,
+            int? roomSpaceMaintenanceId = default,
+            int? roomSpaceMaintenanceItemId = default,
+            int? securityUserId = default,
             DateTime? startDate = default,
             string status = default,
             string technician = default,
@@ -11724,13 +13445,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AccountCode = accountCode,
                 Cause = cause,
                 Charge = charge,
-                ChargeEntryID = chargeEntryID,
+                ChargeEntryId = chargeEntryId,
                 ChargeAmount = chargeAmount,
                 ChargeInvoiced = chargeInvoiced,
                 ChargeInvoiceNumber = chargeInvoiceNumber,
                 ChargeType = chargeType,
                 CompleteDate = completeDate,
-                ContactID = contactID,
+                ContactId = contactId,
                 ContractDate = contractDate,
                 ContractorCost = contractorCost,
                 ContractorCostEstimate = contractorCostEstimate,
@@ -11753,21 +13474,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 JobSent = jobSent,
                 JobStatus = jobStatus,
                 Location = location,
-                OccupantEntryID = occupantEntryID,
+                OccupantEntryId = occupantEntryId,
                 OccupantEntryName = occupantEntryName,
                 OccupantPresent = occupantPresent,
                 OccupantPresentReason = occupantPresentReason,
                 OtherServiceNumber = otherServiceNumber,
-                PriorityID = priorityID,
+                PriorityId = priorityId,
                 RepairDescription = repairDescription,
                 ReportedByName = reportedByName,
                 ReportedByPhone = reportedByPhone,
-                RoomSpaceClosedID = roomSpaceClosedID,
-                RoomSpaceID = roomSpaceID,
-                RoomSpaceMaintenanceCategoryID = roomSpaceMaintenanceCategoryID,
-                RoomSpaceMaintenanceID = roomSpaceMaintenanceID,
-                RoomSpaceMaintenanceItemID = roomSpaceMaintenanceItemID,
-                SecurityUserID = securityUserID,
+                RoomSpaceClosedId = roomSpaceClosedId,
+                RoomSpaceId = roomSpaceId,
+                RoomSpaceMaintenanceCategoryId = roomSpaceMaintenanceCategoryId,
+                RoomSpaceMaintenanceId = roomSpaceMaintenanceId,
+                RoomSpaceMaintenanceItemId = roomSpaceMaintenanceItemId,
+                SecurityUserId = securityUserId,
                 StartDate = startDate,
                 Status = status,
                 Technician = technician,
@@ -11782,20 +13503,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string accountCode = default,
             string cause = default,
             bool? charge = default,
-            int? chargeEntryID = default,
+            int? chargeEntryId = default,
             double? chargeAmount = default,
             bool? chargeInvoiced = default,
             string chargeInvoiceNumber = default,
             string chargeType = default,
             string completeDate = default,
-            int? contactID = default,
+            int? contactId = default,
             string contractDate = default,
             double? contractorCost = default,
             double? contractorCostEstimate = default,
             string contractorDate = default,
             string contractorETA = default,
             string contractorOrderNumber = default,
-            int? createdBySecurityUserID = default,
+            int? createdBySecurityUserId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             string customDate1 = default,
@@ -11814,21 +13535,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? jobSent = default,
             string jobStatus = default,
             string location = default,
-            int? occupantEntryID = default,
+            int? occupantEntryId = default,
             string occupantEntryName = default,
             bool? occupantPresent = default,
             string occupantPresentReason = default,
             string otherServiceNumber = default,
-            int? priorityID = default,
+            int? priorityId = default,
             string repairDescription = default,
             string reportedByName = default,
             string reportedByPhone = default,
-            int? roomSpaceClosedID = default,
-            int? roomSpaceID = default,
-            int? roomSpaceMaintenanceCategoryID = default,
-            int? roomSpaceMaintenanceID = default,
-            int? roomSpaceMaintenanceItemID = default,
-            int? securityUserID = default,
+            int? roomSpaceClosedId = default,
+            int? roomSpaceId = default,
+            int? roomSpaceMaintenanceCategoryId = default,
+            int? roomSpaceMaintenanceId = default,
+            int? roomSpaceMaintenanceItemId = default,
+            int? securityUserId = default,
             string startDate = default,
             string status = default,
             string technician = default,
@@ -11839,20 +13560,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 AccountCode = accountCode,
                 Cause = cause,
                 Charge = charge,
-                ChargeEntryID = chargeEntryID,
+                ChargeEntryId = chargeEntryId,
                 ChargeAmount = chargeAmount,
                 ChargeInvoiced = chargeInvoiced,
                 ChargeInvoiceNumber = chargeInvoiceNumber,
                 ChargeType = chargeType,
                 CompleteDate = completeDate,
-                ContactID = contactID,
+                ContactId = contactId,
                 ContractDate = contractDate,
                 ContractorCost = contractorCost,
                 ContractorCostEstimate = contractorCostEstimate,
                 ContractorDate = contractorDate,
                 ContractorETA = contractorETA,
                 ContractorOrderNumber = contractorOrderNumber,
-                CreatedBySecurityUserID = createdBySecurityUserID,
+                CreatedBySecurityUserId = createdBySecurityUserId,
                 CustomBit1 = customBit1,
                 CustomBit2 = customBit2,
                 CustomDate1 = customDate1,
@@ -11871,21 +13592,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
                 JobSent = jobSent,
                 JobStatus = jobStatus,
                 Location = location,
-                OccupantEntryID = occupantEntryID,
+                OccupantEntryId = occupantEntryId,
                 OccupantEntryName = occupantEntryName,
                 OccupantPresent = occupantPresent,
                 OccupantPresentReason = occupantPresentReason,
                 OtherServiceNumber = otherServiceNumber,
-                PriorityID = priorityID,
+                PriorityId = priorityId,
                 RepairDescription = repairDescription,
                 ReportedByName = reportedByName,
                 ReportedByPhone = reportedByPhone,
-                RoomSpaceClosedID = roomSpaceClosedID,
-                RoomSpaceID = roomSpaceID,
-                RoomSpaceMaintenanceCategoryID = roomSpaceMaintenanceCategoryID,
-                RoomSpaceMaintenanceID = roomSpaceMaintenanceID,
-                RoomSpaceMaintenanceItemID = roomSpaceMaintenanceItemID,
-                SecurityUserID = securityUserID,
+                RoomSpaceClosedId = roomSpaceClosedId,
+                RoomSpaceId = roomSpaceId,
+                RoomSpaceMaintenanceCategoryId = roomSpaceMaintenanceCategoryId,
+                RoomSpaceMaintenanceId = roomSpaceMaintenanceId,
+                RoomSpaceMaintenanceItemId = roomSpaceMaintenanceItemId,
+                SecurityUserId = securityUserId,
                 StartDate = startDate,
                 Status = status,
                 Technician = technician,
@@ -11987,13 +13708,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Entry
         /// </summary>
         /// <remarks>Updates an existing record in the Entry table.</remarks>
-        /// <param name="entryID">Entry ID</param>
+        /// <param name="entryId">Entry ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Entry response.</returns>
-        public virtual async Task<UpdateEntryResponse> UpdateEntryAsync(int entryID, UpdateEntryInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEntryResponse> UpdateEntryAsync(int entryId, UpdateEntryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entry.json/{Uri.EscapeDataString(entryID.ToString())}";
+            var path = $"/update/entry.json/{Uri.EscapeDataString(entryId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateEntryResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12004,12 +13725,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// </summary>
         /// <remarks>Deletes a record from the specified table.</remarks>
         /// <param name="tableName">Table Name</param>
-        /// <param name="rowID">Row ID</param>
+        /// <param name="rowId">Row ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete response.</returns>
-        public virtual async Task<DeleteResponse> DeleteAsync(string tableName, int rowID, CancellationToken cancellationToken = default)
+        public virtual async Task<DeleteResponse> DeleteAsync(string tableName, int rowId, CancellationToken cancellationToken = default)
         {
-            var path = $"/delete/{Uri.EscapeDataString(tableName.ToString())}.json/{Uri.EscapeDataString(rowID.ToString())}";
+            var path = $"/delete/{Uri.EscapeDataString(tableName.ToString())}.json/{Uri.EscapeDataString(rowId.ToString())}";
             return await this
                 .CallConnectorAsync<DeleteResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12034,13 +13755,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Entry Custom Field
         /// </summary>
         /// <remarks>Updates an existing record in the Entry Custom Field table.</remarks>
-        /// <param name="entryCustomFieldID">Entry Custom Field ID</param>
+        /// <param name="entryCustomFieldId">Entry Custom Field ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Entry Custom Field response.</returns>
-        public virtual async Task<UpdateEntryCustomFieldResponse> UpdateEntryCustomFieldAsync(int entryCustomFieldID, UpdateEntryCustomFieldInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEntryCustomFieldResponse> UpdateEntryCustomFieldAsync(int entryCustomFieldId, UpdateEntryCustomFieldInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryCustomField.json/{Uri.EscapeDataString(entryCustomFieldID.ToString())}";
+            var path = $"/update/entryCustomField.json/{Uri.EscapeDataString(entryCustomFieldId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateEntryCustomFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12080,13 +13801,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Entry Address
         /// </summary>
         /// <remarks>Updates an existing record in the Entry Address table.</remarks>
-        /// <param name="entryAddressID">Entry Address ID</param>
+        /// <param name="entryAddressId">Entry Address ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Entry Address response.</returns>
-        public virtual async Task<UpdateEntryAddressResponse> UpdateEntryAddressAsync(int entryAddressID, UpdateEntryAddressInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEntryAddressResponse> UpdateEntryAddressAsync(int entryAddressId, UpdateEntryAddressInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryAddress.json/{Uri.EscapeDataString(entryAddressID.ToString())}";
+            var path = $"/update/entryAddress.json/{Uri.EscapeDataString(entryAddressId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateEntryAddressResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12126,13 +13847,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Entry Application
         /// </summary>
         /// <remarks>Updates an existing record in the Entry Application table.</remarks>
-        /// <param name="entryApplicationID">Entry Application ID</param>
+        /// <param name="entryApplicationId">Entry Application ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Entry Application response.</returns>
-        public virtual async Task<UpdateEntryApplicationResponse> UpdateEntryApplicationAsync(int entryApplicationID, UpdateEntryApplicationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEntryApplicationResponse> UpdateEntryApplicationAsync(int entryApplicationId, UpdateEntryApplicationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryapplication.json/{Uri.EscapeDataString(entryApplicationID.ToString())}";
+            var path = $"/update/entryapplication.json/{Uri.EscapeDataString(entryApplicationId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateEntryApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12172,13 +13893,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Entry Detail
         /// </summary>
         /// <remarks>Updates an existing record in the Entry Detail table.</remarks>
-        /// <param name="entryDetailID">Entry Detail ID</param>
+        /// <param name="entryDetailId">Entry Detail ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Entry Detail response.</returns>
-        public virtual async Task<UpdateEntryDetailResponse> UpdateEntryDetailAsync(int entryDetailID, UpdateEntryDetailInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEntryDetailResponse> UpdateEntryDetailAsync(int entryDetailId, UpdateEntryDetailInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entrydetail.json/{Uri.EscapeDataString(entryDetailID.ToString())}";
+            var path = $"/update/entrydetail.json/{Uri.EscapeDataString(entryDetailId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateEntryDetailResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12218,13 +13939,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Entry Enrollment
         /// </summary>
         /// <remarks>Updates an existing record in the Entry Enrollment table.</remarks>
-        /// <param name="entryEnrollmentID">Entry Enrollment ID</param>
+        /// <param name="entryEnrollmentId">Entry Enrollment ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Entry Enrollment response.</returns>
-        public virtual async Task<UpdateEntryEnrollmentResponse> UpdateEntryEnrollmentAsync(int entryEnrollmentID, UpdateEntryEnrollmentInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEntryEnrollmentResponse> UpdateEntryEnrollmentAsync(int entryEnrollmentId, UpdateEntryEnrollmentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryenrollment.json/{Uri.EscapeDataString(entryEnrollmentID.ToString())}";
+            var path = $"/update/entryenrollment.json/{Uri.EscapeDataString(entryEnrollmentId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateEntryEnrollmentResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12264,13 +13985,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Booking
         /// </summary>
         /// <remarks>Updates an existing record in the Booking table.</remarks>
-        /// <param name="bookingID">Booking ID</param>
+        /// <param name="bookingId">Booking ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Booking response.</returns>
-        public virtual async Task<UpdateBookingResponse> UpdateBookingAsync(int bookingID, UpdateBookingInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateBookingResponse> UpdateBookingAsync(int bookingId, UpdateBookingInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/booking.json/{Uri.EscapeDataString(bookingID.ToString())}";
+            var path = $"/update/booking.json/{Uri.EscapeDataString(bookingId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateBookingResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12385,13 +14106,13 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// Update Room Space Maintenance
         /// </summary>
         /// <remarks>Updates an existing record in the Room Space Maintenance table.</remarks>
-        /// <param name="roomSpaceMaintenanceID">Room Space Maintenance ID</param>
+        /// <param name="roomSpaceMaintenanceId">Room Space Maintenance ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Room Space Maintenance response.</returns>
-        public virtual async Task<UpdateRoomSpaceMaintenanceResponse> UpdateRoomSpaceMaintenanceAsync(int roomSpaceMaintenanceID, UpdateRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateRoomSpaceMaintenanceResponse> UpdateRoomSpaceMaintenanceAsync(int roomSpaceMaintenanceId, UpdateRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/roomspacemaintenance.json/{Uri.EscapeDataString(roomSpaceMaintenanceID.ToString())}";
+            var path = $"/update/roomspacemaintenance.json/{Uri.EscapeDataString(roomSpaceMaintenanceId.ToString())}";
             return await this
                 .CallConnectorAsync<UpdateRoomSpaceMaintenanceResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -12401,3 +14122,4 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
 
     #endregion Client
 }
+

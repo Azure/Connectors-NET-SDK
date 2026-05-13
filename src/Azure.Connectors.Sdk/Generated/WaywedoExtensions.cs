@@ -31,15 +31,15 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>Select the checklist instance</summary>
         [JsonPropertyName("instanceId")]
-        public string ChecklistInstanceID { get; set; }
+        public string ChecklistInstanceId { get; set; }
 
         /// <summary>Select the step of the checklist instance</summary>
         [JsonPropertyName("stepId")]
-        public string StepID { get; set; }
+        public string StepId { get; set; }
 
         /// <summary>Select the user creating the comment</summary>
         [JsonPropertyName("userId")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>Specify the comment to add</summary>
         [JsonPropertyName("message")]
@@ -57,7 +57,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The unique ID of the comment.</summary>
         [JsonPropertyName("id")]
-        public string CommentID { get; set; }
+        public string CommentId { get; set; }
 
         /// <summary>The type of comment; either 1 (standard) or 2 (attachment).</summary>
         [JsonPropertyName("type")]
@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The unique ID of the procedure.</summary>
         [JsonPropertyName("procedureId")]
-        public int? ProcedureID { get; set; }
+        public int? ProcedureId { get; set; }
 
         /// <summary>The title of the procedure.</summary>
         [JsonPropertyName("procedureTitle")]
@@ -73,11 +73,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The unique ID of the checklist instance.</summary>
         [JsonPropertyName("instanceId")]
-        public string InstanceID { get; set; }
+        public string InstanceId { get; set; }
 
         /// <summary>The unique ID of the checklist step.</summary>
         [JsonPropertyName("stepId")]
-        public string StepID { get; set; }
+        public string StepId { get; set; }
 
         /// <summary>The title of the checklist instance.</summary>
         [JsonPropertyName("instanceTitle")]
@@ -121,11 +121,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The unique ID of the checklist instance.</summary>
         [JsonPropertyName("id")]
-        public string InstanceID { get; set; }
+        public string InstanceId { get; set; }
 
         /// <summary>The unique ID of the procedure.</summary>
         [JsonPropertyName("procedureId")]
-        public int? ProcedureID { get; set; }
+        public int? ProcedureId { get; set; }
 
         /// <summary>The title of the checklist instance.</summary>
         [JsonPropertyName("title")]
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>Select a checklist master</summary>
         [JsonPropertyName("procedureId")]
-        public int? ProcedureID { get; set; }
+        public int? ProcedureId { get; set; }
 
         /// <summary>The title of the checklist instance</summary>
         [JsonPropertyName("title")]
@@ -171,11 +171,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>Select the user to add as a collaborator</summary>
         [JsonPropertyName("userId")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>Select the company role to add as a collaborator.</summary>
         [JsonPropertyName("companyRoleId")]
-        public int? CompanyRoleID { get; set; }
+        public int? CompanyRoleId { get; set; }
 
         /// <summary>The name of the bot creating the instance</summary>
         [JsonPropertyName("bot")]
@@ -189,7 +189,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The unique ID of the instance step.</summary>
         [JsonPropertyName("id")]
-        public string StepID { get; set; }
+        public string StepId { get; set; }
 
         /// <summary>The title of the instance step.</summary>
         [JsonPropertyName("title")]
@@ -207,7 +207,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>Select the user completing the step</summary>
         [JsonPropertyName("userId")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The name of the bot that completed the checklist step</summary>
         [JsonPropertyName("bot")]
@@ -233,7 +233,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>Select the checklist instance</summary>
         [JsonPropertyName("checklistInstanceId")]
-        public string ChecklistInstanceID { get; set; }
+        public string ChecklistInstanceId { get; set; }
 
         /// <summary>userIds</summary>
         [JsonPropertyName("userIds")]
@@ -263,7 +263,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The unique ID of the procedure.</summary>
         [JsonPropertyName("id")]
-        public int? ProcedureID { get; set; }
+        public int? ProcedureId { get; set; }
 
         /// <summary>The title of the procedure.</summary>
         [JsonPropertyName("title")]
@@ -301,7 +301,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The unique ID of the user.</summary>
         [JsonPropertyName("id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The first name of the user.</summary>
         [JsonPropertyName("firstName")]
@@ -375,7 +375,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The unique ID of the Webhook registration.</summary>
         [JsonPropertyName("id")]
-        public int? WebhookID { get; set; }
+        public int? WebhookId { get; set; }
 
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackurl")]
@@ -455,17 +455,17 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="CommentAddInput"/>.
         /// </summary>
         public static CommentAddInput CommentAddInput(
-            string checklistInstanceID = default,
-            string stepID = default,
-            int? userID = default,
+            string checklistInstanceId = default,
+            string stepId = default,
+            int? userId = default,
             string commentText = default,
             string botName = default)
         {
             return new CommentAddInput
             {
-                ChecklistInstanceID = checklistInstanceID,
-                StepID = stepID,
-                UserID = userID,
+                ChecklistInstanceId = checklistInstanceId,
+                StepId = stepId,
+                UserId = userId,
                 CommentText = commentText,
                 BotName = botName,
             };
@@ -475,12 +475,12 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistComment"/>.
         /// </summary>
         public static ChecklistComment ChecklistComment(
-            string commentID = default,
+            string commentId = default,
             int? commentType = default,
-            int? procedureID = default,
+            int? procedureId = default,
             string procedureTitle = default,
-            string instanceID = default,
-            string stepID = default,
+            string instanceId = default,
+            string stepId = default,
             string instanceTitle = default,
             string commentText = default,
             DateTime? commentDate = default,
@@ -489,12 +489,12 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         {
             return new ChecklistComment
             {
-                CommentID = commentID,
+                CommentId = commentId,
                 CommentType = commentType,
-                ProcedureID = procedureID,
+                ProcedureId = procedureId,
                 ProcedureTitle = procedureTitle,
-                InstanceID = instanceID,
-                StepID = stepID,
+                InstanceId = instanceId,
+                StepId = stepId,
                 InstanceTitle = instanceTitle,
                 CommentText = commentText,
                 CommentDate = commentDate,
@@ -521,8 +521,8 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistInstance"/>.
         /// </summary>
         public static ChecklistInstance ChecklistInstance(
-            string instanceID = default,
-            int? procedureID = default,
+            string instanceId = default,
+            int? procedureId = default,
             string instanceTitle = default,
             string instanceURL = default,
             DateTime? instanceCreatedDate = default,
@@ -533,8 +533,8 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         {
             return new ChecklistInstance
             {
-                InstanceID = instanceID,
-                ProcedureID = procedureID,
+                InstanceId = instanceId,
+                ProcedureId = procedureId,
                 InstanceTitle = instanceTitle,
                 InstanceURL = instanceURL,
                 InstanceCreatedDate = instanceCreatedDate,
@@ -549,18 +549,18 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistInstancesInput"/>.
         /// </summary>
         public static ChecklistInstancesInput ChecklistInstancesInput(
-            int? procedureID = default,
+            int? procedureId = default,
             string title = default,
-            int? userID = default,
-            int? companyRoleID = default,
+            int? userId = default,
+            int? companyRoleId = default,
             string botName = default)
         {
             return new ChecklistInstancesInput
             {
-                ProcedureID = procedureID,
+                ProcedureId = procedureId,
                 Title = title,
-                UserID = userID,
-                CompanyRoleID = companyRoleID,
+                UserId = userId,
+                CompanyRoleId = companyRoleId,
                 BotName = botName,
             };
         }
@@ -569,13 +569,13 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistStep"/>.
         /// </summary>
         public static ChecklistStep ChecklistStep(
-            string stepID = default,
+            string stepId = default,
             string stepTitle = default,
             int? stepNumber = default)
         {
             return new ChecklistStep
             {
-                StepID = stepID,
+                StepId = stepId,
                 StepTitle = stepTitle,
                 StepNumber = stepNumber,
             };
@@ -585,12 +585,12 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistStepsCompleteInput"/>.
         /// </summary>
         public static ChecklistStepsCompleteInput ChecklistStepsCompleteInput(
-            int? userID = default,
+            int? userId = default,
             string botName = default)
         {
             return new ChecklistStepsCompleteInput
             {
-                UserID = userID,
+                UserId = userId,
                 BotName = botName,
             };
         }
@@ -599,13 +599,13 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="CollaboratorsAddInput"/>.
         /// </summary>
         public static CollaboratorsAddInput CollaboratorsAddInput(
-            string checklistInstanceID = default,
+            string checklistInstanceId = default,
             List<int?> userIds = default,
             List<int?> companyRoleIds = default)
         {
             return new CollaboratorsAddInput
             {
-                ChecklistInstanceID = checklistInstanceID,
+                ChecklistInstanceId = checklistInstanceId,
                 UserIds = userIds,
                 CompanyRoleIds = companyRoleIds,
             };
@@ -615,7 +615,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="Procedure"/>.
         /// </summary>
         public static Procedure Procedure(
-            int? procedureID = default,
+            int? procedureId = default,
             string procedureTitle = default,
             string procedureStatus = default,
             string procedureSummary = default,
@@ -626,7 +626,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         {
             return new Procedure
             {
-                ProcedureID = procedureID,
+                ProcedureId = procedureId,
                 ProcedureTitle = procedureTitle,
                 ProcedureStatus = procedureStatus,
                 ProcedureSummary = procedureSummary,
@@ -641,14 +641,14 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="User"/>.
         /// </summary>
         public static User User(
-            int? userID = default,
+            int? userId = default,
             string firstName = default,
             string lastName = default,
             string email = default)
         {
             return new User
             {
-                UserID = userID,
+                UserId = userId,
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
@@ -693,14 +693,14 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="WebhookRegistered"/>.
         /// </summary>
         public static WebhookRegistered WebhookRegistered(
-            int? webhookID = default,
+            int? webhookId = default,
             string callbackURL = default,
             DateTime? createdDate = default,
             string webhookEvent = default)
         {
             return new WebhookRegistered
             {
-                WebhookID = webhookID,
+                WebhookId = webhookId,
                 CallbackURL = callbackURL,
                 CreatedDate = createdDate,
                 WebhookEvent = webhookEvent,
@@ -784,7 +784,7 @@ namespace Azure.Connectors.Sdk.Waywedo
     /// <summary>
     /// Trigger operation name constants for the Waywedo connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class WaywedoTriggerOperations
     {
@@ -932,12 +932,12 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// Get A Checklist Instance
         /// </summary>
         /// <remarks>Retrieve a specific checklist instance by ID</remarks>
-        /// <param name="instanceID">Instance ID</param>
+        /// <param name="instanceId">Instance ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get A Checklist Instance response.</returns>
-        public virtual async Task<ChecklistInstance> ChecklistInstancesGetAsync(string instanceID, CancellationToken cancellationToken = default)
+        public virtual async Task<ChecklistInstance> ChecklistInstancesGetAsync(string instanceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceID.ToString())}";
+            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}";
             return await this
                 .CallConnectorAsync<ChecklistInstance>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1035,6 +1035,7 @@ namespace Azure.Connectors.Sdk.Waywedo
         public virtual async Task<List<Procedure>> FindChecklistAsync(string checklistTitle = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("type=2");
             if (checklistTitle != default)
                 queryParams.Add($"query={Uri.EscapeDataString(checklistTitle.ToString())}");
             var path = $"/v1/Procedures" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1047,12 +1048,12 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// Get A Checklist Or Procedure
         /// </summary>
         /// <remarks>Retrieve a specific checklist or procedure by ID</remarks>
-        /// <param name="procedureID">Procedure ID</param>
+        /// <param name="procedureId">Procedure ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get A Checklist Or Procedure response.</returns>
-        public virtual async Task<Procedure> ProceduresGetAsync(int procedureID, CancellationToken cancellationToken = default)
+        public virtual async Task<Procedure> ProceduresGetAsync(int procedureId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureID.ToString())}";
+            var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}";
             return await this
                 .CallConnectorAsync<Procedure>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1062,16 +1063,16 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// Find Checklist Instance
         /// </summary>
         /// <remarks>Search for a checklist instance by title.</remarks>
-        /// <param name="procedureID">Procedure ID</param>
+        /// <param name="procedureId">Procedure ID</param>
         /// <param name="instanceTitle">Instance Title</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find Checklist Instance response.</returns>
-        public virtual async Task<List<ChecklistInstance>> FindChecklistInstancesAsync([DynamicValues("Find_Checklist")] int procedureID, string instanceTitle = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<ChecklistInstance>> FindChecklistInstancesAsync([DynamicValues("Find_Checklist")] int procedureId, string instanceTitle = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (instanceTitle != default)
                 queryParams.Add($"query={Uri.EscapeDataString(instanceTitle.ToString())}");
-            var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureID.ToString())}/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<List<ChecklistInstance>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1114,3 +1115,4 @@ namespace Azure.Connectors.Sdk.Waywedo
 
     #endregion Client
 }
+

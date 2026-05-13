@@ -7097,14 +7097,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Delete Attachment
         /// </summary>
         /// <remarks>Business applications can use this service API to delete the attachment of a document.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
-        /// <param name="attachmentID">Attachment ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
+        /// <param name="attachmentId">Attachment ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete Attachment response.</returns>
-        public virtual async Task<EmptyResponse> AttachmentDeleteAttachmentAsync(int packageID, int documentID, int attachmentID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> AttachmentDeleteAttachmentAsync(int packageId, int documentId, int attachmentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/attachments/{Uri.EscapeDataString(attachmentID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7114,14 +7114,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Download Attachment
         /// </summary>
         /// <remarks>Business applications can use this service API to download the attachment of a document.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
-        /// <param name="attachmentID">Attachment ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
+        /// <param name="attachmentId">Attachment ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download Attachment response.</returns>
-        public virtual async Task<AttachmentDownloadAttachmentResponse> AttachmentDownloadAttachmentAsync(int packageID, int documentID, int attachmentID, CancellationToken cancellationToken = default)
+        public virtual async Task<AttachmentDownloadAttachmentResponse> AttachmentDownloadAttachmentAsync(int packageId, int documentId, int attachmentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/attachments/{Uri.EscapeDataString(attachmentID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
             return await this
                 .CallConnectorAsync<AttachmentDownloadAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7131,13 +7131,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Attachments
         /// </summary>
         /// <remarks>Business applications can use this service API to get the attachments of a document.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Attachments response.</returns>
-        public virtual async Task<List<GetAttachmentResponse>> AttachmentGetAttachmentsAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GetAttachmentResponse>> AttachmentGetAttachmentsAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/attachments";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
             return await this
                 .CallConnectorAsync<List<GetAttachmentResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7147,13 +7147,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Upload Attachment
         /// </summary>
         /// <remarks>Business applications can use this service API to upload a attachment in a document.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload Attachment response.</returns>
-        public virtual async Task<AddAttachmentResponse> AttachmentUploadAttachmentAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<AddAttachmentResponse> AttachmentUploadAttachmentAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/attachments";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
             return await this
                 .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7163,14 +7163,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add CheckBox Field
         /// </summary>
         /// <remarks>Business applications can use this service API to add a checkbox to a document in a package.               At least one user must exist in a workflow before fields(input and signature) can be added to the document in this way.The order number corresponds to the recipient in the workflow.Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.  Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.               If width and height parameters are not provided, a default size of 10x10 will be assigned. If either width or height (or both) is provided, the system will compare these provided values with each other. The larger value between width and height will be assigned to both dimensions.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add CheckBox Field response.</returns>
-        public virtual async Task<AddFieldResponse> CheckboxAddCheckBoxAsync(int packageID, int documentID, CheckBoxFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddFieldResponse> CheckboxAddCheckBoxAsync(int packageId, int documentId, CheckBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/checkbox";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
             return await this
                 .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7180,14 +7180,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update CheckBox Field
         /// </summary>
         /// <remarks>Business applications can use this service API to update a checkbox field of a document in a package.               Note all of the input parameters can be changed.Where you wish to retain the current setting submit it in the call unchanged.You can therefore use the same parameters as when you added the input field, or the information as returned by [Get Document Fields](#operation/Documents_GetDocumentFields).The latter can be used when a template was applied or the document was created using the GUI interface.               It&apos;s width and height cannot be updated. They will remain the same as when they were added.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update CheckBox Field response.</returns>
-        public virtual async Task<EmptyResponse> CheckboxUpdateCheckBoxAsync(int packageID, int documentID, UpdateCheckBoxFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> CheckboxUpdateCheckBoxAsync(int packageId, int documentId, UpdateCheckBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/checkbox";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7220,13 +7220,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Delete Document
         /// </summary>
         /// <remarks>Business applications can use this service API to delete a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete Document response.</returns>
-        public virtual async Task<DocumentResponse> DocumentsDeleteDocumentAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentResponse> DocumentsDeleteDocumentAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
             return await this
                 .CallConnectorAsync<DocumentResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7236,13 +7236,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Download Document
         /// </summary>
         /// <remarks>Business applications can use this service API to download the document bytes. The package ID and document ID is provided in the resource URL.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download Document response.</returns>
-        public virtual async Task<DocumentsDownloadDocumentBytesResponse> DocumentsDownloadDocumentBytesAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentsDownloadDocumentBytesResponse> DocumentsDownloadDocumentBytesAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
             return await this
                 .CallConnectorAsync<DocumentsDownloadDocumentBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7252,13 +7252,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Certify Policy for a document
         /// </summary>
         /// <remarks>Business applications can use this service API to get certify signature settings of a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Certify Policy for a document response.</returns>
-        public virtual async Task<CertifyPolicyResponse> DocumentsGetCertifyPolicyAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<CertifyPolicyResponse> DocumentsGetCertifyPolicyAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/certify";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
             return await this
                 .CallConnectorAsync<CertifyPolicyResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7268,13 +7268,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Document Details
         /// </summary>
         /// <remarks>Business applications can use this service API to get the document details. The document ID is provided in the URL as “{document_id}”.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Document Details response.</returns>
-        public virtual async Task<DocumentDetailsResponse> DocumentsGetDocumentDetailsAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentDetailsResponse> DocumentsGetDocumentDetailsAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/details";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/details";
             return await this
                 .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7284,14 +7284,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Rename Document
         /// </summary>
         /// <remarks>Business applications can use this service API to rename a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Rename Document response.</returns>
-        public virtual async Task<DocumentResponse> DocumentsRenameDocumentAsync(int packageID, int documentID, RenameDocumentRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentResponse> DocumentsRenameDocumentAsync(int packageId, int documentId, RenameDocumentRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
             return await this
                 .CallConnectorAsync<DocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7301,14 +7301,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Certify Policy for a document
         /// </summary>
         /// <remarks>Business applications can use this service API to update certify signature settings for a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Certify Policy for a document response.</returns>
-        public virtual async Task<EmptyResponse> DocumentsUpdateCertifyPolicyAsync(int packageID, int documentID, UpdateCertifyPolicyRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> DocumentsUpdateCertifyPolicyAsync(int packageId, int documentId, UpdateCertifyPolicyRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/certify";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7318,13 +7318,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add or Update Document from Library
         /// </summary>
         /// <remarks>Business applications can use this service API to add a document from the user’s library to a package. Package ID is provided in the URL, the ID of the document should also be provided as “document_id” in the resource URL to identify the library document to be copied.               Note a package must already exist before you can add a document using this call.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add or Update Document from Library response.</returns>
-        public virtual async Task<UploadDocumentLibraryResponse> DocumentsUploadFromLibraryAsync(int packageID, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<UploadDocumentLibraryResponse> DocumentsUploadFromLibraryAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/library/{Uri.EscapeDataString(documentID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/library/{Uri.EscapeDataString(documentId.ToString())}";
             return await this
                 .CallConnectorAsync<UploadDocumentLibraryResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7334,12 +7334,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Upload Document
         /// </summary>
         /// <remarks>Business applications can use this service API to add a document to a document package linked to an enterprise user’s account. The document information is sent in the HTTP request header and document bytes are sent in the HTTP request body.  Note SigningHub will convert supported document formats to PDF if the header &quot;x-convert-document&quot; is set to a value of &quot;true&quot;.  The only case supported where this value is set to &quot;false&quot; is to retain Word format and XML documents.                SigningHub supports a wide variety of document formats, each of which can be converted to PDF format upon upload.Click here for the full list.                Note PDF documents are not altered upon upload to the system.                Note a package must already exist before you can add a document using this call.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload Document response.</returns>
-        public virtual async Task<UploadDocument> DocumentsUploadStreamAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<UploadDocument> DocumentsUploadStreamAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents";
             return await this
                 .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7349,13 +7349,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Workflow User Authentication (Document Opening)  of Enterprise Package
         /// </summary>
         /// <remarks>Business applications can use this service API to get the access security settings enabled for the package. Recipients for whom the security is configured are identified by the order in the URL. Package ID is also identified in the request URL. Recipients will not be able to access document package outside the scope of this duration if the access security is enabled. Document owner can also configure authentication based security of the package for a recipient.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="recipientOrder">Recipient Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Workflow User Authentication (Document Opening)  of Enterprise Package response.</returns>
-        public virtual async Task<EnterpriseAccessResponse> EnterpriseDocumentsGetEnterpriseWorkflowAccessAsync(int packageID, int recipientOrder, CancellationToken cancellationToken = default)
+        public virtual async Task<EnterpriseAccessResponse> EnterpriseDocumentsGetEnterpriseWorkflowAccessAsync(int packageId, int recipientOrder, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
+            var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
             return await this
                 .CallConnectorAsync<EnterpriseAccessResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7365,14 +7365,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Workflow User Authentication (Document Opening) of Enterprise Package
         /// </summary>
         /// <remarks>Business applications can use this service API to update the package authentications and access duration for the recipients. This API can also be used by the enterprise administrator or the enterprise user if the &quot;scope&quot; variable was used in the authentication request</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="recipientOrder">Recipient Order</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Workflow User Authentication (Document Opening) of Enterprise Package response.</returns>
-        public virtual async Task<EmptyResponse> EnterpriseDocumentsUpdateEnterpriseWorkflowAccessAsync(int packageID, int recipientOrder, AccessUpdateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> EnterpriseDocumentsUpdateEnterpriseWorkflowAccessAsync(int packageId, int recipientOrder, AccessUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
+            var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7382,14 +7382,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Assign Document Field
         /// </summary>
         /// <remarks>Business applications can use this service API to assign users to input fields, e.g. signature fields, and hence define the signing order.  The fields must already be present in the document and the users must be present in the workflow. The ID of the workflow document is provided in the resource URL, along with the package identifier.               When recipients are in a workflow they are numbered, beginning at one and counting up for each extra one.Therefore, if there are three users in a workflow they are numbered &quot;1&quot;, &quot;2&quot;, and &quot;3&quot; respectfully.This API call allows you to assign a user by their workflow order number, to an input field on the document.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Assign Document Field response.</returns>
-        public virtual async Task<EmptyResponse> FieldsAutoAssignFieldAsync(int packageID, int documentID, List<AssignFieldRequest> input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> FieldsAutoAssignFieldAsync(int packageId, int documentId, List<AssignFieldRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/assign";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/assign";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7399,14 +7399,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// AutoPlace Fields
         /// </summary>
         /// <remarks>Business applications can call this API to add signature or user defined form fields to a document based upon the search criterion supplied. The placement options are: to the left, to the right, top and bottom.  The document is search and all instances of the search criteria met are processed.  This allows you to add multiple fields with one call.  For example, upload a document and automatically place a signature field to the right of all instances of the word &quot;Sign here:&quot;.  This saves time and ensures no signatures are missed from the workflow.               The API call supports all types of fields; namely electronic, digital, in-person, initials, and text field etc.               In addition, the API call supports the &quot;order&quot; variable.This means you can assign a set of signature fields automatically to a single user.Hence, the call can be repeated to place and assign signature fields to more than one user in the workflow.               At least one user must exist in a workflow before signature fields can be added to the document in this way.The order number corresponds to the recipient in the workflow.  Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               This API call can be used multiple times on the same document.The reason for doing so is to cater for multiple signatories on a document.The recipient or signatory is identified by the &quot;order&quot; variable passed in the call.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.  Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The AutoPlace Fields response.</returns>
-        public virtual async Task<List<AutoPlaceFieldsResponse>> FieldsAutoPlaceAsync(int packageID, int documentID, AutoPlaceFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<AutoPlaceFieldsResponse>> FieldsAutoPlaceAsync(int packageId, int documentId, AutoPlaceFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/autoplace";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/autoplace";
             return await this
                 .CallConnectorAsync<List<AutoPlaceFieldsResponse>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7416,14 +7416,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Delete Document Field
         /// </summary>
         /// <remarks>Business applications can use this service API to delete a field of document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete Document Field response.</returns>
-        public virtual async Task<EmptyResponse> FieldsDeleteDocumentFieldAsync(int packageID, int documentID, DeleteDocumentFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> FieldsDeleteDocumentFieldAsync(int packageId, int documentId, DeleteDocumentFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7433,14 +7433,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Fill Form Fields
         /// </summary>
         /// <remarks>Business applications can use this service API to fill one or more form fields in a document by a specified user in the order.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Fill Form Fields response.</returns>
-        public virtual async Task<EmptyResponse> FieldsFillFormFieldsAsync(int packageID, int documentID, FormFillingRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> FieldsFillFormFieldsAsync(int packageId, int documentId, FormFillingRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7450,14 +7450,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Document Fields
         /// </summary>
         /// <remarks>Business applications can use this service API to get document fields i.e., initials, in-persons, signature fields or form fields.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="pageNo">Page No</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Document Fields response.</returns>
-        public virtual async Task<FieldsResponse> FieldsGetAllDocumentFieldsAsync(int packageID, int documentID, int pageNo, CancellationToken cancellationToken = default)
+        public virtual async Task<FieldsResponse> FieldsGetAllDocumentFieldsAsync(int packageId, int documentId, int pageNo, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/{Uri.EscapeDataString(pageNo.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/{Uri.EscapeDataString(pageNo.ToString())}";
             return await this
                 .CallConnectorAsync<FieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7467,13 +7467,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Move Package to Custom or Shared Space folder
         /// </summary>
         /// <remarks>Business applications can use this service API to move the document package to a shared space or user&apos;s custom folder.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Move Package to Custom or Shared Space folder response.</returns>
-        public virtual async Task<EmptyResponse> FolderMovePackageAsync(int packageID, MoveToRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> FolderMovePackageAsync(int packageId, MoveToRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/move_to";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/move_to";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7483,14 +7483,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add Initial Field
         /// </summary>
         /// <remarks>Business applications can use this service API to add an initials field to a document in a package.               At least one user must exist in a workflow before fields(input and signature) can be added to the document in this way.The order number corresponds to the recipient in the workflow.Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.  Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Initial Field response.</returns>
-        public virtual async Task<AddFieldResponse> InitialsAddInitialAsync(int packageID, int documentID, InitialFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddFieldResponse> InitialsAddInitialAsync(int packageId, int documentId, InitialFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/initials";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
             return await this
                 .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7500,14 +7500,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Fill Initials
         /// </summary>
         /// <remarks>Business applications can use this service API to fill an initials field in a document by a specified user in the order.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Fill Initials response.</returns>
-        public virtual async Task<EmptyResponse> InitialsFillAsync(int packageID, int documentID, InitialFillingRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> InitialsFillAsync(int packageId, int documentId, InitialFillingRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/initial";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/initial";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7517,14 +7517,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Initial Field
         /// </summary>
         /// <remarks>Business applications can use this service API to update an initials field of a document in a package.               Note all of the input parameters can be changed.Where you wish to retain the current setting submit it in the call unchanged.               You can therefore use the same parameters as when you added the input field, or the information as returned by [Get Document Fields](#operation/Documents_GetDocumentFields).The latter can be used when a template was applied or the document was created using the GUI interface.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Initial Field response.</returns>
-        public virtual async Task<EmptyResponse> InitialsUpdateInitialAsync(int packageID, int documentID, UpdateInitialFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> InitialsUpdateInitialAsync(int packageId, int documentId, UpdateInitialFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/initials";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7534,14 +7534,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add In-person Field
         /// </summary>
         /// <remarks>Business applications can use this service API to an add in-person signature field to a document in a package.               At least one user must exist in a workflow before fields(input and signature) can be added to the document in this way.The order number corresponds to the recipient in the workflow.Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.  Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.               In order to host an in-person meeting a SigningHub user must be part of the workflow.They must either be added with Role &quot;INPERSON_HOST&quot; or &quot;SIGNER&quot;.  For the host option they do not require a signature or input field on the document, and the in-person signature field can be signed by the non-SigningHub registered user.               Note this is a special workflow scenario whereby it is expected that the SigningHub user and recipient would be in the same location.This type of signature is not intended for use whereby a document is shared with recipients over email link in the normal loose integration method.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add In-person Field response.</returns>
-        public virtual async Task<AddFieldResponse> InPersonAddInPersonAsync(int packageID, int documentID, InPersonFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddFieldResponse> InPersonAddInPersonAsync(int packageId, int documentId, InPersonFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/in_person_signature";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
             return await this
                 .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7551,14 +7551,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update In-person Field
         /// </summary>
         /// <remarks>Business applications can use this service API to update an in-person signature field of a document in a package.               Note all of the input parameters can be changed.Where you wish to retain the current setting submit it in the call unchanged.You can therefore use the same parameters as when you added the input field, or the information as returned by [Get Document Fields](#operation/Documents_GetDocumentFields).The latter can be used when a template was applied or the document was created using the GUI interface.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update In-person Field response.</returns>
-        public virtual async Task<EmptyResponse> InPersonUpdateInPersonAsync(int packageID, int documentID, UpdateInPersonFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> InPersonUpdateInPersonAsync(int packageId, int documentId, UpdateInPersonFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/in_person_signature";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7583,13 +7583,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Approve Document
         /// </summary>
         /// <remarks>Business applications can use this service API to approve a document by a specified user in the order.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Approve Document response.</returns>
-        public virtual async Task<EmptyResponse> PackageApproveAsync(int packageID, ApproveRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageApproveAsync(int packageId, ApproveRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/approve";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/approve";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7599,13 +7599,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Decline Document
         /// </summary>
         /// <remarks>Business applications can use this service API to decline a document by a specified user in the order.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Decline Document response.</returns>
-        public virtual async Task<EmptyResponse> PackageDeclineAsync(int packageID, DeclineRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageDeclineAsync(int packageId, DeclineRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/decline";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/decline";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7615,12 +7615,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Delete Package
         /// </summary>
         /// <remarks>Business applications can use this service API to delete a document from the user inbox. The package ID is provided in the resource URL as &quot;{package_id}&quot;. If the document status is PENDING, then it is automatically declined as result of delete operation. If the document status is SHARED, then the document is automatically recalled and workflow is stopped before the document is deleted.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete Package response.</returns>
-        public virtual async Task<EmptyResponse> PackageDeletePackageAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageDeletePackageAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7630,16 +7630,16 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Download Package
         /// </summary>
         /// <remarks>Business applications can use this service API to download the document package in binary format.               The package ID is provided in the resource URL.               If the package contains only one document, the download is the binary PDF document.               Alternatively, if the package has more than one document, the download is the binary zip file of all documents.               The x-password and x-otp headers are optional.  They are required if the document owner set them during the workflow creation phase.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="documentIDs">Document IDs</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download Package response.</returns>
-        public virtual async Task<PackageDownloadPackageBytesResponse> PackageDownloadPackageBytesAsync(int packageID, object[] documentIDs = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PackageDownloadPackageBytesResponse> PackageDownloadPackageBytesAsync(int packageId, object[] documentIDs = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (documentIDs != default)
                 queryParams.Add($"document-ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentIDs))}");
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PackageDownloadPackageBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7649,12 +7649,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Finish Processing
         /// </summary>
         /// <remarks>Business applications can use this service API to finish the document processing after signing all the signature fields.  This method is primarily used by native SigningHub mobile apps for iOS and Android, and mobile web use cases.  General business applications employing tight integration into their respective portal do not need to call this method.  However, when using the Sign Document API (and hence the user is not presented with a visual representation of the document they are requested to sign) calling this API is required in order to ensure the respective workflow continues or completes.  For example, once all signatures have been applied using the &quot;blind&quot; Sign Document API call the document will not show as status &quot;Completed&quot; to the owner until this API is invoked.  The document owner will see a status of &quot;In Progress&quot; until this API is called.               Within native SigningHub mobile apps and mobile web use cases, this call is necessary to ensure that each user completes their respective actions with respect to SigningHub.For example, after a signatory has signed a document in SigningHub App, this method is invoked by the application to ensure the workflow continues to process and the next signatory is notified, and the document status is available via the configured call-back URL.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Finish Processing response.</returns>
-        public virtual async Task<EmptyResponse> PackageFinishAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageFinishAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/finish";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/finish";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7664,13 +7664,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Gatekeeper Approve Document
         /// </summary>
         /// <remarks>Business applications can use this service API to gatekeeper approve a document by a specified user in the order.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Gatekeeper Approve Document response.</returns>
-        public virtual async Task<EmptyResponse> PackageGatekeeperApproveAsync(int packageID, ApproveRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageGatekeeperApproveAsync(int packageId, ApproveRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/gatekeeper/approve";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/approve";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7680,13 +7680,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Gatekeeper Decline Document
         /// </summary>
         /// <remarks>Business applications can use this service API to gatekeeper decline a document by a specified user in the order.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Gatekeeper Decline Document response.</returns>
-        public virtual async Task<EmptyResponse> PackageGatekeeperDeclineAsync(int packageID, DeclineRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageGatekeeperDeclineAsync(int packageId, DeclineRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/gatekeeper/decline";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/decline";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7700,10 +7700,10 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <param name="pageNumber">Page Number</param>
         /// <param name="recordsPerPage">Records Per Page</param>
         /// <param name="packageName">Package Name</param>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="from">From</param>
         /// <param name="to">To</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="expiryDays">Expiry (Days)</param>
         /// <param name="fromModifiedDate">From Modified Date</param>
         /// <param name="toModifiedDate">To Modified Date</param>
@@ -7720,19 +7720,19 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <param name="smartFormName">Smart Form Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Packages response.</returns>
-        public virtual async Task<List<GetPackagesResponse>> PackageGetAllPackagesAsync(string documentStatus, int pageNumber, int recordsPerPage, string packageName = default, int packageID = default, string from = default, string to = default, int documentID = default, int expiryDays = default, string fromModifiedDate = default, string toModifiedDate = default, int fromSizeKB = default, int toSizeKB = default, bool certifiedDocuments = default, bool formFields = default, bool attachments = default, string documentType = default, string sortBy = default, bool ascendingOrder = default, object[] documentStatuses = default, string ownedBy = default, string smartFormName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GetPackagesResponse>> PackageGetAllPackagesAsync(string documentStatus, int pageNumber, int recordsPerPage, string packageName = default, int packageId = default, string from = default, string to = default, int documentId = default, int expiryDays = default, string fromModifiedDate = default, string toModifiedDate = default, int fromSizeKB = default, int toSizeKB = default, bool certifiedDocuments = default, bool formFields = default, bool attachments = default, string documentType = default, string sortBy = default, bool ascendingOrder = default, object[] documentStatuses = default, string ownedBy = default, string smartFormName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (packageName != default)
                 queryParams.Add($"package-name={Uri.EscapeDataString(packageName.ToString())}");
-            if (packageID != default)
-                queryParams.Add($"package-id={Uri.EscapeDataString(packageID.ToString())}");
+            if (packageId != default)
+                queryParams.Add($"package-id={Uri.EscapeDataString(packageId.ToString())}");
             if (from != default)
                 queryParams.Add($"recipient-from={Uri.EscapeDataString(from.ToString())}");
             if (to != default)
                 queryParams.Add($"recipient-to={Uri.EscapeDataString(to.ToString())}");
-            if (documentID != default)
-                queryParams.Add($"document-id={Uri.EscapeDataString(documentID.ToString())}");
+            if (documentId != default)
+                queryParams.Add($"document-id={Uri.EscapeDataString(documentId.ToString())}");
             if (expiryDays != default)
                 queryParams.Add($"expiry={Uri.EscapeDataString(expiryDays.ToString())}");
             if (fromModifiedDate != default)
@@ -7771,12 +7771,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Package Details
         /// </summary>
         /// <remarks>Business applications can use this service API to get the details of an package. This API can also be used by the business application to perform action on behalf of the enterprise user via &quot;Scope Authentication&quot;.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Package Details response.</returns>
-        public virtual async Task<GetPackageDetailsResponse> PackageGetPackageDetailsAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetPackageDetailsResponse> PackageGetPackageDetailsAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/details";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/details";
             return await this
                 .CallConnectorAsync<GetPackageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7786,13 +7786,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Rename Package
         /// </summary>
         /// <remarks>This service API is used to rename a document package.               The document package is identified by its unique identifier in the URL of the call.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Rename Package response.</returns>
-        public virtual async Task<EmptyResponse> PackageRenamePackageAsync(int packageID, RenameDocumentPackageRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageRenamePackageAsync(int packageId, RenameDocumentPackageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7802,12 +7802,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Submit Document
         /// </summary>
         /// <remarks>One of the SigningHub roles is called &quot;Editor&quot;.  This allows a recipient to edit input fields on a document, but does not require a signature.  Once completed the recipient submits their changes.  The button used in the GUI is called &quot;Submit&quot;.               This is the equivalent operation for an editor to submit their changes via an API call.               Click [SigningHub Roles](http://manuals.ascertia.com/SigningHubv7/default.aspx#pageid=1056) for a description of all available workflow recipient roles.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Submit Document response.</returns>
-        public virtual async Task<EmptyResponse> PackageSubmitAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> PackageSubmitAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/submit";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/submit";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7817,14 +7817,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add QR Code
         /// </summary>
         /// <remarks>Business applications can use this service API to add a QR Code to a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add QR Code response.</returns>
-        public virtual async Task<AddQrCodeResponse> QRAddQRCodeAsync(int packageID, int documentID, QrCodeRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddQrCodeResponse> QRAddQRCodeAsync(int packageId, int documentId, QrCodeRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/qrcode";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
             return await this
                 .CallConnectorAsync<AddQrCodeResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7834,14 +7834,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update QR Code
         /// </summary>
         /// <remarks>Business applications can use this service API to update a QR Code of a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update QR Code response.</returns>
-        public virtual async Task<UpdateQrCodeResponse> QRUpdateQRCodeAsync(int packageID, int documentID, UpdateQrCodeRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateQrCodeResponse> QRUpdateQRCodeAsync(int packageId, int documentId, UpdateQrCodeRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/qrcode";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
             return await this
                 .CallConnectorAsync<UpdateQrCodeResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7851,14 +7851,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add RadioBox Field
         /// </summary>
         /// <remarks>Business applications can use this service API to add a checkbox to a document in a package.               At least one user must exist in a workflow before fields(input and signature) can be added to the document in this way.The order number corresponds to the recipient in the workflow.Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.  Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.               If width and height parameters are not provided, a default size of 10x10 will be assigned. If either width or height (or both) is provided, the system will compare these provided values with each other. The larger value between width and height will be assigned to both dimensions.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add RadioBox Field response.</returns>
-        public virtual async Task<AddFieldResponse> RadioAddRadioBoxAsync(int packageID, int documentID, RadioBoxFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddFieldResponse> RadioAddRadioBoxAsync(int packageId, int documentId, RadioBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/radio";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
             return await this
                 .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7868,14 +7868,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update RadioBox Field
         /// </summary>
         /// <remarks>Business applications can use this service API to update a radio button of a document in a package.               Note all of the input parameters can be changed.Where you wish to retain the current setting submit it in the call unchanged.You can therefore use the same parameters as when you added the input field, or the information as returned by [Get Document Fields](#operation/Documents_GetDocumentFields).The latter can be used when a template was applied or the document was created using the GUI interface.               It&apos;s width and height cannot be updated. They will remain the same as when they were added.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update RadioBox Field response.</returns>
-        public virtual async Task<EmptyResponse> RadioUpdateRadioBoxAsync(int packageID, int documentID, UpdateRadioBoxFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> RadioUpdateRadioBoxAsync(int packageId, int documentId, UpdateRadioBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/radio";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7908,14 +7908,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add Digital Signature Field
         /// </summary>
         /// <remarks>Business applications can use this service API to add a digital signature field to a document in a package.               At least one user must exist in a workflow before fields(input and signature) can be added to the document in this way.The order number corresponds to the recipient in the workflow.Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Digital Signature Field response.</returns>
-        public virtual async Task<SignatureFieldResponse> SignatureAddSignatureAsync(int packageID, int documentID, DigitalSignatureFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<SignatureFieldResponse> SignatureAddSignatureAsync(int packageId, int documentId, DigitalSignatureFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/signature";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
             return await this
                 .CallConnectorAsync<SignatureFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7925,14 +7925,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Digital Signature Field
         /// </summary>
         /// <remarks>Business applications can use this service API to update a digital signature field of a document in a package.               Note all of the input parameters can be changed.Where you wish to retain the current setting submit it in the call unchanged.You can therefore use the same parameters as when you added the input field, or the information as returned by [Get Document Fields](#operation/Documents_GetDocumentFields).The latter can be used when a template was applied or the document was created using the GUI interface.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Digital Signature Field response.</returns>
-        public virtual async Task<EmptyResponse> SignatureUpdateSignatureAsync(int packageID, int documentID, UpdateDigitalSignatureFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> SignatureUpdateSignatureAsync(int packageId, int documentId, UpdateDigitalSignatureFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/signature";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7942,13 +7942,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Bulk Sign Packages
         /// </summary>
         /// <remarks>Business applications can use this API to sign/share/sign and share multiple documents (both electronic and digital) without displaying the documents to the end user. This API needs information from the business application about document packages and the details of signatures, in-person and initials fields. On the successful completion of bulk signing transaction, the API will return the statuses and transaction ids of the document packages.               Unlike the Sign Document API, this API not only signs a document package but also marks it as approved and reviewed based on whether the recipient is a Signer, Editor or Reviewer. Any document package for which the status returns as COMPLETED has been signed, approved or reviewed by this API.               Bulk Signing works with all the signing-time authentication methods.               If SIGN is passed as bulk_action and package is in Draft state, Sign and Share will be performed automatically.               You must call this API after the [Pre Bulk Sign Documents](#operation/V4_Documents_ValidateBulkSignPackages) API.               In case you need to make changes in any of the document before signing, the [Fill Form Fields](#operation/V4_Documents_FillFormFields) API should be called before calling the Pre Bulk Sign Document API.  Remember, any mandatory input fields on a document require completing before this API will successfully complete; whereas, the auto-populated fields (like Name, Email, Date, Job Title, etc.) will be automatically filled.               The signatory is identified by the access token presented in the call.  Therefore, [authentication](#tag/Authentication) of the signatory is required prior to making this call.  You cannot authenticate as an Enterprise Admin with the scope variable, and sign a document on behalf of a user.  The access token must be issued to the signatory as a result of direct authentication.               Once document is signed, the verification response can be seen from the [Bulk Signing Status](#operation/V4_Documents_BulkSignStatus) API.               First or Second Factor OTP Usage for Authentication               In case OTP authentication is turned on for the server side signing operation, the client applications will need to generate an OTP for the mobile number using the [Bulk Sign Authentication via OTP](#operation/V4_Documents_SendsOTP) API call.  Respective business applications must retrieve the OTP from the use and submit it when making the API call.  This is done using the &quot;x-otp&quot; header in the request.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Bulk Sign Packages response.</returns>
-        public virtual async Task<BulkSignResponse> SigningBulkSignDocumentsAsync(string packageID, BulkSignRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<BulkSignResponse> SigningBulkSignDocumentsAsync(string packageId, BulkSignRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
             return await this
                 .CallConnectorAsync<BulkSignResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -7974,14 +7974,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Sign Document
         /// </summary>
         /// <remarks>Business applications can use this service API to sign a document (both electronic and digital) without displaying the document to the end user using SigningHub.  For example, a business application may have another method to display the document to the user, and only the signing functionality of SigningHub is required, or for bulk operations it may be justified to sign without requiring the user to view and approve every document individually.  If there are changes to be saved in the document before signing, [Fill Form Fields](#operation/Documents_FillFormFields) API should be called before calling the Sign Document API.  Note any mandatory input fields on a document require completing before this API will successfully complete.               The signatory is identified by the access token presented in the call.Therefore, [authentication](#tag/Authentication) of the signatory is required prior to making this call.You cannot authenticate as an Enterprise Admin with the scope variable, and sign a document on behalf of a user.The access token must be issued to the signatory as a result of direct authentication.               When this call completes it is important that if the signatory was the last signer for a document that the [Finish Document](#operation/Documents_Finish) API call is invoked.The reason is because without calling that API the document will remain in a status of &quot;In Progress&quot; to the document owner.  Once the API has been called, the status will change to &quot;Completed&quot; for the document owner.               Once document is signed, the verification response can be seen from [Get Document Verification](#operation/Documents_GetDocumentPackageVerification) API.               First or Second Factor OTP Usage for Authentication               If OTP authentication is turned on for the server side signing operation, client applications will need to generate a OTP for the mobile number using [Signer Authentication via OTP](#operation/Documents_SendOtpForField) API call.  Respective business applications must retrieve the OTP from the use and submit it when making the API call.  This is done using the &quot;x-otp&quot; header in the request.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Sign Document response.</returns>
-        public virtual async Task<SignDocumentResponse> SigningSignDocumentAsync(int packageID, int documentID, SignDocumentRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<SignDocumentResponse> SigningSignDocumentAsync(int packageId, int documentId, SignDocumentRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/sign";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/sign";
             return await this
                 .CallConnectorAsync<SignDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8017,14 +8017,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add TextBox Field
         /// </summary>
         /// <remarks>Business applications can use this service API to add a text input field to a document in a package.               At least one user must exist in a workflow before fields(input and signature) can be added to the document in this way.The order number corresponds to the recipient in the workflow.Therefore, this number must be equal or less than the total number of users in the workflow.  The below example assigns this new signature field to the first person in the workflow.               See [Add Users to Workflow](#operation/Workflow_WorkflowAddUser) for more information.  Note if you have a document with a template applied, or have applied one using the APIs, then the workflow will already contain users.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add TextBox Field response.</returns>
-        public virtual async Task<AddFieldResponse> TextBoxAddTextBoxAsync(int packageID, int documentID, TextBoxFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddFieldResponse> TextBoxAddTextBoxAsync(int packageId, int documentId, TextBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/text";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
             return await this
                 .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8034,14 +8034,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update TextBox Field
         /// </summary>
         /// <remarks>Business applications can use this service API to update a text box of a document in a package.               Note all of the input parameters can be changed.Where you wish to retain the current setting submit it in the call unchanged.             You can therefore use the same parameters as when you added the input field, or the information as returned by [Get Document Fields](#operation/Documents_GetDocumentFields).             The latter can be used when a template was applied or the document was created using the GUI interface.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update TextBox Field response.</returns>
-        public virtual async Task<EmptyResponse> TextBoxUpdateTextBoxAsync(int packageID, int documentID, UpdateTextBoxFieldRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> TextBoxUpdateTextBoxAsync(int packageId, int documentId, UpdateTextBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/fields/text";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8051,14 +8051,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Apply Workflow Template
         /// </summary>
         /// <remarks>Business applications can use this service API to apply a workflow template to a document. The document ID on which template has to be applied is provided in the resource URL. When document ID is set to 0 then template will be applied to to all of the doucments in a pacakge.               While applying the template it is important to remember these two important points:               Point 1 - If the template being applied is created using a PDF which already contained form fields then ensure that the document on which this template is now being applied must contain these form fields in advance and SigningHub will NOT create those form fields via the template rather only apply the form data and assign to the respective users.               Point 2 - If the template being applied is created where form fields are manually added (hence not present in the PDF originally) via SigningHub e.g. signature field, initial, in-person signature, check boxes, radio buttons, text fields etc. then on applying such a template, these form fields will be created on the target document even if these form fields were already present in the document.</remarks>
-        /// <param name="packageID">Package ID</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="packageId">Package ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Apply Workflow Template response.</returns>
-        public virtual async Task<DocumentDetailsResponse> WorkflowApplyTemplateAsync(int packageID, int documentID, ApplyTemplateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentDetailsResponse> WorkflowApplyTemplateAsync(int packageId, int documentId, ApplyTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/documents/{Uri.EscapeDataString(documentID.ToString())}/template";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/template";
             return await this
                 .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8068,12 +8068,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Process Evidence Report
         /// </summary>
         /// <remarks>Business applications can use this service API to download the workflow process evidence report of a document.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Process Evidence Report response.</returns>
-        public virtual async Task<WorkflowEvidenceReportDownloadBytesResponse> WorkflowEvidenceReportDownloadBytesAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<WorkflowEvidenceReportDownloadBytesResponse> WorkflowEvidenceReportDownloadBytesAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/report";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/report";
             return await this
                 .CallConnectorAsync<WorkflowEvidenceReportDownloadBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8083,12 +8083,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Workflow Details
         /// </summary>
         /// <remarks>Business applications can use this service API to get workflow details for the package.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Workflow Details response.</returns>
-        public virtual async Task<WorkflowDetailsResponse> WorkflowGetWorkflowDetailAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<WorkflowDetailsResponse> WorkflowGetWorkflowDetailAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
             return await this
                 .CallConnectorAsync<WorkflowDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8098,14 +8098,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Workflow History
         /// </summary>
         /// <remarks>Business applications can utilize this service API to retrieve the list of actions performed on a document. The package ID is provided in the resource URL. The search field (x-search-text header) is intended for email, document name, action, infokey, and infovalue.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="pageNumber">Page Number</param>
         /// <param name="recordsPerPage">Records Per Page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Workflow History response.</returns>
-        public virtual async Task<WorkflowHistoryResponse> WorkflowGetWorkflowHistoryAsync(int packageID, int pageNumber, int recordsPerPage, CancellationToken cancellationToken = default)
+        public virtual async Task<WorkflowHistoryResponse> WorkflowGetWorkflowHistoryAsync(int packageId, int pageNumber, int recordsPerPage, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/log/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/log/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}";
             return await this
                 .CallConnectorAsync<WorkflowHistoryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8115,13 +8115,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Workflow Reminder
         /// </summary>
         /// <remarks>Business applications can use this service API to update the reminders for the recipients that has already been added to a workflow. Normally this call is useful after a template has been applied to a document and business applications want to override the reminders settings within the workflow. The ID of the workflow document is provided in the resource URL, and the workflow recipient is identified by the order at which it is added to the workflow.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Workflow Reminder response.</returns>
-        public virtual async Task<ReminderResponse> WorkflowGetWorkflowReminderAsync(int packageID, int order, CancellationToken cancellationToken = default)
+        public virtual async Task<ReminderResponse> WorkflowGetWorkflowReminderAsync(int packageId, int order, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
             return await this
                 .CallConnectorAsync<ReminderResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8131,12 +8131,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Workflow Users
         /// </summary>
         /// <remarks>Business applications can use this service API to get workflow details for the package.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Workflow Users response.</returns>
-        public virtual async Task<List<WorkflowRecipient>> WorkflowGetWorkflowUsersAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<WorkflowRecipient>> WorkflowGetWorkflowUsersAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/users";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
             return await this
                 .CallConnectorAsync<List<WorkflowRecipient>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8146,12 +8146,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Complete Workflow in the Middle (Terminate Workflow)
         /// </summary>
         /// <remarks>Business applications can mark the workflow completed even in the middle of the workflow. Use this service API to change the status of the workflow to completed. If there are recipients who have not signed the document yet. Their signature will not be required any more and they will not be able to see the document in their inbox any further.             Bearer token should belong to document owner or enterprise admin can use scope variable to get the access token on behalf of document owner to perform this action.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Complete Workflow in the Middle (Terminate Workflow) response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowMarkWorkflowCompletedAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowMarkWorkflowCompletedAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/complete";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/complete";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8161,13 +8161,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Workflow User Permissions
         /// </summary>
         /// <remarks>Business applications can use this service API to get document permissions for a recipient. Recipient is identified by the order in the workflow. The ID of the package is provided in the resource URL.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Workflow User Permissions response.</returns>
-        public virtual async Task<WorkflowPermissionResponse> WorkflowPermissionGetWorkflowPermissionsAsync(int packageID, int order, CancellationToken cancellationToken = default)
+        public virtual async Task<WorkflowPermissionResponse> WorkflowPermissionGetWorkflowPermissionsAsync(int packageId, int order, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
             return await this
                 .CallConnectorAsync<WorkflowPermissionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8177,14 +8177,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Workflow User Permissions
         /// </summary>
         /// <remarks>Business applications can use this service API to update the workflow permissions for a user that has already been added to a workflow. Normally this call is useful after a template has been applied to a document and business applications want to override the permissions within the workflow. The ID of the document package is provided in the resource URL, and the workflow user is identified by the order at which it is added to the workflow.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Workflow User Permissions response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowPermissionUpdateWorkflowPermissionsAsync(int packageID, int order, WorkflowPermissionsUpdateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowPermissionUpdateWorkflowPermissionsAsync(int packageId, int order, WorkflowPermissionsUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8194,12 +8194,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Recall Document
         /// </summary>
         /// <remarks>Business applications can use this service API to stop a workflow in progress. The document ID is provided in the resource URL. After recall the document status automatically changes to “DRAFT”.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Recall Document response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowRecallWorkflowAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowRecallWorkflowAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8209,12 +8209,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Share Document Package
         /// </summary>
         /// <remarks>Business applications can use this service API to share a document package with the signers and start a new workflow. The document should already have been prepared by applying a template and optionally updating the users and actions defined in template. The package ID to be shared is provided in the resource URL.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Share Document Package response.</returns>
-        public virtual async Task<List<StartWorkflowResponse>> WorkflowStartWorkflowAsync(int packageID, CancellationToken cancellationToken = default)
+        public virtual async Task<List<StartWorkflowResponse>> WorkflowStartWorkflowAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
             return await this
                 .CallConnectorAsync<List<StartWorkflowResponse>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8224,13 +8224,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Workflow Details
         /// </summary>
         /// <remarks>Business applications can use this service API to update the workflow details. Normally this call is useful after a template has been applied to a document, but business applications wants to override the certify permission or post processing details. The package ID is provided in the resource URL.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Workflow Details response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowAsync(int packageID, WorkflowDetailUpdateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowAsync(int packageId, WorkflowDetailUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8240,13 +8240,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Post Processing
         /// </summary>
         /// <remarks>Business applications can use this service API to add placeholder to a workflow a document in a package.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Post Processing response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowPostProcessAsync(int packageID, PostProcessUpdateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowPostProcessAsync(int packageId, PostProcessUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/post_process";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/post_process";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8256,14 +8256,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Workflow Reminders
         /// </summary>
         /// <remarks>Business applications can use this service API to update the workflow reminders for a recipient that has already been added to a workflow. Normally this call is useful after a template has been applied to a document and business applications want to override the reminders settings within the workflow. The ID of the workflow document is provided in the resource URL, and the workflow recipient is identified by the order at which it is added to the workflow.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Workflow Reminders response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowReminderAsync(int packageID, int order, UpdateReminderRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowReminderAsync(int packageId, int order, UpdateReminderRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8273,13 +8273,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add Groups to Workflow
         /// </summary>
         /// <remarks>Business applications can use this service API to add groups as a recipient to a workflow.  A SigningHub group means any member of the group can perform the action, i.e. sign, on behalf of all members of the group.               Note the group will be added as the last user/group in the workflow.Hence further work may be required to remove a current user/group, already present in the workflow. While XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Groups to Workflow response.</returns>
-        public virtual async Task<List<CollaboratorGroupResponse>> WorkflowWorkflowAddGroupAsync(int packageID, List<WorflowGroupRequest> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CollaboratorGroupResponse>> WorkflowWorkflowAddGroupAsync(int packageId, List<WorflowGroupRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/groups";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/groups";
             return await this
                 .CallConnectorAsync<List<CollaboratorGroupResponse>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8289,13 +8289,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add Placeholder to Workflow
         /// </summary>
         /// <remarks>Business applications can use this service API to add placeholder to a workflow in a package.  A place holder is required when you do not know the identity of the intended recipient in a workflow.               Note the placeholder will be added as the last user in the workflow.Hence further work may be required to remove a current user/group, already present in the workflow.               Adding a place holder allows you to proceed and add signature and/or input fields to the document, which can then be assigned to individual users at a later stage. While XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Placeholder to Workflow response.</returns>
-        public virtual async Task<List<CollaboratorPlaceholderResponse>> WorkflowWorkflowAddPlaceholderAsync(int packageID, List<PlaceholderRequest> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CollaboratorPlaceholderResponse>> WorkflowWorkflowAddPlaceholderAsync(int packageId, List<PlaceholderRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/placeholder";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/placeholder";
             return await this
                 .CallConnectorAsync<List<CollaboratorPlaceholderResponse>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8305,13 +8305,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Add Users to Workflow
         /// </summary>
         /// <remarks>Business applications can use this service API to add recipients to a workflow. This call will only add a recipient to the workflow.  That is, no fields currently on the document will be automatically assigned to the new recipient(s), nor will this create any new fields.               Note the recipient(s) will be added as the last person in the workflow.Hence further work may be required to remove a current recipient(s) already present in the workflow.               At least one user must exist in a workflow before fields (input and signature) can be added to the document.               Note the input accepts one or more users in a single call.               In this specific call the user is a known natural person.  However, the same rules apply to Groups and Placeholders.  In either of these cases the  recipient becomes a Group of users whereby any member of the group can sign the document, or a Placeholder.The latter case is used when you do not know the identity of the intended signatory.               Note SigningHub workflow signing order starts at &quot;1&quot;.  Hence, adding a user to workflow with no current recipient(s) begins a new signing order count.The &quot;signing_order&quot; parameter is mandatory if the workflow type is &quot;custom&quot;.               Important, using this API call may affect the workflow type.If there are current recipients in a sequential workflow and a new one is added with the same signing order as a current recipient, then that part of the workflow changes automatically from sequential to parallel.Hence, the workflow overall is now of type custom as opposed to purely sequential.  Adding a recipient with the same signing order as two or parallel recipients does not change the workflow.There are merely, three or more recipients at that particular point of the workflow; all in parallel order.               Note, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Users to Workflow response.</returns>
-        public virtual async Task<List<CollaboratorResponse>> WorkflowWorkflowAddUserAsync(int packageID, List<WorflowUserRequest> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CollaboratorResponse>> WorkflowWorkflowAddUserAsync(int packageId, List<WorflowUserRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/users";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
             return await this
                 .CallConnectorAsync<List<CollaboratorResponse>>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8321,13 +8321,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Delete Workflow User
         /// </summary>
         /// <remarks>Business applications can use this service API to delete workflow recipient.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete Workflow User response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowWorkflowDeleteUserAsync(int packageID, int order, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowWorkflowDeleteUserAsync(int packageId, int order, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8337,14 +8337,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Placeholder
         /// </summary>
         /// <remarks>Business applications can use this service API to update a placeholder in the workflow.  Normally this call is useful after a template has been applied to a document and business applications wants to override the details of a specific place holder within the workflow. The ID of the workflow document is provided in the resource URL, and the workflow place holder is identified by the order at which it is added to the workflow. While XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Placeholder response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowWorkflowUpdatePlaceholderAsync(int packageID, int order, WorkflowPlaceholderUpdateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowWorkflowUpdatePlaceholderAsync(int packageId, int order, WorkflowPlaceholderUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/placeholder";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/placeholder";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8354,14 +8354,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Workflow User
         /// </summary>
         /// <remarks>Business applications can use this service API to update the details of a recipient, group or place holder who has already been added to a workflow. Normally this call is useful after a template has been applied to a document and business applications wants to override the details of a specific user within the workflow. The ID of the workflow document is provided in the resource URL, and the workflow recipient is identified by the order at which it is added to the workflow. Note, while XML type document preparation, only supports role types &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Workflow User response.</returns>
-        public virtual async Task<UpdateCollaboratorResponse> WorkflowWorkflowUserUpdateAsync(int packageID, int order, WorkflowUserUpdateRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateCollaboratorResponse> WorkflowWorkflowUserUpdateAsync(int packageId, int order, WorkflowUserUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/user";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/user";
             return await this
                 .CallConnectorAsync<UpdateCollaboratorResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8371,14 +8371,14 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Workflow Users Order
         /// </summary>
         /// <remarks>Business applications can use this service API to update order of the recipient in the workflow.</remarks>
-        /// <param name="packageID">Package ID</param>
+        /// <param name="packageId">Package ID</param>
         /// <param name="order">Order</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Workflow Users Order response.</returns>
-        public virtual async Task<EmptyResponse> WorkflowWorkflowUserUpdateOrderAsync(int packageID, int order, WorkflowUserReorderRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkflowWorkflowUserUpdateOrderAsync(int packageId, int order, WorkflowUserReorderRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageID.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reorder";
+            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reorder";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8388,12 +8388,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Delete Shared Space
         /// </summary>
         /// <remarks>Business applications can use this service API to delete shared space. The availability of deleting shared spaces is subject to the assigned enterprise user role. To allow this provision Enterprise Admin will enable the ‘Manage Shared Space’ option in Roles&gt;Document Settings.</remarks>
-        /// <param name="sharedSpaceID">Shared Space ID</param>
+        /// <param name="sharedSpaceId">Shared Space ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete Shared Space response.</returns>
-        public virtual async Task<EmptyResponse> WorkSpaceDeleteSharedSpaceAsync(int sharedSpaceID, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkSpaceDeleteSharedSpaceAsync(int sharedSpaceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceID.ToString())}";
+            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8403,12 +8403,12 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Get Shared Space
         /// </summary>
         /// <remarks>Business applications can use this service API to get a specific shared space. This API returns information about shared space, its owner and collaborator.</remarks>
-        /// <param name="sharedSpaceID">Shared Space ID</param>
+        /// <param name="sharedSpaceId">Shared Space ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Shared Space response.</returns>
-        public virtual async Task<WorkSpaceResponse> WorkSpaceGetSharedSpaceAsync(int sharedSpaceID, CancellationToken cancellationToken = default)
+        public virtual async Task<WorkSpaceResponse> WorkSpaceGetSharedSpaceAsync(int sharedSpaceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceID.ToString())}";
+            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
             return await this
                 .CallConnectorAsync<WorkSpaceResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8418,13 +8418,13 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// Update Shared Space
         /// </summary>
         /// <remarks>Business applications can use this service API to update shared space. The availability of updating shared spaces is subject to the assigned enterprise user role. To allow this provision Enterprise Admin will enable the ‘Manage Shared Space’ option in Roles&gt;Document Settings.</remarks>
-        /// <param name="sharedSpaceID">Shared Space ID</param>
+        /// <param name="sharedSpaceId">Shared Space ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update Shared Space response.</returns>
-        public virtual async Task<EmptyResponse> WorkSpaceUpdateSharedSpaceAsync(int sharedSpaceID, UpdateWorkSpaceRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<EmptyResponse> WorkSpaceUpdateSharedSpaceAsync(int sharedSpaceId, UpdateWorkSpaceRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceID.ToString())}";
+            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
             return await this
                 .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -8434,3 +8434,4 @@ namespace Azure.Connectors.Sdk.SigningHub
 
     #endregion Client
 }
+

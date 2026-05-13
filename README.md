@@ -161,7 +161,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 
 ### AI Agent Skills
 
-- [Connection Setup Skill](.github/skills/connection-setup/SKILL.md) - AI agent workflow for creating Connector Gateway connections, OAuth consent, access policies, and configuring app settings — all from within VS Code
+- [Connection Setup Skill](.github/skills/connection-setup/SKILL.md) - AI agent workflow for creating Connector Namespace connections, OAuth consent, access policies, and configuring app settings — all from within VS Code
 
 ## Validated Connectors
 

@@ -1215,12 +1215,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get transcription job
         /// </summary>
         /// <remarks>Returns information about a transcription job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get transcription job response.</returns>
-        public virtual async Task<TranscriptionGetResponse> TranscriptionGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<TranscriptionGetResponse> TranscriptionGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<TranscriptionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1230,12 +1230,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Delete transcription job
         /// </summary>
         /// <remarks>Deletes a transcription job. All data related to the job, such as input media and transcript, will be permanently deleted. A job can only be deleted once it&apos;s completed (either with success or failure).</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete transcription job response.</returns>
-        public virtual async Task<string> TranscriptionDeleteAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> TranscriptionDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1281,12 +1281,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get transcript
         /// </summary>
         /// <remarks>Returns the transcript for a completed transcription job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get transcript response.</returns>
-        public virtual async Task<TranscriptGetResponse> TranscriptGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<TranscriptGetResponse> TranscriptGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(iD.ToString())}/transcript";
+            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}/transcript";
             return await this
                 .CallConnectorAsync<TranscriptGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1296,12 +1296,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get captions
         /// </summary>
         /// <remarks>Returns the caption output for a transcription job. We currently support the SubRip (SRT) format.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get captions response.</returns>
-        public virtual async Task<string> CaptionsGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> CaptionsGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(iD.ToString())}/captions";
+            var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}/captions";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1358,12 +1358,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get vocabulary
         /// </summary>
         /// <remarks>Retrieve a custom vocabulary processing information.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get vocabulary response.</returns>
-        public virtual async Task<VocabularyGetResponse> VocabularyGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<VocabularyGetResponse> VocabularyGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<VocabularyGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1373,12 +1373,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Delete vocabulary
         /// </summary>
         /// <remarks>Deletes a custom vocabulary. All data related to the custom vocabulary, such as webhooks and metadata, will be permanently deleted.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete vocabulary response.</returns>
-        public virtual async Task<string> VocabularyDeleteAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> VocabularyDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1424,12 +1424,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get topic extraction job
         /// </summary>
         /// <remarks>Returns information about a topic extraction job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get topic extraction job response.</returns>
-        public virtual async Task<ExtractionGetResponse> ExtractionGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<ExtractionGetResponse> ExtractionGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<ExtractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1439,12 +1439,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Delete topic extraction jo
         /// </summary>
         /// <remarks>Deletes a topic extraction job. All data related to the job will be permanently deleted.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete topic extraction jo response.</returns>
-        public virtual async Task<string> ExtractionDeleteAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> ExtractionDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1454,16 +1454,16 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get topic extraction result
         /// </summary>
         /// <remarks>Returns the results for a completed topic extraction job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="threshold">Threshold</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get topic extraction result response.</returns>
-        public virtual async Task<ExtractionResultGetResponse> ExtractionResultGetAsync(string iD, double threshold = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ExtractionResultGetResponse> ExtractionResultGetAsync(string id, double threshold = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (threshold != default)
                 queryParams.Add($"threshold={Uri.EscapeDataString(threshold.ToString())}");
-            var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(iD.ToString())}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ExtractionResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1508,12 +1508,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get sentiment analysis job
         /// </summary>
         /// <remarks>Returns information about a sentiment analysis job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get sentiment analysis job response.</returns>
-        public virtual async Task<AnalysisGetResponse> AnalysisGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<AnalysisGetResponse> AnalysisGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<AnalysisGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1523,12 +1523,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Delete sentiment analysis job
         /// </summary>
         /// <remarks>Deletes a sentiment analysis job. All data related to the job will be permanently deleted.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete sentiment analysis job response.</returns>
-        public virtual async Task<string> AnalysisDeleteAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> AnalysisDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1538,16 +1538,16 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get sentiment analysis result
         /// </summary>
         /// <remarks>Returns the results for a completed sentiment analysis job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="filterFor">Filter For</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get sentiment analysis result response.</returns>
-        public virtual async Task<AnalysisResultGetResponse> AnalysisResultGetAsync(string iD, string filterFor = default, CancellationToken cancellationToken = default)
+        public virtual async Task<AnalysisResultGetResponse> AnalysisResultGetAsync(string id, string filterFor = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterFor != default)
                 queryParams.Add($"filter_for={Uri.EscapeDataString(filterFor.ToString())}");
-            var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(iD.ToString())}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<AnalysisResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1593,12 +1593,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get language identification job
         /// </summary>
         /// <remarks>Returns information about a language identification job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get language identification job response.</returns>
-        public virtual async Task<IdentificationGetResponse> IdentificationGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<IdentificationGetResponse> IdentificationGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<IdentificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1608,12 +1608,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Delete language identification job
         /// </summary>
         /// <remarks>Deletes a language identification job. All data related to the job will be permanently deleted.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete language identification job response.</returns>
-        public virtual async Task<string> IdentificationDeleteAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> IdentificationDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1623,12 +1623,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get language identification result
         /// </summary>
         /// <remarks>Returns the results for a completed language identification job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get language identification result response.</returns>
-        public virtual async Task<IdentificationResultGetResponse> IdentificationResultGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<IdentificationResultGetResponse> IdentificationResultGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(iD.ToString())}/result";
+            var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result";
             return await this
                 .CallConnectorAsync<IdentificationResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1674,12 +1674,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get forced alignment job
         /// </summary>
         /// <remarks>Returns information about a forced alignment job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get forced alignment job response.</returns>
-        public virtual async Task<AlignmentGetResponse> AlignmentGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<AlignmentGetResponse> AlignmentGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<AlignmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1689,12 +1689,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Delete forced alignment job
         /// </summary>
         /// <remarks>Deletes a forced alignment job. All data related to the job will be permanently deleted.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete forced alignment job response.</returns>
-        public virtual async Task<string> AlignmentDeleteAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<string> AlignmentDeleteAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(iD.ToString())}";
+            var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1704,12 +1704,12 @@ namespace Azure.Connectors.Sdk.Revai
         /// Get forced alignment transcript
         /// </summary>
         /// <remarks>Returns the results for a completed forced alignment job.</remarks>
-        /// <param name="iD">ID</param>
+        /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get forced alignment transcript response.</returns>
-        public virtual async Task<AlignmentTranscriptGetResponse> AlignmentTranscriptGetAsync(string iD, CancellationToken cancellationToken = default)
+        public virtual async Task<AlignmentTranscriptGetResponse> AlignmentTranscriptGetAsync(string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(iD.ToString())}/transcript";
+            var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}/transcript";
             return await this
                 .CallConnectorAsync<AlignmentTranscriptGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1719,3 +1719,4 @@ namespace Azure.Connectors.Sdk.Revai
 
     #endregion Client
 }
+

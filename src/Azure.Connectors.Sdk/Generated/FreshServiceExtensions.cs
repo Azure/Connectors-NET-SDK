@@ -665,7 +665,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
 
     /// <summary>
     /// Typed trigger payload for the OnTicketCreated trigger (FreshService "When a ticket is created (V2)", operationId: OnTicketCreatedV2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;FreshServiceOnTicketCreatedTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;FreshServiceOnTicketCreatedTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class FreshServiceOnTicketCreatedTriggerPayload : TriggerCallbackPayload<ListTicketResponse>
     {
@@ -703,7 +703,7 @@ namespace Azure.Connectors.Sdk.FreshService
     /// <summary>
     /// Trigger operation name constants for the FreshService connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class FreshServiceTriggerOperations
     {
@@ -820,3 +820,4 @@ namespace Azure.Connectors.Sdk.FreshService
 
     #endregion Client
 }
+

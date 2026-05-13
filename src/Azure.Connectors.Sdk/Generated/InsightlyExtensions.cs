@@ -1958,7 +1958,7 @@ namespace Azure.Connectors.Sdk.Insightly
     /// <summary>
     /// Trigger operation name constants for the Insightly connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class InsightlyTriggerOperations
     {
@@ -2373,3 +2373,4 @@ namespace Azure.Connectors.Sdk.Insightly
 
     #endregion Client
 }
+

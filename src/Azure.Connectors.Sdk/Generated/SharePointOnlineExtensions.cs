@@ -172,9 +172,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class DataSet
     {
         /// <summary>Dataset name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Dataset display name</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>Pass-through Native Queries</summary>
@@ -189,6 +191,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class PassThroughNativeQuery
     {
         /// <summary>Query language</summary>
+        [JsonPropertyName("Language")]
         public string Language { get; set; }
     }
 
@@ -208,12 +211,15 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class Table
     {
         /// <summary>The name of the table. The name is used at runtime.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The display name of the table.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
+        [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
         public object DynamicProperties { get; internal set; }
     }
@@ -224,6 +230,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class ApproveHubSiteJoinResponse
     {
         /// <summary>Approval Token</summary>
+        [JsonPropertyName("ApprovalToken")]
         public string ApprovalToken { get; set; }
     }
 
@@ -253,35 +260,45 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class BlobMetadata
     {
         /// <summary>The unique id of the file or folder.</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>The name of the file or folder.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The display name of the file or folder.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The path of the file or folder.</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonPropertyName("LastModified")]
         [JsonInclude]
         public DateTime? LastModified { get; internal set; }
 
         /// <summary>The size of the file or folder.</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>The media type of the file or folder.</summary>
+        [JsonPropertyName("MediaType")]
         public string MediaType { get; set; }
 
         /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
 
         /// <summary>The etag of the file or folder.</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>The filelocator of the file or folder.</summary>
+        [JsonPropertyName("FileLocator")]
         public string FileLocator { get; set; }
     }
 
@@ -291,38 +308,49 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class SPBlobMetadataResponse
     {
         /// <summary>The value that can be used to Get or Update file properties in libraries.</summary>
+        [JsonPropertyName("ItemId")]
         public long? ItemId { get; set; }
 
         /// <summary>The unique id of the file or folder.</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>The name of the file or folder.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The display name of the file or folder.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The path of the file or folder.</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonPropertyName("LastModified")]
         [JsonInclude]
         public DateTime? LastModified { get; internal set; }
 
         /// <summary>The size of the file or folder.</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>The media type of the file or folder.</summary>
+        [JsonPropertyName("MediaType")]
         public string MediaType { get; set; }
 
         /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
 
         /// <summary>The etag of the file or folder.</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>The filelocator of the file or folder.</summary>
+        [JsonPropertyName("FileLocator")]
         public string FileLocator { get; set; }
     }
 
@@ -332,35 +360,45 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class BlobMetadataResponse
     {
         /// <summary>The unique id of the file or folder.</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>The name of the file or folder.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The display name of the file or folder.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The path of the file or folder.</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonPropertyName("LastModified")]
         [JsonInclude]
         public DateTime? LastModified { get; internal set; }
 
         /// <summary>The size of the file or folder.</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>The media type of the file or folder.</summary>
+        [JsonPropertyName("MediaType")]
         public string MediaType { get; set; }
 
         /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
 
         /// <summary>The etag of the file or folder.</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>The filelocator of the file or folder.</summary>
+        [JsonPropertyName("FileLocator")]
         public string FileLocator { get; set; }
     }
 
@@ -398,21 +436,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class SPListExpandedUser
     {
         /// <summary>user claims</summary>
+        [JsonPropertyName("Claims")]
         public string Claims { get; set; }
 
         /// <summary>user title</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>user email</summary>
+        [JsonPropertyName("Email")]
         public string Email { get; set; }
 
         /// <summary>user picture</summary>
+        [JsonPropertyName("Picture")]
         public string Picture { get; set; }
 
         /// <summary>user department</summary>
+        [JsonPropertyName("Department")]
         public string Department { get; set; }
 
         /// <summary>user job title</summary>
+        [JsonPropertyName("JobTitle")]
         public string JobTitle { get; set; }
 
         /// <summary>@odata.type</summary>
@@ -426,9 +470,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class SPListEntity
     {
         /// <summary>The Id of the SPField</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>What type of entity (field) this is</summary>
+        [JsonPropertyName("EntityType")]
         public string EntityType { get; set; }
     }
 
@@ -550,7 +596,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     {
         /// <summary>The ID of the approval request created</summary>
         [JsonPropertyName("ApprovalId")]
-        public string ApprovalRequestID { get; set; }
+        public string ApprovalRequestId { get; set; }
     }
 
     /// <summary>
@@ -601,19 +647,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class SetApprovalStatusOutput
     {
         /// <summary>ETag of the item after the approval status was set</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>A link to the item that needs approval</summary>
+        [JsonPropertyName("ApprovalLink")]
         public string ApprovalLink { get; set; }
 
         /// <summary>Date time at which the item will be Published</summary>
+        [JsonPropertyName("PublishStartDate")]
         public string PublishStartDate { get; set; }
 
         /// <summary>The content approval status of the list item</summary>
+        [JsonPropertyName("ContentApprovalStatus")]
         public string ContentApprovalStatus { get; set; }
 
         /// <summary>The version of the item that has been scheduled</summary>
+        [JsonPropertyName("ScheduledVersion")]
         public string ScheduledVersion { get; set; }
     }
 
@@ -623,12 +674,15 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class SPListItemAttachment
     {
         /// <summary>File identifier</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>Link to attachment</summary>
+        [JsonPropertyName("AbsoluteUri")]
         public string AbsoluteUri { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
     }
 
@@ -648,9 +702,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public class DeletedItem
     {
         /// <summary>List item id</summary>
-        public long? ID { get; set; }
+        [JsonPropertyName("ID")]
+        public long? Id { get; set; }
 
         /// <summary>File name of the item in document libraries, display name of the item in lists</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>File name with extension of the item in document libraries, same as Name of the item in lists</summary>
@@ -662,10 +718,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public string DeletedBy { get; set; }
 
         /// <summary>When this item was deleted</summary>
+        [JsonPropertyName("TimeDeleted")]
         [JsonInclude]
         public DateTime? TimeDeleted { get; internal set; }
 
         /// <summary>A true/false value to indicate if the item is a folder</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
     }
 
@@ -755,6 +813,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public string ContentTypeId { get; set; }
 
         /// <summary>DynamicProperties</summary>
+        [JsonPropertyName("DynamicProperties")]
         public object DynamicProperties { get; set; }
     }
 
@@ -1338,11 +1397,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// Creates a new instance of <see cref="ApprovalData"/>.
         /// </summary>
         public static ApprovalData ApprovalData(
-            string approvalRequestID = default)
+            string approvalRequestId = default)
         {
             return new ApprovalData
             {
-                ApprovalRequestID = approvalRequestID,
+                ApprovalRequestId = approvalRequestId,
             };
         }
 
@@ -1407,7 +1466,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         {
             return new DeletedItem
             {
-                ID = id,
+                Id = id,
                 Name = name,
                 FilenameWithExtension = filenameWithExtension,
                 DeletedBy = deletedBy,
@@ -1603,7 +1662,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnChangedItems trigger (SharePointOnline "When an item or a file is modified", operationId: GetOnChangedItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnChangedItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnChangedItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnChangedItemsTriggerPayload : TriggerCallbackPayload<Item>
     {
@@ -1611,7 +1670,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnDeletedFileItems trigger (SharePointOnline "When a file is deleted", operationId: GetOnDeletedFileItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnDeletedFileItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnDeletedFileItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
     {
@@ -1619,7 +1678,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnDeletedItems trigger (SharePointOnline "When an item is deleted", operationId: GetOnDeletedItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnDeletedItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnDeletedItemsTriggerPayload : TriggerCallbackPayload<DeletedItem>
     {
@@ -1627,7 +1686,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewFileItems trigger (SharePointOnline "When a file is created (properties only)", operationId: GetOnNewFileItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnNewFileItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnNewFileItemsTriggerPayload : TriggerCallbackPayload<Item>
     {
@@ -1635,7 +1694,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewItems trigger (SharePointOnline "When an item is created", operationId: GetOnNewItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnNewItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnNewItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
     {
@@ -1643,7 +1702,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedFileClassifiedTimes trigger (SharePointOnline "When a file is classified by a Microsoft Syntex model", operationId: GetOnUpdatedFileClassifiedTimes).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload : TriggerCallbackPayload<Item>
     {
@@ -1651,7 +1710,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedFileItems trigger (SharePointOnline "When a file is created or modified (properties only)", operationId: GetOnUpdatedFileItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedFileItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnUpdatedFileItemsTriggerPayload : TriggerCallbackPayload<Item>
     {
@@ -1659,7 +1718,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedItems trigger (SharePointOnline "When an item is created or modified", operationId: GetOnUpdatedItems).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedItemsTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class SharePointOnlineOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
     {
@@ -1704,7 +1763,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
     /// <summary>
     /// Trigger operation name constants for the SharePointOnline connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class SharePointOnlineTriggerOperations
     {
@@ -1774,7 +1833,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
 
     /// <summary>
     /// Trigger input parameter name constants for the SharePointOnline connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class SharePointOnlineTriggerParameters
     {
@@ -2136,6 +2195,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFilePath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (sourceFilePath != default)
                 queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
             if (destinationFilePath != default)
@@ -2193,6 +2253,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public virtual async Task<SPBlobMetadataResponse> CreateFileAsync([DynamicValues("GetDataSets")] string siteAddress, byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (folderPath != default)
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
             if (fileName != default)
@@ -2272,37 +2333,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
-        /// List root folder
-        /// </summary>
-        /// <remarks>Returns files in the root SharePoint folder.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List root folder response.</returns>
-        public virtual async Task<List<BlobMetadata>> ListRootFolderAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders";
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List folder
-        /// </summary>
-        /// <remarks>Returns files contained in a SharePoint folder.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="fileIdentifier">File Identifier</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List folder response.</returns>
-        public virtual async Task<List<BlobMetadata>> ListFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
-        {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/folders/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
         /// Get file metadata using path
         /// </summary>
         /// <remarks>Gets information about the file such as size, etag, created date, etc. Uses a file path to pick the file. Use &quot;Get file properties&quot; action to get to the values stored in the columns in the library.</remarks>
@@ -2313,6 +2343,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public virtual async Task<SPBlobMetadataResponse> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (filePath != default)
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
             var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2333,6 +2364,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, bool inferContentType = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (filePath != default)
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
             if (inferContentType != default)
@@ -2373,6 +2405,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public virtual async Task<SPBlobMetadataResponse> GetFolderMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string folderPath, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (folderPath != default)
                 queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
             var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -3283,6 +3316,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool overwriteFlag = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (sourceFilePath != default)
                 queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
             if (destinationFolderPath != default)
@@ -3299,3 +3333,4 @@ namespace Azure.Connectors.Sdk.SharePointOnline
 
     #endregion Client
 }
+

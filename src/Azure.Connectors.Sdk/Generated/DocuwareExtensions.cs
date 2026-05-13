@@ -29,33 +29,43 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class StoreToFileCabinetResponse
     {
         /// <summary>Sections</summary>
+        [JsonPropertyName("Sections")]
         public List<object> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
+        [JsonPropertyName("DocumentId")]
         public int? DocumentId { get; set; }
 
         /// <summary>IndexFields</summary>
+        [JsonPropertyName("IndexFields")]
         public object IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
+        [JsonPropertyName("DocumentTitle")]
         public string DocumentTitle { get; set; }
 
         /// <summary>FileCabinetId</summary>
+        [JsonPropertyName("FileCabinetId")]
         public string FileCabinetId { get; set; }
 
         /// <summary>TotalPages</summary>
+        [JsonPropertyName("TotalPages")]
         public int? TotalPages { get; set; }
 
         /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
         public int? FileSize { get; set; }
 
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>VersionStatus</summary>
+        [JsonPropertyName("VersionStatus")]
         public string VersionStatus { get; set; }
 
         /// <summary>DocumentFlags</summary>
+        [JsonPropertyName("DocumentFlags")]
         public object DocumentFlags { get; set; }
     }
 
@@ -65,33 +75,43 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class ImportToDocumentTrayResponse
     {
         /// <summary>Sections</summary>
+        [JsonPropertyName("Sections")]
         public List<object> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
+        [JsonPropertyName("DocumentId")]
         public int? DocumentId { get; set; }
 
         /// <summary>IndexFields</summary>
+        [JsonPropertyName("IndexFields")]
         public object IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
+        [JsonPropertyName("DocumentTitle")]
         public string DocumentTitle { get; set; }
 
         /// <summary>FileCabinetId</summary>
+        [JsonPropertyName("FileCabinetId")]
         public string FileCabinetId { get; set; }
 
         /// <summary>TotalPages</summary>
+        [JsonPropertyName("TotalPages")]
         public int? TotalPages { get; set; }
 
         /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
         public int? FileSize { get; set; }
 
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>VersionStatus</summary>
+        [JsonPropertyName("VersionStatus")]
         public string VersionStatus { get; set; }
 
         /// <summary>DocumentFlags</summary>
+        [JsonPropertyName("DocumentFlags")]
         public object DocumentFlags { get; set; }
     }
 
@@ -113,9 +133,11 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class SearchForDocumentsInFileCabinetResponse
     {
         /// <summary>Count</summary>
+        [JsonPropertyName("Count")]
         public int? Count { get; set; }
 
         /// <summary>Documents</summary>
+        [JsonPropertyName("Documents")]
         public List<object> Documents { get; set; }
     }
 
@@ -125,6 +147,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetOrganizationResponse
     {
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
     }
 
@@ -134,6 +157,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetFileCabinetsResponse
     {
         /// <summary>FileCabinets</summary>
+        [JsonPropertyName("FileCabinets")]
         public List<object> FileCabinets { get; set; }
     }
 
@@ -143,33 +167,43 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetDocumentInformationResponse
     {
         /// <summary>Sections</summary>
+        [JsonPropertyName("Sections")]
         public List<object> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
+        [JsonPropertyName("DocumentId")]
         public int? DocumentId { get; set; }
 
         /// <summary>IndexFields</summary>
+        [JsonPropertyName("IndexFields")]
         public object IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
+        [JsonPropertyName("DocumentTitle")]
         public string DocumentTitle { get; set; }
 
         /// <summary>FileCabinetId</summary>
+        [JsonPropertyName("FileCabinetId")]
         public string FileCabinetId { get; set; }
 
         /// <summary>TotalPages</summary>
+        [JsonPropertyName("TotalPages")]
         public int? TotalPages { get; set; }
 
         /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
         public int? FileSize { get; set; }
 
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>VersionStatus</summary>
+        [JsonPropertyName("VersionStatus")]
         public string VersionStatus { get; set; }
 
         /// <summary>DocumentFlags</summary>
+        [JsonPropertyName("DocumentFlags")]
         public object DocumentFlags { get; set; }
     }
 
@@ -179,33 +213,43 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class UpdateIndexFieldsResponse
     {
         /// <summary>Sections</summary>
+        [JsonPropertyName("Sections")]
         public List<object> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
+        [JsonPropertyName("DocumentId")]
         public int? DocumentId { get; set; }
 
         /// <summary>IndexFields</summary>
+        [JsonPropertyName("IndexFields")]
         public object IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
+        [JsonPropertyName("DocumentTitle")]
         public string DocumentTitle { get; set; }
 
         /// <summary>FileCabinetId</summary>
+        [JsonPropertyName("FileCabinetId")]
         public string FileCabinetId { get; set; }
 
         /// <summary>TotalPages</summary>
+        [JsonPropertyName("TotalPages")]
         public int? TotalPages { get; set; }
 
         /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
         public int? FileSize { get; set; }
 
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>VersionStatus</summary>
+        [JsonPropertyName("VersionStatus")]
         public string VersionStatus { get; set; }
 
         /// <summary>DocumentFlags</summary>
+        [JsonPropertyName("DocumentFlags")]
         public object DocumentFlags { get; set; }
     }
 
@@ -223,9 +267,11 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         public List<object> Docs { get; set; }
 
         /// <summary>Choose whether the source documents should be deleted or not.</summary>
+        [JsonPropertyName("KeepSource")]
         public bool? KeepSource { get; set; }
 
         /// <summary>Choose whether intelligent indexing should be used when storing.</summary>
+        [JsonPropertyName("FillIntellix")]
         public bool? FillIntellix { get; set; }
     }
 
@@ -235,9 +281,11 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class TransferDocumentResponse
     {
         /// <summary>Count</summary>
+        [JsonPropertyName("Count")]
         public int? Count { get; set; }
 
         /// <summary>Documents</summary>
+        [JsonPropertyName("Documents")]
         public List<object> Documents { get; set; }
     }
 
@@ -247,12 +295,15 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class PlaceAStampInput
     {
         /// <summary>Specify the file/section containing the page to be stamped.</summary>
+        [JsonPropertyName("FileNumber")]
         public int? FileNumber { get; set; }
 
         /// <summary>Specify the page number to place the stamp on.</summary>
+        [JsonPropertyName("PageNumber")]
         public int? PageNumber { get; set; }
 
         /// <summary>Specify the document layer to place the stamp on [1-5]</summary>
+        [JsonPropertyName("Layer")]
         public int? Layer { get; set; }
 
         /// <summary>[Optional] Position from the left edge of the page in mm.</summary>
@@ -268,6 +319,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         public string Stamp { get; set; }
 
         /// <summary>Specify the password for the stamp (if required).</summary>
+        [JsonPropertyName("Password")]
         public string Password { get; set; }
 
         /// <summary>Fields</summary>
@@ -281,21 +333,27 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class PlaceAStampResponse
     {
         /// <summary>Created</summary>
+        [JsonPropertyName("Created")]
         public object Created { get; set; }
 
         /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
         public string Type { get; set; }
 
         /// <summary>Color</summary>
+        [JsonPropertyName("Color")]
         public string Color { get; set; }
 
         /// <summary>Rotation</summary>
+        [JsonPropertyName("Rotation")]
         public int? Rotation { get; set; }
 
         /// <summary>Transparent</summary>
+        [JsonPropertyName("Transparent")]
         public bool? Transparent { get; set; }
 
         /// <summary>StrokeWidth</summary>
+        [JsonPropertyName("StrokeWidth")]
         public int? StrokeWidth { get; set; }
 
         /// <summary>Guid</summary>
@@ -309,6 +367,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetDialogsResponse
     {
         /// <summary>Dialogs</summary>
+        [JsonPropertyName("Dialogs")]
         public List<object> Dialogs { get; set; }
     }
 
@@ -318,33 +377,43 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class AppendFileResponse
     {
         /// <summary>SignatureStatus</summary>
+        [JsonPropertyName("SignatureStatus")]
         public List<string> SignatureStatus { get; set; }
 
         /// <summary>SectionId</summary>
+        [JsonPropertyName("SectionId")]
         public string SectionId { get; set; }
 
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>HaveMorePages</summary>
+        [JsonPropertyName("HaveMorePages")]
         public bool? HaveMorePages { get; set; }
 
         /// <summary>PageCount</summary>
+        [JsonPropertyName("PageCount")]
         public int? PageCount { get; set; }
 
         /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
         public int? FileSize { get; set; }
 
         /// <summary>OriginalFileName</summary>
+        [JsonPropertyName("OriginalFileName")]
         public string OriginalFileName { get; set; }
 
         /// <summary>ContentModified</summary>
+        [JsonPropertyName("ContentModified")]
         public string ContentModified { get; set; }
 
         /// <summary>HasTextAnnotation</summary>
+        [JsonPropertyName("HasTextAnnotation")]
         public bool? HasTextAnnotation { get; set; }
 
         /// <summary>AnnotationsPreview</summary>
+        [JsonPropertyName("AnnotationsPreview")]
         public bool? AnnotationsPreview { get; set; }
     }
 
@@ -354,33 +423,43 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class ReplaceFileResponse
     {
         /// <summary>SignatureStatus</summary>
+        [JsonPropertyName("SignatureStatus")]
         public List<string> SignatureStatus { get; set; }
 
         /// <summary>SectionId</summary>
+        [JsonPropertyName("SectionId")]
         public string SectionId { get; set; }
 
         /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>HaveMorePages</summary>
+        [JsonPropertyName("HaveMorePages")]
         public bool? HaveMorePages { get; set; }
 
         /// <summary>PageCount</summary>
+        [JsonPropertyName("PageCount")]
         public int? PageCount { get; set; }
 
         /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
         public int? FileSize { get; set; }
 
         /// <summary>OriginalFileName</summary>
+        [JsonPropertyName("OriginalFileName")]
         public string OriginalFileName { get; set; }
 
         /// <summary>ContentModified</summary>
+        [JsonPropertyName("ContentModified")]
         public string ContentModified { get; set; }
 
         /// <summary>HasTextAnnotation</summary>
+        [JsonPropertyName("HasTextAnnotation")]
         public bool? HasTextAnnotation { get; set; }
 
         /// <summary>AnnotationsPreview</summary>
+        [JsonPropertyName("AnnotationsPreview")]
         public bool? AnnotationsPreview { get; set; }
     }
 
@@ -390,6 +469,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetStampsResponse
     {
         /// <summary>Stamps</summary>
+        [JsonPropertyName("Stamps")]
         public List<object> Stamps { get; set; }
     }
 
@@ -399,6 +479,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetStampFieldsResponse
     {
         /// <summary>Fields</summary>
+        [JsonPropertyName("Fields")]
         public List<object> Fields { get; set; }
     }
 
@@ -408,6 +489,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetFileCabinetFieldsResponse
     {
         /// <summary>Fields</summary>
+        [JsonPropertyName("Fields")]
         public List<object> Fields { get; set; }
     }
 
@@ -417,6 +499,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class GetDialogFieldsResponse
     {
         /// <summary>Fields</summary>
+        [JsonPropertyName("Fields")]
         public List<object> Fields { get; set; }
     }
 
@@ -426,9 +509,11 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     public class ListDocumentsInDocumentTrayResponse
     {
         /// <summary>Count</summary>
+        [JsonPropertyName("Count")]
         public int? Count { get; set; }
 
         /// <summary>Documents</summary>
+        [JsonPropertyName("Documents")]
         public List<object> Documents { get; set; }
     }
 
@@ -972,12 +1057,12 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Gets information about a document.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get document information response.</returns>
-        public virtual async Task<GetDocumentInformationResponse> GetDocumentInformationAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetDocumentInformationResponse> GetDocumentInformationAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}";
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
             return await this
                 .CallConnectorAsync<GetDocumentInformationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -988,11 +1073,11 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Deletes a document from a file cabinet or document tray.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}";
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1003,17 +1088,17 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Downloads a file/section of a document stored in a file cabinet or document tray.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="fileNumber">File Number</param>
         /// <param name="documentFormat">Document Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download a file response.</returns>
-        public virtual async Task<byte[]> DownloadFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, string fileNumber, string documentFormat, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> DownloadFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, string fileNumber, string documentFormat, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (documentFormat != default)
                 queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1024,16 +1109,16 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Downloads a document from a file cabinet or document tray.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="documentFormat">Document Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download a document response.</returns>
-        public virtual async Task<byte[]> DownloadDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, string documentFormat, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> DownloadDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, string documentFormat, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (documentFormat != default)
                 queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1044,13 +1129,13 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Updates the index fields of a document.</remarks>
         /// <param name="fileCabinet">File Cabinet</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update index fields response.</returns>
-        public virtual async Task<UpdateIndexFieldsResponse> UpdateIndexFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinet, int documentID, List<object> input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateIndexFieldsResponse> UpdateIndexFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinet, int documentId, List<object> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}/Fields";
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Fields";
             return await this
                 .CallConnectorAsync<UpdateIndexFieldsResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1081,13 +1166,13 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Places a stamp on a document.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Place a stamp response.</returns>
-        public virtual async Task<PlaceAStampResponse> PlaceAStampAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, PlaceAStampInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PlaceAStampResponse> PlaceAStampAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, PlaceAStampInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}/Annotation";
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Annotation";
             return await this
                 .CallConnectorAsync<PlaceAStampResponse>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1117,14 +1202,14 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Appends a file/section to an existing document.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Append a file response.</returns>
-        public virtual async Task<AppendFileResponse> AppendFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, string documentID, CancellationToken cancellationToken = default)
+        public virtual async Task<AppendFileResponse> AppendFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, string documentId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (documentID != default)
-                queryParams.Add($"DocID={Uri.EscapeDataString(documentID.ToString())}");
+            if (documentId != default)
+                queryParams.Add($"DocID={Uri.EscapeDataString(documentId.ToString())}");
             var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<AppendFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1136,12 +1221,12 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Deletes a file/section from an existing document.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="fileNumber">File Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, int fileNumber, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, int fileNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1152,13 +1237,13 @@ namespace Azure.Connectors.Sdk.Docuware
         /// </summary>
         /// <remarks>Replaces a file/section in an existing document.</remarks>
         /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="fileNumber">File Number</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Replace a file response.</returns>
-        public virtual async Task<ReplaceFileResponse> ReplaceFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentID, int fileNumber, CancellationToken cancellationToken = default)
+        public virtual async Task<ReplaceFileResponse> ReplaceFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, int fileNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentID.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
+            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
             return await this
                 .CallConnectorAsync<ReplaceFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -1249,3 +1334,4 @@ namespace Azure.Connectors.Sdk.Docuware
 
     #endregion Client
 }
+

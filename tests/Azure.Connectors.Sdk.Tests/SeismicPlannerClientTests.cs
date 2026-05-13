@@ -79,7 +79,7 @@ namespace Azure.Connectors.Sdk.Tests
             };
             using var client = CreateMockedClient(responseMessage);
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.GetCommentsAsync(spaceID: "s1", nodeID: "n1", cancellationToken: CancellationToken.None))
+                client.GetCommentsAsync(spaceId: "s1", nodeId: "n1", cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
     }

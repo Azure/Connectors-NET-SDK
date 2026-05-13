@@ -39,18 +39,23 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class Database
     {
         /// <summary>CubeCount</summary>
+        [JsonPropertyName("CubeCount")]
         public long? CubeCount { get; set; }
 
         /// <summary>DimensionCount</summary>
+        [JsonPropertyName("DimensionCount")]
         public long? DimensionCount { get; set; }
 
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public long? Id { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
         public string Type { get; set; }
     }
 
@@ -70,15 +75,19 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class Cube
     {
         /// <summary>FilledCellCount</summary>
+        [JsonPropertyName("FilledCellCount")]
         public long? FilledCellCount { get; set; }
 
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public long? Id { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
         public string Type { get; set; }
     }
 
@@ -108,15 +117,19 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class Dimension
     {
         /// <summary>ElementCount</summary>
+        [JsonPropertyName("ElementCount")]
         public long? ElementCount { get; set; }
 
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public long? Id { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
         public string Type { get; set; }
     }
 
@@ -136,18 +149,23 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class Element
     {
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public long? Id { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Position</summary>
+        [JsonPropertyName("Position")]
         public long? Position { get; set; }
 
         /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
         public string Type { get; set; }
 
         /// <summary>Weight</summary>
+        [JsonPropertyName("Weight")]
         public float? Weight { get; set; }
     }
 
@@ -167,27 +185,35 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class View
     {
         /// <summary>CreationDate</summary>
+        [JsonPropertyName("CreationDate")]
         public DateTime? CreationDate { get; set; }
 
         /// <summary>CubeId</summary>
+        [JsonPropertyName("CubeId")]
         public long? CubeId { get; set; }
 
         /// <summary>CubeName</summary>
+        [JsonPropertyName("CubeName")]
         public string CubeName { get; set; }
 
         /// <summary>Description</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>FriendlyName</summary>
+        [JsonPropertyName("FriendlyName")]
         public string FriendlyName { get; set; }
 
         /// <summary>Global</summary>
+        [JsonPropertyName("Global")]
         public bool? Global { get; set; }
 
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>UserName</summary>
+        [JsonPropertyName("UserName")]
         public string UserName { get; set; }
     }
 
@@ -217,24 +243,31 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class IntegratorProjectGroup
     {
         /// <summary>Description</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>Developer</summary>
+        [JsonPropertyName("Developer")]
         public string Developer { get; set; }
 
         /// <summary>FriendlyName</summary>
+        [JsonPropertyName("FriendlyName")]
         public string FriendlyName { get; set; }
 
         /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Namespace</summary>
+        [JsonPropertyName("Namespace")]
         public string Namespace { get; set; }
 
         /// <summary>Version</summary>
+        [JsonPropertyName("Version")]
         public string Version { get; set; }
     }
 
@@ -254,15 +287,19 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class IntegratorProject
     {
         /// <summary>Description</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>ModificationDate</summary>
+        [JsonPropertyName("ModificationDate")]
         public DateTime? ModificationDate { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Version</summary>
+        [JsonPropertyName("Version")]
         public string Version { get; set; }
     }
 
@@ -282,15 +319,19 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     public class IntegratorComponent
     {
         /// <summary>Description</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>ModificationDate</summary>
+        [JsonPropertyName("ModificationDate")]
         public DateTime? ModificationDate { get; set; }
 
         /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
         public string Type { get; set; }
     }
 
@@ -1646,3 +1687,4 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
 
     #endregion Client
 }
+

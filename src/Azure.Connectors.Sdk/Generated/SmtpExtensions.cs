@@ -29,15 +29,19 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     public class Attachment
     {
         /// <summary>Content data</summary>
+        [JsonPropertyName("ContentData")]
         public string ContentData { get; set; }
 
         /// <summary>Content type</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>File name</summary>
+        [JsonPropertyName("FileName")]
         public string FileName { get; set; }
 
         /// <summary>Content id</summary>
+        [JsonPropertyName("ContentId")]
         public string ContentId { get; set; }
     }
 
@@ -47,33 +51,43 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     public class Email
     {
         /// <summary>Email address of sender like sender@domain.com</summary>
+        [JsonPropertyName("From")]
         public string From { get; set; }
 
         /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
+        [JsonPropertyName("To")]
         public string To { get; set; }
 
         /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com</summary>
+        [JsonPropertyName("CC")]
         public string CC { get; set; }
 
         /// <summary>Email subject</summary>
+        [JsonPropertyName("Subject")]
         public string Subject { get; set; }
 
         /// <summary>Email body</summary>
+        [JsonPropertyName("Body")]
         public string Body { get; set; }
 
         /// <summary>Specify email addresses separated by semicolons like recipient1@domain.com;recipient2@domain.com.</summary>
+        [JsonPropertyName("Bcc")]
         public string Bcc { get; set; }
 
         /// <summary>Importance of the email (High, Normal, or Low)</summary>
+        [JsonPropertyName("Importance")]
         public Importance? Importance { get; set; }
 
         /// <summary>Specify email address for Read receipt</summary>
+        [JsonPropertyName("ReadReceipt")]
         public string ReadReceipt { get; set; }
 
         /// <summary>Specify email address for Delivery receipt</summary>
+        [JsonPropertyName("DeliveryReceipt")]
         public string DeliveryReceipt { get; set; }
 
         /// <summary>Attachments to be sent along with the email</summary>
+        [JsonPropertyName("Attachments")]
         public List<Attachment> Attachments { get; set; }
     }
 
@@ -83,15 +97,19 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     public class AttachmentV2
     {
         /// <summary>Content data</summary>
+        [JsonPropertyName("ContentData")]
         public string ContentData { get; set; }
 
         /// <summary>Content type</summary>
+        [JsonPropertyName("ContentType")]
         public string ContentType { get; set; }
 
         /// <summary>File name</summary>
+        [JsonPropertyName("FileName")]
         public string FileName { get; set; }
 
         /// <summary>Content id</summary>
+        [JsonPropertyName("ContentId")]
         public string ContentId { get; set; }
     }
 
@@ -305,3 +323,4 @@ namespace Azure.Connectors.Sdk.Smtp
 
     #endregion Client
 }
+

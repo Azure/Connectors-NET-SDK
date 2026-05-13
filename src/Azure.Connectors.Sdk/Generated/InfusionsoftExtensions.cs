@@ -324,7 +324,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft
     /// <summary>
     /// Trigger operation name constants for the Infusionsoft connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class InfusionsoftTriggerOperations
     {
@@ -346,7 +346,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft
 
     /// <summary>
     /// Trigger input parameter name constants for the Infusionsoft connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class InfusionsoftTriggerParameters
     {
@@ -459,7 +459,9 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The List tasks response.</returns>
         public virtual async Task<ListTasksResponse> ListTasksAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/crm/rest/v1/tasks/search";
+            var queryParams = new List<string>();
+            queryParams.Add("order=-due_date");
+            var path = $"/crm/rest/v1/tasks/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -469,3 +471,4 @@ namespace Azure.Connectors.Sdk.Infusionsoft
 
     #endregion Client
 }
+

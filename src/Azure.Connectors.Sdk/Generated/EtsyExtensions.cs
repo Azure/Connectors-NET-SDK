@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The authenticated application&apos;s ID</summary>
         [JsonPropertyName("application_id")]
-        public int? ApplicationID { get; set; }
+        public int? ApplicationId { get; set; }
     }
 
     /// <summary>
@@ -54,11 +54,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The ledger entry&apos;s numeric ID.</summary>
         [JsonPropertyName("entry_id")]
-        public int? EntryID { get; set; }
+        public int? EntryId { get; set; }
 
         /// <summary>The ledger&apos;s numeric ID.</summary>
         [JsonPropertyName("ledger_id")]
-        public int? LedgerID { get; set; }
+        public int? LedgerId { get; set; }
 
         /// <summary>The sequence allows ledger entries to be sorted chronologically. The higher the sequence, the more recent the entry.</summary>
         [JsonPropertyName("sequence_number")]
@@ -106,19 +106,19 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>A unique numeric ID for a payment to a specific Etsy shop.</summary>
         [JsonPropertyName("payment_id")]
-        public int? PaymentID { get; set; }
+        public int? PaymentId { get; set; }
 
         /// <summary>The numeric ID for the user who paid the purchase.</summary>
         [JsonPropertyName("buyer_user_id")]
-        public int? BuyerUserID { get; set; }
+        public int? BuyerUserId { get; set; }
 
         /// <summary>The unique positive non-zero numeric ID for an Etsy Shop.</summary>
         [JsonPropertyName("shop_id")]
-        public int? ShopID { get; set; }
+        public int? ShopId { get; set; }
 
         /// <summary>The numeric ID for the receipt associated to this transaction.</summary>
         [JsonPropertyName("receipt_id")]
-        public int? ReceiptID { get; set; }
+        public int? ReceiptId { get; set; }
 
         /// <summary>amount_gross</summary>
         [JsonPropertyName("amount_gross")]
@@ -170,15 +170,15 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of the user to which the seller ships the order.</summary>
         [JsonPropertyName("shipping_user_id")]
-        public int? UserShippingID { get; set; }
+        public int? UserShippingId { get; set; }
 
         /// <summary>The numeric id identifying the shipping address.</summary>
         [JsonPropertyName("shipping_address_id")]
-        public int? ShippingAddressID { get; set; }
+        public int? ShippingAddressId { get; set; }
 
         /// <summary>The numeric ID identifying the billing address of the buyer.</summary>
         [JsonPropertyName("billing_address_id")]
-        public int? BillingAddressID { get; set; }
+        public int? BillingAddressId { get; set; }
 
         /// <summary>A string indicating the current status of the payment, most commonly settled or authed.</summary>
         [JsonPropertyName("status")]
@@ -229,11 +229,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID for a payment adjustment.</summary>
         [JsonPropertyName("payment_adjustment_id")]
-        public int? PaymentAdjustmentID { get; set; }
+        public int? PaymentAdjustmentId { get; set; }
 
         /// <summary>A unique numeric ID for a payment to a specific Etsy shop.</summary>
         [JsonPropertyName("payment_id")]
-        public int? PaymentID { get; set; }
+        public int? PaymentId { get; set; }
 
         /// <summary>The status string of the payment adjustment.</summary>
         [JsonPropertyName("status")]
@@ -245,7 +245,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID for the user (seller) fulfilling the purchase.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>A human-readable string describing the reason for the refund.</summary>
         [JsonPropertyName("reason_code")]
@@ -281,7 +281,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID for the receipt associated to this transaction.</summary>
         [JsonPropertyName("receipt_id")]
-        public int? ReceiptID { get; set; }
+        public int? ReceiptId { get; set; }
 
         /// <summary>The numeric value for the Etsy channel that serviced the purchase: 0 for Etsy.com, 1 for a Pattern shop.</summary>
         [JsonPropertyName("receipt_type")]
@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID for the user (seller) fulfilling the purchase.</summary>
         [JsonPropertyName("seller_user_id")]
-        public int? SellerUserID { get; set; }
+        public int? SellerUserId { get; set; }
 
         /// <summary>The email address string for the seller of the listing.</summary>
         [JsonPropertyName("seller_email")]
@@ -297,7 +297,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID for the user making the purchase.</summary>
         [JsonPropertyName("buyer_user_id")]
-        public int? BuyerUserID { get; set; }
+        public int? BuyerUserId { get; set; }
 
         /// <summary>The email address string for the buyer of the listing.</summary>
         [JsonPropertyName("buyer_email")]
@@ -421,7 +421,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique numeric ID of a Shop Receipt Shipment record.</summary>
         [JsonPropertyName("receipt_shipping_id")]
-        public int? ReceiptShippingID { get; set; }
+        public int? ReceiptShippingId { get; set; }
 
         /// <summary>The time at which Etsy notified the buyer of the shipment event, in epoch seconds.</summary>
         [JsonPropertyName("shipment_notification_timestamp")]
@@ -490,7 +490,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique numeric ID for a transaction.</summary>
         [JsonPropertyName("transaction_id")]
-        public int? TransactionID { get; set; }
+        public int? TransactionId { get; set; }
 
         /// <summary>The title string of the listing purchased in this transaction.</summary>
         [JsonPropertyName("title")]
@@ -502,11 +502,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric user ID for the seller in this transaction.</summary>
         [JsonPropertyName("seller_user_id")]
-        public int? SellerUserID { get; set; }
+        public int? SellerUserId { get; set; }
 
         /// <summary>The numeric user ID for the buyer in this transaction.</summary>
         [JsonPropertyName("buyer_user_id")]
-        public int? BuyerUserID { get; set; }
+        public int? BuyerUserId { get; set; }
 
         /// <summary>The transaction&apos;s creation date and time, in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
@@ -529,11 +529,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of the primary listing image for this transaction.</summary>
         [JsonPropertyName("listing_image_id")]
-        public int? ListingImageID { get; set; }
+        public int? ListingImageId { get; set; }
 
         /// <summary>The numeric ID for the receipt associated to this transaction.</summary>
         [JsonPropertyName("receipt_id")]
-        public int? ReceiptID { get; set; }
+        public int? ReceiptId { get; set; }
 
         /// <summary>When true, the transaction recorded the purchase of a digital listing.</summary>
         [JsonPropertyName("is_digital")]
@@ -545,7 +545,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID for the listing associated to this transaction.</summary>
         [JsonPropertyName("listing_id")]
-        public int? ListingID { get; set; }
+        public int? ListingId { get; set; }
 
         /// <summary>The type string for the transaction, usually listing</summary>
         [JsonPropertyName("transaction_type")]
@@ -553,7 +553,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID for a specific product purchased from a listing.</summary>
         [JsonPropertyName("product_id")]
-        public int? ProductID { get; set; }
+        public int? ProductId { get; set; }
 
         /// <summary>price</summary>
         [JsonPropertyName("price")]
@@ -585,15 +585,15 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The shop&apos;s numeric ID.</summary>
         [JsonPropertyName("shop_id")]
-        public int? ShopID { get; set; }
+        public int? ShopId { get; set; }
 
         /// <summary>The ID of the shop listing that the TransactionReview belongs to.</summary>
         [JsonPropertyName("listing_id")]
-        public int? ListingID { get; set; }
+        public int? ListingId { get; set; }
 
         /// <summary>The numeric ID of the user who was the buyer in this transaction. Note: This field may be absent, depending on the buyer&apos;s privacy settings.</summary>
         [JsonPropertyName("buyer_user_id")]
-        public int? BuyerUserID { get; set; }
+        public int? BuyerUserId { get; set; }
 
         /// <summary>Rating value on scale from 1 to 5</summary>
         [JsonPropertyName("rating")]
@@ -643,7 +643,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of this shipping carrier.</summary>
         [JsonPropertyName("shipping_carrier_id")]
-        public int? ShippingCarrierID { get; set; }
+        public int? ShippingCarrierId { get; set; }
 
         /// <summary>The name of this shipping carrier.</summary>
         [JsonPropertyName("name")]
@@ -665,7 +665,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique identifier of this mail class.</summary>
         [JsonPropertyName("mail_class_key")]
-        public string MailClassID { get; set; }
+        public string MailClassId { get; set; }
 
         /// <summary>The name of this mail class.</summary>
         [JsonPropertyName("name")]
@@ -679,7 +679,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of the shipping profile.</summary>
         [JsonPropertyName("shipping_profile_id")]
-        public int? ShippingProfileID { get; set; }
+        public int? ShippingProfileId { get; set; }
 
         /// <summary>The name string of this shipping profile.</summary>
         [JsonPropertyName("title")]
@@ -687,7 +687,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID for the user who owns the shipping profile.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The minimum number of days for processing the listing.</summary>
         [JsonPropertyName("min_processing_days")]
@@ -733,11 +733,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of the shipping profile destination in the shipping profile associated with the listing.</summary>
         [JsonPropertyName("shipping_profile_destination_id")]
-        public int? ShippingProfileDestinationID { get; set; }
+        public int? ShippingProfileDestinationId { get; set; }
 
         /// <summary>The numeric ID of the shipping profile.</summary>
         [JsonPropertyName("shipping_profile_id")]
-        public int? ShippingProfileID { get; set; }
+        public int? ShippingProfileId { get; set; }
 
         /// <summary>The ISO code of the country from which the listing ships.</summary>
         [JsonPropertyName("origin_country_iso")]
@@ -761,7 +761,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date.</summary>
         [JsonPropertyName("shipping_carrier_id")]
-        public int? ShippingCarrierID { get; set; }
+        public int? ShippingCarrierId { get; set; }
 
         /// <summary>The unique ID string of a shipping carrier&apos;s mail class, which is used to calculate an estimated delivery date.</summary>
         [JsonPropertyName("mail_class")]
@@ -783,11 +783,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of the base shipping profile.</summary>
         [JsonPropertyName("shipping_profile_id")]
-        public int? ShippingProfileID { get; set; }
+        public int? ShippingProfileId { get; set; }
 
         /// <summary>The numeric ID that is associated with a shipping upgrade</summary>
         [JsonPropertyName("upgrade_id")]
-        public int? UpgradeID { get; set; }
+        public int? UpgradeId { get; set; }
 
         /// <summary>Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority.</summary>
         [JsonPropertyName("upgrade_name")]
@@ -815,7 +815,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date.</summary>
         [JsonPropertyName("shipping_carrier_id")]
-        public int? ShippingCarrierID { get; set; }
+        public int? ShippingCarrierId { get; set; }
 
         /// <summary>The unique ID string of a shipping carrier&apos;s mail class, which is used to calculate an estimated delivery date.</summary>
         [JsonPropertyName("mail_class")]
@@ -877,7 +877,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The unique ID of a supported shipping carrier, which is used to calculate an estimated delivery date.</summary>
         [JsonPropertyName("shipping_carrier_id")]
-        public int? ShippingCarrierID { get; set; }
+        public int? ShippingCarrierId { get; set; }
 
         /// <summary>The unique ID string of a shipping carrier&apos;s mail class, which is used to calculate an estimated delivery date.</summary>
         [JsonPropertyName("mail_class")]
@@ -1131,11 +1131,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique positive non-zero numeric ID for an Etsy Shop.</summary>
         [JsonPropertyName("shop_id")]
-        public int? ShopID { get; set; }
+        public int? ShopId { get; set; }
 
         /// <summary>The numeric user ID of the user who owns this shop.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The shop&apos;s name string.</summary>
         [JsonPropertyName("shop_name")]
@@ -1341,7 +1341,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of a section in a specific Etsy shop.</summary>
         [JsonPropertyName("shop_section_id")]
-        public int? ShopSectionID { get; set; }
+        public int? ShopSectionId { get; set; }
 
         /// <summary>The title string for a shop section.</summary>
         [JsonPropertyName("title")]
@@ -1353,7 +1353,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of the user who owns this shop section.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The number of active listings in one section of a specific Etsy shop.</summary>
         [JsonPropertyName("active_listing_count")]
@@ -1377,7 +1377,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of a user. This number is also a valid shop ID for the user&apos;s shop.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The user&apos;s login name string.</summary>
         [JsonPropertyName("login_name")]
@@ -1402,7 +1402,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of the user who referred this user.</summary>
         [JsonPropertyName("referred_by_user_id")]
-        public int? ReferredByUserID { get; set; }
+        public int? ReferredByUserId { get; set; }
 
         /// <summary>Deprecated. Always true.</summary>
         [JsonPropertyName("use_new_inventory_endpoints")]
@@ -1444,11 +1444,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of the user&apos;s address.</summary>
         [JsonPropertyName("user_address_id")]
-        public int? UserAddressID { get; set; }
+        public int? UserAddressId { get; set; }
 
         /// <summary>The user&apos;s numeric ID.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The user&apos;s name for this address.</summary>
         [JsonPropertyName("name")]
@@ -1522,7 +1522,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique numeric ID of an Etsy taxonomy node, which is a metadata category for listings organized into the seller taxonomy hierarchy tree. For example, the shoes taxonomy node (ID: 1429, level: 1) is higher in the hierarchy than girls&apos; shoes (ID: 1440, level: 2). The taxonomy nodes assigned to a listing support access to specific standardized product scales and properties. For example, listings assigned the taxonomy nodes shoes or girls&apos; shoes support access to the EU shoe size scale with its associated property names and IDs for EU shoe sizes, such as property `value_id`:1394, and `name`:38.</summary>
         [JsonPropertyName("id")]
-        public int? ID { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>The integer depth of this taxonomy node in the seller taxonomy tree, with roots at level 0.</summary>
         [JsonPropertyName("level")]
@@ -1534,7 +1534,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric taxonomy ID of the parent of this node.</summary>
         [JsonPropertyName("parent_id")]
-        public int? ParentID { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>An array of taxonomy nodes for all the direct children of this taxonomy node in the seller taxanomy tree.</summary>
         [JsonPropertyName("children")]
@@ -1566,7 +1566,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique numeric ID of this product property.</summary>
         [JsonPropertyName("property_id")]
-        public int? PropertyID { get; set; }
+        public int? PropertyId { get; set; }
 
         /// <summary>The name string for this taxonomy node.</summary>
         [JsonPropertyName("name")]
@@ -1612,7 +1612,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique numeric ID of a scale.</summary>
         [JsonPropertyName("scale_id")]
-        public int? ScaleID { get; set; }
+        public int? ScaleId { get; set; }
 
         /// <summary>The name string for a scale.</summary>
         [JsonPropertyName("display_name")]
@@ -1630,7 +1630,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of this property value.</summary>
         [JsonPropertyName("value_id")]
-        public int? ValueID { get; set; }
+        public int? ValueId { get; set; }
 
         /// <summary>The name string of this property value.</summary>
         [JsonPropertyName("name")]
@@ -1638,7 +1638,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric scale ID of the scale to which this property value belongs.</summary>
         [JsonPropertyName("scale_id")]
-        public int? ScaleID { get; set; }
+        public int? ScaleId { get; set; }
 
         /// <summary>A list of numeric property value IDs this property value is equal to (if any).</summary>
         [JsonPropertyName("equal_to")]
@@ -1666,15 +1666,15 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID for the listing associated to this transaction.</summary>
         [JsonPropertyName("listing_id")]
-        public int? ListingID { get; set; }
+        public int? ListingId { get; set; }
 
         /// <summary>The numeric ID for the user posting the listing.</summary>
         [JsonPropertyName("user_id")]
-        public int? UserID { get; set; }
+        public int? UserId { get; set; }
 
         /// <summary>The unique positive non-zero numeric ID for an Etsy Shop.</summary>
         [JsonPropertyName("shop_id")]
-        public int? ShopID { get; set; }
+        public int? ShopId { get; set; }
 
         /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
@@ -1719,7 +1719,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of a section in a specific Etsy shop.</summary>
         [JsonPropertyName("shop_section_id")]
-        public int? ShopSectionID { get; set; }
+        public int? ShopSectionId { get; set; }
 
         /// <summary>The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.</summary>
         [JsonPropertyName("featured_rank")]
@@ -1771,7 +1771,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of the shipping profile associated with the listing.</summary>
         [JsonPropertyName("shipping_profile_id")]
-        public int? ShippingProfileID { get; set; }
+        public int? ShippingProfileId { get; set; }
 
         /// <summary>The minimum number of days required to process this listing. Default value is null.</summary>
         [JsonPropertyName("processing_min")]
@@ -1855,7 +1855,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric taxonomy ID of the listing. The seller manages listing taxonomy IDs for their shop. See seller taxonomy for more information.</summary>
         [JsonPropertyName("taxonomy_id")]
-        public int? TaxonomyID { get; set; }
+        public int? TaxonomyId { get; set; }
     }
 
     /// <summary>
@@ -2011,7 +2011,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of the Property.</summary>
         [JsonPropertyName("property_id")]
-        public int? PropertyID { get; set; }
+        public int? PropertyId { get; set; }
 
         /// <summary>The name of the Property.</summary>
         [JsonPropertyName("property_name")]
@@ -2019,7 +2019,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric ID of the scale (if any).</summary>
         [JsonPropertyName("scale_id")]
-        public int? ScaleID { get; set; }
+        public int? ScaleId { get; set; }
 
         /// <summary>The label used to describe the chosen scale (if any).</summary>
         [JsonPropertyName("scale_name")]
@@ -2185,11 +2185,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The unique numeric ID of a file associated with a digital listing.</summary>
         [JsonPropertyName("listing_file_id")]
-        public int? ListingFileID { get; set; }
+        public int? ListingFileId { get; set; }
 
         /// <summary>The numeric ID for the listing associated to this transaction.</summary>
         [JsonPropertyName("listing_id")]
-        public int? ListingID { get; set; }
+        public int? ListingId { get; set; }
 
         /// <summary>The numeric index of the display order position of this file in the listing, starting at 1.</summary>
         [JsonPropertyName("rank")]
@@ -2260,11 +2260,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID for the listing associated to this transaction.</summary>
         [JsonPropertyName("listing_id")]
-        public int? ListingID { get; set; }
+        public int? ListingId { get; set; }
 
         /// <summary>The numeric ID of the primary listing image for this transaction.</summary>
         [JsonPropertyName("listing_image_id")]
-        public int? ListingImageID { get; set; }
+        public int? ListingImageId { get; set; }
 
         /// <summary>The webhex string for the image&apos;s average color, in webhex notation.</summary>
         [JsonPropertyName("hex_code")]
@@ -2404,7 +2404,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID for a specific product purchased from a listing.</summary>
         [JsonPropertyName("product_id")]
-        public int? ProductID { get; set; }
+        public int? ProductId { get; set; }
 
         /// <summary>The SKU string for the product</summary>
         [JsonPropertyName("sku")]
@@ -2430,7 +2430,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The ID for the product offering</summary>
         [JsonPropertyName("offering_id")]
-        public int? OfferingID { get; set; }
+        public int? OfferingId { get; set; }
 
         /// <summary>The quantity the product offering</summary>
         [JsonPropertyName("quantity")]
@@ -2500,7 +2500,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID for the Listing.</summary>
         [JsonPropertyName("listing_id")]
-        public int? ListingID { get; set; }
+        public int? ListingId { get; set; }
 
         /// <summary>The IETF language tag (e.g. &apos;fr&apos;) for the language of this translation.</summary>
         [JsonPropertyName("language")]
@@ -2576,15 +2576,15 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     {
         /// <summary>The numeric ID of the Property.</summary>
         [JsonPropertyName("property_id")]
-        public int? PropertyID { get; set; }
+        public int? PropertyId { get; set; }
 
         /// <summary>The numeric ID of the Value.</summary>
         [JsonPropertyName("value_id")]
-        public int? ValueID { get; set; }
+        public int? ValueId { get; set; }
 
         /// <summary>The numeric ID of the Image.</summary>
         [JsonPropertyName("image_id")]
-        public int? ImageID { get; set; }
+        public int? ImageId { get; set; }
     }
 
     /// <summary>
@@ -3302,11 +3302,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="Pong"/>.
         /// </summary>
         public static Pong Pong(
-            int? applicationID = default)
+            int? applicationId = default)
         {
             return new Pong
             {
-                ApplicationID = applicationID,
+                ApplicationId = applicationId,
             };
         }
 
@@ -3328,8 +3328,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="PaymentAccountLedgerEntry"/>.
         /// </summary>
         public static PaymentAccountLedgerEntry PaymentAccountLedgerEntry(
-            int? entryID = default,
-            int? ledgerID = default,
+            int? entryId = default,
+            int? ledgerId = default,
             int? sequenceNumber = default,
             int? amount = default,
             string currency = default,
@@ -3339,8 +3339,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new PaymentAccountLedgerEntry
             {
-                EntryID = entryID,
-                LedgerID = ledgerID,
+                EntryId = entryId,
+                LedgerId = ledgerId,
                 SequenceNumber = sequenceNumber,
                 Amount = amount,
                 Currency = currency,
@@ -3368,10 +3368,10 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="Payment"/>.
         /// </summary>
         public static Payment Payment(
-            int? paymentID = default,
-            int? buyerUserID = default,
-            int? shopID = default,
-            int? receiptID = default,
+            int? paymentId = default,
+            int? buyerUserId = default,
+            int? shopId = default,
+            int? receiptId = default,
             Money amountGross = default,
             Money amountFees = default,
             Money amountNet = default,
@@ -3384,9 +3384,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string currency = default,
             string shopCurrency = default,
             string buyerCurrency = default,
-            int? userShippingID = default,
-            int? shippingAddressID = default,
-            int? billingAddressID = default,
+            int? userShippingId = default,
+            int? shippingAddressId = default,
+            int? billingAddressId = default,
             string status = default,
             int? shippedTimestamp = default,
             int? createdTimestamp = default,
@@ -3395,10 +3395,10 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new Payment
             {
-                PaymentID = paymentID,
-                BuyerUserID = buyerUserID,
-                ShopID = shopID,
-                ReceiptID = receiptID,
+                PaymentId = paymentId,
+                BuyerUserId = buyerUserId,
+                ShopId = shopId,
+                ReceiptId = receiptId,
                 AmountGross = amountGross,
                 AmountFees = amountFees,
                 AmountNet = amountNet,
@@ -3411,9 +3411,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Currency = currency,
                 ShopCurrency = shopCurrency,
                 BuyerCurrency = buyerCurrency,
-                UserShippingID = userShippingID,
-                ShippingAddressID = shippingAddressID,
-                BillingAddressID = billingAddressID,
+                UserShippingId = userShippingId,
+                ShippingAddressId = shippingAddressId,
+                BillingAddressId = billingAddressId,
                 Status = status,
                 ShippedTimestamp = shippedTimestamp,
                 CreatedTimestamp = createdTimestamp,
@@ -3442,11 +3442,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="PaymentAdjustment"/>.
         /// </summary>
         public static PaymentAdjustment PaymentAdjustment(
-            int? paymentAdjustmentID = default,
-            int? paymentID = default,
+            int? paymentAdjustmentId = default,
+            int? paymentId = default,
             string status = default,
             bool? isSuccess = default,
-            int? userID = default,
+            int? userId = default,
             string reasonCode = default,
             int? totalAdjustmentAmount = default,
             int? shopTotalAdjustmentAmount = default,
@@ -3456,11 +3456,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new PaymentAdjustment
             {
-                PaymentAdjustmentID = paymentAdjustmentID,
-                PaymentID = paymentID,
+                PaymentAdjustmentId = paymentAdjustmentId,
+                PaymentId = paymentId,
                 Status = status,
                 IsSuccess = isSuccess,
-                UserID = userID,
+                UserId = userId,
                 ReasonCode = reasonCode,
                 TotalAdjustmentAmount = totalAdjustmentAmount,
                 ShopTotalAdjustmentAmount = shopTotalAdjustmentAmount,
@@ -3474,11 +3474,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopReceipt"/>.
         /// </summary>
         public static ShopReceipt ShopReceipt(
-            int? receiptID = default,
+            int? receiptId = default,
             int? receiptType = default,
-            int? sellerUserID = default,
+            int? sellerUserId = default,
             string sellerSEmailAddress = default,
-            int? buyerUserID = default,
+            int? buyerUserId = default,
             string buyerSEmailAddress = default,
             string name = default,
             string firstAddressLine = default,
@@ -3510,11 +3510,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ShopReceipt
             {
-                ReceiptID = receiptID,
+                ReceiptId = receiptId,
                 ReceiptType = receiptType,
-                SellerUserID = sellerUserID,
+                SellerUserId = sellerUserId,
                 SellerSEmailAddress = sellerSEmailAddress,
-                BuyerUserID = buyerUserID,
+                BuyerUserId = buyerUserId,
                 BuyerSEmailAddress = buyerSEmailAddress,
                 Name = name,
                 FirstAddressLine = firstAddressLine,
@@ -3550,14 +3550,14 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopReceiptShipment"/>.
         /// </summary>
         public static ShopReceiptShipment ShopReceiptShipment(
-            int? receiptShippingID = default,
+            int? receiptShippingId = default,
             int? shipmentNotificationTimestamp = default,
             string carrierName = default,
             string trackingCode = default)
         {
             return new ShopReceiptShipment
             {
-                ReceiptShippingID = receiptShippingID,
+                ReceiptShippingId = receiptShippingId,
                 ShipmentNotificationTimestamp = shipmentNotificationTimestamp,
                 CarrierName = carrierName,
                 TrackingCode = trackingCode,
@@ -3612,43 +3612,43 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopReceiptTransaction"/>.
         /// </summary>
         public static ShopReceiptTransaction ShopReceiptTransaction(
-            int? transactionID = default,
+            int? transactionId = default,
             string title = default,
             string description = default,
-            int? sellerUserID = default,
-            int? buyerUserID = default,
+            int? sellerUserId = default,
+            int? buyerUserId = default,
             int? createdTimestamp = default,
             int? paidTimestamp = default,
             int? shippedTimestamp = default,
             int? quantity = default,
-            int? listingImageID = default,
-            int? receiptID = default,
+            int? listingImageId = default,
+            int? receiptId = default,
             bool? isDigital = default,
             string fileData = default,
-            int? listingID = default,
+            int? listingId = default,
             string transactionType = default,
-            int? productID = default,
+            int? productId = default,
             Money price = default,
             Money shippingCost = default)
         {
             return new ShopReceiptTransaction
             {
-                TransactionID = transactionID,
+                TransactionId = transactionId,
                 Title = title,
                 Description = description,
-                SellerUserID = sellerUserID,
-                BuyerUserID = buyerUserID,
+                SellerUserId = sellerUserId,
+                BuyerUserId = buyerUserId,
                 CreatedTimestamp = createdTimestamp,
                 PaidTimestamp = paidTimestamp,
                 ShippedTimestamp = shippedTimestamp,
                 Quantity = quantity,
-                ListingImageID = listingImageID,
-                ReceiptID = receiptID,
+                ListingImageId = listingImageId,
+                ReceiptId = receiptId,
                 IsDigital = isDigital,
                 FileData = fileData,
-                ListingID = listingID,
+                ListingId = listingId,
                 TransactionType = transactionType,
-                ProductID = productID,
+                ProductId = productId,
                 Price = price,
                 ShippingCost = shippingCost,
             };
@@ -3672,9 +3672,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="TransactionReview"/>.
         /// </summary>
         public static TransactionReview TransactionReview(
-            int? shopID = default,
-            int? listingID = default,
-            int? buyerUserID = default,
+            int? shopId = default,
+            int? listingId = default,
+            int? buyerUserId = default,
             int? rating = default,
             string reviewMessage = default,
             string language = default,
@@ -3684,9 +3684,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new TransactionReview
             {
-                ShopID = shopID,
-                ListingID = listingID,
-                BuyerUserID = buyerUserID,
+                ShopId = shopId,
+                ListingId = listingId,
+                BuyerUserId = buyerUserId,
                 Rating = rating,
                 ReviewMessage = reviewMessage,
                 Language = language,
@@ -3714,14 +3714,14 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShippingCarrier"/>.
         /// </summary>
         public static ShippingCarrier ShippingCarrier(
-            int? shippingCarrierID = default,
+            int? shippingCarrierId = default,
             string name = default,
             List<ShippingCarrierMailClass> domesticClasses = default,
             List<ShippingCarrierMailClass> internationalClasses = default)
         {
             return new ShippingCarrier
             {
-                ShippingCarrierID = shippingCarrierID,
+                ShippingCarrierId = shippingCarrierId,
                 Name = name,
                 DomesticClasses = domesticClasses,
                 InternationalClasses = internationalClasses,
@@ -3732,12 +3732,12 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShippingCarrierMailClass"/>.
         /// </summary>
         public static ShippingCarrierMailClass ShippingCarrierMailClass(
-            string mailClassID = default,
+            string mailClassId = default,
             string name = default)
         {
             return new ShippingCarrierMailClass
             {
-                MailClassID = mailClassID,
+                MailClassId = mailClassId,
                 Name = name,
             };
         }
@@ -3746,9 +3746,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopShippingProfile"/>.
         /// </summary>
         public static ShopShippingProfile ShopShippingProfile(
-            int? shippingProfileID = default,
+            int? shippingProfileId = default,
             string title = default,
-            int? userID = default,
+            int? userId = default,
             int? minimumProcessingDays = default,
             int? maximumProcessingDays = default,
             string processingDaysLabel = default,
@@ -3761,9 +3761,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ShopShippingProfile
             {
-                ShippingProfileID = shippingProfileID,
+                ShippingProfileId = shippingProfileId,
                 Title = title,
-                UserID = userID,
+                UserId = userId,
                 MinimumProcessingDays = minimumProcessingDays,
                 MaximumProcessingDays = maximumProcessingDays,
                 ProcessingDaysLabel = processingDaysLabel,
@@ -3780,28 +3780,28 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopShippingProfileDestination"/>.
         /// </summary>
         public static ShopShippingProfileDestination ShopShippingProfileDestination(
-            int? shippingProfileDestinationID = default,
-            int? shippingProfileID = default,
+            int? shippingProfileDestinationId = default,
+            int? shippingProfileId = default,
             string originCountryISO = default,
             string destinationCountryISO = default,
             string destinationRegion = default,
             Money primaryCost = default,
             Money secondaryCost = default,
-            int? shippingCarrierID = default,
+            int? shippingCarrierId = default,
             string mailClass = default,
             int? minimumDeliveryDays = default,
             int? maximumDeliveryDays = default)
         {
             return new ShopShippingProfileDestination
             {
-                ShippingProfileDestinationID = shippingProfileDestinationID,
-                ShippingProfileID = shippingProfileID,
+                ShippingProfileDestinationId = shippingProfileDestinationId,
+                ShippingProfileId = shippingProfileId,
                 OriginCountryISO = originCountryISO,
                 DestinationCountryISO = destinationCountryISO,
                 DestinationRegion = destinationRegion,
                 PrimaryCost = primaryCost,
                 SecondaryCost = secondaryCost,
-                ShippingCarrierID = shippingCarrierID,
+                ShippingCarrierId = shippingCarrierId,
                 MailClass = mailClass,
                 MinimumDeliveryDays = minimumDeliveryDays,
                 MaximumDeliveryDays = maximumDeliveryDays,
@@ -3812,30 +3812,30 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopShippingProfileUpgrade"/>.
         /// </summary>
         public static ShopShippingProfileUpgrade ShopShippingProfileUpgrade(
-            int? shippingProfileID = default,
-            int? upgradeID = default,
+            int? shippingProfileId = default,
+            int? upgradeId = default,
             string upgradeName = default,
             int? type = default,
             int? rank = default,
             string language = default,
             Money price = default,
             Money secondaryPrice = default,
-            int? shippingCarrierID = default,
+            int? shippingCarrierId = default,
             string mailClass = default,
             int? minimumDeliveryDays = default,
             int? maximumDeliveryDays = default)
         {
             return new ShopShippingProfileUpgrade
             {
-                ShippingProfileID = shippingProfileID,
-                UpgradeID = upgradeID,
+                ShippingProfileId = shippingProfileId,
+                UpgradeId = upgradeId,
                 UpgradeName = upgradeName,
                 Type = type,
                 Rank = rank,
                 Language = language,
                 Price = price,
                 SecondaryPrice = secondaryPrice,
-                ShippingCarrierID = shippingCarrierID,
+                ShippingCarrierId = shippingCarrierId,
                 MailClass = mailClass,
                 MinimumDeliveryDays = minimumDeliveryDays,
                 MaximumDeliveryDays = maximumDeliveryDays,
@@ -3856,7 +3856,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string destinationCountryISO = default,
             DestinationRegion? destinationRegion = default,
             string originPostalCode = default,
-            int? shippingCarrierID = default,
+            int? shippingCarrierId = default,
             string mailClass = default,
             int? minimumDeliveryDays = default,
             int? maximumDeliveryDays = default)
@@ -3873,7 +3873,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 DestinationCountryISO = destinationCountryISO,
                 DestinationRegion = destinationRegion,
                 OriginPostalCode = originPostalCode,
-                ShippingCarrierID = shippingCarrierID,
+                ShippingCarrierId = shippingCarrierId,
                 MailClass = mailClass,
                 MinimumDeliveryDays = minimumDeliveryDays,
                 MaximumDeliveryDays = maximumDeliveryDays,
@@ -4056,8 +4056,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="Shop"/>.
         /// </summary>
         public static Shop Shop(
-            int? shopID = default,
-            int? userID = default,
+            int? shopId = default,
+            int? userId = default,
             string shopName = default,
             int? createdDate = default,
             string title = default,
@@ -4103,8 +4103,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new Shop
             {
-                ShopID = shopID,
-                UserID = userID,
+                ShopId = shopId,
+                UserId = userId,
                 ShopName = shopName,
                 CreatedDate = createdDate,
                 Title = title,
@@ -4182,18 +4182,18 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopSection"/>.
         /// </summary>
         public static ShopSection ShopSection(
-            int? shopSectionID = default,
+            int? shopSectionId = default,
             string title = default,
             int? rank = default,
-            int? userID = default,
+            int? userId = default,
             int? activeListingCount = default)
         {
             return new ShopSection
             {
-                ShopSectionID = shopSectionID,
+                ShopSectionId = shopSectionId,
                 Title = title,
                 Rank = rank,
-                UserID = userID,
+                UserId = userId,
                 ActiveListingCount = activeListingCount,
             };
         }
@@ -4214,13 +4214,13 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="User"/>.
         /// </summary>
         public static User User(
-            int? userID = default,
+            int? userId = default,
             string loginName = default,
             string primaryEmail = default,
             string firstName = default,
             string lastName = default,
             int? createdTimestamp = default,
-            int? referredByUserID = default,
+            int? referredByUserId = default,
             bool? useNewInventoryEndpoints = default,
             bool? isSeller = default,
             string biography = default,
@@ -4232,13 +4232,13 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new User
             {
-                UserID = userID,
+                UserId = userId,
                 LoginName = loginName,
                 PrimaryEmail = primaryEmail,
                 FirstName = firstName,
                 LastName = lastName,
                 CreatedTimestamp = createdTimestamp,
-                ReferredByUserID = referredByUserID,
+                ReferredByUserId = referredByUserId,
                 UseNewInventoryEndpoints = useNewInventoryEndpoints,
                 IsSeller = isSeller,
                 Biography = biography,
@@ -4254,8 +4254,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="UserAddress"/>.
         /// </summary>
         public static UserAddress UserAddress(
-            int? userAddressID = default,
-            int? userID = default,
+            int? userAddressId = default,
+            int? userId = default,
             string name = default,
             string firstAddressLine = default,
             string secondAddressLine = default,
@@ -4268,8 +4268,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new UserAddress
             {
-                UserAddressID = userAddressID,
-                UserID = userID,
+                UserAddressId = userAddressId,
+                UserId = userId,
                 Name = name,
                 FirstAddressLine = firstAddressLine,
                 SecondAddressLine = secondAddressLine,
@@ -4317,16 +4317,16 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             int? id = default,
             int? level = default,
             string name = default,
-            int? parentID = default,
+            int? parentId = default,
             List<SellerTaxonomyNode> children = default,
             List<int?> taxonomyPathIDs = default)
         {
             return new SellerTaxonomyNode
             {
-                ID = id,
+                Id = id,
                 Level = level,
                 Name = name,
-                ParentID = parentID,
+                ParentId = parentId,
                 Children = children,
                 TaxonomyPathIDs = taxonomyPathIDs,
             };
@@ -4350,7 +4350,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="TaxonomyNodeProperty"/>.
         /// </summary>
         public static TaxonomyNodeProperty TaxonomyNodeProperty(
-            int? propertyID = default,
+            int? propertyId = default,
             string name = default,
             string displayName = default,
             List<TaxonomyPropertyScale> scales = default,
@@ -4363,7 +4363,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new TaxonomyNodeProperty
             {
-                PropertyID = propertyID,
+                PropertyId = propertyId,
                 Name = name,
                 DisplayName = displayName,
                 Scales = scales,
@@ -4380,13 +4380,13 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="TaxonomyPropertyScale"/>.
         /// </summary>
         public static TaxonomyPropertyScale TaxonomyPropertyScale(
-            int? scaleID = default,
+            int? scaleId = default,
             string displayName = default,
             string description = default)
         {
             return new TaxonomyPropertyScale
             {
-                ScaleID = scaleID,
+                ScaleId = scaleId,
                 DisplayName = displayName,
                 Description = description,
             };
@@ -4396,16 +4396,16 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="TaxonomyPropertyValue"/>.
         /// </summary>
         public static TaxonomyPropertyValue TaxonomyPropertyValue(
-            int? valueID = default,
+            int? valueId = default,
             string name = default,
-            int? scaleID = default,
+            int? scaleId = default,
             List<int?> equalTo = default)
         {
             return new TaxonomyPropertyValue
             {
-                ValueID = valueID,
+                ValueId = valueId,
                 Name = name,
-                ScaleID = scaleID,
+                ScaleId = scaleId,
                 EqualTo = equalTo,
             };
         }
@@ -4428,9 +4428,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopListing"/>.
         /// </summary>
         public static ShopListing ShopListing(
-            int? listingID = default,
-            int? userID = default,
-            int? shopID = default,
+            int? listingId = default,
+            int? userId = default,
+            int? shopId = default,
             string title = default,
             string description = default,
             int? state = default,
@@ -4440,7 +4440,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             int? lastModifiedTimestamp = default,
             int? lastStateChangeTimestamp = default,
             int? quantity = default,
-            int? shopSectionID = default,
+            int? shopSectionId = default,
             int? featuredRank = default,
             string url = default,
             int? numberOfFavorers = default,
@@ -4453,7 +4453,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             bool? listingType = default,
             List<string> tags = default,
             List<string> materials = default,
-            int? shippingProfileID = default,
+            int? shippingProfileId = default,
             int? minimumProcessingDays = default,
             int? maximumProcessingDays = default,
             string whoMade = default,
@@ -4474,13 +4474,13 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             bool? shouldAutoRenew = default,
             string language = default,
             Money price = default,
-            int? taxonomyID = default)
+            int? taxonomyId = default)
         {
             return new ShopListing
             {
-                ListingID = listingID,
-                UserID = userID,
-                ShopID = shopID,
+                ListingId = listingId,
+                UserId = userId,
+                ShopId = shopId,
                 Title = title,
                 Description = description,
                 State = state,
@@ -4490,7 +4490,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 LastModifiedTimestamp = lastModifiedTimestamp,
                 LastStateChangeTimestamp = lastStateChangeTimestamp,
                 Quantity = quantity,
-                ShopSectionID = shopSectionID,
+                ShopSectionId = shopSectionId,
                 FeaturedRank = featuredRank,
                 URL = url,
                 NumberOfFavorers = numberOfFavorers,
@@ -4503,7 +4503,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 ListingType = listingType,
                 Tags = tags,
                 Materials = materials,
-                ShippingProfileID = shippingProfileID,
+                ShippingProfileId = shippingProfileId,
                 MinimumProcessingDays = minimumProcessingDays,
                 MaximumProcessingDays = maximumProcessingDays,
                 WhoMade = whoMade,
@@ -4524,7 +4524,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 ShouldAutoRenew = shouldAutoRenew,
                 Language = language,
                 Price = price,
-                TaxonomyID = taxonomyID,
+                TaxonomyId = taxonomyId,
             };
         }
 
@@ -4626,18 +4626,18 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ListingPropertyValue"/>.
         /// </summary>
         public static ListingPropertyValue ListingPropertyValue(
-            int? propertyID = default,
+            int? propertyId = default,
             string name = default,
-            int? scaleID = default,
+            int? scaleId = default,
             string scaleName = default,
             List<int?> valueIDs = default,
             List<string> values = default)
         {
             return new ListingPropertyValue
             {
-                PropertyID = propertyID,
+                PropertyId = propertyId,
                 Name = name,
-                ScaleID = scaleID,
+                ScaleId = scaleId,
                 ScaleName = scaleName,
                 ValueIDs = valueIDs,
                 Values = values,
@@ -4734,8 +4734,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ShopListingFile"/>.
         /// </summary>
         public static ShopListingFile ShopListingFile(
-            int? listingFileID = default,
-            int? listingID = default,
+            int? listingFileId = default,
+            int? listingId = default,
             int? rank = default,
             string filename = default,
             string filesize = default,
@@ -4745,8 +4745,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ShopListingFile
             {
-                ListingFileID = listingFileID,
-                ListingID = listingID,
+                ListingFileId = listingFileId,
+                ListingId = listingId,
                 Rank = rank,
                 Filename = filename,
                 Filesize = filesize,
@@ -4792,8 +4792,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ListingImage"/>.
         /// </summary>
         public static ListingImage ListingImage(
-            int? listingID = default,
-            int? listingImageID = default,
+            int? listingId = default,
+            int? listingImageId = default,
             string hexCode = default,
             int? redValue = default,
             int? greenValue = default,
@@ -4813,8 +4813,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ListingImage
             {
-                ListingID = listingID,
-                ListingImageID = listingImageID,
+                ListingId = listingId,
+                ListingImageId = listingImageId,
                 HexCode = hexCode,
                 RedValue = redValue,
                 GreenValue = greenValue,
@@ -4892,7 +4892,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ListingInventoryProduct"/>.
         /// </summary>
         public static ListingInventoryProduct ListingInventoryProduct(
-            int? productID = default,
+            int? productId = default,
             string sku = default,
             bool? isDeleted = default,
             List<ListingInventoryProductOffering> offerings = default,
@@ -4900,7 +4900,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ListingInventoryProduct
             {
-                ProductID = productID,
+                ProductId = productId,
                 SKU = sku,
                 IsDeleted = isDeleted,
                 Offerings = offerings,
@@ -4912,7 +4912,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ListingInventoryProductOffering"/>.
         /// </summary>
         public static ListingInventoryProductOffering ListingInventoryProductOffering(
-            int? offeringID = default,
+            int? offeringId = default,
             int? quantity = default,
             bool? isEnabled = default,
             bool? isDeleted = default,
@@ -4920,7 +4920,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ListingInventoryProductOffering
             {
-                OfferingID = offeringID,
+                OfferingId = offeringId,
                 Quantity = quantity,
                 IsEnabled = isEnabled,
                 IsDeleted = isDeleted,
@@ -4968,7 +4968,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ListingTranslation"/>.
         /// </summary>
         public static ListingTranslation ListingTranslation(
-            int? listingID = default,
+            int? listingId = default,
             string language = default,
             string title = default,
             string description = default,
@@ -4976,7 +4976,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         {
             return new ListingTranslation
             {
-                ListingID = listingID,
+                ListingId = listingId,
                 Language = language,
                 Title = title,
                 Description = description,
@@ -5034,15 +5034,15 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// Creates a new instance of <see cref="ListingVariationImage"/>.
         /// </summary>
         public static ListingVariationImage ListingVariationImage(
-            int? propertyID = default,
-            int? valueID = default,
-            int? imageID = default)
+            int? propertyId = default,
+            int? valueId = default,
+            int? imageId = default)
         {
             return new ListingVariationImage
             {
-                PropertyID = propertyID,
-                ValueID = valueID,
-                ImageID = imageID,
+                PropertyId = propertyId,
+                ValueId = valueId,
+                ImageId = imageId,
             };
         }
 
@@ -5136,14 +5136,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a shop payment account ledger&apos;s entries
         /// </summary>
         /// <remarks>Retrieve the entries of a shop&apos;s payment account ledger.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="minimumCreated">Minimum Created</param>
         /// <param name="maximumCreated">Maximum Created</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a shop payment account ledger&apos;s entries response.</returns>
-        public virtual async Task<PaymentAccountLedgerEntries> PaymentLedgerEntriesAsync(int shopID, int minimumCreated, int maximumCreated, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PaymentAccountLedgerEntries> PaymentLedgerEntriesAsync(int shopId, int minimumCreated, int maximumCreated, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (minimumCreated != default)
@@ -5154,7 +5154,7 @@ namespace Azure.Connectors.Sdk.Etsy
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PaymentAccountLedgerEntries>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5164,16 +5164,16 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a payment from a payment account ledger entry ID
         /// </summary>
         /// <remarks>Get a Payment from a Payment Account Ledger Entry ID, if applicable.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="ledgerEntryIDs">Ledger Entry IDs</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a payment from a payment account ledger entry ID response.</returns>
-        public virtual async Task<Payments> PaymentGetEntryIDAsync(int shopID, string ledgerEntryIDs, CancellationToken cancellationToken = default)
+        public virtual async Task<Payments> PaymentGetEntryIdAsync(int shopId, string ledgerEntryIDs, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (ledgerEntryIDs != default)
                 queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5183,13 +5183,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a payment from a specific receipt
         /// </summary>
         /// <remarks>Retrieves a payment from a specific receipt, identified by receipt ID, from a specific shop, identified by shop ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="receiptID">Receipt ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="receiptId">Receipt ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a payment from a specific receipt response.</returns>
-        public virtual async Task<Payments> PaymentGetReceiptAsync(int shopID, string receiptID, CancellationToken cancellationToken = default)
+        public virtual async Task<Payments> PaymentGetReceiptAsync(int shopId, string receiptId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/receipts/{Uri.EscapeDataString(receiptID.ToString())}/payments";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/payments";
             return await this
                 .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5199,16 +5199,16 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a list of payments
         /// </summary>
         /// <remarks>Retrieves a list of payments from a shop identified by shop ID. You can also filter results using a list of payment IDs.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="paymentID">Payment ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="paymentId">Payment ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a list of payments response.</returns>
-        public virtual async Task<Payments> PaymentsGetAsync(int shopID, string paymentID, CancellationToken cancellationToken = default)
+        public virtual async Task<Payments> PaymentsGetAsync(int shopId, string paymentId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (paymentID != default)
-                queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentID.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            if (paymentId != default)
+                queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5218,13 +5218,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a receipt
         /// </summary>
         /// <remarks>Retrieves a receipt, identified by a receipt ID, from an Etsy shop.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="receiptID">Receipt ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="receiptId">Receipt ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a receipt response.</returns>
-        public virtual async Task<ShopReceipt> ReceiptGetAsync(int shopID, int receiptID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceipt> ReceiptGetAsync(int shopId, int receiptId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/receipts/{Uri.EscapeDataString(receiptID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopReceipt>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5234,7 +5234,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get receipts
         /// </summary>
         /// <remarks>Requests the shop receipts from a specific shop, unfiltered or filtered by receipt ID range or offset, date, paid, and/or shipped purchases.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="minimumCreated">Minimum Created</param>
         /// <param name="maximumCreated">Maximum Created</param>
         /// <param name="earliestLastModified">Earliest Last Modified</param>
@@ -5245,7 +5245,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="wasShipped">Was Shipped</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get receipts response.</returns>
-        public virtual async Task<ShopReceipts> ReceiptsGetAsync(int shopID, int minimumCreated = default, int maximumCreated = default, int earliestLastModified = default, int latestLastModified = default, int limit = default, int offset = default, bool wasPaid = default, bool wasShipped = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceipts> ReceiptsGetAsync(int shopId, int minimumCreated = default, int maximumCreated = default, int earliestLastModified = default, int latestLastModified = default, int limit = default, int offset = default, bool wasPaid = default, bool wasShipped = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (minimumCreated != default)
@@ -5264,7 +5264,7 @@ namespace Azure.Connectors.Sdk.Etsy
                 queryParams.Add($"was_paid={Uri.EscapeDataString(wasPaid.ToString())}");
             if (wasShipped != default)
                 queryParams.Add($"was_shipped={Uri.EscapeDataString(wasShipped.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopReceipts>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5274,14 +5274,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a Shipment Receipt
         /// </summary>
         /// <remarks>Submits tracking information for a shop receipt, which creates a shop receipt Shipment entry for the given receipt ID. Each time you successfully submit tracking info, Etsy sends a notification email to the buyer User. When send BCC is true, Etsy sends shipping notifications to the seller as well. When tracking code and carrier name aren&apos;t sent, the receipt is marked as shipped only.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="receiptID">Receipt ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="receiptId">Receipt ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a Shipment Receipt response.</returns>
-        public virtual async Task<ShopReceipt> ReceiptCreateShipmentAsync(int shopID, int receiptID, ReceiptCreateShipmentInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceipt> ReceiptCreateShipmentAsync(int shopId, int receiptId, ReceiptCreateShipmentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/receipts/{Uri.EscapeDataString(receiptID.ToString())}/tracking";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/tracking";
             return await this
                 .CallConnectorAsync<ShopReceipt>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5291,20 +5291,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Retrieve a listing&apos;s transactions
         /// </summary>
         /// <remarks>Retrieves the list of transactions associated with a listing.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Retrieve a listing&apos;s transactions response.</returns>
-        public virtual async Task<ShopReceiptTransactions> TransactionsListingAsync(int shopID, int listingID, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceiptTransactions> TransactionsListingAsync(int shopId, int listingId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5314,13 +5314,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a receipt&apos;s transaction
         /// </summary>
         /// <remarks>Retrieves the list of transactions associated with a specific receipt.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="receiptID">Receipt ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="receiptId">Receipt ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a receipt&apos;s transaction response.</returns>
-        public virtual async Task<ShopReceiptTransactions> TransactionReceiptAsync(int shopID, int receiptID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceiptTransactions> TransactionReceiptAsync(int shopId, int receiptId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/receipts/{Uri.EscapeDataString(receiptID.ToString())}/transactions";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/transactions";
             return await this
                 .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5330,13 +5330,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a transaction
         /// </summary>
         /// <remarks>Retrieves a transaction by transaction ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="transactionID">Transaction ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="transactionId">Transaction ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a transaction response.</returns>
-        public virtual async Task<ShopReceiptTransaction> TransactionGetAsync(int shopID, int transactionID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceiptTransaction> TransactionGetAsync(int shopId, int transactionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/transactions/{Uri.EscapeDataString(transactionID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopReceiptTransaction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5346,19 +5346,19 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a shop&apos;s transaction
         /// </summary>
         /// <remarks>Retrieves the list of transactions associated with a shop.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a shop&apos;s transaction response.</returns>
-        public virtual async Task<ShopReceiptTransactions> TransactionGetShopAsync(int shopID, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceiptTransactions> TransactionGetShopAsync(int shopId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5368,19 +5368,19 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get reviews
         /// </summary>
         /// <remarks>Retrieves the reviews from a shop given its ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get reviews response.</returns>
-        public virtual async Task<TransactionReviews> ReviewsGetAsync(int shopID, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TransactionReviews> ReviewsGetAsync(int shopId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TransactionReviews>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5408,12 +5408,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get shipping profiles
         /// </summary>
         /// <remarks>Retrieves a list of shipping profiles available in the specific Etsy shop identified by its shop ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get shipping profiles response.</returns>
-        public virtual async Task<ShopShippingProfile> ShippingProfilesAsync(int shopID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfile> ShippingProfilesAsync(int shopId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
             return await this
                 .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5423,13 +5423,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a shipping profile
         /// </summary>
         /// <remarks>Creates a new shipping profile. You can pass a country ISO code or a region when creating a shipping profile, but not both. Only one is required. You must pass either a shipping carrier ID and mail class, or both min and max delivery days.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a shipping profile response.</returns>
-        public virtual async Task<ShopShippingProfile> ShippingCreateProfileAsync(int shopID, ShippingCreateProfileInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfile> ShippingCreateProfileAsync(int shopId, ShippingCreateProfileInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
             return await this
                 .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5439,12 +5439,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a shipping profile
         /// </summary>
         /// <remarks>Retrieves a shipping profile referenced by shipping profile ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ShippingGetProfileAsync(int shopID, int shippingProfileID, CancellationToken cancellationToken = default)
+        public virtual async Task ShippingGetProfileAsync(int shopId, int shippingProfileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5454,13 +5454,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a shipping profile
         /// </summary>
         /// <remarks>Deletes a shipping profile by given ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Delete a shipping profile response.</returns>
-        public virtual async Task<ShopShippingProfile> ShippingDeleteProfileAsync(int shopID, int shippingProfileID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfile> ShippingDeleteProfileAsync(int shopId, int shippingProfileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5470,14 +5470,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a shipping profile
         /// </summary>
         /// <remarks>Changes the settings in a shipping profile.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a shipping profile response.</returns>
-        public virtual async Task<ShopShippingProfile> ShippingUpdateProfileAsync(int shopID, int shippingProfileID, ShippingUpdateProfileInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfile> ShippingUpdateProfileAsync(int shopId, int shippingProfileId, ShippingUpdateProfileInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5487,20 +5487,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get profile destinations by shipping profile
         /// </summary>
         /// <remarks>Retrieves a list of shipping destination objects associated with a shipping profile.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get profile destinations by shipping profile response.</returns>
-        public virtual async Task<ShopShippingProfileDestinations> ShippingGetDestinationsAsync(int shopID, int shippingProfileID, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileDestinations> ShippingGetDestinationsAsync(int shopId, int shippingProfileId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopShippingProfileDestinations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5510,14 +5510,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a shipping profile destination
         /// </summary>
         /// <remarks>Creates a new shipping destination, which sets the shipping cost, carrier, and class for a destination in a shipping profile. This assigns costs using the currency of the associated shop. Set the destination using either destination country ISO or destination region; destination country ISO and destination region are mutually exclusive — set one or the other. Setting both triggers error 400. If the request sets neither destination country ISO nor destination region, the default destination is everywhere. You must also either assign both a shipping carrier ID and mail class or both min delivery days and max delivery days.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a shipping profile destination response.</returns>
-        public virtual async Task<ShopShippingProfileDestination> ShippingCreateDestinationAsync(int shopID, int shippingProfileID, ShippingCreateDestinationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileDestination> ShippingCreateDestinationAsync(int shopId, int shippingProfileId, ShippingCreateDestinationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/destinations";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations";
             return await this
                 .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5527,13 +5527,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a shipping profile destination
         /// </summary>
         /// <remarks>Deletes a shipping destination and removes the destination option from every listing that uses the associated shipping profile. A shipping profile requires at least one shipping destination, so this endpoint cannot delete the final shipping destination for any shipping profile. To delete the final shipping destination from a shipping profile, you must delete the entire shipping profile.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
-        /// <param name="shippingProfileDestinationID">Shipping Profile Destination ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
+        /// <param name="shippingProfileDestinationId">Shipping Profile Destination ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ShippingDeleteProfileDestinationAsync(int shopID, int shippingProfileID, int shippingProfileDestinationID, CancellationToken cancellationToken = default)
+        public virtual async Task ShippingDeleteProfileDestinationAsync(int shopId, int shippingProfileId, int shippingProfileDestinationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5543,15 +5543,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a shipping profile destination
         /// </summary>
         /// <remarks>Updates an existing shipping destination, which can set or reassign the shipping cost, carrier, and class for a destination.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
-        /// <param name="shippingProfileDestinationID">Shipping Profile Destination ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
+        /// <param name="shippingProfileDestinationId">Shipping Profile Destination ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a shipping profile destination response.</returns>
-        public virtual async Task<ShopShippingProfileDestination> ShippingUpdateProfileDestinationAsync(int shopID, string shippingProfileID, string shippingProfileDestinationID, ShippingUpdateProfileDestinationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileDestination> ShippingUpdateProfileDestinationAsync(int shopId, string shippingProfileId, string shippingProfileDestinationId, ShippingUpdateProfileDestinationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5561,13 +5561,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get shipping profile upgrades
         /// </summary>
         /// <remarks>Retrieves the list of shipping profile upgrades assigned to a specific shipping profile.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get shipping profile upgrades response.</returns>
-        public virtual async Task<ShopShippingProfileUpgrades> ShippingGetProfileUpgradesAsync(int shopID, int shippingProfileID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileUpgrades> ShippingGetProfileUpgradesAsync(int shopId, int shippingProfileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/upgrades";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
             return await this
                 .CallConnectorAsync<ShopShippingProfileUpgrades>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5577,14 +5577,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a shipping profile upgrade
         /// </summary>
         /// <remarks>Creates a new shipping profile upgrade, which can establish a price for a shipping option, such as an alternate carrier or faster delivery.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a shipping profile upgrade response.</returns>
-        public virtual async Task<ShopShippingProfileUpgrade> ShippingCreateUpgradeAsync(int shopID, int shippingProfileID, ShippingCreateUpgradeInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileUpgrade> ShippingCreateUpgradeAsync(int shopId, int shippingProfileId, ShippingCreateUpgradeInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/upgrades";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
             return await this
                 .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5594,13 +5594,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a shipping profile upgrade
         /// </summary>
         /// <remarks>Deletes a shipping profile upgrade and removes the upgrade option from every listing that uses the associated shipping profile.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
-        /// <param name="upgradeID">Upgrade ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
+        /// <param name="upgradeId">Upgrade ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ShippingDeleteProfileUpgradeAsync(int shopID, int shippingProfileID, int upgradeID, CancellationToken cancellationToken = default)
+        public virtual async Task ShippingDeleteProfileUpgradeAsync(int shopId, int shippingProfileId, int upgradeId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/upgrades/{Uri.EscapeDataString(upgradeID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5610,15 +5610,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a shipping profile upgrade
         /// </summary>
         /// <remarks>Updates a shipping profile upgrade and updates any listings that use the shipping profile.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shippingProfileID">Shipping Profile ID</param>
-        /// <param name="upgradeID">Upgrade ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shippingProfileId">Shipping Profile ID</param>
+        /// <param name="upgradeId">Upgrade ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a shipping profile upgrade response.</returns>
-        public virtual async Task<ShopShippingProfileUpgrade> ShippingUpdateProfileUpgradeAsync(int shopID, int shippingProfileID, int upgradeID, ShippingUpdateProfileUpgradeInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileUpgrade> ShippingUpdateProfileUpgradeAsync(int shopId, int shippingProfileId, int upgradeId, ShippingUpdateProfileUpgradeInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileID.ToString())}/upgrades/{Uri.EscapeDataString(upgradeID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5628,13 +5628,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a shop
         /// </summary>
         /// <remarks>Update a shop. Assumes that all string parameters are provided in the shop&apos;s primary language.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a shop response.</returns>
-        public virtual async Task<Shop> ShopUpdateAsync(int shopID, ShopUpdateInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<Shop> ShopUpdateAsync(int shopId, ShopUpdateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}";
             return await this
                 .CallConnectorAsync<Shop>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5644,12 +5644,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get shop by owner ID
         /// </summary>
         /// <remarks>Retrieves the shop identified by the shop owner&apos;s user ID.</remarks>
-        /// <param name="userID">User ID</param>
+        /// <param name="userId">User ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get shop by owner ID response.</returns>
-        public virtual async Task<Shop> ShopGetByOwnerIDAsync(string userID, CancellationToken cancellationToken = default)
+        public virtual async Task<Shop> ShopGetByOwnerIdAsync(string userId, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/{Uri.EscapeDataString(userID.ToString())}/shops";
+            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}/shops";
             return await this
                 .CallConnectorAsync<Shop>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5683,12 +5683,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get shop sections
         /// </summary>
         /// <remarks>Retrieves the list of shop sections in a specific shop identified by shop ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get shop sections response.</returns>
-        public virtual async Task<ShopSections> ShopGetSectionsAsync(int shopID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopSections> ShopGetSectionsAsync(int shopId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/sections";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
             return await this
                 .CallConnectorAsync<ShopSections>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5698,13 +5698,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a shop section
         /// </summary>
         /// <remarks>Creates a new section in a specific shop.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a shop section response.</returns>
-        public virtual async Task<ShopSection> ShopCreateSectionAsync(int shopID, ShopCreateSectionInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopSection> ShopCreateSectionAsync(int shopId, ShopCreateSectionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/sections";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
             return await this
                 .CallConnectorAsync<ShopSection>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5714,12 +5714,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get user
         /// </summary>
         /// <remarks>Returns user profile for the user identified by a user ID.</remarks>
-        /// <param name="userID">User ID</param>
+        /// <param name="userId">User ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user response.</returns>
-        public virtual async Task<User> UserGetAsync(int userID, CancellationToken cancellationToken = default)
+        public virtual async Task<User> UserGetAsync(int userId, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/{Uri.EscapeDataString(userID.ToString())}";
+            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}";
             return await this
                 .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5729,13 +5729,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get shop section
         /// </summary>
         /// <remarks>Retrieves a shop section, referenced by section ID and shop ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="shopSectionID">Shop Section ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="shopSectionId">Shop Section ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get shop section response.</returns>
-        public virtual async Task<ShopSection> ShopGetSectionAsync(int shopID, int shopSectionID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopSection> ShopGetSectionAsync(int shopId, int shopSectionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/sections/{Uri.EscapeDataString(shopSectionID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections/{Uri.EscapeDataString(shopSectionId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopSection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5745,12 +5745,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get user&apos;s address
         /// </summary>
         /// <remarks>Retrieves the user&apos;s address.  Development for this endpoint is in progress. It will only return a 501 response.</remarks>
-        /// <param name="userAddressID">User Address ID</param>
+        /// <param name="userAddressId">User Address ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user&apos;s address response.</returns>
-        public virtual async Task<UserAddress> UserGetAddressAsync(int userAddressID, CancellationToken cancellationToken = default)
+        public virtual async Task<UserAddress> UserGetAddressAsync(int userAddressId, CancellationToken cancellationToken = default)
         {
-            var path = $"/user/addresses/{Uri.EscapeDataString(userAddressID.ToString())}";
+            var path = $"/user/addresses/{Uri.EscapeDataString(userAddressId.ToString())}";
             return await this
                 .CallConnectorAsync<UserAddress>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5795,12 +5795,12 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get product properties by taxonomy ID
         /// </summary>
         /// <remarks>Retrieves a list of product properties, with applicable scales and values, supported for a specific seller taxonomy ID.</remarks>
-        /// <param name="taxonomyID">Taxonomy ID</param>
+        /// <param name="taxonomyId">Taxonomy ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get product properties by taxonomy ID response.</returns>
-        public virtual async Task<TaxonomyNodeProperties> ListingGetPropertiesByTaxonomyAsync(string taxonomyID, CancellationToken cancellationToken = default)
+        public virtual async Task<TaxonomyNodeProperties> ListingGetPropertiesByTaxonomyAsync(string taxonomyId, CancellationToken cancellationToken = default)
         {
-            var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(taxonomyID.ToString())}/properties";
+            var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(taxonomyId.ToString())}/properties";
             return await this
                 .CallConnectorAsync<TaxonomyNodeProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5810,7 +5810,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get listings by shop
         /// </summary>
         /// <remarks>Returns listings that belong to a Shop. Listings can be filtered using the state parameter.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="state">State</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
@@ -5818,7 +5818,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="sortOrder">Sort Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop response.</returns>
-        public virtual async Task<ShopListings> ListingGetShopAsync(int shopID, string state = default, int limit = default, int offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetShopAsync(int shopId, string state = default, int limit = default, int offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (state != default)
@@ -5831,7 +5831,7 @@ namespace Azure.Connectors.Sdk.Etsy
                 queryParams.Add($"Sort On={Uri.EscapeDataString(sortOn.ToString())}");
             if (sortOrder != default)
                 queryParams.Add($"Sort Order={Uri.EscapeDataString(sortOrder.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5841,13 +5841,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a draft listing
         /// </summary>
         /// <remarks>Creates a physical draft listing product in a shop on the Etsy channel.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a draft listing response.</returns>
-        public virtual async Task<ShopListing> ListingCreateAsync(int shopID, ListingCreateInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListing> ListingCreateAsync(int shopId, ListingCreateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings";
             return await this
                 .CallConnectorAsync<ShopListing>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5857,15 +5857,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing
         /// </summary>
         /// <remarks>Retrieves a listing record by listing ID.</remarks>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="includes">Includes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ListingGetAsync(int listingID, string includes = default, CancellationToken cancellationToken = default)
+        public virtual async Task ListingGetAsync(int listingId, string includes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (includes != default)
                 queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5875,11 +5875,11 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a listing
         /// </summary>
         /// <remarks>This action deletes a shop listing. A listing can be deleted only if the state is one of the following: SOLD_OUT, DRAFT, EXPIRED, INACTIVE, ACTIVE and is_available or ACTIVE and has seller flags: SUPRESSED (frozen), VACATION, CUSTOM_SHOPS (pattern), SELL_ON_FACEBOOK</remarks>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ListingDeleteAsync(int listingID, CancellationToken cancellationToken = default)
+        public virtual async Task ListingDeleteAsync(int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}";
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5896,11 +5896,11 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="sortOrder">Sort Order</param>
         /// <param name="minimumPrice">Minimum Price</param>
         /// <param name="maximumPrice">Maximum Price</param>
-        /// <param name="taxonomyID">Taxonomy ID</param>
+        /// <param name="taxonomyId">Taxonomy ID</param>
         /// <param name="shopLocation">Shop Location</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get active listings response.</returns>
-        public virtual async Task<ShopListings> ListingGetActiveAsync(int limit = default, int offset = default, string includes = default, string sortOn = default, string sortOrder = default, double minimumPrice = default, double maximumPrice = default, int taxonomyID = default, string shopLocation = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetActiveAsync(int limit = default, int offset = default, string includes = default, string sortOn = default, string sortOrder = default, double minimumPrice = default, double maximumPrice = default, int taxonomyId = default, string shopLocation = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
@@ -5917,8 +5917,8 @@ namespace Azure.Connectors.Sdk.Etsy
                 queryParams.Add($"min_price={Uri.EscapeDataString(minimumPrice.ToString())}");
             if (maximumPrice != default)
                 queryParams.Add($"max_price={Uri.EscapeDataString(maximumPrice.ToString())}");
-            if (taxonomyID != default)
-                queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyID.ToString())}");
+            if (taxonomyId != default)
+                queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyId.ToString())}");
             if (shopLocation != default)
                 queryParams.Add($"shop_location={Uri.EscapeDataString(shopLocation.ToString())}");
             var path = $"/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -5931,13 +5931,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get active listings by shop
         /// </summary>
         /// <remarks>Retrieves a list of all active listings on Etsy in a specific shop, paginated by listing creation date.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="includes">Includes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get active listings by shop response.</returns>
-        public virtual async Task<ShopListings> ListingGetActiveByShopAsync(int shopID, int limit = default, int offset = default, string includes = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetActiveByShopAsync(int shopId, int limit = default, int offset = default, string includes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
@@ -5946,7 +5946,7 @@ namespace Azure.Connectors.Sdk.Etsy
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
             if (includes != default)
                 queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5960,7 +5960,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="includes">Includes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by ID response.</returns>
-        public virtual async Task<ShopListingsWithAssociations> ListingGetByIDAsync(string listingIDs, string includes = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListingsWithAssociations> ListingGetByIdAsync(string listingIDs, string includes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (listingIDs != default)
@@ -5977,19 +5977,19 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get featured listings by shop
         /// </summary>
         /// <remarks>Retrieves listings associated to a shop that are featured.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get featured listings by shop response.</returns>
-        public virtual async Task<ShopListings> ListingGetFeaturedAsync(int shopID, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetFeaturedAsync(int shopId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -5999,13 +5999,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a listing property
         /// </summary>
         /// <remarks>Deletes a property from a listing.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="propertyID">Property ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="propertyId">Property ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ListingDeletePropertyAsync(int shopID, int listingID, int propertyID, CancellationToken cancellationToken = default)
+        public virtual async Task ListingDeletePropertyAsync(int shopId, int listingId, int propertyId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/properties/{Uri.EscapeDataString(propertyID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6015,15 +6015,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a listing property
         /// </summary>
         /// <remarks>Updates or populates the properties list defining product offerings for a listing. Each offering requires both a value and a value ID that are valid for a scale ID assigned to the listing or that you assign to the listing with this request.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="propertyID">Property ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="propertyId">Property ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a listing property response.</returns>
-        public virtual async Task<ListingPropertyValue> ListingUpdatePropertyAsync(int shopID, int listingID, int propertyID, ListingUpdatePropertyInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingPropertyValue> ListingUpdatePropertyAsync(int shopId, int listingId, int propertyId, ListingUpdatePropertyInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/properties/{Uri.EscapeDataString(propertyID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
             return await this
                 .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6033,13 +6033,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s property (Beta)
         /// </summary>
         /// <remarks>Retrieves a listing&apos;s property. Development for this endpoint is in progress. It will only return a 501 response.</remarks>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="propertyID">Property ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="propertyId">Property ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s property (Beta) response.</returns>
-        public virtual async Task<ListingPropertyValue> ListingGetPropertyAsync(int listingID, int propertyID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingPropertyValue> ListingGetPropertyAsync(int listingId, int propertyId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}/properties/{Uri.EscapeDataString(propertyID.ToString())}";
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
             return await this
                 .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6049,13 +6049,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s properties
         /// </summary>
         /// <remarks>Returns a list of a listing&apos;s properties.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s properties response.</returns>
-        public virtual async Task<ListingPropertyValues> ListingGetPropertiesAsync(int shopID, int listingID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingPropertyValues> ListingGetPropertiesAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/properties";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties";
             return await this
                 .CallConnectorAsync<ListingPropertyValues>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6065,14 +6065,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a listing
         /// </summary>
         /// <remarks>Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a listing response.</returns>
-        public virtual async Task<ShopListing> ListingUpdateAsync(int shopID, int listingID, ListingUpdateInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListing> ListingUpdateAsync(int shopId, int listingId, ListingUpdateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopListing>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6082,20 +6082,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get listings by shop receipt
         /// </summary>
         /// <remarks>Gets all listings associated with a receipt.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="receiptID">Receipt ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="receiptId">Receipt ID</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop receipt response.</returns>
-        public virtual async Task<ShopListings> ListingGetByReceiptAsync(int shopID, int receiptID, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetByReceiptAsync(int shopId, int receiptId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (limit != default)
                 queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
             if (offset != default)
                 queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/receipts/{Uri.EscapeDataString(receiptID.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6105,7 +6105,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get listings by shop section ID
         /// </summary>
         /// <remarks>Retrieves all the listings from the section of a specific shop.</remarks>
-        /// <param name="shopID">Shop ID</param>
+        /// <param name="shopId">Shop ID</param>
         /// <param name="shopSectionIDs">Shop Section IDs</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
@@ -6113,7 +6113,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="sortOrder">Sort Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop section ID response.</returns>
-        public virtual async Task<ShopListings> ListingGetBySectionIDAsync(int shopID, string shopSectionIDs, int limit = default, int offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetBySectionIdAsync(int shopId, string shopSectionIDs, int limit = default, int offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (shopSectionIDs != default)
@@ -6126,7 +6126,7 @@ namespace Azure.Connectors.Sdk.Etsy
                 queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
             if (sortOrder != default)
                 queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/shop-sections/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shop-sections/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6136,14 +6136,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a file from a listing
         /// </summary>
         /// <remarks>Retrieves a single file associated with the given digital listing. Requesting a file from a physical listing returns an empty result.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="listingFileID">Listing File ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="listingFileId">Listing File ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a file from a listing response.</returns>
-        public virtual async Task<ShopListingFile> ListingGetFileAsync(int shopID, int listingID, int listingFileID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListingFile> ListingGetFileAsync(int shopId, int listingId, int listingFileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/files/{Uri.EscapeDataString(listingFileID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
             return await this
                 .CallConnectorAsync<ShopListingFile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6153,13 +6153,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a file from listing
         /// </summary>
         /// <remarks>When you delete the final file for a digital listing, the listing converts into a physical listing. The response to a delete request returns a list of the remaining file records associated with the given listing.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="listingFileID">Listing File ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="listingFileId">Listing File ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ListingDeleteFileAsync(int shopID, int listingID, int listingFileID, CancellationToken cancellationToken = default)
+        public virtual async Task ListingDeleteFileAsync(int shopId, int listingId, int listingFileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/files/{Uri.EscapeDataString(listingFileID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6169,13 +6169,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get all listing files
         /// </summary>
         /// <remarks>Retrieves all the files associated with the given digital listing. Requesting files from a physical listing returns an empty result.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all listing files response.</returns>
-        public virtual async Task<ShopListingFiles> ListingGetFilesAsync(int shopID, int listingID, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListingFiles> ListingGetFilesAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/files";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
             return await this
                 .CallConnectorAsync<ShopListingFiles>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6185,14 +6185,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Upload a listing file
         /// </summary>
         /// <remarks>Uploads a new file for a digital listing, or associates an existing file with a specific listing. You must either provide the listing file ID of an existing file, or the name and binary file data for a file to upload. Associating an existing file to a physical listing converts the physical listing into a digital listing, which removes all shipping costs and any product and inventory variations.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload a listing file response.</returns>
-        public virtual async Task<ShopListingFile> ListingUploadAsync(int shopID, int listingID, ListingUploadInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListingFile> ListingUploadAsync(int shopId, int listingId, ListingUploadInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/files";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
             return await this
                 .CallConnectorAsync<ShopListingFile>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6202,14 +6202,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing image
         /// </summary>
         /// <remarks>Retrieves the references and metadata for a listing image with a specific image ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="listingImageID">Listing Image ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="listingImageId">Listing Image ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing image response.</returns>
-        public virtual async Task<ListingImage> ListingGetImageAsync(int shopID, int listingID, int listingImageID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingImage> ListingGetImageAsync(int shopId, int listingId, int listingImageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/images/{Uri.EscapeDataString(listingImageID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
             return await this
                 .CallConnectorAsync<ListingImage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6219,13 +6219,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Delete a listing image
         /// </summary>
         /// <remarks>Deletes a listing image. A copy of the file remains on our servers, and so a deleted image may be re-associated with the listing without re-uploading the original image.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="listingImageID">Listing Image ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="listingImageId">Listing Image ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ListingDeleteImageAsync(int shopID, int listingID, int listingImageID, CancellationToken cancellationToken = default)
+        public virtual async Task ListingDeleteImageAsync(int shopId, int listingId, int listingImageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/images/{Uri.EscapeDataString(listingImageID.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6235,13 +6235,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s images
         /// </summary>
         /// <remarks>Retrieves all listing image resources for a listing with a specific listing ID.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s images response.</returns>
-        public virtual async Task<ListingImages> ListingGetImagesAsync(int shopID, int listingID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingImages> ListingGetImagesAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/images";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
             return await this
                 .CallConnectorAsync<ListingImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6251,14 +6251,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Upload a listing image
         /// </summary>
         /// <remarks>Uploads or assigns an image to a listing identified by a shop ID with a listing ID. To upload a new image, set the image file as the value for the image parameter. You can assign a previously deleted image to a listing using the deleted image&apos;s image ID in the listing image ID parameter. When a request contains both image and listing image ID parameter values, the endpoint uploads the image in the image parameter only.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload a listing image response.</returns>
-        public virtual async Task<ListingImage> ListingUploadImageAsync(int shopID, int listingID, ListingUploadImageInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingImage> ListingUploadImageAsync(int shopId, int listingId, ListingUploadImageInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/images";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
             return await this
                 .CallConnectorAsync<ListingImage>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6268,16 +6268,16 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s inventory
         /// </summary>
         /// <remarks>Retrieves the inventory record for a listing. Listings you did not edit using the Etsy.com inventory tools have no inventory records. This endpoint returns SKU data if you are the owner of the inventory records being fetched.</remarks>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="includes">Includes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s inventory response.</returns>
-        public virtual async Task<ListingInventoryWithAssociations> ListingGetInventoryAsync(int listingID, string includes = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingInventoryWithAssociations> ListingGetInventoryAsync(int listingId, string includes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (includes != default)
                 queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}/inventory" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListingInventoryWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6287,13 +6287,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a listing&apos;s inventory
         /// </summary>
         /// <remarks>Updates the inventory for a listing identified by a listing ID. The update fails if the supplied values for product SKU, offering quantity, and/or price are incompatible with values in on property fields. When setting a price, assign a float equal to amount divided by divisor as specified in the money resource.</remarks>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a listing&apos;s inventory response.</returns>
-        public virtual async Task<ListingInventory> ListingUpdateInventoryAsync(string listingID, ListingUpdateInventoryInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingInventory> ListingUpdateInventoryAsync(string listingId, ListingUpdateInventoryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}/inventory";
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory";
             return await this
                 .CallConnectorAsync<ListingInventory>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6303,14 +6303,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s offering
         /// </summary>
         /// <remarks>Get an offering for a listing.</remarks>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="productID">Product ID</param>
-        /// <param name="productOfferingID">Product Offering ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="productId">Product ID</param>
+        /// <param name="productOfferingId">Product Offering ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s offering response.</returns>
-        public virtual async Task<ListingInventoryProductOffering> ListingGetOfferingAsync(int listingID, int productID, int productOfferingID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingInventoryProductOffering> ListingGetOfferingAsync(int listingId, int productId, int productOfferingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}/products/{Uri.EscapeDataString(productID.ToString())}/offerings/{Uri.EscapeDataString(productOfferingID.ToString())}";
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/products/{Uri.EscapeDataString(productId.ToString())}/offerings/{Uri.EscapeDataString(productOfferingId.ToString())}";
             return await this
                 .CallConnectorAsync<ListingInventoryProductOffering>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6320,13 +6320,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s product
         /// </summary>
         /// <remarks>Retrieve a listing product by ID.</remarks>
-        /// <param name="listingID">Listing ID</param>
-        /// <param name="productID">Product ID</param>
+        /// <param name="listingId">Listing ID</param>
+        /// <param name="productId">Product ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s product response.</returns>
-        public virtual async Task<ListingInventoryProduct> ListingGetProductAsync(int listingID, int productID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingInventoryProduct> ListingGetProductAsync(int listingId, int productId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingID.ToString())}/inventory/products/{Uri.EscapeDataString(productID.ToString())}";
+            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory/products/{Uri.EscapeDataString(productId.ToString())}";
             return await this
                 .CallConnectorAsync<ListingInventoryProduct>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6336,14 +6336,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get a listing&apos;s translation
         /// </summary>
         /// <remarks>Returns the translation for a listing in the given language.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="language">Language</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a listing&apos;s translation response.</returns>
-        public virtual async Task<ListingTranslation> ListingGetTranslationAsync(int shopID, int listingID, string language, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingTranslation> ListingGetTranslationAsync(int shopId, int listingId, string language, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
             return await this
                 .CallConnectorAsync<ListingTranslation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6353,15 +6353,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Create a listing translation
         /// </summary>
         /// <remarks>Creates a listing translation by listing ID and language.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="language">Language</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a listing translation response.</returns>
-        public virtual async Task<ListingTranslation> ListingCreateTranslationAsync(int shopID, int listingID, string language, ListingCreateTranslationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingTranslation> ListingCreateTranslationAsync(int shopId, int listingId, string language, ListingCreateTranslationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
             return await this
                 .CallConnectorAsync<ListingTranslation>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6371,15 +6371,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a listing translation
         /// </summary>
         /// <remarks>Updates a listing translation by listing ID and language.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="language">Language</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a listing translation response.</returns>
-        public virtual async Task<ListingTranslation> ListingUpdateTranslationAsync(int shopID, int listingID, string language, ListingUpdateTranslationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingTranslation> ListingUpdateTranslationAsync(int shopId, int listingId, string language, ListingUpdateTranslationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
             return await this
                 .CallConnectorAsync<ListingTranslation>(HttpMethod.Put, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6389,13 +6389,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get listing&apos;s variation images
         /// </summary>
         /// <remarks>Gets all variation images on a listing.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listing&apos;s variation images response.</returns>
-        public virtual async Task<ListingVariationImages> ListingGetVariationAsync(int shopID, int listingID, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingVariationImages> ListingGetVariationAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/variation-images";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
             return await this
                 .CallConnectorAsync<ListingVariationImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6405,14 +6405,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Update a listing&apos;s variation images
         /// </summary>
         /// <remarks>Creates variation images on a listing.</remarks>
-        /// <param name="shopID">Shop ID</param>
-        /// <param name="listingID">Listing ID</param>
+        /// <param name="shopId">Shop ID</param>
+        /// <param name="listingId">Listing ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a listing&apos;s variation images response.</returns>
-        public virtual async Task<ListingVariationImages> ListingUpdateVariationAsync(int shopID, int listingID, ListingUpdateVariationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<ListingVariationImages> ListingUpdateVariationAsync(int shopId, int listingId, ListingUpdateVariationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopID.ToString())}/listings/{Uri.EscapeDataString(listingID.ToString())}/variation-images";
+            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
             return await this
                 .CallConnectorAsync<ListingVariationImages>(HttpMethod.Post, path, input, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -6422,3 +6422,4 @@ namespace Azure.Connectors.Sdk.Etsy
 
     #endregion Client
 }
+

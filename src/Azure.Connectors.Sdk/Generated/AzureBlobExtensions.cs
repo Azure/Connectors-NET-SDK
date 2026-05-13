@@ -55,35 +55,45 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     public class BlobMetadata
     {
         /// <summary>The unique id of the file or folder.</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>The name of the file or folder.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The display name of the file or folder.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The path of the file or folder.</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonPropertyName("LastModified")]
         [JsonInclude]
         public DateTime? LastModified { get; internal set; }
 
         /// <summary>The size of the file or folder.</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>The media type of the file or folder.</summary>
+        [JsonPropertyName("MediaType")]
         public string MediaType { get; set; }
 
         /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
 
         /// <summary>The etag of the file or folder.</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>The filelocator of the file or folder.</summary>
+        [JsonPropertyName("FileLocator")]
         public string FileLocator { get; set; }
     }
 
@@ -93,6 +103,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     public class SharedAccessSignature
     {
         /// <summary>A URL to an object with access token.</summary>
+        [JsonPropertyName("WebUrl")]
         public string WebUrl { get; set; }
     }
 
@@ -102,15 +113,19 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     public class SharedAccessSignatureBlobPolicy
     {
         /// <summary>The string identifying a stored access policy. The Group policy parameters (e.g. Start time and End time) have precedence over input parameters mentioned in actions.</summary>
+        [JsonPropertyName("GroupPolicyIdentifier")]
         public string GroupPolicyIdentifier { get; set; }
 
         /// <summary>The permissions specified on the SAS (Values separated by comma).</summary>
+        [JsonPropertyName("Permissions")]
         public Permissions? Permissions { get; set; }
 
         /// <summary>The date and time at which the SAS becomes valid (example: &apos;2017-11-01T15:30:00+00:00&apos;). Default = now().</summary>
+        [JsonPropertyName("StartTime")]
         public DateTime? StartTime { get; set; }
 
         /// <summary>The date and time after which the SAS is no longer valid (example: &apos;2017-12-01T15:30:00+00:00&apos;). Default = now() + 24h.</summary>
+        [JsonPropertyName("ExpiryTime")]
         public DateTime? ExpiryTime { get; set; }
 
         /// <summary>The allowed protocols (https only, or http and https). Null if you don&apos;t want to restrict protocol.</summary>
@@ -128,38 +143,49 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     public class DataWithSensitivityLabelInfo
     {
         /// <summary>The unique id of the file or folder.</summary>
+        [JsonPropertyName("Id")]
         public string Id { get; set; }
 
         /// <summary>The name of the file or folder.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The display name of the file or folder.</summary>
+        [JsonPropertyName("DisplayName")]
         public string DisplayName { get; set; }
 
         /// <summary>The path of the file or folder.</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>The date and time the file or folder was last modified.</summary>
+        [JsonPropertyName("LastModified")]
         [JsonInclude]
         public DateTime? LastModified { get; internal set; }
 
         /// <summary>The size of the file or folder.</summary>
+        [JsonPropertyName("Size")]
         public long? Size { get; set; }
 
         /// <summary>The media type of the file or folder.</summary>
+        [JsonPropertyName("MediaType")]
         public string MediaType { get; set; }
 
         /// <summary>A boolean value (true, false) to indicate whether or not the blob is a folder.</summary>
+        [JsonPropertyName("IsFolder")]
         public bool? IsFolder { get; set; }
 
         /// <summary>The etag of the file or folder.</summary>
+        [JsonPropertyName("ETag")]
         [JsonInclude]
         public string ETag { get; internal set; }
 
         /// <summary>The filelocator of the file or folder.</summary>
+        [JsonPropertyName("FileLocator")]
         public string FileLocator { get; set; }
 
         /// <summary>Sensitivity label metadata info list</summary>
+        [JsonPropertyName("SensitivityLabelInfo")]
         public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
     }
 
@@ -561,7 +587,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedFiles trigger (AzureBlob "When a blob is added or modified (properties only) (V2)", operationId: OnUpdatedFiles_V2).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureBlobOnUpdatedFilesTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureBlobOnUpdatedFilesTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class AzureBlobOnUpdatedFilesTriggerPayload : TriggerCallbackPayload<BlobMetadata>
     {
@@ -599,7 +625,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
     /// <summary>
     /// Trigger operation name constants for the AzureBlob connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class AzureBlobTriggerOperations
     {
@@ -617,7 +643,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
 
     /// <summary>
     /// Trigger input parameter name constants for the AzureBlob connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class AzureBlobTriggerParameters
     {
@@ -729,6 +755,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool overwrite = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (sourceUrl != default)
                 queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
             if (destinationBlobPath != default)
@@ -776,6 +803,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public virtual async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (folderPath != default)
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
             if (blobName != default)
@@ -834,6 +862,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool overwrite = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (sourceArchiveBlobPath != default)
                 queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath.ToString())}");
             if (destinationFolderPath != default)
@@ -905,6 +934,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool inferContentType = default, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (blobPath != default)
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
             if (inferContentType != default)
@@ -955,6 +985,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("queryParametersSingleEncoded=true");
             if (blobPath != default)
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
             if (extractMIPLabels != default)
@@ -1007,6 +1038,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            queryParams.Add("useFlatListing=false");
             if (pagingMarker != default)
                 queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
             var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1058,3 +1090,4 @@ namespace Azure.Connectors.Sdk.AzureBlob
 
     #endregion Client
 }
+

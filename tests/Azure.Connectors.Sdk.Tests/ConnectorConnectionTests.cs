@@ -90,7 +90,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Resolve_PartialConnectorGateway_OnlyGatewayName_ThrowsPartialMessage()
+        public void Resolve_PartialConnectorNamespace_OnlyGatewayName_ThrowsPartialMessage()
         {
             ClearConnectionEnvVars("Partial");
             Environment.SetEnvironmentVariable("Partial__connectorGatewayName", "my-gateway");
@@ -101,8 +101,8 @@ namespace Azure.Connectors.Sdk.Tests
                     () => ConnectorConnectionResolver.Resolve("Partial"));
 
                 Assert.IsTrue(
-                    exception.Message.Contains("Partial Connector Gateway", StringComparison.OrdinalIgnoreCase),
-                    $"Expected partial Connector Gateway message but got: {exception.Message}");
+                    exception.Message.Contains("Partial Connector Namespace", StringComparison.OrdinalIgnoreCase),
+                    $"Expected partial Connector Namespace message but got: {exception.Message}");
             }
             finally
             {
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Resolve_PartialConnectorGateway_OnlyConnectionName_ThrowsPartialMessage()
+        public void Resolve_PartialConnectorNamespace_OnlyConnectionName_ThrowsPartialMessage()
         {
             ClearConnectionEnvVars("OnlyConn");
             Environment.SetEnvironmentVariable("OnlyConn__connectionName", "my-connection");
@@ -122,8 +122,8 @@ namespace Azure.Connectors.Sdk.Tests
                     () => ConnectorConnectionResolver.Resolve("OnlyConn"));
 
                 Assert.IsTrue(
-                    exception.Message.Contains("Partial Connector Gateway", StringComparison.OrdinalIgnoreCase),
-                    $"Expected partial Connector Gateway message but got: {exception.Message}");
+                    exception.Message.Contains("Partial Connector Namespace", StringComparison.OrdinalIgnoreCase),
+                    $"Expected partial Connector Namespace message but got: {exception.Message}");
             }
             finally
             {

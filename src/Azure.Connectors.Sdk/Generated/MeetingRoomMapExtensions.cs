@@ -620,3 +620,4 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
 
     #endregion Client
 }
+

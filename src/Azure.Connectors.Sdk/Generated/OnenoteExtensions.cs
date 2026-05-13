@@ -160,9 +160,11 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     public class Notebook
     {
         /// <summary>FileName</summary>
+        [JsonPropertyName("FileName")]
         public string FileName { get; set; }
 
         /// <summary>Key</summary>
+        [JsonPropertyName("Key")]
         public string Key { get; set; }
     }
 
@@ -622,7 +624,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewSectionInNotebook trigger (Onenote "When a new section is created", operationId: OnNewSectionInNotebook).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewSectionInNotebookTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewSectionInNotebookTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class OnenoteOnNewSectionInNotebookTriggerPayload : TriggerCallbackPayload<SectionResponse>
     {
@@ -630,7 +632,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewSectionGroupInNotebook trigger (Onenote "When a new section group is created", operationId: OnNewSectionGroupInNotebook).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewSectionGroupInNotebookTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewSectionGroupInNotebookTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class OnenoteOnNewSectionGroupInNotebookTriggerPayload : TriggerCallbackPayload<SectionGroupResponse>
     {
@@ -638,7 +640,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewPageInSection trigger (Onenote "When a new page is created in a section", operationId: OnNewPageInSection).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewPageInSectionTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewPageInSectionTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class OnenoteOnNewPageInSectionTriggerPayload : TriggerCallbackPayload<Page>
     {
@@ -678,7 +680,7 @@ namespace Azure.Connectors.Sdk.Onenote
     /// <summary>
     /// Trigger operation name constants for the Onenote connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class OnenoteTriggerOperations
     {
@@ -708,7 +710,7 @@ namespace Azure.Connectors.Sdk.Onenote
 
     /// <summary>
     /// Trigger input parameter name constants for the Onenote connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class OnenoteTriggerParameters
     {
@@ -1003,3 +1005,4 @@ namespace Azure.Connectors.Sdk.Onenote
 
     #endregion Client
 }
+

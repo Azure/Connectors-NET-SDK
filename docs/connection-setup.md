@@ -33,43 +33,43 @@ For Office365 connections, use a different test path:
 
 ## Connection Types
 
-There are two ways to create connections, depending on whether you use the Connector Gateway:
+There are two ways to create connections, depending on whether you use the Connector Namespace:
 
-### Option A: Connector Gateway Connection (Recommended for Triggers)
+### Option A: Connector Namespace Connection (Recommended for Triggers)
 
-Connector Gateway connections are required for connector triggers (Connector Gateway manages the polling infrastructure). They also work for actions.
+Connector Namespace connections are required for connector triggers (Connector Namespace manages the polling infrastructure). They also work for actions.
 
-#### A1. Create a Connector Gateway
+#### A1. Create a Connector Namespace
 
 ```powershell
 $subscriptionId = "<your-subscription-id>"
 $resourceGroup = "<your-resource-group>"
-$gatewayName = "<your-gateway-name>"
+$namespaceName = "<your-namespace-name>"
 $location = "<azure-region>"  # e.g., "brazilsouth"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName?api-version=2026-05-01-preview" `
-    --body "{`"location`":`"$location`",`"properties`":{}}"
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName?api-version=2026-05-01-preview" `
+    --body "{`"location`":`"$location`",`"properties`":{},`"identity`":{`"type`":`"SystemAssigned`"}}"
 ```
 
-#### A2. Create a Connection in the Connector Gateway
+#### A2. Create a Connection in the Connector Namespace
 
 ```powershell
 $connectorName = "office365"  # API connector name
 $connectionName = "office365-test"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName/connections/$connectionName?api-version=2026-05-01-preview" `
     --body "{`"properties`":{`"connectorName`":`"$connectorName`"}}"
 ```
 
 The connection is created in an **unauthenticated** state. You must complete OAuth consent.
 
-#### A3. OAuth Consent via Connector Gateway Manager Portal
+#### A3. OAuth Consent via Connector Namespace Manager Portal
 
-1. Open the [Connector Gateway Manager Portal](https://nice-desert-04d03581e.2.azurestaticapps.net/)
+1. Open the [Connector Namespace Manager Portal](https://nice-desert-04d03581e.2.azurestaticapps.net/)
 2. Run the command shown on the portal to get an ARM token, paste it, and save
-3. Select your Connector Gateway — the connections will appear
+3. Select your Connector Namespace — the connections will appear
 4. Click **Authorize** on the connection requiring consent
 5. Complete the OAuth flow. Status changes from `Error` to `Connected`.
 
@@ -79,12 +79,12 @@ The connection is created in an **unauthenticated** state. You must complete OAu
 
 After OAuth consent, the connection runtime URL is available:
 
-- In the Connector Gateway Manager Portal: select the connection → copy the runtime URL
+- In the Connector Namespace Manager Portal: select the connection → copy the runtime URL
 - Via ARM API:
 
 ```powershell
 $result = az rest --method GET `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName/connections/$connectionName?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json
 $result.properties.connectionRuntimeUrl
 ```
@@ -99,7 +99,7 @@ $tenantId = "<aad-tenant-id>"
 $policyName = "functionapp-msi"
 
 az rest --method PUT `
-    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$gatewayName/connections/$connectionName/accessPolicies/$policyName?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroup/providers/Microsoft.Web/connectorGateways/$namespaceName/connections/$connectionName/accessPolicies/$policyName?api-version=2026-05-01-preview" `
     --body "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"identity`":{`"objectId`":`"$msiObjectId`",`"tenantId`":`"$tenantId`"}}}}" `
     --headers "Content-Type=application/json"
 ```
@@ -110,7 +110,7 @@ The same connection (and access policy) is used for **both triggers and actions*
 
 ### Option B: Standalone ARM Connection (Actions Only)
 
-Standalone connections work for actions but do not support Connector Gateway triggers.
+Standalone connections work for actions but do not support Connector Namespace triggers.
 
 #### Manual Steps (Option B — Standalone)
 

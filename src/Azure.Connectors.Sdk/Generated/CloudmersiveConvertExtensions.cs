@@ -29,24 +29,31 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class AutodetectGetInfoResult
     {
         /// <summary>Alternate file type options and their probability</summary>
+        [JsonPropertyName("AlternateFileTypeCandidates")]
         public List<AlternateFileFormatCandidate> AlternateFileTypeCandidates { get; set; }
 
         /// <summary>User name of the creator/author of the document, if available, null if not available</summary>
+        [JsonPropertyName("Author")]
         public string Author { get; set; }
 
         /// <summary>The timestamp that the document was last modified, if available, null if not available</summary>
+        [JsonPropertyName("DateModified")]
         public DateTime? DateModified { get; set; }
 
         /// <summary>Detected file extension of the file format, with a leading period</summary>
+        [JsonPropertyName("DetectedFileExtension")]
         public string DetectedFileExtension { get; set; }
 
         /// <summary>MIME type of this file extension</summary>
+        [JsonPropertyName("DetectedMimeType")]
         public string DetectedMimeType { get; set; }
 
         /// <summary>Number of pages in a page-based document; for presentations, this is the number of slides and for a spreadsheet this is the number of worksheets.  Contains 0 when the page count cannot be determined, or if the concept of page count does not apply (e.g. for an image)</summary>
+        [JsonPropertyName("PageCount")]
         public long? PageCount { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -56,12 +63,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class AlternateFileFormatCandidate
     {
         /// <summary>Detected file extension of the file format, with a leading period</summary>
+        [JsonPropertyName("DetectedFileExtension")]
         public string DetectedFileExtension { get; set; }
 
         /// <summary>MIME type of this file extension</summary>
+        [JsonPropertyName("DetectedMimeType")]
         public string DetectedMimeType { get; set; }
 
         /// <summary>Probability that this extension is the right one; possible values are between 0.0 (lowest confidence) and 1.0 (highest confidence)</summary>
+        [JsonPropertyName("Probability")]
         public double? Probability { get; set; }
     }
 
@@ -71,9 +81,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class AutodetectToPngResult
     {
         /// <summary>Array of converted pages</summary>
+        [JsonPropertyName("PngResultPages")]
         public List<ConvertedPngPage> PngResultPages { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -83,9 +95,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class ConvertedPngPage
     {
         /// <summary>Page number of the converted page, starting with 1</summary>
+        [JsonPropertyName("PageNumber")]
         public int? PageNumber { get; set; }
 
         /// <summary>URL to the PNG file of this page; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
         public string URL { get; set; }
     }
 
@@ -95,9 +109,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class TextConversionResult
     {
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Plain Text (TXT) format conversion result of the input document.  The text result is returned as a string.</summary>
+        [JsonPropertyName("TextResult")]
         public string TextResult { get; set; }
     }
 
@@ -107,9 +123,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class CreateBlankDocxResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -119,9 +137,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DeleteDocxTableRowResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -131,9 +151,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DeleteDocxTableRowRangeResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -143,9 +165,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxBodyResponse
     {
         /// <summary>Body in the DOCX document</summary>
+        [JsonPropertyName("Body")]
         public DocxBody Body { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -155,12 +179,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxBody
     {
         /// <summary>All paragraphs anywhere in the document; these objects are not sequentially placed but are scatted across document</summary>
+        [JsonPropertyName("AllParagraphs")]
         public List<DocxParagraph> AllParagraphs { get; set; }
 
         /// <summary>All tables anywhere in the document; these objects are not sequentially placed but are scatted across the document</summary>
+        [JsonPropertyName("AllTables")]
         public List<DocxTable> AllTables { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -170,16 +197,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxParagraph
     {
         /// <summary>The content runs in the paragraph - this is where text is stored; similar to a span in HTML</summary>
+        [JsonPropertyName("ContentRuns")]
         public List<DocxRun> ContentRuns { get; set; }
 
         /// <summary>The index of the paragraph; 0-based</summary>
+        [JsonPropertyName("ParagraphIndex")]
         public int? ParagraphIndex { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Style ID of the style applied to the paragraph; null if no style is applied</summary>
-        public string StyleID { get; set; }
+        [JsonPropertyName("StyleID")]
+        public string StyleId { get; set; }
     }
 
     /// <summary>
@@ -188,27 +219,35 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxRun
     {
         /// <summary>True to make the text bold, false otherwise</summary>
+        [JsonPropertyName("Bold")]
         public bool? Bold { get; set; }
 
         /// <summary>Font Family name for the text, e.g. &quot;Arial&quot; or &quot;Times New Roman&quot;</summary>
+        [JsonPropertyName("FontFamily")]
         public string FontFamily { get; set; }
 
         /// <summary>Font size in font points (e.g. &quot;24&quot;)</summary>
+        [JsonPropertyName("FontSize")]
         public string FontSize { get; set; }
 
         /// <summary>True to make the text italic, false otherwise</summary>
+        [JsonPropertyName("Italic")]
         public bool? Italic { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Index of the run, 0-based</summary>
+        [JsonPropertyName("RunIndex")]
         public int? RunIndex { get; set; }
 
         /// <summary>Text items inside the run; this is where the actual text content is stored</summary>
+        [JsonPropertyName("TextItems")]
         public List<DocxText> TextItems { get; set; }
 
         /// <summary>Underline mode for the text; possible values are: Words, Double, Thick, Dotted, DottedHeavy, Dash, DashedHeavy, DashLong, DashLongHeavy, DotDash, DashDotHeavy, DotDotDash, DashDotDotHeavy, Wave, WavyHeavy, WavyDouble, None</summary>
+        [JsonPropertyName("Underline")]
         public string Underline { get; set; }
     }
 
@@ -218,12 +257,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxText
     {
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Text string containing the text content of this text content item</summary>
+        [JsonPropertyName("TextContent")]
         public string TextContent { get; set; }
 
         /// <summary>Index of the text content in the run; 0-based</summary>
+        [JsonPropertyName("TextIndex")]
         public int? TextIndex { get; set; }
     }
 
@@ -233,120 +275,159 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxTable
     {
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("BottomBorderColor")]
         public string BottomBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("BottomBorderSize")]
         public int? BottomBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("BottomBorderSpace")]
         public int? BottomBorderSpace { get; set; }
 
         /// <summary>Type for the bottom border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("BottomBorderType")]
         public string BottomBorderType { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("CellHorizontalBorderColor")]
         public string CellHorizontalBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("CellHorizontalBorderSize")]
         public int? CellHorizontalBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("CellHorizontalBorderSpace")]
         public int? CellHorizontalBorderSpace { get; set; }
 
         /// <summary>Type for the cell horizontal border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("CellHorizontalBorderType")]
         public string CellHorizontalBorderType { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("CellVerticalBorderColor")]
         public string CellVerticalBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("CellVerticalBorderSize")]
         public int? CellVerticalBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("CellVerticalBorderSpace")]
         public int? CellVerticalBorderSpace { get; set; }
 
         /// <summary>Type for the cell vertical border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("CellVerticalBorderType")]
         public string CellVerticalBorderType { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("EndBorderColor")]
         public string EndBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("EndBorderSize")]
         public int? EndBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("EndBorderSpace")]
         public int? EndBorderSpace { get; set; }
 
         /// <summary>Type for the end border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("EndBorderType")]
         public string EndBorderType { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("LeftBorderColor")]
         public string LeftBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("LeftBorderSize")]
         public int? LeftBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("LeftBorderSpace")]
         public int? LeftBorderSpace { get; set; }
 
         /// <summary>Type for the left border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("LeftBorderType")]
         public string LeftBorderType { get; set; }
 
         /// <summary>The Path of the location of this table object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("RightBorderColor")]
         public string RightBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("RightBorderSize")]
         public int? RightBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("RightBorderSpace")]
         public int? RightBorderSpace { get; set; }
 
         /// <summary>Type for the right border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("RightBorderType")]
         public string RightBorderType { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("StartBorderColor")]
         public string StartBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("StartBorderSize")]
         public int? StartBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("StartBorderSpace")]
         public int? StartBorderSpace { get; set; }
 
         /// <summary>Type for the start border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("StartBorderType")]
         public string StartBorderType { get; set; }
 
         /// <summary>The ID of the table; leave blank for new tables</summary>
-        public string TableID { get; set; }
+        [JsonPropertyName("TableID")]
+        public string TableId { get; set; }
 
         /// <summary>Table indentation type</summary>
+        [JsonPropertyName("TableIndentationMode")]
         public string TableIndentationMode { get; set; }
 
         /// <summary>Table indentation width</summary>
+        [JsonPropertyName("TableIndentationWidth")]
         public int? TableIndentationWidth { get; set; }
 
         /// <summary>Rows in the table; this is where the contents is located</summary>
+        [JsonPropertyName("TableRows")]
         public List<DocxTableRow> TableRows { get; set; }
 
         /// <summary>HTML-style color hex value (do not include a #)</summary>
+        [JsonPropertyName("TopBorderColor")]
         public string TopBorderColor { get; set; }
 
         /// <summary>Width of the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("TopBorderSize")]
         public int? TopBorderSize { get; set; }
 
         /// <summary>Spacing around the border in points (1/72nd of an inch)</summary>
+        [JsonPropertyName("TopBorderSpace")]
         public int? TopBorderSpace { get; set; }
 
         /// <summary>Type for the top border - can be a Single, DashDotStroked, Dashed, DashSmallGap, DotDash, DotDotDash, Dotted, Double, DoubleWave, Inset, Nil, None, Outset, Thick, ThickThinLargeGap, ThickThinMediumGap, ThickThinSmallGap, ThinThickLargeGap, ThinThickMediumGap, ThinThickSmallGap, ThinThickThinLargeGap, ThinThickThinMediumGap, ThinThickThinSmallGap, ThreeDEmboss, ThreeDEngrave, Triple, Wave</summary>
+        [JsonPropertyName("TopBorderType")]
         public string TopBorderType { get; set; }
 
         /// <summary>The Width of the table, or 0 if not specified</summary>
+        [JsonPropertyName("Width")]
         public string Width { get; set; }
 
         /// <summary>The Width configuration type of the table</summary>
+        [JsonPropertyName("WidthType")]
         public string WidthType { get; set; }
     }
 
@@ -356,12 +437,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxTableRow
     {
         /// <summary>The Path of the location of this table row object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Cells in the row; this is where the contents of the row is stored</summary>
+        [JsonPropertyName("RowCells")]
         public List<DocxTableCell> RowCells { get; set; }
 
         /// <summary>Index of the row, 0-based</summary>
+        [JsonPropertyName("RowIndex")]
         public int? RowIndex { get; set; }
     }
 
@@ -371,27 +455,35 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxTableCell
     {
         /// <summary>The index of the cell, 0-based</summary>
+        [JsonPropertyName("CellIndex")]
         public int? CellIndex { get; set; }
 
         /// <summary>Color of the cell shading</summary>
+        [JsonPropertyName("CellShadingColor")]
         public string CellShadingColor { get; set; }
 
         /// <summary>Fill of the cell shading</summary>
+        [JsonPropertyName("CellShadingFill")]
         public string CellShadingFill { get; set; }
 
         /// <summary>Pattern of the cell shading</summary>
+        [JsonPropertyName("CellShadingPattern")]
         public string CellShadingPattern { get; set; }
 
         /// <summary>Width of the cell</summary>
+        [JsonPropertyName("CellWidth")]
         public string CellWidth { get; set; }
 
         /// <summary>Width mode of the cell; can be auto (for automatic) or manual</summary>
+        [JsonPropertyName("CellWidthMode")]
         public string CellWidthMode { get; set; }
 
         /// <summary>Paragraphs inside the cell; this is where the contents of the cell are stored</summary>
+        [JsonPropertyName("Paragraphs")]
         public List<DocxParagraph> Paragraphs { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -401,12 +493,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxCommentsHierarchicalResponse
     {
         /// <summary>Comments in the document</summary>
+        [JsonPropertyName("Comments")]
         public List<DocxTopLevelComment> Comments { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>The number of comments in the document</summary>
+        [JsonPropertyName("TopLevelCommentCount")]
         public int? TopLevelCommentCount { get; set; }
     }
 
@@ -416,24 +511,31 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxTopLevelComment
     {
         /// <summary>Author name of the comment</summary>
+        [JsonPropertyName("Author")]
         public string Author { get; set; }
 
         /// <summary>Initials of the author of the comment</summary>
+        [JsonPropertyName("AuthorInitials")]
         public string AuthorInitials { get; set; }
 
         /// <summary>Date timestamp of the comment</summary>
+        [JsonPropertyName("CommentDate")]
         public DateTime? CommentDate { get; set; }
 
         /// <summary>Text content of the comment</summary>
+        [JsonPropertyName("CommentText")]
         public string CommentText { get; set; }
 
         /// <summary>True if this comment is marked as Done in Word, otherwise it is false</summary>
+        [JsonPropertyName("Done")]
         public bool? Done { get; set; }
 
         /// <summary>Path to the comment in the document</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Child comments, that are replies to this one</summary>
+        [JsonPropertyName("ReplyChildComments")]
         public List<DocxComment> ReplyChildComments { get; set; }
     }
 
@@ -443,30 +545,39 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxComment
     {
         /// <summary>Author name of the comment</summary>
+        [JsonPropertyName("Author")]
         public string Author { get; set; }
 
         /// <summary>Initials of the author of the comment</summary>
+        [JsonPropertyName("AuthorInitials")]
         public string AuthorInitials { get; set; }
 
         /// <summary>Date timestamp of the comment</summary>
+        [JsonPropertyName("CommentDate")]
         public DateTime? CommentDate { get; set; }
 
         /// <summary>Text content of the comment</summary>
+        [JsonPropertyName("CommentText")]
         public string CommentText { get; set; }
 
         /// <summary>True if this comment is marked as Done in Word, otherwise it is false</summary>
+        [JsonPropertyName("Done")]
         public bool? Done { get; set; }
 
         /// <summary>True if this comment is a reply to another comment, false otherwise</summary>
+        [JsonPropertyName("IsReply")]
         public bool? IsReply { get; set; }
 
         /// <summary>True if the comment is at the top level, false if this comment is a child reply of another comment</summary>
+        [JsonPropertyName("IsTopLevel")]
         public bool? IsTopLevel { get; set; }
 
         /// <summary>Path to the parent of this comment, if this comment is a reply, otherwise this value will be null</summary>
+        [JsonPropertyName("ParentCommentPath")]
         public string ParentCommentPath { get; set; }
 
         /// <summary>Path to the comment in the document</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -476,12 +587,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxHeadersAndFootersResponse
     {
         /// <summary>Footers</summary>
+        [JsonPropertyName("Footers")]
         public List<DocxFooter> Footers { get; set; }
 
         /// <summary>Headers</summary>
+        [JsonPropertyName("Headers")]
         public List<DocxHeader> Headers { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -491,12 +605,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxFooter
     {
         /// <summary>Paragraphs in this footer</summary>
+        [JsonPropertyName("Paragraphs")]
         public List<DocxParagraph> Paragraphs { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Sections that the footer is applied to</summary>
+        [JsonPropertyName("SectionsWithFooter")]
         public List<DocxSection> SectionsWithFooter { get; set; }
     }
 
@@ -506,9 +623,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxSection
     {
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Page numbers that the section starts at, typically just one</summary>
+        [JsonPropertyName("StartingPageNumbers")]
         public List<int?> StartingPageNumbers { get; set; }
     }
 
@@ -518,12 +637,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxHeader
     {
         /// <summary>Paragraphs in this header</summary>
+        [JsonPropertyName("Paragraphs")]
         public List<DocxParagraph> Paragraphs { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Sections that the header is applied to</summary>
+        [JsonPropertyName("SectionsWithHeader")]
         public List<DocxSection> SectionsWithHeader { get; set; }
     }
 
@@ -533,9 +655,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxImagesResponse
     {
         /// <summary>Images in the DOCX document</summary>
+        [JsonPropertyName("Images")]
         public List<DocxImage> Images { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -545,42 +669,55 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxImage
     {
         /// <summary>URL to the image contents; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the contents.</summary>
+        [JsonPropertyName("ImageContentsURL")]
         public string ImageContentsURL { get; set; }
 
         /// <summary>Read-only; image data MIME content-type</summary>
+        [JsonPropertyName("ImageDataContentType")]
         public string ImageDataContentType { get; set; }
 
         /// <summary>Read-only; internal ID for the image contents</summary>
+        [JsonPropertyName("ImageDataEmbedId")]
         public string ImageDataEmbedId { get; set; }
 
         /// <summary>The Description of the image</summary>
+        [JsonPropertyName("ImageDescription")]
         public string ImageDescription { get; set; }
 
         /// <summary>Height of the image in EMUs (English Metric Units); set to 0 to default to page width and aspect-ratio based height</summary>
+        [JsonPropertyName("ImageHeight")]
         public long? ImageHeight { get; set; }
 
         /// <summary>The Id of the image</summary>
+        [JsonPropertyName("ImageId")]
         public long? ImageId { get; set; }
 
         /// <summary>Read-only; internal file name/path for the image</summary>
+        [JsonPropertyName("ImageInternalFileName")]
         public string ImageInternalFileName { get; set; }
 
         /// <summary>The Name of the image</summary>
+        [JsonPropertyName("ImageName")]
         public string ImageName { get; set; }
 
         /// <summary>Width of the image in EMUs (English Metric Units); set to 0 to default to page width and aspect-ratio based height</summary>
+        [JsonPropertyName("ImageWidth")]
         public long? ImageWidth { get; set; }
 
         /// <summary>True if the image is inline with the text; false if it is floating</summary>
+        [JsonPropertyName("InlineWithText")]
         public bool? InlineWithText { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>X (horizontal) offset of the image</summary>
+        [JsonPropertyName("XOffset")]
         public long? XOffset { get; set; }
 
         /// <summary>Y (vertical) offset of the image</summary>
+        [JsonPropertyName("YOffset")]
         public long? YOffset { get; set; }
     }
 
@@ -590,12 +727,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxPagesResponse
     {
         /// <summary>Count of pages</summary>
+        [JsonPropertyName("PageCount")]
         public int? PageCount { get; set; }
 
         /// <summary>Pages in the document</summary>
+        [JsonPropertyName("Pages")]
         public List<DocxPage> Pages { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -605,9 +745,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxPage
     {
         /// <summary>Page number of this page, 1-based</summary>
+        [JsonPropertyName("PageNumber")]
         public int? PageNumber { get; set; }
 
         /// <summary>All paragraphs anywhere in the document; these objects are not sequentially placed but are scatted across document</summary>
+        [JsonPropertyName("Paragraphs")]
         public List<DocxParagraph> Paragraphs { get; set; }
     }
 
@@ -617,9 +759,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxSectionsResponse
     {
         /// <summary>Sections in the DOCX document</summary>
+        [JsonPropertyName("Sections")]
         public List<DocxSection> Sections { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -629,9 +773,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxStylesResponse
     {
         /// <summary>Styles in the DOCX document</summary>
+        [JsonPropertyName("Styles")]
         public List<DocxStyle> Styles { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -641,24 +787,31 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxStyle
     {
         /// <summary>Style applies bold formatting</summary>
+        [JsonPropertyName("Bold")]
         public bool? Bold { get; set; }
 
         /// <summary>Font family</summary>
+        [JsonPropertyName("FontFamily")]
         public string FontFamily { get; set; }
 
         /// <summary>Font size</summary>
+        [JsonPropertyName("FontSize")]
         public string FontSize { get; set; }
 
         /// <summary>Style applies italic formatting</summary>
+        [JsonPropertyName("Italic")]
         public bool? Italic { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new tables</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>ID of the style</summary>
-        public string StyleID { get; set; }
+        [JsonPropertyName("StyleID")]
+        public string StyleId { get; set; }
 
         /// <summary>Style applies underline formatting</summary>
+        [JsonPropertyName("Underline")]
         public bool? Underline { get; set; }
     }
 
@@ -668,9 +821,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxTableRowResponse
     {
         /// <summary>Contents of the table row that was requested</summary>
+        [JsonPropertyName("RowResult")]
         public DocxTableRow RowResult { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -680,9 +835,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxTableByIndexResponse
     {
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Requested Table in the DOCX file</summary>
+        [JsonPropertyName("Table")]
         public DocxTable Table { get; set; }
     }
 
@@ -692,9 +849,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxTablesResponse
     {
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Tables in the DOCX file</summary>
+        [JsonPropertyName("Tables")]
         public List<DocxTable> Tables { get; set; }
     }
 
@@ -704,9 +863,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxCommentOnParagraphResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -716,9 +877,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxInsertImageResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -728,9 +891,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxInsertParagraphResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -740,9 +905,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxTablesResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -752,9 +919,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxTableRowResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -764,9 +933,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class RemoveDocxHeadersAndFootersResponse
     {
         /// <summary>URL of the resulting edited document; this is a secure URL and cannot be downloaded without adding the Apikey header; it is also temporary, stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -776,9 +947,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxRemoveObjectResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -788,9 +961,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxSetFooterResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -800,9 +975,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxSetHeaderResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -812,9 +989,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class UpdateDocxTableCellResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -824,9 +1003,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class UpdateDocxTableRowResponse
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -836,9 +1017,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class ClearXlsxCellResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -848,9 +1031,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class CreateBlankSpreadsheetResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -860,9 +1045,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class CreateSpreadsheetFromDataResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -884,9 +1071,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxCellByIdentifierResponse
     {
         /// <summary>Requested Cell in the Excel XLSX document</summary>
+        [JsonPropertyName("Cell")]
         public XlsxSpreadsheetCell Cell { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -896,18 +1085,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XlsxSpreadsheetCell
     {
         /// <summary>Cell reference of the cell, e.g. A1, Z22, etc.</summary>
+        [JsonPropertyName("CellIdentifier")]
         public string CellIdentifier { get; set; }
 
         /// <summary>Formula</summary>
+        [JsonPropertyName("Formula")]
         public string Formula { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new rows</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>Identifier for the style to apply to this style</summary>
+        [JsonPropertyName("StyleIndex")]
         public int? StyleIndex { get; set; }
 
         /// <summary>Text value of the cell</summary>
+        [JsonPropertyName("TextValue")]
         public string TextValue { get; set; }
     }
 
@@ -917,9 +1111,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxCellResponse
     {
         /// <summary>Requested Cell in the Excel XLSX document</summary>
+        [JsonPropertyName("Cell")]
         public XlsxSpreadsheetCell Cell { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -929,9 +1125,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxColumnsResponse
     {
         /// <summary>Spreadsheet Columns in the XLSX document</summary>
+        [JsonPropertyName("Columns")]
         public List<XlsxSpreadsheetColumn> Columns { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -941,9 +1139,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XlsxSpreadsheetColumn
     {
         /// <summary>Heading cell for this column</summary>
+        [JsonPropertyName("HeadingCell")]
         public XlsxSpreadsheetCell HeadingCell { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new rows</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -953,9 +1153,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxImagesResponse
     {
         /// <summary>Spreadsheet Images in the XLSX document</summary>
+        [JsonPropertyName("Images")]
         public List<XlsxImage> Images { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -965,18 +1167,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XlsxImage
     {
         /// <summary>URL to the image contents; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the contents.</summary>
+        [JsonPropertyName("ImageContentsURL")]
         public string ImageContentsURL { get; set; }
 
         /// <summary>Read-only; image data MIME content-type</summary>
+        [JsonPropertyName("ImageDataContentType")]
         public string ImageDataContentType { get; set; }
 
         /// <summary>Read-only; internal ID for the image contents</summary>
+        [JsonPropertyName("ImageDataEmbedId")]
         public string ImageDataEmbedId { get; set; }
 
         /// <summary>Read-only; internal file name/path for the image</summary>
+        [JsonPropertyName("ImageInternalFileName")]
         public string ImageInternalFileName { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new rows</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -986,9 +1193,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxRowsAndCellsResponse
     {
         /// <summary>Spreadsheet Rows in the Excel XLSX document</summary>
+        [JsonPropertyName("Rows")]
         public List<XlsxSpreadsheetRow> Rows { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -998,9 +1207,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XlsxSpreadsheetRow
     {
         /// <summary>Spreadsheet Cells in the spreadsheet row</summary>
+        [JsonPropertyName("Cells")]
         public List<XlsxSpreadsheetCell> Cells { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new rows</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -1010,9 +1221,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxStylesResponse
     {
         /// <summary>Cell styles</summary>
+        [JsonPropertyName("CellStyles")]
         public List<DocxCellStyle> CellStyles { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1022,15 +1235,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxCellStyle
     {
         /// <summary>Built=in ID of the cell style</summary>
-        public int? BuiltInID { get; set; }
+        [JsonPropertyName("BuiltInID")]
+        public int? BuiltInId { get; set; }
 
         /// <summary>Format ID of the cell style</summary>
-        public int? FormatID { get; set; }
+        [JsonPropertyName("FormatID")]
+        public int? FormatId { get; set; }
 
         /// <summary>Name of the style</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         /// <summary>The Path of the location of this object; leave blank for new rows</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
     }
 
@@ -1040,9 +1257,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxWorksheetsResponse
     {
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Worksheets in the Excel XLSX spreadsheet</summary>
+        [JsonPropertyName("Worksheets")]
         public List<XlsxWorksheet> Worksheets { get; set; }
     }
 
@@ -1052,9 +1271,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XlsxWorksheet
     {
         /// <summary>The Path of the location of this object; leave blank for new worksheets</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>User-facing name of the worksheet tab</summary>
+        [JsonPropertyName("WorksheetName")]
         public string WorksheetName { get; set; }
     }
 
@@ -1064,9 +1285,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertXlsxWorksheetResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1076,9 +1299,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SetXlsxCellByIdentifierResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1088,9 +1313,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SetXlsxCellResponse
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
+        [JsonPropertyName("EditedDocumentURL")]
         public string EditedDocumentURL { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1100,9 +1327,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class PdfToPngResult
     {
         /// <summary>Array of converted pages</summary>
+        [JsonPropertyName("PngResultPages")]
         public List<ConvertedPngPage> PngResultPages { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1112,12 +1341,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class MultipageImageFormatConversionResult
     {
         /// <summary>The number of pages in the converted output</summary>
+        [JsonPropertyName("PageCount")]
         public int? PageCount { get; set; }
 
         /// <summary>Converted page results</summary>
+        [JsonPropertyName("Pages")]
         public List<PageConversionResult> Pages { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1127,9 +1359,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class PageConversionResult
     {
         /// <summary>File bytes (contents) of the image in converted file format</summary>
+        [JsonPropertyName("FileBytes")]
         public string FileBytes { get; set; }
 
         /// <summary>File name of the image in the converted file format</summary>
+        [JsonPropertyName("Filename")]
         public string Filename { get; set; }
     }
 
@@ -1139,54 +1373,71 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetImageInfoResult
     {
         /// <summary>Bit depth of the image</summary>
+        [JsonPropertyName("BitDepth")]
         public int? BitDepth { get; set; }
 
         /// <summary>Unique colors in the image</summary>
+        [JsonPropertyName("ColorCount")]
         public int? ColorCount { get; set; }
 
         /// <summary>Color space of the image</summary>
+        [JsonPropertyName("ColorSpace")]
         public string ColorSpace { get; set; }
 
         /// <summary>Color type of the image</summary>
+        [JsonPropertyName("ColorType")]
         public string ColorType { get; set; }
 
         /// <summary>Comment string in the image</summary>
+        [JsonPropertyName("Comment")]
         public string Comment { get; set; }
 
         /// <summary>Compression level value from 0 (lowest quality) to 100 (highest quality)</summary>
+        [JsonPropertyName("CompressionLevel")]
         public int? CompressionLevel { get; set; }
 
         /// <summary>DPI (pixels per unit, e.g. pixels per inch) of the image</summary>
+        [JsonPropertyName("DPI")]
         public double? DPI { get; set; }
 
         /// <summary>Units of the DPI measurement; can be either in Inches or Centimeters</summary>
+        [JsonPropertyName("DPIUnit")]
         public string DPIUnit { get; set; }
 
         /// <summary>Name of the EXIF profile used</summary>
+        [JsonPropertyName("ExifProfileName")]
         public string ExifProfileName { get; set; }
 
         /// <summary>EXIF tags and values embedded in the image</summary>
+        [JsonPropertyName("ExifValues")]
         public List<ExifValue> ExifValues { get; set; }
 
         /// <summary>True if the image contains transparency, otherwise false</summary>
+        [JsonPropertyName("HasTransparency")]
         public bool? HasTransparency { get; set; }
 
         /// <summary>Height in pixels of the image</summary>
+        [JsonPropertyName("Height")]
         public int? Height { get; set; }
 
         /// <summary>Image format</summary>
+        [JsonPropertyName("ImageFormat")]
         public string ImageFormat { get; set; }
 
         /// <summary>SHA256 hash signature of the image</summary>
+        [JsonPropertyName("ImageHashSignature")]
         public string ImageHashSignature { get; set; }
 
         /// <summary>MIME type of the image format</summary>
+        [JsonPropertyName("MimeType")]
         public string MimeType { get; set; }
 
         /// <summary>Successful</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Width in pixels of the image</summary>
+        [JsonPropertyName("Width")]
         public int? Width { get; set; }
     }
 
@@ -1196,12 +1447,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class ExifValue
     {
         /// <summary>Date type of the EXIF value</summary>
+        [JsonPropertyName("DataType")]
         public string DataType { get; set; }
 
         /// <summary>Value, formatted as a string of the EXIF value</summary>
+        [JsonPropertyName("DataValue")]
         public string DataValue { get; set; }
 
         /// <summary>Tag name for the EXIF value</summary>
+        [JsonPropertyName("Tag")]
         public string Tag { get; set; }
     }
 
@@ -1235,9 +1489,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitDocxDocumentResult
     {
         /// <summary>ResultDocuments</summary>
+        [JsonPropertyName("ResultDocuments")]
         public List<SplitDocumentResult> ResultDocuments { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1247,12 +1503,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitDocumentResult
     {
         /// <summary>Contents of the document in bytes</summary>
+        [JsonPropertyName("DocumentContents")]
         public string DocumentContents { get; set; }
 
         /// <summary>Page number of the converted page, starting with 1 for the first page</summary>
+        [JsonPropertyName("PageNumber")]
         public int? PageNumber { get; set; }
 
         /// <summary>URL to the DOCX file of this slide; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
         public string URL { get; set; }
     }
 
@@ -1262,9 +1521,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitPdfResult
     {
         /// <summary>PDF documents as output</summary>
+        [JsonPropertyName("Documents")]
         public List<PdfDocument> Documents { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1274,12 +1535,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class PdfDocument
     {
         /// <summary>If returnDocumentContents is set to true, will contain the contents of the document; otherwise will be set to null and the document contents will be available via the URL parameter</summary>
+        [JsonPropertyName("DocumentContents")]
         public string DocumentContents { get; set; }
 
         /// <summary>Page number of the converted page, starting with 1 for the first page</summary>
+        [JsonPropertyName("PageNumber")]
         public int? PageNumber { get; set; }
 
         /// <summary>URL to the PDF file of this worksheet; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
         public string URL { get; set; }
     }
 
@@ -1289,9 +1553,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitPptxPresentationResult
     {
         /// <summary>ResultPresentations</summary>
+        [JsonPropertyName("ResultPresentations")]
         public List<PresentationResult> ResultPresentations { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1301,12 +1567,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class PresentationResult
     {
         /// <summary>Contents of the presentation in bytes</summary>
+        [JsonPropertyName("PresentationContents")]
         public string PresentationContents { get; set; }
 
         /// <summary>Worksheet number of the converted page, starting with 1 for the left-most worksheet</summary>
+        [JsonPropertyName("SlideNumber")]
         public int? SlideNumber { get; set; }
 
         /// <summary>URL to the PPTX file of this slide; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
         public string URL { get; set; }
     }
 
@@ -1316,12 +1585,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitTextDocumentByLinesResult
     {
         /// <summary>The count of lines in the text file</summary>
+        [JsonPropertyName("LineCount")]
         public int? LineCount { get; set; }
 
         /// <summary>ResultLines</summary>
+        [JsonPropertyName("ResultLines")]
         public List<TextDocumentLine> ResultLines { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1331,9 +1603,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class TextDocumentLine
     {
         /// <summary>The text contents of a single line of a text file</summary>
+        [JsonPropertyName("LineContents")]
         public string LineContents { get; set; }
 
         /// <summary>The 1-based line index of the line</summary>
+        [JsonPropertyName("LineNumber")]
         public int? LineNumber { get; set; }
     }
 
@@ -1343,12 +1617,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitTextDocumentByStringResult
     {
         /// <summary>The count of elements in the text file</summary>
+        [JsonPropertyName("ElementCount")]
         public int? ElementCount { get; set; }
 
         /// <summary>ResultElements</summary>
+        [JsonPropertyName("ResultElements")]
         public List<TextDocumentElement> ResultElements { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1358,9 +1635,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class TextDocumentElement
     {
         /// <summary>The text contents of a single element of a text file</summary>
+        [JsonPropertyName("ElementContents")]
         public string ElementContents { get; set; }
 
         /// <summary>The 1-based line index of the element</summary>
+        [JsonPropertyName("ElementNumber")]
         public int? ElementNumber { get; set; }
     }
 
@@ -1370,9 +1649,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SplitXlsxWorksheetResult
     {
         /// <summary>ResultWorksheets</summary>
+        [JsonPropertyName("ResultWorksheets")]
         public List<WorksheetResult> ResultWorksheets { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1382,15 +1663,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class WorksheetResult
     {
         /// <summary>URL to the XLSX file of this worksheet; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
         public string URL { get; set; }
 
         /// <summary>Contents of the worksheet in bytes</summary>
+        [JsonPropertyName("WorksheetContents")]
         public string WorksheetContents { get; set; }
 
         /// <summary>The name of the worksheet</summary>
+        [JsonPropertyName("WorksheetName")]
         public string WorksheetName { get; set; }
 
         /// <summary>Worksheet number of the converted page, starting with 1 for the left-most worksheet</summary>
+        [JsonPropertyName("WorksheetNumber")]
         public int? WorksheetNumber { get; set; }
     }
 
@@ -1400,9 +1685,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlTemplateApplicationResponse
     {
         /// <summary>Final HTML result of all operations on input</summary>
+        [JsonPropertyName("FinalHtml")]
         public string FinalHtml { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1412,18 +1699,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class AutodetectDocumentValidationResult
     {
         /// <summary>True if the document is valid and has no errors, false otherwise</summary>
+        [JsonPropertyName("DocumentIsValid")]
         public bool? DocumentIsValid { get; set; }
 
         /// <summary>Number of validation errors found in the document</summary>
+        [JsonPropertyName("ErrorCount")]
         public int? ErrorCount { get; set; }
 
         /// <summary>Details of errors and warnings found</summary>
+        [JsonPropertyName("ErrorsAndWarnings")]
         public List<DocumentValidationError> ErrorsAndWarnings { get; set; }
 
         /// <summary>FileFormatExtension</summary>
+        [JsonPropertyName("FileFormatExtension")]
         public string FileFormatExtension { get; set; }
 
         /// <summary>Number of validation warnings found in the document</summary>
+        [JsonPropertyName("WarningCount")]
         public int? WarningCount { get; set; }
     }
 
@@ -1433,15 +1725,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocumentValidationError
     {
         /// <summary>Description of the error</summary>
+        [JsonPropertyName("Description")]
         public string Description { get; set; }
 
         /// <summary>True if this is an error, false otherwise</summary>
+        [JsonPropertyName("IsError")]
         public bool? IsError { get; set; }
 
         /// <summary>XPath to the error</summary>
+        [JsonPropertyName("Path")]
         public string Path { get; set; }
 
         /// <summary>URI of the part in question</summary>
+        [JsonPropertyName("Uri")]
         public string Uri { get; set; }
     }
 
@@ -1451,15 +1747,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocumentValidationResult
     {
         /// <summary>True if the document is valid and has no errors, false otherwise</summary>
+        [JsonPropertyName("DocumentIsValid")]
         public bool? DocumentIsValid { get; set; }
 
         /// <summary>Number of validation errors found in the document</summary>
+        [JsonPropertyName("ErrorCount")]
         public int? ErrorCount { get; set; }
 
         /// <summary>Details of errors and warnings found</summary>
+        [JsonPropertyName("ErrorsAndWarnings")]
         public List<DocumentValidationError> ErrorsAndWarnings { get; set; }
 
         /// <summary>Number of validation warnings found in the document</summary>
+        [JsonPropertyName("WarningCount")]
         public int? WarningCount { get; set; }
     }
 
@@ -1481,9 +1781,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlToTextResponse
     {
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Text content result from the HTML input</summary>
+        [JsonPropertyName("TextContentResult")]
         public string TextContentResult { get; set; }
     }
 
@@ -1493,9 +1795,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlMdResult
     {
         /// <summary>Resulting HTML from the conversion</summary>
+        [JsonPropertyName("Html")]
         public string Html { get; set; }
 
         /// <summary>True if operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1505,9 +1809,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class UrlToTextResponse
     {
         /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Text content result from the URL website input</summary>
+        [JsonPropertyName("TextContentResult")]
         public string TextContentResult { get; set; }
     }
 
@@ -1517,12 +1823,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlAddAttributeWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
         public int? NodesEditedCount { get; set; }
 
         /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
         public string ResultingXmlDocument { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1532,12 +1841,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlAddChildWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
         public int? NodesEditedCount { get; set; }
 
         /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
         public string ResultingXmlDocument { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1547,15 +1859,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlRemoveWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesRemovedCount")]
         public int? NodesRemovedCount { get; set; }
 
         /// <summary>Resulting, modified XML document with matching nodes removed as a string</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
         public string ResultingXmlDocument { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Matching selected XML nodes as strings</summary>
+        [JsonPropertyName("XmlNodesRemoved")]
         public List<string> XmlNodesRemoved { get; set; }
     }
 
@@ -1565,12 +1881,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlRemoveAllChildrenWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
         public int? NodesEditedCount { get; set; }
 
         /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
         public string ResultingXmlDocument { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1580,12 +1899,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlReplaceWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
         public int? NodesEditedCount { get; set; }
 
         /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
         public string ResultingXmlDocument { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1595,12 +1917,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlSetValueWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
         public int? NodesEditedCount { get; set; }
 
         /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
         public string ResultingXmlDocument { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1610,12 +1935,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlQueryWithXQueryResult
     {
         /// <summary>If an error occurs, additional details on the error</summary>
+        [JsonPropertyName("ErrorMessage")]
         public string ErrorMessage { get; set; }
 
         /// <summary>Resulting XML result output</summary>
+        [JsonPropertyName("ResultingXml")]
         public string ResultingXml { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1625,12 +1953,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlQueryWithXQueryMultiResult
     {
         /// <summary>If an error occurs, additional details on the error</summary>
+        [JsonPropertyName("ErrorMessage")]
         public string ErrorMessage { get; set; }
 
         /// <summary>Resulting XML result output</summary>
+        [JsonPropertyName("ResultingXml")]
         public string ResultingXml { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
     }
 
@@ -1640,12 +1971,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class XmlFilterWithXPathResult
     {
         /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("ResultCount")]
         public int? ResultCount { get; set; }
 
         /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
 
         /// <summary>Matching selected XML nodes as strings</summary>
+        [JsonPropertyName("XmlNodes")]
         public List<string> XmlNodes { get; set; }
     }
 
@@ -1667,18 +2001,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class ClearXlsxCellRequest
     {
         /// <summary>0-based index of the cell, 0, 1, 2, ... in the row to clear</summary>
+        [JsonPropertyName("CellIndex")]
         public int? CellIndex { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>0-based index of the row, 0, 1, 2, ... to clear</summary>
+        [JsonPropertyName("RowIndex")]
         public int? RowIndex { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to update; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToUpdate")]
         public XlsxWorksheet WorksheetToUpdate { get; set; }
     }
 
@@ -1688,6 +2027,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class CreateBlankDocxRequest
     {
         /// <summary>Optional; initial text to include in the document</summary>
+        [JsonPropertyName("InitialText")]
         public string InitialText { get; set; }
     }
 
@@ -1697,6 +2037,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class CreateBlankSpreadsheetRequest
     {
         /// <summary>The blank Spreadsheet will have a default Worksheet in it; supply a name, or if left empty, will default to Worksheet1</summary>
+        [JsonPropertyName("WorksheetName")]
         public string WorksheetName { get; set; }
     }
 
@@ -1706,9 +2047,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class CreateSpreadsheetFromDataRequest
     {
         /// <summary>Required; Rows and cells to populate the spreadsheet with</summary>
+        [JsonPropertyName("Rows")]
         public List<XlsxSpreadsheetRow> Rows { get; set; }
 
         /// <summary>Optional; The new Spreadsheet will have a default Worksheet in it; supply a name, or if left empty, will default to Worksheet1</summary>
+        [JsonPropertyName("WorksheetName")]
         public string WorksheetName { get; set; }
     }
 
@@ -1718,18 +2061,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DeleteDocxTableRowRangeRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Path to the table to delete the row from</summary>
+        [JsonPropertyName("TablePath")]
         public string TablePath { get; set; }
 
         /// <summary>0-based index of the row to stop deleting rows (e.g. 0, 1, 2, ...) in the table</summary>
+        [JsonPropertyName("TableRowRowIndexEnd")]
         public int? TableRowRowIndexEnd { get; set; }
 
         /// <summary>0-based index of the row to begin deleting rows (e.g. 0, 1, 2, ...) in the table</summary>
+        [JsonPropertyName("TableRowRowIndexStart")]
         public int? TableRowRowIndexStart { get; set; }
     }
 
@@ -1739,15 +2087,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DeleteDocxTableRowRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Path to the table to delete the row from</summary>
+        [JsonPropertyName("TablePath")]
         public string TablePath { get; set; }
 
         /// <summary>0-based index of the row to delete (e.g. 0, 1, 2, ...) in the table</summary>
+        [JsonPropertyName("TableRowRowIndex")]
         public int? TableRowRowIndex { get; set; }
     }
 
@@ -1757,15 +2109,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxInsertCommentOnParagraphRequest
     {
         /// <summary>Comment to insert</summary>
+        [JsonPropertyName("CommentToInsert")]
         public DocxComment CommentToInsert { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Path to the paragraph to attach the comment to.  You can get the Path by retrieving all of the Paragraphs in document by calling Get Body and taking the Path property of the desired paragraph to add the comment to.</summary>
+        [JsonPropertyName("ParagraphPath")]
         public string ParagraphPath { get; set; }
     }
 
@@ -1775,30 +2131,39 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxInsertImageRequest
     {
         /// <summary>Optional: The height of the image in EMUs</summary>
+        [JsonPropertyName("HeightInEMUs")]
         public long? HeightInEMUs { get; set; }
 
         /// <summary>Optional: Image to add; if you supply in this object, do not supply InputImageFileBytes or InputImageFileUrl.</summary>
+        [JsonPropertyName("ImageToAdd")]
         public DocxImage ImageToAdd { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputDocumentFileBytes")]
         public string InputDocumentFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputDocumentFileUrl")]
         public string InputDocumentFileUrl { get; set; }
 
         /// <summary>Optional: Bytes of the input image file to operate on; if you supply this value do not supply InputImageFileUrl or ImageToAdd.</summary>
+        [JsonPropertyName("InputImageFileBytes")]
         public string InputImageFileBytes { get; set; }
 
         /// <summary>Optional: URL of an image file to operate on as input; if you supply this value do not supply InputImageFileBytes or ImageToAdd.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputImageFileUrl")]
         public string InputImageFileUrl { get; set; }
 
         /// <summary>Optional; location within the document to insert the object; fill in the InsertPath field using the Path value from an existing object.  Used with InsertPlacement of BeforeExistingObject or AfterExistingObject</summary>
+        [JsonPropertyName("InsertPath")]
         public string InsertPath { get; set; }
 
         /// <summary>Optional; default is DocumentEnd.  Placement Type of the insert; possible values are: DocumentStart (very beginning of the document), DocumentEnd (very end of the document), BeforeExistingObject (right before an existing object - fill in the InsertPath field using the Path value from an existing object), AfterExistingObject (right after an existing object - fill in the InsertPath field using the Path value from an existing object)</summary>
+        [JsonPropertyName("InsertPlacement")]
         public string InsertPlacement { get; set; }
 
         /// <summary>Optional: The width of the image in EMUs</summary>
+        [JsonPropertyName("WidthInEMUs")]
         public long? WidthInEMUs { get; set; }
     }
 
@@ -1808,12 +2173,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxRemoveObjectRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Path within the document of the object to delete; fill in the PathToObjectToRemove field using the Path value from an existing object.</summary>
+        [JsonPropertyName("PathToObjectToRemove")]
         public string PathToObjectToRemove { get; set; }
     }
 
@@ -1823,12 +2191,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxSetFooterAddPageNumberRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional: extra text to add before the page number, for example if you want to show &quot;Page 1&quot; then you can set PrependText to &quot;Page&quot;</summary>
+        [JsonPropertyName("PrependText")]
         public string PrependText { get; set; }
     }
 
@@ -1838,12 +2209,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxSetFooterRequest
     {
         /// <summary>Footer to apply</summary>
+        [JsonPropertyName("FooterToApply")]
         public DocxFooter FooterToApply { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1853,12 +2227,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class DocxSetHeaderRequest
     {
         /// <summary>Header to apply</summary>
+        [JsonPropertyName("HeaderToApply")]
         public DocxHeader HeaderToApply { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1868,6 +2245,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class FinishEditingRequest
     {
         /// <summary>URL of a document being edited to get the contents of.</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1877,9 +2255,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxBodyRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1889,9 +2269,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxGetCommentsHierarchicalRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1901,9 +2283,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxHeadersAndFootersRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1913,9 +2297,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxImagesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1925,9 +2311,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxPagesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1937,9 +2325,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxSectionsRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1949,9 +2339,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxStylesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -1961,12 +2353,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxTableByIndexRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>0-based index of the table to retrieve from the Word Document</summary>
+        [JsonPropertyName("TableIndex")]
         public int? TableIndex { get; set; }
     }
 
@@ -1976,15 +2371,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxTableRowRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Path to the table to retrievew the row from</summary>
+        [JsonPropertyName("TablePath")]
         public string TablePath { get; set; }
 
         /// <summary>0-based index of the row to retrieve (e.g. 0, 1, 2, ...) in the table</summary>
+        [JsonPropertyName("TableRowRowIndex")]
         public int? TableRowRowIndex { get; set; }
     }
 
@@ -1994,9 +2393,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetDocxTablesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -2006,15 +2407,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxCellByIdentifierRequest
     {
         /// <summary>Required; Excel cell identifier, e.g. A1, B22, C33, etc.</summary>
+        [JsonPropertyName("CellIdentifier")]
         public string CellIdentifier { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to get the rows and cells of; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToQuery")]
         public XlsxWorksheet WorksheetToQuery { get; set; }
     }
 
@@ -2024,18 +2429,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxCellRequest
     {
         /// <summary>0-based index of the cell, 0, 1, 2, ... in the row to retrieve</summary>
+        [JsonPropertyName("CellIndex")]
         public int? CellIndex { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>0-based index of the row, 0, 1, 2, ... to retrieve</summary>
+        [JsonPropertyName("RowIndex")]
         public int? RowIndex { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to get the rows and cells of; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToQuery")]
         public XlsxWorksheet WorksheetToQuery { get; set; }
     }
 
@@ -2045,12 +2455,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxColumnsRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to get the columns of; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToQuery")]
         public XlsxWorksheet WorksheetToQuery { get; set; }
     }
 
@@ -2060,12 +2473,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxImagesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to get the images of; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToQuery")]
         public XlsxWorksheet WorksheetToQuery { get; set; }
     }
 
@@ -2075,12 +2491,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxRowsAndCellsRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to get the rows and cells of; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToQuery")]
         public XlsxWorksheet WorksheetToQuery { get; set; }
     }
 
@@ -2090,9 +2509,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxStylesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -2102,9 +2523,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class GetXlsxWorksheetsRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
     }
 
@@ -2114,12 +2537,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlTemplateApplicationRequest
     {
         /// <summary>HTML template input as a string</summary>
+        [JsonPropertyName("HtmlTemplate")]
         public string HtmlTemplate { get; set; }
 
         /// <summary>URL to HTML template input</summary>
+        [JsonPropertyName("HtmlTemplateUrl")]
         public string HtmlTemplateUrl { get; set; }
 
         /// <summary>Operations to apply to this template</summary>
+        [JsonPropertyName("Operations")]
         public List<HtmlTemplateOperation> Operations { get; set; }
     }
 
@@ -2129,12 +2555,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlTemplateOperation
     {
         /// <summary>Operation action to take; possible values are &quot;Replace&quot;</summary>
+        [JsonPropertyName("Action")]
         public int? Action { get; set; }
 
         /// <summary>For Replace operations, the string to match against (to be replaced with ReplaceWith string)</summary>
+        [JsonPropertyName("MatchAgsint")]
         public string MatchAgsint { get; set; }
 
         /// <summary>For Replace operations, the string to Replace the original string with</summary>
+        [JsonPropertyName("ReplaceWith")]
         public string ReplaceWith { get; set; }
     }
 
@@ -2144,6 +2573,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlToOfficeRequest
     {
         /// <summary>HTML to render to Office format</summary>
+        [JsonPropertyName("Html")]
         public string Html { get; set; }
     }
 
@@ -2153,9 +2583,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlToPdfRequest
     {
         /// <summary>Optional: Additional number of milliseconds to wait once the web page has finished loading before taking the screenshot.  Can be helpful for highly asynchronous websites.</summary>
+        [JsonPropertyName("ExtraLoadingWait")]
         public int? ExtraLoadingWait { get; set; }
 
         /// <summary>HTML to render to PDF</summary>
+        [JsonPropertyName("Html")]
         public string Html { get; set; }
     }
 
@@ -2165,15 +2597,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlToPngRequest
     {
         /// <summary>Optional: Additional number of milliseconds to wait once the web page has finished loading before taking the screenshot.  Can be helpful for highly asynchronous websites.</summary>
+        [JsonPropertyName("ExtraLoadingWait")]
         public int? ExtraLoadingWait { get; set; }
 
         /// <summary>HTML to render to PNG (screenshot)</summary>
+        [JsonPropertyName("Html")]
         public string Html { get; set; }
 
         /// <summary>Optional: Height of the screenshot in pixels; supply 0 to default to 1280 x 1024, supply -1 to measure the full screen height of the page and attempt to take a screen-height screenshot</summary>
+        [JsonPropertyName("ScreenshotHeight")]
         public int? ScreenshotHeight { get; set; }
 
         /// <summary>Optional: Width of the screenshot in pixels; supply 0 to default to 1280 x 1024, supply -1 to measure the full screen height of the page and attempt to take a screen-height screenshot</summary>
+        [JsonPropertyName("ScreenshotWidth")]
         public int? ScreenshotWidth { get; set; }
     }
 
@@ -2183,6 +2619,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class HtmlToTextRequest
     {
         /// <summary>HTML to extract the text from</summary>
+        [JsonPropertyName("Html")]
         public string Html { get; set; }
     }
 
@@ -2192,18 +2629,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxInsertParagraphRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; location within the document to insert the object; fill in the InsertPath field using the Path value from an existing object.  Used with InsertPlacement of BeforeExistingObject or AfterExistingObject</summary>
+        [JsonPropertyName("InsertPath")]
         public string InsertPath { get; set; }
 
         /// <summary>Optional; default is DocumentEnd.  Placement Type of the insert; possible values are: DocumentStart (very beginning of the document), DocumentEnd (very end of the document), BeforeExistingObject (right before an existing object - fill in the InsertPath field using the Path value from an existing object), AfterExistingObject (right after an existing object - fill in the InsertPath field using the Path value from an existing object)</summary>
+        [JsonPropertyName("InsertPlacement")]
         public string InsertPlacement { get; set; }
 
         /// <summary>Table you would like to insert</summary>
+        [JsonPropertyName("ParagraphToInsert")]
         public DocxParagraph ParagraphToInsert { get; set; }
     }
 
@@ -2213,18 +2655,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxTableRowRequest
     {
         /// <summary>Required; the path to the existing table to modify</summary>
+        [JsonPropertyName("ExistingTablePath")]
         public string ExistingTablePath { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; default is TableEnd.  Placement Type of the insert; possible values are: TableStart (very beginning of the table), TableEnd (very end of the document), or a 0-based row index number as an integer, 0 being the first row in the table, 1 being the second row in the table, 2 being the third row in the table, etc. to insert this row after</summary>
+        [JsonPropertyName("InsertPlacement")]
         public string InsertPlacement { get; set; }
 
         /// <summary>Table you would like to insert</summary>
+        [JsonPropertyName("RowToInsert")]
         public DocxTableRow RowToInsert { get; set; }
     }
 
@@ -2234,18 +2681,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertDocxTablesRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; location within the document to insert the object; fill in the InsertPath field using the Path value from an existing object.  Used with InsertPlacement of BeforeExistingObject or AfterExistingObject</summary>
+        [JsonPropertyName("InsertPath")]
         public string InsertPath { get; set; }
 
         /// <summary>Optional; default is DocumentEnd.  Placement Type of the insert; possible values are: DocumentStart (very beginning of the document), DocumentEnd (very end of the document), BeforeExistingObject (right before an existing object - fill in the InsertPath field using the Path value from an existing object), AfterExistingObject (right after an existing object - fill in the InsertPath field using the Path value from an existing object)</summary>
+        [JsonPropertyName("InsertPlacement")]
         public string InsertPlacement { get; set; }
 
         /// <summary>Table you would like to insert</summary>
+        [JsonPropertyName("TableToInsert")]
         public DocxTable TableToInsert { get; set; }
     }
 
@@ -2255,12 +2707,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class InsertXlsxWorksheetRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Workersheet to insert</summary>
+        [JsonPropertyName("WorksheetToInsert")]
         public XlsxWorksheet WorksheetToInsert { get; set; }
     }
 
@@ -2270,15 +2725,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class RemoveDocxHeadersAndFootersRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>True if you would like to remove all footers from the input document, false otherwise</summary>
+        [JsonPropertyName("RemoveFooters")]
         public bool? RemoveFooters { get; set; }
 
         /// <summary>True if you would like to remove all headers from the input document, false otherwise</summary>
+        [JsonPropertyName("RemoveHeaders")]
         public bool? RemoveHeaders { get; set; }
     }
 
@@ -2288,15 +2747,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class RemoveDocxPagesRequest
     {
         /// <summary>Page number (1-based) to stop deleting pages; inclusive</summary>
+        [JsonPropertyName("EndDeletePageNumber")]
         public int? EndDeletePageNumber { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Page number (1-based) to start deleting pages; inclusive</summary>
+        [JsonPropertyName("StartDeletePageNumber")]
         public int? StartDeletePageNumber { get; set; }
     }
 
@@ -2306,15 +2769,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class RemovePptxSlidesRequest
     {
         /// <summary>Slide number (1-based) to stop deleting slides; inclusive</summary>
+        [JsonPropertyName("EndDeleteSlideNumber")]
         public int? EndDeleteSlideNumber { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Slide number (1-based) to start deleting slides; inclusive</summary>
+        [JsonPropertyName("StartDeleteSlideNumber")]
         public int? StartDeleteSlideNumber { get; set; }
     }
 
@@ -2324,12 +2791,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class RemoveXlsxWorksheetRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Required; Worksheet (tab) within the spreadsheet to delete; leave blank to default to the first worksheet.  Use the Get Worksheets API to enumerate available worksheets in a spreadsheet.</summary>
+        [JsonPropertyName("WorksheetToRemove")]
         public XlsxWorksheet WorksheetToRemove { get; set; }
     }
 
@@ -2339,18 +2809,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class ReplaceStringRequest
     {
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>True if the case should be matched, false for case insensitive match</summary>
+        [JsonPropertyName("MatchCase")]
         public bool? MatchCase { get; set; }
 
         /// <summary>String to search for and match against, to be replaced</summary>
+        [JsonPropertyName("MatchString")]
         public string MatchString { get; set; }
 
         /// <summary>String to replace the matched values with</summary>
+        [JsonPropertyName("ReplaceString")]
         public string ReplaceString { get; set; }
     }
 
@@ -2360,15 +2835,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class ScreenshotRequest
     {
         /// <summary>Optional: Additional number of milliseconds to wait once the web page has finished loading before taking the screenshot.  Can be helpful for highly asynchronous websites.  Provide a value of 0 for the default of 5000 milliseconds (5 seconds)</summary>
+        [JsonPropertyName("ExtraLoadingWait")]
         public int? ExtraLoadingWait { get; set; }
 
         /// <summary>Optional: Height of the screenshot in pixels; supply 0 to default to 1280 x 1024, supply -1 to measure the full screen height of the page and attempt to take a screen-height screenshot</summary>
+        [JsonPropertyName("ScreenshotHeight")]
         public int? ScreenshotHeight { get; set; }
 
         /// <summary>Optional: Width of the screenshot in pixels; supply 0 to default to 1280 x 1024</summary>
+        [JsonPropertyName("ScreenshotWidth")]
         public int? ScreenshotWidth { get; set; }
 
         /// <summary>URL address of the website to screenshot.  HTTP and HTTPS are both supported, as are custom ports.</summary>
+        [JsonPropertyName("Url")]
         public string Url { get; set; }
     }
 
@@ -2378,18 +2857,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SetXlsxCellByIdentifierRequest
     {
         /// <summary>The Excel cell identifier (e.g. A1, B2, C33, etc.) of the cell to update</summary>
+        [JsonPropertyName("CellIdentifier")]
         public string CellIdentifier { get; set; }
 
         /// <summary>New Cell value to update/overwrite into the Excel XLSX spreadsheet</summary>
+        [JsonPropertyName("CellValue")]
         public XlsxSpreadsheetCell CellValue { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to update; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToUpdate")]
         public XlsxWorksheet WorksheetToUpdate { get; set; }
     }
 
@@ -2399,21 +2883,27 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class SetXlsxCellRequest
     {
         /// <summary>0-based index of the cell, 0, 1, 2, ... in the row to set</summary>
+        [JsonPropertyName("CellIndex")]
         public int? CellIndex { get; set; }
 
         /// <summary>New Cell value to update/overwrite into the Excel XLSX spreadsheet</summary>
+        [JsonPropertyName("CellValue")]
         public XlsxSpreadsheetCell CellValue { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>0-based index of the row, 0, 1, 2, ... to set</summary>
+        [JsonPropertyName("RowIndex")]
         public int? RowIndex { get; set; }
 
         /// <summary>Optional; Worksheet (tab) within the spreadsheet to update; leave blank to default to the first worksheet</summary>
+        [JsonPropertyName("WorksheetToUpdate")]
         public XlsxWorksheet WorksheetToUpdate { get; set; }
     }
 
@@ -2423,21 +2913,27 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class UpdateDocxTableCellRequest
     {
         /// <summary>Table cell contents you would like to update the cell with</summary>
+        [JsonPropertyName("CellToUpdate")]
         public DocxTableCell CellToUpdate { get; set; }
 
         /// <summary>Required; the path to the existing table to modify</summary>
+        [JsonPropertyName("ExistingTablePath")]
         public string ExistingTablePath { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>0-based index of the Table Cell (within the row) to update</summary>
+        [JsonPropertyName("TableCellIndex")]
         public int? TableCellIndex { get; set; }
 
         /// <summary>0-based index of the Table Row to update</summary>
+        [JsonPropertyName("TableRowIndex")]
         public int? TableRowIndex { get; set; }
     }
 
@@ -2447,18 +2943,23 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class UpdateDocxTableRowRequest
     {
         /// <summary>Required; the path to the existing table to modify</summary>
+        [JsonPropertyName("ExistingTablePath")]
         public string ExistingTablePath { get; set; }
 
         /// <summary>Optional: Bytes of the input file to operate on</summary>
+        [JsonPropertyName("InputFileBytes")]
         public string InputFileBytes { get; set; }
 
         /// <summary>Optional: URL of a file to operate on as input.  This can be a public URL, or you can also use the begin-editing API to upload a document and pass in the secure URL result from that operation as the URL here (this URL is not public).</summary>
+        [JsonPropertyName("InputFileUrl")]
         public string InputFileUrl { get; set; }
 
         /// <summary>Table row contents you would like to update the row with</summary>
+        [JsonPropertyName("RowToUpdate")]
         public DocxTableRow RowToUpdate { get; set; }
 
         /// <summary>0-based index of the Table Row to update</summary>
+        [JsonPropertyName("TableRowIndex")]
         public int? TableRowIndex { get; set; }
     }
 
@@ -2468,6 +2969,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     public class UrlToTextRequest
     {
         /// <summary>URL of the website to extract the text from</summary>
+        [JsonPropertyName("Url")]
         public string Url { get; set; }
     }
 
@@ -2643,14 +3145,14 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             List<DocxRun> contentRuns = default,
             int? paragraphIndex = default,
             string path = default,
-            string styleID = default)
+            string styleId = default)
         {
             return new DocxParagraph
             {
                 ContentRuns = contentRuns,
                 ParagraphIndex = paragraphIndex,
                 Path = path,
-                StyleID = styleID,
+                StyleId = styleId,
             };
         }
 
@@ -2729,7 +3231,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             int? startBorderSize = default,
             int? startBorderSpace = default,
             string startBorderType = default,
-            string tableID = default,
+            string tableId = default,
             string tableIndentationMode = default,
             int? tableIndentationWidth = default,
             List<DocxTableRow> tableRows = default,
@@ -2771,7 +3273,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
                 StartBorderSize = startBorderSize,
                 StartBorderSpace = startBorderSpace,
                 StartBorderType = startBorderType,
-                TableID = tableID,
+                TableId = tableId,
                 TableIndentationMode = tableIndentationMode,
                 TableIndentationWidth = tableIndentationWidth,
                 TableRows = tableRows,
@@ -3073,7 +3575,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             string fontSize = default,
             bool? italic = default,
             string path = default,
-            string styleID = default,
+            string styleId = default,
             bool? underline = default)
         {
             return new DocxStyle
@@ -3083,7 +3585,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
                 FontSize = fontSize,
                 Italic = italic,
                 Path = path,
-                StyleID = styleID,
+                StyleId = styleId,
                 Underline = underline,
             };
         }
@@ -3482,15 +3984,15 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxCellStyle"/>.
         /// </summary>
         public static DocxCellStyle DocxCellStyle(
-            int? builtInID = default,
-            int? formatID = default,
+            int? builtInId = default,
+            int? formatId = default,
             string name = default,
             string path = default)
         {
             return new DocxCellStyle
             {
-                BuiltInID = builtInID,
-                FormatID = formatID,
+                BuiltInId = builtInId,
+                FormatId = formatId,
                 Name = name,
                 Path = path,
             };
@@ -6870,3 +7372,4 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
 
     #endregion Client
 }
+

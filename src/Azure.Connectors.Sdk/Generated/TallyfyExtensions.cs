@@ -269,7 +269,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     public class EditTaskDeadlineInput
     {
         /// <summary>New task deadline</summary>
-        [JsonPropertyName("deadline")]
+        [JsonPropertyName("Deadline")]
         public string Deadline { get; set; }
     }
 
@@ -1085,3 +1085,4 @@ namespace Azure.Connectors.Sdk.Tallyfy
 
     #endregion Client
 }
+

@@ -936,3 +936,4 @@ namespace Azure.Connectors.Sdk.AzureVM
 
     #endregion Client
 }
+

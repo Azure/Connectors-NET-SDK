@@ -462,6 +462,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     public class GetUsersGraphAction
     {
         /// <summary>User email address.</summary>
+        [JsonPropertyName("EmailAddress")]
         public object EmailAddress { get; set; }
     }
 
@@ -489,6 +490,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     public class ForwardPostBody
     {
         /// <summary>Comment to forward with the post.</summary>
+        [JsonPropertyName("Comment")]
         public string Comment { get; set; }
 
         /// <summary>The recipients to whom the threaded is forwarded to.</summary>
@@ -930,7 +932,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewEmailInGroup trigger (Office365GroupsMail "When a new email arrives to a group", operationId: OnNewEmailInGroup).
-    /// Deserialize Connector Gateway callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365GroupsMailOnNewEmailInGroupTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365GroupsMailOnNewEmailInGroupTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class Office365GroupsMailOnNewEmailInGroupTriggerPayload : TriggerCallbackPayload<ConversationTriggerResponse>
     {
@@ -968,7 +970,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
     /// <summary>
     /// Trigger operation name constants for the Office365GroupsMail connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class Office365GroupsMailTriggerOperations
     {
@@ -986,7 +988,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
 
     /// <summary>
     /// Trigger input parameter name constants for the Office365GroupsMail connector.
-    /// These correspond to the Connector Gateway TriggerConfig <c>parameters</c> array.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
     public static class Office365GroupsMailTriggerParameters
     {
@@ -1366,3 +1368,4 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
 
     #endregion Client
 }
+

@@ -80,7 +80,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Time Off.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -206,7 +206,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Shift.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -346,7 +346,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Open Shift.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -482,7 +482,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Scheduling Group.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>The display name for the Scheduling Group.</summary>
         [JsonPropertyName("displayName")]
@@ -518,7 +518,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Time Off request.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -639,7 +639,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Offer Shift request.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -764,7 +764,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Swap Shift request.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -893,7 +893,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>The unique ID of the Open Shift Change request.</summary>
         [JsonPropertyName("id")]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -1207,7 +1207,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new TimeOffResponse
             {
-                ID = id,
+                Id = id,
                 CreatedDateTime = createdDateTime,
                 ModifiedDateTime = modifiedDateTime,
                 AssignedToUserId = assignedToUserId,
@@ -1313,7 +1313,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new ShiftResponse
             {
-                ID = id,
+                Id = id,
                 CreatedDateTime = createdDateTime,
                 ModifiedDateTime = modifiedDateTime,
                 AssignedToUserId = assignedToUserId,
@@ -1415,7 +1415,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new OpenShiftResponse
             {
-                ID = id,
+                Id = id,
                 CreatedDateTime = createdDateTime,
                 ModifiedDateTime = modifiedDateTime,
                 SchedulingGroupId = schedulingGroupId,
@@ -1513,7 +1513,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new SchedulingGroupResponse
             {
-                ID = id,
+                Id = id,
                 DisplayName = displayName,
                 IsActive = isActive,
                 UserIDs = userIDs,
@@ -1555,7 +1555,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new TimeOffRequestResponse
             {
-                ID = id,
+                Id = id,
                 CreatedTime = createdTime,
                 ModifiedTime = modifiedTime,
                 AssignedTo = assignedTo,
@@ -1632,7 +1632,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new OfferShiftRequestResponse
             {
-                ID = id,
+                Id = id,
                 CreatedTime = createdTime,
                 ModifiedTime = modifiedTime,
                 AssignedTo = assignedTo,
@@ -1711,7 +1711,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new SwapShiftsChangeRequestResponse
             {
-                ID = id,
+                Id = id,
                 CreatedTime = createdTime,
                 ModifiedTime = modifiedTime,
                 AssignedTo = assignedTo,
@@ -1787,7 +1787,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         {
             return new OpenShiftChangeRequestResponse
             {
-                ID = id,
+                Id = id,
                 CreatedTime = createdTime,
                 ModifiedTime = modifiedTime,
                 AssignedTo = assignedTo,
@@ -1937,7 +1937,7 @@ namespace Azure.Connectors.Sdk.Shifts
     /// <summary>
     /// Trigger operation name constants for the Shifts connector.
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
-    /// and with the Connector Gateway TriggerConfig <c>operationName</c> field.
+    /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
     public static class ShiftsTriggerOperations
     {
@@ -2708,3 +2708,4 @@ namespace Azure.Connectors.Sdk.Shifts
 
     #endregion Client
 }
+
