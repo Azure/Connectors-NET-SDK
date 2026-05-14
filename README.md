@@ -227,14 +227,14 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Power BI | 🔄 SDK Generated | ExecuteDatasetQuery, AddRows, RefreshDataset |
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
-| Azure Queues | 🔄 SDK Generated | GetMessages, PutMessageIntoQueue, DeleteMessage, CreateQueue |
-| Azure Tables | 🔄 SDK Generated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
-| Azure Cosmos DB | 🔄 SDK Generated | ListDatabases, ListCollections, ListDocuments, CreateDocument, UpdateDocument |
-| Azure Event Hubs | 🔄 SDK Generated | ListEventHubs, SendEvent, GetEvents, GetBatchEvents |
-| Excel Online (Business) | 🔄 SDK Generated | GetTables, GetItems, PostItem, UpdateItem, DeleteItem |
-| Outlook | 🔄 SDK Generated | GetEmails, SendEmail, DeleteEmail, GetCalendarItems, GetContacts |
-| Service Bus | 🔄 SDK Generated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
-| Word Online (Business) | 🔄 SDK Generated | PopulateWordTemplateAsync, GetWordSchema, ListSources |
+| Azure Queues | ✅ E2E Validated | GetMessages, PutMessageIntoQueue, DeleteMessage, CreateQueue |
+| Azure Tables | ✅ E2E Validated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
+| Azure Cosmos DB | ✅ E2E Validated | ListDatabases, ListCollections, ListDocuments, CreateDocument, UpdateDocument |
+| Azure Event Hubs | ✅ E2E Validated | ListEventHubs, SendEvent, GetEvents, GetBatchEvents |
+| Excel Online (Business) | ✅ E2E Validated | GetTables, GetItems, PostItem, UpdateItem, DeleteItem |
+| Outlook | ✅ E2E Validated | GetEmails, SendEmail, DeleteEmail, GetCalendarItems, GetContacts |
+| Service Bus | ✅ E2E Validated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
+| Word Online (Business) | ✅ E2E Validated | PopulateWordTemplateAsync, GetWordSchema, ListSources |
 
 ## Related Projects
 

@@ -262,9 +262,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Get sources response.</returns>
         public virtual async Task<GetSourcesResponse> GetSourcesAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("$top=");
-            var path = $"/codeless/v1.0/sources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = "/codeless/v1.0/sources";
             return await this
                 .CallConnectorAsync<GetSourcesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -280,7 +278,6 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         {
             var queryParams = new List<string>();
             queryParams.Add("source=me");
-            queryParams.Add("$select=");
             var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
