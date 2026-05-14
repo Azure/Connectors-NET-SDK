@@ -206,7 +206,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
     public static class AzurequeuesTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnMessages trigger operation (operationId: OnMessages_V2).
+        /// Input parameters for the OnMessagesV2 trigger operation (operationId: OnMessages_V2).
         /// </summary>
         public static class OnMessagesV2
         {
@@ -218,7 +218,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         }
 
         /// <summary>
-        /// Input parameters for the OnMessageThresholdReached trigger operation (operationId: OnMessageThresholdReached_V2).
+        /// Input parameters for the OnMessageThresholdReachedV2 trigger operation (operationId: OnMessageThresholdReached_V2).
         /// </summary>
         public static class OnMessageThresholdReachedV2
         {

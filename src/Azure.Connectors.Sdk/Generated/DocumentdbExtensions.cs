@@ -58,7 +58,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>_ts</summary>
         [JsonPropertyName("_ts")]
-        public int? Ts { get; set; }
+        public long? Ts { get; set; }
 
         /// <summary>_self</summary>
         [JsonPropertyName("_self")]
@@ -110,7 +110,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>_ts</summary>
         [JsonPropertyName("_ts")]
-        public int? Ts { get; set; }
+        public long? Ts { get; set; }
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -403,7 +403,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// </summary>
         public static PostDocumentsResponse PostDocumentsResponse(
             string rid = default,
-            int? ts = default,
+            long? ts = default,
             string self = default,
             string etag = default,
             string attachments = default,
@@ -441,7 +441,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
             string etag = default,
             string rid = default,
             string self = default,
-            int? ts = default,
+            long? ts = default,
             string body = default,
             string id = default)
         {
