@@ -3,11 +3,13 @@
 //------------------------------------------------------------
 
 using Azure.Connectors.Sdk.Arm;
+using Azure.Connectors.Sdk.AzureAD;
 using Azure.Connectors.Sdk.AzureAutomation;
 using Azure.Connectors.Sdk.AzureBlob;
 using Azure.Connectors.Sdk.AzureDataFactory;
 using Azure.Connectors.Sdk.AzureDigitalTwins;
 using Azure.Connectors.Sdk.AzureEventGrid;
+using Azure.Connectors.Sdk.AzureIoTCentral;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
 using Azure.Connectors.Sdk.Azurequeues;
 using Azure.Connectors.Sdk.Azuretables;
@@ -32,6 +34,7 @@ using Azure.Connectors.Sdk.KeyVault;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.MeetingRoomMap;
 using Azure.Connectors.Sdk.MicrosoftBookings;
+using Azure.Connectors.Sdk.MicrosoftForms;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
@@ -133,6 +136,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="AzureADClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureADClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureADClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureAD,
+                factory: (connectionRuntimeUrl, credential) => new AzureADClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -162,6 +181,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.AzureEventGrid,
                 factory: (connectionRuntimeUrl, credential) => new AzureEventGridClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureIoTCentralClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureIoTCentralClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIoTCentralClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureIoTCentral,
+                factory: (connectionRuntimeUrl, credential) => new AzureIoTCentralClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -1090,6 +1125,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.MicrosoftBookings,
                 factory: (connectionRuntimeUrl, credential) => new MicrosoftBookingsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="MicrosoftFormsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddMicrosoftFormsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MicrosoftFormsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.MicrosoftForms,
+                factory: (connectionRuntimeUrl, credential) => new MicrosoftFormsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

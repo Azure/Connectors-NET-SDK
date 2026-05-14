@@ -36,6 +36,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
         /// <summary>ContentData</summary>
         [JsonPropertyName("ContentData")]
         public ObjectEntity ContentData { get; set; }

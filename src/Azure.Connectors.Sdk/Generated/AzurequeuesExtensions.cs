@@ -165,10 +165,6 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
 
     #endregion Model Factory
 
-    #region Trigger Payloads
-
-    #endregion Trigger Payloads
-
 }
 
 namespace Azure.Connectors.Sdk.Azurequeues
