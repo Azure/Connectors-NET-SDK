@@ -163,9 +163,9 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
 
     /// <summary>
     /// Typed trigger payload for the OnNewEvents trigger (Eventhubs "When events are available in Event Hub", operationId: OnNewEvents).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;EventhubsOnNewEventsTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;EventHubsOnNewEventsTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class EventhubsOnNewEventsTriggerPayload : TriggerCallbackPayload<Event>
+    public class EventHubsOnNewEventsTriggerPayload : TriggerCallbackPayload<Event>
     {
     }
 
@@ -173,19 +173,19 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
     /// Static registry of trigger operations for the Eventhubs connector that have typed payloads.
     /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
     /// Triggers that return binary content (e.g., file downloads) are not included here
-    /// because they have no JSON-deserializable payload type. See <see cref="EventhubsTriggerOperations"/>
+    /// because they have no JSON-deserializable payload type. See <see cref="EventHubsTriggerOperations"/>
     /// for the complete list of trigger operation name constants.
     /// </summary>
-    public static class EventhubsTriggers
+    public static class EventHubsTriggers
     {
         /// <summary>
         /// Trigger operations with typed payloads for the Eventhubs connector.
-        /// This is a subset of all triggers — see <see cref="EventhubsTriggerOperations"/> for the full list.
+        /// This is a subset of all triggers — see <see cref="EventHubsTriggerOperations"/> for the full list.
         /// </summary>
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["OnNewEvents"] = typeof(EventhubsOnNewEventsTriggerPayload),
+                ["OnNewEvents"] = typeof(EventHubsOnNewEventsTriggerPayload),
             });
     }
 
@@ -203,11 +203,11 @@ namespace Azure.Connectors.Sdk.Eventhubs
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
     /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
-    public static class EventhubsTriggerOperations
+    public static class EventHubsTriggerOperations
     {
         /// <summary>
         /// When events are available in Event Hub.
-        /// Payload type: <see cref="EventhubsOnNewEventsTriggerPayload"/>.
+        /// Payload type: <see cref="EventHubsOnNewEventsTriggerPayload"/>.
         /// </summary>
         public const string OnNewEvents = "OnNewEvents";
 
@@ -221,7 +221,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
     /// Trigger input parameter name constants for the Eventhubs connector.
     /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
-    public static class EventhubsTriggerParameters
+    public static class EventHubsTriggerParameters
     {
         /// <summary>
         /// Input parameters for the OnNewEvents trigger operation (operationId: OnNewEvents).

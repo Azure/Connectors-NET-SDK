@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
     /// Use these constants with the <c>[ConnectorTrigger]</c> attribute's <c>OperationName</c> property
     /// and with the Connector Namespace TriggerConfig <c>operationName</c> field.
     /// </summary>
-    public static class AzurequeuesTriggerOperations
+    public static class AzureQueuesTriggerOperations
     {
         /// <summary>
         /// When there are messages in a queue (V2).
@@ -203,7 +203,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
     /// Trigger input parameter name constants for the Azurequeues connector.
     /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
     /// </summary>
-    public static class AzurequeuesTriggerParameters
+    public static class AzureQueuesTriggerParameters
     {
         /// <summary>
         /// Input parameters for the OnMessagesV2 trigger operation (operationId: OnMessages_V2).

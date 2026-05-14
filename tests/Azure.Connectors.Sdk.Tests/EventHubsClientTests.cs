@@ -154,8 +154,12 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Event_HasAdditionalPropertiesDictionary()
         {
-            var eventObj = new Event();
+            const string json = "{\"contentData\":{},\"dynamicField\":\"dynamicValue\"}";
+            var eventObj = JsonSerializer.Deserialize<Event>(json);
+            Assert.IsNotNull(eventObj);
             Assert.IsNotNull(eventObj.AdditionalProperties);
+            Assert.IsTrue(eventObj.AdditionalProperties.ContainsKey("dynamicField"));
+            Assert.AreEqual("dynamicValue", ((JsonElement)eventObj.AdditionalProperties["dynamicField"]).GetString());
         }
     }
 }

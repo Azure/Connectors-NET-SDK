@@ -171,8 +171,12 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void GetFileSchemaResponse_HasAdditionalPropertiesDictionary()
         {
-            var schema = new GetFileSchemaResponse();
+            const string json = "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"dynamicField\":\"dynamicValue\"}";
+            var schema = JsonSerializer.Deserialize<GetFileSchemaResponse>(json);
+            Assert.IsNotNull(schema);
             Assert.IsNotNull(schema.AdditionalProperties);
+            Assert.IsTrue(schema.AdditionalProperties.ContainsKey("dynamicField"));
+            Assert.AreEqual("dynamicValue", ((JsonElement)schema.AdditionalProperties["dynamicField"]).GetString());
         }
     }
 }
