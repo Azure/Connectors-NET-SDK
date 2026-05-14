@@ -1,48 +1,69 @@
 # Migrating from Azure Connectors Private Preview
 
 > This guide is for developers who used the original `Azure/Connectors` private preview
-> (circa 2021–2022). It explains what changed, what was renamed, and how to update your code.
+> (circa 2021–2022). It explains what is different, and how to update your code and
+> connection setup to use the current SDK.
 >
 > The private `Azure/Connectors` repo is no longer the active development surface.
-> All SDK work has moved to the public repos listed in [What Changed at a Glance](#what-changed-at-a-glance).
+
+---
+
+## Two Independent Projects
+
+The current SDK (`Azure/Connectors-NET-SDK` and its Python and Node.js counterparts) was
+built as an independent project by the Azure Functions team. It was **not** a continuation
+of the original `Azure/Connectors` private preview, which was a separate effort by a
+different team. The two projects happened to solve overlapping problems but made different
+choices throughout.
+
+This matters for the migration: there is no in-place upgrade path. Adopting the current SDK
+means provisioning new Azure infrastructure and rewriting the connection and client code from
+scratch.
 
 ---
 
 ## What Changed at a Glance
 
-| Old (Private Preview) | New (Current SDK) |
-|-----------------------|-------------------|
-| "Azure API Connections" | "Connector Gateway" |
-| VS Code extension creates connection → copies connection string | `az rest` commands create Connector Gateway + connection → OAuth consent → runtime URL |
-| `MicrosoftTeamsConnector.Create("<connectionKey>")` | `new TeamsClient(new Uri(connectionRuntimeUrl))` |
-| `createMicrosoftTeamsConnector("<connectionKey>")` | `new TeamsClient(connectionRuntimeUrl, tokenProvider)` |
-| Per-connector NuGet packages (`Azure.Connectors.MicrosoftTeams`) | Single package: `Azure.Connectors.Sdk` |
-| Per-connector npm packages (`@azure/microsoftteams-connector`) | Single package: `@azure/connectors` |
-| GitHub Package Registry (private, PAT required) | NuGet.org / PyPI / npm (public) |
-| AutoRest V2 from `sdk/swaggers/` | Internal `CodefulSdkGenerator` (not user-facing) |
-| `vscode-azureAPIConnections` VS Code extension | `Connectors-NET-LSP` language server |
-| `ITokenProvider` interface | `Azure.Core.TokenCredential` |
-| `Microsoft.Azure.Connectors.Sdk` namespace | `Azure.Connectors.Sdk` namespace |
+| Dimension | Private Preview | Current SDK |
+|-----------|-----------------|-------------|
+| Connection backend | Azure API Connections (`Microsoft.Web/connections`) | Connector Gateway (`Microsoft.Web/connectorGateways`) |
+| Connection setup | VS Code extension (`vscode-azureAPIConnections`) | `az rest` commands + OAuth consent |
+| Connection identity passed to client | Opaque connection string | Connection runtime URL |
+| C# client creation | `MicrosoftTeamsConnector.Create("<key>")` | `new TeamsClient(new Uri(runtimeUrl))` |
+| TypeScript client creation | `createMicrosoftTeamsConnector("<key>")` | `new TeamsClient(runtimeUrl, tokenProvider)` |
+| Auth in app code | None — key embedded auth | `Azure.Core.TokenCredential` |
+| C# packages | Per-connector on GitHub Package Registry (private) | Single `Azure.Connectors.Sdk` on NuGet.org |
+| TypeScript packages | Per-connector on GitHub Package Registry (private) | Single `@azure/connectors` on npm |
+| Code generation | AutoRest V2, user-runnable | Internal `CodefulSdkGenerator`, not user-facing |
+| VS Code tooling | Connection management extension | LSP server for IntelliSense |
 
 ---
 
-## Infrastructure Rename
+## Connection Backend: Two Distinct Azure Resource Types
 
-The old private preview called the backend service **Azure API Connections**. The service exposed a
-per-connector REST runtime that accepted a "connection key" as an opaque string — the VS Code
-extension was the primary tool for provisioning those keys.
+**Azure API Connections still exist.** They are the `Microsoft.Web/connections` resource type,
+have been in production since the early days of Azure Logic Apps, and continue to power Logic Apps
+Consumption and Standard today. The private preview SDK used these connections — the
+`vscode-azureAPIConnections` extension was a thin UI over the same ARM resource type.
 
-The service has been rebranded and re-architected as the **Connector Gateway** — a first-class ARM
-resource type (`Microsoft.Web/connectorGateways`). Each Connector Gateway is a resource in your
-subscription that acts as a namespace for one or more named connections. You provision and manage
-it through the Azure CLI (`az rest`) rather than through a VS Code extension.
+The current SDK introduces a **completely separate** resource type: the **Connector Gateway**
+(`Microsoft.Web/connectorGateways`). These are not a renaming or evolution of API Connections.
+They are a distinct ARM resource with their own resource provider path, their own API version,
+and their own connection runtime URL format.
 
 ```text
-Old: "Azure API Connections"  →  New: "Connector Gateway"
-              (opaque connection key)         (ARM resource + connection runtime URL)
+Azure API Connections (still exist, used by Logic Apps):
+  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connections/{name}
+
+Connector Gateway (new, used by the current SDK):
+  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connectorGateways/{gw}
+  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connectorGateways/{gw}/connections/{name}
 ```
 
-See [docs/concepts.md](concepts.md) for a full architecture diagram.
+When you migrate, you provision **new** Connector Gateway resources. Your existing Azure API
+Connections are not affected and do not need to be deleted or converted.
+
+See [docs/concepts.md](concepts.md) for a full architecture diagram of the Connector Gateway model.
 
 ---
 
@@ -50,9 +71,10 @@ See [docs/concepts.md](concepts.md) for a full architecture diagram.
 
 ### Old workflow
 
-The VS Code extension `vscode-azureAPIConnections` was the entry point for creating connections.
-After completing the OAuth flow inside the extension, you received a connection string (an opaque
-key), which you pasted into your code or configuration:
+The VS Code extension `vscode-azureAPIConnections` was the entry point for creating Azure API
+Connections (`Microsoft.Web/connections`). After completing the OAuth flow inside the extension,
+you received a connection string (an opaque key derived from the API Connection resource), which
+you pasted into your code or configuration:
 
 ```json
 // local.settings.json (old)
@@ -65,7 +87,8 @@ key), which you pasted into your code or configuration:
 
 ### New workflow
 
-Connections are now ARM resources provisioned via `az rest`. The general sequence is:
+Connector Gateway connections are ARM resources under a distinct resource type, provisioned via
+`az rest`. The general sequence is:
 
 1. **Create a Connector Gateway** (`Microsoft.Web/connectorGateways`)
 2. **Create a connection** (`/connections/{name}`) inside the gateway
@@ -225,20 +248,15 @@ The credential is passed to the client constructor and used to acquire bearer to
 | Local development | `AzureCliCredential` (pass explicitly) |
 | Service principal / CI | `ClientSecretCredential` |
 
-> **Why the change?** The old opaque key embedded both the identity and the service
-> endpoint, which made credential rotation difficult. The new model separates concerns:
-> the connection runtime URL identifies the endpoint, and the `TokenCredential`
-> provides a freshly-minted access token at request time.
-
 ---
 
 ## Code Generation
 
-### Old approach
+### Private preview approach
 
 The private preview used **AutoRest V2** to generate per-connector client code from OpenAPI
 (Swagger) files stored in the `sdk/swaggers/` directory of the private `Azure/Connectors` repo.
-Developers could, in principle, run AutoRest locally to regenerate clients.
+Developers could run AutoRest locally to regenerate or customize clients.
 
 ```yaml
 # AutoRest V2 configuration (sdk/autorest/readme.md excerpt)
@@ -247,12 +265,12 @@ azure-arm: true
 # … per-connector swagger inputs …
 ```
 
-### New approach
+### Current SDK approach
 
-Generation is handled by an internal Microsoft tool called **`CodefulSdkGenerator`**
-(part of the BPM/Logic Apps Compiler toolchain). It is **not user-facing** — you do not
-run it yourself. The output (`*Extensions.cs` files) is checked into the SDK repo and
-updated by the SDK team when connector Swagger definitions change.
+The current SDK's generated files (`*Extensions.cs`, `*Extensions.ts`, etc.) are produced by an
+internal Microsoft tool called **`CodefulSdkGenerator`** (part of the Logic Apps Compiler
+toolchain). It is **not user-facing** — you do not run it yourself. The generated client files
+are checked into each SDK repo and updated by the team when connector Swagger definitions change.
 
 If you need a connector that isn't yet included, open an issue in
 [Azure/Connectors-NET-SDK](https://github.com/Azure/Connectors-NET-SDK/issues).
