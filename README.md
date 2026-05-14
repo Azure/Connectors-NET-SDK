@@ -227,13 +227,13 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Power BI | 🔄 SDK Generated | ExecuteDatasetQuery, AddRows, RefreshDataset |
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
-| Azure Queues | 🔄 SDK Generated | GetMessages, PutMessageIntoQueue, DeleteMessage, CreateQueue |
-| Azure Tables | 🔄 SDK Generated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
+| Azure Queues | 🔄 SDK Generated | GetMessagesAsync, PutMessageAsync, DeleteMessageAsync, ListQueuesAsync, PutQueueAsync |
+| Azure Tables | 🔄 SDK Generated | GetTableAsync, GetEntitiesAsync, CreateEntityAsync, MergeEntityAsync, DeleteEntityAsync |
 | Azure Cosmos DB | 🔄 SDK Generated | GetDatabasesAsync, GetCollectionsAsync, GetDocumentsAsync, CreateDocumentAsync, ReplaceDocumentAsync |
 | Azure Event Hubs | 🔄 SDK Generated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
 | Excel Online (Business) | 🔄 SDK Generated | CreateTableAsync, GetTablesAsync, GetItemsAsync, AddRowAsync, PatchItemAsync, DeleteItemAsync |
 | Outlook | 🔄 SDK Generated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
-| Service Bus | 🔄 SDK Generated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
+| Service Bus | 🔄 SDK Generated | GetQueuesAsync, GetTopicsAsync, SendMessageAsync, GetMessagesFromQueueWithPeekLockAsync, CompleteMessageInQueueAsync |
 | Word Online (Business) | 🔄 SDK Generated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
 
 ## Related Projects

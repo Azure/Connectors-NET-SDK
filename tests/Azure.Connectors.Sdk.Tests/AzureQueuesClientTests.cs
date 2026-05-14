@@ -188,7 +188,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Queue_SerializationRoundTrip()
+        public void QueueInfo_SerializationRoundTrip()
         {
             var original = new QueueInfo { Name = "myqueue" };
 
