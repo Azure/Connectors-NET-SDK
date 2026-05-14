@@ -186,12 +186,12 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <summary>
         /// When there are messages in a queue (V2).
         /// </summary>
-        public const string OnMessages = "OnMessages_V2";
+        public const string OnMessagesV2 = "OnMessages_V2";
 
         /// <summary>
         /// When a specified number of messages are in a given queue (V2).
         /// </summary>
-        public const string OnMessageThresholdReached = "OnMessageThresholdReached_V2";
+        public const string OnMessageThresholdReachedV2 = "OnMessageThresholdReached_V2";
 
     }
 
@@ -208,7 +208,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <summary>
         /// Input parameters for the OnMessages trigger operation (operationId: OnMessages_V2).
         /// </summary>
-        public static class OnMessages
+        public static class OnMessagesV2
         {
             /// <summary>
             /// The time in seconds that messages will be invisible to other consumers (default 30)
@@ -220,7 +220,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <summary>
         /// Input parameters for the OnMessageThresholdReached trigger operation (operationId: OnMessageThresholdReached_V2).
         /// </summary>
-        public static class OnMessageThresholdReached
+        public static class OnMessageThresholdReachedV2
         {
             /// <summary>
             /// The number of messages to wait for to fire the trigger.

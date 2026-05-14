@@ -431,7 +431,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="contentSchemaOfTheEvent">content schema of the event</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Generate event schema V2 response.</returns>
-        public virtual async Task<ObjectEntity> GenerateEventSchemaAsync([DynamicValues("GetContentTypes")] string contentType, string contentSchemaOfTheEvent = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ObjectEntity> GenerateEventSchemaAsync([DynamicValues("GetContentTypes")] string contentType = default, string contentSchemaOfTheEvent = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (contentType != default)
