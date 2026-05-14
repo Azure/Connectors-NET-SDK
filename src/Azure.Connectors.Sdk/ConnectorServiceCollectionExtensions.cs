@@ -780,7 +780,7 @@ namespace Azure.Connectors.Sdk
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddServiceBusClient(
+        public static IServiceCollection AddServiceBusConnectorClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
