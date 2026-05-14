@@ -198,12 +198,9 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         public virtual async Task<GetFileSchemaResponse> GetFileSchemaAsync(string source, string drive, string @file, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (source != default)
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            if (drive != default)
-                queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
-            if (@file != default)
-                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+            queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+            queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
+            queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
             var path = $"/api/templates/schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetFileSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -223,12 +220,9 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         public virtual async Task<byte[]> CreateFileItemAsync(CreateFileItemInput input, [DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (location != default)
-                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-            if (documentLibrary != default)
-                queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
-            if (@file != default)
-                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+            queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+            queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
+            queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
             var path = $"/api/templates/getFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
@@ -299,12 +293,9 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         {
             var queryParams = new List<string>();
             queryParams.Add("format=pdf");
-            if (location != default)
-                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-            if (documentLibrary != default)
-                queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
-            if (@file != default)
-                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+            queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+            queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
+            queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
             if (extractSensitivityLabel.HasValue)
                 queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
             if (sensitivityLabelMetadata.HasValue)

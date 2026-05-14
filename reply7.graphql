@@ -1,0 +1,8 @@
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gZj",
+    body: "Fixed in commit cb2fbff. Excel Online (Business) row: added `CreateTableAsync` to the operation list. Outlook row: corrected all method names to `GetEmailAsync`, `SendEmailAsync`, `DeleteEmailAsync`, `CalendarGetItemsAsync`, `ContactGetItemsAsync`."
+  }) {
+    comment { id }
+  }
+}

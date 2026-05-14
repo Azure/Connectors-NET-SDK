@@ -1,0 +1,8 @@
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gYv",
+    body: "Fixed in commit cb2fbff. Removed the `if (theEventHubName != default)` guards in `GetConsumerGroupsAsync` and `GetPartitionKeysAsync` — `eventHubName` is a required parameter so it is now always appended to the query string. Also renamed `EventhubsClient` → `EventHubsClient` and `EventhubsModelFactory` → `EventHubsModelFactory`."
+  }) {
+    comment { id }
+  }
+}

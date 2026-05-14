@@ -1,0 +1,8 @@
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gYP",
+    body: "Fixed in commit cb2fbff. `int maxItemCount` → `int?` and `bool extractSensitivityLabel` → `bool?` across `GetDocumentAsync`, `GetDocumentsAsync`, and `QueryDocumentsAsync`. Guards updated to `.HasValue` + `.Value.ToString()`. Also renamed `DocumentdbClient` → `DocumentDbClient` and `DocumentdbModelFactory` → `DocumentDbModelFactory`."
+  }) {
+    comment { id }
+  }
+}

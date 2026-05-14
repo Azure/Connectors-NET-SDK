@@ -1,0 +1,8 @@
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gY9",
+    body: "Fixed in commit cb2fbff. Removed the `if (queueName != default)` guard in `PutQueueAsync` — `queueName` is required so it is always appended. Also renamed `AzurequeuesClient` → `AzureQueuesClient` and `AzurequeuesModelFactory` → `AzureQueuesModelFactory`."
+  }) {
+    comment { id }
+  }
+}

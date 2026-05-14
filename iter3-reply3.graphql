@@ -1,0 +1,8 @@
+mutation {
+  addPullRequestReviewThreadReply(input: {
+    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-3yI",
+    body: "Fixed in commit 9d0b3e8. Changed all 8 newly generated connector rows from `✅ E2E Validated` to `🔄 SDK Generated` to accurately reflect that these clients have unit tests against mocked HTTP but no end-to-end validation against live services has been performed yet."
+  }) {
+    comment { id }
+  }
+}

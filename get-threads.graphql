@@ -1,0 +1,19 @@
+{
+  repository(owner: "Azure", name: "Connectors-NET-SDK") {
+    pullRequest(number: 146) {
+      reviewThreads(last: 20) {
+        nodes {
+          id
+          isResolved
+          comments(first: 1) {
+            nodes {
+              databaseId
+              path
+              body
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -735,7 +735,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
             string preferredLanguage = default,
             List<string> businessPhones = default,
             List<string> otherMails = default,
-            object additionalProperties = default,
+            object customProperties = default,
             object onPremisesExtensionAttributes = default)
         {
             return new UpdateUserRequest
@@ -753,7 +753,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
                 PreferredLanguage = preferredLanguage,
                 BusinessPhones = businessPhones,
                 OtherMails = otherMails,
-                CustomProperties = additionalProperties,
+                CustomProperties = customProperties,
                 OnPremisesExtensionAttributes = onPremisesExtensionAttributes,
             };
         }

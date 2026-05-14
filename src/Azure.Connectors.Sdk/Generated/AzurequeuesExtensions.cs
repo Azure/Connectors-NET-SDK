@@ -279,8 +279,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         public virtual async Task DeleteMessageAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, [DynamicValues("ListQueues_V2")] string queueName, string messageId, string popReceipt, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (popReceipt != default)
-                queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt.ToString())}");
+            queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt.ToString())}");
             var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
