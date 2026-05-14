@@ -76,9 +76,9 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         [JsonPropertyName("RowKey")]
         public string RowKey { get; set; }
 
-        /// <summary>The unique columns for the entity</summary>
-        [JsonPropertyName("additionalProperties")]
-        public string EntityData { get; set; }
+        /// <summary>Dynamic entity columns returned by the service.</summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -122,9 +122,9 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         [JsonPropertyName("RowKey")]
         public string RowKey { get; set; }
 
-        /// <summary>The unique columns for the entity</summary>
-        [JsonPropertyName("additionalProperties")]
-        public string EntityData { get; set; }
+        /// <summary>Dynamic entity columns returned by the service.</summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -144,9 +144,9 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         [JsonPropertyName("RowKey")]
         public string RowKey { get; set; }
 
-        /// <summary>The unique columns for the entity</summary>
-        [JsonPropertyName("additionalProperties")]
-        public string EntityData { get; set; }
+        /// <summary>Dynamic entity columns returned by the service.</summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -254,15 +254,13 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         public static InsertEntityResponse InsertEntityResponse(
             string entityMetadataLocation = default,
             string partitionKey = default,
-            string rowKey = default,
-            string entityData = default)
+            string rowKey = default)
         {
             return new InsertEntityResponse
             {
                 EntityMetadataLocation = entityMetadataLocation,
                 PartitionKey = partitionKey,
                 RowKey = rowKey,
-                EntityData = entityData,
             };
         }
 
@@ -299,14 +297,12 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         /// </summary>
         public static EntityItem EntityItem(
             string partitionKey = default,
-            string rowKey = default,
-            string entityData = default)
+            string rowKey = default)
         {
             return new EntityItem
             {
                 PartitionKey = partitionKey,
                 RowKey = rowKey,
-                EntityData = entityData,
             };
         }
 
@@ -316,15 +312,13 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         public static GetEntityResponse GetEntityResponse(
             string tableMetadataLocation = default,
             string partitionKey = default,
-            string rowKey = default,
-            string entityData = default)
+            string rowKey = default)
         {
             return new GetEntityResponse
             {
                 TableMetadataLocation = tableMetadataLocation,
                 PartitionKey = partitionKey,
                 RowKey = rowKey,
-                EntityData = entityData,
             };
         }
 

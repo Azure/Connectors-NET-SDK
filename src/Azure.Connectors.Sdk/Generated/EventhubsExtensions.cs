@@ -69,7 +69,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
     {
         /// <summary>Enqueued time</summary>
         [JsonPropertyName("EnqueuedTimeUtc")]
-        public DateTime? EnqueuedTimeInUTC { get; set; }
+        public DateTime? EnqueuedTimeUtc { get; set; }
 
         /// <summary>Offset in a partition</summary>
         [JsonPropertyName("Offset")]
@@ -129,14 +129,14 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
         /// Creates a new instance of <see cref="SystemProperties"/>.
         /// </summary>
         public static SystemProperties SystemProperties(
-            DateTime? enqueuedTimeInUTC = default,
+            DateTime? enqueuedTimeUtc = default,
             string offset = default,
             string partitionKey = default,
             long? sequenceNumber = default)
         {
             return new SystemProperties
             {
-                EnqueuedTimeInUTC = enqueuedTimeInUTC,
+                EnqueuedTimeUtc = enqueuedTimeUtc,
                 Offset = offset,
                 PartitionKey = partitionKey,
                 SequenceNumber = sequenceNumber,

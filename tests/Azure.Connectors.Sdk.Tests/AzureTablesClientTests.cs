@@ -142,8 +142,7 @@ namespace Azure.Connectors.Sdk.Tests
             var expectedResponse = new InsertEntityResponse
             {
                 PartitionKey = "partition1",
-                RowKey = "row1",
-                EntityData = "{}"
+                RowKey = "row1"
             };
 
             using var responseMessage = new HttpResponseMessage
@@ -174,8 +173,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 PartitionKey = "mypartition",
                 RowKey = "myrow",
-                EntityMetadataLocation = "https://test.azure.com/entity",
-                EntityData = "{\"name\":\"test\"}"
+                EntityMetadataLocation = "https://test.azure.com/entity"
             };
 
             var json = JsonSerializer.Serialize(original);

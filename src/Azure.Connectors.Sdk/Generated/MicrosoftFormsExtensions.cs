@@ -261,11 +261,12 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="formId">Form Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetQuestionsAsync([DynamicValues("ListForms")] string formId, CancellationToken cancellationToken = default)
+        /// <returns>The list of questions for the specified form.</returns>
+        public virtual async Task<List<object>> GetQuestionsAsync([DynamicValues("ListForms")] string formId, CancellationToken cancellationToken = default)
         {
             var path = $"/formapi/api/forms('{Uri.EscapeDataString(formId.ToString())}')/questions";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+            return await this
+                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 

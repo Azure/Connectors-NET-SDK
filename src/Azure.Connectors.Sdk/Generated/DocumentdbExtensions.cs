@@ -177,6 +177,10 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// <summary>List of columns along with their Sensitivity Labels</summary>
         [JsonPropertyName("@metadata")]
         public List<DataWithSensitivityLabelInfo> Metadata { get; set; }
+
+        /// <summary>Dynamic document properties returned by the service.</summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
