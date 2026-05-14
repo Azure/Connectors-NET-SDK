@@ -21,10 +21,10 @@
 //   var client = new AzureMonitorLogsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Azurequeues;
 //   using Azure.Connectors.Sdk.Azurequeues.Models;
-//   var client = new AzurequeuesClient(connectionRuntimeUrl);
+//   var client = new AzureQueuesClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Azuretables;
 //   using Azure.Connectors.Sdk.Azuretables.Models;
-//   var client = new AzuretablesClient(connectionRuntimeUrl);
+//   var client = new AzureTablesClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Campfire;
 //   using Azure.Connectors.Sdk.Campfire.Models;
 //   var client = new CampfireClient(connectionRuntimeUrl);
@@ -36,7 +36,7 @@
 //   var client = new CloudmersiveConvertClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Documentdb;
 //   using Azure.Connectors.Sdk.Documentdb.Models;
-//   var client = new DocumentdbClient(connectionRuntimeUrl);
+//   var client = new DocumentDbClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Docuware;
 //   using Azure.Connectors.Sdk.Docuware.Models;
 //   var client = new DocuwareClient(connectionRuntimeUrl);
@@ -48,7 +48,7 @@
 //   var client = new EtsyClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Eventhubs;
 //   using Azure.Connectors.Sdk.Eventhubs.Models;
-//   var client = new EventhubsClient(connectionRuntimeUrl);
+//   var client = new EventHubsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.ExcelOnline;
 //   using Azure.Connectors.Sdk.ExcelOnline.Models;
 //   var client = new ExcelOnlineClient(connectionRuntimeUrl);
@@ -129,7 +129,7 @@
 //   var client = new SeismicPlannerClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Servicebus;
 //   using Azure.Connectors.Sdk.Servicebus.Models;
-//   var client = new ServicebusClient(connectionRuntimeUrl);
+//   var client = new ServiceBusConnectorClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.SharePointOnline;
 //   using Azure.Connectors.Sdk.SharePointOnline.Models;
 //   var client = new SharePointOnlineClient(connectionRuntimeUrl);
