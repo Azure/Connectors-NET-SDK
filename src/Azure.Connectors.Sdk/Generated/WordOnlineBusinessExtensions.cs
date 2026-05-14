@@ -266,12 +266,13 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// Get drives
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="source">The source scope for drives (e.g. "me", a group or site identifier). Defaults to "me".</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get drives response.</returns>
-        public virtual async Task<GetDrivesResponse> GetDrivesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<GetDrivesResponse> GetDrivesAsync([DynamicValues("GetSources")] string source = "me", CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            queryParams.Add("source=me");
+            queryParams.Add($"source={Uri.EscapeDataString(source)}");
             var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

@@ -236,7 +236,6 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
 
-
 ## Related Projects
 
 | Project | Description |
