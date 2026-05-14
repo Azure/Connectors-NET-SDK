@@ -32,6 +32,7 @@ scratch.
 | C# packages | Per-connector on GitHub Package Registry (private) | Single `Azure.Connectors.Sdk` on NuGet.org |
 | TypeScript packages | Per-connector on GitHub Package Registry (private) | Single `@azure/connectors` on npm |
 | Code generation | AutoRest V2, user-runnable | Internal `CodefulSdkGenerator`, not user-facing |
+| Azure SDK guidelines | Not followed | Follows [Azure SDK design guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html) |
 | VS Code tooling | Connection management extension | LSP server for IntelliSense; connection management extension and portal in progress |
 | Trigger support | None | Connector Namespace polling triggers with `[ConnectorTrigger]` Azure Functions binding |
 
@@ -246,6 +247,30 @@ The credential is passed to the client constructor and used to acquire bearer to
 | Azure-hosted (Function App, App Service) | `ManagedIdentityCredential` (default when none specified) |
 | Local development | `AzureCliCredential` (pass explicitly) |
 | Service principal / CI | `ClientSecretCredential` |
+
+---
+
+## Azure SDK Design Guidelines
+
+The private preview SDK did not follow the
+[Azure SDK design guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html).
+Clients were created via static factory methods, pagination returned simple lists
+(e.g., `teams.Value.FirstOrDefault(…)`), and the TypeScript SDK depended on the legacy
+`@azure/ms-rest-js` library.
+
+The current SDK is built on Azure.Core and follows the guidelines throughout:
+
+| Guideline | Current SDK Implementation |
+|-----------|---------------------------|
+| [Client constructors](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-client-constructor-minimal) | `(Uri endpoint, TokenCredential credential, ClientOptions? options)` |
+| [Pagination](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-pagination) | `AsyncPageable<T>` with automatic next-link following |
+| [Client options](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-client-options) | `ConnectorClientOptions : ClientOptions` — retry, transport, diagnostics via Azure.Core |
+| [Exceptions](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-errors) | `ConnectorException : RequestFailedException` |
+| [Mocking](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-mocking-factory) | Per-connector model factories, virtual service methods, protected parameterless constructors |
+| [Extensible enums](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-enums) | `readonly struct` types with static known-value members, implicit string conversion |
+
+This means standard Azure SDK patterns (dependency injection, `AzureEventSourceListener` for
+diagnostics, `HttpPipelinePolicy` for custom request/response handling) work out of the box.
 
 ---
 
