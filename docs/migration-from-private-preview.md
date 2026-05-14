@@ -1,6 +1,6 @@
 # Migrating from Azure Connectors Private Preview
 
-> This guide is for developers who used the original `Azure/Connectors` private preview
+> This guide is for developers who used the `Azure/Connectors` private preview
 > (circa 2021–2022). It explains what is different, and how to update your code and
 > connection setup to use the current SDK.
 
@@ -23,8 +23,8 @@ scratch.
 
 | Dimension | Private Preview | Current SDK |
 |-----------|-----------------|-------------|
-| Connection backend | Azure API Connections (`Microsoft.Web/connections`) | Connector Gateway (`Microsoft.Web/connectorGateways`) |
-| Connection setup | VS Code extension (`vscode-azureAPIConnections`) | `az rest` commands + OAuth consent |
+| Connection backend | Azure API Connections (`Microsoft.Web/connections`) | Connector Namespace (`Microsoft.Web/connectorGateways`) |
+| Connection setup | VS Code extension (`vscode-azureAPIConnections`) | REST API (`az rest`, VS Code extension, portal — all planned) |
 | Connection identity passed to client | Opaque connection string | Connection runtime URL |
 | C# client creation | `MicrosoftTeamsConnector.Create("<key>")` | `new TeamsClient(new Uri(runtimeUrl))` |
 | TypeScript client creation | `createMicrosoftTeamsConnector("<key>")` | `new TeamsClient(runtimeUrl, tokenProvider)` |
@@ -32,7 +32,8 @@ scratch.
 | C# packages | Per-connector on GitHub Package Registry (private) | Single `Azure.Connectors.Sdk` on NuGet.org |
 | TypeScript packages | Per-connector on GitHub Package Registry (private) | Single `@azure/connectors` on npm |
 | Code generation | AutoRest V2, user-runnable | Internal `CodefulSdkGenerator`, not user-facing |
-| VS Code tooling | Connection management extension | LSP server for IntelliSense |
+| VS Code tooling | Connection management extension | LSP server for IntelliSense; connection management extension and portal in progress |
+| Trigger support | None | Connector Namespace polling triggers with `[ConnectorTrigger]` Azure Functions binding |
 
 ---
 
@@ -43,7 +44,7 @@ have been in production since the early days of Azure Logic Apps, and continue t
 Consumption and Standard today. The private preview SDK used these connections — the
 `vscode-azureAPIConnections` extension was a thin UI over the same ARM resource type.
 
-The current SDK introduces a **completely separate** resource type: the **Connector Gateway**
+The current SDK introduces a **completely separate** resource type: the **Connector Namespace**
 (`Microsoft.Web/connectorGateways`). These are not a renaming or evolution of API Connections.
 They are a distinct ARM resource with their own resource provider path, their own API version,
 and their own connection runtime URL format.
@@ -52,15 +53,15 @@ and their own connection runtime URL format.
 Azure API Connections (still exist, used by Logic Apps):
   /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connections/{name}
 
-Connector Gateway (new, used by the current SDK):
-  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connectorGateways/{gw}
-  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connectorGateways/{gw}/connections/{name}
+Connector Namespace (new, used by the current SDK):
+  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connectorGateways/{ns}
+  /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Web/connectorGateways/{ns}/connections/{name}
 ```
 
-When you migrate, you provision **new** Connector Gateway resources. Your existing Azure API
+When you migrate, you provision **new** Connector Namespace resources. Your existing Azure API
 Connections are not affected and do not need to be deleted or converted.
 
-See [docs/concepts.md](concepts.md) for a full architecture diagram of the Connector Gateway model.
+See [docs/concepts.md](concepts.md) for a full architecture diagram of the Connector Namespace model.
 
 ---
 
@@ -84,24 +85,25 @@ you pasted into your code or configuration:
 
 ### New workflow
 
-Connector Gateway connections are ARM resources under a distinct resource type, provisioned via
-`az rest`. The general sequence is:
+Connector Namespace connections are ARM resources under a distinct resource type, provisioned via
+the underlying REST API. Today the primary tool is `az rest`; a dedicated VS Code extension and
+Azure Portal experience are both in development. The general sequence is:
 
-1. **Create a Connector Gateway** (`Microsoft.Web/connectorGateways`)
-2. **Create a connection** (`/connections/{name}`) inside the gateway
+1. **Create a Connector Namespace** (`Microsoft.Web/connectorGateways`)
+2. **Create a connection** (`/connections/{name}`) inside the namespace
 3. **Complete OAuth consent** (browser flow or portal)
 4. **Retrieve the connection runtime URL** from the ARM resource
 5. **Set environment variables** in `local.settings.json`
 
 ```powershell
-# Create gateway
+# Create Connector Namespace
 az rest --method PUT \
-  --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/connectorGateways/$gw?api-version=2026-05-01-preview" \
+  --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/connectorGateways/$ns?api-version=2026-05-01-preview" \
   --body '{"location":"eastus","identity":{"type":"SystemAssigned"},"properties":{}}'
 
 # Create connection
 az rest --method PUT \
-  --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/connectorGateways/$gw/connections/teams-test?api-version=2026-05-01-preview" \
+  --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/connectorGateways/$ns/connections/teams-test?api-version=2026-05-01-preview" \
   --body '{"properties":{"connectorName":"teams"}}'
 ```
 
@@ -109,15 +111,15 @@ After OAuth consent, read the runtime URL:
 
 ```powershell
 az rest --method GET \
-  --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/connectorGateways/$gw/connections/teams-test?api-version=2026-05-01-preview" \
+  --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$rg/providers/Microsoft.Web/connectorGateways/$ns/connections/teams-test?api-version=2026-05-01-preview" \
   --query "properties.connectionRuntimeUrl" -o tsv
 ```
 
 ```json
-// local.settings.json (new) — Connector Gateway format
+// local.settings.json (new) — Connector Namespace format
 {
   "Values": {
-    "TeamsConnection__connectorGatewayName": "my-gateway",
+    "TeamsConnection__connectorGatewayName": "my-namespace",
     "TeamsConnection__connectionName": "teams-test"
   }
 }
@@ -359,16 +361,18 @@ the resulting connection strings into your project.
 
 ### New tooling
 
-The `vscode-azureAPIConnections` extension is no longer maintained. Two distinct tools now
-serve different purposes:
+The `vscode-azureAPIConnections` extension is no longer maintained. The current SDK ecosystem
+provides multiple tools — some available today, others in progress:
 
-| Tool | Purpose |
-|------|---------|
-| **[Connectors-NET-LSP](https://github.com/Azure/Connectors-NET-LSP)** | Language Server Protocol server providing IntelliSense, hover docs, and code navigation for SDK development |
-| **AI agent skill** ([connection-setup](../.github/skills/connection-setup/SKILL.md)) | Automates the end-to-end connection lifecycle from within VS Code Copilot Chat |
+| Tool | Status | Purpose |
+|------|--------|--------|
+| **[Connectors-NET-LSP](https://github.com/Azure/Connectors-NET-LSP)** | Available | Language Server Protocol server providing IntelliSense, hover docs, and code navigation for SDK development |
+| **REST API** (`az rest`, agent skills) | Available | Connector Namespace and connection lifecycle via ARM REST API |
+| **VS Code extension** for Connector Namespace management | In progress | Dedicated connection management experience (distinct from the LSP) |
+| **Azure Portal** experience | In progress | Connector Namespace management in the Azure Portal |
 
-Connection management (what the old extension did) is now handled via the Azure CLI (`az rest`)
-or the AI agent skill — both described in [Connection Setup](#connection-setup) above.
+The REST API, upcoming VS Code extension, and portal are all surfaces over the same underlying
+Connector Namespace ARM API. For connection setup today, see [Connection Setup](#connection-setup).
 
 ---
 
@@ -389,6 +393,50 @@ additional renames from the `CHANGELOG`:
 
 ---
 
+## Trigger Support
+
+The private preview SDK provided **no trigger support**. Connectors were limited to
+request-response actions (send email, list files, post a message, etc.). If you needed
+event-driven behavior ("when a new email arrives"), you had to implement your own polling
+or rely on Logic Apps.
+
+The current SDK supports **connector triggers** via the Connector Namespace. The Connector
+Namespace manages server-side polling infrastructure and delivers events to your Azure Function
+through a callback URL. Key components:
+
+| Component | Description |
+|-----------|-------------|
+| **Trigger config** | ARM resource (`/triggerConfigs/{name}`) on the Connector Namespace that defines which connector operation to poll and where to send callbacks |
+| **`[ConnectorTrigger]` attribute** | Azure Functions binding attribute (from `Microsoft.Azure.Functions.Worker.Extensions.Connector`) that receives trigger callbacks as POCO payloads |
+| **`TriggerCallbackPayload<T>`** | SDK envelope type that deserializes the `{"body":{"value":[...]}}` callback structure into typed items |
+| **Binary vs metadata triggers** | Some connectors offer two variants: file-content triggers deliver base64-encoded bytes, metadata triggers deliver typed property objects |
+
+Example: receiving new emails via a connector trigger:
+
+```csharp
+using Azure.Connectors.Sdk.Office365;
+using Microsoft.Azure.Functions.Worker;
+
+public class EmailTrigger(ILogger<EmailTrigger> logger)
+{
+    [Function("OnNewEmailReceived")]
+    public void OnNewEmailReceived(
+        [ConnectorTrigger] Office365OnNewEmailTriggerPayload payload)
+    {
+        var emails = payload.Body?.Value ?? [];
+        foreach (var email in emails)
+        {
+            logger.LogInformation("Subject: {Subject}", email.Subject);
+        }
+    }
+}
+```
+
+See the [Trigger Registration Skill](../.github/skills/trigger-registration/SKILL.md) for the
+full setup procedure including callback URL wiring and trigger parameter discovery.
+
+---
+
 ## Samples
 
 Working end-to-end samples for the current SDK are in
@@ -405,7 +453,7 @@ be ported by a simple find-and-replace.
 ## Further Reading
 
 - [README.md](../README.md) — SDK overview, quick start, and validated connectors list
-- [docs/concepts.md](concepts.md) — Architecture, glossary, Connector Gateway topology
+- [docs/concepts.md](concepts.md) — Architecture, glossary, Connector Namespace topology
 - [docs/connection-setup.md](connection-setup.md) — Full connection provisioning walkthrough
 - [CHANGELOG.md](../CHANGELOG.md) — Version-by-version breaking changes
 - [GENERATION.md](../GENERATION.md) — How connector clients are generated
