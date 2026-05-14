@@ -167,6 +167,8 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
+| Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
+| Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | 🔄 SDK Generated | QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 |
 | IBM MQ | 🔄 SDK Generated | SendAsync, ReadAsync, ReadAllAsync, ReceiveAsync, ReceiveAllAsync, DeleteAsync, DeleteAllAsync |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
@@ -217,6 +219,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Azure VM | 🔄 SDK Generated | VirtualMachineGet, VirtualMachineStart, VirtualMachineDeallocate |
 | Key Vault | 🔄 SDK Generated | GetSecret, ListSecrets, EncryptData |
 | Microsoft Bookings | 🔄 SDK Generated | ListBookingsBusinessUserAsAdmin |
+| Microsoft Forms | 🔄 SDK Generated | ListForms, GetFormDetailsById, GetFormResponseById, GetQuestions |
 | Office 365 Groups | 🔄 SDK Generated | ListGroups, AddMemberToGroup, CreateCalendarEvent |
 | Office 365 Groups Mail | 🔄 SDK Generated | ListConversations, CreateConversation, ReplyToAThread |
 | OneNote | 🔄 SDK Generated | GetNotebooks, CreatePageInSection, GetPageContent |

@@ -22,6 +22,11 @@ public static class ConnectorNames
     public const string Arm = "arm";
 
     /// <summary>
+    /// The <c>azuread</c> connector.
+    /// </summary>
+    public const string AzureAD = "azuread";
+
+    /// <summary>
     /// The <c>azureblob</c> connector.
     /// </summary>
     public const string AzureBlob = "azureblob";
@@ -45,6 +50,11 @@ public static class ConnectorNames
     /// The <c>azureeventgrid</c> connector.
     /// </summary>
     public const string AzureEventGrid = "azureeventgrid";
+
+    /// <summary>
+    /// The <c>azureiotcentral</c> connector.
+    /// </summary>
+    public const string AzureIoTCentral = "azureiotcentral";
 
     /// <summary>
     /// The <c>azuremonitorlogs</c> connector.
@@ -145,6 +155,11 @@ public static class ConnectorNames
     /// The <c>microsoftbookings</c> connector.
     /// </summary>
     public const string MicrosoftBookings = "microsoftbookings";
+
+    /// <summary>
+    /// The <c>microsoftforms</c> connector.
+    /// </summary>
+    public const string MicrosoftForms = "microsoftforms";
 
     /// <summary>
     /// The <c>msgraphgroupsanduser</c> connector.

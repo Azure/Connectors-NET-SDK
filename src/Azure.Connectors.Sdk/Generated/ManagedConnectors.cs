@@ -4,12 +4,18 @@
 //   using Azure.Connectors.Sdk.Arm;
 //   using Azure.Connectors.Sdk.Arm.Models;
 //   var client = new ArmClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureAD;
+//   using Azure.Connectors.Sdk.AzureAD.Models;
+//   var client = new AzureADClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureBlob;
 //   using Azure.Connectors.Sdk.AzureBlob.Models;
 //   var client = new AzureBlobClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureEventGrid;
 //   using Azure.Connectors.Sdk.AzureEventGrid.Models;
 //   var client = new AzureEventGridClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureIoTCentral;
+//   using Azure.Connectors.Sdk.AzureIoTCentral.Models;
+//   var client = new AzureIoTCentralClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureMonitorLogs;
 //   using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
 //   var client = new AzureMonitorLogsClient(connectionRuntimeUrl);
@@ -61,6 +67,9 @@
 //   using Azure.Connectors.Sdk.Mq;
 //   using Azure.Connectors.Sdk.Mq.Models;
 //   var client = new MqClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.MicrosoftForms;
+//   using Azure.Connectors.Sdk.MicrosoftForms.Models;
+//   var client = new MicrosoftFormsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 //   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 //   var client = new MsGraphGroupsAndUsersClient(connectionRuntimeUrl);
@@ -157,11 +166,13 @@ public static class SdkConnectors
     /// </summary>
     public static readonly string[] AvailableConnectors = [
         "arm",
+        "azuread",
         "azureblob",
         "azureautomation",
         "azuredatafactory",
         "azuredigitaltwins",
         "azureeventgrid",
+        "azureiotcentral",
         "azuremonitorlogs",
         "azurevm",
         "campfire",
@@ -181,6 +192,7 @@ public static class SdkConnectors
         "keyvault",
         "meetingroommap",
         "microsoftbookings",
+        "microsoftforms",
         "mq",
         "msgraphgroupsanduser",
         "office365",
