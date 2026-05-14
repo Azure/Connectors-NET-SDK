@@ -94,7 +94,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>documentdb</c> connector.
     /// </summary>
-    public const string DocumentDB = "documentdb";
+    public const string DocumentDb = "documentdb";
 
     /// <summary>
     /// The <c>docuware</c> connector.

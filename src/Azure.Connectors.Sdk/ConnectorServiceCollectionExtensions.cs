@@ -288,7 +288,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentDbClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.DocumentDB,
+                connectorName: ConnectorNames.DocumentDb,
                 factory: (connectionRuntimeUrl, credential) => new DocumentDbClient(connectionRuntimeUrl, credential));
         }
 

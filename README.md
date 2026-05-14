@@ -227,14 +227,14 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Power BI | 🔄 SDK Generated | ExecuteDatasetQuery, AddRows, RefreshDataset |
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
-| Azure Queues | ✅ E2E Validated | GetMessages, PutMessageIntoQueue, DeleteMessage, CreateQueue |
-| Azure Tables | ✅ E2E Validated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
-| Azure Cosmos DB | ✅ E2E Validated | GetDatabasesAsync, GetCollectionsAsync, GetDocumentsAsync, CreateDocumentAsync, ReplaceDocumentAsync |
-| Azure Event Hubs | ✅ E2E Validated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
-| Excel Online (Business) | ✅ E2E Validated | CreateTableAsync, GetTablesAsync, GetItemsAsync, AddRowAsync, PatchItemAsync, DeleteItemAsync |
-| Outlook | ✅ E2E Validated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
-| Service Bus | ✅ E2E Validated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
-| Word Online (Business) | ✅ E2E Validated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
+| Azure Queues | 🔄 SDK Generated | GetMessages, PutMessageIntoQueue, DeleteMessage, CreateQueue |
+| Azure Tables | 🔄 SDK Generated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
+| Azure Cosmos DB | 🔄 SDK Generated | GetDatabasesAsync, GetCollectionsAsync, GetDocumentsAsync, CreateDocumentAsync, ReplaceDocumentAsync |
+| Azure Event Hubs | 🔄 SDK Generated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
+| Excel Online (Business) | 🔄 SDK Generated | CreateTableAsync, GetTablesAsync, GetItemsAsync, AddRowAsync, PatchItemAsync, DeleteItemAsync |
+| Outlook | 🔄 SDK Generated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
+| Service Bus | 🔄 SDK Generated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
+| Word Online (Business) | 🔄 SDK Generated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
 
 ## Related Projects
 
