@@ -87,7 +87,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
 
         /// <summary>displayName</summary>
         [JsonPropertyName("displayName")]
-        public DateTime? DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>groupTypes</summary>
         [JsonPropertyName("groupTypes")]
@@ -103,7 +103,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
 
         /// <summary>mailNickname</summary>
         [JsonPropertyName("mailNickname")]
-        public DateTime? MailNickname { get; set; }
+        public string MailNickname { get; set; }
 
         /// <summary>onPremisesLastSyncDateTime</summary>
         [JsonPropertyName("onPremisesLastSyncDateTime")]
@@ -398,7 +398,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
 
         /// <summary>Free form property name and value for this user.</summary>
         [JsonPropertyName("customProperties")]
-        public object AdditionalProperties { get; set; }
+        public object CustomProperties { get; set; }
 
         /// <summary>onPremisesExtensionAttributes</summary>
         [JsonPropertyName("onPremisesExtensionAttributes")]
@@ -526,11 +526,11 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
             string classification = default,
             DateTime? createdDateTime = default,
             string description = default,
-            DateTime? displayName = default,
+            string displayName = default,
             List<string> groupTypes = default,
             string mail = default,
             bool? mailEnabled = default,
-            DateTime? mailNickname = default,
+            string mailNickname = default,
             string onPremisesLastSyncDateTime = default,
             string onPremisesSecurityIdentifier = default,
             bool? onPremisesSyncEnabled = default,
@@ -753,7 +753,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
                 PreferredLanguage = preferredLanguage,
                 BusinessPhones = businessPhones,
                 OtherMails = otherMails,
-                AdditionalProperties = additionalProperties,
+                CustomProperties = additionalProperties,
                 OnPremisesExtensionAttributes = onPremisesExtensionAttributes,
             };
         }
@@ -990,11 +990,11 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="GetUserResponse"/> items across all pages.</returns>
-        public virtual AsyncPageable<GetUserResponse> GetGroupMembersAsync(string groupId, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<GetUserResponse> GetGroupMembersAsync(string groupId, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetGroupMembersResponse, GetUserResponse>(
                 ct => this.CallConnectorAsync<GetGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: ct),

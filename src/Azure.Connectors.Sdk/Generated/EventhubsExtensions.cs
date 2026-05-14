@@ -414,7 +414,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="input">The request body.</param>
         /// <param name="partitionKey">Partition key</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SendEventsAsync([DynamicValues("GetEventHubs")] string eventHubName, List<SendEvent> input, string partitionKey, CancellationToken cancellationToken = default)
+        public virtual async Task SendEventsAsync([DynamicValues("GetEventHubs")] string eventHubName, List<SendEvent> input, string partitionKey = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (partitionKey != default)

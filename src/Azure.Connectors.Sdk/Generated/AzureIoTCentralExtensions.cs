@@ -1145,7 +1145,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     {
         /// <summary>The collection of users.</summary>
         [JsonPropertyName("value")]
-        public List<UserStatic> Users { get; set; }
+        public List<UserStatic> Value { get; set; }
     }
 
     /// <summary>
@@ -2020,11 +2020,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// Creates a new instance of <see cref="UserCollection"/>.
         /// </summary>
         public static UserCollection UserCollection(
-            List<UserStatic> users = default)
+            List<UserStatic> value = default)
         {
             return new UserCollection
             {
-                Users = users,
+                Value = value,
             };
         }
 
@@ -2890,7 +2890,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="patch">patch</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Schema_ScheduledJob response.</returns>
-        public virtual async Task<SchemaScheduledJobResponse> SchemaScheduledJobAsync([DynamicValues("Applications_List")] string application, string scheduledJobEndType = default, string jobType = default, bool patch = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SchemaScheduledJobResponse> SchemaScheduledJobAsync([DynamicValues("Applications_List")] string application, string scheduledJobEndType = default, string jobType = default, bool? patch = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application != default)
@@ -2899,8 +2899,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduledJobEndType.ToString())}");
             if (jobType != default)
                 queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
-            if (patch != default)
-                queryParams.Add($"patch={Uri.EscapeDataString(patch.ToString())}");
+            if (patch.HasValue)
+                queryParams.Add($"patch={Uri.EscapeDataString(patch.Value.ToString())}");
             var path = $"/api/ga_2022_07_31/_internal/workflow/schema/ScheduledJob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SchemaScheduledJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3553,15 +3553,15 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="patch">patch</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Schema_User_V1 response.</returns>
-        public virtual async Task<SchemaUserResponse> SchemaUserAsync([DynamicValues("Applications_List")] string application, string userType = default, bool patch = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SchemaUserResponse> SchemaUserAsync([DynamicValues("Applications_List")] string application, string userType = default, bool? patch = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application != default)
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             if (userType != default)
                 queryParams.Add($"user_type={Uri.EscapeDataString(userType.ToString())}");
-            if (patch != default)
-                queryParams.Add($"patch={Uri.EscapeDataString(patch.ToString())}");
+            if (patch.HasValue)
+                queryParams.Add($"patch={Uri.EscapeDataString(patch.Value.ToString())}");
             var path = $"/api/v1/_internal/workflow/schema/User" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SchemaUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3680,7 +3680,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="type">type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetCapabilities_V1 response.</returns>
-        public virtual async Task<List<object>> WorkflowGetCapabilitiesAsync([DynamicValues("Applications_List")] string application, string template, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<object>> WorkflowGetCapabilitiesAsync([DynamicValues("Applications_List")] string application, string template = default, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application != default)
@@ -3708,7 +3708,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="module">module</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetComponents_V1 response.</returns>
-        public virtual async Task<List<object>> WorkflowGetComponentsAsync([DynamicValues("Applications_List")] string application, string template, string module = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<object>> WorkflowGetComponentsAsync([DynamicValues("Applications_List")] string application, string template = default, string module = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application != default)
@@ -3731,7 +3731,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="template">template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetModules_V1 response.</returns>
-        public virtual async Task<List<object>> WorkflowGetModulesAsync([DynamicValues("Applications_List")] string application, string template, CancellationToken cancellationToken = default)
+        public virtual async Task<List<object>> WorkflowGetModulesAsync([DynamicValues("Applications_List")] string application, string template = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application != default)

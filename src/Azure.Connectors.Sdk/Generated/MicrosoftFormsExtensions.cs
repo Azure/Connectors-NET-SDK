@@ -217,8 +217,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
         public virtual async Task<GetFormResponseByIdResult> GetFormResponseByIdAsync([DynamicValues("ListForms")] string formId, int responseId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (responseId != default)
-                queryParams.Add($"response_id={Uri.EscapeDataString(responseId.ToString())}");
+            queryParams.Add($"response_id={Uri.EscapeDataString(responseId.ToString())}");
             var path = $"/formapi/api/forms('{Uri.EscapeDataString(formId.ToString())}')/responses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetFormResponseByIdResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)

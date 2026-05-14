@@ -79,12 +79,12 @@
 //   using Azure.Connectors.Sdk.MeetingRoomMap;
 //   using Azure.Connectors.Sdk.MeetingRoomMap.Models;
 //   var client = new MeetingRoomMapClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Mq;
-//   using Azure.Connectors.Sdk.Mq.Models;
-//   var client = new MqClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.MicrosoftForms;
 //   using Azure.Connectors.Sdk.MicrosoftForms.Models;
 //   var client = new MicrosoftFormsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Mq;
+//   using Azure.Connectors.Sdk.Mq.Models;
+//   var client = new MqClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 //   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
 //   var client = new MsGraphGroupsAndUsersClient(connectionRuntimeUrl);

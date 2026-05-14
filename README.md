@@ -229,12 +229,12 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
 | Azure Queues | ✅ E2E Validated | GetMessages, PutMessageIntoQueue, DeleteMessage, CreateQueue |
 | Azure Tables | ✅ E2E Validated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
-| Azure Cosmos DB | ✅ E2E Validated | ListDatabases, ListCollections, ListDocuments, CreateDocument, UpdateDocument |
-| Azure Event Hubs | ✅ E2E Validated | ListEventHubs, SendEvent, GetEvents, GetBatchEvents |
-| Excel Online (Business) | ✅ E2E Validated | GetTables, GetItems, PostItem, UpdateItem, DeleteItem |
+| Azure Cosmos DB | ✅ E2E Validated | GetDatabasesAsync, GetCollectionsAsync, GetDocumentsAsync, CreateDocumentAsync, ReplaceDocumentAsync |
+| Azure Event Hubs | ✅ E2E Validated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
+| Excel Online (Business) | ✅ E2E Validated | GetTablesAsync, GetItemsAsync, AddRowAsync, PatchItemAsync, DeleteItemAsync |
 | Outlook | ✅ E2E Validated | GetEmails, SendEmail, DeleteEmail, GetCalendarItems, GetContacts |
 | Service Bus | ✅ E2E Validated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
-| Word Online (Business) | ✅ E2E Validated | PopulateWordTemplateAsync, GetWordSchema, ListSources |
+| Word Online (Business) | ✅ E2E Validated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
 
 ## Related Projects
 
