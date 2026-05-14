@@ -791,20 +791,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in The contact&apos;s email addresses
-    /// </summary>
-    public class EmailAddressV2
-    {
-        /// <summary>name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>address</summary>
-        [JsonPropertyName("address")]
-        public string Address { get; set; }
-    }
-
-    /// <summary>
     /// homeAddress
     /// </summary>
     public class PhysicalAddress
@@ -838,154 +824,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
         /// <summary>List of values</summary>
         [JsonPropertyName("value")]
         public List<ContactResponse> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of values
-    /// </summary>
-    public class ContactResponseV2
-    {
-        /// <summary>The contact&apos;s unique identifier.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The ID of the contact&apos;s parent folder</summary>
-        [JsonPropertyName("parentFolderId")]
-        public string ParentFolderId { get; set; }
-
-        /// <summary>The contact&apos;s birthday</summary>
-        [JsonPropertyName("birthday")]
-        public DateTime? Birthday { get; set; }
-
-        /// <summary>The name the contact is filed under</summary>
-        [JsonPropertyName("fileAs")]
-        public string FileAs { get; set; }
-
-        /// <summary>The contact&apos;s display name</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The contact&apos;s given name</summary>
-        [JsonPropertyName("givenName")]
-        public string GivenName { get; set; }
-
-        /// <summary>The contact&apos;s initials</summary>
-        [JsonPropertyName("initials")]
-        public string Initials { get; set; }
-
-        /// <summary>The contact&apos;s middle name</summary>
-        [JsonPropertyName("middleName")]
-        public string MiddleName { get; set; }
-
-        /// <summary>The contact&apos;s nickname</summary>
-        [JsonPropertyName("nickName")]
-        public string Nickname { get; set; }
-
-        /// <summary>The contact&apos;s surname</summary>
-        [JsonPropertyName("surname")]
-        public string Surname { get; set; }
-
-        /// <summary>The contact&apos;s title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>The contact&apos;s generation</summary>
-        [JsonPropertyName("generation")]
-        public string Generation { get; set; }
-
-        /// <summary>The contact&apos;s email addresses</summary>
-        [JsonPropertyName("emailAddresses")]
-        public List<EmailAddress> EmailAddresses { get; set; }
-
-        /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
-        [JsonPropertyName("imAddresses")]
-        public List<string> IMAddresses { get; set; }
-
-        /// <summary>The contact&apos;s job title</summary>
-        [JsonPropertyName("jobTitle")]
-        public string JobTitle { get; set; }
-
-        /// <summary>The name of the contact&apos;s company</summary>
-        [JsonPropertyName("companyName")]
-        public string CompanyName { get; set; }
-
-        /// <summary>The contact&apos;s department</summary>
-        [JsonPropertyName("department")]
-        public string Department { get; set; }
-
-        /// <summary>The location of the contact&apos;s office</summary>
-        [JsonPropertyName("officeLocation")]
-        public string OfficeLocation { get; set; }
-
-        /// <summary>The contact&apos;s profession</summary>
-        [JsonPropertyName("profession")]
-        public string Profession { get; set; }
-
-        /// <summary>The business home page of the contact</summary>
-        [JsonPropertyName("businessHomePage")]
-        public string BusinessHomePage { get; set; }
-
-        /// <summary>The name of the contact&apos;s assistant</summary>
-        [JsonPropertyName("assistantName")]
-        public string AssistantName { get; set; }
-
-        /// <summary>The name of the contact&apos;s manager</summary>
-        [JsonPropertyName("manager")]
-        public string Manager { get; set; }
-
-        /// <summary>The contact&apos;s home phone numbers</summary>
-        [JsonPropertyName("homePhones")]
-        public List<string> HomePhones { get; set; }
-
-        /// <summary>The contact&apos;s business phone numbers</summary>
-        [JsonPropertyName("businessPhones")]
-        public List<string> BusinessPhones { get; set; }
-
-        /// <summary>The contact&apos;s mobile phone number</summary>
-        [JsonPropertyName("mobilePhone")]
-        public string MobilePhone { get; set; }
-
-        /// <summary>homeAddress</summary>
-        [JsonPropertyName("homeAddress")]
-        public PhysicalAddress HomeAddress { get; set; }
-
-        /// <summary>businessAddress</summary>
-        [JsonPropertyName("businessAddress")]
-        public PhysicalAddress BusinessAddress { get; set; }
-
-        /// <summary>otherAddress</summary>
-        [JsonPropertyName("otherAddress")]
-        public PhysicalAddress OtherAddress { get; set; }
-
-        /// <summary>The phonetic Japanese company name of the contact</summary>
-        [JsonPropertyName("yomiCompanyName")]
-        public string YomiCompanyName { get; set; }
-
-        /// <summary>The phonetic Japanese given name (first name) of the contact</summary>
-        [JsonPropertyName("yomiGivenName")]
-        public string YomiGivenName { get; set; }
-
-        /// <summary>The phonetic Japanese surname (last name) of the contact</summary>
-        [JsonPropertyName("yomiSurname")]
-        public string YomiSurname { get; set; }
-
-        /// <summary>The categories associated with the contact</summary>
-        [JsonPropertyName("categories")]
-        public List<string> Categories { get; set; }
-
-        /// <summary>Identifies the version of the event object</summary>
-        [JsonPropertyName("changeKey")]
-        public string ChangeKey { get; set; }
-
-        /// <summary>The time the contact was created</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
-
-        /// <summary>The time the contact was modified</summary>
-        [JsonPropertyName("lastModifiedDateTime")]
-        [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
     }
 
     /// <summary>
@@ -1330,7 +1168,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     /// <summary>
     /// Item in value
     /// </summary>
-    public class MailTipsClientReceiveV2
+    public class MailTipsClientReceive
     {
         /// <summary>automaticReplies</summary>
         [JsonPropertyName("automaticReplies")]
@@ -1877,36 +1715,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
         /// <summary>The possible values are: normal, personal, private, confidential</summary>
         [JsonPropertyName("sensitivity")]
         public Sensitivity? Sensitivity { get; set; }
-    }
-
-    /// <summary>
-    /// MailTipsClientReceive_V2
-    /// </summary>
-    public class MailTipsClientReceive
-    {
-        /// <summary>automaticReplies</summary>
-        [JsonPropertyName("automaticReplies")]
-        public MailTipsAutomaticReplies AutomaticReplies { get; set; }
-
-        /// <summary>Is delivery restricted</summary>
-        [JsonPropertyName("deliveryRestricted")]
-        public bool? IsDeliveryRestricted { get; set; }
-
-        /// <summary>Number of external members</summary>
-        [JsonPropertyName("externalMemberCount")]
-        public int? IsModerated { get; set; }
-
-        /// <summary>Is mailbox full</summary>
-        [JsonPropertyName("mailboxFull")]
-        public bool? IsMailboxFull { get; set; }
-
-        /// <summary>Maximum message size</summary>
-        [JsonPropertyName("maxMessageSize")]
-        public long? MaximumMessageSize { get; set; }
-
-        /// <summary>Total member count</summary>
-        [JsonPropertyName("totalMemberCount")]
-        public long? TotalMemberCount { get; set; }
     }
 
     /// <summary>
@@ -3619,20 +3427,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="EmailAddressV2"/>.
-        /// </summary>
-        public static EmailAddressV2 EmailAddressV2(
-            string name = default,
-            string address = default)
-        {
-            return new EmailAddressV2
-            {
-                Name = name,
-                Address = address,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="PhysicalAddress"/>.
         /// </summary>
         public static PhysicalAddress PhysicalAddress(
@@ -3661,86 +3455,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
             return new EntityListResponseContactResponse
             {
                 Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ContactResponseV2"/>.
-        /// </summary>
-        public static ContactResponseV2 ContactResponseV2(
-            string id = default,
-            string parentFolderId = default,
-            DateTime? birthday = default,
-            string fileAs = default,
-            string displayName = default,
-            string givenName = default,
-            string initials = default,
-            string middleName = default,
-            string nickname = default,
-            string surname = default,
-            string title = default,
-            string generation = default,
-            List<EmailAddress> emailAddresses = default,
-            List<string> imAddresses = default,
-            string jobTitle = default,
-            string companyName = default,
-            string department = default,
-            string officeLocation = default,
-            string profession = default,
-            string businessHomePage = default,
-            string assistantName = default,
-            string manager = default,
-            List<string> homePhones = default,
-            List<string> businessPhones = default,
-            string mobilePhone = default,
-            PhysicalAddress homeAddress = default,
-            PhysicalAddress businessAddress = default,
-            PhysicalAddress otherAddress = default,
-            string yomiCompanyName = default,
-            string yomiGivenName = default,
-            string yomiSurname = default,
-            List<string> categories = default,
-            string changeKey = default,
-            DateTime? createdTime = default,
-            DateTime? lastModifiedTime = default)
-        {
-            return new ContactResponseV2
-            {
-                Id = id,
-                ParentFolderId = parentFolderId,
-                Birthday = birthday,
-                FileAs = fileAs,
-                DisplayName = displayName,
-                GivenName = givenName,
-                Initials = initials,
-                MiddleName = middleName,
-                Nickname = nickname,
-                Surname = surname,
-                Title = title,
-                Generation = generation,
-                EmailAddresses = emailAddresses,
-                IMAddresses = imAddresses,
-                JobTitle = jobTitle,
-                CompanyName = companyName,
-                Department = department,
-                OfficeLocation = officeLocation,
-                Profession = profession,
-                BusinessHomePage = businessHomePage,
-                AssistantName = assistantName,
-                Manager = manager,
-                HomePhones = homePhones,
-                BusinessPhones = businessPhones,
-                MobilePhone = mobilePhone,
-                HomeAddress = homeAddress,
-                BusinessAddress = businessAddress,
-                OtherAddress = otherAddress,
-                YomiCompanyName = yomiCompanyName,
-                YomiGivenName = yomiGivenName,
-                YomiSurname = yomiSurname,
-                Categories = categories,
-                ChangeKey = changeKey,
-                CreatedTime = createdTime,
-                LastModifiedTime = lastModifiedTime,
             };
         }
 
@@ -3997,9 +3711,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MailTipsClientReceiveV2"/>.
+        /// Creates a new instance of <see cref="MailTipsClientReceive"/>.
         /// </summary>
-        public static MailTipsClientReceiveV2 MailTipsClientReceiveV2(
+        public static MailTipsClientReceive MailTipsClientReceive(
             MailTipsAutomaticReplies automaticReplies = default,
             bool? isDeliveryRestricted = default,
             int? isModerated = default,
@@ -4007,7 +3721,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             long? maximumMessageSize = default,
             long? totalMemberCount = default)
         {
-            return new MailTipsClientReceiveV2
+            return new MailTipsClientReceive
             {
                 AutomaticReplies = automaticReplies,
                 IsDeliveryRestricted = isDeliveryRestricted,
@@ -4409,28 +4123,6 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 ShowAs = showAs,
                 ResponseRequested = responseRequested,
                 Sensitivity = sensitivity,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MailTipsClientReceive"/>.
-        /// </summary>
-        public static MailTipsClientReceive MailTipsClientReceive(
-            MailTipsAutomaticReplies automaticReplies = default,
-            bool? isDeliveryRestricted = default,
-            int? isModerated = default,
-            bool? isMailboxFull = default,
-            long? maximumMessageSize = default,
-            long? totalMemberCount = default)
-        {
-            return new MailTipsClientReceive
-            {
-                AutomaticReplies = automaticReplies,
-                IsDeliveryRestricted = isDeliveryRestricted,
-                IsModerated = isModerated,
-                IsMailboxFull = isMailboxFull,
-                MaximumMessageSize = maximumMessageSize,
-                TotalMemberCount = totalMemberCount,
             };
         }
 
@@ -5215,8 +4907,7 @@ namespace Azure.Connectors.Sdk.Office365
         public virtual async Task UpdateDraftEmailAsync(DraftEmailInput input, string messageId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (messageId != default)
-                queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
             var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
@@ -5247,10 +4938,8 @@ namespace Azure.Connectors.Sdk.Office365
         public virtual async Task AssignCategoryAsync(string messageId, string category, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (messageId != default)
-                queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-            if (category != default)
-                queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
+            queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
+            queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
             var path = $"/Mail/Category" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -5433,17 +5122,17 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get events (V4) response.</returns>
-        public virtual async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5543,17 +5232,17 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get contacts (V2) response.</returns>
-        public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5708,15 +5397,15 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Attachment (V2) response.</returns>
-        public virtual async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (originalMailboxAddress != default)
                 queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/attachments/{Uri.EscapeDataString(attachementId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5735,19 +5424,19 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get email (V2) response.</returns>
-        public virtual async Task<GraphClientReceiveMessage> GetEmailAsync(string messageId, string originalMailboxAddress = default, bool includeAttachments = default, string internetMessageId = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GraphClientReceiveMessage> GetEmailAsync(string messageId, string originalMailboxAddress = default, bool? includeAttachments = default, string internetMessageId = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (originalMailboxAddress != default)
                 queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            if (includeAttachments != default)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+            if (includeAttachments.HasValue)
+                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
             if (internetMessageId != default)
                 queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             var path = $"/v2/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5773,7 +5462,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get emails (V3) response.</returns>
-        public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool onlyWithAttachments = default, string subjectFilter = default, bool fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool includeAttachments = default, string searchQuery = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("fetchOnlyFlagged=false");
@@ -5789,20 +5478,20 @@ namespace Azure.Connectors.Sdk.Office365
                 queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
             if (importance != default)
                 queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
-            if (onlyWithAttachments != default)
-                queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.ToString())}");
+            if (onlyWithAttachments.HasValue)
+                queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.Value.ToString())}");
             if (subjectFilter != default)
                 queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
-            if (fetchOnlyUnreadMessages != default)
-                queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.ToString())}");
+            if (fetchOnlyUnreadMessages.HasValue)
+                queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.Value.ToString())}");
             if (originalMailboxAddress != default)
                 queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
-            if (includeAttachments != default)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+            if (includeAttachments.HasValue)
+                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
             if (searchQuery != default)
                 queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
-            if (top != default)
-                queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/v3/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<BatchResponseGraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5823,23 +5512,20 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="search">Search</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get calendar view of events (V3) response.</returns>
-        public virtual async Task<EntityListResponseGraphCalendarEventClientReceive> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string search = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EntityListResponseGraphCalendarEventClientReceive> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string search = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (calendarId != default)
-                queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-            if (startTime != default)
-                queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
-            if (endTime != default)
-                queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
+            queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
+            queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
+            queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (search != default)
                 queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
             var path = $"/datasets/calendars/v3/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -5937,8 +5623,7 @@ namespace Azure.Connectors.Sdk.Office365
         public virtual async Task<GraphClientReceiveMessage> MoveAsync(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (folder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
             if (originalMailboxAddress != default)
                 queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");
             var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

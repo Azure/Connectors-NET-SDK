@@ -92,28 +92,6 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     }
 
     /// <summary>
-    /// Item in Attachments to be sent along with the email
-    /// </summary>
-    public class AttachmentV2
-    {
-        /// <summary>Content data</summary>
-        [JsonPropertyName("ContentData")]
-        public string ContentData { get; set; }
-
-        /// <summary>Content type</summary>
-        [JsonPropertyName("ContentType")]
-        public string ContentType { get; set; }
-
-        /// <summary>File name</summary>
-        [JsonPropertyName("FileName")]
-        public string FileName { get; set; }
-
-        /// <summary>Content id</summary>
-        [JsonPropertyName("ContentId")]
-        public string ContentId { get; set; }
-    }
-
-    /// <summary>
     /// Extensible enum for known Importance values.
     /// </summary>
     [JsonConverter(typeof(Importance.ImportanceJsonConverter))]
@@ -224,24 +202,6 @@ namespace Azure.Connectors.Sdk.Smtp.Models
                 ReadReceipt = readReceipt,
                 DeliveryReceipt = deliveryReceipt,
                 Attachments = attachments,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AttachmentV2"/>.
-        /// </summary>
-        public static AttachmentV2 AttachmentV2(
-            string contentData = default,
-            string contentType = default,
-            string fileName = default,
-            string contentId = default)
-        {
-            return new AttachmentV2
-            {
-                ContentData = contentData,
-                ContentType = contentType,
-                FileName = fileName,
-                ContentId = contentId,
             };
         }
     }

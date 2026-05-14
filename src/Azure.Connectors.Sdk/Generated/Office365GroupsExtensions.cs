@@ -44,20 +44,6 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     }
 
     /// <summary>
-    /// Item in Response for When a group member is added or removed
-    /// </summary>
-    public class OnGroupMemberAddedOrRemovedResponseItem
-    {
-        /// <summary>Unique id of the user.</summary>
-        [JsonPropertyName("id")]
-        public string UserId { get; set; }
-
-        /// <summary>@removed</summary>
-        [JsonPropertyName("@removed")]
-        public object Removed { get; set; }
-    }
-
-    /// <summary>
     /// Response for List groups
     /// </summary>
     public class ListGroupsResponse : IPageable<object>
@@ -105,60 +91,6 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         public bool? IsAllDay { get; set; }
 
         /// <summary>True if a response was requested for the event.</summary>
-        [JsonPropertyName("responseRequested")]
-        public bool? ResponseRequested { get; set; }
-
-        /// <summary>Status to show during the event.</summary>
-        [JsonPropertyName("showAs")]
-        public string ShowAs { get; set; }
-
-        /// <summary>body</summary>
-        [JsonPropertyName("body")]
-        public object Body { get; set; }
-
-        /// <summary>start</summary>
-        [JsonPropertyName("start")]
-        public object Start { get; set; }
-
-        /// <summary>end</summary>
-        [JsonPropertyName("end")]
-        public object End { get; set; }
-
-        /// <summary>location</summary>
-        [JsonPropertyName("location")]
-        public object Location { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Response for When there is a new event
-    /// </summary>
-    public class OnNewEventResponseItem
-    {
-        /// <summary>Unique id of the event.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>The number of minutes before the start of the event the reminder will fire.</summary>
-        [JsonPropertyName("reminderMinutesBeforeStart")]
-        public int? ReminderStartDuration { get; set; }
-
-        /// <summary>Set to true if the event has a reminder.</summary>
-        [JsonPropertyName("isReminderOn")]
-        public bool? IsReminderOn { get; set; }
-
-        /// <summary>Title of the event.</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>The importance of the event: Low, Normal, or High.</summary>
-        [JsonPropertyName("importance")]
-        public string Importance { get; set; }
-
-        /// <summary>Set to true if the event lasts all day.</summary>
-        [JsonPropertyName("isAllDay")]
-        public bool? IsAllDay { get; set; }
-
-        /// <summary>Set to true if the sender would like a response when the event is accepted or declined.</summary>
         [JsonPropertyName("responseRequested")]
         public bool? ResponseRequested { get; set; }
 
@@ -452,20 +384,6 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="OnGroupMemberAddedOrRemovedResponseItem"/>.
-        /// </summary>
-        public static OnGroupMemberAddedOrRemovedResponseItem OnGroupMemberAddedOrRemovedResponseItem(
-            string userId = default,
-            object removed = default)
-        {
-            return new OnGroupMemberAddedOrRemovedResponseItem
-            {
-                UserId = userId,
-                Removed = removed,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="ListGroupsResponse"/>.
         /// </summary>
         public static ListGroupsResponse ListGroupsResponse(
@@ -499,40 +417,6 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
             object location = default)
         {
             return new CreateCalendarEventResponse
-            {
-                Id = id,
-                ReminderStartDuration = reminderStartDuration,
-                IsReminderOn = isReminderOn,
-                Subject = subject,
-                Importance = importance,
-                IsAllDay = isAllDay,
-                ResponseRequested = responseRequested,
-                ShowAs = showAs,
-                Body = body,
-                Start = start,
-                End = end,
-                Location = location,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="OnNewEventResponseItem"/>.
-        /// </summary>
-        public static OnNewEventResponseItem OnNewEventResponseItem(
-            string id = default,
-            int? reminderStartDuration = default,
-            bool? isReminderOn = default,
-            string subject = default,
-            string importance = default,
-            bool? isAllDay = default,
-            bool? responseRequested = default,
-            string showAs = default,
-            object body = default,
-            object start = default,
-            object end = default,
-            object location = default)
-        {
-            return new OnNewEventResponseItem
             {
                 Id = id,
                 ReminderStartDuration = reminderStartDuration,
@@ -630,6 +514,43 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
 
     #region Trigger Payloads
 
+    /// <summary>
+    /// Typed trigger payload for the OnGroupMembershipChange trigger (Office365Groups "When a group member is added or removed", operationId: OnGroupMembershipChange).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365GroupsOnGroupMembershipChangeTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class Office365GroupsOnGroupMembershipChangeTriggerPayload : TriggerCallbackPayload<object>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewEvent trigger (Office365Groups "When there is a new event", operationId: OnNewEvent).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365GroupsOnNewEventTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class Office365GroupsOnNewEventTriggerPayload : TriggerCallbackPayload<object>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Office365Groups connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="Office365GroupsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class Office365GroupsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Office365Groups connector.
+        /// This is a subset of all triggers — see <see cref="Office365GroupsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["OnGroupMembershipChange"] = typeof(Office365GroupsOnGroupMembershipChangeTriggerPayload),
+                ["OnNewEvent"] = typeof(Office365GroupsOnNewEventTriggerPayload),
+            });
+    }
+
     #endregion Trigger Payloads
 
 }
@@ -648,11 +569,13 @@ namespace Azure.Connectors.Sdk.Office365Groups
     {
         /// <summary>
         /// When a group member is added or removed.
+        /// Payload type: <see cref="Office365GroupsOnGroupMembershipChangeTriggerPayload"/>.
         /// </summary>
         public const string OnGroupMembershipChange = "OnGroupMembershipChange";
 
         /// <summary>
         /// When there is a new event.
+        /// Payload type: <see cref="Office365GroupsOnNewEventTriggerPayload"/>.
         /// </summary>
         public const string OnNewEvent = "OnNewEvent";
 
@@ -752,11 +675,11 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> ListGroupMembersAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<object> ListGroupMembersAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListGroupMembersResponse, object>(
                 ct => this.CallConnectorAsync<ListGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -774,8 +697,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
         public virtual async Task AddMemberToGroupAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string userPrincipalName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (userPrincipalName != default)
-                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
+            queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -793,17 +715,17 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="skipToken">Skip token</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> ListGroupsAsync(bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, string filterRows = default, int pageSize = default, string skipToken = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<object> ListGroupsAsync(bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, string filterRows = default, int? pageSize = default, string skipToken = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             if (filterRows != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterRows.ToString())}");
-            if (pageSize != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.ToString())}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
             if (skipToken != default)
                 queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken.ToString())}");
             var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -840,8 +762,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
         public virtual async Task RemoveMemberFromGroupAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string userPrincipalName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (userPrincipalName != default)
-                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
+            queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/memberId/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -946,13 +867,13 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List groups that I own and belong to response.</returns>
-        public virtual async Task<ListOwnedGroupsResponse> ListOwnedGroupsAsync(bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOwnedGroupsResponse> ListOwnedGroupsAsync(bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             var path = $"/v2/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListOwnedGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

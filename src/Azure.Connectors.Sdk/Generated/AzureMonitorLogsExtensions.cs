@@ -152,7 +152,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     /// Item in value
     /// </summary>
     [DynamicSchema("QuerySchemaV2")]
-    public class RowV2
+    public class Row
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -208,20 +208,6 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>attachmentName</summary>
         [JsonPropertyName("attachmentName")]
         public string AttachmentName { get; set; }
-    }
-
-    /// <summary>
-    /// RowV2
-    /// </summary>
-    [DynamicSchema("QuerySchemaV2")]
-    public class Row
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     #endregion Types
@@ -466,8 +452,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
             var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -487,12 +472,9 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
             var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceItemListResult, ResourceItem>(
                 ct => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -514,14 +496,10 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            if (resourceName != default)
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
             var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
@@ -542,14 +520,10 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            if (resourceName != default)
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
             var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
@@ -571,16 +545,11 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription != default)
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup != default)
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType != default)
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            if (resourceName != default)
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            if (chartType != default)
-                queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+            queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
             var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)

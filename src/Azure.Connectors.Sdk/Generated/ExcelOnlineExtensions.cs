@@ -167,6 +167,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
         public object DynamicProperties { get; set; }
@@ -575,7 +576,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         /// <param name="dateTimeFormat">DateTime Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List rows present in a table response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string selectQuery = default, string dateTimeFormat = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ItemsList> GetItemsAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, string dateTimeFormat = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("source=me");
@@ -583,10 +584,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (selectQuery != default)
                 queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
             if (dateTimeFormat != default)
@@ -613,8 +614,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         {
             var queryParams = new List<string>();
             queryParams.Add("source=me");
-            if (keyColumn != default)
-                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
             if (dateTimeFormat != default)
                 queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
             var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -637,8 +637,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         {
             var queryParams = new List<string>();
             queryParams.Add("source=me");
-            if (keyColumn != default)
-                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
             var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -662,8 +661,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         {
             var queryParams = new List<string>();
             queryParams.Add("source=me");
-            if (keyColumn != default)
-                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+            queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
             if (dateTimeFormat != default)
                 queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
             var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

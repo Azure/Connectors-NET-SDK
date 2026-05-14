@@ -25,6 +25,107 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     #region Types
 
     /// <summary>
+    /// Response for When a new activity is added
+    /// </summary>
+    public class ActivityResponse
+    {
+        /// <summary>Unique id of the activity.</summary>
+        [JsonPropertyName("id")]
+        public int? ActivityId { get; set; }
+
+        /// <summary>Id of the user whom the activity is assigned to.</summary>
+        [JsonPropertyName("user_id")]
+        public int? UserId { get; set; }
+
+        /// <summary>0 = Not done, 1 = Done</summary>
+        [JsonPropertyName("done")]
+        public bool? IsDone { get; set; }
+
+        /// <summary>Type of the activity.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        /// <summary>YYYY-MM-DD</summary>
+        [JsonPropertyName("due_date")]
+        public string DueDate { get; set; }
+
+        /// <summary>HH:MM</summary>
+        [JsonPropertyName("due_time")]
+        public string DueTime { get; set; }
+
+        /// <summary>HH:MM</summary>
+        [JsonPropertyName("duration")]
+        public string Duration { get; set; }
+
+        /// <summary>Subject of the activity.</summary>
+        [JsonPropertyName("subject")]
+        public string Subject { get; set; }
+
+        /// <summary>Id of deal the activity is associated with.</summary>
+        [JsonPropertyName("deal_id")]
+        public int? DealId { get; set; }
+
+        /// <summary>Title of deal the activity is associated with.</summary>
+        [JsonPropertyName("deal_title")]
+        public string DealTitle { get; set; }
+
+        /// <summary>Id of organization the activity is associated with.</summary>
+        [JsonPropertyName("org_id")]
+        public int? OrganizationId { get; set; }
+
+        /// <summary>Name of organization the activity is associated with.</summary>
+        [JsonPropertyName("org_name")]
+        public string OrganizationName { get; set; }
+
+        /// <summary>Id of person the activity is associated with.</summary>
+        [JsonPropertyName("person_id")]
+        public int? ContactId { get; set; }
+
+        /// <summary>Name of person the activity is associated with.</summary>
+        [JsonPropertyName("person_name")]
+        public string ContactName { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("add_time")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; internal set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("update_time")]
+        [JsonInclude]
+        public DateTime? UpdatedDateTime { get; internal set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("marked_as_done_time")]
+        [JsonInclude]
+        public DateTime? CompletedDateTime { get; internal set; }
+
+        /// <summary>Id of the google calendar event.</summary>
+        [JsonPropertyName("gcal_event_id")]
+        public string GoogleCalendarEventId { get; set; }
+
+        /// <summary>Id of the google calendar.</summary>
+        [JsonPropertyName("google_calendar_id")]
+        public string GoogleCalendarId { get; set; }
+
+        /// <summary>Note of the activity (HTML format).</summary>
+        [JsonPropertyName("note")]
+        public string Note { get; set; }
+
+        /// <summary>User id of user whom the activity is assigned to.</summary>
+        [JsonPropertyName("assigned_to_user_id")]
+        public int? AssignedTo { get; set; }
+
+        /// <summary>User id of user that created the activity.</summary>
+        [JsonPropertyName("created_by_user_id")]
+        public int? CreatedBy { get; set; }
+
+        /// <summary>Name of the activity owner.</summary>
+        [JsonPropertyName("owner_name")]
+        public string OwnerName { get; set; }
+    }
+
+    /// <summary>
     /// Response for List deals
     /// </summary>
     public class ListDealsResponse
@@ -202,107 +303,6 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>Notes for next activity associated with the deal</summary>
         [JsonPropertyName("next_activity_note")]
         public string NextActivityNote { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Add activity
-    /// </summary>
-    public class ActivityResponse
-    {
-        /// <summary>Unique id of the activity.</summary>
-        [JsonPropertyName("id")]
-        public int? ActivityId { get; set; }
-
-        /// <summary>Id of the user whom the activity is assigned to.</summary>
-        [JsonPropertyName("user_id")]
-        public int? UserId { get; set; }
-
-        /// <summary>0 = Not done, 1 = Done</summary>
-        [JsonPropertyName("done")]
-        public bool? IsDone { get; set; }
-
-        /// <summary>Type of the activity.</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-
-        /// <summary>YYYY-MM-DD</summary>
-        [JsonPropertyName("due_date")]
-        public string DueDate { get; set; }
-
-        /// <summary>HH:MM</summary>
-        [JsonPropertyName("due_time")]
-        public string DueTime { get; set; }
-
-        /// <summary>HH:MM</summary>
-        [JsonPropertyName("duration")]
-        public string Duration { get; set; }
-
-        /// <summary>Subject of the activity.</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
-
-        /// <summary>Id of deal the activity is associated with.</summary>
-        [JsonPropertyName("deal_id")]
-        public int? DealId { get; set; }
-
-        /// <summary>Title of deal the activity is associated with.</summary>
-        [JsonPropertyName("deal_title")]
-        public string DealTitle { get; set; }
-
-        /// <summary>Id of organization the activity is associated with.</summary>
-        [JsonPropertyName("org_id")]
-        public int? OrganizationId { get; set; }
-
-        /// <summary>Name of organization the activity is associated with.</summary>
-        [JsonPropertyName("org_name")]
-        public string OrganizationName { get; set; }
-
-        /// <summary>Id of person the activity is associated with.</summary>
-        [JsonPropertyName("person_id")]
-        public int? ContactId { get; set; }
-
-        /// <summary>Name of person the activity is associated with.</summary>
-        [JsonPropertyName("person_name")]
-        public string ContactName { get; set; }
-
-        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
-        [JsonPropertyName("add_time")]
-        [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
-
-        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
-        [JsonPropertyName("update_time")]
-        [JsonInclude]
-        public DateTime? UpdatedDateTime { get; internal set; }
-
-        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
-        [JsonPropertyName("marked_as_done_time")]
-        [JsonInclude]
-        public DateTime? CompletedDateTime { get; internal set; }
-
-        /// <summary>Id of the google calendar event.</summary>
-        [JsonPropertyName("gcal_event_id")]
-        public string GoogleCalendarEventId { get; set; }
-
-        /// <summary>Id of the google calendar.</summary>
-        [JsonPropertyName("google_calendar_id")]
-        public string GoogleCalendarId { get; set; }
-
-        /// <summary>Note of the activity (HTML format).</summary>
-        [JsonPropertyName("note")]
-        public string Note { get; set; }
-
-        /// <summary>User id of user whom the activity is assigned to.</summary>
-        [JsonPropertyName("assigned_to_user_id")]
-        public int? AssignedTo { get; set; }
-
-        /// <summary>User id of user that created the activity.</summary>
-        [JsonPropertyName("created_by_user_id")]
-        public int? CreatedBy { get; set; }
-
-        /// <summary>Name of the activity owner.</summary>
-        [JsonPropertyName("owner_name")]
-        public string OwnerName { get; set; }
     }
 
     /// <summary>
@@ -507,6 +507,62 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     public static class PipedriveModelFactory
     {
         /// <summary>
+        /// Creates a new instance of <see cref="ActivityResponse"/>.
+        /// </summary>
+        public static ActivityResponse ActivityResponse(
+            int? activityId = default,
+            int? userId = default,
+            bool? isDone = default,
+            string type = default,
+            string dueDate = default,
+            string dueTime = default,
+            string duration = default,
+            string subject = default,
+            int? dealId = default,
+            string dealTitle = default,
+            int? organizationId = default,
+            string organizationName = default,
+            int? contactId = default,
+            string contactName = default,
+            DateTime? createdDateTime = default,
+            DateTime? updatedDateTime = default,
+            DateTime? completedDateTime = default,
+            string googleCalendarEventId = default,
+            string googleCalendarId = default,
+            string note = default,
+            int? assignedTo = default,
+            int? createdBy = default,
+            string ownerName = default)
+        {
+            return new ActivityResponse
+            {
+                ActivityId = activityId,
+                UserId = userId,
+                IsDone = isDone,
+                Type = type,
+                DueDate = dueDate,
+                DueTime = dueTime,
+                Duration = duration,
+                Subject = subject,
+                DealId = dealId,
+                DealTitle = dealTitle,
+                OrganizationId = organizationId,
+                OrganizationName = organizationName,
+                ContactId = contactId,
+                ContactName = contactName,
+                CreatedDateTime = createdDateTime,
+                UpdatedDateTime = updatedDateTime,
+                CompletedDateTime = completedDateTime,
+                GoogleCalendarEventId = googleCalendarEventId,
+                GoogleCalendarId = googleCalendarId,
+                Note = note,
+                AssignedTo = assignedTo,
+                CreatedBy = createdBy,
+                OwnerName = ownerName,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="ListDealsResponse"/>.
         /// </summary>
         public static ListDealsResponse ListDealsResponse(
@@ -605,62 +661,6 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
                 NextActivityType = nextActivityType,
                 NextActivityDuration = nextActivityDuration,
                 NextActivityNote = nextActivityNote,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ActivityResponse"/>.
-        /// </summary>
-        public static ActivityResponse ActivityResponse(
-            int? activityId = default,
-            int? userId = default,
-            bool? isDone = default,
-            string type = default,
-            string dueDate = default,
-            string dueTime = default,
-            string duration = default,
-            string subject = default,
-            int? dealId = default,
-            string dealTitle = default,
-            int? organizationId = default,
-            string organizationName = default,
-            int? contactId = default,
-            string contactName = default,
-            DateTime? createdDateTime = default,
-            DateTime? updatedDateTime = default,
-            DateTime? completedDateTime = default,
-            string googleCalendarEventId = default,
-            string googleCalendarId = default,
-            string note = default,
-            int? assignedTo = default,
-            int? createdBy = default,
-            string ownerName = default)
-        {
-            return new ActivityResponse
-            {
-                ActivityId = activityId,
-                UserId = userId,
-                IsDone = isDone,
-                Type = type,
-                DueDate = dueDate,
-                DueTime = dueTime,
-                Duration = duration,
-                Subject = subject,
-                DealId = dealId,
-                DealTitle = dealTitle,
-                OrganizationId = organizationId,
-                OrganizationName = organizationName,
-                ContactId = contactId,
-                ContactName = contactName,
-                CreatedDateTime = createdDateTime,
-                UpdatedDateTime = updatedDateTime,
-                CompletedDateTime = completedDateTime,
-                GoogleCalendarEventId = googleCalendarEventId,
-                GoogleCalendarId = googleCalendarId,
-                Note = note,
-                AssignedTo = assignedTo,
-                CreatedBy = createdBy,
-                OwnerName = ownerName,
             };
         }
 
@@ -773,6 +773,43 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
 
     #region Trigger Payloads
 
+    /// <summary>
+    /// Typed trigger payload for the OnTrigNewActivity trigger (Pipedrive "When a new activity is added", operationId: TrigNewActivity).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PipedriveOnTrigNewActivityTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class PipedriveOnTrigNewActivityTriggerPayload : TriggerCallbackPayload<ActivityResponse>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTrigNewDeal trigger (Pipedrive "When a new deal is added (V2)", operationId: TrigNewDealV2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PipedriveOnTrigNewDealTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class PipedriveOnTrigNewDealTriggerPayload : TriggerCallbackPayload<DealResponse>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Pipedrive connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="PipedriveTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class PipedriveTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Pipedrive connector.
+        /// This is a subset of all triggers — see <see cref="PipedriveTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["TrigNewActivity"] = typeof(PipedriveOnTrigNewActivityTriggerPayload),
+                ["TrigNewDealV2"] = typeof(PipedriveOnTrigNewDealTriggerPayload),
+            });
+    }
+
     #endregion Trigger Payloads
 
 }
@@ -791,11 +828,13 @@ namespace Azure.Connectors.Sdk.Pipedrive
     {
         /// <summary>
         /// When a new activity is added.
+        /// Payload type: <see cref="PipedriveOnTrigNewActivityTriggerPayload"/>.
         /// </summary>
         public const string OnTrigNewActivity = "TrigNewActivity";
 
         /// <summary>
         /// When a new deal is added (V2).
+        /// Payload type: <see cref="PipedriveOnTrigNewDealTriggerPayload"/>.
         /// </summary>
         public const string OnTrigNewDeal = "TrigNewDealV2";
 

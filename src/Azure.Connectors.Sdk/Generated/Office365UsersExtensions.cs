@@ -310,136 +310,6 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     /// <summary>
     /// Item in Value
     /// </summary>
-    public class GraphUserV1
-    {
-        /// <summary>About Me</summary>
-        [JsonPropertyName("aboutMe")]
-        public string AboutMe { get; set; }
-
-        /// <summary>true if the account is enabled; otherwise, false. This property is required when a user is created.</summary>
-        [JsonPropertyName("accountEnabled")]
-        public bool? AccountEnabled { get; set; }
-
-        /// <summary>Birthday</summary>
-        [JsonPropertyName("birthday")]
-        public DateTime? Birthday { get; set; }
-
-        /// <summary>Business Phones</summary>
-        [JsonPropertyName("businessPhones")]
-        public List<string> BusinessPhones { get; set; }
-
-        /// <summary>The city in which the user is located.</summary>
-        [JsonPropertyName("city")]
-        public string City { get; set; }
-
-        /// <summary>The name of the company in which the user works.</summary>
-        [JsonPropertyName("companyName")]
-        public string CompanyName { get; set; }
-
-        /// <summary>The country/region in which the user is located; for example, &quot;US&quot; or &quot;UK&quot;.</summary>
-        [JsonPropertyName("country")]
-        public string Country { get; set; }
-
-        /// <summary>The name of the department in which the user works.</summary>
-        [JsonPropertyName("department")]
-        public string Department { get; set; }
-
-        /// <summary>Display Name</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Given Name</summary>
-        [JsonPropertyName("givenName")]
-        public string GivenName { get; set; }
-
-        /// <summary>Hire Date</summary>
-        [JsonPropertyName("hireDate")]
-        public DateTime? HireDate { get; set; }
-
-        /// <summary>Id</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>Interests</summary>
-        [JsonPropertyName("interests")]
-        public List<string> Interests { get; set; }
-
-        /// <summary>Job Title</summary>
-        [JsonPropertyName("jobTitle")]
-        public string JobTitle { get; set; }
-
-        /// <summary>Mail</summary>
-        [JsonPropertyName("mail")]
-        public string Mail { get; set; }
-
-        /// <summary>The mail alias for the user. This property must be specified when a user is created.</summary>
-        [JsonPropertyName("mailNickname")]
-        public string Nickname { get; set; }
-
-        /// <summary>Mobile Phone</summary>
-        [JsonPropertyName("mobilePhone")]
-        public string MobilePhone { get; set; }
-
-        /// <summary>My Site</summary>
-        [JsonPropertyName("mySite")]
-        public string MySite { get; set; }
-
-        /// <summary>Office Location</summary>
-        [JsonPropertyName("officeLocation")]
-        public string OfficeLocation { get; set; }
-
-        /// <summary>Past Projects</summary>
-        [JsonPropertyName("pastProjects")]
-        public List<string> PastProjects { get; set; }
-
-        /// <summary>The postal code for the user&apos;s postal address. The postal code is specific to the user&apos;s country/region. In the United States of America, this attribute contains the ZIP code.</summary>
-        [JsonPropertyName("postalCode")]
-        public string PostalCode { get; set; }
-
-        /// <summary>Preferred Language</summary>
-        [JsonPropertyName("preferredLanguage")]
-        public string PreferredLanguage { get; set; }
-
-        /// <summary>Preferred Name</summary>
-        [JsonPropertyName("preferredName")]
-        public string PreferredName { get; set; }
-
-        /// <summary>Responsibilities</summary>
-        [JsonPropertyName("responsibilities")]
-        public List<string> Responsibilities { get; set; }
-
-        /// <summary>Schools</summary>
-        [JsonPropertyName("schools")]
-        public List<string> Schools { get; set; }
-
-        /// <summary>Skills</summary>
-        [JsonPropertyName("skills")]
-        public List<string> Skills { get; set; }
-
-        /// <summary>State</summary>
-        [JsonPropertyName("state")]
-        public string State { get; set; }
-
-        /// <summary>Street Address</summary>
-        [JsonPropertyName("streetAddress")]
-        public string StreetAddress { get; set; }
-
-        /// <summary>Surname</summary>
-        [JsonPropertyName("surname")]
-        public string Surname { get; set; }
-
-        /// <summary>User Principal Name</summary>
-        [JsonPropertyName("userPrincipalName")]
-        public string UserPrincipalName { get; set; }
-
-        /// <summary>User Type</summary>
-        [JsonPropertyName("userType")]
-        public string UserType { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get manager (V2)
-    /// </summary>
     public class GraphUser
     {
         /// <summary>About Me</summary>
@@ -918,78 +788,6 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GraphUserV1"/>.
-        /// </summary>
-        public static GraphUserV1 GraphUserV1(
-            string aboutMe = default,
-            bool? accountEnabled = default,
-            DateTime? birthday = default,
-            List<string> businessPhones = default,
-            string city = default,
-            string companyName = default,
-            string country = default,
-            string department = default,
-            string displayName = default,
-            string givenName = default,
-            DateTime? hireDate = default,
-            string id = default,
-            List<string> interests = default,
-            string jobTitle = default,
-            string mail = default,
-            string nickname = default,
-            string mobilePhone = default,
-            string mySite = default,
-            string officeLocation = default,
-            List<string> pastProjects = default,
-            string postalCode = default,
-            string preferredLanguage = default,
-            string preferredName = default,
-            List<string> responsibilities = default,
-            List<string> schools = default,
-            List<string> skills = default,
-            string state = default,
-            string streetAddress = default,
-            string surname = default,
-            string userPrincipalName = default,
-            string userType = default)
-        {
-            return new GraphUserV1
-            {
-                AboutMe = aboutMe,
-                AccountEnabled = accountEnabled,
-                Birthday = birthday,
-                BusinessPhones = businessPhones,
-                City = city,
-                CompanyName = companyName,
-                Country = country,
-                Department = department,
-                DisplayName = displayName,
-                GivenName = givenName,
-                HireDate = hireDate,
-                Id = id,
-                Interests = interests,
-                JobTitle = jobTitle,
-                Mail = mail,
-                Nickname = nickname,
-                MobilePhone = mobilePhone,
-                MySite = mySite,
-                OfficeLocation = officeLocation,
-                PastProjects = pastProjects,
-                PostalCode = postalCode,
-                PreferredLanguage = preferredLanguage,
-                PreferredName = preferredName,
-                Responsibilities = responsibilities,
-                Schools = schools,
-                Skills = skills,
-                State = state,
-                StreetAddress = streetAddress,
-                Surname = surname,
-                UserPrincipalName = userPrincipalName,
-                UserType = userType,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="GraphUser"/>.
         /// </summary>
         public static GraphUser GraphUser(
@@ -1242,15 +1040,15 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get my trending documents response.</returns>
-        public virtual async Task<MyTrendingDocumentsResponse> MyTrendingDocumentsAsync(string filterQuery = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<MyTrendingDocumentsResponse> MyTrendingDocumentsAsync(string filterQuery = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             var path = $"/codeless/beta/me/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<MyTrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1282,8 +1080,7 @@ namespace Azure.Connectors.Sdk.Office365Users
         public virtual async Task<ClientPhotoMetadata> UserPhotoMetadataAsync(string userUPN, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (userUPN != default)
-                queryParams.Add($"userId={Uri.EscapeDataString(userUPN.ToString())}");
+            queryParams.Add($"userId={Uri.EscapeDataString(userUPN.ToString())}");
             var path = $"/users/photo" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ClientPhotoMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1300,15 +1097,15 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get trending documents response.</returns>
-        public virtual async Task<TrendingDocumentsResponse> TrendingDocumentsAsync(string userUPN, string filterQuery = default, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TrendingDocumentsResponse> TrendingDocumentsAsync(string userUPN, string filterQuery = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             var path = $"/codeless/beta/users/{Uri.EscapeDataString(userUPN.ToString())}/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1339,13 +1136,13 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get direct reports (V2) response.</returns>
-        public virtual async Task<DirectReportsResponse> DirectReportsAsync(string userUPN, string selectFields = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DirectReportsResponse> DirectReportsAsync(string userUPN, string selectFields = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (selectFields != default)
                 queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/directReports" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<DirectReportsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1398,15 +1195,15 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// <param name="isSearchTermRequired">Is search term required</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="User"/> items across all pages.</returns>
-        public virtual AsyncPageable<User> SearchUserAsync(string searchTerm = default, int top = default, bool isSearchTermRequired = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<User> SearchUserAsync(string searchTerm = default, int? top = default, bool? isSearchTermRequired = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (searchTerm != default)
                 queryParams.Add($"searchTerm={Uri.EscapeDataString(searchTerm.ToString())}");
-            if (top != default)
-                queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
-            if (isSearchTermRequired != default)
-                queryParams.Add($"isSearchTermRequired={Uri.EscapeDataString(isSearchTermRequired.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
+            if (isSearchTermRequired.HasValue)
+                queryParams.Add($"isSearchTermRequired={Uri.EscapeDataString(isSearchTermRequired.Value.ToString())}");
             var path = $"/v2/users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<EntityListResponseIReadOnlyListUser, User>(
                 ct => this.CallConnectorAsync<EntityListResponseIReadOnlyListUser>(HttpMethod.Get, path, cancellationToken: ct),

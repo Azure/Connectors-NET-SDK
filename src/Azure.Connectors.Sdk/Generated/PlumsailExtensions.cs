@@ -887,6 +887,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("jsonContent")]
         public object TemplateData { get; set; }
@@ -5974,8 +5975,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync(string type, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (type != default)
-                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+            queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
             var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -5991,8 +5991,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task FlowV1DocumentsFlowSchemaRegExpMatchAsync(string pattern, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (pattern != default)
-                queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
+            queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
             var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -6008,8 +6007,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task FlowV1DocumentsFlowSchemaParseCsvAsync(string headers, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (headers != default)
-                queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
+            queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
             var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -6025,8 +6023,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task FlowV1DocumentsFlowSchemaSplitPdfAsync(string typeOfSplit, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (typeOfSplit != default)
-                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
+            queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
             var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -6055,8 +6052,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task FlowV1ProcessesFlowSchemaGetJsonDataAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (processName != default)
-                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+            queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
             var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -6327,8 +6323,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task<DocumentsWithFilenamesResponse> FlowV1DocumentsJobsSplitPdfV2Async(FlowV1DocumentsJobsSplitPdfV2Input input, string typeOfSplit, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (typeOfSplit != default)
-                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
+            queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
             var path = $"/flow/v1/Documents/jobs/SplitPdfV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -6481,8 +6476,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsAddWatermarkToPdfAsync(FlowV1DocumentsJobsAddWatermarkToPdfInput input, string type, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (type != default)
-                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+            queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
             var path = $"/flow/v1/Documents/jobs/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -6665,8 +6659,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task<byte[]> FlowV1ProcessesFlowJobsExecuteProcessAsync(FlowV1ProcessesFlowJobsExecuteProcessInput input, [DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (processName != default)
-                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+            queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
             var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcess" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
@@ -6684,8 +6677,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         public virtual async Task<byte[]> FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataAsync(ProcessJsonData input, [DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (processName != default)
-                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+            queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
             var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)

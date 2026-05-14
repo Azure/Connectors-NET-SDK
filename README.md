@@ -235,6 +235,31 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Power BI | 🔄 SDK Generated | ExecuteDatasetQuery, AddRows, RefreshDataset |
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
+| Box | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
+| DocuSign | 🔄 SDK Generated | CreateEnvelopeFromTemplate, SendEnvelope, GetRecipientStatus, ListEnvelopes |
+| Dropbox | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
+| Dynamics AX | 🔄 SDK Generated | GetTable, GetItems, PostItem, ExecuteProcedure |
+| Eventbrite | 🔄 SDK Generated | GetCategories, GetOrganizations, GetOrganizationEvents, CreateEvent |
+| FTP | 🔄 SDK Generated | CreateFile, GetFileMetadata, UpdateFile, DeleteFile |
+| GitHub | 🔄 SDK Generated | CreateIssue, GetIssues, CreatePullRequest, MergePullRequest |
+| Google Calendar | 🔄 SDK Generated | ListCalendars, ListEvents, CreateEvent, UpdateEvent |
+| Google Drive | 🔄 SDK Generated | GetFileMetadata, CreateFile, ListFolder, ListRootFolder |
+| Google Tasks | 🔄 SDK Generated | ListTaskLists, CreateTaskList, ListTasks |
+| Jira | 🔄 SDK Generated | ListIssues, CreateIssue, EditIssue, ListProjects |
+| Mailchimp | 🔄 SDK Generated | GetCampaigns, GetLists, AddMembers, Sendcampaign |
+| Monday.com | 🔄 SDK Generated | GetBoards, CreateItem, GetItems, CreateBoard |
+| OneDrive (Personal) | 🔄 SDK Generated | GetFileMetadata, CreateFile, ListRootFolder, FindFiles, CreateShareLink |
+| RSS | 🔄 SDK Generated | ListFeedItems |
+| Salesforce | 🔄 SDK Generated | GetItems, PostItem, PatchItem, ExecuteSoqlQuery |
+| SendGrid | 🔄 SDK Generated | SendEmail, ListRecipientLists, AddGlobalSuppression |
+| Slack | 🔄 SDK Generated | PostMessage, CreateChannel, JoinChannel |
+| SQL Server | 🔄 SDK Generated | GetItems, PostItem, PatchItem, ExecuteProcedure, GetDatabases |
+| Trello | 🔄 SDK Generated | ListCards, CreateCard, ListBoards, ListLists |
+| Twitter | 🔄 SDK Generated | UserTimeline, HomeTimeline, SearchTweet, Tweet |
+| Typeform | 🔄 SDK Generated | ListForms |
+| Webex | 🔄 SDK Generated | SendMessage, GetMessages, GetSpaces, CreateSpace |
+| WordPress | 🔄 SDK Generated | SiteStats, Get, Create, ListSites |
+| Zendesk | 🔄 SDK Generated | PostItem, DeleteItem, PatchItem, SearchArticles |
 
 ## Related Projects
 

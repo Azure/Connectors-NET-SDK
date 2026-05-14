@@ -338,72 +338,6 @@ namespace Azure.Connectors.Sdk.Planner.Models
     }
 
     /// <summary>
-    /// Item in value
-    /// </summary>
-    public class GetTaskResponseV2
-    {
-        /// <summary>createdBy</summary>
-        [JsonPropertyName("createdBy")]
-        public object CreatedBy { get; set; }
-
-        /// <summary>The id of the plan this task belongs to.</summary>
-        [JsonPropertyName("planId")]
-        public string PlanId { get; set; }
-
-        /// <summary>The id of the bucket this task belongs to.</summary>
-        [JsonPropertyName("bucketId")]
-        public string BucketId { get; set; }
-
-        /// <summary>The title of the task.</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>The completion percentage of the task.</summary>
-        [JsonPropertyName("percentComplete")]
-        public int? PercentComplete { get; set; }
-
-        /// <summary>The start datetime of the task.</summary>
-        [JsonPropertyName("startDateTime")]
-        [JsonInclude]
-        public DateTime? StartDateTime { get; internal set; }
-
-        /// <summary>The datetime the task was created.</summary>
-        [JsonPropertyName("createdDateTime")]
-        [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
-
-        /// <summary>The datetime the task is due.</summary>
-        [JsonPropertyName("dueDateTime")]
-        [JsonInclude]
-        public DateTime? DueDateTime { get; internal set; }
-
-        /// <summary>Set to true if the task has a description.</summary>
-        [JsonPropertyName("hasDescription")]
-        public bool? HasDescription { get; set; }
-
-        /// <summary>The datetime the task was completed.</summary>
-        [JsonPropertyName("completedDateTime")]
-        [JsonInclude]
-        public DateTime? CompletedDateTime { get; internal set; }
-
-        /// <summary>The number of external references that exist on the task.</summary>
-        [JsonPropertyName("referenceCount")]
-        public int? ReferenceCount { get; set; }
-
-        /// <summary>The id of the task.</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>appliedCategories</summary>
-        [JsonPropertyName("appliedCategories")]
-        public AppliedCategories AppliedCategories { get; set; }
-
-        /// <summary>_assignments</summary>
-        [JsonPropertyName("_assignments")]
-        public List<object> Assignments { get; set; }
-    }
-
-    /// <summary>
     /// UpdateTaskDetails_Request
     /// </summary>
     public class UpdateTaskDetailsRequest
@@ -743,44 +677,6 @@ namespace Azure.Connectors.Sdk.Planner.Models
             {
                 Value = value,
                 NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetTaskResponseV2"/>.
-        /// </summary>
-        public static GetTaskResponseV2 GetTaskResponseV2(
-            object createdBy = default,
-            string planId = default,
-            string bucketId = default,
-            string title = default,
-            int? percentComplete = default,
-            DateTime? startDateTime = default,
-            DateTime? createdDateTime = default,
-            DateTime? dueDateTime = default,
-            bool? hasDescription = default,
-            DateTime? completedDateTime = default,
-            int? referenceCount = default,
-            string id = default,
-            AppliedCategories appliedCategories = default,
-            List<object> assignments = default)
-        {
-            return new GetTaskResponseV2
-            {
-                CreatedBy = createdBy,
-                PlanId = planId,
-                BucketId = bucketId,
-                Title = title,
-                PercentComplete = percentComplete,
-                StartDateTime = startDateTime,
-                CreatedDateTime = createdDateTime,
-                DueDateTime = dueDateTime,
-                HasDescription = hasDescription,
-                CompletedDateTime = completedDateTime,
-                ReferenceCount = referenceCount,
-                Id = id,
-                AppliedCategories = appliedCategories,
-                Assignments = assignments,
             };
         }
 
@@ -1192,8 +1088,7 @@ namespace Azure.Connectors.Sdk.Planner
         public virtual async Task<ListBucketsResponse> ListBucketsAsync([DynamicValues("ListGroupPlans")] string planId, [DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (groupId != default)
-                queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
+            queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
             var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId.ToString())}/buckets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListBucketsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1226,8 +1121,7 @@ namespace Azure.Connectors.Sdk.Planner
         public virtual AsyncPageable<GetTaskResponse> ListTasksAsync([DynamicValues("ListGroupPlans")] string planId, [DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (groupId != default)
-                queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
+            queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
             var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListTasksResponse, GetTaskResponse>(
                 ct => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: ct),
