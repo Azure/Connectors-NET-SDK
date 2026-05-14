@@ -139,9 +139,9 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task ListQueuesAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            var queues = new List<Queue>
+            var queues = new List<QueueInfo>
             {
-                new Queue { Name = "myqueue" }
+                new QueueInfo { Name = "myqueue" }
             };
 
             using var responseMessage = new HttpResponseMessage
@@ -190,10 +190,10 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Queue_SerializationRoundTrip()
         {
-            var original = new Queue { Name = "myqueue" };
+            var original = new QueueInfo { Name = "myqueue" };
 
             var json = JsonSerializer.Serialize(original);
-            var deserialized = JsonSerializer.Deserialize<Queue>(json);
+            var deserialized = JsonSerializer.Deserialize<QueueInfo>(json);
 
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("myqueue", deserialized.Name);

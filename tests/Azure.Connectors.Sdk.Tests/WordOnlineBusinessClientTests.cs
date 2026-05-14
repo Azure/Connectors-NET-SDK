@@ -153,6 +153,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
+            Assert.AreEqual(expectedFilename, result);
         }
 
         [TestMethod]

@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -95,7 +94,7 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     /// <summary>
     /// Response for List queues (V2)
     /// </summary>
-    public class Queue
+    public class QueueInfo
     {
         /// <summary>The name of the queue.</summary>
         [JsonPropertyName("Name")]
@@ -152,12 +151,12 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Queue"/>.
+        /// Creates a new instance of <see cref="QueueInfo"/>.
         /// </summary>
-        public static Queue Queue(
+        public static QueueInfo QueueInfo(
             string name = default)
         {
-            return new Queue
+            return new QueueInfo
             {
                 Name = name,
             };
@@ -350,11 +349,11 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <param name="storageAccountNameOrQueueEndpoint">Storage account name or queue endpoint</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List queues (V2) response.</returns>
-        public virtual async Task<List<Queue>> ListQueuesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, CancellationToken cancellationToken = default)
+        public virtual async Task<List<QueueInfo>> ListQueuesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, CancellationToken cancellationToken = default)
         {
             var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/list";
             return await this
-                .CallConnectorAsync<List<Queue>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                .CallConnectorAsync<List<QueueInfo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
