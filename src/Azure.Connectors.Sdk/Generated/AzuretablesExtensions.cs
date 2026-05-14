@@ -358,7 +358,7 @@ namespace Azure.Connectors.Sdk.Azuretables
     public class AzureTablesClient : ConnectorClientBase
     {
         /// <summary>
-        /// Creates a new AzuretablesClient with the specified connection runtime URL.
+        /// Creates a new AzureTablesClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
@@ -368,7 +368,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Creates a new AzuretablesClient with the specified connection runtime URL and credential.
+        /// Creates a new AzureTablesClient with the specified connection runtime URL and credential.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
@@ -379,7 +379,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Creates a new AzuretablesClient with the specified connection runtime URL and credential.
+        /// Creates a new AzureTablesClient with the specified connection runtime URL and credential.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
@@ -389,7 +389,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Creates a new AzuretablesClient with the specified connection runtime URL string.
+        /// Creates a new AzureTablesClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>

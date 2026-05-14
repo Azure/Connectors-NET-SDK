@@ -279,7 +279,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
     public class EventHubsClient : ConnectorClientBase
     {
         /// <summary>
-        /// Creates a new EventhubsClient with the specified connection runtime URL.
+        /// Creates a new EventHubsClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         }
 
         /// <summary>
-        /// Creates a new EventhubsClient with the specified connection runtime URL and credential.
+        /// Creates a new EventHubsClient with the specified connection runtime URL and credential.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
@@ -300,7 +300,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         }
 
         /// <summary>
-        /// Creates a new EventhubsClient with the specified connection runtime URL and credential.
+        /// Creates a new EventHubsClient with the specified connection runtime URL and credential.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
@@ -310,7 +310,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         }
 
         /// <summary>
-        /// Creates a new EventhubsClient with the specified connection runtime URL string.
+        /// Creates a new EventHubsClient with the specified connection runtime URL string.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
