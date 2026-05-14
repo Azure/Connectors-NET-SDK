@@ -62,6 +62,16 @@ public static class ConnectorNames
     public const string AzureMonitorLogs = "azuremonitorlogs";
 
     /// <summary>
+    /// The <c>azurequeues</c> connector.
+    /// </summary>
+    public const string AzureQueues = "azurequeues";
+
+    /// <summary>
+    /// The <c>azuretables</c> connector.
+    /// </summary>
+    public const string AzureTables = "azuretables";
+
+    /// <summary>
     /// The <c>azurevm</c> connector.
     /// </summary>
     public const string AzureVM = "azurevm";
@@ -82,6 +92,11 @@ public static class ConnectorNames
     public const string CloudmersiveConvert = "cloudmersiveconvert";
 
     /// <summary>
+    /// The <c>documentdb</c> connector.
+    /// </summary>
+    public const string DocumentDB = "documentdb";
+
+    /// <summary>
     /// The <c>docuware</c> connector.
     /// </summary>
     public const string Docuware = "docuware";
@@ -97,9 +112,19 @@ public static class ConnectorNames
     public const string Etsy = "etsy";
 
     /// <summary>
+    /// The <c>eventhubs</c> connector.
+    /// </summary>
+    public const string EventHubs = "eventhubs";
+
+    /// <summary>
     /// The <c>excelonline</c> connector.
     /// </summary>
     public const string ExcelOnline = "excelonline";
+
+    /// <summary>
+    /// The <c>excelonlinebusiness</c> connector.
+    /// </summary>
+    public const string ExcelOnlineBusiness = "excelonlinebusiness";
 
     /// <summary>
     /// The <c>formstackforms</c> connector.
@@ -202,6 +227,11 @@ public static class ConnectorNames
     public const string Orderful = "orderful";
 
     /// <summary>
+    /// The <c>outlook</c> connector.
+    /// </summary>
+    public const string Outlook = "outlook";
+
+    /// <summary>
     /// The <c>pdfco</c> connector.
     /// </summary>
     public const string PdfCo = "pdfco";
@@ -250,6 +280,11 @@ public static class ConnectorNames
     /// The <c>seismicplanner</c> connector.
     /// </summary>
     public const string SeismicPlanner = "seismicplanner";
+
+    /// <summary>
+    /// The <c>servicebus</c> connector.
+    /// </summary>
+    public const string ServiceBus = "servicebus";
 
     /// <summary>
     /// The <c>sharepointonline</c> connector.
@@ -320,6 +355,11 @@ public static class ConnectorNames
     /// The <c>wdatp</c> connector (Microsoft Defender ATP).
     /// </summary>
     public const string Wdatp = "wdatp";
+
+    /// <summary>
+    /// The <c>wordonlinebusiness</c> connector.
+    /// </summary>
+    public const string WordOnlineBusiness = "wordonlinebusiness";
 
     /// <summary>
     /// The <c>yammer</c> connector.
