@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-3xk",
-    body: "Fixed in commit 9d0b3e8. Renamed all 5 test files to match their PascalCase class names: `ServicebusClientTests.cs` → `ServiceBusClientTests.cs`, `EventhubsClientTests.cs` → `EventHubsClientTests.cs`, `DocumentdbClientTests.cs` → `DocumentDbClientTests.cs`, `AzurequeuesClientTests.cs` → `AzureQueuesClientTests.cs`, `AzuretablesClientTests.cs` → `AzureTablesClientTests.cs`."
-  }) {
-    comment { id }
-  }
-}

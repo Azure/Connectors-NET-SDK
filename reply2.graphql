@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gYe",
-    body: "Fixed in commit cb2fbff. Both `bool extractSensitivityLabel` and `bool sensitivityLabelMetadata` in `GetFilePDFAsync` are now `bool?` with `.HasValue` guards and `.Value.ToString()` calls."
-  }) {
-    comment { id }
-  }
-}

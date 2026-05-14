@@ -106,13 +106,13 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
 
         /// <summary>List of Entities</summary>
         [JsonPropertyName("value")]
-        public List<Item> ListOfEntities { get; set; }
+        public List<EntityItem> ListOfEntities { get; set; }
     }
 
     /// <summary>
     /// Item in List of Entities
     /// </summary>
-    public class Item
+    public class EntityItem
     {
         /// <summary>Partition Key</summary>
         [JsonPropertyName("PartitionKey")]
@@ -285,7 +285,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         /// </summary>
         public static GetEntitiesResponse GetEntitiesResponse(
             string tableMetadataLocation = default,
-            List<Item> listOfEntities = default)
+            List<EntityItem> listOfEntities = default)
         {
             return new GetEntitiesResponse
             {
@@ -297,12 +297,12 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         /// <summary>
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
-        public static Item Item(
+        public static EntityItem Item(
             string partitionKey = default,
             string rowKey = default,
             string entityData = default)
         {
-            return new Item
+            return new EntityItem
             {
                 PartitionKey = partitionKey,
                 RowKey = rowKey,

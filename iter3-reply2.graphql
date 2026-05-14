@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-3x3",
-    body: "Fixed in commit 9d0b3e8. Renamed `ConnectorNames.DocumentDB` → `ConnectorNames.DocumentDb` to match the `DocumentDbClient` class capitalization. Updated the reference in `ConnectorServiceCollectionExtensions.cs` as well."
-  }) {
-    comment { id }
-  }
-}

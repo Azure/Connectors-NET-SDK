@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-3yg",
-    body: "This asymmetry is intentional and matches the connector's API contract. The `Event` received type carries `ContentData` as `ObjectEntity` because received events go through dynamic schema discovery (`[DynamicSchema(\"GenerateEventSchemaV2\")]`) — the connector deserializes the payload into a structured object at runtime. The `SendEvent.Content` property is typed as `string` because the send operation simply transmits raw content as a JSON string value. Confirmed against the connector definition. Happy to add a code comment to document this intentional asymmetry if that would be helpful."
-  }) {
-    comment { id }
-  }
-}

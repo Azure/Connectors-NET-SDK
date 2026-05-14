@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gZx",
-    body: "Fixed in commit cb2fbff. Swapped `azureblob` and `azureautomation` in the `AvailableConnectors` array so `azureautomation` comes before `azureblob`, restoring alphabetical order."
-  }) {
-    comment { id }
-  }
-}

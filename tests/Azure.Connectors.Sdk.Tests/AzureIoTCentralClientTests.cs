@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.AzureIoTCentral;
 using Azure.Connectors.Sdk.AzureIoTCentral.Models;
 using global::Azure.Core;
@@ -145,6 +146,7 @@ namespace Azure.Connectors.Sdk.Tests
             };
 
             // Assert
+            Assert.IsInstanceOfType<IPageable<DeviceGroup>>(collection);
             Assert.AreEqual(2, collection.Value.Count);
             Assert.AreEqual("https://test.azure.com/deviceGroups?page=2", collection.NextLink);
         }
@@ -185,6 +187,7 @@ namespace Azure.Connectors.Sdk.Tests
             };
 
             // Assert
+            Assert.IsInstanceOfType<IPageable<Application>>(collection);
             Assert.AreEqual(2, collection.Value.Count);
             Assert.IsNull(collection.NextLink);
         }

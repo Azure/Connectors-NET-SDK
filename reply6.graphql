@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gZb",
-    body: "Fixed in commit cb2fbff. Changed `List<T>` to `` `List<T>` `` (inline code) so it renders properly in Markdown."
-  }) {
-    comment { id }
-  }
-}

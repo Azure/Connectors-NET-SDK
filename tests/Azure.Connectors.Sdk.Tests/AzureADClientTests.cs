@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.AzureAD;
 using Azure.Connectors.Sdk.AzureAD.Models;
 using global::Azure.Core;
@@ -171,6 +172,7 @@ namespace Azure.Connectors.Sdk.Tests
             };
 
             // Assert
+            Assert.IsInstanceOfType<IPageable<GetUserResponse>>(response);
             Assert.AreEqual(2, response.Value.Count);
             Assert.AreEqual("https://test.azure.com/nextpage", response.NextLink);
         }

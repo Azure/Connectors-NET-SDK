@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gZR",
-    body: "Fixed in commit cb2fbff. Both `DeletedDateTime` and `OnPremisesLastSyncDateTime` are now typed as `DateTime?` in the class definition and in the `CreateMicrosoftGraphUser` / `CreateMicrosoftGraphGroup` factory method signatures."
-  }) {
-    comment { id }
-  }
-}

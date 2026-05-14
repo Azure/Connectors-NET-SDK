@@ -1,8 +1,0 @@
-mutation {
-  addPullRequestReviewThreadReply(input: {
-    pullRequestReviewThreadId: "PRRT_kwDORrwdaM6B-gZp",
-    body: "Fixed in commit cb2fbff. Renamed all five client classes and their corresponding ModelFactory classes to follow the SDK's established PascalCase convention (matching `AzureBlobClient`, `AzureMonitorLogsClient`, etc.):\n- `AzurequeuesClient` → `AzureQueuesClient`, `AzurequeuesModelFactory` → `AzureQueuesModelFactory`\n- `AzuretablesClient` → `AzureTablesClient`, `AzuretablesModelFactory` → `AzureTablesModelFactory`\n- `EventhubsClient` → `EventHubsClient`, `EventhubsModelFactory` → `EventHubsModelFactory`\n- `DocumentdbClient` → `DocumentDbClient`, `DocumentdbModelFactory` → `DocumentDbModelFactory`\n- `ServicebusClient` → `ServiceBusClient`, `ServicebusModelFactory` → `ServiceBusModelFactory`\n\nAll references updated in the Extensions.cs files, DI registration file, and test files."
-  }) {
-    comment { id }
-  }
-}
