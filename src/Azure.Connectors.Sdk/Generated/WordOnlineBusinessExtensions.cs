@@ -295,7 +295,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert Word Document to PDF response.</returns>
-        public virtual async Task<byte[]> GetFilePDFAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool extractSensitivityLabel = default, bool sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetFilePDFAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("format=pdf");
@@ -305,10 +305,10 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
                 queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
             if (@file != default)
                 queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
-            if (sensitivityLabelMetadata != default)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
             var path = $"/api/templates/convertFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)

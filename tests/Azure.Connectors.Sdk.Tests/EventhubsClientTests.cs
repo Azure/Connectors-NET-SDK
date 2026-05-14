@@ -20,10 +20,10 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated EventhubsClient class.
+    /// Tests for the generated EventHubsClient class.
     /// </summary>
     [TestClass]
-    public class EventhubsClientTests
+    public class EventHubsClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -36,7 +36,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static EventhubsClient CreateMockedClient(HttpResponseMessage response)
+        private static EventHubsClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -52,7 +52,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new EventhubsClient(
+            return new EventHubsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -61,27 +61,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
-            using var client = new EventhubsClient("https://test.azure.com/connection");
+            using var client = new EventHubsClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new EventhubsClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new EventHubsClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new EventhubsClient("https://test.azure.com/connection");
+            var client = new EventHubsClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new EventhubsClient(
+            var client = new EventHubsClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();

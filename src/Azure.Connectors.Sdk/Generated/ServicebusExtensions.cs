@@ -146,7 +146,7 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
     /// Use these factory methods to construct model instances in tests and scenarios
     /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static class ServicebusModelFactory
+    public static class ServiceBusModelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="ServiceBusEntity"/>.
@@ -517,14 +517,14 @@ namespace Azure.Connectors.Sdk.Servicebus
     /// <summary>
     /// Typed client for servicebus connector.
     /// </summary>
-    public class ServicebusClient : ConnectorClientBase
+    public class ServiceBusClient : ConnectorClientBase
     {
         /// <summary>
         /// Creates a new ServicebusClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public ServicebusClient(Uri connectionRuntimeUrl)
+        public ServiceBusClient(Uri connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
@@ -535,7 +535,7 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public ServicebusClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        public ServiceBusClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
             : base(connectionRuntimeUrl, credential, options)
         {
         }
@@ -545,7 +545,7 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
-        public ServicebusClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        public ServiceBusClient(Uri connectionRuntimeUrl, TokenCredential credential)
             : base(connectionRuntimeUrl, credential)
         {
         }
@@ -555,12 +555,12 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public ServicebusClient(string connectionRuntimeUrl)
+        public ServiceBusClient(string connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
 
-        protected ServicebusClient() : this(new Uri("https://localhost")) { }
+        protected ServiceBusClient() : this(new Uri("https://localhost")) { }
 
         public override string ConnectorName => "servicebus";
 

@@ -106,7 +106,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
     /// Use these factory methods to construct model instances in tests and scenarios
     /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static class EventhubsModelFactory
+    public static class EventHubsModelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="Event"/>.
@@ -276,14 +276,14 @@ namespace Azure.Connectors.Sdk.Eventhubs
     /// <summary>
     /// Typed client for eventhubs connector.
     /// </summary>
-    public class EventhubsClient : ConnectorClientBase
+    public class EventHubsClient : ConnectorClientBase
     {
         /// <summary>
         /// Creates a new EventhubsClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public EventhubsClient(Uri connectionRuntimeUrl)
+        public EventHubsClient(Uri connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
@@ -294,7 +294,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public EventhubsClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        public EventHubsClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
             : base(connectionRuntimeUrl, credential, options)
         {
         }
@@ -304,7 +304,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
-        public EventhubsClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        public EventHubsClient(Uri connectionRuntimeUrl, TokenCredential credential)
             : base(connectionRuntimeUrl, credential)
         {
         }
@@ -314,12 +314,12 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public EventhubsClient(string connectionRuntimeUrl)
+        public EventHubsClient(string connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
 
-        protected EventhubsClient() : this(new Uri("https://localhost")) { }
+        protected EventHubsClient() : this(new Uri("https://localhost")) { }
 
         public override string ConnectorName => "eventhubs";
 
@@ -347,8 +347,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         public virtual async Task<List<string>> GetConsumerGroupsAsync(string theEventHubName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (theEventHubName != default)
-                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
+            queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
             var path = $"/consumergroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -379,8 +378,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         public virtual async Task<List<string>> GetPartitionKeysAsync(string theEventHubName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (theEventHubName != default)
-                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
+            queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
             var path = $"/partitions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)

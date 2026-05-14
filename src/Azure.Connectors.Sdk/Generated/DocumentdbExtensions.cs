@@ -370,7 +370,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     /// Use these factory methods to construct model instances in tests and scenarios
     /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static class DocumentdbModelFactory
+    public static class DocumentDbModelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="CosmosDbAccountList"/>.
@@ -641,14 +641,14 @@ namespace Azure.Connectors.Sdk.Documentdb
     /// <summary>
     /// Typed client for documentdb connector.
     /// </summary>
-    public class DocumentdbClient : ConnectorClientBase
+    public class DocumentDbClient : ConnectorClientBase
     {
         /// <summary>
         /// Creates a new DocumentdbClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public DocumentdbClient(Uri connectionRuntimeUrl)
+        public DocumentDbClient(Uri connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
@@ -659,7 +659,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public DocumentdbClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        public DocumentDbClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
             : base(connectionRuntimeUrl, credential, options)
         {
         }
@@ -669,7 +669,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
-        public DocumentdbClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        public DocumentDbClient(Uri connectionRuntimeUrl, TokenCredential credential)
             : base(connectionRuntimeUrl, credential)
         {
         }
@@ -679,12 +679,12 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public DocumentdbClient(string connectionRuntimeUrl)
+        public DocumentDbClient(string connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
 
-        protected DocumentdbClient() : this(new Uri("https://localhost")) { }
+        protected DocumentDbClient() : this(new Uri("https://localhost")) { }
 
         public override string ConnectorName => "documentdb";
 
@@ -835,11 +835,11 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="purviewAcccountName">Purview Acccount Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a document (V2) response.</returns>
-        public virtual async Task<GetDocumentResponse> GetDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, bool extractSensitivityLabel = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetDocumentResponse> GetDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, bool? extractSensitivityLabel = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
             if (purviewAcccountName != default)
                 queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
             var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -859,11 +859,11 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="purviewAcccountName">Purview Acccount Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all documents (V3) response.</returns>
-        public virtual async Task<GetDocumentsResponse> GetDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, bool extractSensitivityLabel = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetDocumentsResponse> GetDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, bool? extractSensitivityLabel = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
             if (purviewAcccountName != default)
                 queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
             var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -906,23 +906,23 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="purviewAcccountName">Purview Acccount Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Query documents V5 response.</returns>
-        public virtual async Task<QueryDocumentsResponse> QueryDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string containerId, string sQLSyntaxQuery = default, string partitionKeyValue = default, int maxItemCount = default, string continuationToken = default, string consistencyLevel = default, string sessionToken = default, bool extractSensitivityLabel = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<QueryDocumentsResponse> QueryDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string containerId, string sQLSyntaxQuery = default, string partitionKeyValue = default, int? maxItemCount = default, string continuationToken = default, string consistencyLevel = default, string sessionToken = default, bool? extractSensitivityLabel = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (sQLSyntaxQuery != default)
                 queryParams.Add($"queryText={Uri.EscapeDataString(sQLSyntaxQuery.ToString())}");
             if (partitionKeyValue != default)
                 queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKeyValue.ToString())}");
-            if (maxItemCount != default)
-                queryParams.Add($"maxItemCount={Uri.EscapeDataString(maxItemCount.ToString())}");
+            if (maxItemCount.HasValue)
+                queryParams.Add($"maxItemCount={Uri.EscapeDataString(maxItemCount.Value.ToString())}");
             if (continuationToken != default)
                 queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken.ToString())}");
             if (consistencyLevel != default)
                 queryParams.Add($"consistencyLevel={Uri.EscapeDataString(consistencyLevel.ToString())}");
             if (sessionToken != default)
                 queryParams.Add($"sessionToken={Uri.EscapeDataString(sessionToken.ToString())}");
-            if (extractSensitivityLabel != default)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.ToString())}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
             if (purviewAcccountName != default)
                 queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
             var path = $"/v5/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(containerId.ToString())}/query" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

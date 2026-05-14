@@ -20,10 +20,10 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated DocumentdbClient class.
+    /// Tests for the generated DocumentDbClient class.
     /// </summary>
     [TestClass]
-    public class DocumentdbClientTests
+    public class DocumentDbClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -36,7 +36,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static DocumentdbClient CreateMockedClient(HttpResponseMessage response)
+        private static DocumentDbClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -52,7 +52,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new DocumentdbClient(
+            return new DocumentDbClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -61,27 +61,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
-            using var client = new DocumentdbClient("https://test.azure.com/connection");
+            using var client = new DocumentDbClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new DocumentdbClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new DocumentDbClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new DocumentdbClient("https://test.azure.com/connection");
+            var client = new DocumentDbClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new DocumentdbClient(
+            var client = new DocumentDbClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();

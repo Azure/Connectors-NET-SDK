@@ -220,7 +220,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     /// Use these factory methods to construct model instances in tests and scenarios
     /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static class AzuretablesModelFactory
+    public static class AzureTablesModelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="StorageAccountList"/>.
@@ -355,14 +355,14 @@ namespace Azure.Connectors.Sdk.Azuretables
     /// <summary>
     /// Typed client for azuretables connector.
     /// </summary>
-    public class AzuretablesClient : ConnectorClientBase
+    public class AzureTablesClient : ConnectorClientBase
     {
         /// <summary>
         /// Creates a new AzuretablesClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public AzuretablesClient(Uri connectionRuntimeUrl)
+        public AzureTablesClient(Uri connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
@@ -373,7 +373,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public AzuretablesClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        public AzureTablesClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
             : base(connectionRuntimeUrl, credential, options)
         {
         }
@@ -383,7 +383,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
-        public AzuretablesClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        public AzureTablesClient(Uri connectionRuntimeUrl, TokenCredential credential)
             : base(connectionRuntimeUrl, credential)
         {
         }
@@ -393,12 +393,12 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public AzuretablesClient(string connectionRuntimeUrl)
+        public AzureTablesClient(string connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
 
-        protected AzuretablesClient() : this(new Uri("https://localhost")) { }
+        protected AzureTablesClient() : this(new Uri("https://localhost")) { }
 
         public override string ConnectorName => "azuretables";
 

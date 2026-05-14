@@ -191,8 +191,8 @@ public static class SdkConnectors
     public static readonly string[] AvailableConnectors = [
         "arm",
         "azuread",
-        "azureblob",
         "azureautomation",
+        "azureblob",
         "azuredatafactory",
         "azuredigitaltwins",
         "azureeventgrid",

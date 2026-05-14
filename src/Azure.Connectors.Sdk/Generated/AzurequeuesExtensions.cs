@@ -77,7 +77,7 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     /// Use these factory methods to construct model instances in tests and scenarios
     /// where output-only properties (with internal setters) need to be populated.
     /// </summary>
-    public static class AzurequeuesModelFactory
+    public static class AzureQueuesModelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="StorageAccountList"/>.
@@ -206,14 +206,14 @@ namespace Azure.Connectors.Sdk.Azurequeues
     /// <summary>
     /// Typed client for azurequeues connector.
     /// </summary>
-    public class AzurequeuesClient : ConnectorClientBase
+    public class AzureQueuesClient : ConnectorClientBase
     {
         /// <summary>
         /// Creates a new AzurequeuesClient with the specified connection runtime URL.
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public AzurequeuesClient(Uri connectionRuntimeUrl)
+        public AzureQueuesClient(Uri connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
@@ -224,7 +224,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
         /// <param name="options">Optional client options for retry, timeout, etc.</param>
-        public AzurequeuesClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
+        public AzureQueuesClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options = null)
             : base(connectionRuntimeUrl, credential, options)
         {
         }
@@ -234,7 +234,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
         /// <param name="credential">The Azure credential for authentication.</param>
-        public AzurequeuesClient(Uri connectionRuntimeUrl, TokenCredential credential)
+        public AzureQueuesClient(Uri connectionRuntimeUrl, TokenCredential credential)
             : base(connectionRuntimeUrl, credential)
         {
         }
@@ -244,12 +244,12 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// Uses <see cref="ManagedIdentityCredential"/> by default.
         /// </summary>
         /// <param name="connectionRuntimeUrl">The connection runtime URL from Azure Portal.</param>
-        public AzurequeuesClient(string connectionRuntimeUrl)
+        public AzureQueuesClient(string connectionRuntimeUrl)
             : base(connectionRuntimeUrl)
         {
         }
 
-        protected AzurequeuesClient() : this(new Uri("https://localhost")) { }
+        protected AzureQueuesClient() : this(new Uri("https://localhost")) { }
 
         public override string ConnectorName => "azurequeues";
 
@@ -352,8 +352,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         public virtual async Task<string> PutQueueAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, string queueName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (queueName != default)
-                queryParams.Add($"queueName={Uri.EscapeDataString(queueName.ToString())}");
+            queryParams.Add($"queueName={Uri.EscapeDataString(queueName.ToString())}");
             var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)

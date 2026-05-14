@@ -231,8 +231,8 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Azure Tables | ✅ E2E Validated | GetTable, QueryEntities, InsertEntity, UpdateEntity, DeleteEntity |
 | Azure Cosmos DB | ✅ E2E Validated | GetDatabasesAsync, GetCollectionsAsync, GetDocumentsAsync, CreateDocumentAsync, ReplaceDocumentAsync |
 | Azure Event Hubs | ✅ E2E Validated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
-| Excel Online (Business) | ✅ E2E Validated | GetTablesAsync, GetItemsAsync, AddRowAsync, PatchItemAsync, DeleteItemAsync |
-| Outlook | ✅ E2E Validated | GetEmails, SendEmail, DeleteEmail, GetCalendarItems, GetContacts |
+| Excel Online (Business) | ✅ E2E Validated | CreateTableAsync, GetTablesAsync, GetItemsAsync, AddRowAsync, PatchItemAsync, DeleteItemAsync |
+| Outlook | ✅ E2E Validated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
 | Service Bus | ✅ E2E Validated | ListQueues, SendMessage, GetMessage, CompleteMessage, AbandonMessage |
 | Word Online (Business) | ✅ E2E Validated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
 

@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="AzurequeuesClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="AzureQueuesClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -189,15 +189,15 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzurequeuesClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureQueuesClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.AzureQueues,
-                factory: (connectionRuntimeUrl, credential) => new AzurequeuesClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new AzureQueuesClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="AzuretablesClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="AzureTablesClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -205,11 +205,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzuretablesClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureTablesClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.AzureTables,
-                factory: (connectionRuntimeUrl, credential) => new AzuretablesClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new AzureTablesClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="DocumentdbClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="DocumentDbClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -285,11 +285,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentdbClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentDbClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.DocumentDB,
-                factory: (connectionRuntimeUrl, credential) => new DocumentdbClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new DocumentDbClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="EventhubsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="EventHubsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -333,11 +333,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<EventhubsClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<EventHubsClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.EventHubs,
-                factory: (connectionRuntimeUrl, credential) => new EventhubsClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new EventHubsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -741,7 +741,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="ServicebusClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="ServiceBusClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -749,11 +749,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ServicebusClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ServiceBusClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.ServiceBus,
-                factory: (connectionRuntimeUrl, credential) => new ServicebusClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new ServiceBusClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

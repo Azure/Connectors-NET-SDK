@@ -70,7 +70,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>deletedDateTime</summary>
         [JsonPropertyName("deletedDateTime")]
         [JsonInclude]
-        public string DeletedDateTime { get; internal set; }
+        public DateTime? DeletedDateTime { get; internal set; }
 
         /// <summary>classification</summary>
         [JsonPropertyName("classification")]
@@ -108,7 +108,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>onPremisesLastSyncDateTime</summary>
         [JsonPropertyName("onPremisesLastSyncDateTime")]
         [JsonInclude]
-        public string OnPremisesLastSyncDateTime { get; internal set; }
+        public DateTime? OnPremisesLastSyncDateTime { get; internal set; }
 
         /// <summary>onPremisesSecurityIdentifier</summary>
         [JsonPropertyName("onPremisesSecurityIdentifier")]
@@ -522,7 +522,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         public static CreateGroupResponse CreateGroupResponse(
             string context = default,
             string id = default,
-            string deletedDateTime = default,
+            DateTime? deletedDateTime = default,
             string classification = default,
             DateTime? createdDateTime = default,
             string description = default,
@@ -531,7 +531,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
             string mail = default,
             bool? mailEnabled = default,
             string mailNickname = default,
-            string onPremisesLastSyncDateTime = default,
+            DateTime? onPremisesLastSyncDateTime = default,
             string onPremisesSecurityIdentifier = default,
             bool? onPremisesSyncEnabled = default,
             List<string> proxyAddresses = default,
