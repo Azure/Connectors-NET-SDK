@@ -10,8 +10,8 @@
 
 The current SDK (`Azure/Connectors-NET-SDK` and its Python and Node.js counterparts) was
 built as an independent project by a different Microsoft team. It was **not** a continuation
-of the original `Azure/Connectors` private preview. The two projects happened to solve
-overlapping problems but made different choices throughout.
+of the `Azure/Connectors` private preview. The two projects independently solved overlapping
+problems but made different choices throughout.
 
 This matters for the migration: there is no in-place upgrade path. Adopting the current SDK
 means provisioning new Azure infrastructure and rewriting the connection and client code from
@@ -24,7 +24,7 @@ scratch.
 | Dimension | Private Preview | Current SDK |
 |-----------|-----------------|-------------|
 | Connection backend | Azure API Connections (`Microsoft.Web/connections`) | Connector Namespace (`Microsoft.Web/connectorGateways`) |
-| Connection setup | VS Code extension (`vscode-azureAPIConnections`) | REST API (`az rest`, VS Code extension, portal — all planned) |
+| Connection setup | VS Code extension (`vscode-azureAPIConnections`) | REST API via `az rest` (available); VS Code extension and portal (in progress) |
 | Connection identity passed to client | Opaque connection string | Connection runtime URL |
 | C# client creation | `MicrosoftTeamsConnector.Create("<key>")` | `new TeamsClient(new Uri(runtimeUrl))` |
 | TypeScript client creation | `createMicrosoftTeamsConnector("<key>")` | `new TeamsClient(runtimeUrl, tokenProvider)` |
@@ -142,7 +142,7 @@ returns a `ConnectorConnectionOptions` that your client construction code can co
 
 For the step-by-step procedure including access policies and trigger setup, see
 [docs/connection-setup.md](connection-setup.md) and the
-[Connection Setup Skill](.github/skills/connection-setup/SKILL.md).
+[Connection Setup Skill](../.github/skills/connection-setup/SKILL.md).
 
 ---
 
@@ -163,19 +163,24 @@ var textAnalytics = TextAnalyticsConnector.Create("<connectionKey>");
 
 ### New C# pattern
 
+Azure-hosted (defaults to `ManagedIdentityCredential`):
+
 ```csharp
-// New: constructor injection, connection runtime URL + TokenCredential
+using Azure.Connectors.Sdk.Teams;
+
+using var teamsClient = new TeamsClient(new Uri(connectionRuntimeUrl));
+var teams = await teamsClient.GetAllTeamsAsync();
+```
+
+Local development (pass `AzureCliCredential` explicitly):
+
+```csharp
 using Azure.Connectors.Sdk.Teams;
 using Azure.Identity;
 
-// Defaults to ManagedIdentityCredential (system-assigned) — correct for Azure-hosted apps
-using var teamsClient = new TeamsClient(new Uri(connectionRuntimeUrl));
-
-// For local development, pass AzureCliCredential explicitly
 using var teamsClient = new TeamsClient(
     new Uri(connectionRuntimeUrl),
     new AzureCliCredential());
-
 var teams = await teamsClient.GetAllTeamsAsync();
 ```
 
@@ -441,6 +446,7 @@ Example: receiving new emails via a connector trigger:
 ```csharp
 using Azure.Connectors.Sdk.Office365;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
 
 public class EmailTrigger(ILogger<EmailTrigger> logger)
 {
