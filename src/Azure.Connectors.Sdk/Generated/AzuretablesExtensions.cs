@@ -295,9 +295,9 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Item"/>.
+        /// Creates a new instance of <see cref="EntityItem"/>.
         /// </summary>
-        public static EntityItem Item(
+        public static EntityItem EntityItem(
             string partitionKey = default,
             string rowKey = default,
             string entityData = default)
