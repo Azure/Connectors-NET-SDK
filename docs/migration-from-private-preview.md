@@ -3,8 +3,6 @@
 > This guide is for developers who used the original `Azure/Connectors` private preview
 > (circa 2021–2022). It explains what is different, and how to update your code and
 > connection setup to use the current SDK.
->
-> The private `Azure/Connectors` repo is no longer the active development surface.
 
 ---
 
