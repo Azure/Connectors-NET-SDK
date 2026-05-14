@@ -83,6 +83,8 @@ Remove-Item $tempFile -ErrorAction SilentlyContinue
 
 The connection starts in **Error** state (unauthenticated). Proceed to Step 3.
 
+For **credential-based (non-OAuth) connectors** (e.g., `azurequeues`, `azuretables`, `smtp`, `eventhubs`, `servicebus`, `documentdb`), include `parameterValues` directly in the PUT body instead of using OAuth consent (Step 3). See [Step 3b: Credential-Based Authentication](#step-3b-credential-based-authentication).
+
 ### Step 3: OAuth Consent (In-Browser)
 
 Retrieve the consent link and open it in the default browser — no portal needed:
@@ -109,6 +111,45 @@ az rest --method GET `
 ```
 
 Expected: `Connected`.
+
+### Step 3b: Credential-Based Authentication
+
+For connectors that use connection strings or API keys (not OAuth), include `parameterValues` directly in the PUT body. The connection becomes `Connected` immediately without browser consent.
+
+> **Critical:** Always use `[System.IO.File]::WriteAllText($tempFile, $connBody, [System.Text.Encoding]::UTF8)` and `Content-Type=application/json;charset=utf-8` header. Missing the `charset=utf-8` header causes credentials with `+`, `=`, or `/` characters (common in base64 keys) to not be stored, leaving the connection in `Error` state.
+
+```powershell
+# Example: Azure Storage (azurequeues / azuretables)
+$connObj = @{
+    properties = @{
+        connectorName = "azurequeues"
+        parameterValues = @{
+            storageaccount = "<storage-account-name>"
+            sharedkey = "<storage-account-key>"
+        }
+    }
+}
+$connBody = $connObj | ConvertTo-Json -Depth 5 -Compress
+$tempFile = Join-Path $env:TEMP "conn-body.json"
+[System.IO.File]::WriteAllText($tempFile, $connBody, [System.Text.Encoding]::UTF8)
+az rest --method PUT `
+    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --body "@$tempFile" --headers "Content-Type=application/json;charset=utf-8" -o json | ConvertFrom-Json | Select-Object name, @{n='status';e={$_.properties.overallStatus}}
+Remove-Item $tempFile -ErrorAction SilentlyContinue
+# Expected: status = Connected
+```
+
+**Parameter names by connector:**
+
+| Connector | Parameters |
+|-----------|-----------|
+| `azurequeues`, `azuretables` | `storageaccount` (name), `sharedkey` (access key) |
+| `eventhubs`, `servicebus` | `connectionString` (namespace connection string) |
+| `documentdb` | `databaseAccount` (account name), `accessKey` (primary key) |
+| `smtp` | `serverAddress`, `port`, `enableSSL`, `userName`, `password` |
+| `mq` | see managed API definition for parameter names |
+
+**If the connection shows Error after PUT:** The credentials may not have been stored. Delete the connection and recreate it — do NOT retry PUT on an existing connection. The first PUT after DELETE reliably stores `parameterValues`.
 
 ### Step 4: Get Connection Runtime URL
 
