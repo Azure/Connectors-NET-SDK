@@ -11,10 +11,9 @@
 ## Two Independent Projects
 
 The current SDK (`Azure/Connectors-NET-SDK` and its Python and Node.js counterparts) was
-built as an independent project by the Azure Functions team. It was **not** a continuation
-of the original `Azure/Connectors` private preview, which was a separate effort by a
-different team. The two projects happened to solve overlapping problems but made different
-choices throughout.
+built as an independent project by a different Microsoft team. It was **not** a continuation
+of the original `Azure/Connectors` private preview. The two projects happened to solve
+overlapping problems but made different choices throughout.
 
 This matters for the migration: there is no in-place upgrade path. Adopting the current SDK
 means provisioning new Azure infrastructure and rewriting the connection and client code from
