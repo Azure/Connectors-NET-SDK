@@ -741,7 +741,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="ServiceBusClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="ServiceBusConnectorClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -749,11 +749,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ServiceBusClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ServiceBusConnectorClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.ServiceBus,
-                factory: (connectionRuntimeUrl, credential) => new ServiceBusClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new ServiceBusConnectorClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
