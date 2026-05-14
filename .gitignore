@@ -33,5 +33,7 @@ publish/
 Thumbs.db
 
 # Local generator output (staging area — canonical location is src/.../Generated/)
+# GraphQL scratch files (used for GitHub API calls, not part of the SDK)
+*.graphql
 samples/generated/*.cs
 _generated/

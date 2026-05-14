@@ -3,20 +3,27 @@
 //------------------------------------------------------------
 
 using Azure.Connectors.Sdk.Arm;
+using Azure.Connectors.Sdk.AzureAD;
 using Azure.Connectors.Sdk.AzureAutomation;
 using Azure.Connectors.Sdk.AzureBlob;
 using Azure.Connectors.Sdk.AzureDataFactory;
 using Azure.Connectors.Sdk.AzureDigitalTwins;
 using Azure.Connectors.Sdk.AzureEventGrid;
+using Azure.Connectors.Sdk.AzureIoTCentral;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
+using Azure.Connectors.Sdk.Azurequeues;
+using Azure.Connectors.Sdk.Azuretables;
 using Azure.Connectors.Sdk.AzureVM;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
+using Azure.Connectors.Sdk.Documentdb;
 using Azure.Connectors.Sdk.Docuware;
 using Azure.Connectors.Sdk.ElfsquadData;
 using Azure.Connectors.Sdk.Etsy;
+using Azure.Connectors.Sdk.Eventhubs;
 using Azure.Connectors.Sdk.ExcelOnline;
+using Azure.Connectors.Sdk.ExcelOnlineBusiness;
 using Azure.Connectors.Sdk.FormstackForms;
 using Azure.Connectors.Sdk.FreshService;
 using Azure.Connectors.Sdk.Impexium;
@@ -27,6 +34,7 @@ using Azure.Connectors.Sdk.KeyVault;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.MeetingRoomMap;
 using Azure.Connectors.Sdk.MicrosoftBookings;
+using Azure.Connectors.Sdk.MicrosoftForms;
 using Azure.Connectors.Sdk.Mq;
 using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
@@ -36,6 +44,7 @@ using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
 using Azure.Connectors.Sdk.Onenote;
 using Azure.Connectors.Sdk.Orderful;
+using Azure.Connectors.Sdk.Outlook;
 using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
 using Azure.Connectors.Sdk.Planner;
@@ -46,6 +55,7 @@ using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.Revai;
 using Azure.Connectors.Sdk.SeismicPlanner;
+using Azure.Connectors.Sdk.Servicebus;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Shifts;
 using Azure.Connectors.Sdk.SigningHub;
@@ -60,6 +70,7 @@ using Azure.Connectors.Sdk.Todo;
 using Azure.Connectors.Sdk.UniversalPrint;
 using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
+using Azure.Connectors.Sdk.WordOnlineBusiness;
 using Azure.Connectors.Sdk.Yammer;
 using Azure.Connectors.Sdk.ZohoSign;
 using Azure.Core;
@@ -125,6 +136,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="AzureADClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureADClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureADClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureAD,
+                factory: (connectionRuntimeUrl, credential) => new AzureADClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="AzureBlobClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -157,6 +184,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="AzureIoTCentralClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureIoTCentralClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIoTCentralClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureIoTCentral,
+                factory: (connectionRuntimeUrl, credential) => new AzureIoTCentralClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="AzureMonitorLogsClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -170,6 +213,38 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.AzureMonitorLogs,
                 factory: (connectionRuntimeUrl, credential) => new AzureMonitorLogsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureQueuesClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureQueuesClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureQueuesClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureQueues,
+                factory: (connectionRuntimeUrl, credential) => new AzureQueuesClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="AzureTablesClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddAzureTablesClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureTablesClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.AzureTables,
+                factory: (connectionRuntimeUrl, credential) => new AzureTablesClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -237,6 +312,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="DocumentDbClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddDocumentDbClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentDbClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.DocumentDb,
+                factory: (connectionRuntimeUrl, credential) => new DocumentDbClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="ElfsquadDataClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -269,6 +360,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="EventHubsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddEventHubsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<EventHubsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.EventHubs,
+                factory: (connectionRuntimeUrl, credential) => new EventHubsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="ExcelOnlineClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -282,6 +389,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.ExcelOnline,
                 factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ExcelOnlineBusinessClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddExcelOnlineBusinessClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineBusinessClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ExcelOnlineBusiness,
+                factory: (connectionRuntimeUrl, credential) => new ExcelOnlineBusinessClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -509,6 +632,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="OutlookClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddOutlookClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OutlookClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.Outlook,
+                factory: (connectionRuntimeUrl, credential) => new OutlookClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -634,6 +773,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.SeismicPlanner,
                 factory: (connectionRuntimeUrl, credential) => new SeismicPlannerClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ServiceBusConnectorClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddServiceBusConnectorClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ServiceBusConnectorClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ServiceBus,
+                factory: (connectionRuntimeUrl, credential) => new ServiceBusConnectorClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -829,6 +984,22 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Registers <see cref="WordOnlineBusinessClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddWordOnlineBusinessClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<WordOnlineBusinessClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.WordOnlineBusiness,
+                factory: (connectionRuntimeUrl, credential) => new WordOnlineBusinessClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
         /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -954,6 +1125,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.MicrosoftBookings,
                 factory: (connectionRuntimeUrl, credential) => new MicrosoftBookingsClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="MicrosoftFormsClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddMicrosoftFormsClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MicrosoftFormsClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.MicrosoftForms,
+                factory: (connectionRuntimeUrl, credential) => new MicrosoftFormsClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

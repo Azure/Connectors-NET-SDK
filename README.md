@@ -167,6 +167,8 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
+| Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
+| Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | 🔄 SDK Generated | QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 |
 | IBM MQ | 🔄 SDK Generated | SendAsync, ReadAsync, ReadAllAsync, ReceiveAsync, ReceiveAllAsync, DeleteAsync, DeleteAllAsync |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
@@ -185,6 +187,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
 | Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryID |
+| Excel Online (Business) | 🔄 SDK Generated | CreateTableAsync |
 | Formstack Forms | 🔄 SDK Generated | GetAvailableForms (trigger: OnFormstackFormSubmitted) |
 | FreshService | 🔄 SDK Generated | AddNote, CreateTicket, UpdateTicket (trigger: OnTicketCreated) |
 | Infusionsoft (Keap) | 🔄 SDK Generated | CreateTask, UpdateTask, ListTasks (trigger: OnNewTask) |
@@ -202,21 +205,29 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Jedox OData Hub | 🔄 SDK Generated | Databases, GetCubes |
 | Meeting Room Map | 🔄 SDK Generated | GetCategories, GetCustomLocations |
 | Orderful | 🔄 SDK Generated | ListTransactions |
+| Outlook | 🔄 SDK Generated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
 | PDF.co | 🔄 SDK Generated | HtmlToPdf, UrlToPdf, PdfFiller |
 | Projectplace | 🔄 SDK Generated | ListBoards, CreateCard |
 | Seismic Planner | 🔄 SDK Generated | GetComments, CreateComment |
+| Service Bus | 🔄 SDK Generated | GetQueuesAsync, GetTopicsAsync |
 | Starmind | 🔄 SDK Generated | FindExperts, FindQuestions |
 | StarRez REST V1 | 🔄 SDK Generated | SelectEntry, CreateEntry, UpdateEntry |
 | Tallyfy | 🔄 SDK Generated | GetUserOrganizations, EditTaskDeadline |
 | TextRequest | 🔄 SDK Generated | GetMessagesByContactPhone, SendMessageByPhoneNumber |
 | Ticketmaster | 🔄 SDK Generated | EventsGet, EventsGetDetails |
 | Way We Do | 🔄 SDK Generated | GetAllChecklistInstances, CommentAdd |
+| Word Online (Business) | 🔄 SDK Generated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
 | Azure Automation | 🔄 SDK Generated | CreateJob, GetStatusOfJob, GetJobOutput |
+| Azure Cosmos DB | 🔄 SDK Generated | GetCosmosDbAccountsAsync, CreateDocumentAsync |
 | Azure Data Factory | 🔄 SDK Generated | CreatePipelineRun, GetPipelineRun, CancelPipelineRun |
 | Azure Digital Twins | 🔄 SDK Generated | AddTwin, GetTwinById, QueryTwins |
+| Azure Event Hubs | 🔄 SDK Generated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
+| Azure Queues | 🔄 SDK Generated | GetMessagesAsync, PutMessageAsync, DeleteMessageAsync, ListQueuesAsync, PutQueueAsync |
+| Azure Tables | 🔄 SDK Generated | GetTableAsync, GetEntitiesAsync, CreateEntityAsync, MergeEntityAsync, DeleteEntityAsync |
 | Azure VM | 🔄 SDK Generated | VirtualMachineGet, VirtualMachineStart, VirtualMachineDeallocate |
 | Key Vault | 🔄 SDK Generated | GetSecret, ListSecrets, EncryptData |
 | Microsoft Bookings | 🔄 SDK Generated | ListBookingsBusinessUserAsAdmin |
+| Microsoft Forms | 🔄 SDK Generated | ListForms, GetFormDetailsById, GetFormResponseById, GetQuestions |
 | Office 365 Groups | 🔄 SDK Generated | ListGroups, AddMemberToGroup, CreateCalendarEvent |
 | Office 365 Groups Mail | 🔄 SDK Generated | ListConversations, CreateConversation, ReplyToAThread |
 | OneNote | 🔄 SDK Generated | GetNotebooks, CreatePageInSection, GetPageContent |

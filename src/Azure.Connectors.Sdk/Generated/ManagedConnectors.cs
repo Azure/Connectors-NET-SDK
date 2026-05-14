@@ -4,15 +4,27 @@
 //   using Azure.Connectors.Sdk.Arm;
 //   using Azure.Connectors.Sdk.Arm.Models;
 //   var client = new ArmClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureAD;
+//   using Azure.Connectors.Sdk.AzureAD.Models;
+//   var client = new AzureADClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureBlob;
 //   using Azure.Connectors.Sdk.AzureBlob.Models;
 //   var client = new AzureBlobClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureEventGrid;
 //   using Azure.Connectors.Sdk.AzureEventGrid.Models;
 //   var client = new AzureEventGridClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureIoTCentral;
+//   using Azure.Connectors.Sdk.AzureIoTCentral.Models;
+//   var client = new AzureIoTCentralClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.AzureMonitorLogs;
 //   using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
 //   var client = new AzureMonitorLogsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Azurequeues;
+//   using Azure.Connectors.Sdk.Azurequeues.Models;
+//   var client = new AzureQueuesClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Azuretables;
+//   using Azure.Connectors.Sdk.Azuretables.Models;
+//   var client = new AzureTablesClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Campfire;
 //   using Azure.Connectors.Sdk.Campfire.Models;
 //   var client = new CampfireClient(connectionRuntimeUrl);
@@ -22,6 +34,9 @@
 //   using Azure.Connectors.Sdk.CloudmersiveConvert;
 //   using Azure.Connectors.Sdk.CloudmersiveConvert.Models;
 //   var client = new CloudmersiveConvertClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Documentdb;
+//   using Azure.Connectors.Sdk.Documentdb.Models;
+//   var client = new DocumentDbClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Docuware;
 //   using Azure.Connectors.Sdk.Docuware.Models;
 //   var client = new DocuwareClient(connectionRuntimeUrl);
@@ -31,9 +46,15 @@
 //   using Azure.Connectors.Sdk.Etsy;
 //   using Azure.Connectors.Sdk.Etsy.Models;
 //   var client = new EtsyClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Eventhubs;
+//   using Azure.Connectors.Sdk.Eventhubs.Models;
+//   var client = new EventHubsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.ExcelOnline;
 //   using Azure.Connectors.Sdk.ExcelOnline.Models;
 //   var client = new ExcelOnlineClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ExcelOnlineBusiness;
+//   using Azure.Connectors.Sdk.ExcelOnlineBusiness.Models;
+//   var client = new ExcelOnlineBusinessClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.FormstackForms;
 //   using Azure.Connectors.Sdk.FormstackForms.Models;
 //   var client = new FormstackFormsClient(connectionRuntimeUrl);
@@ -58,6 +79,9 @@
 //   using Azure.Connectors.Sdk.MeetingRoomMap;
 //   using Azure.Connectors.Sdk.MeetingRoomMap.Models;
 //   var client = new MeetingRoomMapClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.MicrosoftForms;
+//   using Azure.Connectors.Sdk.MicrosoftForms.Models;
+//   var client = new MicrosoftFormsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Mq;
 //   using Azure.Connectors.Sdk.Mq.Models;
 //   var client = new MqClient(connectionRuntimeUrl);
@@ -76,6 +100,9 @@
 //   using Azure.Connectors.Sdk.Orderful;
 //   using Azure.Connectors.Sdk.Orderful.Models;
 //   var client = new OrderfulClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Outlook;
+//   using Azure.Connectors.Sdk.Outlook.Models;
+//   var client = new OutlookClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.PdfCo;
 //   using Azure.Connectors.Sdk.PdfCo.Models;
 //   var client = new PdfCoClient(connectionRuntimeUrl);
@@ -100,6 +127,9 @@
 //   using Azure.Connectors.Sdk.SeismicPlanner;
 //   using Azure.Connectors.Sdk.SeismicPlanner.Models;
 //   var client = new SeismicPlannerClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Servicebus;
+//   using Azure.Connectors.Sdk.Servicebus.Models;
+//   var client = new ServiceBusConnectorClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.SharePointOnline;
 //   using Azure.Connectors.Sdk.SharePointOnline.Models;
 //   var client = new SharePointOnlineClient(connectionRuntimeUrl);
@@ -136,6 +166,9 @@
 //   using Azure.Connectors.Sdk.Wdatp;
 //   using Azure.Connectors.Sdk.Wdatp.Models;
 //   var client = new WdatpClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.WordOnlineBusiness;
+//   using Azure.Connectors.Sdk.WordOnlineBusiness.Models;
+//   var client = new WordOnlineBusinessClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Yammer;
 //   using Azure.Connectors.Sdk.Yammer.Models;
 //   var client = new YammerClient(connectionRuntimeUrl);
@@ -157,20 +190,27 @@ public static class SdkConnectors
     /// </summary>
     public static readonly string[] AvailableConnectors = [
         "arm",
-        "azureblob",
+        "azuread",
         "azureautomation",
+        "azureblob",
         "azuredatafactory",
         "azuredigitaltwins",
         "azureeventgrid",
+        "azureiotcentral",
         "azuremonitorlogs",
+        "azurequeues",
+        "azuretables",
         "azurevm",
         "campfire",
         "clicksendsms",
         "cloudmersiveconvert",
+        "documentdb",
         "docuware",
         "elfsquaddata",
         "etsy",
+        "eventhubs",
         "excelonline",
+        "excelonlinebusiness",
         "formstackforms",
         "freshservice",
         "impexium",
@@ -181,6 +221,7 @@ public static class SdkConnectors
         "keyvault",
         "meetingroommap",
         "microsoftbookings",
+        "microsoftforms",
         "mq",
         "msgraphgroupsanduser",
         "office365",
@@ -190,6 +231,7 @@ public static class SdkConnectors
         "onedriveforbusiness",
         "onenote",
         "orderful",
+        "outlook",
         "pdfco",
         "pipedrive",
         "planner",
@@ -200,6 +242,7 @@ public static class SdkConnectors
         "replicon",
         "revai",
         "seismicplanner",
+        "servicebus",
         "sharepointonline",
         "shifts",
         "signinghub",
@@ -214,6 +257,7 @@ public static class SdkConnectors
         "universalprint",
         "waywedo",
         "wdatp",
+        "wordonlinebusiness",
         "yammer",
         "zohosign",
     ];
