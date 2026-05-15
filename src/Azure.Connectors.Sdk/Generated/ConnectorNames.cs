@@ -27,14 +27,14 @@ public static class ConnectorNames
     public const string AzureAD = "azuread";
 
     /// <summary>
-    /// The <c>azureblob</c> connector.
-    /// </summary>
-    public const string AzureBlob = "azureblob";
-
-    /// <summary>
     /// The <c>azureautomation</c> connector.
     /// </summary>
     public const string AzureAutomation = "azureautomation";
+
+    /// <summary>
+    /// The <c>azureblob</c> connector.
+    /// </summary>
+    public const string AzureBlob = "azureblob";
 
     /// <summary>
     /// The <c>azuredatafactory</c> connector.
@@ -77,6 +77,11 @@ public static class ConnectorNames
     public const string AzureVM = "azurevm";
 
     /// <summary>
+    /// The <c>box</c> connector.
+    /// </summary>
+    public const string Box = "box";
+
+    /// <summary>
     /// The <c>campfire</c> connector.
     /// </summary>
     public const string Campfire = "campfire";
@@ -97,9 +102,24 @@ public static class ConnectorNames
     public const string DocumentDb = "documentdb";
 
     /// <summary>
+    /// The <c>docusign</c> connector.
+    /// </summary>
+    public const string DocuSign = "docusign";
+
+    /// <summary>
     /// The <c>docuware</c> connector.
     /// </summary>
     public const string Docuware = "docuware";
+
+    /// <summary>
+    /// The <c>dropbox</c> connector.
+    /// </summary>
+    public const string Dropbox = "dropbox";
+
+    /// <summary>
+    /// The <c>dynamicsax</c> connector.
+    /// </summary>
+    public const string DynamicsAX = "dynamicsax";
 
     /// <summary>
     /// The <c>elfsquaddata</c> connector.
@@ -110,6 +130,11 @@ public static class ConnectorNames
     /// The <c>etsy</c> connector.
     /// </summary>
     public const string Etsy = "etsy";
+
+    /// <summary>
+    /// The <c>eventbrite</c> connector.
+    /// </summary>
+    public const string Eventbrite = "eventbrite";
 
     /// <summary>
     /// The <c>eventhubs</c> connector.
@@ -137,6 +162,31 @@ public static class ConnectorNames
     public const string FreshService = "freshservice";
 
     /// <summary>
+    /// The <c>ftp</c> connector.
+    /// </summary>
+    public const string Ftp = "ftp";
+
+    /// <summary>
+    /// The <c>github</c> connector.
+    /// </summary>
+    public const string GitHub = "github";
+
+    /// <summary>
+    /// The <c>googlecalendar</c> connector.
+    /// </summary>
+    public const string GoogleCalendar = "googlecalendar";
+
+    /// <summary>
+    /// The <c>googledrive</c> connector.
+    /// </summary>
+    public const string GoogleDrive = "googledrive";
+
+    /// <summary>
+    /// The <c>googletasks</c> connector.
+    /// </summary>
+    public const string GoogleTasks = "googletasks";
+
+    /// <summary>
     /// The <c>impexium</c> connector.
     /// </summary>
     public const string Impexium = "impexium";
@@ -157,9 +207,9 @@ public static class ConnectorNames
     public const string JedoxOdataHub = "jedoxodatahub";
 
     /// <summary>
-    /// The <c>kusto</c> connector.
+    /// The <c>jira</c> connector.
     /// </summary>
-    public const string Kusto = "kusto";
+    public const string Jira = "jira";
 
     /// <summary>
     /// The <c>keyvault</c> connector.
@@ -167,14 +217,19 @@ public static class ConnectorNames
     public const string KeyVault = "keyvault";
 
     /// <summary>
+    /// The <c>kusto</c> connector.
+    /// </summary>
+    public const string Kusto = "kusto";
+
+    /// <summary>
+    /// The <c>mailchimp</c> connector.
+    /// </summary>
+    public const string MailChimp = "mailchimp";
+
+    /// <summary>
     /// The <c>meetingroommap</c> connector.
     /// </summary>
     public const string MeetingRoomMap = "meetingroommap";
-
-    /// <summary>
-    /// The <c>mq</c> connector.
-    /// </summary>
-    public const string Mq = "mq";
 
     /// <summary>
     /// The <c>microsoftbookings</c> connector.
@@ -185,6 +240,16 @@ public static class ConnectorNames
     /// The <c>microsoftforms</c> connector.
     /// </summary>
     public const string MicrosoftForms = "microsoftforms";
+
+    /// <summary>
+    /// The <c>monday</c> connector.
+    /// </summary>
+    public const string Monday = "monday";
+
+    /// <summary>
+    /// The <c>mq</c> connector.
+    /// </summary>
+    public const string Mq = "mq";
 
     /// <summary>
     /// The <c>msgraphgroupsanduser</c> connector.
@@ -210,6 +275,11 @@ public static class ConnectorNames
     /// The <c>office365users</c> connector.
     /// </summary>
     public const string Office365Users = "office365users";
+
+    /// <summary>
+    /// The <c>onedrive</c> connector.
+    /// </summary>
+    public const string OneDrive = "onedrive";
 
     /// <summary>
     /// The <c>onedriveforbusiness</c> connector.
@@ -277,9 +347,24 @@ public static class ConnectorNames
     public const string Revai = "revai";
 
     /// <summary>
+    /// The <c>rss</c> connector.
+    /// </summary>
+    public const string Rss = "rss";
+
+    /// <summary>
+    /// The <c>salesforce</c> connector.
+    /// </summary>
+    public const string Salesforce = "salesforce";
+
+    /// <summary>
     /// The <c>seismicplanner</c> connector.
     /// </summary>
     public const string SeismicPlanner = "seismicplanner";
+
+    /// <summary>
+    /// The <c>sendgrid</c> connector.
+    /// </summary>
+    public const string SendGrid = "sendgrid";
 
     /// <summary>
     /// The <c>servicebus</c> connector.
@@ -302,9 +387,19 @@ public static class ConnectorNames
     public const string SigningHub = "signinghub";
 
     /// <summary>
+    /// The <c>slack</c> connector.
+    /// </summary>
+    public const string Slack = "slack";
+
+    /// <summary>
     /// The <c>smtp</c> connector.
     /// </summary>
     public const string Smtp = "smtp";
+
+    /// <summary>
+    /// The <c>sql</c> connector.
+    /// </summary>
+    public const string Sql = "sql";
 
     /// <summary>
     /// The <c>starmind</c> connector.
@@ -327,11 +422,6 @@ public static class ConnectorNames
     public const string Teams = "teams";
 
     /// <summary>
-    /// The <c>todo</c> connector.
-    /// </summary>
-    public const string Todo = "todo";
-
-    /// <summary>
     /// The <c>textrequest</c> connector.
     /// </summary>
     public const string TextRequest = "textrequest";
@@ -340,6 +430,26 @@ public static class ConnectorNames
     /// The <c>ticketmaster</c> connector.
     /// </summary>
     public const string Ticketmaster = "ticketmaster";
+
+    /// <summary>
+    /// The <c>todo</c> connector.
+    /// </summary>
+    public const string Todo = "todo";
+
+    /// <summary>
+    /// The <c>trello</c> connector.
+    /// </summary>
+    public const string Trello = "trello";
+
+    /// <summary>
+    /// The <c>twitter</c> connector.
+    /// </summary>
+    public const string Twitter = "twitter";
+
+    /// <summary>
+    /// The <c>typeform</c> connector.
+    /// </summary>
+    public const string Typeform = "typeform";
 
     /// <summary>
     /// The <c>universalprint</c> connector.
@@ -357,14 +467,29 @@ public static class ConnectorNames
     public const string Wdatp = "wdatp";
 
     /// <summary>
+    /// The <c>webex</c> connector.
+    /// </summary>
+    public const string Webex = "webex";
+
+    /// <summary>
     /// The <c>wordonlinebusiness</c> connector.
     /// </summary>
     public const string WordOnlineBusiness = "wordonlinebusiness";
 
     /// <summary>
+    /// The <c>wordpress</c> connector.
+    /// </summary>
+    public const string WordPress = "wordpress";
+
+    /// <summary>
     /// The <c>yammer</c> connector.
     /// </summary>
     public const string Yammer = "yammer";
+
+    /// <summary>
+    /// The <c>zendesk</c> connector.
+    /// </summary>
+    public const string Zendesk = "zendesk";
 
     /// <summary>
     /// The <c>zohosign</c> connector.

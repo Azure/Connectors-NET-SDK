@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -119,7 +118,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     /// <summary>
     /// Item in value
     /// </summary>
-    public class MessageV2
+    public class Message
     {
         /// <summary>ID associated with the post.</summary>
         [JsonPropertyName("id")]
@@ -249,96 +248,6 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// MessageV2
-    /// </summary>
-    public class Message
-    {
-        /// <summary>ID associated with the post.</summary>
-        [JsonPropertyName("id")]
-        public long? Id { get; set; }
-
-        /// <summary>Text Content of the post.</summary>
-        [JsonPropertyName("content_excerpt")]
-        public string Text { get; set; }
-
-        /// <summary>Unique ID of user who posted the message.</summary>
-        [JsonPropertyName("sender_id")]
-        public long? Sender { get; set; }
-
-        /// <summary>ID of the message to which this message is a reply.</summary>
-        [JsonPropertyName("replied_to_id")]
-        public long? RepliedTo { get; set; }
-
-        /// <summary>Time at which the message was created.</summary>
-        [JsonPropertyName("created_at")]
-        public string CreatedAt { get; set; }
-
-        /// <summary>Id of the network message is associated with.</summary>
-        [JsonPropertyName("network_id")]
-        public long? Network { get; set; }
-
-        /// <summary>Description of the message type.</summary>
-        [JsonPropertyName("message_type")]
-        public string Type { get; set; }
-
-        /// <summary>Description of the type of sender.</summary>
-        [JsonPropertyName("sender_type")]
-        public string SenderType { get; set; }
-
-        /// <summary>API url of the post.</summary>
-        [JsonPropertyName("url")]
-        public string Url { get; set; }
-
-        /// <summary>Web url of the post.</summary>
-        [JsonPropertyName("web_url")]
-        public string WebUrl { get; set; }
-
-        /// <summary>Unique ID of group who posted the message.</summary>
-        [JsonPropertyName("group_id")]
-        public long? GroupId { get; set; }
-
-        /// <summary>body</summary>
-        [JsonPropertyName("body")]
-        public MessageBody Body { get; set; }
-
-        /// <summary>Unique ID of thread.</summary>
-        [JsonPropertyName("thread_id")]
-        public long? ThreadId { get; set; }
-
-        /// <summary>Flag to specify if the post is a  a direct message.</summary>
-        [JsonPropertyName("direct_message")]
-        public bool? DirectMessage { get; set; }
-
-        /// <summary>Type of the client.</summary>
-        [JsonPropertyName("client_type")]
-        public string ClientId { get; set; }
-
-        /// <summary>Web link of the client.</summary>
-        [JsonPropertyName("client_url")]
-        public string ClientURL { get; set; }
-
-        /// <summary>Language used in the message.</summary>
-        [JsonPropertyName("language")]
-        public string Language { get; set; }
-
-        /// <summary>Details of users notified.</summary>
-        [JsonPropertyName("notified_user_ids")]
-        public List<long?> TaggedUser { get; set; }
-
-        /// <summary>Details of the privacy associated with the message.</summary>
-        [JsonPropertyName("privacy")]
-        public string Privacy { get; set; }
-
-        /// <summary>liked_by</summary>
-        [JsonPropertyName("liked_by")]
-        public LikedBy LikedBy { get; set; }
-
-        /// <summary>Flag to specify if the post is a system generated message or not.</summary>
-        [JsonPropertyName("system_message")]
-        public bool? IsSystemMessage { get; set; }
-    }
-
-    /// <summary>
     /// PostOperationRequestV2
     /// </summary>
     public class PostOperationRequest
@@ -454,9 +363,9 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MessageV2"/>.
+        /// Creates a new instance of <see cref="Message"/>.
         /// </summary>
-        public static MessageV2 MessageV2(
+        public static Message Message(
             long? id = default,
             string text = default,
             long? sender = default,
@@ -479,7 +388,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
             LikedBy likedBy = default,
             bool? isSystemMessage = default)
         {
-            return new MessageV2
+            return new Message
             {
                 Id = id,
                 Text = text,
@@ -548,58 +457,6 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Message"/>.
-        /// </summary>
-        public static Message Message(
-            long? id = default,
-            string text = default,
-            long? sender = default,
-            long? repliedTo = default,
-            string createdAt = default,
-            long? network = default,
-            string type = default,
-            string senderType = default,
-            string url = default,
-            string webUrl = default,
-            long? groupId = default,
-            MessageBody body = default,
-            long? threadId = default,
-            bool? directMessage = default,
-            string clientId = default,
-            string clientURL = default,
-            string language = default,
-            List<long?> taggedUser = default,
-            string privacy = default,
-            LikedBy likedBy = default,
-            bool? isSystemMessage = default)
-        {
-            return new Message
-            {
-                Id = id,
-                Text = text,
-                Sender = sender,
-                RepliedTo = repliedTo,
-                CreatedAt = createdAt,
-                Network = network,
-                Type = type,
-                SenderType = senderType,
-                Url = url,
-                WebUrl = webUrl,
-                GroupId = groupId,
-                Body = body,
-                ThreadId = threadId,
-                DirectMessage = directMessage,
-                ClientId = clientId,
-                ClientURL = clientURL,
-                Language = language,
-                TaggedUser = taggedUser,
-                Privacy = privacy,
-                LikedBy = likedBy,
-                IsSystemMessage = isSystemMessage,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="PostOperationRequest"/>.
         /// </summary>
         public static PostOperationRequest PostOperationRequest(
@@ -623,10 +480,6 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     #endregion Model Factory
-
-    #region Trigger Payloads
-
-    #endregion Trigger Payloads
 
 }
 
@@ -781,15 +634,15 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="showAllCompanyGroup">Show All Company Group</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get groups response.</returns>
-        public virtual async Task<List<YammerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkId = default, int mine = default, int showAllCompanyGroup = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<YammerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkId = default, int? mine = default, int? showAllCompanyGroup = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (networkId != default)
                 queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            if (mine != default)
-                queryParams.Add($"mine={Uri.EscapeDataString(mine.ToString())}");
-            if (showAllCompanyGroup != default)
-                queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.ToString())}");
+            if (mine.HasValue)
+                queryParams.Add($"mine={Uri.EscapeDataString(mine.Value.ToString())}");
+            if (showAllCompanyGroup.HasValue)
+                queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.Value.ToString())}");
             var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<List<YammerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -820,8 +673,7 @@ namespace Azure.Connectors.Sdk.Yammer
         public virtual async Task LikeMessageAsync(string messageId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (messageId != default)
-                queryParams.Add($"message_id={Uri.EscapeDataString(messageId.ToString())}");
+            queryParams.Add($"message_id={Uri.EscapeDataString(messageId.ToString())}");
             var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -839,19 +691,19 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all messages (V3) response.</returns>
-        public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (uniqueIdentifierOfTheNetwork != default)
                 queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork.ToString())}");
-            if (olderThan != default)
-                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
-            if (newerThan != default)
-                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
+            if (olderThan.HasValue)
+                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+            if (newerThan.HasValue)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
             if (threadTypeOfMessages != default)
                 queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
             var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -869,19 +721,19 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get the messages from my Following feed (V3) response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (networkId != default)
                 queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            if (olderThan != default)
-                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
-            if (newerThan != default)
-                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
+            if (olderThan.HasValue)
+                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+            if (newerThan.HasValue)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
             if (threadTypeOfMessages != default)
                 queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
             var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -900,19 +752,19 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get messages in a group (V3) response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int olderThan = default, int newerThan = default, string threadTypeOfMessages = default, int limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (networkId != default)
                 queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            if (olderThan != default)
-                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.ToString())}");
-            if (newerThan != default)
-                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.ToString())}");
+            if (olderThan.HasValue)
+                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+            if (newerThan.HasValue)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
             if (threadTypeOfMessages != default)
                 queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
             var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)

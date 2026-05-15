@@ -2553,7 +2553,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="includesCount">Includes count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Alert"/> items across all pages.</returns>
-        public virtual AsyncPageable<Alert> GetAlertsAsync(string expandsEntities = default, string filtersResults = default, string selectsProperties = default, string sortsResults = default, int returnsFirstResults = default, int skipsFirstResults = default, bool includesCount = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Alert> GetAlertsAsync(string expandsEntities = default, string filtersResults = default, string selectsProperties = default, string sortsResults = default, int? returnsFirstResults = default, int? skipsFirstResults = default, bool? includesCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (expandsEntities != default)
@@ -2564,12 +2564,12 @@ namespace Azure.Connectors.Sdk.Wdatp
                 queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
             if (sortsResults != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
-            if (returnsFirstResults != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.ToString())}");
-            if (skipsFirstResults != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.ToString())}");
-            if (includesCount != default)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.ToString())}");
+            if (returnsFirstResults.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+            if (skipsFirstResults.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+            if (includesCount.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
             var path = $"/api/alerts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetAlertsResponse, Alert>(
                 ct => this.CallConnectorAsync<GetAlertsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2699,7 +2699,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="includesCount">Includes count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="MachineAction"/> items across all pages.</returns>
-        public virtual AsyncPageable<MachineAction> GetMachineActionsAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int returnsFirstResults = default, int skipsFirstResults = default, bool includesCount = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<MachineAction> GetMachineActionsAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int? returnsFirstResults = default, int? skipsFirstResults = default, bool? includesCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
@@ -2708,12 +2708,12 @@ namespace Azure.Connectors.Sdk.Wdatp
                 queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
             if (sortsResults != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
-            if (returnsFirstResults != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.ToString())}");
-            if (skipsFirstResults != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.ToString())}");
-            if (includesCount != default)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.ToString())}");
+            if (returnsFirstResults.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+            if (skipsFirstResults.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+            if (includesCount.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
             var path = $"/api/machineactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetMachineActionsResponse, MachineAction>(
                 ct => this.CallConnectorAsync<GetMachineActionsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2729,11 +2729,11 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="theLookBackPeriodInHoursToLookByTheDefaultIs24Hours">The look back period in hours to look by, the default is 24 hours.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Files - Get the statistics for the given file response.</returns>
-        public virtual async Task<FileStats> GetFileStatsAsync(string theFileIdentifierSha1OrSha256, int theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
+        public virtual async Task<FileStats> GetFileStatsAsync(string theFileIdentifierSha1OrSha256, int? theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours != default)
-                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.ToString())}");
+            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
+                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
             var path = $"/api/files/{Uri.EscapeDataString(theFileIdentifierSha1OrSha256.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<FileStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2748,11 +2748,11 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="theLookBackPeriodInHoursToLookByTheDefaultIs24Hours">The look back period in hours to look by, the default is 24 hours.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Domains - Get the statistics for the given domain name response.</returns>
-        public virtual async Task<DomainStats> GetDomainStatsAsync(string theDomainName, int theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DomainStats> GetDomainStatsAsync(string theDomainName, int? theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours != default)
-                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.ToString())}");
+            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
+                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
             var path = $"/api/domains/{Uri.EscapeDataString(theDomainName.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<DomainStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2767,11 +2767,11 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="theLookBackPeriodInHoursToLookByTheDefaultIs24Hours">The look back period in hours to look by, the default is 24 hours.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Ips - Get the statistics for the given ip address response.</returns>
-        public virtual async Task<IpStats> GetIpStatsAsync(string theIpAddress, int theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
+        public virtual async Task<IpStats> GetIpStatsAsync(string theIpAddress, int? theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours != default)
-                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.ToString())}");
+            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
+                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
             var path = $"/api/ips/{Uri.EscapeDataString(theIpAddress.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<IpStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2805,7 +2805,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="includesCount">Includes count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Investigation"/> items across all pages.</returns>
-        public virtual AsyncPageable<Investigation> GetInvestigationsAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int returnsFirstResults = default, int skipsFirstResults = default, bool includesCount = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Investigation> GetInvestigationsAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int? returnsFirstResults = default, int? skipsFirstResults = default, bool? includesCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
@@ -2814,12 +2814,12 @@ namespace Azure.Connectors.Sdk.Wdatp
                 queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
             if (sortsResults != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
-            if (returnsFirstResults != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.ToString())}");
-            if (skipsFirstResults != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.ToString())}");
-            if (includesCount != default)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.ToString())}");
+            if (returnsFirstResults.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+            if (skipsFirstResults.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+            if (includesCount.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
             var path = $"/api/investigations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetInvestigationsResponse, Investigation>(
                 ct => this.CallConnectorAsync<GetInvestigationsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2966,7 +2966,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="includesCount">Includes count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="RemediationActivity"/> items across all pages.</returns>
-        public virtual AsyncPageable<RemediationActivity> GetRemediationActivitiesAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int returnsFirstResults = default, int skipsFirstResults = default, bool includesCount = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<RemediationActivity> GetRemediationActivitiesAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int? returnsFirstResults = default, int? skipsFirstResults = default, bool? includesCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
@@ -2975,12 +2975,12 @@ namespace Azure.Connectors.Sdk.Wdatp
                 queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
             if (sortsResults != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
-            if (returnsFirstResults != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.ToString())}");
-            if (skipsFirstResults != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.ToString())}");
-            if (includesCount != default)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.ToString())}");
+            if (returnsFirstResults.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+            if (skipsFirstResults.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+            if (includesCount.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
             var path = $"/api/remediationtasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetRemediationActivitiesResponse, RemediationActivity>(
                 ct => this.CallConnectorAsync<GetRemediationActivitiesResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3031,7 +3031,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <param name="includesCount">Includes count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Machine"/> items across all pages.</returns>
-        public virtual AsyncPageable<Machine> GetMachinesAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int returnsFirstResults = default, int skipsFirstResults = default, bool includesCount = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Machine> GetMachinesAsync(string filtersResults = default, string selectsProperties = default, string sortsResults = default, int? returnsFirstResults = default, int? skipsFirstResults = default, bool? includesCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
@@ -3040,12 +3040,12 @@ namespace Azure.Connectors.Sdk.Wdatp
                 queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
             if (sortsResults != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
-            if (returnsFirstResults != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.ToString())}");
-            if (skipsFirstResults != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.ToString())}");
-            if (includesCount != default)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.ToString())}");
+            if (returnsFirstResults.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+            if (skipsFirstResults.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+            if (includesCount.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
             var path = $"/api/machines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetMachinesResponse, Machine>(
                 ct => this.CallConnectorAsync<GetMachinesResponse>(HttpMethod.Get, path, cancellationToken: ct),

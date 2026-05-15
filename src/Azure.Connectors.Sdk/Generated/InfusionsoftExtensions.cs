@@ -73,52 +73,6 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     }
 
     /// <summary>
-    /// Item in Response for When there is a new order
-    /// </summary>
-    public class ListOrdersResponseItem
-    {
-        /// <summary>The unique id of the order.</summary>
-        [JsonPropertyName("id")]
-        public int? Id { get; set; }
-
-        /// <summary>Name given to the order.</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>The status of the order.</summary>
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-
-        /// <summary>Total amount of the order.</summary>
-        [JsonPropertyName("total")]
-        public float? Total { get; set; }
-
-        /// <summary>Shipping info for the order.</summary>
-        [JsonPropertyName("shipping_information")]
-        public object Shipping { get; set; }
-
-        /// <summary>Order contact.</summary>
-        [JsonPropertyName("contact")]
-        public object Contact { get; set; }
-
-        /// <summary>Creation date of the order.</summary>
-        [JsonPropertyName("creation_date")]
-        public DateTime? CreationDate { get; set; }
-
-        /// <summary>Order date of the order.</summary>
-        [JsonPropertyName("order_date")]
-        public DateTime? OrderDate { get; set; }
-
-        /// <summary>Total paid amount of the order.</summary>
-        [JsonPropertyName("total_paid")]
-        public float? TotalPaid { get; set; }
-
-        /// <summary>Total amount due for the order.</summary>
-        [JsonPropertyName("total_due")]
-        public float? TotalDue { get; set; }
-    }
-
-    /// <summary>
     /// CreateTask_Request
     /// </summary>
     public class CreateTaskRequest
@@ -258,36 +212,6 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ListOrdersResponseItem"/>.
-        /// </summary>
-        public static ListOrdersResponseItem ListOrdersResponseItem(
-            int? id = default,
-            string title = default,
-            string status = default,
-            float? total = default,
-            object shipping = default,
-            object contact = default,
-            DateTime? creationDate = default,
-            DateTime? orderDate = default,
-            float? totalPaid = default,
-            float? totalDue = default)
-        {
-            return new ListOrdersResponseItem
-            {
-                Id = id,
-                Title = title,
-                Status = status,
-                Total = total,
-                Shipping = shipping,
-                Contact = contact,
-                CreationDate = creationDate,
-                OrderDate = orderDate,
-                TotalPaid = totalPaid,
-                TotalDue = totalDue,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="CreateTaskRequest"/>.
         /// </summary>
         public static CreateTaskRequest CreateTaskRequest(
@@ -312,6 +236,43 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
 
     #region Trigger Payloads
 
+    /// <summary>
+    /// Typed trigger payload for the OnNewTask trigger (Infusionsoft "When a new task is created", operationId: OnNewTask).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewTaskTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class InfusionsoftOnNewTaskTriggerPayload : TriggerCallbackPayload<TaskResponse>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewOrder trigger (Infusionsoft "When there is a new order", operationId: OnNewOrder).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewOrderTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class InfusionsoftOnNewOrderTriggerPayload : TriggerCallbackPayload<object>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Infusionsoft connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="InfusionsoftTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class InfusionsoftTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Infusionsoft connector.
+        /// This is a subset of all triggers — see <see cref="InfusionsoftTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["OnNewTask"] = typeof(InfusionsoftOnNewTaskTriggerPayload),
+                ["OnNewOrder"] = typeof(InfusionsoftOnNewOrderTriggerPayload),
+            });
+    }
+
     #endregion Trigger Payloads
 
 }
@@ -330,11 +291,13 @@ namespace Azure.Connectors.Sdk.Infusionsoft
     {
         /// <summary>
         /// When a new task is created.
+        /// Payload type: <see cref="InfusionsoftOnNewTaskTriggerPayload"/>.
         /// </summary>
         public const string OnNewTask = "OnNewTask";
 
         /// <summary>
         /// When there is a new order.
+        /// Payload type: <see cref="InfusionsoftOnNewOrderTriggerPayload"/>.
         /// </summary>
         public const string OnNewOrder = "OnNewOrder";
 

@@ -177,10 +177,6 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// <summary>List of columns along with their Sensitivity Labels</summary>
         [JsonPropertyName("@metadata")]
         public List<DataWithSensitivityLabelInfo> Metadata { get; set; }
-
-        /// <summary>Dynamic document properties returned by the service.</summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -311,6 +307,10 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// <summary>List of columns along with their Sensitivity Labels</summary>
         [JsonPropertyName("@metadata")]
         public List<DataWithSensitivityLabelInfo> Metadata { get; set; }
+
+        /// <summary>Dynamic document properties returned by the service.</summary>
+        [JsonPropertyName("additionalProperties")]
+        public object AdditionalProperties { get; set; }
     }
 
     /// <summary>
@@ -590,7 +590,8 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
             double? requestCharge = default,
             string sessionToken = default,
             string activityId = default,
-            List<DataWithSensitivityLabelInfo> metadata = default)
+            List<DataWithSensitivityLabelInfo> metadata = default,
+            object additionalProperties = default)
         {
             return new QueryDocumentsResponse
             {
@@ -601,6 +602,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
                 SessionToken = sessionToken,
                 ActivityId = activityId,
                 Metadata = metadata,
+                AdditionalProperties = additionalProperties,
             };
         }
 
