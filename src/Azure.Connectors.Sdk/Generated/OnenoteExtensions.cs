@@ -830,8 +830,7 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task<CreateSectionInNotebookResponse> CreateSectionInNotebookAsync(CreateSectionRequest input, [DynamicValues("GetNotebooks")] string notebookKey, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
             var path = $"/notebooks/Dynamic/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CreateSectionInNotebookResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -850,10 +849,8 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task<Page> CreatePageInSectionAsync(string input, [DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            if (notebookSection != default)
-                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
             var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
@@ -871,10 +868,8 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task<GetPagesInSectionResponse> GetPagesInSectionAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            if (notebookSection != default)
-                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
             var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetPagesInSectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -907,12 +902,9 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task DeletePageAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            if (notebookSection != default)
-                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            if (pageId != default)
-                queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+            queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
             var path = $"/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -932,12 +924,9 @@ namespace Azure.Connectors.Sdk.Onenote
         {
             var queryParams = new List<string>();
             queryParams.Add("preAuthenticated=true");
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            if (notebookSection != default)
-                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            if (pageId != default)
-                queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+            queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
             var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -957,12 +946,9 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task<string> UpdatePageContentAsync(List<object> input, [DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            if (notebookSection != default)
-                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            if (pageId != default)
-                queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+            queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
             var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<string>(HttpMethod.Patch, path, input, cancellationToken)
@@ -993,8 +979,7 @@ namespace Azure.Connectors.Sdk.Onenote
         public virtual async Task<GetSectionsInNotebookResponse> GetSectionsInNotebookAsync([DynamicValues("GetNotebooks")] string notebookKey, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (notebookKey != default)
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
             var path = $"/notebooks/notebookKey/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetSectionsInNotebookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

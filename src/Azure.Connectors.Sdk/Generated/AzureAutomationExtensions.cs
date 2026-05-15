@@ -525,14 +525,14 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         /// <param name="waitForJob">Wait for Job</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create job response.</returns>
-        public virtual async Task<CreateJobResponse> CreateJobAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, CreateJobInput input, [DynamicValues("Runbooks_List")] string runbookName = default, bool waitForJob = default, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateJobResponse> CreateJobAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, CreateJobInput input, [DynamicValues("Runbooks_List")] string runbookName = default, bool? waitForJob = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2015-10-31");
             if (runbookName != default)
                 queryParams.Add($"runbookName={Uri.EscapeDataString(runbookName.ToString())}");
-            if (waitForJob != default)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForJob.ToString())}");
+            if (waitForJob.HasValue)
+                queryParams.Add($"wait={Uri.EscapeDataString(waitForJob.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CreateJobResponse>(HttpMethod.Put, path, input, cancellationToken)

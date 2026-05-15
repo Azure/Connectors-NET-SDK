@@ -328,13 +328,13 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="includeCountOfItems">Include count of items</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> GetEntitiesAsync([DynamicValues("get_schemas")] string nameOfTheEntity, int showOnlyTheFirstNItems = default, int skipTheFirstNItems = default, string orderResults = default, string filterItemsByPropertyValues = default, string commaSeperatedPropertyNamesYouWantToSelect = default, string expandRelatedEntities = default, bool includeCountOfItems = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<object> GetEntitiesAsync([DynamicValues("get_schemas")] string nameOfTheEntity, int? showOnlyTheFirstNItems = default, int? skipTheFirstNItems = default, string orderResults = default, string filterItemsByPropertyValues = default, string commaSeperatedPropertyNamesYouWantToSelect = default, string expandRelatedEntities = default, bool? includeCountOfItems = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (showOnlyTheFirstNItems != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(showOnlyTheFirstNItems.ToString())}");
-            if (skipTheFirstNItems != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipTheFirstNItems.ToString())}");
+            if (showOnlyTheFirstNItems.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(showOnlyTheFirstNItems.Value.ToString())}");
+            if (skipTheFirstNItems.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipTheFirstNItems.Value.ToString())}");
             if (orderResults != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderResults.ToString())}");
             if (filterItemsByPropertyValues != default)
@@ -343,8 +343,8 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                 queryParams.Add($"$select={Uri.EscapeDataString(commaSeperatedPropertyNamesYouWantToSelect.ToString())}");
             if (expandRelatedEntities != default)
                 queryParams.Add($"$expand={Uri.EscapeDataString(expandRelatedEntities.ToString())}");
-            if (includeCountOfItems != default)
-                queryParams.Add($"$count={Uri.EscapeDataString(includeCountOfItems.ToString())}");
+            if (includeCountOfItems.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(includeCountOfItems.Value.ToString())}");
             var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetEntitiesResponse, object>(
                 ct => this.CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, path, cancellationToken: ct),

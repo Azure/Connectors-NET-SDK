@@ -973,8 +973,7 @@ namespace Azure.Connectors.Sdk.Docuware
         public virtual async Task<StoreToFileCabinetResponse> StoreToFileCabinetAsync([DynamicValues("GetFileCabinets")] string fileCabinet, [DynamicValues("GetDialogs")] string storeDialog, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (storeDialog != default)
-                queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
+            queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
             var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<StoreToFileCabinetResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1012,8 +1011,7 @@ namespace Azure.Connectors.Sdk.Docuware
         public virtual async Task<SearchForDocumentsInFileCabinetResponse> SearchForDocumentsInFileCabinetAsync([DynamicValues("GetFileCabinets")] string fileCabinet, SearchForDocumentsInFileCabinetInput input, [DynamicValues("GetDialogs")] string searchDialog, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (searchDialog != default)
-                queryParams.Add($"SearchDialogId={Uri.EscapeDataString(searchDialog.ToString())}");
+            queryParams.Add($"SearchDialogId={Uri.EscapeDataString(searchDialog.ToString())}");
             var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SearchForDocumentsInFileCabinetResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1044,8 +1042,7 @@ namespace Azure.Connectors.Sdk.Docuware
         public virtual async Task<GetFileCabinetsResponse> GetFileCabinetsAsync(string fileCabinetType, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (fileCabinetType != default)
-                queryParams.Add($"FileCabinetType={Uri.EscapeDataString(fileCabinetType.ToString())}");
+            queryParams.Add($"FileCabinetType={Uri.EscapeDataString(fileCabinetType.ToString())}");
             var path = $"/FileCabinets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetFileCabinetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1096,8 +1093,7 @@ namespace Azure.Connectors.Sdk.Docuware
         public virtual async Task<byte[]> DownloadFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, string fileNumber, string documentFormat, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (documentFormat != default)
-                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
+            queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
             var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1116,8 +1112,7 @@ namespace Azure.Connectors.Sdk.Docuware
         public virtual async Task<byte[]> DownloadDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, string documentFormat, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (documentFormat != default)
-                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
+            queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
             var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1208,8 +1203,7 @@ namespace Azure.Connectors.Sdk.Docuware
         public virtual async Task<AppendFileResponse> AppendFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, string documentId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (documentId != default)
-                queryParams.Add($"DocID={Uri.EscapeDataString(documentId.ToString())}");
+            queryParams.Add($"DocID={Uri.EscapeDataString(documentId.ToString())}");
             var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<AppendFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)

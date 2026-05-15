@@ -1104,13 +1104,13 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <param name="numberOfRecordsPerPage">Number of records per page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Contact Lists response.</returns>
-        public virtual async Task<GetContactListsResponse> GetContactListsAsync(int pageNumber = default, int numberOfRecordsPerPage = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetContactListsResponse> GetContactListsAsync(int? pageNumber = default, int? numberOfRecordsPerPage = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (pageNumber != default)
-                queryParams.Add($"page={Uri.EscapeDataString(pageNumber.ToString())}");
-            if (numberOfRecordsPerPage != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}");
+            if (pageNumber.HasValue)
+                queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
+            if (numberOfRecordsPerPage.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(numberOfRecordsPerPage.Value.ToString())}");
             var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetContactListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1235,8 +1235,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         public virtual async Task<UploadMediaResponse> UploadMediaAsync(UploadMediaInput input, string selectActionTheFileIsNeededFor, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (selectActionTheFileIsNeededFor != default)
-                queryParams.Add($"convert={Uri.EscapeDataString(selectActionTheFileIsNeededFor.ToString())}");
+            queryParams.Add($"convert={Uri.EscapeDataString(selectActionTheFileIsNeededFor.ToString())}");
             var path = $"/uploads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<UploadMediaResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1253,8 +1252,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         public virtual async Task<SearchContactListResponse> SearchContactListAsync(string listName, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (listName != default)
-                queryParams.Add($"q={Uri.EscapeDataString(listName.ToString())}");
+            queryParams.Add($"q={Uri.EscapeDataString(listName.ToString())}");
             var path = $"/search/contacts-lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<SearchContactListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

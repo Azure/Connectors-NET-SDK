@@ -7270,8 +7270,7 @@ namespace Azure.Connectors.Sdk.Impexium
         public virtual async Task<GetAbandonedCheckoutsResponse> GetAbandonedCheckoutsAsync(int pageNumber, string abandonedFrom, string productCode = default, string customerRecordNumber = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (abandonedFrom != default)
-                queryParams.Add($"abandonedFrom={Uri.EscapeDataString(abandonedFrom.ToString())}");
+            queryParams.Add($"abandonedFrom={Uri.EscapeDataString(abandonedFrom.ToString())}");
             if (productCode != default)
                 queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
             if (customerRecordNumber != default)
@@ -7311,21 +7310,21 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includePrices">Include Prices</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List of Exams response.</returns>
-        public virtual async Task<ListOfExamsResponse> ListOfExamsAsync(int pageNumber, string code = default, string categoryName = default, bool isPublic = default, string changedSince = default, string tag = default, bool includePrices = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOfExamsResponse> ListOfExamsAsync(int pageNumber, string code = default, string categoryName = default, bool? isPublic = default, string changedSince = default, string tag = default, bool? includePrices = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (code != default)
                 queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
             if (categoryName != default)
                 queryParams.Add($"categoryName={Uri.EscapeDataString(categoryName.ToString())}");
-            if (isPublic != default)
-                queryParams.Add($"isPublic={Uri.EscapeDataString(isPublic.ToString())}");
+            if (isPublic.HasValue)
+                queryParams.Add($"isPublic={Uri.EscapeDataString(isPublic.Value.ToString())}");
             if (changedSince != default)
                 queryParams.Add($"changedSince={Uri.EscapeDataString(changedSince.ToString())}");
             if (tag != default)
                 queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            if (includePrices != default)
-                queryParams.Add($"includePrices={Uri.EscapeDataString(includePrices.ToString())}");
+            if (includePrices.HasValue)
+                queryParams.Add($"includePrices={Uri.EscapeDataString(includePrices.Value.ToString())}");
             var path = $"/api/v1/Products/Exams/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListOfExamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -7343,13 +7342,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="registeredSince">Registered Since</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List Registrants response.</returns>
-        public virtual async Task<ListRegistrantsResponse> ListRegistrantsAsync(string eventCode, int pageNumber, string sessionCode = default, bool includeDetails = default, string registeredSince = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListRegistrantsResponse> ListRegistrantsAsync(string eventCode, int pageNumber, string sessionCode = default, bool? includeDetails = default, string registeredSince = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (sessionCode != default)
                 queryParams.Add($"sessionCode={Uri.EscapeDataString(sessionCode.ToString())}");
-            if (includeDetails != default)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.ToString())}");
+            if (includeDetails.HasValue)
+                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
             if (registeredSince != default)
                 queryParams.Add($"registeredSince={Uri.EscapeDataString(registeredSince.ToString())}");
             var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -7503,11 +7502,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancelledSince">Cancelled Since</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List All Event Cancellations by Event response.</returns>
-        public virtual async Task<ListAllEventCancellationsByEventResponse> ListAllEventCancellationsByEventAsync(string eventCode, int pageNumber, bool includeDetails = default, string cancelledSince = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListAllEventCancellationsByEventResponse> ListAllEventCancellationsByEventAsync(string eventCode, int pageNumber, bool? includeDetails = default, string cancelledSince = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeDetails != default)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.ToString())}");
+            if (includeDetails.HasValue)
+                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
             if (cancelledSince != default)
                 queryParams.Add($"cancelledSince={Uri.EscapeDataString(cancelledSince.ToString())}");
             var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Cancellations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -7527,11 +7526,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="toDate">To Date.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get All Open Orders for an Individual response.</returns>
-        public virtual async Task<GetAllOpenOrdersForAnIndividualResponse> GetAllOpenOrdersForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, bool includeLineItems = default, string fromDate = default, string toDate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAllOpenOrdersForAnIndividualResponse> GetAllOpenOrdersForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, bool? includeLineItems = default, string fromDate = default, string toDate = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeLineItems != default)
-                queryParams.Add($"includeLineItems={Uri.EscapeDataString(includeLineItems.ToString())}");
+            if (includeLineItems.HasValue)
+                queryParams.Add($"includeLineItems={Uri.EscapeDataString(includeLineItems.Value.ToString())}");
             if (fromDate != default)
                 queryParams.Add($"fromDate={Uri.EscapeDataString(fromDate.ToString())}");
             if (toDate != default)
@@ -7810,11 +7809,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeEmail">Include Email</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find Members (Individuals) by First Name response.</returns>
-        public virtual async Task<IndividualData> FindMembersOrIndividualsByFirstNameAsync(string firstName, int pageNumber, bool includeEmail = default, CancellationToken cancellationToken = default)
+        public virtual async Task<IndividualData> FindMembersOrIndividualsByFirstNameAsync(string firstName, int pageNumber, bool? includeEmail = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeEmail != default)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.ToString())}");
+            if (includeEmail.HasValue)
+                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
             var path = $"/api/v1/Individuals/Members/FindByFirstName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -7830,11 +7829,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeEmail">Include Email</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find Members (Individuals) by Last Name response.</returns>
-        public virtual async Task<IndividualData> FindMembersOrIndividualsByLastNameAsync(string lastName, int pageNumber, bool includeEmail = default, CancellationToken cancellationToken = default)
+        public virtual async Task<IndividualData> FindMembersOrIndividualsByLastNameAsync(string lastName, int pageNumber, bool? includeEmail = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeEmail != default)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.ToString())}");
+            if (includeEmail.HasValue)
+                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
             var path = $"/api/v1/Individuals/Members/FindByLastName/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -7942,17 +7941,17 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="expireDateTo">Expire Date - To:</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List of All Organization Members response.</returns>
-        public virtual async Task<ListOfAllOrganizationMembersResponse> ListOfAllOrganizationMembersAsync(int pageNumber, string zipCode = default, double radius = default, string stateAbbreviation = default, double congressionalDistrict = default, string membershipTypeCode = default, string membershipTypeCategory = default, string city = default, string name = default, string tag = default, double latitude = default, double longitude = default, string domain = default, bool includeMembership = default, bool includeAddress = default, bool includePhone = default, bool includeEmail = default, bool includeCustomFields = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOfAllOrganizationMembersResponse> ListOfAllOrganizationMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string stateAbbreviation = default, double? congressionalDistrict = default, string membershipTypeCode = default, string membershipTypeCategory = default, string city = default, string name = default, string tag = default, double? latitude = default, double? longitude = default, string domain = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeCustomFields = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (zipCode != default)
                 queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
-            if (radius != default)
-                queryParams.Add($"Radius={Uri.EscapeDataString(radius.ToString())}");
+            if (radius.HasValue)
+                queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
             if (stateAbbreviation != default)
                 queryParams.Add($"stateAbbreviation={Uri.EscapeDataString(stateAbbreviation.ToString())}");
-            if (congressionalDistrict != default)
-                queryParams.Add($"congressionalDistrict={Uri.EscapeDataString(congressionalDistrict.ToString())}");
+            if (congressionalDistrict.HasValue)
+                queryParams.Add($"congressionalDistrict={Uri.EscapeDataString(congressionalDistrict.Value.ToString())}");
             if (membershipTypeCode != default)
                 queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
             if (membershipTypeCategory != default)
@@ -7963,22 +7962,22 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
             if (tag != default)
                 queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            if (latitude != default)
-                queryParams.Add($"Latitude={Uri.EscapeDataString(latitude.ToString())}");
-            if (longitude != default)
-                queryParams.Add($"Longitude={Uri.EscapeDataString(longitude.ToString())}");
+            if (latitude.HasValue)
+                queryParams.Add($"Latitude={Uri.EscapeDataString(latitude.Value.ToString())}");
+            if (longitude.HasValue)
+                queryParams.Add($"Longitude={Uri.EscapeDataString(longitude.Value.ToString())}");
             if (domain != default)
                 queryParams.Add($"Domain={Uri.EscapeDataString(domain.ToString())}");
-            if (includeMembership != default)
-                queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.ToString())}");
-            if (includeAddress != default)
-                queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.ToString())}");
-            if (includePhone != default)
-                queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.ToString())}");
-            if (includeEmail != default)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.ToString())}");
-            if (includeCustomFields != default)
-                queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.ToString())}");
+            if (includeMembership.HasValue)
+                queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
+            if (includeAddress.HasValue)
+                queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
+            if (includePhone.HasValue)
+                queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
+            if (includeEmail.HasValue)
+                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+            if (includeCustomFields.HasValue)
+                queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
             if (expireDateFrom != default)
                 queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
             if (expireDateTo != default)
@@ -8011,35 +8010,35 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="expireDateTo">Expire Date - To:</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List of All Individual Members response.</returns>
-        public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool includeMembership = default, bool includeAddress = default, bool includePhone = default, bool includeEmail = default, bool includeLink = default, bool includeCustomFields = default, bool includeCategories = default, bool includeMembershipRenewalURLs = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeLink = default, bool? includeCustomFields = default, bool? includeCategories = default, bool? includeMembershipRenewalURLs = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (zipCode != default)
                 queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
-            if (radius != default)
-                queryParams.Add($"Radius={Uri.EscapeDataString(radius.ToString())}");
+            if (radius.HasValue)
+                queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
             if (membershipTypeCode != default)
                 queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
             if (membershipTypeCategory != default)
                 queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
             if (tag != default)
                 queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            if (includeMembership != default)
-                queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.ToString())}");
-            if (includeAddress != default)
-                queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.ToString())}");
-            if (includePhone != default)
-                queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.ToString())}");
-            if (includeEmail != default)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.ToString())}");
-            if (includeLink != default)
-                queryParams.Add($"includeLink={Uri.EscapeDataString(includeLink.ToString())}");
-            if (includeCustomFields != default)
-                queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.ToString())}");
-            if (includeCategories != default)
-                queryParams.Add($"includeCategories={Uri.EscapeDataString(includeCategories.ToString())}");
-            if (includeMembershipRenewalURLs != default)
-                queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(includeMembershipRenewalURLs.ToString())}");
+            if (includeMembership.HasValue)
+                queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
+            if (includeAddress.HasValue)
+                queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
+            if (includePhone.HasValue)
+                queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
+            if (includeEmail.HasValue)
+                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+            if (includeLink.HasValue)
+                queryParams.Add($"includeLink={Uri.EscapeDataString(includeLink.Value.ToString())}");
+            if (includeCustomFields.HasValue)
+                queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
+            if (includeCategories.HasValue)
+                queryParams.Add($"includeCategories={Uri.EscapeDataString(includeCategories.Value.ToString())}");
+            if (includeMembershipRenewalURLs.HasValue)
+                queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(includeMembershipRenewalURLs.Value.ToString())}");
             if (expireDateFrom != default)
                 queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
             if (expireDateTo != default)
@@ -8156,11 +8155,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="year">Year.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List All Awards response.</returns>
-        public virtual async Task<ListAllAwardsResponse> ListAllAwardsAsync(int pageNumber, int year = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListAllAwardsResponse> ListAllAwardsAsync(int pageNumber, int? year = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (year != default)
-                queryParams.Add($"Year={Uri.EscapeDataString(year.ToString())}");
+            if (year.HasValue)
+                queryParams.Add($"Year={Uri.EscapeDataString(year.Value.ToString())}");
             var path = $"/api/v1/Awards/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ListAllAwardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8176,11 +8175,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeEmailData">Include Email Data.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find Members (Individuals) by Name response.</returns>
-        public virtual async Task<FindMembersOrIndividualsByNameResponse> FindMembersOrIndividualsByNameAsync(string individualName, int pageNumber, bool includeEmailData = default, CancellationToken cancellationToken = default)
+        public virtual async Task<FindMembersOrIndividualsByNameResponse> FindMembersOrIndividualsByNameAsync(string individualName, int pageNumber, bool? includeEmailData = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeEmailData != default)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.ToString())}");
+            if (includeEmailData.HasValue)
+                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
             var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(individualName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<FindMembersOrIndividualsByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8389,13 +8388,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includesDetails">Includes Details.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Organization&apos;s Relationships response.</returns>
-        public virtual async Task<GetOrganizationsRelationshipsResponse> GetOrganizationsRelationshipsAsync(string organizationId, int pageNumber, string relationshipName = default, bool includesDetails = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetOrganizationsRelationshipsResponse> GetOrganizationsRelationshipsAsync(string organizationId, int pageNumber, string relationshipName = default, bool? includesDetails = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (relationshipName != default)
                 queryParams.Add($"relationshipName.={Uri.EscapeDataString(relationshipName.ToString())}");
-            if (includesDetails != default)
-                queryParams.Add($"includesDetails={Uri.EscapeDataString(includesDetails.ToString())}");
+            if (includesDetails.HasValue)
+                queryParams.Add($"includesDetails={Uri.EscapeDataString(includesDetails.Value.ToString())}");
             var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetOrganizationsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8474,11 +8473,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeInactive">Include Inactive</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Committee Information for an Individual response.</returns>
-        public virtual async Task<GetCommitteeInformationForAnIndividualResponse> GetCommitteeInformationForAnIndividualAsync(string individualId, int pageNumber, bool includeInactive = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetCommitteeInformationForAnIndividualResponse> GetCommitteeInformationForAnIndividualAsync(string individualId, int pageNumber, bool? includeInactive = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeInactive != default)
-                queryParams.Add($"includeInactive={Uri.EscapeDataString(includeInactive.ToString())}");
+            if (includeInactive.HasValue)
+                queryParams.Add($"includeInactive={Uri.EscapeDataString(includeInactive.Value.ToString())}");
             var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetCommitteeInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8585,13 +8584,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeDetails">Include Details.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Individual&apos;s Relationships response.</returns>
-        public virtual async Task<GetIndividualsRelationshipsResponse> GetIndividualsRelationshipsAsync(string individualId, int pageNumber, string relationshipName = default, bool includeDetails = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetIndividualsRelationshipsResponse> GetIndividualsRelationshipsAsync(string individualId, int pageNumber, string relationshipName = default, bool? includeDetails = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (relationshipName != default)
                 queryParams.Add($"relationshipName={Uri.EscapeDataString(relationshipName.ToString())}");
-            if (includeDetails != default)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.ToString())}");
+            if (includeDetails.HasValue)
+                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
             var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetIndividualsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8637,11 +8636,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="createUser">Create User.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Individual response.</returns>
-        public virtual async Task<IndividualData> AddIndividualAsync(AddIndividualInput input, bool createUser = default, CancellationToken cancellationToken = default)
+        public virtual async Task<IndividualData> AddIndividualAsync(AddIndividualInput input, bool? createUser = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (createUser != default)
-                queryParams.Add($"createUser={Uri.EscapeDataString(createUser.ToString())}");
+            if (createUser.HasValue)
+                queryParams.Add($"createUser={Uri.EscapeDataString(createUser.Value.ToString())}");
             var path = $"/api/v1/Individuals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<IndividualData>(HttpMethod.Post, path, input, cancellationToken)
@@ -8690,11 +8689,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeEmailData">Include Email Data.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Find Members (Individuals) by First Name and Last Name response.</returns>
-        public virtual async Task<FindMembersOrIndividualsByFirstAndLastNameResponse> FindMembersOrIndividualsByFirstAndLastNameAsync(string firstName, string lastName, int pageNumber, bool includeEmailData = default, CancellationToken cancellationToken = default)
+        public virtual async Task<FindMembersOrIndividualsByFirstAndLastNameResponse> FindMembersOrIndividualsByFirstAndLastNameAsync(string firstName, string lastName, int pageNumber, bool? includeEmailData = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeEmailData != default)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.ToString())}");
+            if (includeEmailData.HasValue)
+                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
             var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<FindMembersOrIndividualsByFirstAndLastNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8710,11 +8709,11 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="term">Term</param>
         /// <param name="positionCodes">Position Codes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetCommitteeMembersByCommitteeIdOrCodeAsync(string committeeIdOrCode, int pageNumber, int term = default, string positionCodes = default, CancellationToken cancellationToken = default)
+        public virtual async Task GetCommitteeMembersByCommitteeIdOrCodeAsync(string committeeIdOrCode, int pageNumber, int? term = default, string positionCodes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (term != default)
-                queryParams.Add($"Term={Uri.EscapeDataString(term.ToString())}");
+            if (term.HasValue)
+                queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
             if (positionCodes != default)
                 queryParams.Add($"positionCodes={Uri.EscapeDataString(positionCodes.ToString())}");
             var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeIdOrCode.ToString())}/Members/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -8813,8 +8812,7 @@ namespace Azure.Connectors.Sdk.Impexium
         {
             var queryParams = new List<string>();
             queryParams.Add("includeOrgAddresses=true");
-            if (lookupValue != default)
-                queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
+            queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
             var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<IndividualsLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8930,8 +8928,7 @@ namespace Azure.Connectors.Sdk.Impexium
         {
             var queryParams = new List<string>();
             queryParams.Add("includeAddresses=true");
-            if (lookupValue != default)
-                queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
+            queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
             var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<OrganizationLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -8949,17 +8946,17 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="activeOnly">Active Only.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get All Committees response.</returns>
-        public virtual async Task<GetAllCommitteesResponse> GetAllCommitteesAsync(int pageNumber, string committeeCode = default, string committeeName = default, int term = default, bool activeOnly = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetAllCommitteesResponse> GetAllCommitteesAsync(int pageNumber, string committeeCode = default, string committeeName = default, int? term = default, bool? activeOnly = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (committeeCode != default)
                 queryParams.Add($"Code={Uri.EscapeDataString(committeeCode.ToString())}");
             if (committeeName != default)
                 queryParams.Add($"Name={Uri.EscapeDataString(committeeName.ToString())}");
-            if (term != default)
-                queryParams.Add($"Term={Uri.EscapeDataString(term.ToString())}");
-            if (activeOnly != default)
-                queryParams.Add($"activeOnly={Uri.EscapeDataString(activeOnly.ToString())}");
+            if (term.HasValue)
+                queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
+            if (activeOnly.HasValue)
+                queryParams.Add($"activeOnly={Uri.EscapeDataString(activeOnly.Value.ToString())}");
             var path = $"/api/v1/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetAllCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -9023,13 +9020,13 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="individualOldId">Individual Old ID.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List all Individuals response.</returns>
-        public virtual async Task<ListAllIndividualsResponse> ListAllIndividualsAsync(int pageNumber, string individualName = default, bool includeDetails = default, string individualOldId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListAllIndividualsResponse> ListAllIndividualsAsync(int pageNumber, string individualName = default, bool? includeDetails = default, string individualOldId = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (individualName != default)
                 queryParams.Add($"Name={Uri.EscapeDataString(individualName.ToString())}");
-            if (includeDetails != default)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.ToString())}");
+            if (includeDetails.HasValue)
+                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
             if (individualOldId != default)
                 queryParams.Add($"oldID={Uri.EscapeDataString(individualOldId.ToString())}");
             var path = $"/api/v1/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -9052,8 +9049,7 @@ namespace Azure.Connectors.Sdk.Impexium
             queryParams.Add("includeAddress=true");
             queryParams.Add("includePhone=true");
             queryParams.Add("includeEmail=true");
-            if (phoneNumber != default)
-                queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
+            queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
             var path = $"/api/v1/Customers/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<FindCustomerPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

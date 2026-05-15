@@ -390,11 +390,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned">If set to true a large version of the image (width 900px) will be returned</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get image for location response.</returns>
-        public virtual async Task<byte[]> GetCustomLocationImageAsync(string theUniqueStringIdentifierForALocation, bool ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetCustomLocationImageAsync(string theUniqueStringIdentifierForALocation, bool? ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned != default)
-                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.ToString())}");
+            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
+                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
             var path = $"/api/CustomLocations/createimage/{Uri.EscapeDataString(theUniqueStringIdentifierForALocation.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -423,11 +423,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned">If set to true a large version of the image (width 900px) will be returned</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get image for meeting room response.</returns>
-        public virtual async Task<byte[]> GetMeetingRoomImageAsync(string theExactNameOfTheRoomToReturnTheImageFor, bool ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetMeetingRoomImageAsync(string theExactNameOfTheRoomToReturnTheImageFor, bool? ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned != default)
-                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.ToString())}");
+            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
+                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
             var path = $"/api/MapImage/create/{Uri.EscapeDataString(theExactNameOfTheRoomToReturnTheImageFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -513,11 +513,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell">If true, then list of users with this office location will be returned as well</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get office location details response.</returns>
-        public virtual async Task<GetRoomWithPersonsDetailsResponse> GetRoomWithPersonsDetailsAsync(string theUniqueOfficeLocationNameToLookUpImageAndPeopleBy, bool ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetRoomWithPersonsDetailsResponse> GetRoomWithPersonsDetailsAsync(string theUniqueOfficeLocationNameToLookUpImageAndPeopleBy, bool? ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell != default)
-                queryParams.Add($"InludeUserInfo={Uri.EscapeDataString(ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.ToString())}");
+            if (ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.HasValue)
+                queryParams.Add($"InludeUserInfo={Uri.EscapeDataString(ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.Value.ToString())}");
             var path = $"/api/officelocations/mapimagewithpersoninfo/{Uri.EscapeDataString(theUniqueOfficeLocationNameToLookUpImageAndPeopleBy.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GetRoomWithPersonsDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -532,11 +532,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned">If set to true a large version of the image (width 900px) will be returned</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get image of office location response.</returns>
-        public virtual async Task<byte[]> GetOfficeLocationImageAsync(string theUniqueNameOfTheOfficeLocationToGetImageFor, bool ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetOfficeLocationImageAsync(string theUniqueNameOfTheOfficeLocationToGetImageFor, bool? ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned != default)
-                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.ToString())}");
+            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
+                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
             var path = $"/api/officelocationimage/create/{Uri.EscapeDataString(theUniqueNameOfTheOfficeLocationToGetImageFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
