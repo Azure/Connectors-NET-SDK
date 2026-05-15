@@ -2026,12 +2026,12 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="waitForDeployment">Wait for Deployment</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Read a template deployment response.</returns>
-        public virtual async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool waitForDeployment = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool? waitForDeployment = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
-            if (waitForDeployment != default)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
+            if (waitForDeployment.HasValue)
+                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2049,12 +2049,12 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="waitForDeployment">Wait for Deployment</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create or update a template deployment response.</returns>
-        public virtual async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool waitForDeployment = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool? waitForDeployment = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
-            if (waitForDeployment != default)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.ToString())}");
+            if (waitForDeployment.HasValue)
+                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
@@ -2146,14 +2146,14 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
-        public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeploymentListResult, DeploymentExtended>(
                 ct => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2191,12 +2191,12 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
-        public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeploymentOperationsListResult, DeploymentOperation>(
                 ct => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2249,12 +2249,12 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="expand">Expand</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
-        public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int top = default, string expand = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int? top = default, string expand = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             if (expand != default)
                 queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2296,7 +2296,7 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-        public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
@@ -2304,8 +2304,8 @@ namespace Azure.Connectors.Sdk.Arm
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             if (expand != default)
                 queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceListResult, GenericResource>(
                 ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2414,14 +2414,14 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2439,7 +2439,7 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
-        public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
@@ -2447,8 +2447,8 @@ namespace Azure.Connectors.Sdk.Arm
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             if (expand != default)
                 queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceListResult, GenericResource>(
                 ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2470,8 +2470,7 @@ namespace Azure.Connectors.Sdk.Arm
         public virtual async Task<GenericResource> ResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2493,8 +2492,7 @@ namespace Azure.Connectors.Sdk.Arm
         public virtual async Task<GenericResource> ResourcesCreateOrUpdateByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, GenericResource input, string clientApiVersion, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
@@ -2514,8 +2512,7 @@ namespace Azure.Connectors.Sdk.Arm
         public virtual async Task ResourcesDeleteByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             await this
                 .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2538,8 +2535,7 @@ namespace Azure.Connectors.Sdk.Arm
         public virtual async Task<ResourcesInvokeResponse> ResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string actionName, ResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2559,8 +2555,7 @@ namespace Azure.Connectors.Sdk.Arm
         public virtual async Task<GenericResource> ProviderResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2581,8 +2576,7 @@ namespace Azure.Connectors.Sdk.Arm
         public virtual async Task<ProviderResourcesInvokeResponse> ProviderResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, ProviderResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (clientApiVersion != default)
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)

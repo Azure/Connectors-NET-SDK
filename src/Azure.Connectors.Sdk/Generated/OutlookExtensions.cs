@@ -3479,11 +3479,11 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="internetMessageId">Internet Message Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get email response.</returns>
-        public virtual async Task<ClientReceiveMessage> GetEmailAsync(string messageId, bool includeAttachments = default, string internetMessageId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientReceiveMessage> GetEmailAsync(string messageId, bool? includeAttachments = default, string internetMessageId = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (includeAttachments != default)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+            if (includeAttachments.HasValue)
+                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
             if (internetMessageId != default)
                 queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
             var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -3517,8 +3517,7 @@ namespace Azure.Connectors.Sdk.Outlook
         public virtual async Task<ClientReceiveMessageStringEnums> MoveAsync(string messageId, string folder, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (folder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
             var path = $"/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ClientReceiveMessageStringEnums>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3653,17 +3652,17 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get contacts response.</returns>
-        public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTables")] string folderId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTables")] string folderId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3792,17 +3791,17 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get events (V3) response.</returns>
-        public virtual async Task<CalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables")] string calendarId, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, CancellationToken cancellationToken = default)
+        public virtual async Task<CalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables")] string calendarId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3860,7 +3859,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get emails (V2) response.</returns>
-        public virtual async Task<BatchResponseClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool onlyWithAttachments = default, string subjectFilter = default, bool fetchOnlyUnreadMessages = default, bool includeAttachments = default, string searchQuery = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BatchResponseClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("fetchOnlyFlagged=false");
@@ -3876,18 +3875,18 @@ namespace Azure.Connectors.Sdk.Outlook
                 queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
             if (importance != default)
                 queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
-            if (onlyWithAttachments != default)
-                queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.ToString())}");
+            if (onlyWithAttachments.HasValue)
+                queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.Value.ToString())}");
             if (subjectFilter != default)
                 queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
-            if (fetchOnlyUnreadMessages != default)
-                queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.ToString())}");
-            if (includeAttachments != default)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.ToString())}");
+            if (fetchOnlyUnreadMessages.HasValue)
+                queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.Value.ToString())}");
+            if (includeAttachments.HasValue)
+                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
             if (searchQuery != default)
                 queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
-            if (top != default)
-                queryParams.Add($"top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/v2/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<BatchResponseClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3908,23 +3907,20 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="search">Search</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get calendar view of events (V2) response.</returns>
-        public virtual async Task<EntityListResponseCalendarEventClientReceiveStringEnums> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int topCount = default, int skipCount = default, string search = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EntityListResponseCalendarEventClientReceiveStringEnums> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string search = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (calendarId != default)
-                queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-            if (startTime != default)
-                queryParams.Add($"startDateTimeOffset={Uri.EscapeDataString(startTime.ToString())}");
-            if (endTime != default)
-                queryParams.Add($"endDateTimeOffset={Uri.EscapeDataString(endTime.ToString())}");
+            queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
+            queryParams.Add($"startDateTimeOffset={Uri.EscapeDataString(startTime.ToString())}");
+            queryParams.Add($"endDateTimeOffset={Uri.EscapeDataString(endTime.ToString())}");
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
             if (orderBy != default)
                 queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (search != default)
                 queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
             var path = $"/datasets/calendars/v2/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

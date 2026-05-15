@@ -969,13 +969,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get databases response.</returns>
-        public virtual async Task<DatabasesResponse> DatabasesAsync(int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DatabasesResponse> DatabasesAsync(int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1009,13 +1009,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get cubes response.</returns>
-        public virtual async Task<CubesResponse> CubesAsync([DynamicValues("Databases")] int databaseId, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<CubesResponse> CubesAsync([DynamicValues("Databases")] int databaseId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1055,23 +1055,23 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="disablePaging">Disable Paging</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get cube cells response.</returns>
-        public virtual async Task<CubeCellsResponse> CubeCellsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Cubes")] int cubeId, int topCount = default, int skipCount = default, string filter = default, bool baseElementsOnly = default, bool useRules = default, bool supressZeros = default, bool disablePaging = default, CancellationToken cancellationToken = default)
+        public virtual async Task<CubeCellsResponse> CubeCellsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Cubes")] int cubeId, int? topCount = default, int? skipCount = default, string filter = default, bool? baseElementsOnly = default, bool? useRules = default, bool? supressZeros = default, bool? disablePaging = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (baseElementsOnly != default)
-                queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.ToString())}");
-            if (useRules != default)
-                queryParams.Add($"userules={Uri.EscapeDataString(useRules.ToString())}");
-            if (supressZeros != default)
-                queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.ToString())}");
-            if (disablePaging != default)
-                queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.ToString())}");
+            if (baseElementsOnly.HasValue)
+                queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.Value.ToString())}");
+            if (useRules.HasValue)
+                queryParams.Add($"userules={Uri.EscapeDataString(useRules.Value.ToString())}");
+            if (supressZeros.HasValue)
+                queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.Value.ToString())}");
+            if (disablePaging.HasValue)
+                queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.Value.ToString())}");
             var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes({Uri.EscapeDataString(cubeId.ToString())})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CubeCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1088,13 +1088,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get dimensions response.</returns>
-        public virtual async Task<DimensionsResponse> DimensionsAsync([DynamicValues("Databases")] int databaseId, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DimensionsResponse> DimensionsAsync([DynamicValues("Databases")] int databaseId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1130,13 +1130,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get elements response.</returns>
-        public virtual async Task<ElementsResponse> ElementsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Dimensions")] int dimensionId, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ElementsResponse> ElementsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Dimensions")] int dimensionId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})/Elements" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1172,13 +1172,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get stored views response.</returns>
-        public virtual async Task<ViewsResponse> ViewsAsync([DynamicValues("Databases")] int databaseId, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ViewsResponse> ViewsAsync([DynamicValues("Databases")] int databaseId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1218,23 +1218,23 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="disablePaging">Disable Paging</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get stored view cells response.</returns>
-        public virtual async Task<ViewCellsResponse> ViewCellsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Views")] string viewId, int topCount = default, int skipCount = default, string filter = default, bool baseElementsOnly = default, bool useRules = default, bool supressZeros = default, bool disablePaging = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ViewCellsResponse> ViewCellsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Views")] string viewId, int? topCount = default, int? skipCount = default, string filter = default, bool? baseElementsOnly = default, bool? useRules = default, bool? supressZeros = default, bool? disablePaging = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (baseElementsOnly != default)
-                queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.ToString())}");
-            if (useRules != default)
-                queryParams.Add($"userules={Uri.EscapeDataString(useRules.ToString())}");
-            if (supressZeros != default)
-                queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.ToString())}");
-            if (disablePaging != default)
-                queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.ToString())}");
+            if (baseElementsOnly.HasValue)
+                queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.Value.ToString())}");
+            if (useRules.HasValue)
+                queryParams.Add($"userules={Uri.EscapeDataString(useRules.Value.ToString())}");
+            if (supressZeros.HasValue)
+                queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.Value.ToString())}");
+            if (disablePaging.HasValue)
+                queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.Value.ToString())}");
             var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views({Uri.EscapeDataString(viewId.ToString())})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ViewCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1250,13 +1250,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Integrator project groups response.</returns>
-        public virtual async Task<IntegratorProjectGroupsResponse> IntegratorProjectGroupsAsync(int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<IntegratorProjectGroupsResponse> IntegratorProjectGroupsAsync(int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1290,13 +1290,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Integrator projects response.</returns>
-        public virtual async Task<IntegratorProjectsResponse> IntegratorProjectsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<IntegratorProjectsResponse> IntegratorProjectsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1332,13 +1332,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get extracts response.</returns>
-        public virtual async Task<ExtractsResponse> ExtractsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ExtractsResponse> ExtractsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1376,13 +1376,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get extract rows response.</returns>
-        public virtual async Task<ExtractRowsResponse> ExtractRowsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Extracts")] string extractName, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ExtractRowsResponse> ExtractRowsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Extracts")] string extractName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts('{Uri.EscapeDataString(extractName.ToString())}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1402,13 +1402,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get jobs response.</returns>
-        public virtual async Task<JobsResponse> JobsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<JobsResponse> JobsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1480,13 +1480,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get loads response.</returns>
-        public virtual async Task<LoadsResponse> LoadsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<LoadsResponse> LoadsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1558,13 +1558,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get transforms response.</returns>
-        public virtual async Task<TransformsResponse> TransformsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TransformsResponse> TransformsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1602,13 +1602,13 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <param name="filter">Filter</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get transform Rows response.</returns>
-        public virtual async Task<TransformRowsResponse> TransformRowsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Transforms")] string transformName, int topCount = default, int skipCount = default, string filter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TransformRowsResponse> TransformRowsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Transforms")] string transformName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (topCount != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.ToString())}");
-            if (skipCount != default)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.ToString())}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
             var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms('{Uri.EscapeDataString(transformName.ToString())}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

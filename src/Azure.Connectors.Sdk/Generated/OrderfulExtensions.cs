@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -111,10 +110,6 @@ namespace Azure.Connectors.Sdk.Orderful.Models
     }
 
     #endregion Model Factory
-
-    #region Trigger Payloads
-
-    #endregion Trigger Payloads
 
 }
 

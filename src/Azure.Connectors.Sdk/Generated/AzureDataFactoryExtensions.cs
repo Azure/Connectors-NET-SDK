@@ -880,14 +880,14 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-        public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, string filter = default, int top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             if (filter != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (top != default)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+            if (top.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),

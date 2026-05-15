@@ -5143,17 +5143,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a shop payment account ledger&apos;s entries response.</returns>
-        public virtual async Task<PaymentAccountLedgerEntries> PaymentLedgerEntriesAsync(int shopId, int minimumCreated, int maximumCreated, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PaymentAccountLedgerEntries> PaymentLedgerEntriesAsync(int shopId, int minimumCreated, int maximumCreated, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (minimumCreated != default)
-                queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.ToString())}");
-            if (maximumCreated != default)
-                queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.ToString())}");
+            queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<PaymentAccountLedgerEntries>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5171,8 +5169,7 @@ namespace Azure.Connectors.Sdk.Etsy
         public virtual async Task<Payments> PaymentGetEntryIdAsync(int shopId, string ledgerEntryIDs, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (ledgerEntryIDs != default)
-                queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
+            queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5206,8 +5203,7 @@ namespace Azure.Connectors.Sdk.Etsy
         public virtual async Task<Payments> PaymentsGetAsync(int shopId, string paymentId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (paymentId != default)
-                queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
+            queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5245,25 +5241,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="wasShipped">Was Shipped</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get receipts response.</returns>
-        public virtual async Task<ShopReceipts> ReceiptsGetAsync(int shopId, int minimumCreated = default, int maximumCreated = default, int earliestLastModified = default, int latestLastModified = default, int limit = default, int offset = default, bool wasPaid = default, bool wasShipped = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceipts> ReceiptsGetAsync(int shopId, int? minimumCreated = default, int? maximumCreated = default, int? earliestLastModified = default, int? latestLastModified = default, int? limit = default, int? offset = default, bool? wasPaid = default, bool? wasShipped = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (minimumCreated != default)
-                queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.ToString())}");
-            if (maximumCreated != default)
-                queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.ToString())}");
-            if (earliestLastModified != default)
-                queryParams.Add($"min_last_modified={Uri.EscapeDataString(earliestLastModified.ToString())}");
-            if (latestLastModified != default)
-                queryParams.Add($"max_last_modified={Uri.EscapeDataString(latestLastModified.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
-            if (wasPaid != default)
-                queryParams.Add($"was_paid={Uri.EscapeDataString(wasPaid.ToString())}");
-            if (wasShipped != default)
-                queryParams.Add($"was_shipped={Uri.EscapeDataString(wasShipped.ToString())}");
+            if (minimumCreated.HasValue)
+                queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.Value.ToString())}");
+            if (maximumCreated.HasValue)
+                queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.Value.ToString())}");
+            if (earliestLastModified.HasValue)
+                queryParams.Add($"min_last_modified={Uri.EscapeDataString(earliestLastModified.Value.ToString())}");
+            if (latestLastModified.HasValue)
+                queryParams.Add($"max_last_modified={Uri.EscapeDataString(latestLastModified.Value.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+            if (wasPaid.HasValue)
+                queryParams.Add($"was_paid={Uri.EscapeDataString(wasPaid.Value.ToString())}");
+            if (wasShipped.HasValue)
+                queryParams.Add($"was_shipped={Uri.EscapeDataString(wasShipped.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopReceipts>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5297,13 +5293,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Retrieve a listing&apos;s transactions response.</returns>
-        public virtual async Task<ShopReceiptTransactions> TransactionsListingAsync(int shopId, int listingId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceiptTransactions> TransactionsListingAsync(int shopId, int listingId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5351,13 +5347,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a shop&apos;s transaction response.</returns>
-        public virtual async Task<ShopReceiptTransactions> TransactionGetShopAsync(int shopId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopReceiptTransactions> TransactionGetShopAsync(int shopId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5373,13 +5369,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get reviews response.</returns>
-        public virtual async Task<TransactionReviews> ReviewsGetAsync(int shopId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TransactionReviews> ReviewsGetAsync(int shopId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TransactionReviews>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5396,8 +5392,7 @@ namespace Azure.Connectors.Sdk.Etsy
         public virtual async Task<ShippingCarriers> ShippingCarriersAsync(string originCountryISO, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (originCountryISO != default)
-                queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO.ToString())}");
+            queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO.ToString())}");
             var path = $"/shipping-carriers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShippingCarriers>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5493,13 +5488,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get profile destinations by shipping profile response.</returns>
-        public virtual async Task<ShopShippingProfileDestinations> ShippingGetDestinationsAsync(int shopId, int shippingProfileId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopShippingProfileDestinations> ShippingGetDestinationsAsync(int shopId, int shippingProfileId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopShippingProfileDestinations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5664,15 +5659,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Search shops response.</returns>
-        public virtual async Task<Shops> ShopSearchAsync(string shopName, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Shops> ShopSearchAsync(string shopName, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (shopName != default)
-                queryParams.Add($"shop_name={Uri.EscapeDataString(shopName.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            queryParams.Add($"shop_name={Uri.EscapeDataString(shopName.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Shops>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5764,13 +5758,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user addresses response.</returns>
-        public virtual async Task<UserAddresses> UserGetAddressesAsync(int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<UserAddresses> UserGetAddressesAsync(int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/user/addresses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<UserAddresses>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5818,15 +5812,15 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="sortOrder">Sort Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop response.</returns>
-        public virtual async Task<ShopListings> ListingGetShopAsync(int shopId, string state = default, int limit = default, int offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetShopAsync(int shopId, string state = default, int? limit = default, int? offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (state != default)
                 queryParams.Add($"State={Uri.EscapeDataString(state.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             if (sortOn != default)
                 queryParams.Add($"Sort On={Uri.EscapeDataString(sortOn.ToString())}");
             if (sortOrder != default)
@@ -5900,25 +5894,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="shopLocation">Shop Location</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get active listings response.</returns>
-        public virtual async Task<ShopListings> ListingGetActiveAsync(int limit = default, int offset = default, string includes = default, string sortOn = default, string sortOrder = default, double minimumPrice = default, double maximumPrice = default, int taxonomyId = default, string shopLocation = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetActiveAsync(int? limit = default, int? offset = default, string includes = default, string sortOn = default, string sortOrder = default, double? minimumPrice = default, double? maximumPrice = default, int? taxonomyId = default, string shopLocation = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             if (includes != default)
                 queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
             if (sortOn != default)
                 queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
             if (sortOrder != default)
                 queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
-            if (minimumPrice != default)
-                queryParams.Add($"min_price={Uri.EscapeDataString(minimumPrice.ToString())}");
-            if (maximumPrice != default)
-                queryParams.Add($"max_price={Uri.EscapeDataString(maximumPrice.ToString())}");
-            if (taxonomyId != default)
-                queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyId.ToString())}");
+            if (minimumPrice.HasValue)
+                queryParams.Add($"min_price={Uri.EscapeDataString(minimumPrice.Value.ToString())}");
+            if (maximumPrice.HasValue)
+                queryParams.Add($"max_price={Uri.EscapeDataString(maximumPrice.Value.ToString())}");
+            if (taxonomyId.HasValue)
+                queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyId.Value.ToString())}");
             if (shopLocation != default)
                 queryParams.Add($"shop_location={Uri.EscapeDataString(shopLocation.ToString())}");
             var path = $"/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -5937,13 +5931,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="includes">Includes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get active listings by shop response.</returns>
-        public virtual async Task<ShopListings> ListingGetActiveByShopAsync(int shopId, int limit = default, int offset = default, string includes = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetActiveByShopAsync(int shopId, int? limit = default, int? offset = default, string includes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             if (includes != default)
                 queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -5963,8 +5957,7 @@ namespace Azure.Connectors.Sdk.Etsy
         public virtual async Task<ShopListingsWithAssociations> ListingGetByIdAsync(string listingIDs, string includes = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (listingIDs != default)
-                queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs.ToString())}");
+            queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs.ToString())}");
             if (includes != default)
                 queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
             var path = $"/listings/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -5982,13 +5975,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get featured listings by shop response.</returns>
-        public virtual async Task<ShopListings> ListingGetFeaturedAsync(int shopId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetFeaturedAsync(int shopId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6088,13 +6081,13 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="offset">Offset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop receipt response.</returns>
-        public virtual async Task<ShopListings> ListingGetByReceiptAsync(int shopId, int receiptId, int limit = default, int offset = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetByReceiptAsync(int shopId, int receiptId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6113,15 +6106,14 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="sortOrder">Sort Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop section ID response.</returns>
-        public virtual async Task<ShopListings> ListingGetBySectionIdAsync(int shopId, string shopSectionIDs, int limit = default, int offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetBySectionIdAsync(int shopId, string shopSectionIDs, int? limit = default, int? offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (shopSectionIDs != default)
-                queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs.ToString())}");
-            if (limit != default)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.ToString())}");
-            if (offset != default)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.ToString())}");
+            queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs.ToString())}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+            if (offset.HasValue)
+                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
             if (sortOn != default)
                 queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
             if (sortOrder != default)

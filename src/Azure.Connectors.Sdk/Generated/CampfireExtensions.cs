@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -169,10 +168,6 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     }
 
     #endregion Model Factory
-
-    #region Trigger Payloads
-
-    #endregion Trigger Payloads
 
 }
 
@@ -341,8 +336,7 @@ namespace Azure.Connectors.Sdk.Campfire
         public virtual async Task<RoomsResponse> ListRoomsAsync([DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (account != default)
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+            queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
             var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<RoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -361,10 +355,8 @@ namespace Azure.Connectors.Sdk.Campfire
         public virtual async Task<CreateMessageResponse> CreateMessageAsync([DynamicValues("ListRooms")] string roomId, [DynamicValues("ListAccounts")] string account, string messageTextToBeCreated, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (account != default)
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-            if (messageTextToBeCreated != default)
-                queryParams.Add($"message={Uri.EscapeDataString(messageTextToBeCreated.ToString())}");
+            queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+            queryParams.Add($"message={Uri.EscapeDataString(messageTextToBeCreated.ToString())}");
             var path = $"/room/{Uri.EscapeDataString(roomId.ToString())}/speak.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<CreateMessageResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -382,8 +374,7 @@ namespace Azure.Connectors.Sdk.Campfire
         public virtual async Task<UserResponse> GetUserAsync(int userId, [DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (account != default)
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+            queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
             var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<UserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

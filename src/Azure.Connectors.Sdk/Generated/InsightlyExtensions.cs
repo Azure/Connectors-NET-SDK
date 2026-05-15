@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1944,10 +1943,6 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
     #endregion Model Factory
 
-    #region Trigger Payloads
-
-    #endregion Trigger Payloads
-
 }
 
 namespace Azure.Connectors.Sdk.Insightly
@@ -2098,8 +2093,7 @@ namespace Azure.Connectors.Sdk.Insightly
         public virtual async Task<TaskObject> UpdateTaskAsync(TaskRequest input, [DynamicValues("ListTasks")] string taskId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (taskId != default)
-                queryParams.Add($"id={Uri.EscapeDataString(taskId.ToString())}");
+            queryParams.Add($"id={Uri.EscapeDataString(taskId.ToString())}");
             var path = $"/Tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<TaskObject>(HttpMethod.Put, path, input, cancellationToken)
@@ -2146,8 +2140,7 @@ namespace Azure.Connectors.Sdk.Insightly
         public virtual async Task<Project> UpdateProjectAsync(ProjectRequest input, [DynamicValues("ListProjects")] string projectId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (projectId != default)
-                queryParams.Add($"id={Uri.EscapeDataString(projectId.ToString())}");
+            queryParams.Add($"id={Uri.EscapeDataString(projectId.ToString())}");
             var path = $"/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Project>(HttpMethod.Put, path, input, cancellationToken)
@@ -2194,8 +2187,7 @@ namespace Azure.Connectors.Sdk.Insightly
         public virtual async Task<Lead> UpdateLeadAsync(LeadRequest input, [DynamicValues("ListLeads")] string leadId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (leadId != default)
-                queryParams.Add($"id={Uri.EscapeDataString(leadId.ToString())}");
+            queryParams.Add($"id={Uri.EscapeDataString(leadId.ToString())}");
             var path = $"/Leads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Lead>(HttpMethod.Put, path, input, cancellationToken)
@@ -2242,8 +2234,7 @@ namespace Azure.Connectors.Sdk.Insightly
         public virtual async Task<Contact> UpdateContactAsync(ContactRequest input, [DynamicValues("ListContacts")] string contactId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (contactId != default)
-                queryParams.Add($"id={Uri.EscapeDataString(contactId.ToString())}");
+            queryParams.Add($"id={Uri.EscapeDataString(contactId.ToString())}");
             var path = $"/Contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return await this
                 .CallConnectorAsync<Contact>(HttpMethod.Put, path, input, cancellationToken)
