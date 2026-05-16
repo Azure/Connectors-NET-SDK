@@ -248,7 +248,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ToList();
 
             var values = fields.Select(field => (string)field.GetRawConstantValue()!).ToList();
-            var orderedValues = values.OrderBy(v => v, StringComparer.Ordinal).ToList();
+            var orderedValues = values.OrderBy(value => value, StringComparer.Ordinal).ToList();
 
             // Assert
             CollectionAssert.AreEqual(
