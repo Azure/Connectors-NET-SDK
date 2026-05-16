@@ -97,14 +97,14 @@ public static class ConnectorNames
     public const string CloudmersiveConvert = "cloudmersiveconvert";
 
     /// <summary>
-    /// The <c>docusign</c> connector.
-    /// </summary>
-    public const string DocuSign = "docusign";
-
-    /// <summary>
     /// The <c>documentdb</c> connector.
     /// </summary>
     public const string DocumentDb = "documentdb";
+
+    /// <summary>
+    /// The <c>docusign</c> connector.
+    /// </summary>
+    public const string DocuSign = "docusign";
 
     /// <summary>
     /// The <c>docuware</c> connector.
@@ -132,14 +132,14 @@ public static class ConnectorNames
     public const string Etsy = "etsy";
 
     /// <summary>
-    /// The <c>eventhubs</c> connector.
-    /// </summary>
-    public const string EventHubs = "eventhubs";
-
-    /// <summary>
     /// The <c>eventbrite</c> connector.
     /// </summary>
     public const string Eventbrite = "eventbrite";
+
+    /// <summary>
+    /// The <c>eventhubs</c> connector.
+    /// </summary>
+    public const string EventHubs = "eventhubs";
 
     /// <summary>
     /// The <c>excelonline</c> connector.

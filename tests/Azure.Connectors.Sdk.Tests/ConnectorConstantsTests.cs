@@ -238,20 +238,23 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_ConstantsAreAlphabeticallyOrdered()
         {
-            // Arrange
-            var fieldNames = typeof(ConnectorNames)
+            // Arrange — use MetadataToken to preserve source-declaration order, then
+            // compare constant values (not identifier names) against an Ordinal-sorted copy,
+            // consistent with how SdkConnectors.AvailableConnectors is ordered.
+            var fields = typeof(ConnectorNames)
                 .GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Where(field => field.IsLiteral && field.FieldType == typeof(string))
-                .Select(field => field.Name)
+                .OrderBy(field => field.MetadataToken)
                 .ToList();
 
-            var orderedFieldNames = fieldNames.OrderBy(name => name, StringComparer.Ordinal).ToList();
+            var values = fields.Select(field => (string)field.GetRawConstantValue()!).ToList();
+            var orderedValues = values.OrderBy(v => v, StringComparer.Ordinal).ToList();
 
             // Assert
             CollectionAssert.AreEqual(
-                orderedFieldNames,
-                fieldNames,
-                "ConnectorNames constants are not in Ordinal alphabetical order by field name. Re-sort them alphabetically.");
+                orderedValues,
+                values,
+                "ConnectorNames constants are not in Ordinal alphabetical order by connector API name (value). Re-sort them by value.");
         }
 
         [TestMethod]
