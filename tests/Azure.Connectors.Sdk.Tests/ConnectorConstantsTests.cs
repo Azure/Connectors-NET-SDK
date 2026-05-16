@@ -234,5 +234,38 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.AreEqual("email", result);
         }
+
+        [TestMethod]
+        public void ConnectorNames_ConstantsAreAlphabeticallyOrdered()
+        {
+            // Arrange
+            var fieldNames = typeof(ConnectorNames)
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Where(field => field.IsLiteral && field.FieldType == typeof(string))
+                .Select(field => field.Name)
+                .ToList();
+
+            var orderedFieldNames = fieldNames.OrderBy(name => name, StringComparer.Ordinal).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(
+                orderedFieldNames,
+                fieldNames,
+                "ConnectorNames constants are not in Ordinal alphabetical order by field name. Re-sort them alphabetically.");
+        }
+
+        [TestMethod]
+        public void SdkConnectors_AvailableConnectorsAreAlphabeticallyOrdered()
+        {
+            // Arrange
+            var connectors = SdkConnectors.AvailableConnectors.ToList();
+            var orderedConnectors = connectors.OrderBy(name => name, StringComparer.Ordinal).ToList();
+
+            // Assert
+            CollectionAssert.AreEqual(
+                orderedConnectors,
+                connectors,
+                "SdkConnectors.AvailableConnectors is not in Ordinal alphabetical order. Re-sort the entries alphabetically.");
+        }
     }
 }

@@ -265,5 +265,141 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(1024, metadata.Size);
             Assert.IsFalse(metadata.IsFolder);
         }
+
+        [TestMethod]
+        public async Task GetDataSetsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            var expectedResponse = new DataSetsList
+            {
+                Value = new List<DataSet> { new DataSet { Name = "default", DisplayName = "Default" } }
+            };
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new SharePointOnlineClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .GetDataSetsAsync(cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(1, result.Value.Count);
+            Assert.AreEqual("default", result.Value[0].Name);
+        }
+
+        [TestMethod]
+        public async Task GetTableAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.NotFound,
+                    Content = new StringContent("{\"error\": \"List not found\"}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new SharePointOnlineClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act & Assert
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.GetTableAsync(
+                    siteAddress: "https://contoso.sharepoint.com/sites/test",
+                    listName: "Documents",
+                    cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual((int)HttpStatusCode.NotFound, exception.Status);
+        }
+
+        [TestMethod]
+        public async Task CopyFileAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"Id\":\"copied-1\",\"Name\":\"report-copy.pdf\",\"Size\":4096,\"IsFolder\":false}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new SharePointOnlineClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .CopyFileAsync(
+                    siteAddress: "https://contoso.sharepoint.com/sites/test",
+                    sourceFilePath: "/sites/test/Shared Documents/report.pdf",
+                    destinationFilePath: "/sites/test/Archive/report-copy.pdf",
+                    overwriteFlag: false,
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("copied-1", result.Id);
+            Assert.AreEqual("report-copy.pdf", result.Name);
+        }
     }
 }

@@ -117,5 +117,81 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
+        [TestMethod]
+        public async Task ListRootFolderAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[{\"Id\":\"file-1\",\"Name\":\"doc.pdf\",\"DisplayName\":\"doc.pdf\",\"IsFolder\":false}]")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            // Act
+            var result = await client
+                .ListRootFolderAsync(cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("file-1", result[0].Id);
+            Assert.AreEqual("doc.pdf", result[0].Name);
+        }
+
+        [TestMethod]
+        public async Task CreateFileAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"Id\":\"new-file-1\",\"Name\":\"upload.txt\",\"DisplayName\":\"upload.txt\",\"Size\":512}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            // Act
+            var result = await client
+                .CreateFileAsync(
+                    input: System.Text.Encoding.UTF8.GetBytes("hello"),
+                    folderPath: "/Documents",
+                    fileName: "upload.txt",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("new-file-1", result.Id);
+            Assert.AreEqual("upload.txt", result.Name);
+        }
+
+        [TestMethod]
+        public async Task GetFileTagsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"Tags\":[\"design\",\"urgent\"]}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            // Act
+            var result = await client
+                .GetFileTagsAsync(
+                    file: "file-1",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.TagsValue);
+            Assert.AreEqual(2, result.TagsValue.Count);
+        }
+
     }
 }

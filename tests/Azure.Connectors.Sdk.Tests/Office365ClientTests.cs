@@ -260,5 +260,144 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(message.Body, deserialized.Body);
             Assert.AreEqual(message.IsRead, deserialized.IsRead);
         }
+
+        [TestMethod]
+        public async Task GetEmailsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"value\":[{\"id\":\"msg-1\",\"subject\":\"Weekly report\"}]}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new Office365Client(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .GetEmailsAsync(cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(1, result.Value.Count);
+            Assert.AreEqual("msg-1", result.Value[0].MessageId);
+        }
+
+        [TestMethod]
+        public async Task GetRoomsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            var expectedResponse = new GetRoomsResponse
+            {
+                Value = new List<object> { "room-1", "room-2" }
+            };
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new Office365Client(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .GetRoomsAsync(cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(2, result.Value.Count);
+        }
+
+        [TestMethod]
+        public async Task SendEmailAsync_WithMockedResponse_CompletesWithoutException()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new Office365Client(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act — void method, reaching this line confirms success
+            await client
+                .SendEmailAsync(
+                    input: new SendEmailInput
+                    {
+                        To = "recipient@contoso.com",
+                        Subject = "Hello",
+                        Body = "Test message body"
+                    },
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert — verify the HTTP call was made
+            mockHandler.Protected().Verify(
+                "SendAsync",
+                Times.Once(),
+                ItExpr.IsAny<HttpRequestMessage>(),
+                ItExpr.IsAny<CancellationToken>());
+        }
     }
 }

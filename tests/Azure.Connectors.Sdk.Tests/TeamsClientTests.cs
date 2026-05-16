@@ -251,5 +251,137 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(team.DisplayName, deserialized.DisplayName);
             Assert.AreEqual(team.TenantId, deserialized.TenantId);
         }
+
+        [TestMethod]
+        public async Task GetChannelAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"id\":\"chan-123\",\"displayName\":\"General\",\"description\":\"General discussion\"}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new TeamsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .GetChannelAsync(
+                    team: "team-123",
+                    channel: "chan-123",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("chan-123", result.ChannelId);
+            Assert.AreEqual("General", result.DisplayName);
+        }
+
+        [TestMethod]
+        public async Task GetChannelsForGroupAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/beta\",\"value\":[{\"id\":\"chan-1\",\"displayName\":\"General\"}]}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new TeamsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .GetChannelsForGroupAsync(
+                    team: "team-123",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.ChannelList);
+            Assert.AreEqual(1, result.ChannelList.Count);
+            Assert.AreEqual("chan-1", result.ChannelList[0].ChannelId);
+        }
+
+        [TestMethod]
+        public async Task CreateTeamsMeetingAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.Forbidden,
+                    Content = new StringContent("{\"error\": \"Access denied\"}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new TeamsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act & Assert
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.CreateTeamsMeetingAsync(
+                    calendarId: "cal-123",
+                    input: new NewMeeting(),
+                    cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual((int)HttpStatusCode.Forbidden, exception.Status);
+        }
     }
 }

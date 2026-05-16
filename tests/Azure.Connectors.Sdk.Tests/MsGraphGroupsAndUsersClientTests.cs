@@ -252,5 +252,139 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(deserialized);
             Assert.AreEqual(input.SecurityEnabledOnly, deserialized.SecurityEnabledOnly);
         }
+
+        [TestMethod]
+        public async Task ListGroupsByDisplayNameSearchAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            var expectedResponse = new ListGroupsByDisplayNameSearchResponse
+            {
+                Context = "https://graph.microsoft.com/v1.0/$metadata#groups",
+                Count = 1,
+                Value = new List<object> { "group-1" }
+            };
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new MsGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .ListGroupsByDisplayNameSearchAsync(
+                    searchByDisplayName: "Engineering",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(1, result.Value.Count);
+        }
+
+        [TestMethod]
+        public async Task GetMemberGroupsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/v1.0\",\"value\":[\"group-abc\"]}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new MsGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .GetMemberGroupsAsync(
+                    objectIdOfTheMicrosoftEntraIdMemberUser: "user-123",
+                    input: new GetMemberGroupsInput { SecurityEnabledOnly = true },
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(1, result.Value.Count);
+        }
+
+        [TestMethod]
+        public async Task ListSubscribedSkusAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            // Arrange
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new StringContent("{\"error\": \"Internal server error\"}")
+                })
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new MsGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act & Assert
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListSubscribedSkusAsync(cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual((int)HttpStatusCode.InternalServerError, exception.Status);
+        }
     }
 }
