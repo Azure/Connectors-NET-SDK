@@ -275,9 +275,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent("{\"value\":[{\"id\":\"msg-1\",\"subject\":\"Weekly report\"}]}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -322,9 +320,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -363,9 +359,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

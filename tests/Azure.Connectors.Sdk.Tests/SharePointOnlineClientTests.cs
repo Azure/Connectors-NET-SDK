@@ -284,9 +284,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -327,9 +325,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.NotFound,
                     Content = new StringContent("{\"error\": \"List not found\"}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -369,9 +365,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent("{\"Id\":\"copied-1\",\"Name\":\"report-copy.pdf\",\"Size\":4096,\"IsFolder\":false}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

@@ -273,9 +273,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -317,9 +315,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/v1.0\",\"value\":[\"group-abc\"]}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -362,9 +358,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.InternalServerError,
                     Content = new StringContent("{\"error\": \"Internal server error\"}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

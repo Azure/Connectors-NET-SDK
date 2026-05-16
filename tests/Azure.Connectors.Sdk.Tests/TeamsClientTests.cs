@@ -266,9 +266,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent("{\"id\":\"chan-123\",\"displayName\":\"General\",\"description\":\"General discussion\"}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -311,9 +309,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/beta\",\"value\":[{\"id\":\"chan-1\",\"displayName\":\"General\"}]}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -356,9 +352,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     StatusCode = HttpStatusCode.Forbidden,
                     Content = new StringContent("{\"error\": \"Access denied\"}")
-                })
-                .Callback(() => { })
-                .Verifiable();
+                });
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

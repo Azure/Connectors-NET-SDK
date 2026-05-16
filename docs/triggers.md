@@ -61,7 +61,7 @@ public class TriggerCallbackPayload<T>
 
 public class TriggerCallbackBody<T>
 {
-    // Always a list — normalized from both batch and single-item shapes
+    // Normalized to a list from both batch and single-item shapes; null when the callback body is absent
     [JsonPropertyName("value")]
     public IReadOnlyList<T>? Value { get; internal set; }
 }
