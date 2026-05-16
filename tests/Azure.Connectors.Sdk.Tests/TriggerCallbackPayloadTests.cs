@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -436,5 +437,73 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         #endregion Discriminator correctness
+
+        #region Serializer null-handling
+
+        [TestMethod]
+        public void Serialize_NullValue_WhenWritingNullOption_OmitsValueProperty()
+        {
+            // Arrange — TriggerCallbackBody<T> with null Value, using WhenWritingNull options
+            // (matching the SDK default in ConnectorClientBase / ConnectorJsonSerializer).
+            var body = new TriggerCallbackBody<GraphClientReceiveMessage> { Value = null };
+            var nullIgnoreOptions = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                PropertyNameCaseInsensitive = true,
+            };
+            nullIgnoreOptions.Converters.Add(new TriggerCallbackBodyConverterFactory());
+
+            // Act
+            var json = JsonSerializer.Serialize(body, nullIgnoreOptions);
+
+            // Assert — "value" property must be omitted when Value is null and WhenWritingNull is set
+            Assert.IsFalse(json.Contains("\"value\"", StringComparison.Ordinal),
+                $"WhenWritingNull must suppress the 'value' property when Value is null. Got: {json}");
+            Assert.AreEqual("{}", json, "Serialized body with null Value should be an empty object when WhenWritingNull is configured.");
+        }
+
+        [TestMethod]
+        public void Serialize_NullValue_WhenWritingDefaultNullOption_OmitsValueProperty()
+        {
+            // Arrange — WhenWritingDefault also omits null reference types.
+            var body = new TriggerCallbackBody<GraphClientReceiveMessage> { Value = null };
+            var defaultIgnoreOptions = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+                PropertyNameCaseInsensitive = true,
+            };
+            defaultIgnoreOptions.Converters.Add(new TriggerCallbackBodyConverterFactory());
+
+            // Act
+            var json = JsonSerializer.Serialize(body, defaultIgnoreOptions);
+
+            // Assert
+            Assert.IsFalse(json.Contains("\"value\"", StringComparison.Ordinal),
+                $"WhenWritingDefault must suppress the 'value' property when Value is null. Got: {json}");
+        }
+
+        [TestMethod]
+        public void Serialize_NullValue_NeverIgnoreOption_WritesNullProperty()
+        {
+            // Arrange — JsonIgnoreCondition.Never means null values are always written.
+            var body = new TriggerCallbackBody<GraphClientReceiveMessage> { Value = null };
+            var neverIgnoreOptions = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+                PropertyNameCaseInsensitive = true,
+            };
+            neverIgnoreOptions.Converters.Add(new TriggerCallbackBodyConverterFactory());
+
+            // Act
+            var json = JsonSerializer.Serialize(body, neverIgnoreOptions);
+
+            // Assert — "value" property must be present with a null value
+            Assert.IsTrue(json.Contains("\"value\"", StringComparison.Ordinal),
+                $"Never-ignore option must write the 'value' property even when null. Got: {json}");
+            Assert.IsTrue(json.Contains("null", StringComparison.Ordinal),
+                $"Value must be serialized as JSON null. Got: {json}");
+        }
+
+        #endregion Serializer null-handling
     }
 }

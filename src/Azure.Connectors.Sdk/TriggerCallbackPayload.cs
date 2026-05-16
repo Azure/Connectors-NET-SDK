@@ -141,10 +141,24 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
     /// <inheritdoc/>
     public override void Write(Utf8JsonWriter writer, TriggerCallbackBody<T> value, JsonSerializerOptions options)
     {
-        // Always serialize in batch shape for consistency.
+        // Serialize in batch shape: { "value": [...] }.
+        // Honour the configured null-handling behaviour — when DefaultIgnoreCondition
+        // says to omit null values (WhenWritingNull / WhenWritingDefault / Always) and
+        // Value is null, skip the property entirely.  This matches the behaviour STJ
+        // would apply to a plain [JsonPropertyName("value")] List<T>? POCO property.
         writer.WriteStartObject();
-        writer.WritePropertyName("value");
-        JsonSerializer.Serialize(writer, value.Value, options);
+
+        bool omitNull = value.Value is null &&
+            options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWritingNull
+                or JsonIgnoreCondition.WhenWritingDefault
+                or JsonIgnoreCondition.Always;
+
+        if (!omitNull)
+        {
+            writer.WritePropertyName("value");
+            JsonSerializer.Serialize(writer, value.Value, options);
+        }
+
         writer.WriteEndObject();
     }
 }
