@@ -74,7 +74,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$useNamespace = -not [string]::IsNullOrEmpty($NamespaceName)
+$useNamespace = -not [string]::IsNullOrWhiteSpace($NamespaceName)
+if ($useNamespace) { $NamespaceName = $NamespaceName.Trim() }
+
+$connectorNamespacePortalUrl = "https://nice-desert-04d03581e.2.azurestaticapps.net/"
 
 Write-Host "=== DirectClient SDK Connection Setup ===" -ForegroundColor Cyan
 if ($useNamespace) {
@@ -111,21 +114,22 @@ Failed to get Connector Namespace connection. Verify:
   - Namespace '$NamespaceName' exists in resource group '$ResourceGroup'
   - Connection '$ConnectionName' exists in the namespace
   - You have completed OAuth consent via the Connector Namespace Manager Portal
-    (https://nice-desert-04d03581e.2.azurestaticapps.net/)
+    ($connectorNamespacePortalUrl)
 "@
         exit 1
     }
 
     $connectionObj = $connectionJson | ConvertFrom-Json
     $runtimeUrl = $connectionObj.properties.connectionRuntimeUrl
-    $status = $connectionObj.properties.statuses[0].status
+    $statuses = $connectionObj.properties.statuses
+    $status = if ($statuses -and $statuses.Count -gt 0) { $statuses[0].status } else { "Unknown" }
 
     if (-not $runtimeUrl) {
         Write-Error @"
 Runtime URL is empty. For Connector Namespace connections, you must complete
 OAuth consent via the Connector Namespace Manager Portal before the runtime URL
 is available:
-  1. Open https://nice-desert-04d03581e.2.azurestaticapps.net/
+  1. Open $connectorNamespacePortalUrl
   2. Select your namespace '$NamespaceName'
   3. Click Authorize on connection '$ConnectionName' and complete the OAuth flow
   4. Re-run this script after the status changes to 'Connected'
@@ -155,7 +159,7 @@ if ($status -ne "Connected") {
     Write-Warning "Connection is not in 'Connected' state. You may need to re-authorize."
     if ($useNamespace) {
         Write-Host "  Complete OAuth consent via the Connector Namespace Manager Portal:" -ForegroundColor Yellow
-        Write-Host "  https://nice-desert-04d03581e.2.azurestaticapps.net/" -ForegroundColor Yellow
+        Write-Host "  $connectorNamespacePortalUrl" -ForegroundColor Yellow
     } else {
         Write-Host "  Run: az resource invoke-action --ids '$connectionResourceId' --action 'listConsentLinks' --api-version '2018-07-01-preview'"
     }
