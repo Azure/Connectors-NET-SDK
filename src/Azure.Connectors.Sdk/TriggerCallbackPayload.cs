@@ -27,7 +27,7 @@ public class TriggerCallbackPayload<T>
     /// The body envelope containing the trigger items.
     /// </summary>
     [JsonPropertyName("body")]
-    public TriggerCallbackBody<T>? Body { get; set; }
+    public TriggerCallbackBody<T>? Body { get; init; }
 }
 
 /// <summary>
@@ -47,7 +47,7 @@ public class TriggerCallbackBody<T>
     /// iterating.
     /// </summary>
     [JsonPropertyName("value")]
-    public List<T>? Value { get; set; }
+    public IReadOnlyList<T>? Value { get; internal set; }
 }
 
 /// <summary>
@@ -166,4 +166,27 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
 
         writer.WriteEndObject();
     }
+}
+
+/// <summary>
+/// Factory methods for constructing <see cref="TriggerCallbackPayload{T}"/> and
+/// <see cref="TriggerCallbackBody{T}"/> model instances for use in unit tests and mocks.
+/// </summary>
+public static class ConnectorModelFactory
+{
+    /// <summary>
+    /// Creates a <see cref="TriggerCallbackPayload{T}"/> instance.
+    /// </summary>
+    /// <typeparam name="T">The connector-specific trigger item type.</typeparam>
+    /// <param name="body">The body envelope. Defaults to <see langword="null"/>.</param>
+    public static TriggerCallbackPayload<T> TriggerCallbackPayload<T>(TriggerCallbackBody<T>? body = default)
+        => new() { Body = body };
+
+    /// <summary>
+    /// Creates a <see cref="TriggerCallbackBody{T}"/> instance.
+    /// </summary>
+    /// <typeparam name="T">The connector-specific trigger item type.</typeparam>
+    /// <param name="value">The list of trigger items. Defaults to <see langword="null"/>.</param>
+    public static TriggerCallbackBody<T> TriggerCallbackBody<T>(IReadOnlyList<T>? value = default)
+        => new() { Value = value };
 }
