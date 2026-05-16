@@ -374,7 +374,7 @@ namespace Azure.Connectors.Sdk.Tests
                 credential: mockCredential.Object,
                 options: options);
 
-            // Act — void method, reaching this line confirms success
+            // Act — no return value; completing without exception confirms success
             await client
                 .SendEmailAsync(
                     input: new SendEmailInput
