@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0-preview.1] - 2026-05-15
+
 ### Fixed
 
 - **`TriggerCallbackBody<T>` now handles both batch and single-item callback shapes** — Connector Namespace delivers trigger callbacks in two shapes depending on the trigger configuration's splitOn setting: batch `{"body":{"value":[...]}}` and single-item `{"body":{...item...}}`. The new `TriggerCallbackBodyConverter<T>` transparently normalizes both shapes into `Body.Value` as a list, preventing silent zero-item processing when splitOn is enabled. All 77+ generated `TriggerCallbackPayload<T>` subclasses inherit this fix automatically. (#149)
