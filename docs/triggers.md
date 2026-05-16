@@ -67,7 +67,7 @@ public class TriggerCallbackBody<T>
 }
 ```
 
-#### Dual-shape normalization (v0.11.0+)
+#### Dual-shape normalization
 
 The Connector Namespace delivers callbacks in two shapes depending on the trigger's `splitOn` setting:
 

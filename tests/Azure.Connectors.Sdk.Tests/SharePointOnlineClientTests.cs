@@ -275,16 +275,17 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Value = new List<DataSet> { new DataSet { Name = "default", DisplayName = "Default" } }
             };
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -316,16 +317,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.NotFound,
+                Content = new StringContent("{\"error\": \"List not found\"}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.NotFound,
-                    Content = new StringContent("{\"error\": \"List not found\"}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -356,16 +358,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"Id\":\"copied-1\",\"Name\":\"report-copy.pdf\",\"Size\":4096,\"IsFolder\":false}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("{\"Id\":\"copied-1\",\"Name\":\"report-copy.pdf\",\"Size\":4096,\"IsFolder\":false}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

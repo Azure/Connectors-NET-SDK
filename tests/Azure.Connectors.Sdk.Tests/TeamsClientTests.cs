@@ -257,16 +257,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"id\":\"chan-123\",\"displayName\":\"General\",\"description\":\"General discussion\"}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("{\"id\":\"chan-123\",\"displayName\":\"General\",\"description\":\"General discussion\"}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -300,16 +301,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/beta\",\"value\":[{\"id\":\"chan-1\",\"displayName\":\"General\"}]}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/beta\",\"value\":[{\"id\":\"chan-1\",\"displayName\":\"General\"}]}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -343,16 +345,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.Forbidden,
+                Content = new StringContent("{\"error\": \"Access denied\"}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.Forbidden,
-                    Content = new StringContent("{\"error\": \"Access denied\"}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential

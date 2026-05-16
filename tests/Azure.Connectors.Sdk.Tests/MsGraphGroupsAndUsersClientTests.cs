@@ -264,16 +264,17 @@ namespace Azure.Connectors.Sdk.Tests
                 Count = 1,
                 Value = new List<object> { "group-1" }
             };
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -306,16 +307,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/v1.0\",\"value\":[\"group-abc\"]}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/v1.0\",\"value\":[\"group-abc\"]}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
@@ -349,16 +351,17 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockHandler = new Mock<HttpMessageHandler>();
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                Content = new StringContent("{\"error\": \"Internal server error\"}")
+            };
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Content = new StringContent("{\"error\": \"Internal server error\"}")
-                });
+                .ReturnsAsync(responseMessage);
 
             var mockCredential = new Mock<TokenCredential>();
             mockCredential
