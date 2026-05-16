@@ -41,7 +41,10 @@ public class TriggerCallbackBody<T>
 {
     /// <summary>
     /// The list of trigger items delivered by the connector trigger.
-    /// Always a list regardless of whether the callback was batch or single-item.
+    /// Contains all items regardless of whether the callback arrived in batch or single-item
+    /// shape. May be <see langword="null" /> when the source payload contained an explicit
+    /// <c>"value": null</c> property (or a null body), so consumers should null-check before
+    /// iterating.
     /// </summary>
     [JsonPropertyName("value")]
     public List<T>? Value { get; set; }
@@ -116,7 +119,9 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         foreach (JsonProperty property in root.EnumerateObject())
         {
             propertyCount++;
-            if (string.Equals(property.Name, "value", comparison))
+            if (string.Equals(property.Name, "value", comparison) &&
+                (property.Value.ValueKind == JsonValueKind.Array ||
+                 property.Value.ValueKind == JsonValueKind.Null))
             {
                 valueElement = property.Value;
                 foundValueProperty = true;

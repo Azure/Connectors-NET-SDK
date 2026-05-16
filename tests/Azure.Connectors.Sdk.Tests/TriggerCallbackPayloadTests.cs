@@ -528,6 +528,27 @@ namespace Azure.Connectors.Sdk.Tests
                 "A sole 'value':null property must be treated as the batch envelope with a null list, not as a single-item T.");
         }
 
+        [TestMethod]
+        public void Deserialize_SoleValueScalarProperty_TreatedAsSingleItem()
+        {
+            // Arrange — single-item T whose only property is "value" containing a scalar.
+            // Even though there is exactly one property named "value", it is not an array or
+            // null, so the discriminator must fall through to the single-item path.
+            var payload = """{"body":{"value":"not-a-list"}}""";
+
+            // Act — use Dictionary to capture arbitrary shapes
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<Dictionary<string, object>>>(
+                payload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert — treated as single-item (dict with key "value") not as batch
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Body!.Value!.Count,
+                "A sole 'value' property that is a scalar must be treated as a single-item T, not as a batch envelope.");
+            Assert.IsTrue(result.Body.Value[0].ContainsKey("value"),
+                "The single-item dict must contain the 'value' key from the source object.");
+        }
+
         #endregion Serializer null-handling
     }
 }
