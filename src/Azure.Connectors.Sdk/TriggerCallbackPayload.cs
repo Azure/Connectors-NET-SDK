@@ -95,7 +95,35 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         using JsonDocument document = JsonDocument.ParseValue(ref reader);
         JsonElement root = document.RootElement;
 
-        if (root.TryGetProperty("value", out JsonElement valueElement) && valueElement.ValueKind == JsonValueKind.Array)
+        // Determine property-name comparison to match the configured case behaviour.
+        // TriggerCallbackBody<T> declares [JsonPropertyName("value")] so the wire name is
+        // always lower-case; STJ maps it case-insensitively when PropertyNameCaseInsensitive
+        // is true, and our discriminator must honour the same setting.
+        StringComparison comparison = options.PropertyNameCaseInsensitive
+            ? StringComparison.OrdinalIgnoreCase
+            : StringComparison.Ordinal;
+
+        // Identify the batch shape: a JSON object whose sole property is named "value"
+        // and whose value is an array.  Requiring exactly one property prevents falsely
+        // routing a single-item T that happens to have a "value" array field into the
+        // batch path — item types (e.g., GraphClientReceiveMessage) always carry multiple
+        // fields, while the Connector Namespace batch envelope carries exactly one.
+        JsonElement valueElement = default;
+        bool foundValueArray = false;
+        int propertyCount = 0;
+
+        foreach (JsonProperty property in root.EnumerateObject())
+        {
+            propertyCount++;
+            if (string.Equals(property.Name, "value", comparison) &&
+                property.Value.ValueKind == JsonValueKind.Array)
+            {
+                valueElement = property.Value;
+                foundValueArray = true;
+            }
+        }
+
+        if (foundValueArray && propertyCount == 1)
         {
             // Batch shape: {"value":[...items...]}
             List<T>? items = valueElement.Deserialize<List<T>>(options);

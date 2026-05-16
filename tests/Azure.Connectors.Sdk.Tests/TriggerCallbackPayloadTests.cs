@@ -368,5 +368,73 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         #endregion Single-item shape (splitOn enabled)
+
+        #region Discriminator correctness
+
+        [TestMethod]
+        public void Deserialize_SingleItemWithValueArrayProperty_IsNotMistakenForBatch()
+        {
+            // Arrange — single-item T that has a "value" array field PLUS other fields.
+            // The discriminator must NOT misclassify multi-property objects as batch envelopes
+            // just because one field happens to be named "value" and is an array.
+            var payload = """
+                {
+                  "body": {
+                    "subject": "Item with value field",
+                    "from": "sender@test.com",
+                    "value": ["extra", "data"]
+                  }
+                }
+                """;
+
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                payload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert — treated as single-item because the body has more than one property,
+            // so the full object is deserialized as T and wrapped in a one-element list
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Body!.Value!.Count, "Multi-property body must be treated as single-item, not batch.");
+            Assert.AreEqual("Item with value field", result.Body.Value[0].Subject);
+        }
+
+        [TestMethod]
+        public void Deserialize_CaseInsensitiveOptions_BatchShapeWithUppercaseValueRecognized()
+        {
+            // Arrange — batch payload using "Value" (capital V) wire name.
+            // With PropertyNameCaseInsensitive the discriminator must find it.
+            var payload = """{"body":{"Value":[{"subject":"Email 1"},{"subject":"Email 2"}]}}""";
+            var caseInsensitiveOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                payload,
+                caseInsensitiveOptions);
+
+            // Assert — recognized as batch because "Value" matches "value" case-insensitively
+            Assert.AreEqual(2, result!.Body!.Value!.Count, "Case-insensitive options must recognize uppercase 'Value' as the batch envelope property.");
+        }
+
+        [TestMethod]
+        public void Deserialize_CaseSensitiveOptions_BatchShapeWithUppercaseValueIsSingleItem()
+        {
+            // Arrange — batch payload using "Value" (capital V), but case-SENSITIVE options.
+            // "Value" ≠ "value" under Ordinal comparison, so the discriminator must treat
+            // the body as a single-item T rather than the batch wrapper.
+            var payload = """{"body":{"Value":[{"subject":"Email 1"}]}}""";
+            var caseSensitiveOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = false };
+
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                payload,
+                caseSensitiveOptions);
+
+            // Assert — treated as a single-item (the whole body is deserialized as T)
+            // because the property name "Value" does not match the wire name "value" strictly.
+            Assert.AreEqual(1, result!.Body!.Value!.Count, "Case-sensitive options must NOT treat 'Value' (capital V) as the batch envelope property.");
+        }
+
+        #endregion Discriminator correctness
     }
 }
