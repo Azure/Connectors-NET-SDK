@@ -59,9 +59,11 @@ public class TriggerCallbackPayload<T>
     public TriggerCallbackBody<T>? Body { get; init; }
 }
 
+// TriggerCallbackBodyConverterFactory handles both batch and single-item JSON shapes
+[JsonConverter(typeof(TriggerCallbackBodyConverterFactory))]
 public class TriggerCallbackBody<T>
 {
-    // Normalized to a list from both batch and single-item shapes; null when the callback body is absent
+    // Normalized to a list; null when the payload has no body or contains an explicit "value": null
     [JsonPropertyName("value")]
     public IReadOnlyList<T>? Value { get; internal set; }
 }
