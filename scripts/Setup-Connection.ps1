@@ -54,15 +54,15 @@
 #>
 
 param(
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, Position = 0)]
     [string]$SubscriptionId,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, Position = 1)]
     [string]$ResourceGroup,
 
     [string]$NamespaceName,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true, Position = 2)]
     [string]$ConnectionName,
 
     [string]$PolicyName = "local-dev",
