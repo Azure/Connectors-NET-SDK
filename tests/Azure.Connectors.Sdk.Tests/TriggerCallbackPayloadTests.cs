@@ -212,5 +212,161 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("value1", result.Body.Value[0]["key"]);
             Assert.AreEqual("value2", result.Body.Value[1]["key"]);
         }
+
+        #region Single-item shape (splitOn enabled)
+
+        /// <summary>
+        /// Captured single-item callback from production when splitOn is enabled on the trigger config.
+        /// The body contains the item directly instead of a {"value":[...]} array.
+        /// </summary>
+        private const string SingleItemTriggerPayload = """
+            {
+              "body": {
+                "id": "AAMkADlmOTA3NWNm",
+                "receivedDateTime": "2026-05-14T16:06:00+00:00",
+                "hasAttachments": false,
+                "subject": "Single-item callback test",
+                "bodyPreview": "This is a single-item callback.",
+                "importance": "normal",
+                "isRead": false,
+                "isHtml": true,
+                "body": "<html><body>Single item</body></html>",
+                "from": "sender@microsoft.com",
+                "toRecipients": "recipient@microsoft.com",
+                "ccRecipients": null,
+                "bccRecipients": null,
+                "replyTo": null,
+                "attachments": []
+              }
+            }
+            """;
+
+        [TestMethod]
+        public void Deserialize_SingleItemShape_WrapsInList()
+        {
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                TriggerCallbackPayloadTests.SingleItemTriggerPayload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Body);
+            Assert.IsNotNull(result.Body.Value);
+            Assert.AreEqual(1, result.Body.Value.Count, "Single-item shape should be wrapped in a one-element list.");
+        }
+
+        [TestMethod]
+        public void Deserialize_SingleItemShape_ParsesEmailFields()
+        {
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                TriggerCallbackPayloadTests.SingleItemTriggerPayload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            var email = result!.Body!.Value![0];
+
+            // Assert
+            Assert.AreEqual("AAMkADlmOTA3NWNm", email.MessageId);
+            Assert.AreEqual("Single-item callback test", email.Subject);
+            Assert.AreEqual("sender@microsoft.com", email.From);
+            Assert.AreEqual("recipient@microsoft.com", email.To);
+            Assert.AreEqual("normal", email.Importance);
+            Assert.AreEqual(false, email.HasAttachment);
+        }
+
+        [TestMethod]
+        public void Deserialize_SingleItemShape_WithTypedAlias()
+        {
+            // Act — use the generated typed alias
+            var result = JsonSerializer.Deserialize<Office365OnNewEmailTriggerPayload>(
+                TriggerCallbackPayloadTests.SingleItemTriggerPayload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Body!.Value!.Count);
+            Assert.AreEqual("Single-item callback test", result.Body.Value[0].Subject);
+        }
+
+        [TestMethod]
+        public void Deserialize_SingleItemShape_GenericDictionary()
+        {
+            // Arrange — single-item shape with a dictionary type
+            var payload = """{"body":{"key1":"value1","key2":"value2"}}""";
+
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<Dictionary<string, string>>>(
+                payload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert
+            Assert.AreEqual(1, result!.Body!.Value!.Count);
+            Assert.AreEqual("value1", result.Body.Value[0]["key1"]);
+            Assert.AreEqual("value2", result.Body.Value[0]["key2"]);
+        }
+
+        [TestMethod]
+        public void Deserialize_BothShapes_ProduceIdenticalResult()
+        {
+            // Arrange
+            var batchPayload = """
+                {
+                  "body": {
+                    "value": [
+                      { "subject": "Test email", "from": "sender@test.com" }
+                    ]
+                  }
+                }
+                """;
+
+            var singlePayload = """
+                {
+                  "body": {
+                    "subject": "Test email",
+                    "from": "sender@test.com"
+                  }
+                }
+                """;
+
+            // Act
+            var batchResult = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                batchPayload,
+                TriggerCallbackPayloadTests.JsonOptions);
+            var singleResult = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                singlePayload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert — both produce identical Value lists
+            Assert.AreEqual(batchResult!.Body!.Value!.Count, singleResult!.Body!.Value!.Count);
+            Assert.AreEqual(batchResult.Body.Value[0].Subject, singleResult.Body.Value[0].Subject);
+            Assert.AreEqual(batchResult.Body.Value[0].From, singleResult.Body.Value[0].From);
+        }
+
+        [TestMethod]
+        public void Serialize_RoundTrip_AlwaysProducesBatchShape()
+        {
+            // Arrange — deserialize from single-item shape
+            var singlePayload = """{"body":{"subject":"Test email","from":"sender@test.com"}}""";
+            var deserialized = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                singlePayload,
+                TriggerCallbackPayloadTests.JsonOptions);
+
+            // Act — serialize back
+            var json = JsonSerializer.Serialize(deserialized, TriggerCallbackPayloadTests.JsonOptions);
+
+            // Assert — output always uses batch shape with "value" array
+            Assert.IsTrue(json.Contains("\"value\"", StringComparison.Ordinal), "Serialized output should contain 'value' array.");
+            Assert.IsTrue(json.Contains("[", StringComparison.Ordinal), "Serialized output should contain an array.");
+
+            // Round-trip: re-deserialize produces same result
+            var roundTripped = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                json,
+                TriggerCallbackPayloadTests.JsonOptions);
+            Assert.AreEqual(1, roundTripped!.Body!.Value!.Count);
+            Assert.AreEqual("Test email", roundTripped.Body.Value[0].Subject);
+        }
+
+        #endregion Single-item shape (splitOn enabled)
     }
 }

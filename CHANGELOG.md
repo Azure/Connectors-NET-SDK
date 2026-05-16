@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`TriggerCallbackBody<T>` now handles both batch and single-item callback shapes** — Connector Namespace delivers trigger callbacks in two shapes depending on the trigger configuration's splitOn setting: batch `{"body":{"value":[...]}}` and single-item `{"body":{...item...}}`. The new `TriggerCallbackBodyConverter<T>` transparently normalizes both shapes into `Body.Value` as a list, preventing silent zero-item processing when splitOn is enabled. All 77+ generated `TriggerCallbackPayload<T>` subclasses inherit this fix automatically. (#149)
+
 ### Breaking Changes
 
 - **Removed `CamelCase` JSON naming policy** from `ConnectorClientBase.JsonOptions` and `ConnectorJsonSerializer` — properties without `[JsonPropertyName]` attributes now serialize using their C# PascalCase names, matching swagger/connector API expectations. Properties with `[JsonPropertyName]` are unaffected. Also changed `JsonStringEnumConverter` to use default casing instead of camelCase. (#84, #85)
