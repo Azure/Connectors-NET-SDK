@@ -504,6 +504,30 @@ namespace Azure.Connectors.Sdk.Tests
                 $"Value must be serialized as JSON null. Got: {json}");
         }
 
+        [TestMethod]
+        public void Deserialize_NullValueRoundTrip_PreservesNullList()
+        {
+            // Arrange — {"value":null} round-trips correctly: the sole "value":null property
+            // must be recognized as the batch envelope (not a single-item T), and Value is
+            // preserved as null rather than wrapping the object as a single-item list.
+            var payload = """{"body":{"value":null}}""";
+            var neverIgnoreOptions = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+                PropertyNameCaseInsensitive = true,
+            };
+
+            // Act
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<GraphClientReceiveMessage>>(
+                payload,
+                neverIgnoreOptions);
+
+            // Assert — body detected as batch envelope; Value is null (not a 1-element list)
+            Assert.IsNotNull(result);
+            Assert.IsNull(result.Body!.Value,
+                "A sole 'value':null property must be treated as the batch envelope with a null list, not as a single-item T.");
+        }
+
         #endregion Serializer null-handling
     }
 }

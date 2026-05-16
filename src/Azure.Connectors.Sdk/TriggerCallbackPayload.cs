@@ -103,30 +103,30 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
             ? StringComparison.OrdinalIgnoreCase
             : StringComparison.Ordinal;
 
-        // Identify the batch shape: a JSON object whose sole property is named "value"
-        // and whose value is an array.  Requiring exactly one property prevents falsely
-        // routing a single-item T that happens to have a "value" array field into the
-        // batch path — item types (e.g., GraphClientReceiveMessage) always carry multiple
-        // fields, while the Connector Namespace batch envelope carries exactly one.
+        // Identify the batch shape: a JSON object whose SOLE property is named "value"
+        // (array or null).  The Connector Namespace batch envelope always carries exactly
+        // one property; item types always carry multiple fields.  Requiring exactly one
+        // property prevents mis-routing a single-item T whose sole "value" field is not a
+        // list.  Accepting null in addition to Array preserves round-trip fidelity when the
+        // serializer writes {"value":null} under DefaultIgnoreCondition.Never.
         JsonElement valueElement = default;
-        bool foundValueArray = false;
+        bool foundValueProperty = false;
         int propertyCount = 0;
 
         foreach (JsonProperty property in root.EnumerateObject())
         {
             propertyCount++;
-            if (string.Equals(property.Name, "value", comparison) &&
-                property.Value.ValueKind == JsonValueKind.Array)
+            if (string.Equals(property.Name, "value", comparison))
             {
                 valueElement = property.Value;
-                foundValueArray = true;
+                foundValueProperty = true;
             }
         }
 
-        if (foundValueArray && propertyCount == 1)
+        if (foundValueProperty && propertyCount == 1)
         {
-            // Batch shape: {"value":[...items...]}
-            List<T>? items = valueElement.Deserialize<List<T>>(options);
+            // Batch shape: {"value":[...items...]} or {"value":null}
+            List<T>? items = valueElement.Deserialize<List<T>?>(options);
             return new TriggerCallbackBody<T> { Value = items };
         }
 
