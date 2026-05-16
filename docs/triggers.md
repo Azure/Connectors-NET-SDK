@@ -128,6 +128,7 @@ Not all trigger operations deliver JSON-deserializable payloads. Some triggers r
 The XML doc on a trigger operation constant indicates whether a typed payload is available:
 
 **Metadata trigger** — has `Payload type:` annotation:
+
 ```csharp
 /// <summary>
 /// When a file is created (properties only).
@@ -137,6 +138,7 @@ public const string OnNewFiles = "OnNewFilesV2";
 ```
 
 **Binary trigger** — no `Payload type:` annotation:
+
 ```csharp
 /// <summary>
 /// When a file is created.
