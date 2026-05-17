@@ -182,7 +182,7 @@ namespace Azure.Connectors.Sdk.Orderful
         {
         }
 
-        protected OrderfulClient() : this(new Uri("https://localhost")) { }
+        protected OrderfulClient() : base() { }
 
         public override string ConnectorName => "orderful";
 

@@ -712,7 +712,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         {
         }
 
-        protected TicketmasterClient() : this(new Uri("https://localhost")) { }
+        protected TicketmasterClient() : base() { }
 
         public override string ConnectorName => "ticketmaster";
 

@@ -465,7 +465,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
         {
         }
 
-        protected ZohoSignClient() : this(new Uri("https://localhost")) { }
+        protected ZohoSignClient() : base() { }
 
         public override string ConnectorName => "zohosign";
 

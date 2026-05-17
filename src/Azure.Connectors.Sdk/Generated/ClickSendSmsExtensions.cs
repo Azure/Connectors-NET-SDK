@@ -1062,7 +1062,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         {
         }
 
-        protected ClickSendSmsClient() : this(new Uri("https://localhost")) { }
+        protected ClickSendSmsClient() : base() { }
 
         public override string ConnectorName => "clicksendsms";
 

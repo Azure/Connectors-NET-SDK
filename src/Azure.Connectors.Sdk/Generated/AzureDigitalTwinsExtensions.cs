@@ -601,7 +601,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         {
         }
 
-        protected AzureDigitalTwinsClient() : this(new Uri("https://localhost")) { }
+        protected AzureDigitalTwinsClient() : base() { }
 
         public override string ConnectorName => "azuredigitaltwins";
 

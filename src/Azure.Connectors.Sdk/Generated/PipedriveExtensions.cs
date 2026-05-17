@@ -890,7 +890,7 @@ namespace Azure.Connectors.Sdk.Pipedrive
         {
         }
 
-        protected PipedriveClient() : this(new Uri("https://localhost")) { }
+        protected PipedriveClient() : base() { }
 
         public override string ConnectorName => "pipedrive";
 

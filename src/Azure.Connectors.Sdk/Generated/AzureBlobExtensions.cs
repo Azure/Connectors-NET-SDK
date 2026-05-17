@@ -724,7 +724,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         {
         }
 
-        protected AzureBlobClient() : this(new Uri("https://localhost")) { }
+        protected AzureBlobClient() : base() { }
 
         public override string ConnectorName => "azureblob";
 

@@ -4854,7 +4854,7 @@ namespace Azure.Connectors.Sdk.Office365
         {
         }
 
-        protected Office365Client() : this(new Uri("https://localhost")) { }
+        protected Office365Client() : base() { }
 
         public override string ConnectorName => "office365";
 

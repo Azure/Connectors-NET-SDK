@@ -202,7 +202,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
         {
         }
 
-        protected MicrosoftFormsClient() : this(new Uri("https://localhost")) { }
+        protected MicrosoftFormsClient() : base() { }
 
         public override string ConnectorName => "microsoftforms";
 

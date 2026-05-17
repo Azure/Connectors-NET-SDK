@@ -3033,7 +3033,7 @@ namespace Azure.Connectors.Sdk.GitHub
         {
         }
 
-        protected GitHubClient() : this(new Uri("https://localhost")) { }
+        protected GitHubClient() : base() { }
 
         public override string ConnectorName => "github";
 

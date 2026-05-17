@@ -572,7 +572,7 @@ namespace Azure.Connectors.Sdk.OneDrive
         {
         }
 
-        protected OneDriveClient() : this(new Uri("https://localhost")) { }
+        protected OneDriveClient() : base() { }
 
         public override string ConnectorName => "onedrive";
 

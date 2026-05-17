@@ -748,7 +748,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         {
         }
 
-        protected AzureDataFactoryClient() : this(new Uri("https://localhost")) { }
+        protected AzureDataFactoryClient() : base() { }
 
         public override string ConnectorName => "azuredatafactory";
 

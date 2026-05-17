@@ -257,7 +257,7 @@ namespace Azure.Connectors.Sdk.Ftp
         {
         }
 
-        protected FtpClient() : this(new Uri("https://localhost")) { }
+        protected FtpClient() : base() { }
 
         public override string ConnectorName => "ftp";
 

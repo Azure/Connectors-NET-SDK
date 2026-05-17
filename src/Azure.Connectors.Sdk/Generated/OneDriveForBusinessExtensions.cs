@@ -505,7 +505,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         {
         }
 
-        protected OneDriveForBusinessClient() : this(new Uri("https://localhost")) { }
+        protected OneDriveForBusinessClient() : base() { }
 
         public override string ConnectorName => "onedriveforbusiness";
 

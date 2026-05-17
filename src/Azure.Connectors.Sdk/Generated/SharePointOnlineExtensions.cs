@@ -2055,7 +2055,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         {
         }
 
-        protected SharePointOnlineClient() : this(new Uri("https://localhost")) { }
+        protected SharePointOnlineClient() : base() { }
 
         public override string ConnectorName => "sharepointonline";
 

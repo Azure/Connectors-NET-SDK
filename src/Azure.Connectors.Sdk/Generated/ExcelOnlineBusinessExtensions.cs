@@ -824,7 +824,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         {
         }
 
-        protected ExcelOnlineBusinessClient() : this(new Uri("https://localhost")) { }
+        protected ExcelOnlineBusinessClient() : base() { }
 
         public override string ConnectorName => "excelonlinebusiness";
 

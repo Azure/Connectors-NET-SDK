@@ -477,7 +477,7 @@ namespace Azure.Connectors.Sdk.Slack
         {
         }
 
-        protected SlackClient() : this(new Uri("https://localhost")) { }
+        protected SlackClient() : base() { }
 
         public override string ConnectorName => "slack";
 

@@ -2012,7 +2012,7 @@ namespace Azure.Connectors.Sdk.PowerBI
         {
         }
 
-        protected PowerBIClient() : this(new Uri("https://localhost")) { }
+        protected PowerBIClient() : base() { }
 
         public override string ConnectorName => "powerbi";
 

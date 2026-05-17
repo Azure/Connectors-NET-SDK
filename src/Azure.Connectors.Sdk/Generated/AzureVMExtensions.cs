@@ -574,7 +574,7 @@ namespace Azure.Connectors.Sdk.AzureVM
         {
         }
 
-        protected AzureVMClient() : this(new Uri("https://localhost")) { }
+        protected AzureVMClient() : base() { }
 
         public override string ConnectorName => "azurevm";
 

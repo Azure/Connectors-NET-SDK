@@ -905,7 +905,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         {
         }
 
-        protected DynamicsAXClient() : this(new Uri("https://localhost")) { }
+        protected DynamicsAXClient() : base() { }
 
         public override string ConnectorName => "dynamicsax";
 

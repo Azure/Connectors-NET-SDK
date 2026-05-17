@@ -596,7 +596,7 @@ namespace Azure.Connectors.Sdk.Projectplace
         {
         }
 
-        protected ProjectplaceClient() : this(new Uri("https://localhost")) { }
+        protected ProjectplaceClient() : base() { }
 
         public override string ConnectorName => "projectplace";
 

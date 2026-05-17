@@ -398,7 +398,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         {
         }
 
-        protected AzureTablesClient() : this(new Uri("https://localhost")) { }
+        protected AzureTablesClient() : base() { }
 
         public override string ConnectorName => "azuretables";
 

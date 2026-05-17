@@ -1254,7 +1254,7 @@ namespace Azure.Connectors.Sdk.Jira
         {
         }
 
-        protected JiraClient() : this(new Uri("https://localhost")) { }
+        protected JiraClient() : base() { }
 
         public override string ConnectorName => "jira";
 

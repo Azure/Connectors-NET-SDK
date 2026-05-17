@@ -508,7 +508,7 @@ namespace Azure.Connectors.Sdk.KeyVault
         {
         }
 
-        protected KeyVaultClient() : this(new Uri("https://localhost")) { }
+        protected KeyVaultClient() : base() { }
 
         public override string ConnectorName => "keyvault";
 

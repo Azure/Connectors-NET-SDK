@@ -7688,7 +7688,7 @@ namespace Azure.Connectors.Sdk.PdfCo
         {
         }
 
-        protected PdfCoClient() : this(new Uri("https://localhost")) { }
+        protected PdfCoClient() : base() { }
 
         public override string ConnectorName => "pdfco";
 

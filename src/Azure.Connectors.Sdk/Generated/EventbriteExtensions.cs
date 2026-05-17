@@ -388,7 +388,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
         {
         }
 
-        protected EventbriteClient() : this(new Uri("https://localhost")) { }
+        protected EventbriteClient() : base() { }
 
         public override string ConnectorName => "eventbrite";
 

@@ -304,7 +304,7 @@ namespace Azure.Connectors.Sdk.Campfire
         {
         }
 
-        protected CampfireClient() : this(new Uri("https://localhost")) { }
+        protected CampfireClient() : base() { }
 
         public override string ConnectorName => "campfire";
 

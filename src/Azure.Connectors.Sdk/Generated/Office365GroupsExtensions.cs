@@ -663,7 +663,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
         {
         }
 
-        protected Office365GroupsClient() : this(new Uri("https://localhost")) { }
+        protected Office365GroupsClient() : base() { }
 
         public override string ConnectorName => "office365groups";
 
