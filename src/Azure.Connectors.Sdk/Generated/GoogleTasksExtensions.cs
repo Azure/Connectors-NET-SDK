@@ -339,7 +339,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         {
         }
 
-        protected GoogleTasksClient() : this(new Uri("https://localhost")) { }
+        protected GoogleTasksClient() : base() { }
 
         public override string ConnectorName => "googletasks";
 

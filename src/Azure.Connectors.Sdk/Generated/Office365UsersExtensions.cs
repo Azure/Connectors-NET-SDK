@@ -999,7 +999,7 @@ namespace Azure.Connectors.Sdk.Office365Users
         {
         }
 
-        protected Office365UsersClient() : this(new Uri("https://localhost")) { }
+        protected Office365UsersClient() : base() { }
 
         public override string ConnectorName => "office365users";
 

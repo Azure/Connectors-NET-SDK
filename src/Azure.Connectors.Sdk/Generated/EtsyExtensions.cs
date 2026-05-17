@@ -5114,7 +5114,7 @@ namespace Azure.Connectors.Sdk.Etsy
         {
         }
 
-        protected EtsyClient() : this(new Uri("https://localhost")) { }
+        protected EtsyClient() : base() { }
 
         public override string ConnectorName => "etsy";
 

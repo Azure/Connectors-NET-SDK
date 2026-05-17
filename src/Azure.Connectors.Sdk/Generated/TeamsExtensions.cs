@@ -2621,7 +2621,7 @@ namespace Azure.Connectors.Sdk.Teams
         {
         }
 
-        protected TeamsClient() : this(new Uri("https://localhost")) { }
+        protected TeamsClient() : base() { }
 
         public override string ConnectorName => "teams";
 

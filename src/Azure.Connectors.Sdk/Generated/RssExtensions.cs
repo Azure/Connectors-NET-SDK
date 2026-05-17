@@ -266,7 +266,7 @@ namespace Azure.Connectors.Sdk.Rss
         {
         }
 
-        protected RssClient() : this(new Uri("https://localhost")) { }
+        protected RssClient() : base() { }
 
         public override string ConnectorName => "rss";
 

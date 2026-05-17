@@ -198,7 +198,7 @@ namespace Azure.Connectors.Sdk.FormstackForms
         {
         }
 
-        protected FormstackFormsClient() : this(new Uri("https://localhost")) { }
+        protected FormstackFormsClient() : base() { }
 
         public override string ConnectorName => "formstackforms";
 

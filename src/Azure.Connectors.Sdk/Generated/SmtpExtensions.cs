@@ -261,7 +261,7 @@ namespace Azure.Connectors.Sdk.Smtp
         {
         }
 
-        protected SmtpClient() : this(new Uri("https://localhost")) { }
+        protected SmtpClient() : base() { }
 
         public override string ConnectorName => "smtp";
 

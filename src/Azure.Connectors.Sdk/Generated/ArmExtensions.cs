@@ -1961,7 +1961,7 @@ namespace Azure.Connectors.Sdk.Arm
         {
         }
 
-        protected ArmClient() : this(new Uri("https://localhost")) { }
+        protected ArmClient() : base() { }
 
         public override string ConnectorName => "arm";
 

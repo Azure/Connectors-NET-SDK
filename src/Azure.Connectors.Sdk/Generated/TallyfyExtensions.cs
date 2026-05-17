@@ -813,7 +813,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
         {
         }
 
-        protected TallyfyClient() : this(new Uri("https://localhost")) { }
+        protected TallyfyClient() : base() { }
 
         public override string ConnectorName => "tallyfy";
 

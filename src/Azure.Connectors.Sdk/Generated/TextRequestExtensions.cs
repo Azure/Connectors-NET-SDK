@@ -1755,7 +1755,7 @@ namespace Azure.Connectors.Sdk.TextRequest
         {
         }
 
-        protected TextRequestClient() : this(new Uri("https://localhost")) { }
+        protected TextRequestClient() : base() { }
 
         public override string ConnectorName => "textrequest";
 

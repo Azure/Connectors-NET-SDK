@@ -618,7 +618,7 @@ namespace Azure.Connectors.Sdk.Mq
         {
         }
 
-        protected MqClient() : this(new Uri("https://localhost")) { }
+        protected MqClient() : base() { }
 
         public override string ConnectorName => "mq";
 

@@ -2018,7 +2018,7 @@ namespace Azure.Connectors.Sdk.Shifts
         {
         }
 
-        protected ShiftsClient() : this(new Uri("https://localhost")) { }
+        protected ShiftsClient() : base() { }
 
         public override string ConnectorName => "shifts";
 

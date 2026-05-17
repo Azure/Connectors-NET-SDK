@@ -601,7 +601,7 @@ namespace Azure.Connectors.Sdk.Twitter
         {
         }
 
-        protected TwitterClient() : this(new Uri("https://localhost")) { }
+        protected TwitterClient() : base() { }
 
         public override string ConnectorName => "twitter";
 

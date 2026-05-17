@@ -443,7 +443,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         {
         }
 
-        protected GoogleDriveClient() : this(new Uri("https://localhost")) { }
+        protected GoogleDriveClient() : base() { }
 
         public override string ConnectorName => "googledrive";
 

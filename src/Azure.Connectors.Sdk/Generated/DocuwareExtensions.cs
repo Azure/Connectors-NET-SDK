@@ -958,7 +958,7 @@ namespace Azure.Connectors.Sdk.Docuware
         {
         }
 
-        protected DocuwareClient() : this(new Uri("https://localhost")) { }
+        protected DocuwareClient() : base() { }
 
         public override string ConnectorName => "docuware";
 

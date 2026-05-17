@@ -3466,7 +3466,7 @@ namespace Azure.Connectors.Sdk.Outlook
         {
         }
 
-        protected OutlookClient() : this(new Uri("https://localhost")) { }
+        protected OutlookClient() : base() { }
 
         public override string ConnectorName => "outlook";
 

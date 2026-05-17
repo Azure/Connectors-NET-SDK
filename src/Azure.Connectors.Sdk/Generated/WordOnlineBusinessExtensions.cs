@@ -182,7 +182,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         {
         }
 
-        protected WordOnlineBusinessClient() : this(new Uri("https://localhost")) { }
+        protected WordOnlineBusinessClient() : base() { }
 
         public override string ConnectorName => "wordonlinebusiness";
 

@@ -607,7 +607,7 @@ namespace Azure.Connectors.Sdk.Yammer
         {
         }
 
-        protected YammerClient() : this(new Uri("https://localhost")) { }
+        protected YammerClient() : base() { }
 
         public override string ConnectorName => "yammer";
 

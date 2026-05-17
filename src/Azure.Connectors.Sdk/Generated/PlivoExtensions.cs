@@ -361,7 +361,7 @@ namespace Azure.Connectors.Sdk.Plivo
         {
         }
 
-        protected PlivoClient() : this(new Uri("https://localhost")) { }
+        protected PlivoClient() : base() { }
 
         public override string ConnectorName => "plivo";
 

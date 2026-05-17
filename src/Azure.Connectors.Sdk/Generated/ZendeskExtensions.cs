@@ -255,7 +255,7 @@ namespace Azure.Connectors.Sdk.Zendesk
         {
         }
 
-        protected ZendeskClient() : this(new Uri("https://localhost")) { }
+        protected ZendeskClient() : base() { }
 
         public override string ConnectorName => "zendesk";
 

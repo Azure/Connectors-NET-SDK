@@ -7253,7 +7253,7 @@ namespace Azure.Connectors.Sdk.Impexium
         {
         }
 
-        protected ImpexiumClient() : this(new Uri("https://localhost")) { }
+        protected ImpexiumClient() : base() { }
 
         public override string ConnectorName => "impexium";
 

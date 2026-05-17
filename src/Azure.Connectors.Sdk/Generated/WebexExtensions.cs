@@ -1642,7 +1642,7 @@ namespace Azure.Connectors.Sdk.Webex
         {
         }
 
-        protected WebexClient() : this(new Uri("https://localhost")) { }
+        protected WebexClient() : base() { }
 
         public override string ConnectorName => "webex";
 

@@ -228,7 +228,7 @@ namespace Azure.Connectors.Sdk.Typeform
         {
         }
 
-        protected TypeformClient() : this(new Uri("https://localhost")) { }
+        protected TypeformClient() : base() { }
 
         public override string ConnectorName => "typeform";
 

@@ -765,7 +765,7 @@ namespace Azure.Connectors.Sdk.FreshService
         {
         }
 
-        protected FreshServiceClient() : this(new Uri("https://localhost")) { }
+        protected FreshServiceClient() : base() { }
 
         public override string ConnectorName => "freshservice";
 

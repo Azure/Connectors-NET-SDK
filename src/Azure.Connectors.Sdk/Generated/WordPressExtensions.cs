@@ -746,7 +746,7 @@ namespace Azure.Connectors.Sdk.WordPress
         {
         }
 
-        protected WordPressClient() : this(new Uri("https://localhost")) { }
+        protected WordPressClient() : base() { }
 
         public override string ConnectorName => "wordpress";
 

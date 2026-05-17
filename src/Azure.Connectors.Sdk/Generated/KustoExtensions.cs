@@ -476,7 +476,7 @@ namespace Azure.Connectors.Sdk.Kusto
         {
         }
 
-        protected KustoClient() : this(new Uri("https://localhost")) { }
+        protected KustoClient() : base() { }
 
         public override string ConnectorName => "kusto";
 

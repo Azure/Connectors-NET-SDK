@@ -870,7 +870,7 @@ namespace Azure.Connectors.Sdk.Waywedo
         {
         }
 
-        protected WaywedoClient() : this(new Uri("https://localhost")) { }
+        protected WaywedoClient() : base() { }
 
         public override string ConnectorName => "waywedo";
 

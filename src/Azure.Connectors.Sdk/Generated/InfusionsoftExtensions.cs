@@ -379,7 +379,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         {
         }
 
-        protected InfusionsoftClient() : this(new Uri("https://localhost")) { }
+        protected InfusionsoftClient() : base() { }
 
         public override string ConnectorName => "infusionsoft";
 

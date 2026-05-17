@@ -302,7 +302,7 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         {
         }
 
-        protected MeetingRoomMapClient() : this(new Uri("https://localhost")) { }
+        protected MeetingRoomMapClient() : base() { }
 
         public override string ConnectorName => "meetingroommap";
 

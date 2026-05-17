@@ -2064,7 +2064,7 @@ namespace Azure.Connectors.Sdk.Insightly
         {
         }
 
-        protected InsightlyClient() : this(new Uri("https://localhost")) { }
+        protected InsightlyClient() : base() { }
 
         public override string ConnectorName => "insightly";
 

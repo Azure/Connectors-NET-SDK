@@ -1633,7 +1633,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         {
         }
 
-        protected SalesforceClient() : this(new Uri("https://localhost")) { }
+        protected SalesforceClient() : base() { }
 
         public override string ConnectorName => "salesforce";
 
