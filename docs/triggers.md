@@ -11,7 +11,7 @@ Connector triggers follow the **Event Grid webhook pattern**. The connector infr
 ```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │                  CONNECTOR INFRASTRUCTURE                           │
-│            (Logic Apps multi-tenant, Connector Namespace)           │
+│                     (Connector Namespace)                           │
 │                                                                     │
 │  Polls/subscribes to external service (Office 365, SharePoint, …)  │
 │  Detects event (new email, file change, calendar update, …)         │
@@ -197,14 +197,6 @@ A separate `{Connector}Triggers.Operations` dictionary maps operation names to t
 | **Catch-up storm on polling fallback** — queued events process all at once after connector downtime. | Relevant only if polling fallback is needed. | Batch-size limits and backpressure handling in the Functions extension. |
 | **VNet inbound restrictions** — webhook-only model fails for locked-down Function Apps. | Enterprise customers with Private Endpoints cannot receive callbacks. | Design polling fallback similar to Event Grid pull delivery model. |
 
-## Priority Triggers (90-Day Execution Volume)
+## Priority Triggers
 
-| Connector | Trigger Type | 90-Day Executions | Status |
-|-----------|--------------|-------------------|--------|
-| Office 365 | Email arrival | 25.7B | Design |
-| SharePoint Online | File/list changes | 22.9B | Design |
-| Service Bus | Message trigger | 10.3B | Evaluate overlap with native Functions binding |
-| OneDrive for Business | File trigger | 5.3B | Design |
-| SQL | Row trigger | 2.6B | Design |
-
-Office 365 email and Teams are the most popular SaaS connectors for triggers; Service Bus for PaaS.
+Office 365 email, SharePoint Online, and Teams are the most targeted SaaS connectors for trigger support. Service Bus is the primary PaaS target.
