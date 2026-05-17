@@ -285,4 +285,4 @@ See the [Releasing a New Version](.github/copilot-instructions.md#releasing-a-ne
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
