@@ -1,3 +1,6 @@
+//------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//------------------------------------------------------------
 // Connectors SDK - Generated Connectors
 // Each connector client is used independently:
 //
