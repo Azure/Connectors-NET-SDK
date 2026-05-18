@@ -4,6 +4,16 @@
 
 This repository contains the lightweight SDK for Azure Logic Apps connectors. Code must follow the team's coding conventions based on BPM repo standards.
 
+### Azure SDK Guideline Compliance
+
+This SDK selectively follows the [Azure SDK Design Guidelines for .NET](https://azure.github.io/azure-sdk/dotnet_introduction.html). Which guidelines are followed, which are intentionally skipped, and what is actively in progress is documented in [`docs/azure-sdk-guidelines.md`](docs/azure-sdk-guidelines.md).
+
+**Before adding new public API surface, check that document.** Key intentional divergences to preserve:
+
+- **No sync variants** — async-only API surface; adding sync overloads would contradict the deliberate Skip on guideline #5
+- **`T` not `Response<T>`** — methods return the payload type directly, not wrapped in `Response<T>`; adding `Response<T>` wrappers is a deliberate Skip on guideline #7
+- **`ETag` and URI properties stay `string`** — do not change to `ETag` or `Uri` types (deliberate Skips on guidelines #29/#30)
+
 ## Quick Reference: Coding Style Rules
 
 ### File Structure
