@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+<!-- MAINTAINER NOTE: Before tagging a release, (1) cut [Unreleased] content into a
+     new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD), (2) add a
+     reference link at the bottom, (3) update [Unreleased] compare base, and (4) copy
+     the same content into release_notes.md for NuGet packaging. Do NOT put HTML
+     comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
+
 ### Fixed
 
 - **`TriggerCallbackBody<T>` now handles both batch and single-item callback shapes** — Connector Namespace delivers trigger callbacks in two shapes depending on the trigger configuration's splitOn setting: batch `{"body":{"value":[...]}}` and single-item `{"body":{...item...}}`. The new `TriggerCallbackBodyConverter<T>` transparently normalizes both shapes into `Body.Value` as a list, preventing silent zero-item processing when splitOn is enabled. All 77+ generated `TriggerCallbackPayload<T>` subclasses inherit this fix automatically. (#149)
@@ -15,6 +21,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`TriggerCallbackPayload<T>.Body` is now init-only** — the setter changed from `public set` to `init`. Post-construction assignment (`payload.Body = x;`) no longer compiles; use an object initializer or `ConnectorModelFactory.TriggerCallbackPayload<T>(body)` instead.
 - **`TriggerCallbackBody<T>.Value` setter is now internal and the type narrowed to `IReadOnlyList<T>?`** — the property changed from `public List<T>? Value { get; set; }` to `public IReadOnlyList<T>? Value { get; internal set; }`. External assignments (`body.Value = list;`) and `List<T>`-specific mutations no longer compile; use `ConnectorModelFactory.TriggerCallbackBody<T>(value)` to construct instances in tests.
+
+### Added
+
+- **11 connector clients (batch 5)** — `AzureADClient`, `AzureIoTCentralClient`, `MicrosoftFormsClient` regenerated with generator bug fixes; plus 8 new clients: `AzureQueuesClient`, `AzureTablesClient`, `DocumentDbClient`, `EventHubsClient`, `ExcelOnlineBusinessClient`, `OutlookClient`, `ServiceBusConnectorClient`, `WordOnlineBusinessClient`; also fixes generator bugs #135, #136, #137, #138, #139 (IPageable property name derived from x-ms-summary; array-typed `$ref` definitions resolved to `List<T>` instead of undefined class name)
+- **25 new connector clients (batch 6)** — `BoxClient`, `DocuSignClient`, `DropboxClient`, `DynamicsAXClient`, `EventbriteClient`, `FtpClient`, `GitHubClient`, `GoogleCalendarClient`, `GoogleDriveClient`, `GoogleTasksClient`, `JiraClient`, `MailChimpClient`, `MondayClient`, `OneDriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendGridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordPressClient`, `ZendeskClient`
+
+### Changed
+
+- **Regenerated 15 existing connector clients** with latest generator bug fixes — `AzureMonitorLogsClient`, `AzureTablesClient`, `DocumentDbClient`, `ExcelOnlineBusinessClient`, `ExcelOnlineClient`, `InfusionsoftClient`, `Office365Client`, `Office365GroupsClient`, `Office365UsersClient`, `OneDriveForBusinessClient`, `PipedriveClient`, `PlumsailClient`, `SmtpClient`, `WdatpClient`, `YammerClient`
+
+## [0.10.0-preview.1] - 2026-05-11
+
+### Breaking Changes
 
 - **Removed `CamelCase` JSON naming policy** from `ConnectorClientBase.JsonOptions` and `ConnectorJsonSerializer` — properties without `[JsonPropertyName]` attributes now serialize using their C# PascalCase names, matching swagger/connector API expectations. Properties with `[JsonPropertyName]` are unaffected. Also changed `JsonStringEnumConverter` to use default casing instead of camelCase. (#84, #85)
 - **Renamed `AzuremonitorlogsClient` to `AzureMonitorLogsClient`** and `Office365usersClient` to `Office365UsersClient` for consistent PascalCase naming (#126)
@@ -34,13 +53,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **15 more connector clients (batch 2)** — `CampfireClient`, `ClickSendSmsClient`, `CloudmersiveConvertClient`, `EtsyClient`, `FormstackFormsClient`, `FreshServiceClient`, `InfusionsoftClient`, `InsightlyClient`, `PipedriveClient`, `PlivoClient`, `PlumsailClient`, `RepliconClient`, `RevaiClient`, `SigningHubClient`, `ZohoSignClient` (#7)
 - **15 more connector clients (batch 3)** — `DocuwareClient`, `ElfsquadDataClient`, `ImpexiumClient`, `JedoxOdataHubClient`, `MeetingRoomMapClient`, `OrderfulClient`, `PdfCoClient`, `ProjectplaceClient`, `SeismicPlannerClient`, `StarmindClient`, `StarrezRestV1Client`, `TallyfyClient`, `TextRequestClient`, `TicketmasterClient`, `WaywedoClient` (#7)
 - **13 Microsoft 1st-party connector clients (batch 4)** — `AzureAutomationClient`, `AzureDataFactoryClient`, `AzureDigitalTwinsClient`, `AzureVMClient`, `KeyVaultClient`, `MicrosoftBookingsClient`, `Office365GroupsClient`, `Office365GroupsMailClient`, `OnenoteClient`, `PlannerClient`, `PowerBIClient`, `ShiftsClient`, `TodoClient` (#7)
-- **11 connector clients (batch 5)** — `AzureADClient`, `AzureIoTCentralClient`, `MicrosoftFormsClient` regenerated with generator bug fixes; plus 8 new clients: `AzureQueuesClient`, `AzureTablesClient`, `DocumentDbClient`, `EventHubsClient`, `ExcelOnlineBusinessClient`, `OutlookClient`, `ServiceBusConnectorClient`, `WordOnlineBusinessClient`; also fixes generator bugs #135, #136, #137, #138, #139 (IPageable property name derived from x-ms-summary; array-typed `$ref` definitions resolved to `` `List<T>` `` instead of undefined class name)
-- **25 new connector clients (batch 6)** — `BoxClient`, `DocusignClient`, `DropboxClient`, `DynamicsaxClient`, `EventbriteClient`, `FtpClient`, `GithubClient`, `GooglecalendarClient`, `GoogledriveClient`, `GoogletasksClient`, `JiraClient`, `MailchimpClient`, `MondayClient`, `OnedriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendgridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordpressClient`, `ZendeskClient`
 
 ### Changed
 
 - **Regenerated all 12 connector clients** from updated CodefulSdkGenerator with PascalCase name overrides and constructor additions
-- **Regenerated 15 existing connector clients** with latest generator bug fixes — `AzureMonitorLogsClient`, `AzureTablesClient`, `DocumentDbClient`, `ExcelOnlineBusinessClient`, `ExcelOnlineClient`, `InfusionsoftClient`, `Office365Client`, `Office365GroupsClient`, `Office365UsersClient`, `OneDriveForBusinessClient`, `PipedriveClient`, `PlumsailClient`, `SmtpClient`, `WdatpClient`, `YammerClient`
 
 ## [0.9.0-preview.1] - 2026-05-08
 
@@ -201,7 +217,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.10.0-preview.1...HEAD
+[0.10.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...v0.10.0-preview.1
 [0.9.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.8.0-preview.1...v0.9.0-preview.1
 [0.8.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...v0.8.0-preview.1
 [0.7.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.6.0-preview.1...v0.7.0-preview.1
