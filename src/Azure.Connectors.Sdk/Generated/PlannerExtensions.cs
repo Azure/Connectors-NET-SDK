@@ -926,7 +926,7 @@ namespace Azure.Connectors.Sdk.Planner
         {
         }
 
-        protected PlannerClient() : this(new Uri("https://localhost")) { }
+        protected PlannerClient() : base() { }
 
         public override string ConnectorName => "planner";
 

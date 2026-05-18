@@ -818,7 +818,7 @@ namespace Azure.Connectors.Sdk.Onenote
         {
         }
 
-        protected OnenoteClient() : this(new Uri("https://localhost")) { }
+        protected OnenoteClient() : base() { }
 
         public override string ConnectorName => "onenote";
 

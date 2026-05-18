@@ -323,7 +323,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         {
         }
 
-        protected EventHubsClient() : this(new Uri("https://localhost")) { }
+        protected EventHubsClient() : base() { }
 
         public override string ConnectorName => "eventhubs";
 

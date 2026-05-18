@@ -877,7 +877,7 @@ namespace Azure.Connectors.Sdk.AzureAD
         {
         }
 
-        protected AzureADClient() : this(new Uri("https://localhost")) { }
+        protected AzureADClient() : base() { }
 
         public override string ConnectorName => "azuread";
 

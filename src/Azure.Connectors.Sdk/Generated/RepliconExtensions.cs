@@ -847,7 +847,7 @@ namespace Azure.Connectors.Sdk.Replicon
         {
         }
 
-        protected RepliconClient() : this(new Uri("https://localhost")) { }
+        protected RepliconClient() : base() { }
 
         public override string ConnectorName => "replicon";
 

@@ -281,7 +281,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         {
         }
 
-        protected AzureQueuesClient() : this(new Uri("https://localhost")) { }
+        protected AzureQueuesClient() : base() { }
 
         public override string ConnectorName => "azurequeues";
 

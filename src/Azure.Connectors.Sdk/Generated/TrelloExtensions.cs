@@ -2507,7 +2507,7 @@ namespace Azure.Connectors.Sdk.Trello
         {
         }
 
-        protected TrelloClient() : this(new Uri("https://localhost")) { }
+        protected TrelloClient() : base() { }
 
         public override string ConnectorName => "trello";
 

@@ -1080,7 +1080,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         {
         }
 
-        protected Office365GroupsMailClient() : this(new Uri("https://localhost")) { }
+        protected Office365GroupsMailClient() : base() { }
 
         public override string ConnectorName => "office365groupsmail";
 

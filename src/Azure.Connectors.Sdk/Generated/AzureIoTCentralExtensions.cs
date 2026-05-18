@@ -2003,7 +2003,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         {
         }
 
-        protected AzureIoTCentralClient() : this(new Uri("https://localhost")) { }
+        protected AzureIoTCentralClient() : base() { }
 
         public override string ConnectorName => "azureiotcentral";
 

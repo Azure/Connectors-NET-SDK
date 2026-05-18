@@ -563,7 +563,7 @@ namespace Azure.Connectors.Sdk.Servicebus
         {
         }
 
-        protected ServiceBusConnectorClient() : this(new Uri("https://localhost")) { }
+        protected ServiceBusConnectorClient() : base() { }
 
         public override string ConnectorName => "servicebus";
 
