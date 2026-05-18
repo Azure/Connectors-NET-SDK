@@ -28,7 +28,7 @@ jobs:
       - task: NuGetAuthenticate@1
         displayName: 'NuGet Authenticate'
 
-      - task: UseDotNet@2
+      - task: UseDotNet@3
         displayName: Install .NET SDK from global.json
         inputs:
           packageType: sdk
