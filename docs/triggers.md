@@ -185,7 +185,7 @@ A separate `{Connector}Triggers.Operations` dictionary maps operation names to t
 |----------|--------|
 | **VNet-locked Function Apps** — pure webhooks break with Private Endpoints / IP restrictions. Need pull delivery or polling fallback? | Open — Event Grid hybrid model (webhook + pull) proposed. |
 | **Local F5 tunnel setup** — How to auto-configure dev tunnels for webhook registration across all languages? | Open — Functions team improving local CLI tooling. |
-| **RBAC roles** — What Azure role(s) does the Function App identity need for `Microsoft.Web/connections`? | Open — minimum RBAC not yet documented. |
+| **RBAC roles** — What Azure role(s) does the Function App identity need for `Microsoft.Web/connectorGateways`? | Open — minimum RBAC not yet documented. |
 | **Multi-language trigger data types** — Python, Java, Node.js equivalents for typed trigger payload models. | Open — strategy for non-C# type generation TBD. |
 
 ## Known Risks
