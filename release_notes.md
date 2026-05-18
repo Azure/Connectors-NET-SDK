@@ -15,7 +15,7 @@
 - Breaking: Constructor overhaul — Uri is now the primary parameter type; default credential changed from DefaultAzureCredential to ManagedIdentityCredential(SystemAssigned); credential parameter is no longer optional.
 - Breaking: Output-only model properties now have internal set; use per-connector model factory classes for testing.
 - Breaking: `ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`, `ConnectorResponse<T>` removed as public API.
-- Breaking: All namespaces renamed from Microsoft.Azure.Connectors.* to Azure.Connectors.Sdk.*.
+- Breaking: All namespaces renamed from `Microsoft.Azure.Connectors.*` to `Azure.Connectors.Sdk.*`.
 - Breaking: ConnectorClientOptions now inherits from Azure.Core.ClientOptions; Polly dependency removed; HttpClient parameter removed from constructors.
 - Added extensible enum types for Swagger enum properties, DI integration extension methods, per-connector model factory classes.
 - Added Azure Monitor Logs typed client; removed deprecated Azure Log Analytics connector.
