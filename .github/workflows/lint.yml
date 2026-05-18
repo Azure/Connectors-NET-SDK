@@ -27,11 +27,15 @@ jobs:
           filters: |
             powershell:
               - '**/*.ps1'
+              - 'PSScriptAnalyzerSettings.psd1'
             markdown:
               - '**/*.md'
+              - '.markdownlint.*'
+              - '.markdownlint.jsonc'
             yaml:
               - '**/*.yml'
               - '**/*.yaml'
+              - '.yamllint.yml'
 
   powershell:
     needs: changes
@@ -43,11 +47,11 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module -Name PSScriptAnalyzer -Scope CurrentUser -Force
+          Install-Module -Name PSScriptAnalyzer -RequiredVersion 1.25.0 -Scope CurrentUser -Force
           $results = Invoke-ScriptAnalyzer -Path . -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
           if ($results) {
             $results | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize
-            throw "PSScriptAnalyzer found $($results.Count) issue(s)."
+            throw "PSScriptAnalyzer found $(@($results).Count) issue(s)."
           }
           Write-Host "PSScriptAnalyzer: all checks passed."
 
@@ -65,5 +69,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install yamllint
+      - run: pip install yamllint==1.38.0
       - run: yamllint -c .yamllint.yml .
