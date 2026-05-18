@@ -13673,7 +13673,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         {
         }
 
-        protected StarrezRestV1Client() : this(new Uri("https://localhost")) { }
+        protected StarrezRestV1Client() : base() { }
 
         public override string ConnectorName => "starrezrestv1";
 

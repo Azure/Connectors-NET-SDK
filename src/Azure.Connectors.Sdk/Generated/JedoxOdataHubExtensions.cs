@@ -959,7 +959,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         {
         }
 
-        protected JedoxOdataHubClient() : this(new Uri("https://localhost")) { }
+        protected JedoxOdataHubClient() : base() { }
 
         public override string ConnectorName => "jedoxodatahub";
 

@@ -354,7 +354,7 @@ namespace Azure.Connectors.Sdk.Dropbox
         {
         }
 
-        protected DropboxClient() : this(new Uri("https://localhost")) { }
+        protected DropboxClient() : base() { }
 
         public override string ConnectorName => "dropbox";
 

@@ -2438,7 +2438,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         {
         }
 
-        protected DocuSignClient() : this(new Uri("https://localhost")) { }
+        protected DocuSignClient() : base() { }
 
         public override string ConnectorName => "docusign";
 

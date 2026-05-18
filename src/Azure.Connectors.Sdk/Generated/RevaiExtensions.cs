@@ -1210,7 +1210,7 @@ namespace Azure.Connectors.Sdk.Revai
         {
         }
 
-        protected RevaiClient() : this(new Uri("https://localhost")) { }
+        protected RevaiClient() : base() { }
 
         public override string ConnectorName => "revai";
 

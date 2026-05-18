@@ -1132,7 +1132,7 @@ namespace Azure.Connectors.Sdk.Sql
         {
         }
 
-        protected SqlClient() : this(new Uri("https://localhost")) { }
+        protected SqlClient() : base() { }
 
         public override string ConnectorName => "sql";
 

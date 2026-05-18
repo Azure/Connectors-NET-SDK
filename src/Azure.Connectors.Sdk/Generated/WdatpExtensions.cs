@@ -2509,7 +2509,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
         }
 
-        protected WdatpClient() : this(new Uri("https://localhost")) { }
+        protected WdatpClient() : base() { }
 
         public override string ConnectorName => "wdatp";
 

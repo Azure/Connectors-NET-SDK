@@ -294,7 +294,7 @@ namespace Azure.Connectors.Sdk.Box
         {
         }
 
-        protected BoxClient() : this(new Uri("https://localhost")) { }
+        protected BoxClient() : base() { }
 
         public override string ConnectorName => "box";
 

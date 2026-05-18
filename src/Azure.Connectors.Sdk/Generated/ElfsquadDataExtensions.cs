@@ -246,7 +246,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         {
         }
 
-        protected ElfsquadDataClient() : this(new Uri("https://localhost")) { }
+        protected ElfsquadDataClient() : base() { }
 
         public override string ConnectorName => "elfsquaddata";
 

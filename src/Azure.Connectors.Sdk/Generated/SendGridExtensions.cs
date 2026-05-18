@@ -451,7 +451,7 @@ namespace Azure.Connectors.Sdk.SendGrid
         {
         }
 
-        protected SendGridClient() : this(new Uri("https://localhost")) { }
+        protected SendGridClient() : base() { }
 
         public override string ConnectorName => "sendgrid";
 

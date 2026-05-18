@@ -5517,7 +5517,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         {
         }
 
-        protected CloudmersiveConvertClient() : this(new Uri("https://localhost")) { }
+        protected CloudmersiveConvertClient() : base() { }
 
         public override string ConnectorName => "cloudmersiveconvert";
 

@@ -259,7 +259,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
         {
         }
 
-        protected MicrosoftBookingsClient() : this(new Uri("https://localhost")) { }
+        protected MicrosoftBookingsClient() : base() { }
 
         public override string ConnectorName => "microsoftbookings";
 

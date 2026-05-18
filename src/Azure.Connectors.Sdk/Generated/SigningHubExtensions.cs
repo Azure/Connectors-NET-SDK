@@ -7092,7 +7092,7 @@ namespace Azure.Connectors.Sdk.SigningHub
         {
         }
 
-        protected SigningHubClient() : this(new Uri("https://localhost")) { }
+        protected SigningHubClient() : base() { }
 
         public override string ConnectorName => "signinghub";
 

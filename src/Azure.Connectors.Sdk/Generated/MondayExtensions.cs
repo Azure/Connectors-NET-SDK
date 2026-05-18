@@ -1763,7 +1763,7 @@ namespace Azure.Connectors.Sdk.Monday
         {
         }
 
-        protected MondayClient() : this(new Uri("https://localhost")) { }
+        protected MondayClient() : base() { }
 
         public override string ConnectorName => "monday";
 
