@@ -215,7 +215,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.10.0-preview.1...HEAD
+[0.10.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...v0.10.0-preview.1
 [0.9.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.8.0-preview.1...v0.9.0-preview.1
 [0.8.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...v0.8.0-preview.1
 [0.7.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.6.0-preview.1...v0.7.0-preview.1
