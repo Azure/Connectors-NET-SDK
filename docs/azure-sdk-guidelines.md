@@ -1,104 +1,125 @@
 # Azure SDK Guideline Compliance
 
-This document explains which [Azure SDK design guidelines for .NET](https://azure.github.io/azure-sdk/dotnet_introduction.html) the Connectors SDK follows, where it intentionally diverges, and which gaps are actively being addressed.
+This document explains which [Azure SDK design guidelines for .NET](https://azure.github.io/azure-sdk/dotnet_introduction.html) the Connectors SDK follows, where it intentionally diverges, and what work is in progress.
+
+The decisions recorded here were made during a formal API design review in May 2026 with Azure SDK team reviewers (Anu Thomas, Steven Vukelich) and the APIView AI reviewer. The detailed per-suggestion analysis — 30 suggestions, each with rationale and a recorded decision — lives in [`docs/API-DESIGN-EVALUATION.md`](https://github.com/daviburg_microsoft/azure-logicapps-connector-sdk/blob/main/docs/API-DESIGN-EVALUATION.md) (internal). This document is the summary reference.
 
 ---
 
 ## Section 1: Followed Guidelines
 
-The SDK follows Azure SDK conventions wherever they apply without conflict with the connector-layer architecture.
-
-### Naming and API Shape
-
-- **`Async` suffix** — All I/O-bound operations are named `*Async` (e.g., `SendEmailAsync`, `GetAllTeamsAsync`).
-- **`CancellationToken` as last parameter** — Every async method accepts a `CancellationToken cancellationToken = default` as its final parameter.
-- **PascalCase types and methods** — All public types and methods follow PascalCase naming.
-- **Namespace `Azure.*`** — The library is rooted at `Azure.Connectors.Sdk`, consistent with the `Azure.*` namespace convention.
-
-### Client Construction
-
-- **`ClientOptions` inheritance** — `ConnectorClientOptions` inherits from `Azure.Core.ClientOptions`, giving callers the standard `Retry`, `Transport`, and `Diagnostics` properties.
-- **`TokenCredential` acceptance** — Every client accepts a `TokenCredential` (from `Azure.Core`) for authentication, defaulting to `ManagedIdentityCredential`.
-- **Overloaded constructors** — Clients expose both `Uri` and `string` overloads for the connection runtime URL, following the pattern for progressive disclosure.
-- **`IDisposable` implementation** — All clients implement `IDisposable` via `ConnectorClientBase`.
-- **Parameterless constructor for mocking** — A protected parameterless constructor is provided so mocking frameworks (Moq, NSubstitute) can create test doubles without real infrastructure.
-
-### HTTP Infrastructure
-
-- **`Azure.Core.HttpPipeline`** — All HTTP traffic routes through `HttpPipelineBuilder.Build(...)`, giving callers access to the full Azure.Core pipeline (retry, transport, per-call policies).
-- **`BearerTokenAuthenticationPolicy`** — The SDK uses the Azure.Core bearer-token policy for authentication rather than manual header injection.
-- **Retry configuration** — Retry behavior is configured via `ClientOptions.Retry`, consistent with all Azure SDK clients.
-- **`ConfigureAwait(false)`** — All `await` calls use `ConfigureAwait(continueOnCapturedContext: false)` throughout the infrastructure layer.
-
-### Error Handling
-
-- **`RequestFailedException` inheritance** — `ConnectorException` inherits from `Azure.RequestFailedException`. Callers that already catch `RequestFailedException` for other Azure SDK clients will automatically catch connector errors with no additional catch blocks.
-
-### Code Generation and Tooling
-
-- **`[DynamicValues]` and `[DynamicSchema]` attributes** — Dynamic lookup parameters and schema-dependent properties are annotated with custom attributes, enabling tooling (LSP, IntelliSense) to provide live schema support.
+| Guideline | Implementation |
+|-----------|---------------|
+| `Azure.*` namespace convention | Root namespace is `Azure.Connectors.Sdk`; generated clients use `Azure.Connectors.<Connector>` |
+| `ClientOptions` inheritance | `ConnectorClientOptions : ClientOptions` — callers get standard `Retry`, `Transport`, and `Diagnostics` properties |
+| `ServiceVersion` enum | `ConnectorClientOptions.ServiceVersion` with a required constructor parameter (defaults to `V1`) |
+| `TokenCredential` authentication | All clients accept `Azure.Core.TokenCredential`; no custom `ITokenProvider` interface |
+| `ManagedIdentityCredential` as production default | Simplest constructor uses `ManagedIdentityCredential(SystemAssigned)` — not `DefaultAzureCredential` (CodeQL SM05137) |
+| `Uri` primary constructor | Primary constructor takes `Uri connectionRuntimeUrl`; `string` overload delegates to it as a convenience for app-settings scenarios |
+| `HttpPipeline` for all HTTP | All traffic goes through `HttpPipelineBuilder.Build(...)` — retry, auth, and transport are pipeline policies |
+| `BearerTokenAuthenticationPolicy` | Bearer token injection is a per-retry pipeline policy, not manual header code |
+| `ConfigureAwait(false)` | All `await` calls use `ConfigureAwait(continueOnCapturedContext: false)` throughout infrastructure |
+| `Async` suffix on all service methods | Every I/O operation is named `*Async` |
+| `CancellationToken` as last parameter | Every service method accepts `CancellationToken cancellationToken = default` as its final parameter |
+| `virtual` service methods | All generated client service methods are `virtual` to enable mocking without wrapper interfaces |
+| Protected parameterless constructor | `ConnectorClientBase()` and each generated client provide a protected parameterless constructor for Moq/NSubstitute |
+| `AsyncPageable<T>` for paginated results | Paginated operations return `Azure.Core.AsyncPageable<T>` |
+| `RequestFailedException` inheritance | `ConnectorException : RequestFailedException` — `catch (RequestFailedException)` catches connector errors alongside other Azure SDK errors |
+| `IDisposable` | All clients implement `IDisposable` |
+| XML documentation on all public API | All public types and members carry `<summary>` documentation |
 
 ---
 
 ## Section 2: Intentional Divergences
 
-The SDK targets a specific architectural layer — it is a typed wrapper around the Azure-hosted connector runtime, not a direct client for a REST endpoint the SDK team owns. Several Azure SDK guidelines were designed for direct-service clients and do not translate cleanly to this model. The divergences below are intentional.
+These are decisions made after explicit review and confirmed as **Skip** — the guideline was evaluated and the conclusion was that following it would not benefit this SDK or would actively harm it.
 
-### Return `T` instead of `Response<T>`
+### No synchronous method variants
 
-| Dimension | Azure SDK guideline | This SDK |
-|-----------|---------------------|----------|
-| Service method return type | `Response<T>` | `T` directly (or `Task` for void operations) |
+| Guideline | This SDK |
+|-----------|----------|
+| Provide both async and sync variants for every service method | Async-only |
 
-**Rationale:** `Response<T>` exists so callers can access raw HTTP metadata (status code, headers, request ID). In the Connectors SDK, the connector runtime is a managed intermediary, not the final service. The raw HTTP response from the connector runtime reflects connector-layer plumbing, not the operation's semantic outcome. Callers need the deserialized model (`T`), not connector-layer HTTP headers. Exposing `Response<T>` would surface internal connector transport details that are neither stable nor meaningful to the application.
-
-Pagination operations (`AsyncPageable<T>`) follow Azure SDK conventions because they do carry meaningful metadata (page continuation tokens).
-
-### No full `DiagnosticScope` / distributed tracing
-
-| Dimension | Azure SDK guideline | This SDK |
-|-----------|---------------------|----------|
-| Distributed tracing | `DiagnosticScope` around each service call | Not implemented |
-
-**Rationale:** The connector runtime (API Hub) already provides its own observability layer — it traces operations end-to-end across the connector and the SaaS backend. Adding a `DiagnosticScope` in the SDK would create duplicate (and potentially misleading) spans that do not align with the connector's internal trace boundaries. When the connector layer exposes a correlation mechanism, the SDK will integrate with it (tracked in [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156)).
-
-### `object` for dynamic-schema properties
-
-| Dimension | Azure SDK guideline | This SDK |
-|-----------|---------------------|----------|
-| Unknown/variable JSON | `BinaryData` or `JsonElement` | `object` |
-
-**Rationale:** Connector action schemas are runtime-defined. A Teams "Post Message" operation has a `body` shape that differs from an Office 365 "Send Email" body; the exact structure for dynamic properties is determined at runtime by the connector's Swagger definition, not at SDK compile time. Using `object` preserves the connector-defined structure through `System.Text.Json` serialization without requiring callers to round-trip through `BinaryData`. Migration to `BinaryData` or `JsonElement` is tracked in [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) with a plan to evaluate the trade-offs once the full set of dynamic schema patterns is characterized.
-
-### No per-connector `ClientOptions` subclass
-
-| Dimension | Azure SDK guideline | This SDK |
-|-----------|---------------------|----------|
-| Per-client options | Each client ships its own `*ClientOptions` | Single shared `ConnectorClientOptions` |
-
-**Rationale:** All 80+ generated connector clients share the same infrastructure: the same `HttpPipeline`, the same authentication flow, the same retry policy surface. Per-connector options classes would be identical stubs with no connector-specific properties, adding noise without benefit. `ConnectorClientOptions` serves all clients uniformly. If a connector eventually requires client-specific configuration, a typed subclass can be introduced without breaking existing callers.
+**Rationale (API design review, suggestion #5):** The guidelines' sync-variant requirement exists to support porting legacy synchronous desktop and server applications. This SDK targets Azure Functions, which are async-native. No legacy synchronous consumers exist or are anticipated. Adding sync wrappers using sync-over-async (`.GetAwaiter().GetResult()`) introduces deadlock risk in certain contexts and would double the API surface and test burden with no benefit.
 
 ---
 
-## Section 3: Tracked Improvements
+### Return `T` instead of `Response<T>`
 
-The following known gaps are being addressed incrementally. They are not intentional divergences — they are pending fixes.
+| Guideline | This SDK |
+|-----------|----------|
+| Service methods return `Task<Response<T>>` | Service methods return `Task<T>` directly (or `Task` for void operations) |
 
-| Issue | Description | Status |
-|-------|-------------|--------|
-| [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` does not parse a structured `ErrorCode` from the response body | Pending fix |
-| [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | No `DiagnosticScope` distributed tracing | Pending — see Section 2 for rationale on the current design |
+**Rationale (API design review, suggestion #7):** `Response<T>` is valuable when callers need raw HTTP metadata — status codes, headers, request ID — to make programmatic decisions or pass correlation IDs to downstream systems. For this SDK, the connection runtime endpoint is a managed intermediary, not a first-party Azure service. Its HTTP response metadata reflects connector-layer transport plumbing rather than the operation's semantic outcome, and is not a stable interface. No Azure SDK helper (LRO, test framework, DI extensions) depends on `Response<T>` in a way that would unlock concrete value for connector clients. Callers simply need the deserialized model.
+
+Pagination returns `AsyncPageable<T>` (not `AsyncPageable<Response<T>>`) consistent with Azure SDK convention.
+
+---
+
+### `ETag` properties remain `string`
+
+| Guideline | This SDK |
+|-----------|----------|
+| ETag values use `Azure.Core.ETag` | `string` |
+
+**Rationale (API design review, suggestion #29):** `Azure.ETag` has no built-in `System.Text.Json` support. Azure SDK clients that use `ETag` avoid this by using manual `Utf8JsonReader`/`Utf8JsonWriter`; this SDK uses `JsonSerializer` throughout all generated models. Switching to `Azure.ETag` would require custom `JsonConverter<ETag>` registration on every deserialization call, and ETag field detection across 1,500+ external swagger definitions (which the team does not author) relies on name heuristics that are unreliable. The runtime deserialization failure risk outweighs the type-safety benefit.
+
+---
+
+### URI-valued model properties remain `string`
+
+| Guideline | This SDK |
+|-----------|----------|
+| URI values use `System.Uri` | `string` |
+
+**Rationale (API design review, suggestion #30):** `System.Uri` constructor throws `UriFormatException` on malformed input — if a connector returns an unexpected URL format, deserialization fails at runtime. `System.Text.Json` has no native `System.Uri` support; a custom converter would be required. Detecting which `string` properties hold URLs relies on name heuristics (`Url`, `URL`, `Link`, `Endpoint`, swagger `format: uri`) across 1,500+ external swagger definitions the team does not control; false positives and negatives are both likely. Same fundamental constraint as `ETag`: changing serialized model property types that `System.Text.Json` doesn't handle natively, on models whose schemas come from external parties.
+
+---
+
+### No options bag for many-parameter methods
+
+| Guideline | This SDK |
+|-----------|----------|
+| Methods with more than ~6 parameters use an options bag type | Flat parameters with defaults |
+
+**Rationale (API design review, suggestion #27):** The options-bag guideline targets hand-authored APIs where the SDK team controls the parameter surface. This SDK generates clients directly from 1,500+ external swagger definitions; each parameter maps 1:1 to a C# method parameter. An options bag would introduce a new public type with no corresponding swagger entity, add codegen heuristic complexity (threshold logic, edge cases when param counts change across swagger versions), and actually *worsen* the breaking-change story: adding a new optional parameter with a default value is non-breaking with flat params, but adding a property to an options bag type can be source-breaking. The flat-parameter approach is the honest, maintainable representation of external API contracts.
+
+---
+
+## Section 3: Deferred
+
+### `IAsyncDisposable`
+
+**Decision (API design review, suggestion #18):** Deferred. Neither `HttpClient` nor `Azure.Core.HttpPipeline` implement `IAsyncDisposable` as of May 2026. Adding `IAsyncDisposable` today would be a no-op wrapper (`DisposeAsync` calls `Dispose`). Azure SDK's own clients (`BlobClient`, `ConfigurationClient`, etc.) also do not implement it. Revisit if a future .NET version adds async disposal support to `HttpPipeline`.
+
+---
+
+## Section 4: Active Work
+
+The following items are in progress — not intentional divergences, but gaps being closed incrementally.
+
+| Issue / Suggestion | Description | Status |
+|--------------------|-------------|--------|
+| [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` does not yet parse a structured `ErrorCode` from the response body | Pending fix |
+| [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | No `DiagnosticScope` distributed tracing | Pending |
 | [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | `object` used for dynamic-schema properties instead of `BinaryData`/`JsonElement` | Under evaluation |
-| [#158](https://github.com/Azure/Connectors-NET-SDK/issues/158) | Missing Microsoft copyright headers on generated `*Extensions.cs` files | Fix in PR `fix/copyright-headers` |
-| [#159](https://github.com/Azure/Connectors-NET-SDK/issues/159) | Mock constructors do not chain to the protected parameterless base constructor correctly | Fix in PR `fix/mock-constructor-chain` |
-| [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` missing on inherited `object` methods (`Equals`, `GetHashCode`, `ToString`, `GetType`) | Pending fix |
-| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only properties use `{ get; set; }` instead of `{ get; init; }` | Pending fix |
+| [#158](https://github.com/Azure/Connectors-NET-SDK/issues/158) | Missing copyright headers on generated files | Fix in `fix/copyright-headers` |
+| [#159](https://github.com/Azure/Connectors-NET-SDK/issues/159) | Mock constructors do not chain to the protected parameterless base correctly | Fix in `fix/mock-constructor-chain` |
+| [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` missing on inherited `Object` methods | Pending fix |
+| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only properties use `{ get; set; }` instead of `{ get; init; }` (design review suggestion #14) | Pending fix |
+| Design review #14/#15 | Output-only model properties → `internal set`/`init` + model factory for mocking | Pending |
+| Design review #16 | Model types → `.Models` sub-namespace | Pending |
+| Design review #17 | PascalCase / human-friendly generated client names | Pending |
+| Design review #20/#22/#24 | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | Pending |
+| Design review #21 | Extensible enums (`readonly struct`) for swagger-defined enum values | Pending |
+| Design review #23 | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | Pending |
 
 ---
 
 ## Further Reading
 
 - [Azure SDK .NET design guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html)
+- [`docs/API-DESIGN-EVALUATION.md`](https://github.com/daviburg_microsoft/azure-logicapps-connector-sdk/blob/main/docs/API-DESIGN-EVALUATION.md) — Full per-suggestion decision log from the May 2026 API review (internal)
 - [docs/concepts.md](concepts.md) — Architecture overview and glossary
 - [docs/connection-setup.md](connection-setup.md) — Connection provisioning walkthrough
 - [docs/migration-from-private-preview.md](migration-from-private-preview.md) — Migration guide from the private preview SDK
