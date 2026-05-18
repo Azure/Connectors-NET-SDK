@@ -371,11 +371,12 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
 
             // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.CreateTeamsMeetingAsync(
-                    calendarId: "cal-123",
-                    input: new NewMeeting(),
-                    cancellationToken: CancellationToken.None))
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
+                    await client.CreateTeamsMeetingAsync(
+                        calendarId: "cal-123",
+                        input: new NewMeeting(),
+                        cancellationToken: CancellationToken.None)
+                        .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual((int)HttpStatusCode.Forbidden, exception.Status);

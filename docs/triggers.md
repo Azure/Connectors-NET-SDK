@@ -148,7 +148,7 @@ public const string OnNewFiles = "OnNewFilesV2";
 public const string OnNewFile = "OnNewFileV2";
 ```
 
-### Why binary triggers exist
+### Why metadata triggers exist
 
 For large files (SharePoint documents, OneDrive files, Outlook attachments), the trigger delivers **metadata only** — the file path, size, and modification time. User code then calls the appropriate action client to fetch the actual file content:
 

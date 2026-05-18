@@ -377,8 +377,9 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
 
             // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.ListSubscribedSkusAsync(cancellationToken: CancellationToken.None))
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
+                    await client.ListSubscribedSkusAsync(cancellationToken: CancellationToken.None)
+                        .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual((int)HttpStatusCode.InternalServerError, exception.Status);

@@ -343,11 +343,12 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
 
             // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.GetTableAsync(
-                    siteAddress: "https://contoso.sharepoint.com/sites/test",
-                    listName: "Documents",
-                    cancellationToken: CancellationToken.None))
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
+                    await client.GetTableAsync(
+                        siteAddress: "https://contoso.sharepoint.com/sites/test",
+                        listName: "Documents",
+                        cancellationToken: CancellationToken.None)
+                        .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual((int)HttpStatusCode.NotFound, exception.Status);
