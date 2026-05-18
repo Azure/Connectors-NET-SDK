@@ -576,7 +576,7 @@ namespace Azure.Connectors.Sdk.Todo
         {
         }
 
-        protected TodoClient() : this(new Uri("https://localhost")) { }
+        protected TodoClient() : base() { }
 
         public override string ConnectorName => "todo";
 

@@ -514,7 +514,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         {
         }
 
-        protected MsGraphGroupsAndUsersClient() : this(new Uri("https://localhost")) { }
+        protected MsGraphGroupsAndUsersClient() : base() { }
 
         public override string ConnectorName => "msgraphgroupsanduser";
 

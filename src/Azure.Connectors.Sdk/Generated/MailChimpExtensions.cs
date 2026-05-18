@@ -2688,7 +2688,7 @@ namespace Azure.Connectors.Sdk.MailChimp
         {
         }
 
-        protected MailChimpClient() : this(new Uri("https://localhost")) { }
+        protected MailChimpClient() : base() { }
 
         public override string ConnectorName => "mailchimp";
 

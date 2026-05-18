@@ -426,7 +426,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         {
         }
 
-        protected AzureMonitorLogsClient() : this(new Uri("https://localhost")) { }
+        protected AzureMonitorLogsClient() : base() { }
 
         public override string ConnectorName => "azuremonitorlogs";
 

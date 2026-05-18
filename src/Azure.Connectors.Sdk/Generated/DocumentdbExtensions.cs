@@ -693,7 +693,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         {
         }
 
-        protected DocumentDbClient() : this(new Uri("https://localhost")) { }
+        protected DocumentDbClient() : base() { }
 
         public override string ConnectorName => "documentdb";
 

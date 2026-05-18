@@ -5965,7 +5965,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         {
         }
 
-        protected PlumsailClient() : this(new Uri("https://localhost")) { }
+        protected PlumsailClient() : base() { }
 
         public override string ConnectorName => "plumsail";
 

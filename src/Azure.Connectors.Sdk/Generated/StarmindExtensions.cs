@@ -601,7 +601,7 @@ namespace Azure.Connectors.Sdk.Starmind
         {
         }
 
-        protected StarmindClient() : this(new Uri("https://localhost")) { }
+        protected StarmindClient() : base() { }
 
         public override string ConnectorName => "starmind";
 

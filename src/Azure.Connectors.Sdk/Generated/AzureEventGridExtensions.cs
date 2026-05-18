@@ -245,7 +245,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         {
         }
 
-        protected AzureEventGridClient() : this(new Uri("https://localhost")) { }
+        protected AzureEventGridClient() : base() { }
 
         public override string ConnectorName => "azureeventgrid";
 

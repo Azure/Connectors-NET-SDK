@@ -2801,7 +2801,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         {
         }
 
-        protected SeismicPlannerClient() : this(new Uri("https://localhost")) { }
+        protected SeismicPlannerClient() : base() { }
 
         public override string ConnectorName => "seismicplanner";
 

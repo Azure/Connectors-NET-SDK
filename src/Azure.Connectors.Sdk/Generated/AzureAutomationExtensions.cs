@@ -400,7 +400,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         {
         }
 
-        protected AzureAutomationClient() : this(new Uri("https://localhost")) { }
+        protected AzureAutomationClient() : base() { }
 
         public override string ConnectorName => "azureautomation";
 

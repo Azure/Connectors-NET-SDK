@@ -519,7 +519,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         {
         }
 
-        protected ExcelOnlineClient() : this(new Uri("https://localhost")) { }
+        protected ExcelOnlineClient() : base() { }
 
         public override string ConnectorName => "excelonline";
 

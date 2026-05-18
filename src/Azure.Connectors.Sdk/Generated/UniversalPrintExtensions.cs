@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.UniversalPrint
         {
         }
 
-        protected UniversalPrintClient() : this(new Uri("https://localhost")) { }
+        protected UniversalPrintClient() : base() { }
 
         public override string ConnectorName => "universalprint";
 

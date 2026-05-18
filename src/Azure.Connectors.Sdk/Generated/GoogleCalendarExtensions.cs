@@ -731,7 +731,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         {
         }
 
-        protected GoogleCalendarClient() : this(new Uri("https://localhost")) { }
+        protected GoogleCalendarClient() : base() { }
 
         public override string ConnectorName => "googlecalendar";
 
