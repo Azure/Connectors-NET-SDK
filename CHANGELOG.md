@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-<!-- MAINTAINER NOTE: Before tagging a release, move this section's content into
-     release_notes.md with the new version header. NuGet packs release_notes.md
-     verbatim into <releaseNotes>, so do NOT put HTML comments in that file. -->
+<!-- MAINTAINER NOTE: Before tagging a release, (1) cut [Unreleased] content into a
+     new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD), (2) add a
+     reference link at the bottom, (3) update [Unreleased] compare base, and (4) copy
+     the same content into release_notes.md for NuGet packaging. Do NOT put HTML
+     comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
 
 ### Fixed
 

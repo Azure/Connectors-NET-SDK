@@ -2,7 +2,7 @@
 
 ### 0.10.0-preview.1 (2026-05-11)
 
-- Breaking: Removed CamelCase JSON naming policy from ConnectorClientBase.JsonOptions; properties without [JsonPropertyName] now serialize as PascalCase.
+- Breaking: Removed CamelCase JSON naming policy from ConnectorClientBase.JsonOptions; properties without `[JsonPropertyName]` now serialize as PascalCase.
 - Breaking: Renamed AzuremonitorlogsClient to AzureMonitorLogsClient; Office365usersClient to Office365UsersClient (namespaces, DI methods, and model factories updated accordingly).
 - Breaking: `IPageable<T>` is now internal; `ConnectorClientBase.CreatePageable` is private protected; JSON converter types are internal.
 - Added constructor overload (Uri, TokenCredential) without ClientOptions on ConnectorClientBase and all generated clients.
