@@ -19,27 +19,20 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class OneDriveClientTests
     {
-        private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
-
-        private static Mock<TokenCredential> CreateMockCredential()
+        private static OneDriveClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
         {
-            var mock = new Mock<TokenCredential>();
-            mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-            return mock;
-        }
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.MaxValue));
 
-        private static OneDriveClient CreateMockedClient(HttpResponseMessage response)
-        {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(response)
-                .Callback(() => { })
-                .Verifiable();
+                .Returns(() => Task.FromResult(responseFactory()));
 
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
@@ -47,7 +40,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             return new OneDriveClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object,
+                credential: mockCredential.Object,
                 options: options);
         }
 
@@ -74,9 +67,10 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
+            var mockCredential = new Mock<TokenCredential>();
             var client = new OneDriveClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object);
+                credential: mockCredential.Object);
             client.Dispose();
             client.Dispose();
         }
@@ -84,13 +78,11 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetFileMetadataAsync_WithMockedResponse_ReturnsExpected()
         {
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{}")
-            };
-
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             var result = await client
                 .GetFileMetadataAsync(file: "file1",
@@ -103,13 +95,11 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetFileMetadataAsync_WithErrorResponse_ThrowsConnectorException()
         {
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.BadRequest,
                 Content = new StringContent("{\"error\": \"Bad request\"}")
-            };
-
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
                 client.GetFileMetadataAsync(file: "file1",
@@ -121,13 +111,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task ListRootFolderAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("[{\"Id\":\"file-1\",\"Name\":\"doc.pdf\",\"DisplayName\":\"doc.pdf\",\"IsFolder\":false}]")
-            };
-
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act
             var result = await client
@@ -145,13 +133,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task CreateFileAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{\"Id\":\"new-file-1\",\"Name\":\"upload.txt\",\"DisplayName\":\"upload.txt\",\"Size\":512}")
-            };
-
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act
             var result = await client
@@ -172,13 +158,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetFileTagsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{\"Tags\":[\"design\",\"urgent\"]}")
-            };
-
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act
             var result = await client
