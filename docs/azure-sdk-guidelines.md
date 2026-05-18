@@ -27,6 +27,8 @@ The decisions recorded here were made during a formal API design review in May 2
 | `RequestFailedException` inheritance | `ConnectorException : RequestFailedException` — `catch (RequestFailedException)` catches connector errors alongside other Azure SDK errors |
 | `IDisposable` | All clients implement `IDisposable` |
 | XML documentation on all public API | All public types and members carry `<summary>` documentation |
+| Extensible enums for swagger-defined enum values | Properties with known swagger enum values use `readonly struct` with `implicit operator string` — type-safe IntelliSense without restricting unknown future values (design review suggestion #21) |
+| `*ModelFactory` static classes for mocking | Each generated connector exposes a `<Connector>ModelFactory` with factory methods for constructing model instances in unit tests (design review suggestion #15) |
 
 ---
 
@@ -106,12 +108,11 @@ The following items are in progress — not intentional divergences, but gaps be
 | [#158](https://github.com/Azure/Connectors-NET-SDK/issues/158) | Missing copyright headers on generated files | Fix in `fix/copyright-headers` |
 | [#159](https://github.com/Azure/Connectors-NET-SDK/issues/159) | Mock constructors do not chain to the protected parameterless base correctly | Fix in `fix/mock-constructor-chain` |
 | [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` missing on inherited `Object` methods | Pending fix |
-| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only properties use `{ get; set; }` instead of `{ get; init; }` (design review suggestion #14) | Pending fix |
-| Design review #14/#15 | Output-only model properties → `internal set`/`init` + model factory for mocking | Pending |
+
+| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) + design review #14 | Output-only model properties still use `{ get; set; }` instead of `{ get; init; }` — the companion `*ModelFactory` classes are already in place for when this lands | Pending fix |
 | Design review #16 | Model types → `.Models` sub-namespace | Pending |
 | Design review #17 | PascalCase / human-friendly generated client names | Pending |
 | Design review #20/#22/#24 | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | Pending |
-| Design review #21 | Extensible enums (`readonly struct`) for swagger-defined enum values | Pending |
 | Design review #23 | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | Pending |
 
 ---
