@@ -30,7 +30,7 @@ Connector triggers follow the **Event Grid webhook pattern**. The connector infr
 
 1. **Function app registers** a callback URL with the connector service at deployment time (cloud) or F5 startup (local dev).
 2. **Connector service monitors** for events on its own compute — Azure Functions never polls.
-3. **Events push to the function** via HTTP callback. Functions scales on HTTP push naturally; no scale controller changes are needed.
+3. **Events push to the function** via HTTP callback. Functions scale on HTTP push naturally; no scale controller changes are needed.
 4. **Webhook lifecycle is connector-owned.** The connector infrastructure handles webhook expiry and automatic re-registration. The Functions extension does not manage webhook renewal.
 
 ### Local development (F5 experience)

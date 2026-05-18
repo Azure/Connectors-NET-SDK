@@ -25,6 +25,38 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class Office365ClientTests
     {
+        private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
+
+        private static Mock<TokenCredential> CreateMockCredential()
+        {
+            var mock = new Mock<TokenCredential>();
+            mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+            return mock;
+        }
+
+        private static Office365Client CreateMockedClient(HttpResponseMessage response)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response)
+                .Callback(() => { })
+                .Verifiable();
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            return new Office365Client(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
+        }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -86,7 +118,6 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetOutlookCategoryNamesAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             var expectedResponse = new List<GraphOutlookCategory>
             {
                 new GraphOutlookCategory
@@ -101,34 +132,12 @@ namespace Azure.Connectors.Sdk.Tests
                 }
             };
 
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-                });
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-
-
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-
-
-            options.Retry.MaxRetries = 0;
-
-            using var client = new Office365Client(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            };
+            using var client = CreateMockedClient(responseMessage);
 
             // Act
             var result = await client
@@ -146,36 +155,12 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetEmailAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
-
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.BadRequest,
-                    Content = new StringContent("{\"error\": \"Invalid request\"}")
-                });
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-
-
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-
-
-            options.Retry.MaxRetries = 0;
-
-            using var client = new Office365Client(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Invalid request\"}")
+            };
+            using var client = CreateMockedClient(responseMessage);
 
             // Act & Assert
             var exception = await Assert
@@ -265,31 +250,12 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetEmailsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{\"value\":[{\"id\":\"msg-1\",\"subject\":\"Weekly report\"}]}")
             };
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
-            using var client = new Office365Client(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            using var client = CreateMockedClient(responseMessage);
 
             // Act
             var result = await client
@@ -307,7 +273,6 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetRoomsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             var expectedResponse = new GetRoomsResponse
             {
                 Value = new List<object> { "room-1", "room-2" }
@@ -317,25 +282,7 @@ namespace Azure.Connectors.Sdk.Tests
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
             };
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
-            using var client = new Office365Client(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            using var client = CreateMockedClient(responseMessage);
 
             // Act
             var result = await client
