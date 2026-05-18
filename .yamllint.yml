@@ -10,4 +10,5 @@ rules:
     check-keys: false
   comments:
     min-spaces-from-content: 1
-  new-lines: disable
+  new-lines:
+    type: platform

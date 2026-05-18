@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   changes:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
@@ -34,7 +35,7 @@ jobs:
 
   powershell:
     needs: changes
-    if: needs.changes.outputs.powershell == 'true'
+    if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.powershell == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,12 +44,7 @@ jobs:
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module -Name PSScriptAnalyzer -Scope CurrentUser -Force
-          $files = Get-ChildItem -Path . -Filter '*.ps1' -Recurse
-          Write-Host "Analyzing $($files.Count) PowerShell file(s)..."
-          $results = $files | ForEach-Object {
-            Write-Host "  $($_.FullName)"
-            Invoke-ScriptAnalyzer -Path $_.FullName -Settings ./PSScriptAnalyzerSettings.psd1
-          }
+          $results = Invoke-ScriptAnalyzer -Path . -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
           if ($results) {
             $results | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize
             throw "PSScriptAnalyzer found $($results.Count) issue(s)."
@@ -57,15 +53,15 @@ jobs:
 
   markdown:
     needs: changes
-    if: needs.changes.outputs.markdown == 'true'
+    if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.markdown == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npx markdownlint-cli2 '**/*.md'
+      - run: npx markdownlint-cli2@0.17.2 '**/*.md'
 
   yaml:
     needs: changes
-    if: needs.changes.outputs.yaml == 'true'
+    if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.yaml == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
