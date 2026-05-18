@@ -25,27 +25,20 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class SharePointOnlineClientTests
     {
-        private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
-
-        private static Mock<TokenCredential> CreateMockCredential()
+        private static SharePointOnlineClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
         {
-            var mock = new Mock<TokenCredential>();
-            mock.Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-            return mock;
-        }
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.MaxValue));
 
-        private static SharePointOnlineClient CreateMockedClient(HttpResponseMessage response)
-        {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(response)
-                .Callback(() => { })
-                .Verifiable();
+                .Returns(() => Task.FromResult(responseFactory()));
 
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
@@ -53,7 +46,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             return new SharePointOnlineClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object,
+                credential: mockCredential.Object,
                 options: options);
         }
 
@@ -105,11 +98,10 @@ namespace Azure.Connectors.Sdk.Tests
                 }
             };
 
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-            };
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act
             var result = await client
@@ -128,12 +120,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetAllTablesAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.NotFound,
                 Content = new StringContent("{\"error\": \"Site not found\"}")
-            };
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act & Assert
             var exception = await Assert
@@ -251,12 +242,11 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Value = new List<DataSet> { new DataSet { Name = "default", DisplayName = "Default" } }
             };
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-            };
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act
             var result = await client
@@ -274,12 +264,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetTableAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.NotFound,
                 Content = new StringContent("{\"error\": \"List not found\"}")
-            };
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act & Assert
             var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
@@ -297,12 +286,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task CopyFileAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{\"Id\":\"copied-1\",\"Name\":\"report-copy.pdf\",\"Size\":4096,\"IsFolder\":false}")
-            };
-            using var client = CreateMockedClient(responseMessage);
+            });
 
             // Act
             var result = await client

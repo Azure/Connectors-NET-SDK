@@ -82,7 +82,7 @@ Both shapes are transparently normalized to `Body.Value` as an `IReadOnlyList<T>
 
 ```csharp
 // Works for both batch and single-item callbacks
-foreach (var email in payload.Body?.Value ?? [])
+foreach (var email in payload.Body?.Value ?? Array.Empty<GraphClientReceiveMessage>())
 {
     Console.WriteLine(email.Subject);
 }

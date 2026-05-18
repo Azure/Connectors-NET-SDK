@@ -25,6 +25,31 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class MsGraphGroupsAndUsersClientTests
     {
+        private static MsGraphGroupsAndUsersClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
+        {
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.MaxValue));
+
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns(() => Task.FromResult(responseFactory()));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            return new MsGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+        }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -86,43 +111,17 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task ListUsersAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             var expectedResponse = new ListUsersResponse
             {
                 Context = "https://graph.microsoft.com/v1.0/$metadata#users",
                 Value = new List<object> { "user1", "user2" }
             };
 
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-            };
-
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-
-
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-
-
-            options.Retry.MaxRetries = 0;
-
-            using var client = new MsGraphGroupsAndUsersClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            });
 
             // Act
             var result = await client
@@ -138,38 +137,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetGroupPropertiesAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
-
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.NotFound,
                 Content = new StringContent("{\"error\": \"Group not found\"}")
-            };
-
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-
-
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-
-
-            options.Retry.MaxRetries = 0;
-
-            using var client = new MsGraphGroupsAndUsersClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            });
 
             // Act & Assert
             var exception = await Assert
@@ -257,37 +229,17 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task ListGroupsByDisplayNameSearchAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
             var expectedResponse = new ListGroupsByDisplayNameSearchResponse
             {
                 Context = "https://graph.microsoft.com/v1.0/$metadata#groups",
                 Count = 1,
                 Value = new List<object> { "group-1" }
             };
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-            };
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
-            using var client = new MsGraphGroupsAndUsersClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            });
 
             // Act
             var result = await client
@@ -306,31 +258,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GetMemberGroupsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/v1.0\",\"value\":[\"group-abc\"]}")
-            };
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
-            using var client = new MsGraphGroupsAndUsersClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            });
 
             // Act
             var result = await client
@@ -350,31 +282,11 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task ListSubscribedSkusAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
-            var mockHandler = new Mock<HttpMessageHandler>();
-            using var responseMessage = new HttpResponseMessage
+            using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.InternalServerError,
                 Content = new StringContent("{\"error\": \"Internal server error\"}")
-            };
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(responseMessage);
-
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
-            using var client = new MsGraphGroupsAndUsersClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
-                options: options);
+            });
 
             // Act & Assert
             var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
