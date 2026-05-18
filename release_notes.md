@@ -1,11 +1,5 @@
 ## What's Changed
 
-<!--
-  MAINTAINER NOTE: Update this file before each release.
-  Move the [Unreleased] section of CHANGELOG.md into this file with the new version header.
-  NuGet renders release notes as plain text, so keep formatting simple.
--->
-
 ### 0.11.0-preview.1
 
 - TriggerCallbackBody<T> now handles both batch and single-item callback shapes transparently.
