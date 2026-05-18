@@ -27,26 +27,10 @@ namespace Azure.Connectors.Sdk.Tests
     {
         private static MsGraphGroupsAndUsersClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
         {
-            var mockCredential = new Mock<TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.MaxValue));
-
-            var mockHandler = new Mock<HttpMessageHandler>();
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .Returns(() => Task.FromResult(responseFactory()));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
-
+            var (credential, options) = ConnectorTestHelpers.CreateMockedClientSetup(responseFactory);
             return new MsGraphGroupsAndUsersClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object,
+                credential: credential,
                 options: options);
         }
 

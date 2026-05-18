@@ -238,13 +238,13 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void ConnectorNames_ConstantsAreAlphabeticallyOrdered()
         {
-            // Arrange — GetFields returns fields in metadata order, which matches source declaration
-            // order for constant fields compiled with standard tooling. Compare constant values
-            // (not identifier names) against an Ordinal-sorted copy, consistent with how
-            // SdkConnectors.AvailableConnectors is ordered.
+            // Arrange — Sort by MetadataToken to get a stable source-declaration order. Compare
+            // constant values (not identifier names) against an Ordinal-sorted copy, consistent
+            // with how SdkConnectors.AvailableConnectors is ordered.
             var fields = typeof(ConnectorNames)
                 .GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Where(field => field.IsLiteral && field.FieldType == typeof(string))
+                .OrderBy(field => field.MetadataToken)
                 .ToList();
 
             var values = fields.Select(field => (string)field.GetRawConstantValue()!).ToList();
