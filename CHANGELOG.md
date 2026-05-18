@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+<!-- MAINTAINER NOTE: Before tagging a release, move this section's content into
+     release_notes.md with the new version header. NuGet packs release_notes.md
+     verbatim into <releaseNotes>, so do NOT put HTML comments in that file. -->
+
 ### Fixed
 
 - **`TriggerCallbackBody<T>` now handles both batch and single-item callback shapes** — Connector Namespace delivers trigger callbacks in two shapes depending on the trigger configuration's splitOn setting: batch `{"body":{"value":[...]}}` and single-item `{"body":{...item...}}`. The new `TriggerCallbackBodyConverter<T>` transparently normalizes both shapes into `Body.Value` as a list, preventing silent zero-item processing when splitOn is enabled. All 77+ generated `TriggerCallbackPayload<T>` subclasses inherit this fix automatically. (#149)
@@ -18,8 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **11 connector clients (batch 5)** — `AzureADClient`, `AzureIoTCentralClient`, `MicrosoftFormsClient` regenerated with generator bug fixes; plus 8 new clients: `AzureQueuesClient`, `AzureTablesClient`, `DocumentDbClient`, `EventHubsClient`, `ExcelOnlineBusinessClient`, `OutlookClient`, `ServiceBusConnectorClient`, `WordOnlineBusinessClient`; also fixes generator bugs #135, #136, #137, #138, #139 (IPageable property name derived from x-ms-summary; array-typed `$ref` definitions resolved to `` `List<T>` `` instead of undefined class name)
-- **25 new connector clients (batch 6)** — `BoxClient`, `DocusignClient`, `DropboxClient`, `DynamicsaxClient`, `EventbriteClient`, `FtpClient`, `GithubClient`, `GooglecalendarClient`, `GoogledriveClient`, `GoogletasksClient`, `JiraClient`, `MailchimpClient`, `MondayClient`, `OnedriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendgridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordpressClient`, `ZendeskClient`
+- **11 connector clients (batch 5)** — `AzureADClient`, `AzureIoTCentralClient`, `MicrosoftFormsClient` regenerated with generator bug fixes; plus 8 new clients: `AzureQueuesClient`, `AzureTablesClient`, `DocumentDbClient`, `EventHubsClient`, `ExcelOnlineBusinessClient`, `OutlookClient`, `ServiceBusConnectorClient`, `WordOnlineBusinessClient`; also fixes generator bugs #135, #136, #137, #138, #139 (IPageable property name derived from x-ms-summary; array-typed `$ref` definitions resolved to `List<T>` instead of undefined class name)
+- **25 new connector clients (batch 6)** — `BoxClient`, `DocuSignClient`, `DropboxClient`, `DynamicsAXClient`, `EventbriteClient`, `FtpClient`, `GitHubClient`, `GoogleCalendarClient`, `GoogleDriveClient`, `GoogleTasksClient`, `JiraClient`, `MailChimpClient`, `MondayClient`, `OneDriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendGridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordPressClient`, `ZendeskClient`
 
 ### Changed
 

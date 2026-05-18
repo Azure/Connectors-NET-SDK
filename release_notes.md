@@ -1,18 +1,10 @@
 ## What's Changed
 
-### 0.11.0-preview.1
-
-- TriggerCallbackBody<T> now handles both batch and single-item callback shapes transparently.
-- Breaking: TriggerCallbackPayload<T>.Body is now init-only; TriggerCallbackBody<T>.Value is IReadOnlyList<T> with internal set.
-- 11 connector clients (batch 5) including AzureQueues, AzureTables, DocumentDb, EventHubs, ExcelOnlineBusiness, Outlook, ServiceBusConnector, WordOnlineBusiness; also fixes generator bugs #135-#139.
-- 25 new connector clients (batch 6) including Box, Docusign, Dropbox, GitHub, Jira, Salesforce, Slack, SQL, Trello, and more.
-- Regenerated 15 existing connector clients with latest generator bug fixes.
-
 ### 0.10.0-preview.1 (2026-05-11)
 
 - Breaking: Removed CamelCase JSON naming policy from ConnectorClientBase.JsonOptions; properties without [JsonPropertyName] now serialize as PascalCase.
 - Breaking: Renamed AzuremonitorlogsClient to AzureMonitorLogsClient; Office365usersClient to Office365UsersClient (namespaces, DI methods, and model factories updated accordingly).
-- Breaking: IPageable<T> is now internal; ConnectorClientBase.CreatePageable is private protected; JSON converter types are internal.
+- Breaking: `IPageable<T>` is now internal; `ConnectorClientBase.CreatePageable` is private protected; JSON converter types are internal.
 - Added constructor overload (Uri, TokenCredential) without ClientOptions on ConnectorClientBase and all generated clients.
 - ConnectorHttpClient now supports mocking (protected parameterless constructor, virtual SendAsync).
 - 48 new connector clients across 4 batches, including ExcelOnline, AzureEventGrid, Yammer, WdatpClient, AzureAutomation, AzureDataFactory, KeyVault, PowerBI, and many more.
@@ -22,7 +14,7 @@
 
 - Breaking: Constructor overhaul — Uri is now the primary parameter type; default credential changed from DefaultAzureCredential to ManagedIdentityCredential(SystemAssigned); credential parameter is no longer optional.
 - Breaking: Output-only model properties now have internal set; use per-connector model factory classes for testing.
-- Breaking: ExceptionExtensions, HttpExtensions, RetryPolicy, ConnectorResponse<T> removed as public API.
+- Breaking: `ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`, `ConnectorResponse<T>` removed as public API.
 - Breaking: All namespaces renamed from Microsoft.Azure.Connectors.* to Azure.Connectors.Sdk.*.
 - Breaking: ConnectorClientOptions now inherits from Azure.Core.ClientOptions; Polly dependency removed; HttpClient parameter removed from constructors.
 - Added extensible enum types for Swagger enum properties, DI integration extension methods, per-connector model factory classes.
@@ -35,8 +27,8 @@
 
 ### 0.7.0-preview.1 (2026-04-30)
 
-- Added IAsyncEnumerable<T> auto-pagination support for paginated connector operations.
-- Paginated methods now return ConnectorPageable<TPage, TItem> instead of Task<TPage> (breaking).
+- Added `IAsyncEnumerable<T>` auto-pagination support for paginated connector operations.
+- Paginated methods now return `ConnectorPageable<TPage, TItem>` instead of `Task<TPage>` (breaking).
 - ManagedIdentityCredential updated to ManagedIdentityId API.
 
 ### 0.6.0-preview.1
