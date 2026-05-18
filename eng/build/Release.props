@@ -24,6 +24,8 @@
       -->
     <IconFile Condition="'$(IconFile)' == ''">$(EngResourceRoot)icon.png</IconFile>
     <PackageIcon Condition="'$(PackageIcon)' == '' AND Exists('$(IconFile)')">icon.png</PackageIcon>
+    <ReadmeFile Condition="'$(ReadmeFile)' == ''">$(RepoRoot)README.md</ReadmeFile>
+    <PackageReadmeFile Condition="'$(PackageReadmeFile)' == '' AND Exists('$(ReadmeFile)')">README.md</PackageReadmeFile>
     <ReleaseNotesFile Condition="'$(ReleaseNotesFile)' == ''">$(RepoRoot)release_notes.md</ReleaseNotesFile>
     <!-- PackageReleaseNotes: see Release.targets -->
   </PropertyGroup>
