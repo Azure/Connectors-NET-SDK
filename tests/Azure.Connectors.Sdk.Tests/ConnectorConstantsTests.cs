@@ -25,7 +25,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert — constant is registered in SdkConnectors.AvailableConnectors
             CollectionAssert.Contains(
                 SdkConnectors.AvailableConnectors,
-                ConnectorNames.Office365);
+                ConnectorNames.Office365Outlook);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             CollectionAssert.Contains(
                 SdkConnectors.AvailableConnectors,
-                ConnectorNames.SharePointOnline);
+                ConnectorNames.SharePoint);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             CollectionAssert.Contains(
                 SdkConnectors.AvailableConnectors,
-                ConnectorNames.Teams);
+                ConnectorNames.MicrosoftTeams);
         }
 
         [TestMethod]
@@ -89,10 +89,10 @@ namespace Azure.Connectors.Sdk.Tests
         public void ConnectorNames_ValuesAreLowercase()
         {
             // Assert — connector API names are lowercase identifiers
-            Assert.AreEqual(ConnectorNames.Kusto, ConnectorNames.Kusto.ToLowerInvariant());
-            Assert.AreEqual(ConnectorNames.Office365, ConnectorNames.Office365.ToLowerInvariant());
-            Assert.AreEqual(ConnectorNames.SharePointOnline, ConnectorNames.SharePointOnline.ToLowerInvariant());
-            Assert.AreEqual(ConnectorNames.Teams, ConnectorNames.Teams.ToLowerInvariant());
+            Assert.AreEqual(ConnectorNames.AzureDataExplorer, ConnectorNames.AzureDataExplorer.ToLowerInvariant());
+            Assert.AreEqual(ConnectorNames.Office365Outlook, ConnectorNames.Office365Outlook.ToLowerInvariant());
+            Assert.AreEqual(ConnectorNames.SharePoint, ConnectorNames.SharePoint.ToLowerInvariant());
+            Assert.AreEqual(ConnectorNames.MicrosoftTeams, ConnectorNames.MicrosoftTeams.ToLowerInvariant());
         }
 
         // ===== Office365TriggerOperations Tests =====

@@ -131,7 +131,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<ArmClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Arm,
+                connectorName: ConnectorNames.AzureResourceManager,
                 factory: (connectionRuntimeUrl, credential) => new ArmClient(connectionRuntimeUrl, credential));
         }
 
@@ -147,7 +147,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureADClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.AzureAD,
+                connectorName: ConnectorNames.MicrosoftEntraId,
                 factory: (connectionRuntimeUrl, credential) => new AzureADClient(connectionRuntimeUrl, credential));
         }
 
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureBlobClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.AzureBlob,
+                connectorName: ConnectorNames.AzureBlobStorage,
                 factory: (connectionRuntimeUrl, credential) => new AzureBlobClient(connectionRuntimeUrl, credential));
         }
 
@@ -195,7 +195,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIoTCentralClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.AzureIoTCentral,
+                connectorName: ConnectorNames.AzureIoTCentralV3,
                 factory: (connectionRuntimeUrl, credential) => new AzureIoTCentralClient(connectionRuntimeUrl, credential));
         }
 
@@ -243,7 +243,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureTablesClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.AzureTables,
+                connectorName: ConnectorNames.AzureTableStorage,
                 factory: (connectionRuntimeUrl, credential) => new AzureTablesClient(connectionRuntimeUrl, credential));
         }
 
@@ -275,7 +275,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<ClickSendSmsClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.ClickSendSms,
+                connectorName: ConnectorNames.ClickSend,
                 factory: (connectionRuntimeUrl, credential) => new ClickSendSmsClient(connectionRuntimeUrl, credential));
         }
 
@@ -291,7 +291,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<CloudmersiveConvertClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.CloudmersiveConvert,
+                connectorName: ConnectorNames.CloudmersiveDocumentConversion,
                 factory: (connectionRuntimeUrl, credential) => new CloudmersiveConvertClient(connectionRuntimeUrl, credential));
         }
 
@@ -307,7 +307,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<DocuwareClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Docuware,
+                connectorName: ConnectorNames.DocuWare,
                 factory: (connectionRuntimeUrl, credential) => new DocuwareClient(connectionRuntimeUrl, credential));
         }
 
@@ -323,7 +323,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentDbClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.DocumentDb,
+                connectorName: ConnectorNames.AzureCosmosDB,
                 factory: (connectionRuntimeUrl, credential) => new DocumentDbClient(connectionRuntimeUrl, credential));
         }
 
@@ -355,7 +355,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<EtsyClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Etsy,
+                connectorName: ConnectorNames.EtsyIndependentPublisher,
                 factory: (connectionRuntimeUrl, credential) => new EtsyClient(connectionRuntimeUrl, credential));
         }
 
@@ -387,7 +387,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<ExcelOnlineClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.ExcelOnline,
+                connectorName: ConnectorNames.ExcelOnlineOneDrive,
                 factory: (connectionRuntimeUrl, credential) => new ExcelOnlineClient(connectionRuntimeUrl, credential));
         }
 
@@ -435,7 +435,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<FreshServiceClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.FreshService,
+                connectorName: ConnectorNames.Freshservice,
                 factory: (connectionRuntimeUrl, credential) => new FreshServiceClient(connectionRuntimeUrl, credential));
         }
 
@@ -499,7 +499,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<JedoxOdataHubClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.JedoxOdataHub,
+                connectorName: ConnectorNames.JedoxODataHub,
                 factory: (connectionRuntimeUrl, credential) => new JedoxOdataHubClient(connectionRuntimeUrl, credential));
         }
 
@@ -515,7 +515,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<KustoClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Kusto,
+                connectorName: ConnectorNames.AzureDataExplorer,
                 factory: (connectionRuntimeUrl, credential) => new KustoClient(connectionRuntimeUrl, credential));
         }
 
@@ -547,7 +547,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<MqClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Mq,
+                connectorName: ConnectorNames.MQ,
                 factory: (connectionRuntimeUrl, credential) => new MqClient(connectionRuntimeUrl, credential));
         }
 
@@ -563,7 +563,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<MsGraphGroupsAndUsersClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.MsGraphGroupsAndUsers,
+                connectorName: ConnectorNames.MSGraphGroupsAndUsers,
                 factory: (connectionRuntimeUrl, credential) => new MsGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
         }
 
@@ -579,7 +579,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<Office365Client>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Office365,
+                connectorName: ConnectorNames.Office365Outlook,
                 factory: (connectionRuntimeUrl, credential) => new Office365Client(connectionRuntimeUrl, credential));
         }
 
@@ -643,7 +643,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<OutlookClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Outlook,
+                connectorName: ConnectorNames.OutlookCom,
                 factory: (connectionRuntimeUrl, credential) => new OutlookClient(connectionRuntimeUrl, credential));
         }
 
@@ -659,7 +659,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<PdfCoClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.PdfCo,
+                connectorName: ConnectorNames.PDFco,
                 factory: (connectionRuntimeUrl, credential) => new PdfCoClient(connectionRuntimeUrl, credential));
         }
 
@@ -707,7 +707,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<PlumsailClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Plumsail,
+                connectorName: ConnectorNames.PlumsailDocuments,
                 factory: (connectionRuntimeUrl, credential) => new PlumsailClient(connectionRuntimeUrl, credential));
         }
 
@@ -723,7 +723,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<ProjectplaceClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Projectplace,
+                connectorName: ConnectorNames.ProjectPlace,
                 factory: (connectionRuntimeUrl, credential) => new ProjectplaceClient(connectionRuntimeUrl, credential));
         }
 
@@ -755,7 +755,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<RevaiClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Revai,
+                connectorName: ConnectorNames.RevAIIndependentPublisher,
                 factory: (connectionRuntimeUrl, credential) => new RevaiClient(connectionRuntimeUrl, credential));
         }
 
@@ -803,7 +803,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<SharePointOnlineClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.SharePointOnline,
+                connectorName: ConnectorNames.SharePoint,
                 factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
         }
 
@@ -835,7 +835,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<SmtpClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Smtp,
+                connectorName: ConnectorNames.SMTP,
                 factory: (connectionRuntimeUrl, credential) => new SmtpClient(connectionRuntimeUrl, credential));
         }
 
@@ -867,7 +867,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<StarrezRestV1Client>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.StarrezRestV1,
+                connectorName: ConnectorNames.StarRezRESTV1,
                 factory: (connectionRuntimeUrl, credential) => new StarrezRestV1Client(connectionRuntimeUrl, credential));
         }
 
@@ -899,7 +899,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<TeamsClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Teams,
+                connectorName: ConnectorNames.MicrosoftTeams,
                 factory: (connectionRuntimeUrl, credential) => new TeamsClient(connectionRuntimeUrl, credential));
         }
 
@@ -931,7 +931,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<TicketmasterClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Ticketmaster,
+                connectorName: ConnectorNames.TicketmasterIndependentPublisher,
                 factory: (connectionRuntimeUrl, credential) => new TicketmasterClient(connectionRuntimeUrl, credential));
         }
 
@@ -963,7 +963,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<WaywedoClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Waywedo,
+                connectorName: ConnectorNames.WayWeDo,
                 factory: (connectionRuntimeUrl, credential) => new WaywedoClient(connectionRuntimeUrl, credential));
         }
 
@@ -979,7 +979,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<WdatpClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Wdatp,
+                connectorName: ConnectorNames.MicrosoftDefenderATP,
                 factory: (connectionRuntimeUrl, credential) => new WdatpClient(connectionRuntimeUrl, credential));
         }
 
@@ -1011,7 +1011,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<YammerClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Yammer,
+                connectorName: ConnectorNames.VivaEngage,
                 factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
         }
 
@@ -1107,7 +1107,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<KeyVaultClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.KeyVault,
+                connectorName: ConnectorNames.AzureKeyVault,
                 factory: (connectionRuntimeUrl, credential) => new KeyVaultClient(connectionRuntimeUrl, credential));
         }
 
@@ -1187,7 +1187,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<OnenoteClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Onenote,
+                connectorName: ConnectorNames.OneNoteBusiness,
                 factory: (connectionRuntimeUrl, credential) => new OnenoteClient(connectionRuntimeUrl, credential));
         }
 
@@ -1235,7 +1235,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<ShiftsClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Shifts,
+                connectorName: ConnectorNames.ShiftsForMicrosoftTeams,
                 factory: (connectionRuntimeUrl, credential) => new ShiftsClient(connectionRuntimeUrl, credential));
         }
 
@@ -1251,7 +1251,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<TodoClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.Todo,
+                connectorName: ConnectorNames.MicrosoftToDoBusiness,
                 factory: (connectionRuntimeUrl, credential) => new TodoClient(connectionRuntimeUrl, credential));
         }
 
