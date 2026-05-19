@@ -103,16 +103,26 @@ Pagination returns `AsyncPageable<T>` (not `AsyncPageable<Response<T>>`) consist
 
 The following items are in progress — not intentional divergences, but gaps being closed incrementally.
 
-| Issue / Suggestion | Description | Status |
-|--------------------|-------------|--------|
+| Issue | Description | Status |
+|-------|-------------|--------|
 | [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` does not yet parse a structured `ErrorCode` from the response body | Pending fix |
 | [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | No `DiagnosticScope` distributed tracing | Pending |
 | [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | `object` used for dynamic-schema properties instead of `BinaryData`/`JsonElement` | Under evaluation |
-| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) + design review #14 | Output-only model properties still use `{ get; set; }` instead of `{ get; init; }` — the companion `*ModelFactory` classes are already in place for when this lands | Pending fix |
-| Design review #16 | Model types → `.Models` sub-namespace | Pending |
-| Design review #17 | PascalCase / human-friendly generated client names | Pending |
-| Design review #20/#22/#24 | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | Pending |
-| Design review #23 | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | Pending |
+| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only model properties still use `{ get; set; }` instead of `{ get; init; }` — the companion `*ModelFactory` classes are already in place for when this lands | Pending fix |
+| [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Add test coverage for nullable optional value-type parameters | Pending |
+| [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175) | Generator: emit `ArgumentNullException` guards for required parameters | Pending |
+| [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Add test coverage for Teams trigger payload types | Pending |
+
+### Completed
+
+Previously tracked items now delivered:
+
+| Issue | Description | Delivered |
+|-------|-------------|-----------|
+| [#108](https://github.com/Azure/Connectors-NET-SDK/issues/108) | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | [#109](https://github.com/Azure/Connectors-NET-SDK/pull/109) |
+| [#114](https://github.com/Azure/Connectors-NET-SDK/issues/114) | `.Models` sub-namespace + PascalCase client names | [#119](https://github.com/Azure/Connectors-NET-SDK/pull/119) |
+| [#116](https://github.com/Azure/Connectors-NET-SDK/issues/116) | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | [#117](https://github.com/Azure/Connectors-NET-SDK/pull/117) |
+| [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` on inherited `Object` methods | [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170) |
 
 ---
 
