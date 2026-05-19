@@ -786,6 +786,11 @@ public static class ConnectorNames
     public const string Azurequeues = "azurequeues";
 
     /// <summary>
+    /// The <c>azurequeues</c> connector.
+    /// </summary>
+    public const string AzureQueues = "azurequeues";
+
+    /// <summary>
     /// The <c>azurespeechpronuncia</c> connector.
     /// </summary>
     public const string Azurespeechpronuncia = "azurespeechpronuncia";
@@ -794,6 +799,11 @@ public static class ConnectorNames
     /// The <c>azuretables</c> connector.
     /// </summary>
     public const string Azuretables = "azuretables";
+
+    /// <summary>
+    /// The <c>azuretables</c> connector.
+    /// </summary>
+    public const string AzureTables = "azuretables";
 
     /// <summary>
     /// The <c>azuretexttospeech</c> connector.
@@ -1956,6 +1966,11 @@ public static class ConnectorNames
     public const string Documentdb = "documentdb";
 
     /// <summary>
+    /// The <c>documentdb</c> connector.
+    /// </summary>
+    public const string DocumentDb = "documentdb";
+
+    /// <summary>
     /// The <c>documentdrafter</c> connector.
     /// </summary>
     public const string Documentdrafter = "documentdrafter";
@@ -2414,6 +2429,11 @@ public static class ConnectorNames
     /// The <c>eventhubs</c> connector.
     /// </summary>
     public const string Eventhubs = "eventhubs";
+
+    /// <summary>
+    /// The <c>eventhubs</c> connector.
+    /// </summary>
+    public const string EventHubs = "eventhubs";
 
     /// <summary>
     /// The <c>eventtickets</c> connector.
@@ -5701,19 +5721,24 @@ public static class ConnectorNames
     public const string Serverless360 = "serverless360";
 
     /// <summary>
+    /// The <c>service-now</c> connector.
+    /// </summary>
+    public const string ServiceNow = "service-now";
+
+    /// <summary>
     /// The <c>servicebus</c> connector.
     /// </summary>
     public const string Servicebus = "servicebus";
 
     /// <summary>
+    /// The <c>servicebus</c> connector.
+    /// </summary>
+    public const string ServiceBus = "servicebus";
+
+    /// <summary>
     /// The <c>servicedeskpluscloud</c> connector.
     /// </summary>
     public const string Servicedeskpluscloud = "servicedeskpluscloud";
-
-    /// <summary>
-    /// The <c>service-now</c> connector.
-    /// </summary>
-    public const string ServiceNow = "service-now";
 
     /// <summary>
     /// The <c>serwersms</c> connector.
