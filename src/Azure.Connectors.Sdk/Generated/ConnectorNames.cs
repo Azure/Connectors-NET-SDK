@@ -4033,7 +4033,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>metatask</c> connector.
     /// </summary>
-    public const string Metatask = "metatask";
+    public const string MetaTask = "metatask";
 
     /// <summary>
     /// The <c>microsoftacronyms</c> connector.
