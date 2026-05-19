@@ -1748,7 +1748,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>datablend</c> connector.
     /// </summary>
-    public const string Datablend = "datablend";
+    public const string DataBlend = "datablend";
 
     /// <summary>
     /// The <c>databookc4s</c> connector.
@@ -6768,7 +6768,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>vatcheckapiip</c> connector.
     /// </summary>
-    public const string Vatcheckapi = "vatcheckapiip";
+    public const string VATCheckApi = "vatcheckapiip";
 
     /// <summary>
     /// The <c>vena</c> connector.
