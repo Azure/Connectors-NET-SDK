@@ -1,4 +1,4 @@
-//------------------------------------------------------------
+﻿//------------------------------------------------------------
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
@@ -23,177 +23,177 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>10to8</c> connector.
     /// </summary>
-    public const string _10to8 = "10to8";
+    public const string _10to8AppointmentScheduling = "10to8";
 
     /// <summary>
     /// The <c>1docstop</c> connector.
     /// </summary>
-    public const string _1docstop = "1docstop";
+    public const string _1DocStop = "1docstop";
 
     /// <summary>
     /// The <c>1mecorporate</c> connector.
     /// </summary>
-    public const string _1mecorporate = "1mecorporate";
+    public const string _1MeCorporate = "1mecorporate";
 
     /// <summary>
     /// The <c>1ptip</c> connector.
     /// </summary>
-    public const string _1ptip = "1ptip";
+    public const string _1ptIndependentPublisher = "1ptip";
 
     /// <summary>
     /// The <c>24pullrequestip</c> connector.
     /// </summary>
-    public const string _24pullrequestip = "24pullrequestip";
+    public const string _24PullRequestIndependentPublisher = "24pullrequestip";
 
     /// <summary>
     /// The <c>365training</c> connector.
     /// </summary>
-    public const string _365training = "365training";
+    public const string _365Training = "365training";
 
     /// <summary>
     /// The <c>3eevents</c> connector.
     /// </summary>
-    public const string _3eevents = "3eevents";
+    public const string _3EEvents = "3eevents";
 
     /// <summary>
     /// The <c>a365adminmcp</c> connector.
     /// </summary>
-    public const string A365adminmcp = "a365adminmcp";
+    public const string Microsoft365AdminCenterMCP = "a365adminmcp";
 
     /// <summary>
     /// The <c>a365copilotchatmcp</c> connector.
     /// </summary>
-    public const string A365copilotchatmcp = "a365copilotchatmcp";
+    public const string WorkIQCopilotMCP = "a365copilotchatmcp";
 
     /// <summary>
     /// The <c>a365mcpservers</c> connector.
     /// </summary>
-    public const string A365mcpservers = "a365mcpservers";
+    public const string MicrosoftMCPServers = "a365mcpservers";
 
     /// <summary>
     /// The <c>a365memcp</c> connector.
     /// </summary>
-    public const string A365memcp = "a365memcp";
+    public const string WorkIQUserMCP = "a365memcp";
 
     /// <summary>
     /// The <c>a365outlookcalendarmcp</c> connector.
     /// </summary>
-    public const string A365outlookcalendarmcp = "a365outlookcalendarmcp";
+    public const string WorkIQCalendarMCP = "a365outlookcalendarmcp";
 
     /// <summary>
     /// The <c>a365outlookmailmcp</c> connector.
     /// </summary>
-    public const string A365outlookmailmcp = "a365outlookmailmcp";
+    public const string WorkIQMailMCP = "a365outlookmailmcp";
 
     /// <summary>
     /// The <c>a365teamsmcp</c> connector.
     /// </summary>
-    public const string A365teamsmcp = "a365teamsmcp";
+    public const string WorkIQTeamsMCP = "a365teamsmcp";
 
     /// <summary>
     /// The <c>a365wordmcp</c> connector.
     /// </summary>
-    public const string A365wordmcp = "a365wordmcp";
+    public const string WorkIQWordMCP = "a365wordmcp";
 
     /// <summary>
     /// The <c>aadinvitationmanager</c> connector.
     /// </summary>
-    public const string Aadinvitationmanager = "aadinvitationmanager";
+    public const string AzureADIdentityAndAccess = "aadinvitationmanager";
 
     /// <summary>
     /// The <c>abbreviationsip</c> connector.
     /// </summary>
-    public const string Abbreviationsip = "abbreviationsip";
+    public const string Abbreviations = "abbreviationsip";
 
     /// <summary>
     /// The <c>abnlookup</c> connector.
     /// </summary>
-    public const string Abnlookup = "abnlookup";
+    public const string ABNLookupIndependentPublisher = "abnlookup";
 
     /// <summary>
     /// The <c>abortionpolicyapiip</c> connector.
     /// </summary>
-    public const string Abortionpolicyapiip = "abortionpolicyapiip";
+    public const string AbortionPolicyIndependentPublisher = "abortionpolicyapiip";
 
     /// <summary>
     /// The <c>abstractcompanyenric</c> connector.
     /// </summary>
-    public const string Abstractcompanyenric = "abstractcompanyenric";
+    public const string AbstractCompanyEnrichmentIndependentPublisher = "abstractcompanyenric";
 
     /// <summary>
     /// The <c>abstractemailvalidat</c> connector.
     /// </summary>
-    public const string Abstractemailvalidat = "abstractemailvalidat";
+    public const string AbstractEmailValidatorIndependentPublisher = "abstractemailvalidat";
 
     /// <summary>
     /// The <c>abstractexchangerate</c> connector.
     /// </summary>
-    public const string Abstractexchangerate = "abstractexchangerate";
+    public const string AbstractExchangeRatesIndependentPublisher = "abstractexchangerate";
 
     /// <summary>
     /// The <c>abstractholidays</c> connector.
     /// </summary>
-    public const string Abstractholidays = "abstractholidays";
+    public const string AbstractHolidaysIndependentPublisher = "abstractholidays";
 
     /// <summary>
     /// The <c>abstractibanvalidato</c> connector.
     /// </summary>
-    public const string Abstractibanvalidato = "abstractibanvalidato";
+    public const string AbstractIBANValidatorIndependentPublisher = "abstractibanvalidato";
 
     /// <summary>
     /// The <c>abstractipgeolocatio</c> connector.
     /// </summary>
-    public const string Abstractipgeolocatio = "abstractipgeolocatio";
+    public const string AbstractIPGeolocationIndependentPublisher = "abstractipgeolocatio";
 
     /// <summary>
     /// The <c>abstractphonevalidat</c> connector.
     /// </summary>
-    public const string Abstractphonevalidat = "abstractphonevalidat";
+    public const string AbstractPhoneValidatorIndependentPublisher = "abstractphonevalidat";
 
     /// <summary>
     /// The <c>abstracttimezones</c> connector.
     /// </summary>
-    public const string Abstracttimezones = "abstracttimezones";
+    public const string AbstractTimezonesIndependentPublisher = "abstracttimezones";
 
     /// <summary>
     /// The <c>abstractvatvalidator</c> connector.
     /// </summary>
-    public const string Abstractvatvalidator = "abstractvatvalidator";
+    public const string AbstractVATValidatorIndependentPublisher = "abstractvatvalidator";
 
     /// <summary>
     /// The <c>acceptmission</c> connector.
     /// </summary>
-    public const string Acceptmission = "acceptmission";
+    public const string AcceptMission = "acceptmission";
 
     /// <summary>
     /// The <c>accuweatherip</c> connector.
     /// </summary>
-    public const string Accuweatherip = "accuweatherip";
+    public const string AccuWeatherIndependentPublisher = "accuweatherip";
 
     /// <summary>
     /// The <c>aci</c> connector.
     /// </summary>
-    public const string Aci = "aci";
+    public const string AzureContainerInstance = "aci";
 
     /// <summary>
     /// The <c>acschat</c> connector.
     /// </summary>
-    public const string Acschat = "acschat";
+    public const string AzureCommunicationChat = "acschat";
 
     /// <summary>
     /// The <c>acsemail</c> connector.
     /// </summary>
-    public const string Acsemail = "acsemail";
+    public const string AzureCommunicationEmail = "acsemail";
 
     /// <summary>
     /// The <c>acsidentity</c> connector.
     /// </summary>
-    public const string Acsidentity = "acsidentity";
+    public const string AzureCommunicationServicesIdentity = "acsidentity";
 
     /// <summary>
     /// The <c>acssmsevents</c> connector.
     /// </summary>
-    public const string Acssmsevents = "acssmsevents";
+    public const string AzureCommunicationServicesSMSEvents = "acssmsevents";
 
     /// <summary>
     /// The <c>act</c> connector.
@@ -203,12 +203,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>activityinfo</c> connector.
     /// </summary>
-    public const string Activityinfo = "activityinfo";
+    public const string ActivityInfo = "activityinfo";
 
     /// <summary>
     /// The <c>actsoft</c> connector.
     /// </summary>
-    public const string Actsoft = "actsoft";
+    public const string TeamWherx = "actsoft";
 
     /// <summary>
     /// The <c>acumatica</c> connector.
@@ -218,52 +218,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>addresslabs</c> connector.
     /// </summary>
-    public const string Addresslabs = "addresslabs";
+    public const string AddressLabsIndependentPublisher = "addresslabs";
 
     /// <summary>
     /// The <c>adobeacrobatsignsand</c> connector.
     /// </summary>
-    public const string Adobeacrobatsignsand = "adobeacrobatsignsand";
+    public const string AdobeAcrobatSignSandbox = "adobeacrobatsignsand";
 
     /// <summary>
     /// The <c>adobecommerce</c> connector.
     /// </summary>
-    public const string Adobecommerce = "adobecommerce";
+    public const string AdobeCommerce = "adobecommerce";
 
     /// <summary>
     /// The <c>adobecreativecloud</c> connector.
     /// </summary>
-    public const string Adobecreativecloud = "adobecreativecloud";
+    public const string AdobeCreativeCloud = "adobecreativecloud";
 
     /// <summary>
     /// The <c>adobeexperiencemanag</c> connector.
     /// </summary>
-    public const string Adobeexperiencemanag = "adobeexperiencemanag";
+    public const string AdobeExperienceManager = "adobeexperiencemanag";
 
     /// <summary>
     /// The <c>adobepdftools</c> connector.
     /// </summary>
-    public const string Adobepdftools = "adobepdftools";
+    public const string AdobePDFServices = "adobepdftools";
 
     /// <summary>
     /// The <c>adobesign</c> connector.
     /// </summary>
-    public const string Adobesign = "adobesign";
+    public const string AdobeAcrobatSign = "adobesign";
 
     /// <summary>
     /// The <c>adoboards</c> connector.
     /// </summary>
-    public const string Adoboards = "adoboards";
+    public const string ADOBoards = "adoboards";
 
     /// <summary>
     /// The <c>advanceddataoperatio</c> connector.
     /// </summary>
-    public const string Advanceddataoperatio = "advanceddataoperatio";
+    public const string AdvancedDataOperations = "advanceddataoperatio";
 
     /// <summary>
     /// The <c>advancedscraperip</c> connector.
     /// </summary>
-    public const string Advancedscraperip = "advancedscraperip";
+    public const string AdvancedScraperIndependentPublisher = "advancedscraperip";
 
     /// <summary>
     /// The <c>aexum</c> connector.
@@ -273,37 +273,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>affirmationsip</c> connector.
     /// </summary>
-    public const string Affirmationsip = "affirmationsip";
+    public const string AffirmationsIndependentPublisher = "affirmationsip";
 
     /// <summary>
     /// The <c>africastalkingairtime</c> connector.
     /// </summary>
-    public const string Africastalkingairtime = "africastalkingairtime";
+    public const string AfricasTalkingAirtime = "africastalkingairtime";
 
     /// <summary>
     /// The <c>africastalkingpayments</c> connector.
     /// </summary>
-    public const string Africastalkingpayments = "africastalkingpayments";
+    public const string AfricasTalkingPayments = "africastalkingpayments";
 
     /// <summary>
     /// The <c>africastalkingsms</c> connector.
     /// </summary>
-    public const string Africastalkingsms = "africastalkingsms";
+    public const string AfricasTalkingSMS = "africastalkingsms";
 
     /// <summary>
     /// The <c>africastalkingvoice</c> connector.
     /// </summary>
-    public const string Africastalkingvoice = "africastalkingvoice";
+    public const string AfricasTalkingVoice = "africastalkingvoice";
 
     /// <summary>
     /// The <c>aftershipip</c> connector.
     /// </summary>
-    public const string Aftershipip = "aftershipip";
+    public const string AfterShipIndependentPublisher = "aftershipip";
 
     /// <summary>
     /// The <c>agilepointnx</c> connector.
     /// </summary>
-    public const string Agilepointnx = "agilepointnx";
+    public const string AgilePointNX = "agilepointnx";
 
     /// <summary>
     /// The <c>agilite</c> connector.
@@ -318,32 +318,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>aheadintranet</c> connector.
     /// </summary>
-    public const string Aheadintranet = "aheadintranet";
+    public const string AheadIntranet = "aheadintranet";
 
     /// <summary>
     /// The <c>aiforged</c> connector.
     /// </summary>
-    public const string Aiforged = "aiforged";
+    public const string AIForged = "aiforged";
 
     /// <summary>
     /// The <c>aikidocs</c> connector.
     /// </summary>
-    public const string Aikidocs = "aikidocs";
+    public const string AikiDocs = "aikidocs";
 
     /// <summary>
     /// The <c>aiornot</c> connector.
     /// </summary>
-    public const string Aiornot = "aiornot";
+    public const string AIOrNotIndependentPublisher = "aiornot";
 
     /// <summary>
     /// The <c>airlabsip</c> connector.
     /// </summary>
-    public const string Airlabsip = "airlabsip";
+    public const string Airlabs = "airlabsip";
 
     /// <summary>
     /// The <c>airlyip</c> connector.
     /// </summary>
-    public const string Airlyip = "airlyip";
+    public const string AirlyIndependentPublisher = "airlyip";
 
     /// <summary>
     /// The <c>airmeet</c> connector.
@@ -353,27 +353,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>airslate</c> connector.
     /// </summary>
-    public const string Airslate = "airslate";
+    public const string AirSlate = "airslate";
 
     /// <summary>
     /// The <c>airtable</c> connector.
     /// </summary>
-    public const string Airtable = "airtable";
+    public const string AirtableIndependentPublisherDEPRECATED = "airtable";
 
     /// <summary>
     /// The <c>alchemy</c> connector.
     /// </summary>
-    public const string Alchemy = "alchemy";
+    public const string Microsoft365SelfHelp = "alchemy";
 
     /// <summary>
     /// The <c>alembaitsm</c> connector.
     /// </summary>
-    public const string Alembaitsm = "alembaitsm";
+    public const string AlembaITSM = "alembaitsm";
 
     /// <summary>
     /// The <c>alertrelay</c> connector.
     /// </summary>
-    public const string Alertrelay = "alertrelay";
+    public const string AlertRelay = "alertrelay";
 
     /// <summary>
     /// The <c>aletheia</c> connector.
@@ -383,12 +383,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>aliru</c> connector.
     /// </summary>
-    public const string Aliru = "aliru";
+    public const string Ally = "aliru";
 
     /// <summary>
     /// The <c>alisqi</c> connector.
     /// </summary>
-    public const string Alisqi = "alisqi";
+    public const string AlisQI = "alisqi";
 
     /// <summary>
     /// The <c>alkymi</c> connector.
@@ -398,7 +398,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>allgeo</c> connector.
     /// </summary>
-    public const string Allgeo = "allgeo";
+    public const string AllGeo = "allgeo";
 
     /// <summary>
     /// The <c>almabase</c> connector.
@@ -408,72 +408,72 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>almanac</c> connector.
     /// </summary>
-    public const string Almanac = "almanac";
+    public const string AlmanacIndependentPublisher = "almanac";
 
     /// <summary>
     /// The <c>almanacbypassby</c> connector.
     /// </summary>
-    public const string Almanacbypassby = "almanacbypassby";
+    public const string AlmanacByPassBy = "almanacbypassby";
 
     /// <summary>
     /// The <c>alvao</c> connector.
     /// </summary>
-    public const string Alvao = "alvao";
+    public const string ALVAO = "alvao";
 
     /// <summary>
     /// The <c>amazons3</c> connector.
     /// </summary>
-    public const string Amazons3 = "amazons3";
+    public const string AmazonS3 = "amazons3";
 
     /// <summary>
     /// The <c>amazons3bucket</c> connector.
     /// </summary>
-    public const string Amazons3bucket = "amazons3bucket";
+    public const string AmazonS3BucketIndependentPublisher = "amazons3bucket";
 
     /// <summary>
     /// The <c>amazonsqs</c> connector.
     /// </summary>
-    public const string Amazonsqs = "amazonsqs";
+    public const string AmazonSQS = "amazonsqs";
 
     /// <summary>
     /// The <c>ambeeip</c> connector.
     /// </summary>
-    public const string Ambeeip = "ambeeip";
+    public const string AmbeeIndependentPublisher = "ambeeip";
 
     /// <summary>
     /// The <c>ameeopenbusinessip</c> connector.
     /// </summary>
-    public const string Ameeopenbusinessip = "ameeopenbusinessip";
+    public const string AMEEOpenBusinessIndependentPublisher = "ameeopenbusinessip";
 
     /// <summary>
     /// The <c>annatureip</c> connector.
     /// </summary>
-    public const string Annatureip = "annatureip";
+    public const string AnnatureIndependentPublisher = "annatureip";
 
     /// <summary>
     /// The <c>anthropicip</c> connector.
     /// </summary>
-    public const string Anthropicip = "anthropicip";
+    public const string AnthropicIndependentPublisher = "anthropicip";
 
     /// <summary>
     /// The <c>anttextautomation</c> connector.
     /// </summary>
-    public const string Anttextautomation = "anttextautomation";
+    public const string AntTextAutomation = "anttextautomation";
 
     /// <summary>
     /// The <c>anyrunthreatintellig</c> connector.
     /// </summary>
-    public const string Anyrunthreatintellig = "anyrunthreatintellig";
+    public const string ANYRUNThreatIntelligence = "anyrunthreatintellig";
 
     /// <summary>
     /// The <c>apitemplateip</c> connector.
     /// </summary>
-    public const string Apitemplateip = "apitemplateip";
+    public const string APITemplateIndependentPublisher = "apitemplateip";
 
     /// <summary>
     /// The <c>aplaceioip</c> connector.
     /// </summary>
-    public const string Aplaceioip = "aplaceioip";
+    public const string APlaceIoIndependentPublisher = "aplaceioip";
 
     /// <summary>
     /// The <c>appfigures</c> connector.
@@ -483,82 +483,82 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>apppowerforms</c> connector.
     /// </summary>
-    public const string Apppowerforms = "apppowerforms";
+    public const string AppPowerForms = "apppowerforms";
 
     /// <summary>
     /// The <c>appsforops</c> connector.
     /// </summary>
-    public const string Appsforops = "appsforops";
+    public const string AppsForOpsTimeline = "appsforops";
 
     /// <summary>
     /// The <c>appstoreconnect</c> connector.
     /// </summary>
-    public const string Appstoreconnect = "appstoreconnect";
+    public const string AppStoreConnectAppStoreIndependentPublisher = "appstoreconnect";
 
     /// <summary>
     /// The <c>appstudioapi</c> connector.
     /// </summary>
-    public const string Appstudioapi = "appstudioapi";
+    public const string CloudConnectStudio = "appstudioapi";
 
     /// <summary>
     /// The <c>apptigentcloudtools</c> connector.
     /// </summary>
-    public const string Apptigentcloudtools = "apptigentcloudtools";
+    public const string CloudToolsForSalesforce = "apptigentcloudtools";
 
     /// <summary>
     /// The <c>apptigentpowertoolslite</c> connector.
     /// </summary>
-    public const string Apptigentpowertoolslite = "apptigentpowertoolslite";
+    public const string ApptigentPowerToolsLITE = "apptigentpowertoolslite";
 
     /// <summary>
     /// The <c>apptigentpowertoolspro</c> connector.
     /// </summary>
-    public const string Apptigentpowertoolspro = "apptigentpowertoolspro";
+    public const string ApptigentPowerTools = "apptigentpowertoolspro";
 
     /// <summary>
     /// The <c>apyhubdocumentreadability</c> connector.
     /// </summary>
-    public const string Apyhubdocumentreadability = "apyhubdocumentreadability";
+    public const string ApyHubDocumentReadabilityIndependentPublisher = "apyhubdocumentreadability";
 
     /// <summary>
     /// The <c>apyhubgenerateical</c> connector.
     /// </summary>
-    public const string Apyhubgenerateical = "apyhubgenerateical";
+    public const string ApyHubGenerateICalIndependentPublisher = "apyhubgenerateical";
 
     /// <summary>
     /// The <c>apyhubip</c> connector.
     /// </summary>
-    public const string Apyhubip = "apyhubip";
+    public const string ApyHubIndependentPublisher = "apyhubip";
 
     /// <summary>
     /// The <c>aquaforest</c> connector.
     /// </summary>
-    public const string Aquaforest = "aquaforest";
+    public const string AquaforestPDF = "aquaforest";
 
     /// <summary>
     /// The <c>arcgis</c> connector.
     /// </summary>
-    public const string Arcgis = "arcgis";
+    public const string ArcGIS = "arcgis";
 
     /// <summary>
     /// The <c>arcgisenterprise</c> connector.
     /// </summary>
-    public const string Arcgisenterprise = "arcgisenterprise";
+    public const string ArcGISEnterprise = "arcgisenterprise";
 
     /// <summary>
     /// The <c>arcgispaas</c> connector.
     /// </summary>
-    public const string Arcgispaas = "arcgispaas";
+    public const string ArcGISPaaS = "arcgispaas";
 
     /// <summary>
     /// The <c>arm</c> connector.
     /// </summary>
-    public const string Arm = "arm";
+    public const string AzureResourceManager = "arm";
 
     /// <summary>
     /// The <c>as2</c> connector.
     /// </summary>
-    public const string As2 = "as2";
+    public const string AS2 = "as2";
 
     /// <summary>
     /// The <c>asana</c> connector.
@@ -568,17 +568,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ascalert</c> connector.
     /// </summary>
-    public const string Ascalert = "ascalert";
+    public const string MicrosoftDefenderForCloudAlert = "ascalert";
 
     /// <summary>
     /// The <c>ascassessment</c> connector.
     /// </summary>
-    public const string Ascassessment = "ascassessment";
+    public const string MicrosoftDefenderForCloudRecommendation = "ascassessment";
 
     /// <summary>
     /// The <c>ascregulatorycomplianceassessment</c> connector.
     /// </summary>
-    public const string Ascregulatorycomplianceassessment = "ascregulatorycomplianceassessment";
+    public const string MicrosoftDefenderForCloudRegulatoryCompliance = "ascregulatorycomplianceassessment";
 
     /// <summary>
     /// The <c>asite</c> connector.
@@ -588,127 +588,127 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>asitecanada</c> connector.
     /// </summary>
-    public const string Asitecanada = "asitecanada";
+    public const string AsiteCanada = "asitecanada";
 
     /// <summary>
     /// The <c>asitehongkong</c> connector.
     /// </summary>
-    public const string Asitehongkong = "asitehongkong";
+    public const string AsiteHongKong = "asitehongkong";
 
     /// <summary>
     /// The <c>asiteksa</c> connector.
     /// </summary>
-    public const string Asiteksa = "asiteksa";
+    public const string AsiteKSA = "asiteksa";
 
     /// <summary>
     /// The <c>asiteuae</c> connector.
     /// </summary>
-    public const string Asiteuae = "asiteuae";
+    public const string AsiteUAE = "asiteuae";
 
     /// <summary>
     /// The <c>asiteusgov</c> connector.
     /// </summary>
-    public const string Asiteusgov = "asiteusgov";
+    public const string AsiteUSGov = "asiteusgov";
 
     /// <summary>
     /// The <c>aspsms</c> connector.
     /// </summary>
-    public const string Aspsms = "aspsms";
+    public const string ASPSMS = "aspsms";
 
     /// <summary>
     /// The <c>assemblyai</c> connector.
     /// </summary>
-    public const string Assemblyai = "assemblyai";
+    public const string AssemblyAI = "assemblyai";
 
     /// <summary>
     /// The <c>assentlyesign</c> connector.
     /// </summary>
-    public const string Assentlyesign = "assentlyesign";
+    public const string AssentlyESign = "assentlyesign";
 
     /// <summary>
     /// The <c>assistantstudiov2</c> connector.
     /// </summary>
-    public const string Assistantstudiov2 = "assistantstudiov2";
+    public const string Dynamics365SalesInsights = "assistantstudiov2";
 
     /// <summary>
     /// The <c>autentiesignaturewor</c> connector.
     /// </summary>
-    public const string Autentiesignaturewor = "autentiesignaturewor";
+    public const string AutentiESignatureWorkflow = "autentiesignaturewor";
 
     /// <summary>
     /// The <c>autodeskforgedataexc</c> connector.
     /// </summary>
-    public const string Autodeskforgedataexc = "autodeskforgedataexc";
+    public const string AutodeskDataExchange = "autodeskforgedataexc";
 
     /// <summary>
     /// The <c>autoreview</c> connector.
     /// </summary>
-    public const string Autoreview = "autoreview";
+    public const string AutoReview = "autoreview";
 
     /// <summary>
     /// The <c>avalaraavatax</c> connector.
     /// </summary>
-    public const string Avalaraavatax = "avalaraavatax";
+    public const string Avalara = "avalaraavatax";
 
     /// <summary>
     /// The <c>avepointcloudgovernance</c> connector.
     /// </summary>
-    public const string Avepointcloudgovernance = "avepointcloudgovernance";
+    public const string AvePointCloudGovernance = "avepointcloudgovernance";
 
     /// <summary>
     /// The <c>aviationstackip</c> connector.
     /// </summary>
-    public const string Aviationstackip = "aviationstackip";
+    public const string AviationstackIndependentPublisher = "aviationstackip";
 
     /// <summary>
     /// The <c>aweber</c> connector.
     /// </summary>
-    public const string Aweber = "aweber";
+    public const string AWeber = "aweber";
 
     /// <summary>
     /// The <c>axtensioncontentgate</c> connector.
     /// </summary>
-    public const string Axtensioncontentgate = "axtensioncontentgate";
+    public const string ContentGate = "axtensioncontentgate";
 
     /// <summary>
     /// The <c>azuread</c> connector.
     /// </summary>
-    public const string AzureAD = "azuread";
+    public const string MicrosoftEntraId = "azuread";
 
     /// <summary>
     /// The <c>azureadapplications</c> connector.
     /// </summary>
-    public const string Azureadapplications = "azureadapplications";
+    public const string MicrosoftEntraIdAppRegistrations = "azureadapplications";
 
     /// <summary>
     /// The <c>azureadip</c> connector.
     /// </summary>
-    public const string Azureadip = "azureadip";
+    public const string MicrosoftEntraIdProtection = "azureadip";
 
     /// <summary>
     /// The <c>azureagentservice</c> connector.
     /// </summary>
-    public const string Azureagentservice = "azureagentservice";
+    public const string AzureAIFoundryAgentService = "azureagentservice";
 
     /// <summary>
     /// The <c>azureaifoundryinference</c> connector.
     /// </summary>
-    public const string Azureaifoundryinference = "azureaifoundryinference";
+    public const string AzureAIFoundryInference = "azureaifoundryinference";
 
     /// <summary>
     /// The <c>azureaimodelinference</c> connector.
     /// </summary>
-    public const string Azureaimodelinference = "azureaimodelinference";
+    public const string AzureAIModelInference = "azureaimodelinference";
 
     /// <summary>
     /// The <c>azureaisearch</c> connector.
     /// </summary>
-    public const string Azureaisearch = "azureaisearch";
+    public const string AzureAISearch = "azureaisearch";
 
     /// <summary>
     /// The <c>azureappservice</c> connector.
     /// </summary>
-    public const string Azureappservice = "azureappservice";
+    public const string AzureAppService = "azureappservice";
 
     /// <summary>
     /// The <c>azureautomation</c> connector.
@@ -718,12 +718,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azureblob</c> connector.
     /// </summary>
-    public const string AzureBlob = "azureblob";
+    public const string AzureBlobStorage = "azureblob";
 
     /// <summary>
     /// The <c>azurecommunicationservicessms</c> connector.
     /// </summary>
-    public const string Azurecommunicationservicessms = "azurecommunicationservicessms";
+    public const string AzureCommunicationServicesSMS = "azurecommunicationservicessms";
 
     /// <summary>
     /// The <c>azuredatafactory</c> connector.
@@ -733,7 +733,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azuredatalake</c> connector.
     /// </summary>
-    public const string Azuredatalake = "azuredatalake";
+    public const string AzureDataLake = "azuredatalake";
 
     /// <summary>
     /// The <c>azuredigitaltwins</c> connector.
@@ -748,22 +748,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azureeventgridpublish</c> connector.
     /// </summary>
-    public const string Azureeventgridpublish = "azureeventgridpublish";
+    public const string AzureEventGridPublish = "azureeventgridpublish";
 
     /// <summary>
     /// The <c>azurefile</c> connector.
     /// </summary>
-    public const string Azurefile = "azurefile";
+    public const string AzureFileStorage = "azurefile";
 
     /// <summary>
     /// The <c>azureiotcentral</c> connector.
     /// </summary>
-    public const string AzureIoTCentral = "azureiotcentral";
+    public const string AzureIoTCentralV3 = "azureiotcentral";
 
     /// <summary>
     /// The <c>azureloganalyticsdatacollector</c> connector.
     /// </summary>
-    public const string Azureloganalyticsdatacollector = "azureloganalyticsdatacollector";
+    public const string AzureLogAnalyticsDataCollector = "azureloganalyticsdatacollector";
 
     /// <summary>
     /// The <c>azuremonitorlogs</c> connector.
@@ -773,12 +773,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azuremysql</c> connector.
     /// </summary>
-    public const string Azuremysql = "azuremysql";
+    public const string AzureDatabaseForMySQL = "azuremysql";
 
     /// <summary>
     /// The <c>azureopenai</c> connector.
     /// </summary>
-    public const string Azureopenai = "azureopenai";
+    public const string AzureOpenAI = "azureopenai";
 
     /// <summary>
     /// The <c>azurequeues</c> connector.
@@ -788,17 +788,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azurespeechpronuncia</c> connector.
     /// </summary>
-    public const string Azurespeechpronuncia = "azurespeechpronuncia";
+    public const string AzureSpeechPronunciationAssessment = "azurespeechpronuncia";
 
     /// <summary>
     /// The <c>azuretables</c> connector.
     /// </summary>
-    public const string AzureTables = "azuretables";
+    public const string AzureTableStorage = "azuretables";
 
     /// <summary>
     /// The <c>azuretexttospeech</c> connector.
     /// </summary>
-    public const string Azuretexttospeech = "azuretexttospeech";
+    public const string AzureTextToSpeech = "azuretexttospeech";
 
     /// <summary>
     /// The <c>azurevm</c> connector.
@@ -808,27 +808,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>b2cidpconfiguration</c> connector.
     /// </summary>
-    public const string B2cidpconfiguration = "b2cidpconfiguration";
+    public const string B2CIdPConfiguration = "b2cidpconfiguration";
 
     /// <summary>
     /// The <c>badgrip</c> connector.
     /// </summary>
-    public const string Badgrip = "badgrip";
+    public const string BadgrIndependentPublisher = "badgrip";
 
     /// <summary>
     /// The <c>bbcnews</c> connector.
     /// </summary>
-    public const string Bbcnews = "bbcnews";
+    public const string BBCNewsIndependentPublisher = "bbcnews";
 
     /// <summary>
     /// The <c>beauhurst</c> connector.
     /// </summary>
-    public const string Beauhurst = "beauhurst";
+    public const string BeauhurstIndependentPublisher = "beauhurst";
 
     /// <summary>
     /// The <c>benchmarkemail</c> connector.
     /// </summary>
-    public const string Benchmarkemail = "benchmarkemail";
+    public const string BenchmarkEmail = "benchmarkemail";
 
     /// <summary>
     /// The <c>benifex</c> connector.
@@ -838,37 +838,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bentley</c> connector.
     /// </summary>
-    public const string Bentley = "bentley";
+    public const string ProjectWiseDesignIntegration = "bentley";
 
     /// <summary>
     /// The <c>bigdatacom</c> connector.
     /// </summary>
-    public const string Bigdatacom = "bigdatacom";
+    public const string BigdataCom = "bigdatacom";
 
     /// <summary>
     /// The <c>billspls</c> connector.
     /// </summary>
-    public const string Billspls = "billspls";
+    public const string BillsPLS = "billspls";
 
     /// <summary>
     /// The <c>binanceusip</c> connector.
     /// </summary>
-    public const string Binanceusip = "binanceusip";
+    public const string BinanceUsIndependentPublisher = "binanceusip";
 
     /// <summary>
     /// The <c>bincheckerip</c> connector.
     /// </summary>
-    public const string Bincheckerip = "bincheckerip";
+    public const string BINCheckerIndependentPublisher = "bincheckerip";
 
     /// <summary>
     /// The <c>bingmaps</c> connector.
     /// </summary>
-    public const string Bingmaps = "bingmaps";
+    public const string BingMaps = "bingmaps";
 
     /// <summary>
     /// The <c>bingsearch</c> connector.
     /// </summary>
-    public const string Bingsearch = "bingsearch";
+    public const string BingSearch = "bingsearch";
 
     /// <summary>
     /// The <c>bitbucket</c> connector.
@@ -883,7 +883,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bitlyip</c> connector.
     /// </summary>
-    public const string Bitlyip = "bitlyip";
+    public const string BitlyIPIndependentPublisher = "bitlyip";
 
     /// <summary>
     /// The <c>bitskout</c> connector.
@@ -893,107 +893,107 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bitvorecellenus</c> connector.
     /// </summary>
-    public const string Bitvorecellenus = "bitvorecellenus";
+    public const string BitvoreCellenus = "bitvorecellenus";
 
     /// <summary>
     /// The <c>biztalk</c> connector.
     /// </summary>
-    public const string Biztalk = "biztalk";
+    public const string BizTalkServer = "biztalk";
 
     /// <summary>
     /// The <c>bizzy</c> connector.
     /// </summary>
-    public const string Bizzy = "bizzy";
+    public const string AtBotLogic = "bizzy";
 
     /// <summary>
     /// The <c>bizzyadmin</c> connector.
     /// </summary>
-    public const string Bizzyadmin = "bizzyadmin";
+    public const string AtBotAdmin = "bizzyadmin";
 
     /// <summary>
     /// The <c>bkkfutarip</c> connector.
     /// </summary>
-    public const string Bkkfutarip = "bkkfutarip";
+    public const string BKKFutarIndependentPublisher = "bkkfutarip";
 
     /// <summary>
     /// The <c>blackbaudaltruconsti</c> connector.
     /// </summary>
-    public const string Blackbaudaltruconsti = "blackbaudaltruconsti";
+    public const string BlackbaudAltruConstituent = "blackbaudaltruconsti";
 
     /// <summary>
     /// The <c>blackbaudconstituent</c> connector.
     /// </summary>
-    public const string Blackbaudconstituent = "blackbaudconstituent";
+    public const string BlackbaudRaisersEdgeNXTConstituents = "blackbaudconstituent";
 
     /// <summary>
     /// The <c>blackbaudcrmconstitu</c> connector.
     /// </summary>
-    public const string Blackbaudcrmconstitu = "blackbaudcrmconstitu";
+    public const string BlackbaudCRMConstituent = "blackbaudcrmconstitu";
 
     /// <summary>
     /// The <c>blackbaudcrmprospect</c> connector.
     /// </summary>
-    public const string Blackbaudcrmprospect = "blackbaudcrmprospect";
+    public const string BlackbaudCRMProspect = "blackbaudcrmprospect";
 
     /// <summary>
     /// The <c>blackbauddocuments</c> connector.
     /// </summary>
-    public const string Blackbauddocuments = "blackbauddocuments";
+    public const string BlackbaudRaisersEdgeNXTDocuments = "blackbauddocuments";
 
     /// <summary>
     /// The <c>blackbaudevents</c> connector.
     /// </summary>
-    public const string Blackbaudevents = "blackbaudevents";
+    public const string BlackbaudRaisersEdgeNXTEvents = "blackbaudevents";
 
     /// <summary>
     /// The <c>blackbaudfenxtquery</c> connector.
     /// </summary>
-    public const string Blackbaudfenxtquery = "blackbaudfenxtquery";
+    public const string BlackbaudFENXTQuery = "blackbaudfenxtquery";
 
     /// <summary>
     /// The <c>blackbaudfundraising</c> connector.
     /// </summary>
-    public const string Blackbaudfundraising = "blackbaudfundraising";
+    public const string BlackbaudRaisersEdgeNXTFundraising = "blackbaudfundraising";
 
     /// <summary>
     /// The <c>blackbaudgifts</c> connector.
     /// </summary>
-    public const string Blackbaudgifts = "blackbaudgifts";
+    public const string BlackbaudRENXTGifts = "blackbaudgifts";
 
     /// <summary>
     /// The <c>blackbaudinteraction</c> connector.
     /// </summary>
-    public const string Blackbaudinteraction = "blackbaudinteraction";
+    public const string BlackbaudRaisersEdgeNXTInteractions = "blackbaudinteraction";
 
     /// <summary>
     /// The <c>blackbaudlists</c> connector.
     /// </summary>
-    public const string Blackbaudlists = "blackbaudlists";
+    public const string BlackbaudRaisersEdgeNXTLists = "blackbaudlists";
 
     /// <summary>
     /// The <c>blackbaudprospects</c> connector.
     /// </summary>
-    public const string Blackbaudprospects = "blackbaudprospects";
+    public const string BlackbaudRaisersEdgeNXTProspects = "blackbaudprospects";
 
     /// <summary>
     /// The <c>blackbaudraisersedge</c> connector.
     /// </summary>
-    public const string Blackbaudraisersedge = "blackbaudraisersedge";
+    public const string BlackbaudRaisersEdgeNXT = "blackbaudraisersedge";
 
     /// <summary>
     /// The <c>blackbaudrenxtquery</c> connector.
     /// </summary>
-    public const string Blackbaudrenxtquery = "blackbaudrenxtquery";
+    public const string BlackbaudRENXTQuery = "blackbaudrenxtquery";
 
     /// <summary>
     /// The <c>blackbaudrenxtreport</c> connector.
     /// </summary>
-    public const string Blackbaudrenxtreport = "blackbaudrenxtreport";
+    public const string BlackbaudRENXTReports = "blackbaudrenxtreport";
 
     /// <summary>
     /// The <c>blackbaudskyaddins</c> connector.
     /// </summary>
-    public const string Blackbaudskyaddins = "blackbaudskyaddins";
+    public const string BlackbaudSKYAddIns = "blackbaudskyaddins";
 
     /// <summary>
     /// The <c>blogger</c> connector.
@@ -1008,22 +1008,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>blueink</c> connector.
     /// </summary>
-    public const string Blueink = "blueink";
+    public const string BlueInk = "blueink";
 
     /// <summary>
     /// The <c>blueskysocial</c> connector.
     /// </summary>
-    public const string Blueskysocial = "blueskysocial";
+    public const string BlueskySocialIndependentPublisher = "blueskysocial";
 
     /// <summary>
     /// The <c>boldsign</c> connector.
     /// </summary>
-    public const string Boldsign = "boldsign";
+    public const string BoldSign = "boldsign";
 
     /// <summary>
     /// The <c>boomappconnect</c> connector.
     /// </summary>
-    public const string Boomappconnect = "boomappconnect";
+    public const string BoomappConnect = "boomappconnect";
 
     /// <summary>
     /// The <c>box</c> connector.
@@ -1033,12 +1033,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>boxmcpserver</c> connector.
     /// </summary>
-    public const string Boxmcpserver = "boxmcpserver";
+    public const string BoxMCPServer = "boxmcpserver";
 
     /// <summary>
     /// The <c>bravesearch</c> connector.
     /// </summary>
-    public const string Bravesearch = "bravesearch";
+    public const string BraveSearchIndependentPublisher = "bravesearch";
 
     /// <summary>
     /// The <c>bttn</c> connector.
@@ -1048,7 +1048,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bttnone</c> connector.
     /// </summary>
-    public const string Bttnone = "bttnone";
+    public const string BttnONE = "bttnone";
 
     /// <summary>
     /// The <c>buffer</c> connector.
@@ -1058,27 +1058,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>buildingminds</c> connector.
     /// </summary>
-    public const string Buildingminds = "buildingminds";
+    public const string BuildingMindsDigitalTwinCore = "buildingminds";
 
     /// <summary>
     /// The <c>bulksms</c> connector.
     /// </summary>
-    public const string Bulksms = "bulksms";
+    public const string BulkSMS = "bulksms";
 
     /// <summary>
     /// The <c>bureauofeconomicanal</c> connector.
     /// </summary>
-    public const string Bureauofeconomicanal = "bureauofeconomicanal";
+    public const string BureauOfEconomicAnalysisIndependentPublisher = "bureauofeconomicanal";
 
     /// <summary>
     /// The <c>bureauoflaborstatist</c> connector.
     /// </summary>
-    public const string Bureauoflaborstatist = "bureauoflaborstatist";
+    public const string BureauOfLaborStatisticsIndependentPublisher = "bureauoflaborstatist";
 
     /// <summary>
     /// The <c>buymeacoffeeip</c> connector.
     /// </summary>
-    public const string Buymeacoffeeip = "buymeacoffeeip";
+    public const string BuyMeACoffeeIndependentPublisher = "buymeacoffeeip";
 
     /// <summary>
     /// The <c>buzz</c> connector.
@@ -1088,32 +1088,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>byword</c> connector.
     /// </summary>
-    public const string Byword = "byword";
+    public const string BywordIndependentPublisher = "byword";
 
     /// <summary>
     /// The <c>calculateworkingday</c> connector.
     /// </summary>
-    public const string Calculateworkingday = "calculateworkingday";
+    public const string CalculateWorkingDay = "calculateworkingday";
 
     /// <summary>
     /// The <c>calendarificip</c> connector.
     /// </summary>
-    public const string Calendarificip = "calendarificip";
+    public const string CalendarificIndependentPublisher = "calendarificip";
 
     /// <summary>
     /// The <c>calendarpro</c> connector.
     /// </summary>
-    public const string Calendarpro = "calendarpro";
+    public const string CalendarPro = "calendarpro";
 
     /// <summary>
     /// The <c>calendly</c> connector.
     /// </summary>
-    public const string Calendly = "calendly";
+    public const string CalendlyLegacy = "calendly";
 
     /// <summary>
     /// The <c>calendlyv2</c> connector.
     /// </summary>
-    public const string Calendlyv2 = "calendlyv2";
+    public const string Calendly = "calendlyv2";
 
     /// <summary>
     /// The <c>campfire</c> connector.
@@ -1123,47 +1123,47 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>candidatezip</c> connector.
     /// </summary>
-    public const string Candidatezip = "candidatezip";
+    public const string CandidateZipResumeJobParser = "candidatezip";
 
     /// <summary>
     /// The <c>capsulecrm</c> connector.
     /// </summary>
-    public const string Capsulecrm = "capsulecrm";
+    public const string CapsuleCRM = "capsulecrm";
 
     /// <summary>
     /// The <c>captisaforms</c> connector.
     /// </summary>
-    public const string Captisaforms = "captisaforms";
+    public const string CaptisaForms = "captisaforms";
 
     /// <summary>
     /// The <c>carbonedocumentgener</c> connector.
     /// </summary>
-    public const string Carbonedocumentgener = "carbonedocumentgener";
+    public const string CarboneDocumentGenerator = "carbonedocumentgener";
 
     /// <summary>
     /// The <c>carbonfootprintip</c> connector.
     /// </summary>
-    public const string Carbonfootprintip = "carbonfootprintip";
+    public const string CarbonFootprintIndependentPublisher = "carbonfootprintip";
 
     /// <summary>
     /// The <c>carbonintensityip</c> connector.
     /// </summary>
-    public const string Carbonintensityip = "carbonintensityip";
+    public const string CarbonIntensityIndependentPublisher = "carbonintensityip";
 
     /// <summary>
     /// The <c>cardplatform</c> connector.
     /// </summary>
-    public const string Cardplatform = "cardplatform";
+    public const string CardPlatformAdaptiveCards = "cardplatform";
 
     /// <summary>
     /// The <c>cardsforpowerapps</c> connector.
     /// </summary>
-    public const string Cardsforpowerapps = "cardsforpowerapps";
+    public const string CardsForPowerApps = "cardsforpowerapps";
 
     /// <summary>
     /// The <c>carsxeip</c> connector.
     /// </summary>
-    public const string Carsxeip = "carsxeip";
+    public const string CarsXEIndependentPublisher = "carsxeip";
 
     /// <summary>
     /// The <c>cascade</c> connector.
@@ -1173,52 +1173,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cascadestrategynew</c> connector.
     /// </summary>
-    public const string Cascadestrategynew = "cascadestrategynew";
+    public const string CascadeStrategyNew = "cascadestrategynew";
 
     /// <summary>
     /// The <c>casper365</c> connector.
     /// </summary>
-    public const string Casper365 = "casper365";
+    public const string Casper365ForEducation = "casper365";
 
     /// <summary>
     /// The <c>cbblockchainseal</c> connector.
     /// </summary>
-    public const string Cbblockchainseal = "cbblockchainseal";
+    public const string CBBlockchainSeal = "cbblockchainseal";
 
     /// <summary>
     /// The <c>cdataconnectai</c> connector.
     /// </summary>
-    public const string Cdataconnectai = "cdataconnectai";
+    public const string CDataConnectAI = "cdataconnectai";
 
     /// <summary>
     /// The <c>cdccontentservicesip</c> connector.
     /// </summary>
-    public const string Cdccontentservicesip = "cdccontentservicesip";
+    public const string CDCContentServicesIndependentPublisher = "cdccontentservicesip";
 
     /// <summary>
     /// The <c>cdkdrivecustomer</c> connector.
     /// </summary>
-    public const string Cdkdrivecustomer = "cdkdrivecustomer";
+    public const string CDKDriveCustomer = "cdkdrivecustomer";
 
     /// <summary>
     /// The <c>cdkdriveservicevehicles</c> connector.
     /// </summary>
-    public const string Cdkdriveservicevehicles = "cdkdriveservicevehicles";
+    public const string CDKDriveServiceVehicles = "cdkdriveservicevehicles";
 
     /// <summary>
     /// The <c>cdkeleadproductreferencedata</c> connector.
     /// </summary>
-    public const string Cdkeleadproductreferencedata = "cdkeleadproductreferencedata";
+    public const string EleadProductReferenceData = "cdkeleadproductreferencedata";
 
     /// <summary>
     /// The <c>cdkeleadsalescustomers</c> connector.
     /// </summary>
-    public const string Cdkeleadsalescustomers = "cdkeleadsalescustomers";
+    public const string EleadSalesCustomers = "cdkeleadsalescustomers";
 
     /// <summary>
     /// The <c>cdkeleadsalesopportunities</c> connector.
     /// </summary>
-    public const string Cdkeleadsalesopportunities = "cdkeleadsalesopportunities";
+    public const string EleadSalesOpportunities = "cdkeleadsalesopportunities";
 
     /// <summary>
     /// The <c>celonis</c> connector.
@@ -1228,7 +1228,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>celonismcpserver</c> connector.
     /// </summary>
-    public const string Celonismcpserver = "celonismcpserver";
+    public const string CelonisMCPServer = "celonismcpserver";
 
     /// <summary>
     /// The <c>centrical</c> connector.
@@ -1238,7 +1238,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>certinalesign</c> connector.
     /// </summary>
-    public const string Certinalesign = "certinalesign";
+    public const string CertinalESign = "certinalesign";
 
     /// <summary>
     /// The <c>certopus</c> connector.
@@ -1253,7 +1253,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>chucknorrisioip</c> connector.
     /// </summary>
-    public const string Chucknorrisioip = "chucknorrisioip";
+    public const string ChuckNorrisIOIndependentPublisher = "chucknorrisioip";
 
     /// <summary>
     /// The <c>cioplenu</c> connector.
@@ -1263,247 +1263,247 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ciresonservicemanage</c> connector.
     /// </summary>
-    public const string Ciresonservicemanage = "ciresonservicemanage";
+    public const string CiresonServiceManagerPortal = "ciresonservicemanage";
 
     /// <summary>
     /// The <c>ciscowebexmeetings</c> connector.
     /// </summary>
-    public const string Ciscowebexmeetings = "ciscowebexmeetings";
+    public const string CiscoWebexMeetings = "ciscowebexmeetings";
 
     /// <summary>
     /// The <c>citymapperip</c> connector.
     /// </summary>
-    public const string Citymapperip = "citymapperip";
+    public const string CitymapperIndependentPublisher = "citymapperip";
 
     /// <summary>
     /// The <c>civicplustransform</c> connector.
     /// </summary>
-    public const string Civicplustransform = "civicplustransform";
+    public const string CivicPlusTransform = "civicplustransform";
 
     /// <summary>
     /// The <c>clearbitip</c> connector.
     /// </summary>
-    public const string Clearbitip = "clearbitip";
+    public const string ClearbitIndependentPublisher = "clearbitip";
 
     /// <summary>
     /// The <c>clevertap</c> connector.
     /// </summary>
-    public const string Clevertap = "clevertap";
+    public const string CleverTap = "clevertap";
 
     /// <summary>
     /// The <c>clicksendpostcards</c> connector.
     /// </summary>
-    public const string Clicksendpostcards = "clicksendpostcards";
+    public const string ClickSendPostcards = "clicksendpostcards";
 
     /// <summary>
     /// The <c>clicksendsms</c> connector.
     /// </summary>
-    public const string ClickSendSms = "clicksendsms";
+    public const string ClickSend = "clicksendsms";
 
     /// <summary>
     /// The <c>clickupteammanagerip</c> connector.
     /// </summary>
-    public const string Clickupteammanagerip = "clickupteammanagerip";
+    public const string ClickUpTeamManagerIndependentPublisher = "clickupteammanagerip";
 
     /// <summary>
     /// The <c>climatiqip</c> connector.
     /// </summary>
-    public const string Climatiqip = "climatiqip";
+    public const string ClimatiqIndependentPublisher = "climatiqip";
 
     /// <summary>
     /// The <c>clinicaltrials</c> connector.
     /// </summary>
-    public const string Clinicaltrials = "clinicaltrials";
+    public const string ClinicalTrialsIndependentPublisher = "clinicaltrials";
 
     /// <summary>
     /// The <c>clockifyip</c> connector.
     /// </summary>
-    public const string Clockifyip = "clockifyip";
+    public const string ClockifyIndependentPublisher = "clockifyip";
 
     /// <summary>
     /// The <c>cloudbot</c> connector.
     /// </summary>
-    public const string Cloudbot = "cloudbot";
+    public const string CloudBOT = "cloudbot";
 
     /// <summary>
     /// The <c>cloudconvert</c> connector.
     /// </summary>
-    public const string Cloudconvert = "cloudconvert";
+    public const string CloudConvert = "cloudconvert";
 
     /// <summary>
     /// The <c>cloudmersive</c> connector.
     /// </summary>
-    public const string Cloudmersive = "cloudmersive";
+    public const string CloudmersiveVirusScan = "cloudmersive";
 
     /// <summary>
     /// The <c>cloudmersivebarcode</c> connector.
     /// </summary>
-    public const string Cloudmersivebarcode = "cloudmersivebarcode";
+    public const string CloudmersiveBarcode = "cloudmersivebarcode";
 
     /// <summary>
     /// The <c>cloudmersivecdr</c> connector.
     /// </summary>
-    public const string Cloudmersivecdr = "cloudmersivecdr";
+    public const string CloudmersiveCDR = "cloudmersivecdr";
 
     /// <summary>
     /// The <c>cloudmersiveconvert</c> connector.
     /// </summary>
-    public const string CloudmersiveConvert = "cloudmersiveconvert";
+    public const string CloudmersiveDocumentConversion = "cloudmersiveconvert";
 
     /// <summary>
     /// The <c>cloudmersivecurrency</c> connector.
     /// </summary>
-    public const string Cloudmersivecurrency = "cloudmersivecurrency";
+    public const string CloudmersiveCurrency = "cloudmersivecurrency";
 
     /// <summary>
     /// The <c>cloudmersivedv</c> connector.
     /// </summary>
-    public const string Cloudmersivedv = "cloudmersivedv";
+    public const string CloudmersiveDataValidation = "cloudmersivedv";
 
     /// <summary>
     /// The <c>cloudmersivefileproc</c> connector.
     /// </summary>
-    public const string Cloudmersivefileproc = "cloudmersivefileproc";
+    public const string CloudmersiveFileProcessing = "cloudmersivefileproc";
 
     /// <summary>
     /// The <c>cloudmersiveimagepr</c> connector.
     /// </summary>
-    public const string Cloudmersiveimagepr = "cloudmersiveimagepr";
+    public const string CloudmersiveImageProcessing = "cloudmersiveimagepr";
 
     /// <summary>
     /// The <c>cloudmersivenlp</c> connector.
     /// </summary>
-    public const string Cloudmersivenlp = "cloudmersivenlp";
+    public const string CloudmersiveNLP = "cloudmersivenlp";
 
     /// <summary>
     /// The <c>cloudmersivepdf</c> connector.
     /// </summary>
-    public const string Cloudmersivepdf = "cloudmersivepdf";
+    public const string CloudmersivePDF = "cloudmersivepdf";
 
     /// <summary>
     /// The <c>cloudmersivesecurity</c> connector.
     /// </summary>
-    public const string Cloudmersivesecurity = "cloudmersivesecurity";
+    public const string CloudmersiveSecurity = "cloudmersivesecurity";
 
     /// <summary>
     /// The <c>cloudmersivevideoandmedia</c> connector.
     /// </summary>
-    public const string Cloudmersivevideoandmedia = "cloudmersivevideoandmedia";
+    public const string CloudmersiveVideoAndMedia = "cloudmersivevideoandmedia";
 
     /// <summary>
     /// The <c>cloudpkimanagement</c> connector.
     /// </summary>
-    public const string Cloudpkimanagement = "cloudpkimanagement";
+    public const string CloudPKIManagement = "cloudpkimanagement";
 
     /// <summary>
     /// The <c>cloverlyip</c> connector.
     /// </summary>
-    public const string Cloverlyip = "cloverlyip";
+    public const string CloverlyIndependentPublisher = "cloverlyip";
 
     /// <summary>
     /// The <c>cluedin</c> connector.
     /// </summary>
-    public const string Cluedin = "cluedin";
+    public const string CluedIn = "cluedin";
 
     /// <summary>
     /// The <c>cmi</c> connector.
     /// </summary>
-    public const string Cmi = "cmi";
+    public const string CMI = "cmi";
 
     /// <summary>
     /// The <c>co2signalip</c> connector.
     /// </summary>
-    public const string Co2signalip = "co2signalip";
+    public const string CO2SignalIndependentPublisher = "co2signalip";
 
     /// <summary>
     /// The <c>cobblestonecontracti</c> connector.
     /// </summary>
-    public const string Cobblestonecontracti = "cobblestonecontracti";
+    public const string CobbleStoneContractInsight = "cobblestonecontracti";
 
     /// <summary>
     /// The <c>cognitedatafusionblu</c> connector.
     /// </summary>
-    public const string Cognitedatafusionblu = "cognitedatafusionblu";
+    public const string CogniteDataFusion = "cognitedatafusionblu";
 
     /// <summary>
     /// The <c>cognitiveservicescomputervision</c> connector.
     /// </summary>
-    public const string Cognitiveservicescomputervision = "cognitiveservicescomputervision";
+    public const string ComputerVisionAPI = "cognitiveservicescomputervision";
 
     /// <summary>
     /// The <c>cognitiveservicescontentmoderator</c> connector.
     /// </summary>
-    public const string Cognitiveservicescontentmoderator = "cognitiveservicescontentmoderator";
+    public const string ContentModerator = "cognitiveservicescontentmoderator";
 
     /// <summary>
     /// The <c>cognitiveservicescustomvision</c> connector.
     /// </summary>
-    public const string Cognitiveservicescustomvision = "cognitiveservicescustomvision";
+    public const string CustomVision = "cognitiveservicescustomvision";
 
     /// <summary>
     /// The <c>cognitiveservicesqnamaker</c> connector.
     /// </summary>
-    public const string Cognitiveservicesqnamaker = "cognitiveservicesqnamaker";
+    public const string QnAMaker = "cognitiveservicesqnamaker";
 
     /// <summary>
     /// The <c>cognitiveservicesspe</c> connector.
     /// </summary>
-    public const string Cognitiveservicesspe = "cognitiveservicesspe";
+    public const string AzureBatchSpeechToText = "cognitiveservicesspe";
 
     /// <summary>
     /// The <c>cognitiveservicestextanalytics</c> connector.
     /// </summary>
-    public const string Cognitiveservicestextanalytics = "cognitiveservicestextanalytics";
+    public const string AzureCognitiveServiceForLanguage = "cognitiveservicestextanalytics";
 
     /// <summary>
     /// The <c>cognitoforms</c> connector.
     /// </summary>
-    public const string Cognitoforms = "cognitoforms";
+    public const string CognitoForms = "cognitoforms";
 
     /// <summary>
     /// The <c>cognizantautomationc</c> connector.
     /// </summary>
-    public const string Cognizantautomationc = "cognizantautomationc";
+    public const string CognizantAutomationCenter = "cognizantautomationc";
 
     /// <summary>
     /// The <c>cohereip</c> connector.
     /// </summary>
-    public const string Cohereip = "cohereip";
+    public const string CohereIndependentPublisher = "cohereip";
 
     /// <summary>
     /// The <c>cohesitygaia</c> connector.
     /// </summary>
-    public const string Cohesitygaia = "cohesitygaia";
+    public const string CohesityGaia = "cohesitygaia";
 
     /// <summary>
     /// The <c>cohesitygaiamcp</c> connector.
     /// </summary>
-    public const string Cohesitygaiamcp = "cohesitygaiamcp";
+    public const string CohesityGaiaMCP = "cohesitygaiamcp";
 
     /// <summary>
     /// The <c>coinbaseip</c> connector.
     /// </summary>
-    public const string Coinbaseip = "coinbaseip";
+    public const string CoinbaseIndependentPublisher = "coinbaseip";
 
     /// <summary>
     /// The <c>commercientcpq</c> connector.
     /// </summary>
-    public const string Commercientcpq = "commercientcpq";
+    public const string Commercient = "commercientcpq";
 
     /// <summary>
     /// The <c>commondataservice</c> connector.
     /// </summary>
-    public const string Commondataservice = "commondataservice";
+    public const string MicrosoftDataverse = "commondataservice";
 
     /// <summary>
     /// The <c>companieshouseip</c> connector.
     /// </summary>
-    public const string Companieshouseip = "companieshouseip";
+    public const string CompaniesHouseIndependentPublisher = "companieshouseip";
 
     /// <summary>
     /// The <c>companyconnect</c> connector.
     /// </summary>
-    public const string Companyconnect = "companyconnect";
+    public const string CompanyConnect = "companyconnect";
 
     /// <summary>
     /// The <c>confluence</c> connector.
@@ -1513,142 +1513,142 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>connect2all</c> connector.
     /// </summary>
-    public const string Connect2all = "connect2all";
+    public const string Connect2All = "connect2all";
 
     /// <summary>
     /// The <c>connect2allonpremises</c> connector.
     /// </summary>
-    public const string Connect2allonpremises = "connect2allonpremises";
+    public const string Connect2AllOnPremises = "connect2allonpremises";
 
     /// <summary>
     /// The <c>connectiveesignatures</c> connector.
     /// </summary>
-    public const string Connectiveesignatures = "connectiveesignatures";
+    public const string ConnectiveESignatures = "connectiveesignatures";
 
     /// <summary>
     /// The <c>connectwisepsa</c> connector.
     /// </summary>
-    public const string Connectwisepsa = "connectwisepsa";
+    public const string ConnectWisePSAIndependentPublisher = "connectwisepsa";
 
     /// <summary>
     /// The <c>connpassip</c> connector.
     /// </summary>
-    public const string Connpassip = "connpassip";
+    public const string ConnpassIndependentPublisher = "connpassip";
 
     /// <summary>
     /// The <c>contactspro</c> connector.
     /// </summary>
-    public const string Contactspro = "contactspro";
+    public const string ContactsPro = "contactspro";
 
     /// <summary>
     /// The <c>contentmanagerpowerc</c> connector.
     /// </summary>
-    public const string Contentmanagerpowerc = "contentmanagerpowerc";
+    public const string ContentManagerPowerConnect = "contentmanagerpowerc";
 
     /// <summary>
     /// The <c>contosohub</c> connector.
     /// </summary>
-    public const string Contosohub = "contosohub";
+    public const string ContosoHub = "contosohub";
 
     /// <summary>
     /// The <c>conversionservice</c> connector.
     /// </summary>
-    public const string Conversionservice = "conversionservice";
+    public const string ContentConversion = "conversionservice";
 
     /// <summary>
     /// The <c>converterbypower2apps</c> connector.
     /// </summary>
-    public const string Converterbypower2apps = "converterbypower2apps";
+    public const string ConverterByPower2Apps = "converterbypower2apps";
 
     /// <summary>
     /// The <c>convertkitip</c> connector.
     /// </summary>
-    public const string Convertkitip = "convertkitip";
+    public const string ConvertKitIndependentPublisher = "convertkitip";
 
     /// <summary>
     /// The <c>copilotforsales</c> connector.
     /// </summary>
-    public const string Copilotforsales = "copilotforsales";
+    public const string CopilotForSales = "copilotforsales";
 
     /// <summary>
     /// The <c>copilotforservice</c> connector.
     /// </summary>
-    public const string Copilotforservice = "copilotforservice";
+    public const string CopilotForServiceExtensionPreview = "copilotforservice";
 
     /// <summary>
     /// The <c>copyaiip</c> connector.
     /// </summary>
-    public const string Copyaiip = "copyaiip";
+    public const string CopyAi = "copyaiip";
 
     /// <summary>
     /// The <c>cornerstonelearningv</c> connector.
     /// </summary>
-    public const string Cornerstonelearningv = "cornerstonelearningv";
+    public const string CornerstoneLearningVILT = "cornerstonelearningv";
 
     /// <summary>
     /// The <c>corporatebuzzwordip</c> connector.
     /// </summary>
-    public const string Corporatebuzzwordip = "corporatebuzzwordip";
+    public const string CorporateBuzzwordGeneratorIndependentPublisher = "corporatebuzzwordip";
 
     /// <summary>
     /// The <c>corptaxsandbox</c> connector.
     /// </summary>
-    public const string Corptaxsandbox = "corptaxsandbox";
+    public const string CSCCorptax = "corptaxsandbox";
 
     /// <summary>
     /// The <c>cosmobot</c> connector.
     /// </summary>
-    public const string Cosmobot = "cosmobot";
+    public const string COSMOBot = "cosmobot";
 
     /// <summary>
     /// The <c>coupaip</c> connector.
     /// </summary>
-    public const string Coupaip = "coupaip";
+    public const string CoupaIndependentPublisher = "coupaip";
 
     /// <summary>
     /// The <c>courierip</c> connector.
     /// </summary>
-    public const string Courierip = "courierip";
+    public const string CourierIndependentPublisher = "courierip";
 
     /// <summary>
     /// The <c>covid19jhucsseip</c> connector.
     /// </summary>
-    public const string Covid19jhucsseip = "covid19jhucsseip";
+    public const string COVID19JHUCSSEIndependentPublisher = "covid19jhucsseip";
 
     /// <summary>
     /// The <c>cpqsync</c> connector.
     /// </summary>
-    public const string Cpqsync = "cpqsync";
+    public const string CPQSync = "cpqsync";
 
     /// <summary>
     /// The <c>cpscrecallsretrievalip</c> connector.
     /// </summary>
-    public const string Cpscrecallsretrievalip = "cpscrecallsretrievalip";
+    public const string CPSCRecallsRetrievalIndependentPublisher = "cpscrecallsretrievalip";
 
     /// <summary>
     /// The <c>cqcdata</c> connector.
     /// </summary>
-    public const string Cqcdata = "cqcdata";
+    public const string CQCDataIndependentPublisher = "cqcdata";
 
     /// <summary>
     /// The <c>cradlai</c> connector.
     /// </summary>
-    public const string Cradlai = "cradlai";
+    public const string CradlAI = "cradlai";
 
     /// <summary>
     /// The <c>craftmypdfip</c> connector.
     /// </summary>
-    public const string Craftmypdfip = "craftmypdfip";
+    public const string CraftMyPDFIndependentPublisher = "craftmypdfip";
 
     /// <summary>
     /// The <c>crmbot</c> connector.
     /// </summary>
-    public const string Crmbot = "crmbot";
+    public const string CRMBot = "crmbot";
 
     /// <summary>
     /// The <c>cronofymcp</c> connector.
     /// </summary>
-    public const string Cronofymcp = "cronofymcp";
+    public const string CronofyMCP = "cronofymcp";
 
     /// <summary>
     /// The <c>crossbeam</c> connector.
@@ -1658,22 +1658,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>csvconverterbypower2</c> connector.
     /// </summary>
-    public const string Csvconverterbypower2 = "csvconverterbypower2";
+    public const string CSVConverterByPower2Apps = "csvconverterbypower2";
 
     /// <summary>
     /// The <c>customerinsights</c> connector.
     /// </summary>
-    public const string Customerinsights = "customerinsights";
+    public const string Dynamics365CustomerInsights = "customerinsights";
 
     /// <summary>
     /// The <c>customjs</c> connector.
     /// </summary>
-    public const string Customjs = "customjs";
+    public const string CustomJS = "customjs";
 
     /// <summary>
     /// The <c>cxcardsbysurveyapp</c> connector.
     /// </summary>
-    public const string Cxcardsbysurveyapp = "cxcardsbysurveyapp";
+    public const string CXCardsBySurveyapp = "cxcardsbysurveyapp";
 
     /// <summary>
     /// The <c>cyberday</c> connector.
@@ -1683,67 +1683,67 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cyberproof</c> connector.
     /// </summary>
-    public const string Cyberproof = "cyberproof";
+    public const string CyberProof = "cyberproof";
 
     /// <summary>
     /// The <c>d365customerservicemcpserver</c> connector.
     /// </summary>
-    public const string D365customerservicemcpserver = "d365customerservicemcpserver";
+    public const string Dynamics365ServiceMCP = "d365customerservicemcpserver";
 
     /// <summary>
     /// The <c>d365erpmcpserver</c> connector.
     /// </summary>
-    public const string D365erpmcpserver = "d365erpmcpserver";
+    public const string Dynamics365ERPAnalyticsMCP = "d365erpmcpserver";
 
     /// <summary>
     /// The <c>d365salesmcpserver</c> connector.
     /// </summary>
-    public const string D365salesmcpserver = "d365salesmcpserver";
+    public const string Dynamics365SalesMCPServer = "d365salesmcpserver";
 
     /// <summary>
     /// The <c>d7messaging</c> connector.
     /// </summary>
-    public const string D7messaging = "d7messaging";
+    public const string D7Messaging = "d7messaging";
 
     /// <summary>
     /// The <c>d7sms</c> connector.
     /// </summary>
-    public const string D7sms = "d7sms";
+    public const string D7SMS = "d7sms";
 
     /// <summary>
     /// The <c>dadjokes</c> connector.
     /// </summary>
-    public const string Dadjokes = "dadjokes";
+    public const string DadJokesIndependentPublisher = "dadjokes";
 
     /// <summary>
     /// The <c>dadjokesioip</c> connector.
     /// </summary>
-    public const string Dadjokesioip = "dadjokesioip";
+    public const string DadJokesIOIndependentPublisher = "dadjokesioip";
 
     /// <summary>
     /// The <c>daffyip</c> connector.
     /// </summary>
-    public const string Daffyip = "daffyip";
+    public const string DaffyIndependentPublisher = "daffyip";
 
     /// <summary>
     /// The <c>dailymedip</c> connector.
     /// </summary>
-    public const string Dailymedip = "dailymedip";
+    public const string DailyMedIndependentPublisher = "dailymedip";
 
     /// <summary>
     /// The <c>dandelionip</c> connector.
     /// </summary>
-    public const string Dandelionip = "dandelionip";
+    public const string DandelionIndependentPublisher = "dandelionip";
 
     /// <summary>
     /// The <c>data8</c> connector.
     /// </summary>
-    public const string Data8 = "data8";
+    public const string Data8DataEnrichment = "data8";
 
     /// <summary>
     /// The <c>dataactivatorpreview</c> connector.
     /// </summary>
-    public const string Dataactivatorpreview = "dataactivatorpreview";
+    public const string DataActivatorEarlyAccess = "dataactivatorpreview";
 
     /// <summary>
     /// The <c>datablend</c> connector.
@@ -1753,92 +1753,92 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>databookc4s</c> connector.
     /// </summary>
-    public const string Databookc4s = "databookc4s";
+    public const string DatabookC4S = "databookc4s";
 
     /// <summary>
     /// The <c>databoxip</c> connector.
     /// </summary>
-    public const string Databoxip = "databoxip";
+    public const string DataboxIndependentPublisher = "databoxip";
 
     /// <summary>
     /// The <c>databricksinc</c> connector.
     /// </summary>
-    public const string Databricksinc = "databricksinc";
+    public const string Databricks = "databricksinc";
 
     /// <summary>
     /// The <c>dataflows</c> connector.
     /// </summary>
-    public const string Dataflows = "dataflows";
+    public const string PowerQueryDataflows = "dataflows";
 
     /// <summary>
     /// The <c>dataflowssms</c> connector.
     /// </summary>
-    public const string Dataflowssms = "dataflowssms";
+    public const string DataFlowsSMS = "dataflowssms";
 
     /// <summary>
     /// The <c>datamuseip</c> connector.
     /// </summary>
-    public const string Datamuseip = "datamuseip";
+    public const string DatamuseIndependentPublisher = "datamuseip";
 
     /// <summary>
     /// The <c>datascopeforms</c> connector.
     /// </summary>
-    public const string Datascopeforms = "datascopeforms";
+    public const string DataScopeForms = "datascopeforms";
 
     /// <summary>
     /// The <c>dayforcehcm</c> connector.
     /// </summary>
-    public const string Dayforcehcm = "dayforcehcm";
+    public const string DayforceHCM = "dayforcehcm";
 
     /// <summary>
     /// The <c>db2</c> connector.
     /// </summary>
-    public const string Db2 = "db2";
+    public const string DB2 = "db2";
 
     /// <summary>
     /// The <c>dbftoxmlconverter</c> connector.
     /// </summary>
-    public const string Dbftoxmlconverter = "dbftoxmlconverter";
+    public const string DBF2XML = "dbftoxmlconverter";
 
     /// <summary>
     /// The <c>decentralandip</c> connector.
     /// </summary>
-    public const string Decentralandip = "decentralandip";
+    public const string DecentralandIndependentPublisher = "decentralandip";
 
     /// <summary>
     /// The <c>deckofcards</c> connector.
     /// </summary>
-    public const string Deckofcards = "deckofcards";
+    public const string DeckOfCardsIndependentPublisher = "deckofcards";
 
     /// <summary>
     /// The <c>deepboxsign</c> connector.
     /// </summary>
-    public const string Deepboxsign = "deepboxsign";
+    public const string DeepSign = "deepboxsign";
 
     /// <summary>
     /// The <c>deepgram</c> connector.
     /// </summary>
-    public const string Deepgram = "deepgram";
+    public const string DeepgramIndependentPublisher = "deepgram";
 
     /// <summary>
     /// The <c>deepl</c> connector.
     /// </summary>
-    public const string Deepl = "deepl";
+    public const string DeepL = "deepl";
 
     /// <summary>
     /// The <c>deeplipip</c> connector.
     /// </summary>
-    public const string Deeplipip = "deeplipip";
+    public const string DeepLIPIndependentPublisher = "deeplipip";
 
     /// <summary>
     /// The <c>delijnip</c> connector.
     /// </summary>
-    public const string Delijnip = "delijnip";
+    public const string DeLijnIndependentPublisher = "delijnip";
 
     /// <summary>
     /// The <c>deliverea</c> connector.
     /// </summary>
-    public const string Deliverea = "deliverea";
+    public const string DelivereaIndependentPublisher = "deliverea";
 
     /// <summary>
     /// The <c>desk365</c> connector.
@@ -1848,57 +1848,57 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>deskdirector</c> connector.
     /// </summary>
-    public const string Deskdirector = "deskdirector";
+    public const string DeskDirector = "deskdirector";
 
     /// <summary>
     /// The <c>dexcomip</c> connector.
     /// </summary>
-    public const string Dexcomip = "dexcomip";
+    public const string DexcomIndependentPublisher = "dexcomip";
 
     /// <summary>
     /// The <c>dicebearip</c> connector.
     /// </summary>
-    public const string Dicebearip = "dicebearip";
+    public const string DiceBearIndependentPublisher = "dicebearip";
 
     /// <summary>
     /// The <c>didyoumeanthisip</c> connector.
     /// </summary>
-    public const string Didyoumeanthisip = "didyoumeanthisip";
+    public const string DidYouMeanThisIndependentPublisher = "didyoumeanthisip";
 
     /// <summary>
     /// The <c>diffcheckerip</c> connector.
     /// </summary>
-    public const string Diffcheckerip = "diffcheckerip";
+    public const string Diffchecker = "diffcheckerip";
 
     /// <summary>
     /// The <c>digidatesip</c> connector.
     /// </summary>
-    public const string Digidatesip = "digidatesip";
+    public const string DigiDatesIndependentPublisher = "digidatesip";
 
     /// <summary>
     /// The <c>digileanconnect</c> connector.
     /// </summary>
-    public const string Digileanconnect = "digileanconnect";
+    public const string DigiLEANConnect = "digileanconnect";
 
     /// <summary>
     /// The <c>digitalhumaniip</c> connector.
     /// </summary>
-    public const string Digitalhumaniip = "digitalhumaniip";
+    public const string DigitalHumaniIndependentPublisher = "digitalhumaniip";
 
     /// <summary>
     /// The <c>dimescheduler</c> connector.
     /// </summary>
-    public const string Dimescheduler = "dimescheduler";
+    public const string DimeSchedulerOnPrem = "dimescheduler";
 
     /// <summary>
     /// The <c>dimeschedulerv2</c> connector.
     /// </summary>
-    public const string Dimeschedulerv2 = "dimeschedulerv2";
+    public const string DimeScheduler = "dimeschedulerv2";
 
     /// <summary>
     /// The <c>discordip</c> connector.
     /// </summary>
-    public const string Discordip = "discordip";
+    public const string DiscordIndependentPublisher = "discordip";
 
     /// <summary>
     /// The <c>disqus</c> connector.
@@ -1908,12 +1908,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>docfusion365</c> connector.
     /// </summary>
-    public const string Docfusion365 = "docfusion365";
+    public const string DocFusion365SP = "docfusion365";
 
     /// <summary>
     /// The <c>docjuris</c> connector.
     /// </summary>
-    public const string Docjuris = "docjuris";
+    public const string DocJuris = "docjuris";
 
     /// <summary>
     /// The <c>docparser</c> connector.
@@ -1923,12 +1923,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>docq</c> connector.
     /// </summary>
-    public const string Docq = "docq";
+    public const string ExghtsGenDocumentMore = "docq";
 
     /// <summary>
     /// The <c>doctopdf</c> connector.
     /// </summary>
-    public const string Doctopdf = "doctopdf";
+    public const string DocToPDF = "doctopdf";
 
     /// <summary>
     /// The <c>docugami</c> connector.
@@ -1938,27 +1938,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>docugenerate</c> connector.
     /// </summary>
-    public const string Docugenerate = "docugenerate";
+    public const string DocuGenerate = "docugenerate";
 
     /// <summary>
     /// The <c>documentai</c> connector.
     /// </summary>
-    public const string Documentai = "documentai";
+    public const string DocumentAI = "documentai";
 
     /// <summary>
     /// The <c>documentaikonfuzio</c> connector.
     /// </summary>
-    public const string Documentaikonfuzio = "documentaikonfuzio";
+    public const string DocumentAIKonfuzio = "documentaikonfuzio";
 
     /// <summary>
     /// The <c>documentdb</c> connector.
     /// </summary>
-    public const string DocumentDb = "documentdb";
+    public const string AzureCosmosDB = "documentdb";
 
     /// <summary>
     /// The <c>documentdrafter</c> connector.
     /// </summary>
-    public const string Documentdrafter = "documentdrafter";
+    public const string DocumentDrafter = "documentdrafter";
 
     /// <summary>
     /// The <c>documentero</c> connector.
@@ -1968,17 +1968,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>documentmerge</c> connector.
     /// </summary>
-    public const string Documentmerge = "documentmerge";
+    public const string DocumentMerge = "documentmerge";
 
     /// <summary>
     /// The <c>documentscorepackapi</c> connector.
     /// </summary>
-    public const string Documentscorepackapi = "documentscorepackapi";
+    public const string DocumentsCorePack = "documentscorepackapi";
 
     /// <summary>
     /// The <c>documotor</c> connector.
     /// </summary>
-    public const string Documotor = "documotor";
+    public const string DocuMotor = "documotor";
 
     /// <summary>
     /// The <c>docurain</c> connector.
@@ -1988,42 +1988,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>docusignmcpdemo</c> connector.
     /// </summary>
-    public const string Docusignmcpdemo = "docusignmcpdemo";
+    public const string DocusignMCPDemo = "docusignmcpdemo";
 
     /// <summary>
     /// The <c>docuware</c> connector.
     /// </summary>
-    public const string Docuware = "docuware";
+    public const string DocuWare = "docuware";
 
     /// <summary>
     /// The <c>dokobitportal</c> connector.
     /// </summary>
-    public const string Dokobitportal = "dokobitportal";
+    public const string DokobitPortal = "dokobitportal";
 
     /// <summary>
     /// The <c>dokobituniversalapi</c> connector.
     /// </summary>
-    public const string Dokobituniversalapi = "dokobituniversalapi";
+    public const string DokobitUniversalAPI = "dokobituniversalapi";
 
     /// <summary>
     /// The <c>domaintoolsirisenric</c> connector.
     /// </summary>
-    public const string Domaintoolsirisenric = "domaintoolsirisenric";
+    public const string DomainToolsIrisEnrich = "domaintoolsirisenric";
 
     /// <summary>
     /// The <c>domaintoolsirisinves</c> connector.
     /// </summary>
-    public const string Domaintoolsirisinves = "domaintoolsirisinves";
+    public const string DomainToolsIrisInvestigate = "domaintoolsirisinves";
 
     /// <summary>
     /// The <c>donotcallreportcallsip</c> connector.
     /// </summary>
-    public const string Donotcallreportcallsip = "donotcallreportcallsip";
+    public const string DoNotCallReportedCallsIndependentPublisher = "donotcallreportcallsip";
 
     /// <summary>
     /// The <c>doppler</c> connector.
     /// </summary>
-    public const string Doppler = "doppler";
+    public const string DopplerFarhanLatifIndependentPublisher = "doppler";
 
     /// <summary>
     /// The <c>dox42</c> connector.
@@ -2033,22 +2033,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dpirdradarip</c> connector.
     /// </summary>
-    public const string Dpirdradarip = "dpirdradarip";
+    public const string DPIRDRadarWestAustraliaIndependentPublisher = "dpirdradarip";
 
     /// <summary>
     /// The <c>dpirdscienceip</c> connector.
     /// </summary>
-    public const string Dpirdscienceip = "dpirdscienceip";
+    public const string DPIRDScienceWestAustraliaIndependentPublisher = "dpirdscienceip";
 
     /// <summary>
     /// The <c>dpirdweatherip</c> connector.
     /// </summary>
-    public const string Dpirdweatherip = "dpirdweatherip";
+    public const string DPIRDWeatherWestAustraliaIndependentPublisher = "dpirdweatherip";
 
     /// <summary>
     /// The <c>dqondemand</c> connector.
     /// </summary>
-    public const string Dqondemand = "dqondemand";
+    public const string DQOnDemand = "dqondemand";
 
     /// <summary>
     /// The <c>draup</c> connector.
@@ -2058,7 +2058,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>draupmcpserver</c> connector.
     /// </summary>
-    public const string Draupmcpserver = "draupmcpserver";
+    public const string DraupMCPServer = "draupmcpserver";
 
     /// <summary>
     /// The <c>dropbox</c> connector.
@@ -2068,72 +2068,72 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>durationcalculator</c> connector.
     /// </summary>
-    public const string Durationcalculator = "durationcalculator";
+    public const string DurationCalculatorIndependentPublisher = "durationcalculator";
 
     /// <summary>
     /// The <c>dvelop</c> connector.
     /// </summary>
-    public const string Dvelop = "dvelop";
+    public const string DVelop = "dvelop";
 
     /// <summary>
     /// The <c>dvlavehicleenquiryse</c> connector.
     /// </summary>
-    public const string Dvlavehicleenquiryse = "dvlavehicleenquiryse";
+    public const string DVLAVehicleEnquiryServiceIndependentPublisher = "dvlavehicleenquiryse";
 
     /// <summary>
     /// The <c>dynamics365ratingsre</c> connector.
     /// </summary>
-    public const string Dynamics365ratingsre = "dynamics365ratingsre";
+    public const string Dynamics365CommerceRatingsAndReviews = "dynamics365ratingsre";
 
     /// <summary>
     /// The <c>dynamicsax</c> connector.
     /// </summary>
-    public const string DynamicsAX = "dynamicsax";
+    public const string FinOpsAppsDynamics365 = "dynamicsax";
 
     /// <summary>
     /// The <c>dynamicscrmonline</c> connector.
     /// </summary>
-    public const string Dynamicscrmonline = "dynamicscrmonline";
+    public const string Dynamics365Deprecated = "dynamicscrmonline";
 
     /// <summary>
     /// The <c>dynamicsdocsip</c> connector.
     /// </summary>
-    public const string Dynamicsdocsip = "dynamicsdocsip";
+    public const string DynamicDocsIndependentPublisher = "dynamicsdocsip";
 
     /// <summary>
     /// The <c>dynamicsfraudprotect</c> connector.
     /// </summary>
-    public const string Dynamicsfraudprotect = "dynamicsfraudprotect";
+    public const string Dynamics365FraudProtection = "dynamicsfraudprotect";
 
     /// <summary>
     /// The <c>dynamicsignal</c> connector.
     /// </summary>
-    public const string Dynamicsignal = "dynamicsignal";
+    public const string DynamicSignal = "dynamicsignal";
 
     /// <summary>
     /// The <c>dynamicsnav2016</c> connector.
     /// </summary>
-    public const string Dynamicsnav2016 = "dynamicsnav2016";
+    public const string DynamicsNAV2016 = "dynamicsnav2016";
 
     /// <summary>
     /// The <c>dynamicsnavision</c> connector.
     /// </summary>
-    public const string Dynamicsnavision = "dynamicsnavision";
+    public const string DynamicsNAV = "dynamicsnavision";
 
     /// <summary>
     /// The <c>dynamicssmbonprem</c> connector.
     /// </summary>
-    public const string Dynamicssmbonprem = "dynamicssmbonprem";
+    public const string Dynamics365BusinessCentralOnPremises = "dynamicssmbonprem";
 
     /// <summary>
     /// The <c>dynamicssmbsaas</c> connector.
     /// </summary>
-    public const string Dynamicssmbsaas = "dynamicssmbsaas";
+    public const string Dynamics365BusinessCentral = "dynamicssmbsaas";
 
     /// <summary>
     /// The <c>dynamicstranslations</c> connector.
     /// </summary>
-    public const string Dynamicstranslations = "dynamicstranslations";
+    public const string DynamicsTranslationService = "dynamicstranslations";
 
     /// <summary>
     /// The <c>dynatrace</c> connector.
@@ -2143,67 +2143,67 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>easypostdocumentatio</c> connector.
     /// </summary>
-    public const string Easypostdocumentatio = "easypostdocumentatio";
+    public const string EasyPostMail = "easypostdocumentatio";
 
     /// <summary>
     /// The <c>easyredmine</c> connector.
     /// </summary>
-    public const string Easyredmine = "easyredmine";
+    public const string EasyRedmine = "easyredmine";
 
     /// <summary>
     /// The <c>easyshipip</c> connector.
     /// </summary>
-    public const string Easyshipip = "easyshipip";
+    public const string EasyshipIndependentPublisher = "easyshipip";
 
     /// <summary>
     /// The <c>easyvista</c> connector.
     /// </summary>
-    public const string Easyvista = "easyvista";
+    public const string EasyVistaServiceManager = "easyvista";
 
     /// <summary>
     /// The <c>easyvistaselfhelp</c> connector.
     /// </summary>
-    public const string Easyvistaselfhelp = "easyvistaselfhelp";
+    public const string EasyvistaSelfHelp = "easyvistaselfhelp";
 
     /// <summary>
     /// The <c>easyvistaservicemana</c> connector.
     /// </summary>
-    public const string Easyvistaservicemana = "easyvistaservicemana";
+    public const string EasyVistaServiceMana = "easyvistaservicemana";
 
     /// <summary>
     /// The <c>ebayip</c> connector.
     /// </summary>
-    public const string Ebayip = "ebayip";
+    public const string EBayIndependentPublisher = "ebayip";
 
     /// <summary>
     /// The <c>ebms</c> connector.
     /// </summary>
-    public const string Ebms = "ebms";
+    public const string EBMS = "ebms";
 
     /// <summary>
     /// The <c>ecfr</c> connector.
     /// </summary>
-    public const string Ecfr = "ecfr";
+    public const string ECFRIndependentPublisher = "ecfr";
 
     /// <summary>
     /// The <c>ecode360</c> connector.
     /// </summary>
-    public const string Ecode360 = "ecode360";
+    public const string ECode360IndependentPublisher = "ecode360";
 
     /// <summary>
     /// The <c>ecologiip</c> connector.
     /// </summary>
-    public const string Ecologiip = "ecologiip";
+    public const string EcologiIndependentPublisher = "ecologiip";
 
     /// <summary>
     /// The <c>edataliasignonlineip</c> connector.
     /// </summary>
-    public const string Edataliasignonlineip = "edataliasignonlineip";
+    public const string EdataliaSignOnlineIndependentPublisher = "edataliasignonlineip";
 
     /// <summary>
     /// The <c>edenai</c> connector.
     /// </summary>
-    public const string Edenai = "edenai";
+    public const string EdenAI = "edenai";
 
     /// <summary>
     /// The <c>edgility</c> connector.
@@ -2233,27 +2233,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>egoi</c> connector.
     /// </summary>
-    public const string Egoi = "egoi";
+    public const string EGoi = "egoi";
 
     /// <summary>
     /// The <c>eigenevents</c> connector.
     /// </summary>
-    public const string Eigenevents = "eigenevents";
+    public const string EigenEvents = "eigenevents";
 
     /// <summary>
     /// The <c>elasticforms</c> connector.
     /// </summary>
-    public const string Elasticforms = "elasticforms";
+    public const string ElasticForms = "elasticforms";
 
     /// <summary>
     /// The <c>electricitymapsip</c> connector.
     /// </summary>
-    public const string Electricitymapsip = "electricitymapsip";
+    public const string ElectricityMapsIndependentPublisher = "electricitymapsip";
 
     /// <summary>
     /// The <c>elfsquad</c> connector.
     /// </summary>
-    public const string Elfsquad = "elfsquad";
+    public const string ElfsquadProductConfigurator = "elfsquad";
 
     /// <summary>
     /// The <c>elfsquaddata</c> connector.
@@ -2263,17 +2263,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>emaildomainchecker</c> connector.
     /// </summary>
-    public const string Emaildomainchecker = "emaildomainchecker";
+    public const string EmailDomainChecker = "emaildomainchecker";
 
     /// <summary>
     /// The <c>emailveritasurlcheck</c> connector.
     /// </summary>
-    public const string Emailveritasurlcheck = "emailveritasurlcheck";
+    public const string EmailVeritasURLChecker = "emailveritasurlcheck";
 
     /// <summary>
     /// The <c>emfluencemp</c> connector.
     /// </summary>
-    public const string Emfluencemp = "emfluencemp";
+    public const string EmfluenceMarketingPlatform = "emfluencemp";
 
     /// <summary>
     /// The <c>emigo</c> connector.
@@ -2283,12 +2283,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>emojihubip</c> connector.
     /// </summary>
-    public const string Emojihubip = "emojihubip";
+    public const string EmojiHubIndependentPublisher = "emojihubip";
 
     /// <summary>
     /// The <c>emtatlasaims</c> connector.
     /// </summary>
-    public const string Emtatlasaims = "emtatlasaims";
+    public const string EMTATLASAIMS = "emtatlasaims";
 
     /// <summary>
     /// The <c>enadoc</c> connector.
@@ -2298,77 +2298,77 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>encodianbarcode</c> connector.
     /// </summary>
-    public const string Encodianbarcode = "encodianbarcode";
+    public const string EncodianBarcode = "encodianbarcode";
 
     /// <summary>
     /// The <c>encodianconvert</c> connector.
     /// </summary>
-    public const string Encodianconvert = "encodianconvert";
+    public const string EncodianConvert = "encodianconvert";
 
     /// <summary>
     /// The <c>encodianexcel</c> connector.
     /// </summary>
-    public const string Encodianexcel = "encodianexcel";
+    public const string EncodianExcel = "encodianexcel";
 
     /// <summary>
     /// The <c>encodianfiler</c> connector.
     /// </summary>
-    public const string Encodianfiler = "encodianfiler";
+    public const string MizorixFiler = "encodianfiler";
 
     /// <summary>
     /// The <c>encodiangeneral</c> connector.
     /// </summary>
-    public const string Encodiangeneral = "encodiangeneral";
+    public const string EncodianGeneral = "encodiangeneral";
 
     /// <summary>
     /// The <c>encodianimage</c> connector.
     /// </summary>
-    public const string Encodianimage = "encodianimage";
+    public const string EncodianImage = "encodianimage";
 
     /// <summary>
     /// The <c>encodianpdf</c> connector.
     /// </summary>
-    public const string Encodianpdf = "encodianpdf";
+    public const string EncodianPDF = "encodianpdf";
 
     /// <summary>
     /// The <c>encodianpowerpoint</c> connector.
     /// </summary>
-    public const string Encodianpowerpoint = "encodianpowerpoint";
+    public const string EncodianPowerPoint = "encodianpowerpoint";
 
     /// <summary>
     /// The <c>encodiantrigr</c> connector.
     /// </summary>
-    public const string Encodiantrigr = "encodiantrigr";
+    public const string EncodianSign = "encodiantrigr";
 
     /// <summary>
     /// The <c>encodianutilities</c> connector.
     /// </summary>
-    public const string Encodianutilities = "encodianutilities";
+    public const string EncodianUtilities = "encodianutilities";
 
     /// <summary>
     /// The <c>encodianword</c> connector.
     /// </summary>
-    public const string Encodianword = "encodianword";
+    public const string EncodianWord = "encodianword";
 
     /// <summary>
     /// The <c>engagementcloud</c> connector.
     /// </summary>
-    public const string Engagementcloud = "engagementcloud";
+    public const string EngagementCloud = "engagementcloud";
 
     /// <summary>
     /// The <c>enlyftforcopilot</c> connector.
     /// </summary>
-    public const string Enlyftforcopilot = "enlyftforcopilot";
+    public const string EnlyftInsights = "enlyftforcopilot";
 
     /// <summary>
     /// The <c>enlyftmcp</c> connector.
     /// </summary>
-    public const string Enlyftmcp = "enlyftmcp";
+    public const string EnlyftMCP = "enlyftmcp";
 
     /// <summary>
     /// The <c>entegrations</c> connector.
     /// </summary>
-    public const string Entegrations = "entegrations";
+    public const string EntegrationsIo = "entegrations";
 
     /// <summary>
     /// The <c>entersoft</c> connector.
@@ -2378,7 +2378,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>enveloop</c> connector.
     /// </summary>
-    public const string Enveloop = "enveloop";
+    public const string EnveloopIndependentPublisher = "enveloop";
 
     /// <summary>
     /// The <c>envoy</c> connector.
@@ -2388,22 +2388,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>eonetbynasaip</c> connector.
     /// </summary>
-    public const string Eonetbynasaip = "eonetbynasaip";
+    public const string EONETByNASAIndependentPublisher = "eonetbynasaip";
 
     /// <summary>
     /// The <c>ephesoftsemantikforinvoices</c> connector.
     /// </summary>
-    public const string Ephesoftsemantikforinvoices = "ephesoftsemantikforinvoices";
+    public const string EphesoftSemantikForInvoices = "ephesoftsemantikforinvoices";
 
     /// <summary>
     /// The <c>esign</c> connector.
     /// </summary>
-    public const string Esign = "esign";
+    public const string ESign = "esign";
 
     /// <summary>
     /// The <c>etsy</c> connector.
     /// </summary>
-    public const string Etsy = "etsy";
+    public const string EtsyIndependentPublisher = "etsy";
 
     /// <summary>
     /// The <c>eventbrite</c> connector.
@@ -2418,12 +2418,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>eventtickets</c> connector.
     /// </summary>
-    public const string Eventtickets = "eventtickets";
+    public const string EventTickets = "eventtickets";
 
     /// <summary>
     /// The <c>everyip</c> connector.
     /// </summary>
-    public const string Everyip = "everyip";
+    public const string EveryIndependentPublisher = "everyip";
 
     /// <summary>
     /// The <c>evocom</c> connector.
@@ -2433,12 +2433,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ewaycrm</c> connector.
     /// </summary>
-    public const string Ewaycrm = "ewaycrm";
+    public const string EWayCRM = "ewaycrm";
 
     /// <summary>
     /// The <c>exactonlinetimebilip</c> connector.
     /// </summary>
-    public const string Exactonlinetimebilip = "exactonlinetimebilip";
+    public const string ExactTimeBillingIndependentPublisher = "exactonlinetimebilip";
 
     /// <summary>
     /// The <c>exasol</c> connector.
@@ -2448,7 +2448,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>excelonline</c> connector.
     /// </summary>
-    public const string ExcelOnline = "excelonline";
+    public const string ExcelOnlineOneDrive = "excelonline";
 
     /// <summary>
     /// The <c>excelonlinebusiness</c> connector.
@@ -2458,7 +2458,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>exchangerateip</c> connector.
     /// </summary>
-    public const string Exchangerateip = "exchangerateip";
+    public const string ExchangeRateIndependentPublisher = "exchangerateip";
 
     /// <summary>
     /// The <c>expensya</c> connector.
@@ -2468,187 +2468,187 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>experlogixcpq</c> connector.
     /// </summary>
-    public const string Experlogixcpq = "experlogixcpq";
+    public const string ExperlogixCPQ = "experlogixcpq";
 
     /// <summary>
     /// The <c>experlogixsmartflows</c> connector.
     /// </summary>
-    public const string Experlogixsmartflows = "experlogixsmartflows";
+    public const string ExperlogixSmartFlows = "experlogixsmartflows";
 
     /// <summary>
     /// The <c>expirationreminder</c> connector.
     /// </summary>
-    public const string Expirationreminder = "expirationreminder";
+    public const string ExpirationReminder = "expirationreminder";
 
     /// <summary>
     /// The <c>expocad</c> connector.
     /// </summary>
-    public const string Expocad = "expocad";
+    public const string EXPOCAD = "expocad";
 
     /// <summary>
     /// The <c>ezekiamcp</c> connector.
     /// </summary>
-    public const string Ezekiamcp = "ezekiamcp";
+    public const string EzekiaMCP = "ezekiamcp";
 
     /// <summary>
     /// The <c>faanotam</c> connector.
     /// </summary>
-    public const string Faanotam = "faanotam";
+    public const string FuseLagNotam11IndependentPublisher = "faanotam";
 
     /// <summary>
     /// The <c>fabricdataagent</c> connector.
     /// </summary>
-    public const string Fabricdataagent = "fabricdataagent";
+    public const string FabricDataAgent = "fabricdataagent";
 
     /// <summary>
     /// The <c>faceapi</c> connector.
     /// </summary>
-    public const string Faceapi = "faceapi";
+    public const string FaceAPI = "faceapi";
 
     /// <summary>
     /// The <c>factset</c> connector.
     /// </summary>
-    public const string Factset = "factset";
+    public const string FactSet = "factset";
 
     /// <summary>
     /// The <c>fantasypremierleagueip</c> connector.
     /// </summary>
-    public const string Fantasypremierleagueip = "fantasypremierleagueip";
+    public const string FantasyPremierLeagueIndependentPublisher = "fantasypremierleagueip";
 
     /// <summary>
     /// The <c>farsightdnsdb</c> connector.
     /// </summary>
-    public const string Farsightdnsdb = "farsightdnsdb";
+    public const string FarsightDNSDB = "farsightdnsdb";
 
     /// <summary>
     /// The <c>fbimostwanted</c> connector.
     /// </summary>
-    public const string Fbimostwanted = "fbimostwanted";
+    public const string FBIMostWantedIndependentPublisher = "fbimostwanted";
 
     /// <summary>
     /// The <c>fdic</c> connector.
     /// </summary>
-    public const string Fdic = "fdic";
+    public const string FDICIndependentPublisher = "fdic";
 
     /// <summary>
     /// The <c>featheryforms</c> connector.
     /// </summary>
-    public const string Featheryforms = "featheryforms";
+    public const string FeatheryForms = "featheryforms";
 
     /// <summary>
     /// The <c>featheryip</c> connector.
     /// </summary>
-    public const string Featheryip = "featheryip";
+    public const string Feathery = "featheryip";
 
     /// <summary>
     /// The <c>federalreserveeconip</c> connector.
     /// </summary>
-    public const string Federalreserveeconip = "federalreserveeconip";
+    public const string FederalReserveEconomicDataIndependentPublisher = "federalreserveeconip";
 
     /// <summary>
     /// The <c>federalreservemarkets</c> connector.
     /// </summary>
-    public const string Federalreservemarkets = "federalreservemarkets";
+    public const string FederalReserveMarketsIndependentPublisher = "federalreservemarkets";
 
     /// <summary>
     /// The <c>fedex</c> connector.
     /// </summary>
-    public const string Fedex = "fedex";
+    public const string FedEx = "fedex";
 
     /// <summary>
     /// The <c>fedexdataworks</c> connector.
     /// </summary>
-    public const string Fedexdataworks = "fedexdataworks";
+    public const string FedExDataworks = "fedexdataworks";
 
     /// <summary>
     /// The <c>fedexsupplychainretu</c> connector.
     /// </summary>
-    public const string Fedexsupplychainretu = "fedexsupplychainretu";
+    public const string FedExSupplyChainReturns = "fedexsupplychainretu";
 
     /// <summary>
     /// The <c>fema</c> connector.
     /// </summary>
-    public const string Fema = "fema";
+    public const string FEMAIndependentPublisher = "fema";
 
     /// <summary>
     /// The <c>festivoip</c> connector.
     /// </summary>
-    public const string Festivoip = "festivoip";
+    public const string FestivoIndependentPublisher = "festivoip";
 
     /// <summary>
     /// The <c>fhirbase</c> connector.
     /// </summary>
-    public const string Fhirbase = "fhirbase";
+    public const string FHIRBase = "fhirbase";
 
     /// <summary>
     /// The <c>fhirclinical</c> connector.
     /// </summary>
-    public const string Fhirclinical = "fhirclinical";
+    public const string FHIRClinical = "fhirclinical";
 
     /// <summary>
     /// The <c>fhirlink</c> connector.
     /// </summary>
-    public const string Fhirlink = "fhirlink";
+    public const string FHIRlink = "fhirlink";
 
     /// <summary>
     /// The <c>fieldequip</c> connector.
     /// </summary>
-    public const string Fieldequip = "fieldequip";
+    public const string FieldEquip = "fieldequip";
 
     /// <summary>
     /// The <c>fileioip</c> connector.
     /// </summary>
-    public const string Fileioip = "fileioip";
+    public const string FileIoIndependentPublisher = "fileioip";
 
     /// <summary>
     /// The <c>filescom</c> connector.
     /// </summary>
-    public const string Filescom = "filescom";
+    public const string FilesCom = "filescom";
 
     /// <summary>
     /// The <c>filesystem</c> connector.
     /// </summary>
-    public const string Filesystem = "filesystem";
+    public const string FileSystem = "filesystem";
 
     /// <summary>
     /// The <c>finalcadoneconnect</c> connector.
     /// </summary>
-    public const string Finalcadoneconnect = "finalcadoneconnect";
+    public const string FinalcadOneConnect40 = "finalcadoneconnect";
 
     /// <summary>
     /// The <c>financialconductauth</c> connector.
     /// </summary>
-    public const string Financialconductauth = "financialconductauth";
+    public const string FCAIndependentPublisher = "financialconductauth";
 
     /// <summary>
     /// The <c>finnishbisip</c> connector.
     /// </summary>
-    public const string Finnishbisip = "finnishbisip";
+    public const string FinnishBISIndependentPublisher = "finnishbisip";
 
     /// <summary>
     /// The <c>finnishrailwaytrafip</c> connector.
     /// </summary>
-    public const string Finnishrailwaytrafip = "finnishrailwaytrafip";
+    public const string FinnishRailwayTrafficIndependentPublisher = "finnishrailwaytrafip";
 
     /// <summary>
     /// The <c>finra</c> connector.
     /// </summary>
-    public const string Finra = "finra";
+    public const string FINRAIndependentPublisher = "finra";
 
     /// <summary>
     /// The <c>firetext</c> connector.
     /// </summary>
-    public const string Firetext = "firetext";
+    public const string FireText = "firetext";
 
     /// <summary>
     /// The <c>fiscaldataservice</c> connector.
     /// </summary>
-    public const string Fiscaldataservice = "fiscaldataservice";
+    public const string FiscalDataServiceIndependentPublisher = "fiscaldataservice";
 
     /// <summary>
     /// The <c>fishwatchip</c> connector.
     /// </summary>
-    public const string Fishwatchip = "fishwatchip";
+    public const string FishWatchIndependentPublisher = "fishwatchip";
 
     /// <summary>
     /// The <c>flexe</c> connector.
@@ -2668,22 +2668,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>flotiqheadlesscms</c> connector.
     /// </summary>
-    public const string Flotiqheadlesscms = "flotiqheadlesscms";
+    public const string FlotiqHeadlessCMS = "flotiqheadlesscms";
 
     /// <summary>
     /// The <c>flowforma</c> connector.
     /// </summary>
-    public const string Flowforma = "flowforma";
+    public const string FlowForma = "flowforma";
 
     /// <summary>
     /// The <c>flowformav2</c> connector.
     /// </summary>
-    public const string Flowformav2 = "flowformav2";
+    public const string FlowFormaV2 = "flowformav2";
 
     /// <summary>
     /// The <c>fluidkinnectorzforpr</c> connector.
     /// </summary>
-    public const string Fluidkinnectorzforpr = "fluidkinnectorzforpr";
+    public const string FluidKinnectorzForProcore = "fluidkinnectorzforpr";
 
     /// <summary>
     /// The <c>fluxx</c> connector.
@@ -2693,27 +2693,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>focusmateip</c> connector.
     /// </summary>
-    public const string Focusmateip = "focusmateip";
+    public const string FocusmateIndependentPublisher = "focusmateip";
 
     /// <summary>
     /// The <c>forcamforcebridge</c> connector.
     /// </summary>
-    public const string Forcamforcebridge = "forcamforcebridge";
+    public const string FORCAMFORCEBridge = "forcamforcebridge";
 
     /// <summary>
     /// The <c>forcemanagercrm</c> connector.
     /// </summary>
-    public const string Forcemanagercrm = "forcemanagercrm";
+    public const string ForceManagerCRM = "forcemanagercrm";
 
     /// <summary>
     /// The <c>foremip</c> connector.
     /// </summary>
-    public const string Foremip = "foremip";
+    public const string ForemIndependentPublisher = "foremip";
 
     /// <summary>
     /// The <c>formrecognizer</c> connector.
     /// </summary>
-    public const string Formrecognizer = "formrecognizer";
+    public const string AzureAIDocumentIntelligenceFormRecognizer = "formrecognizer";
 
     /// <summary>
     /// The <c>formstackforms</c> connector.
@@ -2723,27 +2723,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>fraudlabsproip</c> connector.
     /// </summary>
-    public const string Fraudlabsproip = "fraudlabsproip";
+    public const string FraudLabsProIndependentPublisher = "fraudlabsproip";
 
     /// <summary>
     /// The <c>freeagentip</c> connector.
     /// </summary>
-    public const string Freeagentip = "freeagentip";
+    public const string FreeAgentIndependentPublisher = "freeagentip";
 
     /// <summary>
     /// The <c>freshbooks</c> connector.
     /// </summary>
-    public const string Freshbooks = "freshbooks";
+    public const string FreshBooks = "freshbooks";
 
     /// <summary>
     /// The <c>freshservice</c> connector.
     /// </summary>
-    public const string FreshService = "freshservice";
+    public const string Freshservice = "freshservice";
 
     /// <summary>
     /// The <c>ftp</c> connector.
     /// </summary>
-    public const string Ftp = "ftp";
+    public const string FTP = "ftp";
 
     /// <summary>
     /// The <c>fulcrum</c> connector.
@@ -2753,42 +2753,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>funtranslationsip</c> connector.
     /// </summary>
-    public const string Funtranslationsip = "funtranslationsip";
+    public const string FunTranslationsIndependentPublisher = "funtranslationsip";
 
     /// <summary>
     /// The <c>geodbip</c> connector.
     /// </summary>
-    public const string Geodbip = "geodbip";
+    public const string GeoDBIndependentPublisher = "geodbip";
 
     /// <summary>
     /// The <c>germanfederalparliament</c> connector.
     /// </summary>
-    public const string Germanfederalparliament = "germanfederalparliament";
+    public const string GermanFederalParliamentIndependentPublisher = "germanfederalparliament";
 
     /// <summary>
     /// The <c>getaccept</c> connector.
     /// </summary>
-    public const string Getaccept = "getaccept";
+    public const string GetAccept = "getaccept";
 
     /// <summary>
     /// The <c>getmyinvoices</c> connector.
     /// </summary>
-    public const string Getmyinvoices = "getmyinvoices";
+    public const string GetMyInvoices = "getmyinvoices";
 
     /// <summary>
     /// The <c>gienitsservermcp</c> connector.
     /// </summary>
-    public const string Gienitsservermcp = "gienitsservermcp";
+    public const string GieniTSServerMCP = "gienitsservermcp";
 
     /// <summary>
     /// The <c>giphyip</c> connector.
     /// </summary>
-    public const string Giphyip = "giphyip";
+    public const string GIPHYIndependentPublisher = "giphyip";
 
     /// <summary>
     /// The <c>giscloud</c> connector.
     /// </summary>
-    public const string Giscloud = "giscloud";
+    public const string GISCloud = "giscloud";
 
     /// <summary>
     /// The <c>github</c> connector.
@@ -2798,47 +2798,47 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>githubdata</c> connector.
     /// </summary>
-    public const string Githubdata = "githubdata";
+    public const string GithubDataIndependentPublisher = "githubdata";
 
     /// <summary>
     /// The <c>githubenterprise</c> connector.
     /// </summary>
-    public const string Githubenterprise = "githubenterprise";
+    public const string GitHubEnterpriseMSFT = "githubenterprise";
 
     /// <summary>
     /// The <c>githubgistsip</c> connector.
     /// </summary>
-    public const string Githubgistsip = "githubgistsip";
+    public const string GitHubGistsIndependentPublisher = "githubgistsip";
 
     /// <summary>
     /// The <c>githubutilsip</c> connector.
     /// </summary>
-    public const string Githubutilsip = "githubutilsip";
+    public const string GitHubUtilsIndependentPublisher = "githubutilsip";
 
     /// <summary>
     /// The <c>gitlabip</c> connector.
     /// </summary>
-    public const string Gitlabip = "gitlabip";
+    public const string GitLabIndependentPublisher = "gitlabip";
 
     /// <summary>
     /// The <c>givebutterip</c> connector.
     /// </summary>
-    public const string Givebutterip = "givebutterip";
+    public const string GivebutterIndependentPublisher = "givebutterip";
 
     /// <summary>
     /// The <c>glaasspro</c> connector.
     /// </summary>
-    public const string Glaasspro = "glaasspro";
+    public const string GlaassPro = "glaasspro";
 
     /// <summary>
     /// The <c>globalexchangerates</c> connector.
     /// </summary>
-    public const string Globalexchangerates = "globalexchangerates";
+    public const string GlobalExchangeRates = "globalexchangerates";
 
     /// <summary>
     /// The <c>globalgivingprojectip</c> connector.
     /// </summary>
-    public const string Globalgivingprojectip = "globalgivingprojectip";
+    public const string GlobalGivingProjectIndependentPublisher = "globalgivingprojectip";
 
     /// <summary>
     /// The <c>gmail</c> connector.
@@ -2848,27 +2848,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>gmosign</c> connector.
     /// </summary>
-    public const string Gmosign = "gmosign";
+    public const string GMOSign = "gmosign";
 
     /// <summary>
     /// The <c>gofileroom</c> connector.
     /// </summary>
-    public const string Gofileroom = "gofileroom";
+    public const string GoFileRoom = "gofileroom";
 
     /// <summary>
     /// The <c>goformz</c> connector.
     /// </summary>
-    public const string Goformz = "goformz";
+    public const string GoFormz = "goformz";
 
     /// <summary>
     /// The <c>googlebigqueryip</c> connector.
     /// </summary>
-    public const string Googlebigqueryip = "googlebigqueryip";
+    public const string GoogleBigQueryDevIndependentPublisher = "googlebigqueryip";
 
     /// <summary>
     /// The <c>googlebooksip</c> connector.
     /// </summary>
-    public const string Googlebooksip = "googlebooksip";
+    public const string GoogleBooksIndependentPublisher = "googlebooksip";
 
     /// <summary>
     /// The <c>googlecalendar</c> connector.
@@ -2878,12 +2878,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>googlecloudtranslaip</c> connector.
     /// </summary>
-    public const string Googlecloudtranslaip = "googlecloudtranslaip";
+    public const string GoogleCloudTranslationIndependentPublisher = "googlecloudtranslaip";
 
     /// <summary>
     /// The <c>googlecontacts</c> connector.
     /// </summary>
-    public const string Googlecontacts = "googlecontacts";
+    public const string GoogleContacts = "googlecontacts";
 
     /// <summary>
     /// The <c>googledrive</c> connector.
@@ -2893,22 +2893,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>googlegemini</c> connector.
     /// </summary>
-    public const string Googlegemini = "googlegemini";
+    public const string GoogleGeminiIndependentPublisher = "googlegemini";
 
     /// <summary>
     /// The <c>googlepalm</c> connector.
     /// </summary>
-    public const string Googlepalm = "googlepalm";
+    public const string GooglePaLMIndependentPublisher = "googlepalm";
 
     /// <summary>
     /// The <c>googlephotosip</c> connector.
     /// </summary>
-    public const string Googlephotosip = "googlephotosip";
+    public const string GooglePhotosIndependentPublisher = "googlephotosip";
 
     /// <summary>
     /// The <c>googlesheet</c> connector.
     /// </summary>
-    public const string Googlesheet = "googlesheet";
+    public const string GoogleSheets = "googlesheet";
 
     /// <summary>
     /// The <c>googletasks</c> connector.
@@ -2918,22 +2918,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>gotomeeting</c> connector.
     /// </summary>
-    public const string Gotomeeting = "gotomeeting";
+    public const string GoToMeeting = "gotomeeting";
 
     /// <summary>
     /// The <c>gototraining</c> connector.
     /// </summary>
-    public const string Gototraining = "gototraining";
+    public const string GoToTraining = "gototraining";
 
     /// <summary>
     /// The <c>gotowebinar</c> connector.
     /// </summary>
-    public const string Gotowebinar = "gotowebinar";
+    public const string GoToWebinar = "gotowebinar";
 
     /// <summary>
     /// The <c>govee</c> connector.
     /// </summary>
-    public const string Govee = "govee";
+    public const string GoveeIndependentPublisher = "govee";
 
     /// <summary>
     /// The <c>gratavid</c> connector.
@@ -2943,12 +2943,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>gravityformsbyreenhanced</c> connector.
     /// </summary>
-    public const string Gravityformsbyreenhanced = "gravityformsbyreenhanced";
+    public const string GravityFormsByReenhanced = "gravityformsbyreenhanced";
 
     /// <summary>
     /// The <c>gravityformsprofessi</c> connector.
     /// </summary>
-    public const string Gravityformsprofessi = "gravityformsprofessi";
+    public const string GravityFormsProfessional = "gravityformsprofessi";
 
     /// <summary>
     /// The <c>groopit</c> connector.
@@ -2958,32 +2958,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>groupmgr</c> connector.
     /// </summary>
-    public const string Groupmgr = "groupmgr";
+    public const string GroupMgr = "groupmgr";
 
     /// <summary>
     /// The <c>gsaanalytics</c> connector.
     /// </summary>
-    public const string Gsaanalytics = "gsaanalytics";
+    public const string GSAAnalyticsIndependentPublisher = "gsaanalytics";
 
     /// <summary>
     /// The <c>gsaperdiem</c> connector.
     /// </summary>
-    public const string Gsaperdiem = "gsaperdiem";
+    public const string GSAPerDiemIndependentPublisher = "gsaperdiem";
 
     /// <summary>
     /// The <c>gsapubliccomment</c> connector.
     /// </summary>
-    public const string Gsapubliccomment = "gsapubliccomment";
+    public const string GSAPublicCommentIndependentPublisher = "gsapubliccomment";
 
     /// <summary>
     /// The <c>gsasitescanning</c> connector.
     /// </summary>
-    public const string Gsasitescanning = "gsasitescanning";
+    public const string GSASiteScanningIndependentPublisher = "gsasitescanning";
 
     /// <summary>
     /// The <c>harnesspdfx</c> connector.
     /// </summary>
-    public const string Harnesspdfx = "harnesspdfx";
+    public const string HarnessPDFx = "harnesspdfx";
 
     /// <summary>
     /// The <c>harvest</c> connector.
@@ -2993,162 +2993,162 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hashgeneratorip</c> connector.
     /// </summary>
-    public const string Hashgeneratorip = "hashgeneratorip";
+    public const string HashGeneratorIndependentPublisher = "hashgeneratorip";
 
     /// <summary>
     /// The <c>hashifyip</c> connector.
     /// </summary>
-    public const string Hashifyip = "hashifyip";
+    public const string HashifyIndependentPublisher = "hashifyip";
 
     /// <summary>
     /// The <c>hashtagapiip</c> connector.
     /// </summary>
-    public const string Hashtagapiip = "hashtagapiip";
+    public const string HashtagAPIIndependentPublisher = "hashtagapiip";
 
     /// <summary>
     /// The <c>haveibeenpwnedip</c> connector.
     /// </summary>
-    public const string Haveibeenpwnedip = "haveibeenpwnedip";
+    public const string HaveIBeenPwnedIndependentPublisher = "haveibeenpwnedip";
 
     /// <summary>
     /// The <c>hellosign</c> connector.
     /// </summary>
-    public const string Hellosign = "hellosign";
+    public const string HelloSign = "hellosign";
 
     /// <summary>
     /// The <c>hhsmediaservices</c> connector.
     /// </summary>
-    public const string Hhsmediaservices = "hhsmediaservices";
+    public const string HHSMediaServicesIndependentPublisher = "hhsmediaservices";
 
     /// <summary>
     /// The <c>highgearworkflow</c> connector.
     /// </summary>
-    public const string Highgearworkflow = "highgearworkflow";
+    public const string HighGearWorkflow = "highgearworkflow";
 
     /// <summary>
     /// The <c>highq</c> connector.
     /// </summary>
-    public const string Highq = "highq";
+    public const string HighQ = "highq";
 
     /// <summary>
     /// The <c>highspotforsalescopi</c> connector.
     /// </summary>
-    public const string Highspotforsalescopi = "highspotforsalescopi";
+    public const string Highspot = "highspotforsalescopi";
 
     /// <summary>
     /// The <c>highspotmcptestjan20</c> connector.
     /// </summary>
-    public const string Highspotmcptestjan20 = "highspotmcptestjan20";
+    public const string HighspotMCP = "highspotmcptestjan20";
 
     /// <summary>
     /// The <c>hipchat</c> connector.
     /// </summary>
-    public const string Hipchat = "hipchat";
+    public const string HipChat = "hipchat";
 
     /// <summary>
     /// The <c>hithorizons</c> connector.
     /// </summary>
-    public const string Hithorizons = "hithorizons";
+    public const string HitHorizons = "hithorizons";
 
     /// <summary>
     /// The <c>hivecpqproductconfig</c> connector.
     /// </summary>
-    public const string Hivecpqproductconfig = "hivecpqproductconfig";
+    public const string HiveCPQProductConfigurator = "hivecpqproductconfig";
 
     /// <summary>
     /// The <c>holopin</c> connector.
     /// </summary>
-    public const string Holopin = "holopin";
+    public const string HolopinIndependentPublisher = "holopin";
 
     /// <summary>
     /// The <c>holopinip</c> connector.
     /// </summary>
-    public const string Holopinip = "holopinip";
+    public const string Holopin = "holopinip";
 
     /// <summary>
     /// The <c>honeywellforge</c> connector.
     /// </summary>
-    public const string Honeywellforge = "honeywellforge";
+    public const string HoneywellForge = "honeywellforge";
 
     /// <summary>
     /// The <c>hostio</c> connector.
     /// </summary>
-    public const string Hostio = "hostio";
+    public const string HostIoIndependentPublisher = "hostio";
 
     /// <summary>
     /// The <c>hotprofile</c> connector.
     /// </summary>
-    public const string Hotprofile = "hotprofile";
+    public const string HotProfile = "hotprofile";
 
     /// <summary>
     /// The <c>houdinio</c> connector.
     /// </summary>
-    public const string Houdinio = "houdinio";
+    public const string HoudinIo = "houdinio";
 
     /// <summary>
     /// The <c>houseraterqa</c> connector.
     /// </summary>
-    public const string Houseraterqa = "houseraterqa";
+    public const string HouseRaterQA = "houseraterqa";
 
     /// <summary>
     /// The <c>hrcloud</c> connector.
     /// </summary>
-    public const string Hrcloud = "hrcloud";
+    public const string HRCloud = "hrcloud";
 
     /// <summary>
     /// The <c>hrflowai</c> connector.
     /// </summary>
-    public const string Hrflowai = "hrflowai";
+    public const string HrFlowAi = "hrflowai";
 
     /// <summary>
     /// The <c>htmltopdfconverter</c> connector.
     /// </summary>
-    public const string Htmltopdfconverter = "htmltopdfconverter";
+    public const string HTMLToPDFByPascalcase = "htmltopdfconverter";
 
     /// <summary>
     /// The <c>httpgardenip</c> connector.
     /// </summary>
-    public const string Httpgardenip = "httpgardenip";
+    public const string HttpGardenIndependentPublisher = "httpgardenip";
 
     /// <summary>
     /// The <c>hubspotcms</c> connector.
     /// </summary>
-    public const string Hubspotcms = "hubspotcms";
+    public const string HubSpotCMSIndependentPublisher = "hubspotcms";
 
     /// <summary>
     /// The <c>hubspotcmsv2</c> connector.
     /// </summary>
-    public const string Hubspotcmsv2 = "hubspotcmsv2";
+    public const string HubSpotCMSV2IndependentPublisher = "hubspotcmsv2";
 
     /// <summary>
     /// The <c>hubspotconversations</c> connector.
     /// </summary>
-    public const string Hubspotconversations = "hubspotconversations";
+    public const string HubSpotConversationsV2IndependentPublisher = "hubspotconversations";
 
     /// <summary>
     /// The <c>hubspotcrm</c> connector.
     /// </summary>
-    public const string Hubspotcrm = "hubspotcrm";
+    public const string HubSpotCRMIndependentPublisher = "hubspotcrm";
 
     /// <summary>
     /// The <c>hubspotcrmv2</c> connector.
     /// </summary>
-    public const string Hubspotcrmv2 = "hubspotcrmv2";
+    public const string HubSpotCRMV2IndependentPublisher = "hubspotcrmv2";
 
     /// <summary>
     /// The <c>hubspotengagementsv2</c> connector.
     /// </summary>
-    public const string Hubspotengagementsv2 = "hubspotengagementsv2";
+    public const string HubSpotEngagementsV2IndependentPublisher = "hubspotengagementsv2";
 
     /// <summary>
     /// The <c>hubspotmarketing</c> connector.
     /// </summary>
-    public const string Hubspotmarketing = "hubspotmarketing";
+    public const string HubSpotMarketingIndependentPublisher = "hubspotmarketing";
 
     /// <summary>
     /// The <c>hubspotsettingsv2</c> connector.
     /// </summary>
-    public const string Hubspotsettingsv2 = "hubspotsettingsv2";
+    public const string HubSpotSettingsV2IndependentPublisher = "hubspotsettingsv2";
 
     /// <summary>
     /// The <c>huddle</c> connector.
@@ -3158,122 +3158,122 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>huddleforusgovhealth</c> connector.
     /// </summary>
-    public const string Huddleforusgovhealth = "huddleforusgovhealth";
+    public const string HuddleForUSGovHealthcare = "huddleforusgovhealth";
 
     /// <summary>
     /// The <c>huddoboards</c> connector.
     /// </summary>
-    public const string Huddoboards = "huddoboards";
+    public const string HuddoBoards = "huddoboards";
 
     /// <summary>
     /// The <c>huedatagate</c> connector.
     /// </summary>
-    public const string Huedatagate = "huedatagate";
+    public const string HUEDatagate = "huedatagate";
 
     /// <summary>
     /// The <c>huggingfaceip</c> connector.
     /// </summary>
-    public const string Huggingfaceip = "huggingfaceip";
+    public const string HuggingFaceIndependentPublisher = "huggingfaceip";
 
     /// <summary>
     /// The <c>hume</c> connector.
     /// </summary>
-    public const string Hume = "hume";
+    public const string HumeIndependentPublisher = "hume";
 
     /// <summary>
     /// The <c>hunterip</c> connector.
     /// </summary>
-    public const string Hunterip = "hunterip";
+    public const string HunterIndependentPublisher = "hunterip";
 
     /// <summary>
     /// The <c>hvivehicleinspection</c> connector.
     /// </summary>
-    public const string Hvivehicleinspection = "hvivehicleinspection";
+    public const string HVIVehicleInspectionV12 = "hvivehicleinspection";
 
     /// <summary>
     /// The <c>hyasinsight</c> connector.
     /// </summary>
-    public const string Hyasinsight = "hyasinsight";
+    public const string HYASInsight = "hyasinsight";
 
     /// <summary>
     /// The <c>iaconnectdynamiccode</c> connector.
     /// </summary>
-    public const string Iaconnectdynamiccode = "iaconnectdynamiccode";
+    public const string IAConnectDynamicCode = "iaconnectdynamiccode";
 
     /// <summary>
     /// The <c>iaconnectjava</c> connector.
     /// </summary>
-    public const string Iaconnectjava = "iaconnectjava";
+    public const string IAConnectJava = "iaconnectjava";
 
     /// <summary>
     /// The <c>iaconnectjml</c> connector.
     /// </summary>
-    public const string Iaconnectjml = "iaconnectjml";
+    public const string IAConnectJML = "iaconnectjml";
 
     /// <summary>
     /// The <c>iaconnectmainframe</c> connector.
     /// </summary>
-    public const string Iaconnectmainframe = "iaconnectmainframe";
+    public const string IAConnectMainframe = "iaconnectmainframe";
 
     /// <summary>
     /// The <c>iaconnectmsoffice</c> connector.
     /// </summary>
-    public const string Iaconnectmsoffice = "iaconnectmsoffice";
+    public const string IAConnectToMicrosoftOffice = "iaconnectmsoffice";
 
     /// <summary>
     /// The <c>iaconnectsapgui</c> connector.
     /// </summary>
-    public const string Iaconnectsapgui = "iaconnectsapgui";
+    public const string IAConnectSAPGUI = "iaconnectsapgui";
 
     /// <summary>
     /// The <c>iaconnectsession</c> connector.
     /// </summary>
-    public const string Iaconnectsession = "iaconnectsession";
+    public const string IAConnectSession = "iaconnectsession";
 
     /// <summary>
     /// The <c>iaconnectui</c> connector.
     /// </summary>
-    public const string Iaconnectui = "iaconnectui";
+    public const string IAConnectUI = "iaconnectui";
 
     /// <summary>
     /// The <c>iaconnectwebbrowser</c> connector.
     /// </summary>
-    public const string Iaconnectwebbrowser = "iaconnectwebbrowser";
+    public const string IAConnectWebBrowser = "iaconnectwebbrowser";
 
     /// <summary>
     /// The <c>ibmwatsonassistantip</c> connector.
     /// </summary>
-    public const string Ibmwatsonassistantip = "ibmwatsonassistantip";
+    public const string IBMWatsonAssistantIndependentPublisher = "ibmwatsonassistantip";
 
     /// <summary>
     /// The <c>ibmwatsontexttospeip</c> connector.
     /// </summary>
-    public const string Ibmwatsontexttospeip = "ibmwatsontexttospeip";
+    public const string IBMWatsonTextToSpeechIndependentPublisher = "ibmwatsontexttospeip";
 
     /// <summary>
     /// The <c>icanhazdadjokeip</c> connector.
     /// </summary>
-    public const string Icanhazdadjokeip = "icanhazdadjokeip";
+    public const string IcanhazdadjokeIndependentPublisher = "icanhazdadjokeip";
 
     /// <summary>
     /// The <c>iceandfiregotip</c> connector.
     /// </summary>
-    public const string Iceandfiregotip = "iceandfiregotip";
+    public const string IceAndFireGameOfThronesIndependentPublisher = "iceandfiregotip";
 
     /// <summary>
     /// The <c>icm</c> connector.
     /// </summary>
-    public const string Icm = "icm";
+    public const string IcM = "icm";
 
     /// <summary>
     /// The <c>iconhorseip</c> connector.
     /// </summary>
-    public const string Iconhorseip = "iconhorseip";
+    public const string IconHorseIndependentPublisher = "iconhorseip";
 
     /// <summary>
     /// The <c>idanalyzer</c> connector.
     /// </summary>
-    public const string Idanalyzer = "idanalyzer";
+    public const string IdAnalyzer = "idanalyzer";
 
     /// <summary>
     /// The <c>ideanote</c> connector.
@@ -3283,57 +3283,57 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ifactoproofofdeliver</c> connector.
     /// </summary>
-    public const string Ifactoproofofdeliver = "ifactoproofofdeliver";
+    public const string IFactoProofOfDelivery = "ifactoproofofdeliver";
 
     /// <summary>
     /// The <c>ilovepdf</c> connector.
     /// </summary>
-    public const string Ilovepdf = "ilovepdf";
+    public const string ILovePDF = "ilovepdf";
 
     /// <summary>
     /// The <c>ilovepdfv2</c> connector.
     /// </summary>
-    public const string Ilovepdfv2 = "ilovepdfv2";
+    public const string ILovePDFv2 = "ilovepdfv2";
 
     /// <summary>
     /// The <c>ilovesign</c> connector.
     /// </summary>
-    public const string Ilovesign = "ilovesign";
+    public const string ILoveSign = "ilovesign";
 
     /// <summary>
     /// The <c>imanageai</c> connector.
     /// </summary>
-    public const string Imanageai = "imanageai";
+    public const string IManageAI = "imanageai";
 
     /// <summary>
     /// The <c>imanagedatamarts</c> connector.
     /// </summary>
-    public const string Imanagedatamarts = "imanagedatamarts";
+    public const string IManageDataMarts = "imanagedatamarts";
 
     /// <summary>
     /// The <c>imanageinsightplus</c> connector.
     /// </summary>
-    public const string Imanageinsightplus = "imanageinsightplus";
+    public const string IManageInsightPlus = "imanageinsightplus";
 
     /// <summary>
     /// The <c>imanagetracker</c> connector.
     /// </summary>
-    public const string Imanagetracker = "imanagetracker";
+    public const string IManageTracker = "imanagetracker";
 
     /// <summary>
     /// The <c>imanagework</c> connector.
     /// </summary>
-    public const string Imanagework = "imanagework";
+    public const string IManageWork = "imanagework";
 
     /// <summary>
     /// The <c>imanageworkforadmins</c> connector.
     /// </summary>
-    public const string Imanageworkforadmins = "imanageworkforadmins";
+    public const string IManageWorkForAdmins = "imanageworkforadmins";
 
     /// <summary>
     /// The <c>imis</c> connector.
     /// </summary>
-    public const string Imis = "imis";
+    public const string IMIS = "imis";
 
     /// <summary>
     /// The <c>impexium</c> connector.
@@ -3343,52 +3343,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>impower</c> connector.
     /// </summary>
-    public const string Impower = "impower";
+    public const string ImpowerERP = "impower";
 
     /// <summary>
     /// The <c>imprezian</c> connector.
     /// </summary>
-    public const string Imprezian = "imprezian";
+    public const string Imprezian360CRM = "imprezian";
 
     /// <summary>
     /// The <c>indaadhaarnm</c> connector.
     /// </summary>
-    public const string Indaadhaarnm = "indaadhaarnm";
+    public const string INDAadhaarNumberMasking = "indaadhaarnm";
 
     /// <summary>
     /// The <c>indfacematch</c> connector.
     /// </summary>
-    public const string Indfacematch = "indfacematch";
+    public const string INDFaceMatch = "indfacematch";
 
     /// <summary>
     /// The <c>indinsurance</c> connector.
     /// </summary>
-    public const string Indinsurance = "indinsurance";
+    public const string INDInsuranceICD10CPT = "indinsurance";
 
     /// <summary>
     /// The <c>indinvoicedatacapture</c> connector.
     /// </summary>
-    public const string Indinvoicedatacapture = "indinvoicedatacapture";
+    public const string INDInvoiceDataCapture = "indinvoicedatacapture";
 
     /// <summary>
     /// The <c>indkycindia</c> connector.
     /// </summary>
-    public const string Indkycindia = "indkycindia";
+    public const string INDKYCIndia = "indkycindia";
 
     /// <summary>
     /// The <c>indpayables</c> connector.
     /// </summary>
-    public const string Indpayables = "indpayables";
+    public const string INDPayables = "indpayables";
 
     /// <summary>
     /// The <c>industrialappstore</c> connector.
     /// </summary>
-    public const string Industrialappstore = "industrialappstore";
+    public const string IndustrialAppStore = "industrialappstore";
 
     /// <summary>
     /// The <c>influenzandcovid19ip</c> connector.
     /// </summary>
-    public const string Influenzandcovid19ip = "influenzandcovid19ip";
+    public const string InfluenzaAndCovid19IndependentPublisher = "influenzandcovid19ip";
 
     /// <summary>
     /// The <c>infobip</c> connector.
@@ -3398,7 +3398,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>infoquery</c> connector.
     /// </summary>
-    public const string Infoquery = "infoquery";
+    public const string InfoQuery = "infoquery";
 
     /// <summary>
     /// The <c>informix</c> connector.
@@ -3408,17 +3408,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>infoshare</c> connector.
     /// </summary>
-    public const string Infoshare = "infoshare";
+    public const string InfoShare = "infoshare";
 
     /// <summary>
     /// The <c>infovetted</c> connector.
     /// </summary>
-    public const string Infovetted = "infovetted";
+    public const string InfoVetted = "infovetted";
 
     /// <summary>
     /// The <c>infuraethereumip</c> connector.
     /// </summary>
-    public const string Infuraethereumip = "infuraethereumip";
+    public const string InfuraEthereumIndependentPublisher = "infuraethereumip";
 
     /// <summary>
     /// The <c>infusionsoft</c> connector.
@@ -3428,7 +3428,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>inloox</c> connector.
     /// </summary>
-    public const string Inloox = "inloox";
+    public const string InLoox = "inloox";
 
     /// <summary>
     /// The <c>inoreader</c> connector.
@@ -3438,7 +3438,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>inqubajourney</c> connector.
     /// </summary>
-    public const string Inqubajourney = "inqubajourney";
+    public const string InQubaJourney = "inqubajourney";
 
     /// <summary>
     /// The <c>insightly</c> connector.
@@ -3448,7 +3448,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>instagrambasicdispip</c> connector.
     /// </summary>
-    public const string Instagrambasicdispip = "instagrambasicdispip";
+    public const string InstagramBasicDisplayIndependentPublisher = "instagrambasicdispip";
 
     /// <summary>
     /// The <c>instapaper</c> connector.
@@ -3458,32 +3458,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>instatusip</c> connector.
     /// </summary>
-    public const string Instatusip = "instatusip";
+    public const string InstatusIndependentPublisher = "instatusip";
 
     /// <summary>
     /// The <c>integrablepdf</c> connector.
     /// </summary>
-    public const string Integrablepdf = "integrablepdf";
+    public const string IntegrablePDF = "integrablepdf";
 
     /// <summary>
     /// The <c>intelixiocanalysismc</c> connector.
     /// </summary>
-    public const string Intelixiocanalysismc = "intelixiocanalysismc";
+    public const string IntelixIOCAnalysisMCP = "intelixiocanalysismc";
 
     /// <summary>
     /// The <c>intellihr</c> connector.
     /// </summary>
-    public const string Intellihr = "intellihr";
+    public const string IntelliHR = "intellihr";
 
     /// <summary>
     /// The <c>intentionaldatasources</c> connector.
     /// </summary>
-    public const string Intentionaldatasources = "intentionaldatasources";
+    public const string IntentionalDataSources = "intentionaldatasources";
 
     /// <summary>
     /// The <c>interaction</c> connector.
     /// </summary>
-    public const string Interaction = "interaction";
+    public const string InterAction = "interaction";
 
     /// <summary>
     /// The <c>intercom</c> connector.
@@ -3493,87 +3493,87 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>iobeya</c> connector.
     /// </summary>
-    public const string Iobeya = "iobeya";
+    public const string IObeya = "iobeya";
 
     /// <summary>
     /// The <c>iotcentral</c> connector.
     /// </summary>
-    public const string Iotcentral = "iotcentral";
+    public const string AzureIoTCentralV2 = "iotcentral";
 
     /// <summary>
     /// The <c>ip2locationip</c> connector.
     /// </summary>
-    public const string Ip2locationip = "ip2locationip";
+    public const string IP2LOCATIONIndependentPublisher = "ip2locationip";
 
     /// <summary>
     /// The <c>ip2whoisip</c> connector.
     /// </summary>
-    public const string Ip2whoisip = "ip2whoisip";
+    public const string IP2WHOISIndependentPublisher = "ip2whoisip";
 
     /// <summary>
     /// The <c>ipqsfraudandriskscor</c> connector.
     /// </summary>
-    public const string Ipqsfraudandriskscor = "ipqsfraudandriskscor";
+    public const string IPQSFraudAndRiskScoring = "ipqsfraudandriskscor";
 
     /// <summary>
     /// The <c>iqairip</c> connector.
     /// </summary>
-    public const string Iqairip = "iqairip";
+    public const string IQAirIndependentPublisher = "iqairip";
 
     /// <summary>
     /// The <c>isoplanner</c> connector.
     /// </summary>
-    public const string Isoplanner = "isoplanner";
+    public const string ISOPlanner = "isoplanner";
 
     /// <summary>
     /// The <c>itautomate</c> connector.
     /// </summary>
-    public const string Itautomate = "itautomate";
+    public const string ITautomate = "itautomate";
 
     /// <summary>
     /// The <c>itglue</c> connector.
     /// </summary>
-    public const string Itglue = "itglue";
+    public const string ITGlueIndependentPublisher = "itglue";
 
     /// <summary>
     /// The <c>jasperip</c> connector.
     /// </summary>
-    public const string Jasperip = "jasperip";
+    public const string JasperIndependentPublisher = "jasperip";
 
     /// <summary>
     /// The <c>jbhunt</c> connector.
     /// </summary>
-    public const string Jbhunt = "jbhunt";
+    public const string JBHunt = "jbhunt";
 
     /// <summary>
     /// The <c>jedoxodatahub</c> connector.
     /// </summary>
-    public const string JedoxOdataHub = "jedoxodatahub";
+    public const string JedoxODataHub = "jedoxodatahub";
 
     /// <summary>
     /// The <c>jgintegrations</c> connector.
     /// </summary>
-    public const string Jgintegrations = "jgintegrations";
+    public const string JGIntegrations = "jgintegrations";
 
     /// <summary>
     /// The <c>jirasearch</c> connector.
     /// </summary>
-    public const string Jirasearch = "jirasearch";
+    public const string JIRASearchIndependentPublisher = "jirasearch";
 
     /// <summary>
     /// The <c>jotform</c> connector.
     /// </summary>
-    public const string Jotform = "jotform";
+    public const string JotForm = "jotform";
 
     /// <summary>
     /// The <c>jotformenterprise</c> connector.
     /// </summary>
-    public const string Jotformenterprise = "jotformenterprise";
+    public const string JotformEnterprise = "jotformenterprise";
 
     /// <summary>
     /// The <c>junglemail365</c> connector.
     /// </summary>
-    public const string Junglemail365 = "junglemail365";
+    public const string JungleMail365 = "junglemail365";
 
     /// <summary>
     /// The <c>jupyrest</c> connector.
@@ -3583,37 +3583,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>k2workflow</c> connector.
     /// </summary>
-    public const string K2workflow = "k2workflow";
+    public const string K2Workflow = "k2workflow";
 
     /// <summary>
     /// The <c>kagi</c> connector.
     /// </summary>
-    public const string Kagi = "kagi";
+    public const string KagiIndependentPublisher = "kagi";
 
     /// <summary>
     /// The <c>kaizala</c> connector.
     /// </summary>
-    public const string Kaizala = "kaizala";
+    public const string MicrosoftKaizala = "kaizala";
 
     /// <summary>
     /// The <c>kanbanize</c> connector.
     /// </summary>
-    public const string Kanbanize = "kanbanize";
+    public const string Businessmap = "kanbanize";
 
     /// <summary>
     /// The <c>kanbantool</c> connector.
     /// </summary>
-    public const string Kanbantool = "kanbantool";
+    public const string KanbanTool = "kanbantool";
 
     /// <summary>
     /// The <c>keyvault</c> connector.
     /// </summary>
-    public const string KeyVault = "keyvault";
+    public const string AzureKeyVault = "keyvault";
 
     /// <summary>
     /// The <c>khalibrelms</c> connector.
     /// </summary>
-    public const string Khalibrelms = "khalibrelms";
+    public const string KhalibreLMS = "khalibrelms";
 
     /// <summary>
     /// The <c>kintone</c> connector.
@@ -3623,17 +3623,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>knowledgelake</c> connector.
     /// </summary>
-    public const string Knowledgelake = "knowledgelake";
+    public const string KnowledgeLake = "knowledgelake";
 
     /// <summary>
     /// The <c>knowledgeonerecfind6</c> connector.
     /// </summary>
-    public const string Knowledgeonerecfind6 = "knowledgeonerecfind6";
+    public const string KnowledgeoneRecFind6 = "knowledgeonerecfind6";
 
     /// <summary>
     /// The <c>korto</c> connector.
     /// </summary>
-    public const string Korto = "korto";
+    public const string KORTOV2 = "korto";
 
     /// <summary>
     /// The <c>kroki</c> connector.
@@ -3643,52 +3643,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>krozupmip</c> connector.
     /// </summary>
-    public const string Krozupmip = "krozupmip";
+    public const string KrozuPMIndependentPublisher = "krozupmip";
 
     /// <summary>
     /// The <c>kusto</c> connector.
     /// </summary>
-    public const string Kusto = "kusto";
+    public const string AzureDataExplorer = "kusto";
 
     /// <summary>
     /// The <c>kyndrylmainframe</c> connector.
     /// </summary>
-    public const string Kyndrylmainframe = "kyndrylmainframe";
+    public const string KyndrylMainframe = "kyndrylmainframe";
 
     /// <summary>
     /// The <c>languagequestionansw</c> connector.
     /// </summary>
-    public const string Languagequestionansw = "languagequestionansw";
+    public const string LanguageQuestionAnswering = "languagequestionansw";
 
     /// <summary>
     /// The <c>lansweeperappforsent</c> connector.
     /// </summary>
-    public const string Lansweeperappforsent = "lansweeperappforsent";
+    public const string LansweeperAppForSentinel = "lansweeperappforsent";
 
     /// <summary>
     /// The <c>lassox</c> connector.
     /// </summary>
-    public const string Lassox = "lassox";
+    public const string LassoX = "lassox";
 
     /// <summary>
     /// The <c>latinsharedocuments</c> connector.
     /// </summary>
-    public const string Latinsharedocuments = "latinsharedocuments";
+    public const string LatinShareDocuments = "latinsharedocuments";
 
     /// <summary>
     /// The <c>latinshareshpmanagement</c> connector.
     /// </summary>
-    public const string Latinshareshpmanagement = "latinshareshpmanagement";
+    public const string LatinShareSHPManagement = "latinshareshpmanagement";
 
     /// <summary>
     /// The <c>latinshareshppermissions</c> connector.
     /// </summary>
-    public const string Latinshareshppermissions = "latinshareshppermissions";
+    public const string LatinShareSHPPermissions = "latinshareshppermissions";
 
     /// <summary>
     /// The <c>launchlibrary2ip</c> connector.
     /// </summary>
-    public const string Launchlibrary2ip = "launchlibrary2ip";
+    public const string LaunchLibrary2IndependentPublisher = "launchlibrary2ip";
 
     /// <summary>
     /// The <c>lawlift</c> connector.
@@ -3698,37 +3698,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>lcpicordis</c> connector.
     /// </summary>
-    public const string Lcpicordis = "lcpicordis";
+    public const string LCPICordis = "lcpicordis";
 
     /// <summary>
     /// The <c>leaddesk</c> connector.
     /// </summary>
-    public const string Leaddesk = "leaddesk";
+    public const string LeadDesk = "leaddesk";
 
     /// <summary>
     /// The <c>leadloader</c> connector.
     /// </summary>
-    public const string Leadloader = "leadloader";
+    public const string Repfabric = "leadloader";
 
     /// <summary>
     /// The <c>leankit</c> connector.
     /// </summary>
-    public const string Leankit = "leankit";
+    public const string LeanKit = "leankit";
 
     /// <summary>
     /// The <c>leapaiip</c> connector.
     /// </summary>
-    public const string Leapaiip = "leapaiip";
+    public const string LeapIndependentPublisher = "leapaiip";
 
     /// <summary>
     /// The <c>leavedates</c> connector.
     /// </summary>
-    public const string Leavedates = "leavedates";
+    public const string LeaveDatesIndependentPublisher = "leavedates";
 
     /// <summary>
     /// The <c>legalbotaitools</c> connector.
     /// </summary>
-    public const string Legalbotaitools = "legalbotaitools";
+    public const string LegalBotAITools = "legalbotaitools";
 
     /// <summary>
     /// The <c>legalesign</c> connector.
@@ -3738,147 +3738,147 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>legiscan</c> connector.
     /// </summary>
-    public const string Legiscan = "legiscan";
+    public const string LegiScanIndependentPublisher = "legiscan";
 
     /// <summary>
     /// The <c>letterdrop</c> connector.
     /// </summary>
-    public const string Letterdrop = "letterdrop";
+    public const string LetterdropIndependentPublisher = "letterdrop";
 
     /// <summary>
     /// The <c>lettria</c> connector.
     /// </summary>
-    public const string Lettria = "lettria";
+    public const string LettriaIndependentPublisher = "lettria";
 
     /// <summary>
     /// The <c>lettriagdprcompliance</c> connector.
     /// </summary>
-    public const string Lettriagdprcompliance = "lettriagdprcompliance";
+    public const string LettriaGDPRCompliance = "lettriagdprcompliance";
 
     /// <summary>
     /// The <c>lexicaip</c> connector.
     /// </summary>
-    public const string Lexicaip = "lexicaip";
+    public const string LexicaIndependentPublisher = "lexicaip";
 
     /// <summary>
     /// The <c>lexoffice</c> connector.
     /// </summary>
-    public const string Lexoffice = "lexoffice";
+    public const string LexofficeIndependentPublisher = "lexoffice";
 
     /// <summary>
     /// The <c>lexpowersign</c> connector.
     /// </summary>
-    public const string Lexpowersign = "lexpowersign";
+    public const string LexPowerSign = "lexpowersign";
 
     /// <summary>
     /// The <c>libraryofcongressip</c> connector.
     /// </summary>
-    public const string Libraryofcongressip = "libraryofcongressip";
+    public const string LibraryOfCongress = "libraryofcongressip";
 
     /// <summary>
     /// The <c>libreborip</c> connector.
     /// </summary>
-    public const string Libreborip = "libreborip";
+    public const string LibreBorIndependentPublisher = "libreborip";
 
     /// <summary>
     /// The <c>lifx</c> connector.
     /// </summary>
-    public const string Lifx = "lifx";
+    public const string LIFX = "lifx";
 
     /// <summary>
     /// The <c>linemessageip</c> connector.
     /// </summary>
-    public const string Linemessageip = "linemessageip";
+    public const string LineMessageIndependentPublisher = "linemessageip";
 
     /// <summary>
     /// The <c>linkedinv2</c> connector.
     /// </summary>
-    public const string Linkedinv2 = "linkedinv2";
+    public const string LinkedInV2 = "linkedinv2";
 
     /// <summary>
     /// The <c>linkmobility</c> connector.
     /// </summary>
-    public const string Linkmobility = "linkmobility";
+    public const string LINKMobility = "linkmobility";
 
     /// <summary>
     /// The <c>literasearch</c> connector.
     /// </summary>
-    public const string Literasearch = "literasearch";
+    public const string LiteraSearch = "literasearch";
 
     /// <summary>
     /// The <c>litipsumip</c> connector.
     /// </summary>
-    public const string Litipsumip = "litipsumip";
+    public const string LitIpsumIndependentPublisher = "litipsumip";
 
     /// <summary>
     /// The <c>livechat</c> connector.
     /// </summary>
-    public const string Livechat = "livechat";
+    public const string LiveChat = "livechat";
 
     /// <summary>
     /// The <c>livetilesbots</c> connector.
     /// </summary>
-    public const string Livetilesbots = "livetilesbots";
+    public const string LiveTilesBots = "livetilesbots";
 
     /// <summary>
     /// The <c>lms365</c> connector.
     /// </summary>
-    public const string Lms365 = "lms365";
+    public const string LMS365 = "lms365";
 
     /// <summary>
     /// The <c>lnkbio</c> connector.
     /// </summary>
-    public const string Lnkbio = "lnkbio";
+    public const string LnkBio = "lnkbio";
 
     /// <summary>
     /// The <c>loginllamaip</c> connector.
     /// </summary>
-    public const string Loginllamaip = "loginllamaip";
+    public const string LoginLlama = "loginllamaip";
 
     /// <summary>
     /// The <c>loripsumip</c> connector.
     /// </summary>
-    public const string Loripsumip = "loripsumip";
+    public const string LoripsumIndependentPublisher = "loripsumip";
 
     /// <summary>
     /// The <c>lseg</c> connector.
     /// </summary>
-    public const string Lseg = "lseg";
+    public const string LSEG = "lseg";
 
     /// <summary>
     /// The <c>lsegfinancialanalyti</c> connector.
     /// </summary>
-    public const string Lsegfinancialanalyti = "lsegfinancialanalyti";
+    public const string LSEGFinancialAnalytics = "lsegfinancialanalyti";
 
     /// <summary>
     /// The <c>lucidmcpserver</c> connector.
     /// </summary>
-    public const string Lucidmcpserver = "lucidmcpserver";
+    public const string LucidMCPServer = "lucidmcpserver";
 
     /// <summary>
     /// The <c>luis</c> connector.
     /// </summary>
-    public const string Luis = "luis";
+    public const string LUIS = "luis";
 
     /// <summary>
     /// The <c>m365messagecenter</c> connector.
     /// </summary>
-    public const string M365messagecenter = "m365messagecenter";
+    public const string Microsoft365MessageCenter = "m365messagecenter";
 
     /// <summary>
     /// The <c>m365updatesapp</c> connector.
     /// </summary>
-    public const string M365updatesapp = "m365updatesapp";
+    public const string UpdatesAppMicrosoft365 = "m365updatesapp";
 
     /// <summary>
     /// The <c>maersk</c> connector.
     /// </summary>
-    public const string Maersk = "maersk";
+    public const string MaerskIndependentPublisher = "maersk";
 
     /// <summary>
     /// The <c>mailboxvalidatorip</c> connector.
     /// </summary>
-    public const string Mailboxvalidatorip = "mailboxvalidatorip";
+    public const string MailboxValidatorIndependentPublisher = "mailboxvalidatorip";
 
     /// <summary>
     /// The <c>mailchimp</c> connector.
@@ -3893,22 +3893,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mailinatorip</c> connector.
     /// </summary>
-    public const string Mailinatorip = "mailinatorip";
+    public const string Mailinator = "mailinatorip";
 
     /// <summary>
     /// The <c>mailjetip</c> connector.
     /// </summary>
-    public const string Mailjetip = "mailjetip";
+    public const string MailJetIndependentPublisher = "mailjetip";
 
     /// <summary>
     /// The <c>mailparser</c> connector.
     /// </summary>
-    public const string Mailparser = "mailparser";
+    public const string MailParser = "mailparser";
 
     /// <summary>
     /// The <c>maintenancerequestox</c> connector.
     /// </summary>
-    public const string Maintenancerequestox = "maintenancerequestox";
+    public const string MaintenanceRequestOxmaintIndependentPublisher = "maintenancerequestox";
 
     /// <summary>
     /// The <c>mandrill</c> connector.
@@ -3918,62 +3918,62 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mapboxip</c> connector.
     /// </summary>
-    public const string Mapboxip = "mapboxip";
+    public const string MapboxIndependentPublisher = "mapboxip";
 
     /// <summary>
     /// The <c>mappro</c> connector.
     /// </summary>
-    public const string Mappro = "mappro";
+    public const string MapPro = "mappro";
 
     /// <summary>
     /// The <c>maqtextanalytics</c> connector.
     /// </summary>
-    public const string Maqtextanalytics = "maqtextanalytics";
+    public const string TextAnalytics = "maqtextanalytics";
 
     /// <summary>
     /// The <c>markdownconverter</c> connector.
     /// </summary>
-    public const string Markdownconverter = "markdownconverter";
+    public const string MarkdownConverterIndependentPublisher = "markdownconverter";
 
     /// <summary>
     /// The <c>marketingcontenthub</c> connector.
     /// </summary>
-    public const string Marketingcontenthub = "marketingcontenthub";
+    public const string MarketingContentHub = "marketingcontenthub";
 
     /// <summary>
     /// The <c>marketoma</c> connector.
     /// </summary>
-    public const string Marketoma = "marketoma";
+    public const string MarketoMA = "marketoma";
 
     /// <summary>
     /// The <c>mavimai</c> connector.
     /// </summary>
-    public const string Mavimai = "mavimai";
+    public const string MavimAI = "mavimai";
 
     /// <summary>
     /// The <c>mavimimprove</c> connector.
     /// </summary>
-    public const string Mavimimprove = "mavimimprove";
+    public const string MavimIMprove = "mavimimprove";
 
     /// <summary>
     /// The <c>mavimintelligentxfor</c> connector.
     /// </summary>
-    public const string Mavimintelligentxfor = "mavimintelligentxfor";
+    public const string MavimIntelligentXformation = "mavimintelligentxfor";
 
     /// <summary>
     /// The <c>maximizercrm</c> connector.
     /// </summary>
-    public const string Maximizercrm = "maximizercrm";
+    public const string MaximizerCRM = "maximizercrm";
 
     /// <summary>
     /// The <c>mcphivetintegration</c> connector.
     /// </summary>
-    public const string Mcphivetintegration = "mcphivetintegration";
+    public const string MCPHiveTIntegration = "mcphivetintegration";
 
     /// <summary>
     /// The <c>meaningcloudip</c> connector.
     /// </summary>
-    public const string Meaningcloudip = "meaningcloudip";
+    public const string MeaningCloudIndependentPublisher = "meaningcloudip";
 
     /// <summary>
     /// The <c>medallia</c> connector.
@@ -3983,7 +3983,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mediastack</c> connector.
     /// </summary>
-    public const string Mediastack = "mediastack";
+    public const string MediastackIndependentPublisher = "mediastack";
 
     /// <summary>
     /// The <c>medium</c> connector.
@@ -3993,7 +3993,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>meekou</c> connector.
     /// </summary>
-    public const string Meekou = "meekou";
+    public const string MeekouShareIndependentPublisher = "meekou";
 
     /// <summary>
     /// The <c>meetingroommap</c> connector.
@@ -4008,7 +4008,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>memeip</c> connector.
     /// </summary>
-    public const string Memeip = "memeip";
+    public const string MemeIndependentPublisher = "memeip";
 
     /// <summary>
     /// The <c>mensagia</c> connector.
@@ -4018,17 +4018,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mensagiaip</c> connector.
     /// </summary>
-    public const string Mensagiaip = "mensagiaip";
+    public const string MensagiaIndependentPublisher = "mensagiaip";
 
     /// <summary>
     /// The <c>mergeshuttleservice</c> connector.
     /// </summary>
-    public const string Mergeshuttleservice = "mergeshuttleservice";
+    public const string MergeShuttleService = "mergeshuttleservice";
 
     /// <summary>
     /// The <c>messagebirdsmsip</c> connector.
     /// </summary>
-    public const string Messagebirdsmsip = "messagebirdsmsip";
+    public const string MessageBirdSMSIndependentPublisher = "messagebirdsmsip";
 
     /// <summary>
     /// The <c>metatask</c> connector.
@@ -4038,7 +4038,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>microsoftacronyms</c> connector.
     /// </summary>
-    public const string Microsoftacronyms = "microsoftacronyms";
+    public const string MicrosoftAcronyms = "microsoftacronyms";
 
     /// <summary>
     /// The <c>microsoftbookings</c> connector.
@@ -4048,7 +4048,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>microsoftd365cev9ip</c> connector.
     /// </summary>
-    public const string Microsoftd365cev9ip = "microsoftd365cev9ip";
+    public const string MicrosoftD365CEV9OnPremIndependentPublisher = "microsoftd365cev9ip";
 
     /// <summary>
     /// The <c>microsoftforms</c> connector.
@@ -4058,57 +4058,57 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>microsoftformspro</c> connector.
     /// </summary>
-    public const string Microsoftformspro = "microsoftformspro";
+    public const string Dynamics365CustomerVoice = "microsoftformspro";
 
     /// <summary>
     /// The <c>microsoftgraphadduse</c> connector.
     /// </summary>
-    public const string Microsoftgraphadduse = "microsoftgraphadduse";
+    public const string MicrosoftGraphAddUsersIndependentPublisher = "microsoftgraphadduse";
 
     /// <summary>
     /// The <c>microsoftlearncataip</c> connector.
     /// </summary>
-    public const string Microsoftlearncataip = "microsoftlearncataip";
+    public const string MicrosoftLearnCatalogIndependentPublisher = "microsoftlearncataip";
 
     /// <summary>
     /// The <c>microsoftlearndocsmcpserver</c> connector.
     /// </summary>
-    public const string Microsoftlearndocsmcpserver = "microsoftlearndocsmcpserver";
+    public const string MicrosoftLearnDocsMCP = "microsoftlearndocsmcpserver";
 
     /// <summary>
     /// The <c>microsoftschooldatas</c> connector.
     /// </summary>
-    public const string Microsoftschooldatas = "microsoftschooldatas";
+    public const string MicrosoftSchoolDataSyncV2 = "microsoftschooldatas";
 
     /// <summary>
     /// The <c>microsofttranslatorv</c> connector.
     /// </summary>
-    public const string Microsofttranslatorv = "microsofttranslatorv";
+    public const string MicrosoftTranslatorV3 = "microsofttranslatorv";
 
     /// <summary>
     /// The <c>mimeautomationip</c> connector.
     /// </summary>
-    public const string Mimeautomationip = "mimeautomationip";
+    public const string MimeAutomationIndependentPublisher = "mimeautomationip";
 
     /// <summary>
     /// The <c>minisouphtmlparser</c> connector.
     /// </summary>
-    public const string Minisouphtmlparser = "minisouphtmlparser";
+    public const string MiniSoupHTMLParserIndependentPublisher = "minisouphtmlparser";
 
     /// <summary>
     /// The <c>mintlifyip</c> connector.
     /// </summary>
-    public const string Mintlifyip = "mintlifyip";
+    public const string MintlifyIndependentPublisher = "mintlifyip";
 
     /// <summary>
     /// The <c>miroip</c> connector.
     /// </summary>
-    public const string Miroip = "miroip";
+    public const string MiroIndependentPublisher = "miroip";
 
     /// <summary>
     /// The <c>mistral</c> connector.
     /// </summary>
-    public const string Mistral = "mistral";
+    public const string MistralIndependentPublisher = "mistral";
 
     /// <summary>
     /// The <c>mitto</c> connector.
@@ -4123,27 +4123,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mobiletextalertsmcps</c> connector.
     /// </summary>
-    public const string Mobiletextalertsmcps = "mobiletextalertsmcps";
+    public const string MobileTextAlertsMCPServer = "mobiletextalertsmcps";
 
     /// <summary>
     /// The <c>mobilistotele</c> connector.
     /// </summary>
-    public const string Mobilistotele = "mobilistotele";
+    public const string MobiliStotele = "mobilistotele";
 
     /// <summary>
     /// The <c>mobilyws</c> connector.
     /// </summary>
-    public const string Mobilyws = "mobilyws";
+    public const string MobilyWS = "mobilyws";
 
     /// <summary>
     /// The <c>mobsimsendsms</c> connector.
     /// </summary>
-    public const string Mobsimsendsms = "mobsimsendsms";
+    public const string MOBSIMSendSMS = "mobsimsendsms";
 
     /// <summary>
     /// The <c>mockarooip</c> connector.
     /// </summary>
-    public const string Mockarooip = "mockarooip";
+    public const string MockarooIndependentPublisher = "mockarooip";
 
     /// <summary>
     /// The <c>mockster</c> connector.
@@ -4158,32 +4158,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mondaycom</c> connector.
     /// </summary>
-    public const string Mondaycom = "mondaycom";
+    public const string MondayCom = "mondaycom";
 
     /// <summary>
     /// The <c>mondaycomip</c> connector.
     /// </summary>
-    public const string Mondaycomip = "mondaycomip";
+    public const string MondaycomIndependentPublisher = "mondaycomip";
 
     /// <summary>
     /// The <c>mongodb</c> connector.
     /// </summary>
-    public const string Mongodb = "mongodb";
+    public const string MongoDB = "mongodb";
 
     /// <summary>
     /// The <c>monsterapiip</c> connector.
     /// </summary>
-    public const string Monsterapiip = "monsterapiip";
+    public const string MonsterAPIIndependentPublisher = "monsterapiip";
 
     /// <summary>
     /// The <c>moosendip</c> connector.
     /// </summary>
-    public const string Moosendip = "moosendip";
+    public const string MoosendIndependentPublisher = "moosendip";
 
     /// <summary>
     /// The <c>moreappforms</c> connector.
     /// </summary>
-    public const string Moreappforms = "moreappforms";
+    public const string MoreAppForms = "moreappforms";
 
     /// <summary>
     /// The <c>morf</c> connector.
@@ -4203,7 +4203,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>motawordtranslations</c> connector.
     /// </summary>
-    public const string Motawordtranslations = "motawordtranslations";
+    public const string MotaWordTranslations = "motawordtranslations";
 
     /// <summary>
     /// The <c>motimate</c> connector.
@@ -4213,72 +4213,72 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mq</c> connector.
     /// </summary>
-    public const string Mq = "mq";
+    public const string MQ = "mq";
 
     /// <summary>
     /// The <c>msgraphgroupsanduser</c> connector.
     /// </summary>
-    public const string MsGraphGroupsAndUsers = "msgraphgroupsanduser";
+    public const string MSGraphGroupsAndUsers = "msgraphgroupsanduser";
 
     /// <summary>
     /// The <c>msnweather</c> connector.
     /// </summary>
-    public const string Msnweather = "msnweather";
+    public const string MSNWeather = "msnweather";
 
     /// <summary>
     /// The <c>mtarget</c> connector.
     /// </summary>
-    public const string Mtarget = "mtarget";
+    public const string MtargetSMS = "mtarget";
 
     /// <summary>
     /// The <c>muhimbi</c> connector.
     /// </summary>
-    public const string Muhimbi = "muhimbi";
+    public const string NutrientDocumentConverter = "muhimbi";
 
     /// <summary>
     /// The <c>muhimbipdf</c> connector.
     /// </summary>
-    public const string Muhimbipdf = "muhimbipdf";
+    public const string MuhimbiPDF = "muhimbipdf";
 
     /// <summary>
     /// The <c>mural</c> connector.
     /// </summary>
-    public const string Mural = "mural";
+    public const string MURAL = "mural";
 
     /// <summary>
     /// The <c>myhospitalsbyaihwip</c> connector.
     /// </summary>
-    public const string Myhospitalsbyaihwip = "myhospitalsbyaihwip";
+    public const string AIHWMyHospitalsIndependentPublisher = "myhospitalsbyaihwip";
 
     /// <summary>
     /// The <c>myhours</c> connector.
     /// </summary>
-    public const string Myhours = "myhours";
+    public const string MyHours = "myhours";
 
     /// <summary>
     /// The <c>mysql</c> connector.
     /// </summary>
-    public const string Mysql = "mysql";
+    public const string MySQL = "mysql";
 
     /// <summary>
     /// The <c>mystromip</c> connector.
     /// </summary>
-    public const string Mystromip = "mystromip";
+    public const string MyStromIndependentPublisher = "mystromip";
 
     /// <summary>
     /// The <c>nablecloudcommander</c> connector.
     /// </summary>
-    public const string Nablecloudcommander = "nablecloudcommander";
+    public const string NAbleCloudCommander = "nablecloudcommander";
 
     /// <summary>
     /// The <c>nableclouduserhub</c> connector.
     /// </summary>
-    public const string Nableclouduserhub = "nableclouduserhub";
+    public const string NAbleCloudUserHub = "nableclouduserhub";
 
     /// <summary>
     /// The <c>nameapi</c> connector.
     /// </summary>
-    public const string Nameapi = "nameapi";
+    public const string NameAPIIndependentPublisher = "nameapi";
 
     /// <summary>
     /// The <c>narvar</c> connector.
@@ -4288,27 +4288,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nasafirms</c> connector.
     /// </summary>
-    public const string Nasafirms = "nasafirms";
+    public const string NASAFIRMSIndependentPublisher = "nasafirms";
 
     /// <summary>
     /// The <c>nasaivlibraryip</c> connector.
     /// </summary>
-    public const string Nasaivlibraryip = "nasaivlibraryip";
+    public const string NASAImageAndVideoLibraryIndependentPublisher = "nasaivlibraryip";
 
     /// <summary>
     /// The <c>nationalizeioip</c> connector.
     /// </summary>
-    public const string Nationalizeioip = "nationalizeioip";
+    public const string NationalizeIoIndependentPublisher = "nationalizeioip";
 
     /// <summary>
     /// The <c>nationalparkserviceip</c> connector.
     /// </summary>
-    public const string Nationalparkserviceip = "nationalparkserviceip";
+    public const string NationalParkServiceIndependentPublisher = "nationalparkserviceip";
 
     /// <summary>
     /// The <c>nationalweatherservice</c> connector.
     /// </summary>
-    public const string Nationalweatherservice = "nationalweatherservice";
+    public const string NationalWeatherServiceIndependentPublisher = "nationalweatherservice";
 
     /// <summary>
     /// The <c>navisphere</c> connector.
@@ -4318,27 +4318,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nbold</c> connector.
     /// </summary>
-    public const string Nbold = "nbold";
+    public const string NBold = "nbold";
 
     /// <summary>
     /// The <c>nceiclimatedata</c> connector.
     /// </summary>
-    public const string Nceiclimatedata = "nceiclimatedata";
+    public const string NCEIClimateDataIndependentPublisher = "nceiclimatedata";
 
     /// <summary>
     /// The <c>nearearthobjectwebip</c> connector.
     /// </summary>
-    public const string Nearearthobjectwebip = "nearearthobjectwebip";
+    public const string NEOWsIndependentPublisher = "nearearthobjectwebip";
 
     /// <summary>
     /// The <c>nederlandsespoorweip</c> connector.
     /// </summary>
-    public const string Nederlandsespoorweip = "nederlandsespoorweip";
+    public const string NederlandseSpoorwegenIndependentPublisher = "nederlandsespoorweip";
 
     /// <summary>
     /// The <c>netdocuments</c> connector.
     /// </summary>
-    public const string Netdocuments = "netdocuments";
+    public const string NetDocuments = "netdocuments";
 
     /// <summary>
     /// The <c>netvolution</c> connector.
@@ -4348,17 +4348,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>neum</c> connector.
     /// </summary>
-    public const string Neum = "neum";
+    public const string NeumIndependentPublisher = "neum";
 
     /// <summary>
     /// The <c>newsdataio</c> connector.
     /// </summary>
-    public const string Newsdataio = "newsdataio";
+    public const string NewsDataIoIndependentPublisher = "newsdataio";
 
     /// <summary>
     /// The <c>newyorktimesip</c> connector.
     /// </summary>
-    public const string Newyorktimesip = "newyorktimesip";
+    public const string NewYorkTimesIndependentPublisher = "newyorktimesip";
 
     /// <summary>
     /// The <c>nexmo</c> connector.
@@ -4373,17 +4373,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nftmaniaip</c> connector.
     /// </summary>
-    public const string Nftmaniaip = "nftmaniaip";
+    public const string MintNFTIndependentPublisher = "nftmaniaip";
 
     /// <summary>
     /// The <c>nhtsavpicip</c> connector.
     /// </summary>
-    public const string Nhtsavpicip = "nhtsavpicip";
+    public const string NHTSAVPICIndependentPublisher = "nhtsavpicip";
 
     /// <summary>
     /// The <c>niftygatewayip</c> connector.
     /// </summary>
-    public const string Niftygatewayip = "niftygatewayip";
+    public const string NiftyGatewayIndependentPublisher = "niftygatewayip";
 
     /// <summary>
     /// The <c>nimflow</c> connector.
@@ -4393,17 +4393,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nintexworkflow</c> connector.
     /// </summary>
-    public const string Nintexworkflow = "nintexworkflow";
+    public const string NintexWorkflow = "nintexworkflow";
 
     /// <summary>
     /// The <c>nistnationalvulnerip</c> connector.
     /// </summary>
-    public const string Nistnationalvulnerip = "nistnationalvulnerip";
+    public const string NISTNVDIndependentPublisher = "nistnationalvulnerip";
 
     /// <summary>
     /// The <c>nistnvdip</c> connector.
     /// </summary>
-    public const string Nistnvdip = "nistnvdip";
+    public const string NistNvdIp = "nistnvdip";
 
     /// <summary>
     /// The <c>nitro</c> connector.
@@ -4413,17 +4413,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nitropdfservices</c> connector.
     /// </summary>
-    public const string Nitropdfservices = "nitropdfservices";
+    public const string NitroPDFServices = "nitropdfservices";
 
     /// <summary>
     /// The <c>nitrosignenterprisev</c> connector.
     /// </summary>
-    public const string Nitrosignenterprisev = "nitrosignenterprisev";
+    public const string NitroSignEnterpriseVerified = "nitrosignenterprisev";
 
     /// <summary>
     /// The <c>nodefusionportal</c> connector.
     /// </summary>
-    public const string Nodefusionportal = "nodefusionportal";
+    public const string NodefusionPortal = "nodefusionportal";
 
     /// <summary>
     /// The <c>nosco</c> connector.
@@ -4433,17 +4433,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>notiivybrowsernotif</c> connector.
     /// </summary>
-    public const string Notiivybrowsernotif = "notiivybrowsernotif";
+    public const string NotiivyBrowserNotifications = "notiivybrowsernotif";
 
     /// <summary>
     /// The <c>notionip</c> connector.
     /// </summary>
-    public const string Notionip = "notionip";
+    public const string NotionIndependentPublisher = "notionip";
 
     /// <summary>
     /// The <c>noxtuasubmission</c> connector.
     /// </summary>
-    public const string Noxtuasubmission = "noxtuasubmission";
+    public const string NoxtuaAI = "noxtuasubmission";
 
     /// <summary>
     /// The <c>nozbe</c> connector.
@@ -4453,17 +4453,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>npstoday</c> connector.
     /// </summary>
-    public const string Npstoday = "npstoday";
+    public const string NpsToday = "npstoday";
 
     /// <summary>
     /// The <c>nrelip</c> connector.
     /// </summary>
-    public const string Nrelip = "nrelip";
+    public const string NRELIndependentPublisher = "nrelip";
 
     /// <summary>
     /// The <c>numlookupapiip</c> connector.
     /// </summary>
-    public const string Numlookupapiip = "numlookupapiip";
+    public const string NumlookupAPIIndependentPublisher = "numlookupapiip";
 
     /// <summary>
     /// The <c>nunify</c> connector.
@@ -4473,32 +4473,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nutrientconverttopdf</c> connector.
     /// </summary>
-    public const string Nutrientconverttopdf = "nutrientconverttopdf";
+    public const string NutrientConvertToPDF = "nutrientconverttopdf";
 
     /// <summary>
     /// The <c>nutrientextractfromp</c> connector.
     /// </summary>
-    public const string Nutrientextractfromp = "nutrientextractfromp";
+    public const string NutrientExtractFromPDF = "nutrientextractfromp";
 
     /// <summary>
     /// The <c>nutrientpdfocr</c> connector.
     /// </summary>
-    public const string Nutrientpdfocr = "nutrientpdfocr";
+    public const string NutrientPDFOCR = "nutrientpdfocr";
 
     /// <summary>
     /// The <c>nutrientwatermarktop</c> connector.
     /// </summary>
-    public const string Nutrientwatermarktop = "nutrientwatermarktop";
+    public const string NutrientWatermarkToPDF = "nutrientwatermarktop";
 
     /// <summary>
     /// The <c>nutrientworkflowauto</c> connector.
     /// </summary>
-    public const string Nutrientworkflowauto = "nutrientworkflowauto";
+    public const string NutrientWorkflowAutomation = "nutrientworkflowauto";
 
     /// <summary>
     /// The <c>objectiveconnect</c> connector.
     /// </summary>
-    public const string Objectiveconnect = "objectiveconnect";
+    public const string ObjectiveConnect = "objectiveconnect";
 
     /// <summary>
     /// The <c>occuspace</c> connector.
@@ -4508,17 +4508,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>odata</c> connector.
     /// </summary>
-    public const string Odata = "odata";
+    public const string OData = "odata";
 
     /// <summary>
     /// The <c>odbc</c> connector.
     /// </summary>
-    public const string Odbc = "odbc";
+    public const string ODBCDataSource = "odbc";
 
     /// <summary>
     /// The <c>office365</c> connector.
     /// </summary>
-    public const string Office365 = "office365";
+    public const string Office365Outlook = "office365";
 
     /// <summary>
     /// The <c>office365groups</c> connector.
@@ -4538,12 +4538,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>okdokumentip</c> connector.
     /// </summary>
-    public const string Okdokumentip = "okdokumentip";
+    public const string OKDokumentIndependentPublisher = "okdokumentip";
 
     /// <summary>
     /// The <c>omdbip</c> connector.
     /// </summary>
-    public const string Omdbip = "omdbip";
+    public const string OMDbIndependentPublisher = "omdbip";
 
     /// <summary>
     /// The <c>oncehub</c> connector.
@@ -4553,12 +4553,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>oneblink</c> connector.
     /// </summary>
-    public const string Oneblink = "oneblink";
+    public const string OneBlink = "oneblink";
 
     /// <summary>
     /// The <c>onedeclarativeconn</c> connector.
     /// </summary>
-    public const string Onedeclarativeconn = "onedeclarativeconn";
+    public const string OneDeclarativeConn = "onedeclarativeconn";
 
     /// <summary>
     /// The <c>onedrive</c> connector.
@@ -4578,152 +4578,152 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>onenote</c> connector.
     /// </summary>
-    public const string Onenote = "onenote";
+    public const string OneNoteBusiness = "onenote";
 
     /// <summary>
     /// The <c>onenotepersonalip</c> connector.
     /// </summary>
-    public const string Onenotepersonalip = "onenotepersonalip";
+    public const string OneNoteConsumerIndependentPublisher = "onenotepersonalip";
 
     /// <summary>
     /// The <c>oneplan</c> connector.
     /// </summary>
-    public const string Oneplan = "oneplan";
+    public const string OnePlan = "oneplan";
 
     /// <summary>
     /// The <c>onetimesecretip</c> connector.
     /// </summary>
-    public const string Onetimesecretip = "onetimesecretip";
+    public const string OneTimeSecretIndependentPublisher = "onetimesecretip";
 
     /// <summary>
     /// The <c>openaiassistants</c> connector.
     /// </summary>
-    public const string Openaiassistants = "openaiassistants";
+    public const string OpenAIAssistantsIndependentPublisher = "openaiassistants";
 
     /// <summary>
     /// The <c>openaigpt4ip</c> connector.
     /// </summary>
-    public const string Openaigpt4ip = "openaigpt4ip";
+    public const string OpenAIGPTIndependentPublisher = "openaigpt4ip";
 
     /// <summary>
     /// The <c>openaiip</c> connector.
     /// </summary>
-    public const string Openaiip = "openaiip";
+    public const string OpenAIIndependentPublisher = "openaiip";
 
     /// <summary>
     /// The <c>openbrewerydb</c> connector.
     /// </summary>
-    public const string Openbrewerydb = "openbrewerydb";
+    public const string OpenBreweryDBIndependentPublisher = "openbrewerydb";
 
     /// <summary>
     /// The <c>opencagegeocodingip</c> connector.
     /// </summary>
-    public const string Opencagegeocodingip = "opencagegeocodingip";
+    public const string OpenCageGeocodingIndependentPublisher = "opencagegeocodingip";
 
     /// <summary>
     /// The <c>openchargemapip</c> connector.
     /// </summary>
-    public const string Openchargemapip = "openchargemapip";
+    public const string OpenChargeMapIndependentPublisher = "openchargemapip";
 
     /// <summary>
     /// The <c>openelevation</c> connector.
     /// </summary>
-    public const string Openelevation = "openelevation";
+    public const string OpenElevationIndependentPublisher = "openelevation";
 
     /// <summary>
     /// The <c>openexperience</c> connector.
     /// </summary>
-    public const string Openexperience = "openexperience";
+    public const string OpenExperience = "openexperience";
 
     /// <summary>
     /// The <c>openlegacyibmias400</c> connector.
     /// </summary>
-    public const string Openlegacyibmias400 = "openlegacyibmias400";
+    public const string OpenLegacyIBMIAS400 = "openlegacyibmias400";
 
     /// <summary>
     /// The <c>openlegacyibmmainframe</c> connector.
     /// </summary>
-    public const string Openlegacyibmmainframe = "openlegacyibmmainframe";
+    public const string OpenLegacyIBMMainframe = "openlegacyibmmainframe";
 
     /// <summary>
     /// The <c>opennemip</c> connector.
     /// </summary>
-    public const string Opennemip = "opennemip";
+    public const string OpenNEMIndependentPublisher = "opennemip";
 
     /// <summary>
     /// The <c>openplz</c> connector.
     /// </summary>
-    public const string Openplz = "openplz";
+    public const string OpenPLZIndependentPublisher = "openplz";
 
     /// <summary>
     /// The <c>openpm</c> connector.
     /// </summary>
-    public const string Openpm = "openpm";
+    public const string OpenpmIndependentPublisher = "openpm";
 
     /// <summary>
     /// The <c>openqr</c> connector.
     /// </summary>
-    public const string Openqr = "openqr";
+    public const string OpenQRIndependentPublisher = "openqr";
 
     /// <summary>
     /// The <c>openrouter</c> connector.
     /// </summary>
-    public const string Openrouter = "openrouter";
+    public const string OpenRouterIndependentPublisher = "openrouter";
 
     /// <summary>
     /// The <c>opensanctions</c> connector.
     /// </summary>
-    public const string Opensanctions = "opensanctions";
+    public const string OpenSanctionsIndependentPublisher = "opensanctions";
 
     /// <summary>
     /// The <c>opentextcoreshare</c> connector.
     /// </summary>
-    public const string Opentextcoreshare = "opentextcoreshare";
+    public const string OpenTextCoreShare = "opentextcoreshare";
 
     /// <summary>
     /// The <c>opentextcsbyonefox</c> connector.
     /// </summary>
-    public const string Opentextcsbyonefox = "opentextcsbyonefox";
+    public const string OpenTextExtendedECM = "opentextcsbyonefox";
 
     /// <summary>
     /// The <c>opentextdocumentum</c> connector.
     /// </summary>
-    public const string Opentextdocumentum = "opentextdocumentum";
+    public const string OpenTextDocumentum = "opentextdocumentum";
 
     /// <summary>
     /// The <c>opentextedocsbyonefox</c> connector.
     /// </summary>
-    public const string Opentextedocsbyonefox = "opentextedocsbyonefox";
+    public const string OpenTextEDOCS = "opentextedocsbyonefox";
 
     /// <summary>
     /// The <c>opentriviadbip</c> connector.
     /// </summary>
-    public const string Opentriviadbip = "opentriviadbip";
+    public const string OpenTrivaDatabaseIndependentPublisher = "opentriviadbip";
 
     /// <summary>
     /// The <c>optiapi</c> connector.
     /// </summary>
-    public const string Optiapi = "optiapi";
+    public const string OptiAPI = "optiapi";
 
     /// <summary>
     /// The <c>oqsha</c> connector.
     /// </summary>
-    public const string Oqsha = "oqsha";
+    public const string OQSHA = "oqsha";
 
     /// <summary>
     /// The <c>oracle</c> connector.
     /// </summary>
-    public const string Oracle = "oracle";
+    public const string OracleDatabase = "oracle";
 
     /// <summary>
     /// The <c>orbintelligenceip</c> connector.
     /// </summary>
-    public const string Orbintelligenceip = "orbintelligenceip";
+    public const string ORBIntelligenceIndependentPublisher = "orbintelligenceip";
 
     /// <summary>
     /// The <c>orbusinfinity</c> connector.
     /// </summary>
-    public const string Orbusinfinity = "orbusinfinity";
+    public const string OrbusInfinity = "orbusinfinity";
 
     /// <summary>
     /// The <c>orderful</c> connector.
@@ -4733,47 +4733,47 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ordnancesurveyplaces</c> connector.
     /// </summary>
-    public const string Ordnancesurveyplaces = "ordnancesurveyplaces";
+    public const string OrdnanceSurveyPlaces = "ordnancesurveyplaces";
 
     /// <summary>
     /// The <c>originalityip</c> connector.
     /// </summary>
-    public const string Originalityip = "originalityip";
+    public const string OriginalityAIIndependentPublisher = "originalityip";
 
     /// <summary>
     /// The <c>ottobot</c> connector.
     /// </summary>
-    public const string Ottobot = "ottobot";
+    public const string OttoBot = "ottobot";
 
     /// <summary>
     /// The <c>outlook</c> connector.
     /// </summary>
-    public const string Outlook = "outlook";
+    public const string OutlookCom = "outlook";
 
     /// <summary>
     /// The <c>outreachinsights</c> connector.
     /// </summary>
-    public const string Outreachinsights = "outreachinsights";
+    public const string OutreachInsights = "outreachinsights";
 
     /// <summary>
     /// The <c>owlbotip</c> connector.
     /// </summary>
-    public const string Owlbotip = "owlbotip";
+    public const string OwlbotIndependentPublisher = "owlbotip";
 
     /// <summary>
     /// The <c>pagepixelsscreenshot</c> connector.
     /// </summary>
-    public const string Pagepixelsscreenshot = "pagepixelsscreenshot";
+    public const string PagePixelsScreenshots = "pagepixelsscreenshot";
 
     /// <summary>
     /// The <c>pagerduty</c> connector.
     /// </summary>
-    public const string Pagerduty = "pagerduty";
+    public const string PagerDuty = "pagerduty";
 
     /// <summary>
     /// The <c>pantryip</c> connector.
     /// </summary>
-    public const string Pantryip = "pantryip";
+    public const string PantryIndependentPublisher = "pantryip";
 
     /// <summary>
     /// The <c>panviva</c> connector.
@@ -4783,12 +4783,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pappers</c> connector.
     /// </summary>
-    public const string Pappers = "pappers";
+    public const string PappersIndependentPublisher = "pappers";
 
     /// <summary>
     /// The <c>parishsoftfamilysuit</c> connector.
     /// </summary>
-    public const string Parishsoftfamilysuit = "parishsoftfamilysuit";
+    public const string ParishSoftFamilySuite = "parishsoftfamilysuit";
 
     /// <summary>
     /// The <c>parserr</c> connector.
@@ -4803,27 +4803,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>partnercenterevents</c> connector.
     /// </summary>
-    public const string Partnercenterevents = "partnercenterevents";
+    public const string PartnerCenterEvents = "partnercenterevents";
 
     /// <summary>
     /// The <c>partnercenterref</c> connector.
     /// </summary>
-    public const string Partnercenterref = "partnercenterref";
+    public const string PartnerCenterReferrals = "partnercenterref";
 
     /// <summary>
     /// The <c>partnerlinq</c> connector.
     /// </summary>
-    public const string Partnerlinq = "partnerlinq";
+    public const string PartnerLinq = "partnerlinq";
 
     /// <summary>
     /// The <c>passageby1passwordau</c> connector.
     /// </summary>
-    public const string Passageby1passwordau = "passageby1passwordau";
+    public const string PassageBy1PasswordAuthIndependentPublisher = "passageby1passwordau";
 
     /// <summary>
     /// The <c>passageby1passwordma</c> connector.
     /// </summary>
-    public const string Passageby1passwordma = "passageby1passwordma";
+    public const string PassageBy1PasswordManageIndependentPublisher = "passageby1passwordma";
 
     /// <summary>
     /// The <c>paylocity</c> connector.
@@ -4833,72 +4833,72 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>payspaceip</c> connector.
     /// </summary>
-    public const string Payspaceip = "payspaceip";
+    public const string PaySpaceIndependentPublisher = "payspaceip";
 
     /// <summary>
     /// The <c>pdf4me</c> connector.
     /// </summary>
-    public const string Pdf4me = "pdf4me";
+    public const string PDF4me = "pdf4me";
 
     /// <summary>
     /// The <c>pdf4meai</c> connector.
     /// </summary>
-    public const string Pdf4meai = "pdf4meai";
+    public const string PDF4meAI = "pdf4meai";
 
     /// <summary>
     /// The <c>pdf4mebarcode</c> connector.
     /// </summary>
-    public const string Pdf4mebarcode = "pdf4mebarcode";
+    public const string PDF4meBarcode = "pdf4mebarcode";
 
     /// <summary>
     /// The <c>pdf4meconnect</c> connector.
     /// </summary>
-    public const string Pdf4meconnect = "pdf4meconnect";
+    public const string PDF4meConnect = "pdf4meconnect";
 
     /// <summary>
     /// The <c>pdf4meconvert</c> connector.
     /// </summary>
-    public const string Pdf4meconvert = "pdf4meconvert";
+    public const string PDF4meConvert = "pdf4meconvert";
 
     /// <summary>
     /// The <c>pdf4meexcel</c> connector.
     /// </summary>
-    public const string Pdf4meexcel = "pdf4meexcel";
+    public const string PDF4meExcel = "pdf4meexcel";
 
     /// <summary>
     /// The <c>pdf4meimage</c> connector.
     /// </summary>
-    public const string Pdf4meimage = "pdf4meimage";
+    public const string PDF4meImage = "pdf4meimage";
 
     /// <summary>
     /// The <c>pdf4mepdf</c> connector.
     /// </summary>
-    public const string Pdf4mepdf = "pdf4mepdf";
+    public const string PDF4mePDF = "pdf4mepdf";
 
     /// <summary>
     /// The <c>pdf4meswissqr</c> connector.
     /// </summary>
-    public const string Pdf4meswissqr = "pdf4meswissqr";
+    public const string PDF4meSwissQR = "pdf4meswissqr";
 
     /// <summary>
     /// The <c>pdf4meword</c> connector.
     /// </summary>
-    public const string Pdf4meword = "pdf4meword";
+    public const string PDF4meWord = "pdf4meword";
 
     /// <summary>
     /// The <c>pdfblocks</c> connector.
     /// </summary>
-    public const string Pdfblocks = "pdfblocks";
+    public const string PDFBlocks = "pdfblocks";
 
     /// <summary>
     /// The <c>pdfco</c> connector.
     /// </summary>
-    public const string PdfCo = "pdfco";
+    public const string PDFco = "pdfco";
 
     /// <summary>
     /// The <c>pdfcross</c> connector.
     /// </summary>
-    public const string Pdfcross = "pdfcross";
+    public const string PDFcross = "pdfcross";
 
     /// <summary>
     /// The <c>pdfless</c> connector.
@@ -4908,12 +4908,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pdftools</c> connector.
     /// </summary>
-    public const string Pdftools = "pdftools";
+    public const string PDFTools = "pdftools";
 
     /// <summary>
     /// The <c>pdftoolsbytachytelic</c> connector.
     /// </summary>
-    public const string Pdftoolsbytachytelic = "pdftoolsbytachytelic";
+    public const string PDFToolsByTachytelicIndependentPublisher = "pdftoolsbytachytelic";
 
     /// <summary>
     /// The <c>peakboard</c> connector.
@@ -4923,17 +4923,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>peltarion</c> connector.
     /// </summary>
-    public const string Peltarion = "peltarion";
+    public const string PeltarionAI = "peltarion";
 
     /// <summary>
     /// The <c>perfectwiki</c> connector.
     /// </summary>
-    public const string Perfectwiki = "perfectwiki";
+    public const string PerfectWiki = "perfectwiki";
 
     /// <summary>
     /// The <c>perplexityai</c> connector.
     /// </summary>
-    public const string Perplexityai = "perplexityai";
+    public const string PerplexityAIIndependentPublisher = "perplexityai";
 
     /// <summary>
     /// The <c>personr</c> connector.
@@ -4943,22 +4943,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pexelsip</c> connector.
     /// </summary>
-    public const string Pexelsip = "pexelsip";
+    public const string PexelsIndependentPublisher = "pexelsip";
 
     /// <summary>
     /// The <c>philipshueip</c> connector.
     /// </summary>
-    public const string Philipshueip = "philipshueip";
+    public const string PhilipsHUEIndependentPublisher = "philipshueip";
 
     /// <summary>
     /// The <c>pilotthings</c> connector.
     /// </summary>
-    public const string Pilotthings = "pilotthings";
+    public const string PilotThings = "pilotthings";
 
     /// <summary>
     /// The <c>pineconeip</c> connector.
     /// </summary>
-    public const string Pineconeip = "pineconeip";
+    public const string Pinecone = "pineconeip";
 
     /// <summary>
     /// The <c>pinterest</c> connector.
@@ -4973,37 +4973,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pipelinercrm</c> connector.
     /// </summary>
-    public const string Pipelinercrm = "pipelinercrm";
+    public const string PipelinerCRM = "pipelinercrm";
 
     /// <summary>
     /// The <c>pipwarekpis</c> connector.
     /// </summary>
-    public const string Pipwarekpis = "pipwarekpis";
+    public const string PIPwareKPIs = "pipwarekpis";
 
     /// <summary>
     /// The <c>pixelaip</c> connector.
     /// </summary>
-    public const string Pixelaip = "pixelaip";
+    public const string PixelaIndependentPublisher = "pixelaip";
 
     /// <summary>
     /// The <c>pixelencounterip</c> connector.
     /// </summary>
-    public const string Pixelencounterip = "pixelencounterip";
+    public const string PixelEncounterIndependentPublisher = "pixelencounterip";
 
     /// <summary>
     /// The <c>pixelmeip</c> connector.
     /// </summary>
-    public const string Pixelmeip = "pixelmeip";
+    public const string PixelMe = "pixelmeip";
 
     /// <summary>
     /// The <c>pkisigning</c> connector.
     /// </summary>
-    public const string Pkisigning = "pkisigning";
+    public const string PKIsigning = "pkisigning";
 
     /// <summary>
     /// The <c>placedogip</c> connector.
     /// </summary>
-    public const string Placedogip = "placedogip";
+    public const string PlacedogIndependentPublisher = "placedogip";
 
     /// <summary>
     /// The <c>planful</c> connector.
@@ -5028,22 +5028,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>plumsail</c> connector.
     /// </summary>
-    public const string Plumsail = "plumsail";
+    public const string PlumsailDocuments = "plumsail";
 
     /// <summary>
     /// The <c>plumsailforms</c> connector.
     /// </summary>
-    public const string Plumsailforms = "plumsailforms";
+    public const string PlumsailForms = "plumsailforms";
 
     /// <summary>
     /// The <c>plumsailhelpdesk</c> connector.
     /// </summary>
-    public const string Plumsailhelpdesk = "plumsailhelpdesk";
+    public const string PlumsailHelpDesk = "plumsailhelpdesk";
 
     /// <summary>
     /// The <c>plumsailsp</c> connector.
     /// </summary>
-    public const string Plumsailsp = "plumsailsp";
+    public const string PlumsailActions = "plumsailsp";
 
     /// <summary>
     /// The <c>poka</c> connector.
@@ -5053,52 +5053,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pokeapicore</c> connector.
     /// </summary>
-    public const string Pokeapicore = "pokeapicore";
+    public const string PokeAPICoreIndependentPublisher = "pokeapicore";
 
     /// <summary>
     /// The <c>pokeapiworld</c> connector.
     /// </summary>
-    public const string Pokeapiworld = "pokeapiworld";
+    public const string PokeAPIWorldIndependentPublisher = "pokeapiworld";
 
     /// <summary>
     /// The <c>polarispsa</c> connector.
     /// </summary>
-    public const string Polarispsa = "polarispsa";
+    public const string PolarisPSA = "polarispsa";
 
     /// <summary>
     /// The <c>politemail</c> connector.
     /// </summary>
-    public const string Politemail = "politemail";
+    public const string PoliteMail = "politemail";
 
     /// <summary>
     /// The <c>polygon</c> connector.
     /// </summary>
-    public const string Polygon = "polygon";
+    public const string PolygonIndependentPublisher = "polygon";
 
     /// <summary>
     /// The <c>postgresql</c> connector.
     /// </summary>
-    public const string Postgresql = "postgresql";
+    public const string PostgreSQL = "postgresql";
 
     /// <summary>
     /// The <c>postmanip</c> connector.
     /// </summary>
-    public const string Postmanip = "postmanip";
+    public const string PostmanIndependentPublisher = "postmanip";
 
     /// <summary>
     /// The <c>powellteams</c> connector.
     /// </summary>
-    public const string Powellteams = "powellteams";
+    public const string PowellTeams = "powellteams";
 
     /// <summary>
     /// The <c>powerappsnotification</c> connector.
     /// </summary>
-    public const string Powerappsnotification = "powerappsnotification";
+    public const string PowerAppsNotification = "powerappsnotification";
 
     /// <summary>
     /// The <c>powerassist</c> connector.
     /// </summary>
-    public const string Powerassist = "powerassist";
+    public const string PowerAssist = "powerassist";
 
     /// <summary>
     /// The <c>powerbi</c> connector.
@@ -5108,37 +5108,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>powerform7</c> connector.
     /// </summary>
-    public const string Powerform7 = "powerform7";
+    public const string PowerForm7 = "powerform7";
 
     /// <summary>
     /// The <c>powerplatformadminv2</c> connector.
     /// </summary>
-    public const string Powerplatformadminv2 = "powerplatformadminv2";
+    public const string PowerPlatformForAdminsV2 = "powerplatformadminv2";
 
     /// <summary>
     /// The <c>powertextor</c> connector.
     /// </summary>
-    public const string Powertextor = "powertextor";
+    public const string PowerTextor = "powertextor";
 
     /// <summary>
     /// The <c>powertools</c> connector.
     /// </summary>
-    public const string Powertools = "powertools";
+    public const string MicrosoftPowerApps = "powertools";
 
     /// <summary>
     /// The <c>powervirtualagents</c> connector.
     /// </summary>
-    public const string Powervirtualagents = "powervirtualagents";
+    public const string PowerVirtualAgents = "powervirtualagents";
 
     /// <summary>
     /// The <c>ppdf</c> connector.
     /// </summary>
-    public const string Ppdf = "ppdf";
+    public const string PowerPlatformDataflows = "ppdf";
 
     /// <summary>
     /// The <c>ppmexpress</c> connector.
     /// </summary>
-    public const string Ppmexpress = "ppmexpress";
+    public const string PPMExpress = "ppmexpress";
 
     /// <summary>
     /// The <c>preserve365</c> connector.
@@ -5148,27 +5148,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>prexviewip</c> connector.
     /// </summary>
-    public const string Prexviewip = "prexviewip";
+    public const string PrexViewIndependentPublisher = "prexviewip";
 
     /// <summary>
     /// The <c>prioritymatrix</c> connector.
     /// </summary>
-    public const string Prioritymatrix = "prioritymatrix";
+    public const string PriorityMatrix = "prioritymatrix";
 
     /// <summary>
     /// The <c>prioritymatrixhipaa</c> connector.
     /// </summary>
-    public const string Prioritymatrixhipaa = "prioritymatrixhipaa";
+    public const string PriorityMatrixHIPAA = "prioritymatrixhipaa";
 
     /// <summary>
     /// The <c>processstreet</c> connector.
     /// </summary>
-    public const string Processstreet = "processstreet";
+    public const string ProcessStreet = "processstreet";
 
     /// <summary>
     /// The <c>processstreetmcpserv</c> connector.
     /// </summary>
-    public const string Processstreetmcpserv = "processstreetmcpserv";
+    public const string ProcessStreetMCPServer = "processstreetmcpserv";
 
     /// <summary>
     /// The <c>profisee</c> connector.
@@ -5178,57 +5178,57 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>progressusadvancedpr</c> connector.
     /// </summary>
-    public const string Progressusadvancedpr = "progressusadvancedpr";
+    public const string ProgressusAdvancedProjects = "progressusadvancedpr";
 
     /// <summary>
     /// The <c>projectonline</c> connector.
     /// </summary>
-    public const string Projectonline = "projectonline";
+    public const string ProjectOnline = "projectonline";
 
     /// <summary>
     /// The <c>projectplace</c> connector.
     /// </summary>
-    public const string Projectplace = "projectplace";
+    public const string ProjectPlace = "projectplace";
 
     /// <summary>
     /// The <c>projectum</c> connector.
     /// </summary>
-    public const string Projectum = "projectum";
+    public const string ProjectumPresentIt = "projectum";
 
     /// <summary>
     /// The <c>propublicacampaignip</c> connector.
     /// </summary>
-    public const string Propublicacampaignip = "propublicacampaignip";
+    public const string ProPublicaCampaignFinanceIndependentPublisher = "propublicacampaignip";
 
     /// <summary>
     /// The <c>propublicacongressip</c> connector.
     /// </summary>
-    public const string Propublicacongressip = "propublicacongressip";
+    public const string ProPublicaCongressIndependentPublisher = "propublicacongressip";
 
     /// <summary>
     /// The <c>propublicanonprofiip</c> connector.
     /// </summary>
-    public const string Propublicanonprofiip = "propublicanonprofiip";
+    public const string ProPublicaNonprofitExplorerIndependentPublisher = "propublicanonprofiip";
 
     /// <summary>
     /// The <c>prosaiforsalescopilo</c> connector.
     /// </summary>
-    public const string Prosaiforsalescopilo = "prosaiforsalescopilo";
+    public const string PROSAI = "prosaiforsalescopilo";
 
     /// <summary>
     /// The <c>prowfmauthentication</c> connector.
     /// </summary>
-    public const string Prowfmauthentication = "prowfmauthentication";
+    public const string UKGPROWFMAuthentication = "prowfmauthentication";
 
     /// <summary>
     /// The <c>puggamifiedengagement</c> connector.
     /// </summary>
-    public const string Puggamifiedengagement = "puggamifiedengagement";
+    public const string PUGGamifiedEngagement = "puggamifiedengagement";
 
     /// <summary>
     /// The <c>pureleads</c> connector.
     /// </summary>
-    public const string Pureleads = "pureleads";
+    public const string PureLeads = "pureleads";
 
     /// <summary>
     /// The <c>pushcut</c> connector.
@@ -5238,22 +5238,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pushoverip</c> connector.
     /// </summary>
-    public const string Pushoverip = "pushoverip";
+    public const string PushoverIndependentPublisher = "pushoverip";
 
     /// <summary>
     /// The <c>qdrant</c> connector.
     /// </summary>
-    public const string Qdrant = "qdrant";
+    public const string QdrantIndependentPublisher = "qdrant";
 
     /// <summary>
     /// The <c>qppngintegrationhub</c> connector.
     /// </summary>
-    public const string Qppngintegrationhub = "qppngintegrationhub";
+    public const string QPPNextGen = "qppngintegrationhub";
 
     /// <summary>
     /// The <c>quickchartip</c> connector.
     /// </summary>
-    public const string Quickchartip = "quickchartip";
+    public const string QuickChartIndependentPublisher = "quickchartip";
 
     /// <summary>
     /// The <c>rainbird</c> connector.
@@ -5263,52 +5263,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ramquestactions</c> connector.
     /// </summary>
-    public const string Ramquestactions = "ramquestactions";
+    public const string RamQuestActions = "ramquestactions";
 
     /// <summary>
     /// The <c>ramquestevents</c> connector.
     /// </summary>
-    public const string Ramquestevents = "ramquestevents";
+    public const string RamQuestEvents = "ramquestevents";
 
     /// <summary>
     /// The <c>rapidplatform</c> connector.
     /// </summary>
-    public const string Rapidplatform = "rapidplatform";
+    public const string RAPIdPlatform = "rapidplatform";
 
     /// <summary>
     /// The <c>raptordocmanagement</c> connector.
     /// </summary>
-    public const string Raptordocmanagement = "raptordocmanagement";
+    public const string _9ARaptorDocumentWarehouse = "raptordocmanagement";
 
     /// <summary>
     /// The <c>raribleip</c> connector.
     /// </summary>
-    public const string Raribleip = "raribleip";
+    public const string RaribleIndependentPublisher = "raribleip";
 
     /// <summary>
     /// The <c>reachabilityip</c> connector.
     /// </summary>
-    public const string Reachabilityip = "reachabilityip";
+    public const string ReachabilityIndependentPublisher = "reachabilityip";
 
     /// <summary>
     /// The <c>readwiseip</c> connector.
     /// </summary>
-    public const string Readwiseip = "readwiseip";
+    public const string ReadwiseIndependentPublisher = "readwiseip";
 
     /// <summary>
     /// The <c>realfavicongenerator</c> connector.
     /// </summary>
-    public const string Realfavicongenerator = "realfavicongenerator";
+    public const string RealFaviconGeneratorIndependentPublisher = "realfavicongenerator";
 
     /// <summary>
     /// The <c>rebrandlyip</c> connector.
     /// </summary>
-    public const string Rebrandlyip = "rebrandlyip";
+    public const string RebrandlyIndependentPublisher = "rebrandlyip";
 
     /// <summary>
     /// The <c>rebrickableip</c> connector.
     /// </summary>
-    public const string Rebrickableip = "rebrickableip";
+    public const string RebrickableIndependentPublisher = "rebrickableip";
 
     /// <summary>
     /// The <c>receptful</c> connector.
@@ -5318,17 +5318,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>recordedfutureidenti</c> connector.
     /// </summary>
-    public const string Recordedfutureidenti = "recordedfutureidenti";
+    public const string RecordedFutureIdentity = "recordedfutureidenti";
 
     /// <summary>
     /// The <c>recordedfuturesandbo</c> connector.
     /// </summary>
-    public const string Recordedfuturesandbo = "recordedfuturesandbo";
+    public const string RecordedFutureSandbox = "recordedfuturesandbo";
 
     /// <summary>
     /// The <c>recordedfuturev2</c> connector.
     /// </summary>
-    public const string Recordedfuturev2 = "recordedfuturev2";
+    public const string RecordedFutureV2 = "recordedfuturev2";
 
     /// <summary>
     /// The <c>redmine</c> connector.
@@ -5338,62 +5338,62 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>redquesmartinvoiceca</c> connector.
     /// </summary>
-    public const string Redquesmartinvoiceca = "redquesmartinvoiceca";
+    public const string Redque = "redquesmartinvoiceca";
 
     /// <summary>
     /// The <c>reflectip</c> connector.
     /// </summary>
-    public const string Reflectip = "reflectip";
+    public const string Reflect = "reflectip";
 
     /// <summary>
     /// The <c>refugerestroomsip</c> connector.
     /// </summary>
-    public const string Refugerestroomsip = "refugerestroomsip";
+    public const string RefugeRestroomsIndependentPublisher = "refugerestroomsip";
 
     /// <summary>
     /// The <c>regexflowexecutepyth</c> connector.
     /// </summary>
-    public const string Regexflowexecutepyth = "regexflowexecutepyth";
+    public const string RegexFlowExecutePython = "regexflowexecutepyth";
 
     /// <summary>
     /// The <c>regexflowregularexpr</c> connector.
     /// </summary>
-    public const string Regexflowregularexpr = "regexflowregularexpr";
+    public const string RegexFlowRegularExpression = "regexflowregularexpr";
 
     /// <summary>
     /// The <c>regolink</c> connector.
     /// </summary>
-    public const string Regolink = "regolink";
+    public const string RegoLinkForClarityPPM = "regolink";
 
     /// <summary>
     /// The <c>reliefwebip</c> connector.
     /// </summary>
-    public const string Reliefwebip = "reliefwebip";
+    public const string ReliefWebIndependentPublisher = "reliefwebip";
 
     /// <summary>
     /// The <c>rencore</c> connector.
     /// </summary>
-    public const string Rencore = "rencore";
+    public const string RencoreCode = "rencore";
 
     /// <summary>
     /// The <c>rencoregovernance</c> connector.
     /// </summary>
-    public const string Rencoregovernance = "rencoregovernance";
+    public const string RencoreGovernance = "rencoregovernance";
 
     /// <summary>
     /// The <c>repfabricjob</c> connector.
     /// </summary>
-    public const string Repfabricjob = "repfabricjob";
+    public const string RepfabricJobLoader = "repfabricjob";
 
     /// <summary>
     /// The <c>repfabricleadloader</c> connector.
     /// </summary>
-    public const string Repfabricleadloader = "repfabricleadloader";
+    public const string RepfabricLeadLoader = "repfabricleadloader";
 
     /// <summary>
     /// The <c>replicateip</c> connector.
     /// </summary>
-    public const string Replicateip = "replicateip";
+    public const string ReplicateIndependentPublisher = "replicateip";
 
     /// <summary>
     /// The <c>replicon</c> connector.
@@ -5408,82 +5408,82 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>rescocloud</c> connector.
     /// </summary>
-    public const string Rescocloud = "rescocloud";
+    public const string RescoCloud = "rescocloud";
 
     /// <summary>
     /// The <c>rescoreports</c> connector.
     /// </summary>
-    public const string Rescoreports = "rescoreports";
+    public const string RescoReports = "rescoreports";
 
     /// <summary>
     /// The <c>rescuegroupsip</c> connector.
     /// </summary>
-    public const string Rescuegroupsip = "rescuegroupsip";
+    public const string RescueGroupsIndependentPublisher = "rescuegroupsip";
 
     /// <summary>
     /// The <c>resendip</c> connector.
     /// </summary>
-    public const string Resendip = "resendip";
+    public const string ResendIndependentPublisher = "resendip";
 
     /// <summary>
     /// The <c>restcountriesip</c> connector.
     /// </summary>
-    public const string Restcountriesip = "restcountriesip";
+    public const string RESTCountriesIndependentPublisher = "restcountriesip";
 
     /// <summary>
     /// The <c>revai</c> connector.
     /// </summary>
-    public const string Revai = "revai";
+    public const string RevAIIndependentPublisher = "revai";
 
     /// <summary>
     /// The <c>revelationhelpdesk</c> connector.
     /// </summary>
-    public const string Revelationhelpdesk = "revelationhelpdesk";
+    public const string RevelationHelpdesk = "revelationhelpdesk";
 
     /// <summary>
     /// The <c>reversinglabsa1000</c> connector.
     /// </summary>
-    public const string Reversinglabsa1000 = "reversinglabsa1000";
+    public const string ReversingLabsA1000 = "reversinglabsa1000";
 
     /// <summary>
     /// The <c>reversinglabstitaniu</c> connector.
     /// </summary>
-    public const string Reversinglabstitaniu = "reversinglabstitaniu";
+    public const string ReversingLabsTitaniumCloud = "reversinglabstitaniu";
 
     /// <summary>
     /// The <c>revueip</c> connector.
     /// </summary>
-    public const string Revueip = "revueip";
+    public const string RevueIndependentPublisher = "revueip";
 
     /// <summary>
     /// The <c>rijksmuseumip</c> connector.
     /// </summary>
-    public const string Rijksmuseumip = "rijksmuseumip";
+    public const string RijksmuseumIndependentPublisher = "rijksmuseumip";
 
     /// <summary>
     /// The <c>rijksoverheidip</c> connector.
     /// </summary>
-    public const string Rijksoverheidip = "rijksoverheidip";
+    public const string RijksoverheidIndependentPublisher = "rijksoverheidip";
 
     /// <summary>
     /// The <c>riskiqdigitalfootprint</c> connector.
     /// </summary>
-    public const string Riskiqdigitalfootprint = "riskiqdigitalfootprint";
+    public const string RiskIQDigitalFootprint = "riskiqdigitalfootprint";
 
     /// <summary>
     /// The <c>riskiqintelligence</c> connector.
     /// </summary>
-    public const string Riskiqintelligence = "riskiqintelligence";
+    public const string RiskIQ = "riskiqintelligence";
 
     /// <summary>
     /// The <c>riskiqpassivetotal</c> connector.
     /// </summary>
-    public const string Riskiqpassivetotal = "riskiqpassivetotal";
+    public const string RiskIQIlluminate = "riskiqpassivetotal";
 
     /// <summary>
     /// The <c>robohaship</c> connector.
     /// </summary>
-    public const string Robohaship = "robohaship";
+    public const string RobohashIndependentPublisher = "robohaship";
 
     /// <summary>
     /// The <c>robolytix</c> connector.
@@ -5493,37 +5493,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>robotsforpowerbi</c> connector.
     /// </summary>
-    public const string Robotsforpowerbi = "robotsforpowerbi";
+    public const string RobotsForPowerBI = "robotsforpowerbi";
 
     /// <summary>
     /// The <c>ronswansonquotesip</c> connector.
     /// </summary>
-    public const string Ronswansonquotesip = "ronswansonquotesip";
+    public const string RonSwansonQuotesIndependentPublisher = "ronswansonquotesip";
 
     /// <summary>
     /// The <c>rowshare</c> connector.
     /// </summary>
-    public const string Rowshare = "rowshare";
+    public const string RowShare = "rowshare";
 
     /// <summary>
     /// The <c>rsign</c> connector.
     /// </summary>
-    public const string Rsign = "rsign";
+    public const string RSign = "rsign";
 
     /// <summary>
     /// The <c>rspacexip</c> connector.
     /// </summary>
-    public const string Rspacexip = "rspacexip";
+    public const string RSpaceXIndependentPublisher = "rspacexip";
 
     /// <summary>
     /// The <c>rss</c> connector.
     /// </summary>
-    public const string Rss = "rss";
+    public const string RSS = "rss";
 
     /// <summary>
     /// The <c>safetyculture</c> connector.
     /// </summary>
-    public const string Safetyculture = "safetyculture";
+    public const string IAuditor = "safetyculture";
 
     /// <summary>
     /// The <c>salesforce</c> connector.
@@ -5533,92 +5533,92 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sap</c> connector.
     /// </summary>
-    public const string Sap = "sap";
+    public const string SAP = "sap";
 
     /// <summary>
     /// The <c>saplingai</c> connector.
     /// </summary>
-    public const string Saplingai = "saplingai";
+    public const string SaplingAiIndependentPublisher = "saplingai";
 
     /// <summary>
     /// The <c>sapodata</c> connector.
     /// </summary>
-    public const string Sapodata = "sapodata";
+    public const string SAPOData = "sapodata";
 
     /// <summary>
     /// The <c>sasdecisioning</c> connector.
     /// </summary>
-    public const string Sasdecisioning = "sasdecisioning";
+    public const string SASDecisioning = "sasdecisioning";
 
     /// <summary>
     /// The <c>schipholairportip</c> connector.
     /// </summary>
-    public const string Schipholairportip = "schipholairportip";
+    public const string SchipholAirportIndependentPublisher = "schipholairportip";
 
     /// <summary>
     /// The <c>schooldiggerip</c> connector.
     /// </summary>
-    public const string Schooldiggerip = "schooldiggerip";
+    public const string SchoolDiggerIndependentPublisher = "schooldiggerip";
 
     /// <summary>
     /// The <c>scrapingbeeip</c> connector.
     /// </summary>
-    public const string Scrapingbeeip = "scrapingbeeip";
+    public const string ScrapingBeeIndependentPublisher = "scrapingbeeip";
 
     /// <summary>
     /// The <c>screenshotoneip</c> connector.
     /// </summary>
-    public const string Screenshotoneip = "screenshotoneip";
+    public const string ScreenshotOneIndependentPublisher = "screenshotoneip";
 
     /// <summary>
     /// The <c>scriveesign</c> connector.
     /// </summary>
-    public const string Scriveesign = "scriveesign";
+    public const string ScriveESign = "scriveesign";
 
     /// <summary>
     /// The <c>scryfallip</c> connector.
     /// </summary>
-    public const string Scryfallip = "scryfallip";
+    public const string ScryfallIndependentPublisher = "scryfallip";
 
     /// <summary>
     /// The <c>searchapigooglesearch</c> connector.
     /// </summary>
-    public const string Searchapigooglesearch = "searchapigooglesearch";
+    public const string SearchAPIGoogleSearchIndependentPublisher = "searchapigooglesearch";
 
     /// <summary>
     /// The <c>secib</c> connector.
     /// </summary>
-    public const string Secib = "secib";
+    public const string SECIB = "secib";
 
     /// <summary>
     /// The <c>secplugscan</c> connector.
     /// </summary>
-    public const string Secplugscan = "secplugscan";
+    public const string ScanCloud = "secplugscan";
 
     /// <summary>
     /// The <c>securecodewarrior</c> connector.
     /// </summary>
-    public const string Securecodewarrior = "securecodewarrior";
+    public const string SecureCodeWarriorIndependentPublisher = "securecodewarrior";
 
     /// <summary>
     /// The <c>securemessagedelivery</c> connector.
     /// </summary>
-    public const string Securemessagedelivery = "securemessagedelivery";
+    public const string DataMotion = "securemessagedelivery";
 
     /// <summary>
     /// The <c>securitycopilot</c> connector.
     /// </summary>
-    public const string Securitycopilot = "securitycopilot";
+    public const string MicrosoftSecurityCopilot = "securitycopilot";
 
     /// <summary>
     /// The <c>seebotrunlink</c> connector.
     /// </summary>
-    public const string Seebotrunlink = "seebotrunlink";
+    public const string SeeBotRunLink = "seebotrunlink";
 
     /// <summary>
     /// The <c>seektable</c> connector.
     /// </summary>
-    public const string Seektable = "seektable";
+    public const string SeekTable = "seektable";
 
     /// <summary>
     /// The <c>seismic</c> connector.
@@ -5628,32 +5628,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>seismicconfiguration</c> connector.
     /// </summary>
-    public const string Seismicconfiguration = "seismicconfiguration";
+    public const string SeismicConfiguration = "seismicconfiguration";
 
     /// <summary>
     /// The <c>seismiccontentdiscov</c> connector.
     /// </summary>
-    public const string Seismiccontentdiscov = "seismiccontentdiscov";
+    public const string SeismicContentDiscovery = "seismiccontentdiscov";
 
     /// <summary>
     /// The <c>seismicengagement</c> connector.
     /// </summary>
-    public const string Seismicengagement = "seismicengagement";
+    public const string SeismicEngagement = "seismicengagement";
 
     /// <summary>
     /// The <c>seismicforcopilotfor</c> connector.
     /// </summary>
-    public const string Seismicforcopilotfor = "seismicforcopilotfor";
+    public const string SeismicForCopilotForSales = "seismicforcopilotfor";
 
     /// <summary>
     /// The <c>seismiclibrary</c> connector.
     /// </summary>
-    public const string Seismiclibrary = "seismiclibrary";
+    public const string SeismicLibrary = "seismiclibrary";
 
     /// <summary>
     /// The <c>seismiclivedoc</c> connector.
     /// </summary>
-    public const string Seismiclivedoc = "seismiclivedoc";
+    public const string SeismicLivedoc = "seismiclivedoc";
 
     /// <summary>
     /// The <c>seismicplanner</c> connector.
@@ -5663,22 +5663,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>seismicprograms</c> connector.
     /// </summary>
-    public const string Seismicprograms = "seismicprograms";
+    public const string SeismicPrograms = "seismicprograms";
 
     /// <summary>
     /// The <c>seismicworkspace</c> connector.
     /// </summary>
-    public const string Seismicworkspace = "seismicworkspace";
+    public const string SeismicWorkspace = "seismicworkspace";
 
     /// <summary>
     /// The <c>sendansms</c> connector.
     /// </summary>
-    public const string Sendansms = "sendansms";
+    public const string TopMessage = "sendansms";
 
     /// <summary>
     /// The <c>sendfoxip</c> connector.
     /// </summary>
-    public const string Sendfoxip = "sendfoxip";
+    public const string SendFoxIndependentPublisher = "sendfoxip";
 
     /// <summary>
     /// The <c>sendgrid</c> connector.
@@ -5693,12 +5693,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sentinelmcp</c> connector.
     /// </summary>
-    public const string Sentinelmcp = "sentinelmcp";
+    public const string MicrosoftSentinelMCP = "sentinelmcp";
 
     /// <summary>
     /// The <c>serverless360</c> connector.
     /// </summary>
-    public const string Serverless360 = "serverless360";
+    public const string Serverless360BAMTracking = "serverless360";
 
     /// <summary>
     /// The <c>service-now</c> connector.
@@ -5713,77 +5713,77 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>servicedeskpluscloud</c> connector.
     /// </summary>
-    public const string Servicedeskpluscloud = "servicedeskpluscloud";
+    public const string ServiceDeskPlusCloud = "servicedeskpluscloud";
 
     /// <summary>
     /// The <c>serwersms</c> connector.
     /// </summary>
-    public const string Serwersms = "serwersms";
+    public const string SerwerSMS = "serwersms";
 
     /// <summary>
     /// The <c>sessionizeip</c> connector.
     /// </summary>
-    public const string Sessionizeip = "sessionizeip";
+    public const string SessionizeIndependentPublisher = "sessionizeip";
 
     /// <summary>
     /// The <c>sftpwithssh</c> connector.
     /// </summary>
-    public const string Sftpwithssh = "sftpwithssh";
+    public const string SFTPSSH = "sftpwithssh";
 
     /// <summary>
     /// The <c>shadifyip</c> connector.
     /// </summary>
-    public const string Shadifyip = "shadifyip";
+    public const string ShadifyIndependentPublisher = "shadifyip";
 
     /// <summary>
     /// The <c>shareeffect</c> connector.
     /// </summary>
-    public const string Shareeffect = "shareeffect";
+    public const string ShareEffect = "shareeffect";
 
     /// <summary>
     /// The <c>sharepointembedded</c> connector.
     /// </summary>
-    public const string Sharepointembedded = "sharepointembedded";
+    public const string SharePointEmbedded = "sharepointembedded";
 
     /// <summary>
     /// The <c>sharepointonline</c> connector.
     /// </summary>
-    public const string SharePointOnline = "sharepointonline";
+    public const string SharePoint = "sharepointonline";
 
     /// <summary>
     /// The <c>sherpadigital</c> connector.
     /// </summary>
-    public const string Sherpadigital = "sherpadigital";
+    public const string SherpaDigital = "sherpadigital";
 
     /// <summary>
     /// The <c>shieldsioip</c> connector.
     /// </summary>
-    public const string Shieldsioip = "shieldsioip";
+    public const string ShieldsIoIndependentPublisher = "shieldsioip";
 
     /// <summary>
     /// The <c>shifts</c> connector.
     /// </summary>
-    public const string Shifts = "shifts";
+    public const string ShiftsForMicrosoftTeams = "shifts";
 
     /// <summary>
     /// The <c>shipstation</c> connector.
     /// </summary>
-    public const string Shipstation = "shipstation";
+    public const string ShipStation = "shipstation";
 
     /// <summary>
     /// The <c>shipstationip</c> connector.
     /// </summary>
-    public const string Shipstationip = "shipstationip";
+    public const string ShipStationIPIndependentPublisher = "shipstationip";
 
     /// <summary>
     /// The <c>shop</c> connector.
     /// </summary>
-    public const string Shop = "shop";
+    public const string ShopIndependentPublisher = "shop";
 
     /// <summary>
     /// The <c>shopifyip</c> connector.
     /// </summary>
-    public const string Shopifyip = "shopifyip";
+    public const string ShopifyIndependentPublisher = "shopifyip";
 
     /// <summary>
     /// The <c>shopranos</c> connector.
@@ -5793,37 +5793,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>shorturl</c> connector.
     /// </summary>
-    public const string Shorturl = "shorturl";
+    public const string ShortURL = "shorturl";
 
     /// <summary>
     /// The <c>shortysmsip</c> connector.
     /// </summary>
-    public const string Shortysmsip = "shortysmsip";
+    public const string ShortySMSIndependentPublisher = "shortysmsip";
 
     /// <summary>
     /// The <c>showcaseworkshop</c> connector.
     /// </summary>
-    public const string Showcaseworkshop = "showcaseworkshop";
+    public const string ShowcaseWorkshop = "showcaseworkshop";
 
     /// <summary>
     /// The <c>shrtcodeip</c> connector.
     /// </summary>
-    public const string Shrtcodeip = "shrtcodeip";
+    public const string SHRTCODEIndependentPublisher = "shrtcodeip";
 
     /// <summary>
     /// The <c>si3270</c> connector.
     /// </summary>
-    public const string Si3270 = "si3270";
+    public const string IBM3270 = "si3270";
 
     /// <summary>
     /// The <c>sigmaconsocr</c> connector.
     /// </summary>
-    public const string Sigmaconsocr = "sigmaconsocr";
+    public const string SigmaConsoCR = "sigmaconsocr";
 
     /// <summary>
     /// The <c>signatureapi</c> connector.
     /// </summary>
-    public const string Signatureapi = "signatureapi";
+    public const string SignatureAPI = "signatureapi";
 
     /// <summary>
     /// The <c>signhost</c> connector.
@@ -5833,7 +5833,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>signi</c> connector.
     /// </summary>
-    public const string Signi = "signi";
+    public const string SigniCom = "signi";
 
     /// <summary>
     /// The <c>signinghub</c> connector.
@@ -5843,42 +5843,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>signinghubwebhooks</c> connector.
     /// </summary>
-    public const string Signinghubwebhooks = "signinghubwebhooks";
+    public const string SigningHubWebhooks = "signinghubwebhooks";
 
     /// <summary>
     /// The <c>signl4</c> connector.
     /// </summary>
-    public const string Signl4 = "signl4";
+    public const string DerdackSIGNL4 = "signl4";
 
     /// <summary>
     /// The <c>signnow</c> connector.
     /// </summary>
-    public const string Signnow = "signnow";
+    public const string SignNow = "signnow";
 
     /// <summary>
     /// The <c>signnoweu</c> connector.
     /// </summary>
-    public const string Signnoweu = "signnoweu";
+    public const string SignNowEU = "signnoweu";
 
     /// <summary>
     /// The <c>signrequest</c> connector.
     /// </summary>
-    public const string Signrequest = "signrequest";
+    public const string SignRequest = "signrequest";
 
     /// <summary>
     /// The <c>signupgeniusip</c> connector.
     /// </summary>
-    public const string Signupgeniusip = "signupgeniusip";
+    public const string SignUpGeniusIndependentPublisher = "signupgeniusip";
 
     /// <summary>
     /// The <c>simpleedi</c> connector.
     /// </summary>
-    public const string Simpleedi = "simpleedi";
+    public const string SimpleEDI = "simpleedi";
 
     /// <summary>
     /// The <c>simplesurvey</c> connector.
     /// </summary>
-    public const string Simplesurvey = "simplesurvey";
+    public const string SimpleSurvey = "simplesurvey";
 
     /// <summary>
     /// The <c>sinch</c> connector.
@@ -5888,17 +5888,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sirvarelocatingemplo</c> connector.
     /// </summary>
-    public const string Sirvarelocatingemplo = "sirvarelocatingemplo";
+    public const string SirvaRelocatingEmployee = "sirvarelocatingemplo";
 
     /// <summary>
     /// The <c>skribblesign</c> connector.
     /// </summary>
-    public const string Skribblesign = "skribblesign";
+    public const string SkribbleSign = "skribblesign";
 
     /// <summary>
     /// The <c>skypointcloud</c> connector.
     /// </summary>
-    public const string Skypointcloud = "skypointcloud";
+    public const string SkyPointCloud = "skypointcloud";
 
     /// <summary>
     /// The <c>slack</c> connector.
@@ -5913,7 +5913,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>smapone</c> connector.
     /// </summary>
-    public const string Smapone = "smapone";
+    public const string SmapOne = "smapone";
 
     /// <summary>
     /// The <c>smarp</c> connector.
@@ -5923,17 +5923,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>smartcommondemanddoc</c> connector.
     /// </summary>
-    public const string Smartcommondemanddoc = "smartcommondemanddoc";
+    public const string SmartCOMMDocGen = "smartcommondemanddoc";
 
     /// <summary>
     /// The <c>smartdialog</c> connector.
     /// </summary>
-    public const string Smartdialog = "smartdialog";
+    public const string SmartDialog = "smartdialog";
 
     /// <summary>
     /// The <c>smarterdrafter</c> connector.
     /// </summary>
-    public const string Smarterdrafter = "smarterdrafter";
+    public const string SmarterDrafter = "smarterdrafter";
 
     /// <summary>
     /// The <c>smartsheet</c> connector.
@@ -5943,7 +5943,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>smileback</c> connector.
     /// </summary>
-    public const string Smileback = "smileback";
+    public const string SmileBack = "smileback";
 
     /// <summary>
     /// The <c>sms77io</c> connector.
@@ -5953,37 +5953,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>smsapi</c> connector.
     /// </summary>
-    public const string Smsapi = "smsapi";
+    public const string SMSAPI = "smsapi";
 
     /// <summary>
     /// The <c>smsforapplications</c> connector.
     /// </summary>
-    public const string Smsforapplications = "smsforapplications";
+    public const string RetarusSMS = "smsforapplications";
 
     /// <summary>
     /// The <c>smslink</c> connector.
     /// </summary>
-    public const string Smslink = "smslink";
+    public const string SMSLink = "smslink";
 
     /// <summary>
     /// The <c>smswirelessserviceip</c> connector.
     /// </summary>
-    public const string Smswirelessserviceip = "smswirelessserviceip";
+    public const string SMSWirelessServicesIndependentPublisher = "smswirelessserviceip";
 
     /// <summary>
     /// The <c>smtp</c> connector.
     /// </summary>
-    public const string Smtp = "smtp";
+    public const string SMTP = "smtp";
 
     /// <summary>
     /// The <c>snowflakeip</c> connector.
     /// </summary>
-    public const string Snowflakeip = "snowflakeip";
+    public const string SnowflakeDeprecated = "snowflakeip";
 
     /// <summary>
     /// The <c>snowflakev2</c> connector.
     /// </summary>
-    public const string Snowflakev2 = "snowflakev2";
+    public const string Snowflake = "snowflakev2";
 
     /// <summary>
     /// The <c>sociabble</c> connector.
@@ -6003,7 +6003,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>softonewebcrm</c> connector.
     /// </summary>
-    public const string Softonewebcrm = "softonewebcrm";
+    public const string SoftoneWebCRM = "softonewebcrm";
 
     /// <summary>
     /// The <c>softools</c> connector.
@@ -6013,12 +6013,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>solosign</c> connector.
     /// </summary>
-    public const string Solosign = "solosign";
+    public const string SoloSignHMACHashCreator = "solosign";
 
     /// <summary>
     /// The <c>sosinventoryip</c> connector.
     /// </summary>
-    public const string Sosinventoryip = "sosinventoryip";
+    public const string SOSInventoryIndependentPublisher = "sosinventoryip";
 
     /// <summary>
     /// The <c>spark</c> connector.
@@ -6028,12 +6028,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sparkpost</c> connector.
     /// </summary>
-    public const string Sparkpost = "sparkpost";
+    public const string SparkPost = "sparkpost";
 
     /// <summary>
     /// The <c>sparsepowerboxtools</c> connector.
     /// </summary>
-    public const string Sparsepowerboxtools = "sparsepowerboxtools";
+    public const string SparsePowerBoxTools = "sparsepowerboxtools";
 
     /// <summary>
     /// The <c>spinpanel</c> connector.
@@ -6043,52 +6043,52 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>spoonacularfoodip</c> connector.
     /// </summary>
-    public const string Spoonacularfoodip = "spoonacularfoodip";
+    public const string SpoonacularFoodIndependentPublisher = "spoonacularfoodip";
 
     /// <summary>
     /// The <c>spoonacularmealplaip</c> connector.
     /// </summary>
-    public const string Spoonacularmealplaip = "spoonacularmealplaip";
+    public const string SpoonacularMealPlannerIndependentPublisher = "spoonacularmealplaip";
 
     /// <summary>
     /// The <c>spoonacularrecipeip</c> connector.
     /// </summary>
-    public const string Spoonacularrecipeip = "spoonacularrecipeip";
+    public const string SpoonacularRecipeIndependentPublisher = "spoonacularrecipeip";
 
     /// <summary>
     /// The <c>spotifyip</c> connector.
     /// </summary>
-    public const string Spotifyip = "spotifyip";
+    public const string SpotifyIndependentPublisher = "spotifyip";
 
     /// <summary>
     /// The <c>springglobal</c> connector.
     /// </summary>
-    public const string Springglobal = "springglobal";
+    public const string SpringGlobal = "springglobal";
 
     /// <summary>
     /// The <c>sql</c> connector.
     /// </summary>
-    public const string Sql = "sql";
+    public const string SQLServer = "sql";
 
     /// <summary>
     /// The <c>sqldw</c> connector.
     /// </summary>
-    public const string Sqldw = "sqldw";
+    public const string AzureSQLDataWarehouse = "sqldw";
 
     /// <summary>
     /// The <c>squarebusinessip</c> connector.
     /// </summary>
-    public const string Squarebusinessip = "squarebusinessip";
+    public const string SquareBusinessIndependentPublisher = "squarebusinessip";
 
     /// <summary>
     /// The <c>squarepaymentsip</c> connector.
     /// </summary>
-    public const string Squarepaymentsip = "squarepaymentsip";
+    public const string SquarePaymentsIndependentPublisher = "squarepaymentsip";
 
     /// <summary>
     /// The <c>stabilityaiip</c> connector.
     /// </summary>
-    public const string Stabilityaiip = "stabilityaiip";
+    public const string StabilityAiIndependentPublisher = "stabilityaiip";
 
     /// <summary>
     /// The <c>staffbase</c> connector.
@@ -6098,7 +6098,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>staffcircle</c> connector.
     /// </summary>
-    public const string Staffcircle = "staffcircle";
+    public const string StaffCircle = "staffcircle";
 
     /// <summary>
     /// The <c>starmind</c> connector.
@@ -6108,12 +6108,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>starrezrestv1</c> connector.
     /// </summary>
-    public const string StarrezRestV1 = "starrezrestv1";
+    public const string StarRezRESTV1 = "starrezrestv1";
 
     /// <summary>
     /// The <c>starwarsip</c> connector.
     /// </summary>
-    public const string Starwarsip = "starwarsip";
+    public const string StarWarsIndependentPublisher = "starwarsip";
 
     /// <summary>
     /// The <c>stormboard</c> connector.
@@ -6123,17 +6123,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>stormglassip</c> connector.
     /// </summary>
-    public const string Stormglassip = "stormglassip";
+    public const string StormGlassIndependentPublisher = "stormglassip";
 
     /// <summary>
     /// The <c>strakerverify</c> connector.
     /// </summary>
-    public const string Strakerverify = "strakerverify";
+    public const string StrakerVerify = "strakerverify";
 
     /// <summary>
     /// The <c>stravaip</c> connector.
     /// </summary>
-    public const string Stravaip = "stravaip";
+    public const string StravaIndependentPublisher = "stravaip";
 
     /// <summary>
     /// The <c>stripe</c> connector.
@@ -6143,32 +6143,32 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>studioghibliip</c> connector.
     /// </summary>
-    public const string Studioghibliip = "studioghibliip";
+    public const string StudioGhibliIndependentPublisher = "studioghibliip";
 
     /// <summary>
     /// The <c>sunrisesunsetip</c> connector.
     /// </summary>
-    public const string Sunrisesunsetip = "sunrisesunsetip";
+    public const string SunriseSunsetIndependentPublisher = "sunrisesunsetip";
 
     /// <summary>
     /// The <c>supportivekoalaip</c> connector.
     /// </summary>
-    public const string Supportivekoalaip = "supportivekoalaip";
+    public const string SupportivekoalaIndependentPublisher = "supportivekoalaip";
 
     /// <summary>
     /// The <c>surexerolite</c> connector.
     /// </summary>
-    public const string Surexerolite = "surexerolite";
+    public const string SureXeroLiteIndependentPublisher = "surexerolite";
 
     /// <summary>
     /// The <c>survalyzereu</c> connector.
     /// </summary>
-    public const string Survalyzereu = "survalyzereu";
+    public const string SurvalyzerEU = "survalyzereu";
 
     /// <summary>
     /// The <c>survalyzerswiss</c> connector.
     /// </summary>
-    public const string Survalyzerswiss = "survalyzerswiss";
+    public const string SurvalyzerSwiss = "survalyzerswiss";
 
     /// <summary>
     /// The <c>survey123</c> connector.
@@ -6178,37 +6178,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>surveymonkey</c> connector.
     /// </summary>
-    public const string Surveymonkey = "surveymonkey";
+    public const string SurveyMonkey = "surveymonkey";
 
     /// <summary>
     /// The <c>surveymonkeycanada</c> connector.
     /// </summary>
-    public const string Surveymonkeycanada = "surveymonkeycanada";
+    public const string SurveyMonkeyCanada = "surveymonkeycanada";
 
     /// <summary>
     /// The <c>swaggerconverterip</c> connector.
     /// </summary>
-    public const string Swaggerconverterip = "swaggerconverterip";
+    public const string SwaggerConverterIndependentPublisher = "swaggerconverterip";
 
     /// <summary>
     /// The <c>synthesiaip</c> connector.
     /// </summary>
-    public const string Synthesiaip = "synthesiaip";
+    public const string SynthesiaIndependentPublisher = "synthesiaip";
 
     /// <summary>
     /// The <c>tabscannerreceiptocr</c> connector.
     /// </summary>
-    public const string Tabscannerreceiptocr = "tabscannerreceiptocr";
+    public const string TabscannerReceiptOCRIndependentPublisher = "tabscannerreceiptocr";
 
     /// <summary>
     /// The <c>taggunreceiptocrscip</c> connector.
     /// </summary>
-    public const string Taggunreceiptocrscip = "taggunreceiptocrscip";
+    public const string TAGGUNReceiptOCRScanningIndependentPublisher = "taggunreceiptocrscip";
 
     /// <summary>
     /// The <c>taktikalcore</c> connector.
     /// </summary>
-    public const string Taktikalcore = "taktikalcore";
+    public const string TaktikalCore = "taktikalcore";
 
     /// <summary>
     /// The <c>talkdesk</c> connector.
@@ -6223,7 +6223,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>talxisdatafeed</c> connector.
     /// </summary>
-    public const string Talxisdatafeed = "talxisdatafeed";
+    public const string TALXISDataFeed = "talxisdatafeed";
 
     /// <summary>
     /// The <c>taqnyat</c> connector.
@@ -6233,22 +6233,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tavily</c> connector.
     /// </summary>
-    public const string Tavily = "tavily";
+    public const string TavilyIndependentPublisher = "tavily";
 
     /// <summary>
     /// The <c>tavilymcp</c> connector.
     /// </summary>
-    public const string Tavilymcp = "tavilymcp";
+    public const string TavilyMCP = "tavilymcp";
 
     /// <summary>
     /// The <c>taxidpro</c> connector.
     /// </summary>
-    public const string Taxidpro = "taxidpro";
+    public const string TaxIdProIndependentPublisher = "taxidpro";
 
     /// <summary>
     /// The <c>tdox</c> connector.
     /// </summary>
-    public const string Tdox = "tdox";
+    public const string TDox = "tdox";
 
     /// <summary>
     /// The <c>teamflect</c> connector.
@@ -6258,37 +6258,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>teamforms</c> connector.
     /// </summary>
-    public const string Teamforms = "teamforms";
+    public const string TeamForms = "teamforms";
 
     /// <summary>
     /// The <c>teams</c> connector.
     /// </summary>
-    public const string Teams = "teams";
+    public const string MicrosoftTeams = "teams";
 
     /// <summary>
     /// The <c>teamsspirit</c> connector.
     /// </summary>
-    public const string Teamsspirit = "teamsspirit";
+    public const string TeamsSpirit = "teamsspirit";
 
     /// <summary>
     /// The <c>teamwork</c> connector.
     /// </summary>
-    public const string Teamwork = "teamwork";
+    public const string TeamworkProjects = "teamwork";
 
     /// <summary>
     /// The <c>tegolysign</c> connector.
     /// </summary>
-    public const string Tegolysign = "tegolysign";
+    public const string TegolySIGN = "tegolysign";
 
     /// <summary>
     /// The <c>telephonyxtendedsrv</c> connector.
     /// </summary>
-    public const string Telephonyxtendedsrv = "telephonyxtendedsrv";
+    public const string TelephonyXtendedServInterf = "telephonyxtendedsrv";
 
     /// <summary>
     /// The <c>telesignsms</c> connector.
     /// </summary>
-    public const string Telesignsms = "telesignsms";
+    public const string TeleSignSMS = "telesignsms";
 
     /// <summary>
     /// The <c>templafy</c> connector.
@@ -6298,7 +6298,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tendocsdocuments</c> connector.
     /// </summary>
-    public const string Tendocsdocuments = "tendocsdocuments";
+    public const string TendocsDocuments = "tendocsdocuments";
 
     /// <summary>
     /// The <c>teradata</c> connector.
@@ -6308,27 +6308,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tesseronasmbasicdata</c> connector.
     /// </summary>
-    public const string Tesseronasmbasicdata = "tesseronasmbasicdata";
+    public const string TesseronBasicData = "tesseronasmbasicdata";
 
     /// <summary>
     /// The <c>tesseronasmticket</c> connector.
     /// </summary>
-    public const string Tesseronasmticket = "tesseronasmticket";
+    public const string TesseronTicket = "tesseronasmticket";
 
     /// <summary>
     /// The <c>tesseronasset</c> connector.
     /// </summary>
-    public const string Tesseronasset = "tesseronasset";
+    public const string TesseronAssetManagement = "tesseronasset";
 
     /// <summary>
     /// The <c>tesseroninvoice</c> connector.
     /// </summary>
-    public const string Tesseroninvoice = "tesseroninvoice";
+    public const string TesseronInvoice = "tesseroninvoice";
 
     /// <summary>
     /// The <c>testconnector</c> connector.
     /// </summary>
-    public const string Testconnector = "testconnector";
+    public const string TestConnector = "testconnector";
 
     /// <summary>
     /// The <c>textrequest</c> connector.
@@ -6338,72 +6338,72 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>thebotplatform</c> connector.
     /// </summary>
-    public const string Thebotplatform = "thebotplatform";
+    public const string TheBotPlatform = "thebotplatform";
 
     /// <summary>
     /// The <c>thebronnoysundregistries</c> connector.
     /// </summary>
-    public const string Thebronnoysundregistries = "thebronnoysundregistries";
+    public const string TheBronnoysundRegistriesIndependentPublisher = "thebronnoysundregistries";
 
     /// <summary>
     /// The <c>thecolorip</c> connector.
     /// </summary>
-    public const string Thecolorip = "thecolorip";
+    public const string TheColorIndependentPublisher = "thecolorip";
 
     /// <summary>
     /// The <c>theeventscalendar</c> connector.
     /// </summary>
-    public const string Theeventscalendar = "theeventscalendar";
+    public const string TheEventsCalendar = "theeventscalendar";
 
     /// <summary>
     /// The <c>thegoodapiip</c> connector.
     /// </summary>
-    public const string Thegoodapiip = "thegoodapiip";
+    public const string TheGoodAPIIndependentPublisher = "thegoodapiip";
 
     /// <summary>
     /// The <c>theguardian</c> connector.
     /// </summary>
-    public const string Theguardian = "theguardian";
+    public const string TheGuardianIndependentPublisher = "theguardian";
 
     /// <summary>
     /// The <c>theittipster</c> connector.
     /// </summary>
-    public const string Theittipster = "theittipster";
+    public const string TheITTipster = "theittipster";
 
     /// <summary>
     /// The <c>thelordoftheringsip</c> connector.
     /// </summary>
-    public const string Thelordoftheringsip = "thelordoftheringsip";
+    public const string TheLordOfTheRingsIndependentPublisher = "thelordoftheringsip";
 
     /// <summary>
     /// The <c>themealdbip</c> connector.
     /// </summary>
-    public const string Themealdbip = "themealdbip";
+    public const string TheMealDBIndependentPublisher = "themealdbip";
 
     /// <summary>
     /// The <c>thesmsworksip</c> connector.
     /// </summary>
-    public const string Thesmsworksip = "thesmsworksip";
+    public const string TheSMSWorksIndependentPublisher = "thesmsworksip";
 
     /// <summary>
     /// The <c>theweatherchannelip</c> connector.
     /// </summary>
-    public const string Theweatherchannelip = "theweatherchannelip";
+    public const string TheWeatherChannelIndependentPublisher = "theweatherchannelip";
 
     /// <summary>
     /// The <c>threadsip</c> connector.
     /// </summary>
-    public const string Threadsip = "threadsip";
+    public const string ThreadsIndependentPublisher = "threadsip";
 
     /// <summary>
     /// The <c>ticketingevents</c> connector.
     /// </summary>
-    public const string Ticketingevents = "ticketingevents";
+    public const string TicketingEvents = "ticketingevents";
 
     /// <summary>
     /// The <c>ticketmaster</c> connector.
     /// </summary>
-    public const string Ticketmaster = "ticketmaster";
+    public const string TicketmasterIndependentPublisher = "ticketmaster";
 
     /// <summary>
     /// The <c>tikit</c> connector.
@@ -6413,7 +6413,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tilitervisionagents</c> connector.
     /// </summary>
-    public const string Tilitervisionagents = "tilitervisionagents";
+    public const string TiliterVisionAgents = "tilitervisionagents";
 
     /// <summary>
     /// The <c>tilkee</c> connector.
@@ -6423,7 +6423,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>timeapi</c> connector.
     /// </summary>
-    public const string Timeapi = "timeapi";
+    public const string TimeAPIIndependentPublisher = "timeapi";
 
     /// <summary>
     /// The <c>timeghost</c> connector.
@@ -6438,27 +6438,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tldrip</c> connector.
     /// </summary>
-    public const string Tldrip = "tldrip";
+    public const string TLDR = "tldrip";
 
     /// <summary>
     /// The <c>tly</c> connector.
     /// </summary>
-    public const string Tly = "tly";
+    public const string TLYIndependentPublisher = "tly";
 
     /// <summary>
     /// The <c>todayinhistoryip</c> connector.
     /// </summary>
-    public const string Todayinhistoryip = "todayinhistoryip";
+    public const string TodayInHistoryIndependentPublisher = "todayinhistoryip";
 
     /// <summary>
     /// The <c>todo</c> connector.
     /// </summary>
-    public const string Todo = "todo";
+    public const string MicrosoftToDoBusiness = "todo";
 
     /// <summary>
     /// The <c>todoconsumer</c> connector.
     /// </summary>
-    public const string Todoconsumer = "todoconsumer";
+    public const string MicrosoftToDoConsumer = "todoconsumer";
 
     /// <summary>
     /// The <c>todoist</c> connector.
@@ -6468,12 +6468,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>toggltrack</c> connector.
     /// </summary>
-    public const string Toggltrack = "toggltrack";
+    public const string TogglTrackIndependentPublisher = "toggltrack";
 
     /// <summary>
     /// The <c>tomorrowioip</c> connector.
     /// </summary>
-    public const string Tomorrowioip = "tomorrowioip";
+    public const string TomorrowIoIndependentPublisher = "tomorrowioip";
 
     /// <summary>
     /// The <c>toodledo</c> connector.
@@ -6483,42 +6483,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tophhiecloud</c> connector.
     /// </summary>
-    public const string Tophhiecloud = "tophhiecloud";
+    public const string TophhieCloud = "tophhiecloud";
 
     /// <summary>
     /// The <c>touchsmsv2documentat</c> connector.
     /// </summary>
-    public const string Touchsmsv2documentat = "touchsmsv2documentat";
+    public const string TouchSMS = "touchsmsv2documentat";
 
     /// <summary>
     /// The <c>tpcportal</c> connector.
     /// </summary>
-    public const string Tpcportal = "tpcportal";
+    public const string TPCPortal = "tpcportal";
 
     /// <summary>
     /// The <c>tractionguest</c> connector.
     /// </summary>
-    public const string Tractionguest = "tractionguest";
+    public const string TractionGuest = "tractionguest";
 
     /// <summary>
     /// The <c>tradegov</c> connector.
     /// </summary>
-    public const string Tradegov = "tradegov";
+    public const string TradeGovIndependentPublisher = "tradegov";
 
     /// <summary>
     /// The <c>transform2all</c> connector.
     /// </summary>
-    public const string Transform2all = "transform2all";
+    public const string Transform2All = "transform2all";
 
     /// <summary>
     /// The <c>translatorv2</c> connector.
     /// </summary>
-    public const string Translatorv2 = "translatorv2";
+    public const string MicrosoftTranslatorV2 = "translatorv2";
 
     /// <summary>
     /// The <c>treenationip</c> connector.
     /// </summary>
-    public const string Treenationip = "treenationip";
+    public const string TreeNationIndependentPublisher = "treenationip";
 
     /// <summary>
     /// The <c>trello</c> connector.
@@ -6528,27 +6528,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tribal</c> connector.
     /// </summary>
-    public const string Tribal = "tribal";
+    public const string TribalPlatform = "tribal";
 
     /// <summary>
     /// The <c>tribalmaytas</c> connector.
     /// </summary>
-    public const string Tribalmaytas = "tribalmaytas";
+    public const string TribalMaytas = "tribalmaytas";
 
     /// <summary>
     /// The <c>tribalsits</c> connector.
     /// </summary>
-    public const string Tribalsits = "tribalsits";
+    public const string TribalSITS = "tribalsits";
 
     /// <summary>
     /// The <c>triggercmd</c> connector.
     /// </summary>
-    public const string Triggercmd = "triggercmd";
+    public const string TRIGGERcmd = "triggercmd";
 
     /// <summary>
     /// The <c>truedialogsms</c> connector.
     /// </summary>
-    public const string Truedialogsms = "truedialogsms";
+    public const string TrueDialogSMS = "truedialogsms";
 
     /// <summary>
     /// The <c>trustual</c> connector.
@@ -6558,7 +6558,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tsheetsquickbooksip</c> connector.
     /// </summary>
-    public const string Tsheetsquickbooksip = "tsheetsquickbooksip";
+    public const string QuickBooksTimeIndependentPublisher = "tsheetsquickbooksip";
 
     /// <summary>
     /// The <c>tulip</c> connector.
@@ -6568,12 +6568,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tumblrip</c> connector.
     /// </summary>
-    public const string Tumblrip = "tumblrip";
+    public const string TumblrIndependentPublisher = "tumblrip";
 
     /// <summary>
     /// The <c>tuxmailer</c> connector.
     /// </summary>
-    public const string Tuxmailer = "tuxmailer";
+    public const string TuxMailer = "tuxmailer";
 
     /// <summary>
     /// The <c>twilio</c> connector.
@@ -6583,37 +6583,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>twitter</c> connector.
     /// </summary>
-    public const string Twitter = "twitter";
+    public const string X = "twitter";
 
     /// <summary>
     /// The <c>txtsync</c> connector.
     /// </summary>
-    public const string Txtsync = "txtsync";
+    public const string TxtSync = "txtsync";
 
     /// <summary>
     /// The <c>tyntec2fa</c> connector.
     /// </summary>
-    public const string Tyntec2fa = "tyntec2fa";
+    public const string Tyntec2FA = "tyntec2fa";
 
     /// <summary>
     /// The <c>tyntecportabilitycheck</c> connector.
     /// </summary>
-    public const string Tyntecportabilitycheck = "tyntecportabilitycheck";
+    public const string TyntecPhoneVerification = "tyntecportabilitycheck";
 
     /// <summary>
     /// The <c>tyntecsms</c> connector.
     /// </summary>
-    public const string Tyntecsms = "tyntecsms";
+    public const string TyntecSMSBusiness = "tyntecsms";
 
     /// <summary>
     /// The <c>tyntecviber</c> connector.
     /// </summary>
-    public const string Tyntecviber = "tyntecviber";
+    public const string TyntecViberBusiness = "tyntecviber";
 
     /// <summary>
     /// The <c>tyntecwa</c> connector.
     /// </summary>
-    public const string Tyntecwa = "tyntecwa";
+    public const string TyntecWhatsAppBusiness = "tyntecwa";
 
     /// <summary>
     /// The <c>typeform</c> connector.
@@ -6623,62 +6623,62 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>uberfreight</c> connector.
     /// </summary>
-    public const string Uberfreight = "uberfreight";
+    public const string UberFreight = "uberfreight";
 
     /// <summary>
     /// The <c>ubiqodbyskiply</c> connector.
     /// </summary>
-    public const string Ubiqodbyskiply = "ubiqodbyskiply";
+    public const string UbiqodBySkiply = "ubiqodbyskiply";
 
     /// <summary>
     /// The <c>ubiqodbyskiplyv2</c> connector.
     /// </summary>
-    public const string Ubiqodbyskiplyv2 = "ubiqodbyskiplyv2";
+    public const string UbiqodByTaqt = "ubiqodbyskiplyv2";
 
     /// <summary>
     /// The <c>udemyip</c> connector.
     /// </summary>
-    public const string Udemyip = "udemyip";
+    public const string UdemyIndependentPublisher = "udemyip";
 
     /// <summary>
     /// The <c>uipath</c> connector.
     /// </summary>
-    public const string Uipath = "uipath";
+    public const string UiPath = "uipath";
 
     /// <summary>
     /// The <c>uipathorchestrator</c> connector.
     /// </summary>
-    public const string Uipathorchestrator = "uipathorchestrator";
+    public const string UiPathOrchestrator = "uipathorchestrator";
 
     /// <summary>
     /// The <c>ukbankholidays</c> connector.
     /// </summary>
-    public const string Ukbankholidays = "ukbankholidays";
+    public const string UKBankHolidaysIndependentPublisher = "ukbankholidays";
 
     /// <summary>
     /// The <c>ukgovtcheckvatip</c> connector.
     /// </summary>
-    public const string Ukgovtcheckvatip = "ukgovtcheckvatip";
+    public const string UKCheckVATIndependentPublisher = "ukgovtcheckvatip";
 
     /// <summary>
     /// The <c>ukgprohcm</c> connector.
     /// </summary>
-    public const string Ukgprohcm = "ukgprohcm";
+    public const string UKGProHCM = "ukgprohcm";
 
     /// <summary>
     /// The <c>ukgprowfmemployee</c> connector.
     /// </summary>
-    public const string Ukgprowfmemployee = "ukgprowfmemployee";
+    public const string UKGProWFMEmployee = "ukgprowfmemployee";
 
     /// <summary>
     /// The <c>ukgprowfmpeople</c> connector.
     /// </summary>
-    public const string Ukgprowfmpeople = "ukgprowfmpeople";
+    public const string UKGProWFMPeople = "ukgprowfmpeople";
 
     /// <summary>
     /// The <c>ukgprowfmtimekeeping</c> connector.
     /// </summary>
-    public const string Ukgprowfmtimekeeping = "ukgprowfmtimekeeping";
+    public const string UKGProWFMTimekeeping = "ukgprowfmtimekeeping";
 
     /// <summary>
     /// The <c>universalprint</c> connector.
@@ -6688,77 +6688,77 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>unixtimestampip</c> connector.
     /// </summary>
-    public const string Unixtimestampip = "unixtimestampip";
+    public const string UnixTimestampIndependentPublisher = "unixtimestampip";
 
     /// <summary>
     /// The <c>unofficialnetflixsip</c> connector.
     /// </summary>
-    public const string Unofficialnetflixsip = "unofficialnetflixsip";
+    public const string UnofficialNetflixSearchIndependentPublisher = "unofficialnetflixsip";
 
     /// <summary>
     /// The <c>unsplaship</c> connector.
     /// </summary>
-    public const string Unsplaship = "unsplaship";
+    public const string UnsplashIndependentPublisher = "unsplaship";
 
     /// <summary>
     /// The <c>updownip</c> connector.
     /// </summary>
-    public const string Updownip = "updownip";
+    public const string UpdownIndependentPublisher = "updownip";
 
     /// <summary>
     /// The <c>uplandpanvivaus</c> connector.
     /// </summary>
-    public const string Uplandpanvivaus = "uplandpanvivaus";
+    public const string UplandPanvivaUS = "uplandpanvivaus";
 
     /// <summary>
     /// The <c>ups</c> connector.
     /// </summary>
-    public const string Ups = "ups";
+    public const string UPS = "ups";
 
     /// <summary>
     /// The <c>urlbaeip</c> connector.
     /// </summary>
-    public const string Urlbaeip = "urlbaeip";
+    public const string UrLBaeIndependentPublisher = "urlbaeip";
 
     /// <summary>
     /// The <c>urldevip</c> connector.
     /// </summary>
-    public const string Urldevip = "urldevip";
+    public const string URLDevIndependentPublisher = "urldevip";
 
     /// <summary>
     /// The <c>usajobs</c> connector.
     /// </summary>
-    public const string Usajobs = "usajobs";
+    public const string USAJOBSIndependentPublisher = "usajobs";
 
     /// <summary>
     /// The <c>usb4sap</c> connector.
     /// </summary>
-    public const string Usb4sap = "usb4sap";
+    public const string USB4SAP = "usb4sap";
 
     /// <summary>
     /// The <c>usbanktreasurymanage</c> connector.
     /// </summary>
-    public const string Usbanktreasurymanage = "usbanktreasurymanage";
+    public const string USBankTreasuryManagement = "usbanktreasurymanage";
 
     /// <summary>
     /// The <c>uscongresscrs</c> connector.
     /// </summary>
-    public const string Uscongresscrs = "uscongresscrs";
+    public const string USCongressCRSIndependentPublisher = "uscongresscrs";
 
     /// <summary>
     /// The <c>uservoice</c> connector.
     /// </summary>
-    public const string Uservoice = "uservoice";
+    public const string UserVoice = "uservoice";
 
     /// <summary>
     /// The <c>uspatenttrademarkoff</c> connector.
     /// </summary>
-    public const string Uspatenttrademarkoff = "uspatenttrademarkoff";
+    public const string USPatentTrademarkOfficeIndependentPublisher = "uspatenttrademarkoff";
 
     /// <summary>
     /// The <c>vantage365imaging</c> connector.
     /// </summary>
-    public const string Vantage365imaging = "vantage365imaging";
+    public const string Vantage365Imaging = "vantage365imaging";
 
     /// <summary>
     /// The <c>varuna</c> connector.
@@ -6768,17 +6768,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>vatcheckapiip</c> connector.
     /// </summary>
-    public const string Vatcheckapiip = "vatcheckapiip";
+    public const string Vatcheckapi = "vatcheckapiip";
 
     /// <summary>
     /// The <c>vena</c> connector.
     /// </summary>
-    public const string Vena = "vena";
+    public const string VenaSolutions = "vena";
 
     /// <summary>
     /// The <c>ventipixassetandinventory</c> connector.
     /// </summary>
-    public const string Ventipixassetandinventory = "ventipixassetandinventory";
+    public const string VentipixAssetAndInventory = "ventipixassetandinventory";
 
     /// <summary>
     /// The <c>verified</c> connector.
@@ -6788,22 +6788,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>veteransaffairsfacil</c> connector.
     /// </summary>
-    public const string Veteransaffairsfacil = "veteransaffairsfacil";
+    public const string VeteransAffairsFacilitiesIndependentPublisher = "veteransaffairsfacil";
 
     /// <summary>
     /// The <c>veteransaffairsforms</c> connector.
     /// </summary>
-    public const string Veteransaffairsforms = "veteransaffairsforms";
+    public const string VeteransAffairsFormsIndependentPublisher = "veteransaffairsforms";
 
     /// <summary>
     /// The <c>veteransaffairsip</c> connector.
     /// </summary>
-    public const string Veteransaffairsip = "veteransaffairsip";
+    public const string VeteranConfirmationIndependentPublisher = "veteransaffairsip";
 
     /// <summary>
     /// The <c>veteransaffairsprovi</c> connector.
     /// </summary>
-    public const string Veteransaffairsprovi = "veteransaffairsprovi";
+    public const string VeteransAffairsProvidersIndependentPublisher = "veteransaffairsprovi";
 
     /// <summary>
     /// The <c>viafirma</c> connector.
@@ -6813,12 +6813,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>videoindexer</c> connector.
     /// </summary>
-    public const string Videoindexer = "videoindexer";
+    public const string VideoIndexer = "videoindexer";
 
     /// <summary>
     /// The <c>viesip</c> connector.
     /// </summary>
-    public const string Viesip = "viesip";
+    public const string VIESIndependentPublisher = "viesip";
 
     /// <summary>
     /// The <c>vimeo</c> connector.
@@ -6828,27 +6828,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>vineforce</c> connector.
     /// </summary>
-    public const string Vineforce = "vineforce";
+    public const string Trovve = "vineforce";
 
     /// <summary>
     /// The <c>virtualdataplatform</c> connector.
     /// </summary>
-    public const string Virtualdataplatform = "virtualdataplatform";
+    public const string VirtualDataPlatform = "virtualdataplatform";
 
     /// <summary>
     /// The <c>virustotal</c> connector.
     /// </summary>
-    public const string Virustotal = "virustotal";
+    public const string VirusTotal = "virustotal";
 
     /// <summary>
     /// The <c>visualstudioteamservices</c> connector.
     /// </summary>
-    public const string Visualstudioteamservices = "visualstudioteamservices";
+    public const string AzureDevOps = "visualstudioteamservices";
 
     /// <summary>
     /// The <c>vitacloudquotes</c> connector.
     /// </summary>
-    public const string Vitacloudquotes = "vitacloudquotes";
+    public const string VitaCloudQuotes = "vitacloudquotes";
 
     /// <summary>
     /// The <c>vocean</c> connector.
@@ -6858,12 +6858,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>voicemonkey</c> connector.
     /// </summary>
-    public const string Voicemonkey = "voicemonkey";
+    public const string VoiceMonkeyIndependentPubshisher = "voicemonkey";
 
     /// <summary>
     /// The <c>voicerss</c> connector.
     /// </summary>
-    public const string Voicerss = "voicerss";
+    public const string VoiceRSSIndependentPubisher = "voicerss";
 
     /// <summary>
     /// The <c>vome</c> connector.
@@ -6883,37 +6883,37 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>waybackmachineip</c> connector.
     /// </summary>
-    public const string Waybackmachineip = "waybackmachineip";
+    public const string WaybackMachineIndependentPublisher = "waybackmachineip";
 
     /// <summary>
     /// The <c>waywedo</c> connector.
     /// </summary>
-    public const string Waywedo = "waywedo";
+    public const string WayWeDo = "waywedo";
 
     /// <summary>
     /// The <c>wdatp</c> connector.
     /// </summary>
-    public const string Wdatp = "wdatp";
+    public const string MicrosoftDefenderATP = "wdatp";
 
     /// <summary>
     /// The <c>weatherforecastip</c> connector.
     /// </summary>
-    public const string Weatherforecastip = "weatherforecastip";
+    public const string WeatherForecastIndependentPublisher = "weatherforecastip";
 
     /// <summary>
     /// The <c>weavoliquidloom</c> connector.
     /// </summary>
-    public const string Weavoliquidloom = "weavoliquidloom";
+    public const string WeavoLiquidLoom = "weavoliquidloom";
 
     /// <summary>
     /// The <c>webcontents</c> connector.
     /// </summary>
-    public const string Webcontents = "webcontents";
+    public const string HTTPWithMicrosoftEntraIdPreauthorized = "webcontents";
 
     /// <summary>
     /// The <c>webcontentsv2</c> connector.
     /// </summary>
-    public const string Webcontentsv2 = "webcontentsv2";
+    public const string HTTPWithMicrosoftEntraId = "webcontentsv2";
 
     /// <summary>
     /// The <c>webex</c> connector.
@@ -6923,42 +6923,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>webexintegrationip</c> connector.
     /// </summary>
-    public const string Webexintegrationip = "webexintegrationip";
+    public const string WebexIntegrationIndependentPublisher = "webexintegrationip";
 
     /// <summary>
     /// The <c>webhoodurlscanner</c> connector.
     /// </summary>
-    public const string Webhoodurlscanner = "webhoodurlscanner";
+    public const string WebhoodURLScanner = "webhoodurlscanner";
 
     /// <summary>
     /// The <c>webmerge</c> connector.
     /// </summary>
-    public const string Webmerge = "webmerge";
+    public const string FormstackDocuments = "webmerge";
 
     /// <summary>
     /// The <c>websitecarbon</c> connector.
     /// </summary>
-    public const string Websitecarbon = "websitecarbon";
+    public const string WebsiteCarbonNdependentPublisher = "websitecarbon";
 
     /// <summary>
     /// The <c>wendocslinker</c> connector.
     /// </summary>
-    public const string Wendocslinker = "wendocslinker";
+    public const string WenDocsLinker = "wendocslinker";
 
     /// <summary>
     /// The <c>what3wordsip</c> connector.
     /// </summary>
-    public const string What3wordsip = "what3wordsip";
+    public const string What3WordsIndependentPublisher = "what3wordsip";
 
     /// <summary>
     /// The <c>whatismybrowserip</c> connector.
     /// </summary>
-    public const string Whatismybrowserip = "whatismybrowserip";
+    public const string WhatIsMyBrowserIndependentPublisher = "whatismybrowserip";
 
     /// <summary>
     /// The <c>whatsappip</c> connector.
     /// </summary>
-    public const string Whatsappip = "whatsappip";
+    public const string WhatsAppIndependentPublisher = "whatsappip";
 
     /// <summary>
     /// The <c>windows365</c> connector.
@@ -6968,7 +6968,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>windsorai</c> connector.
     /// </summary>
-    public const string Windsorai = "windsorai";
+    public const string WindsorAi = "windsorai";
 
     /// <summary>
     /// The <c>witivio</c> connector.
@@ -6978,27 +6978,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>wmata</c> connector.
     /// </summary>
-    public const string Wmata = "wmata";
+    public const string WMATAIndependentPublisher = "wmata";
 
     /// <summary>
     /// The <c>woocommerce</c> connector.
     /// </summary>
-    public const string Woocommerce = "woocommerce";
+    public const string WooCommerce = "woocommerce";
 
     /// <summary>
     /// The <c>woodpecker</c> connector.
     /// </summary>
-    public const string Woodpecker = "woodpecker";
+    public const string WoodpeckerIndependentPublisher = "woodpecker";
 
     /// <summary>
     /// The <c>wordcloudbytextvisip</c> connector.
     /// </summary>
-    public const string Wordcloudbytextvisip = "wordcloudbytextvisip";
+    public const string WordCloudByTextvisIndependentPublisher = "wordcloudbytextvisip";
 
     /// <summary>
     /// The <c>wordliftgraphql</c> connector.
     /// </summary>
-    public const string Wordliftgraphql = "wordliftgraphql";
+    public const string DefaultTitle = "wordliftgraphql";
 
     /// <summary>
     /// The <c>wordonlinebusiness</c> connector.
@@ -7013,102 +7013,102 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>workableip</c> connector.
     /// </summary>
-    public const string Workableip = "workableip";
+    public const string WorkableIndependentPublisher = "workableip";
 
     /// <summary>
     /// The <c>workdayhcm</c> connector.
     /// </summary>
-    public const string Workdayhcm = "workdayhcm";
+    public const string WorkdayHCM = "workdayhcm";
 
     /// <summary>
     /// The <c>workdaysoap</c> connector.
     /// </summary>
-    public const string Workdaysoap = "workdaysoap";
+    public const string Workday = "workdaysoap";
 
     /// <summary>
     /// The <c>workingdaysip</c> connector.
     /// </summary>
-    public const string Workingdaysip = "workingdaysip";
+    public const string WorkingDaysIndependentPublisher = "workingdaysip";
 
     /// <summary>
     /// The <c>workiqonedrive</c> connector.
     /// </summary>
-    public const string Workiqonedrive = "workiqonedrive";
+    public const string WorkIQOneDriveMCP = "workiqonedrive";
 
     /// <summary>
     /// The <c>workiqsharepoint</c> connector.
     /// </summary>
-    public const string Workiqsharepoint = "workiqsharepoint";
+    public const string WorkIQSharePointMCP = "workiqsharepoint";
 
     /// <summary>
     /// The <c>workmobile</c> connector.
     /// </summary>
-    public const string Workmobile = "workmobile";
+    public const string WorkMobile = "workmobile";
 
     /// <summary>
     /// The <c>workpoint</c> connector.
     /// </summary>
-    public const string Workpoint = "workpoint";
+    public const string WorkPoint = "workpoint";
 
     /// <summary>
     /// The <c>workpoint365</c> connector.
     /// </summary>
-    public const string Workpoint365 = "workpoint365";
+    public const string WorkPoint365 = "workpoint365";
 
     /// <summary>
     /// The <c>workspan</c> connector.
     /// </summary>
-    public const string Workspan = "workspan";
+    public const string WorkSpan = "workspan";
 
     /// <summary>
     /// The <c>workstemau</c> connector.
     /// </summary>
-    public const string Workstemau = "workstemau";
+    public const string WorkstemAU = "workstemau";
 
     /// <summary>
     /// The <c>workstemhk</c> connector.
     /// </summary>
-    public const string Workstemhk = "workstemhk";
+    public const string WorkstemHK = "workstemhk";
 
     /// <summary>
     /// The <c>worldsacademia</c> connector.
     /// </summary>
-    public const string Worldsacademia = "worldsacademia";
+    public const string WorldAcademia = "worldsacademia";
 
     /// <summary>
     /// The <c>worldtimeip</c> connector.
     /// </summary>
-    public const string Worldtimeip = "worldtimeip";
+    public const string WorldTimeIndependentPublisher = "worldtimeip";
 
     /// <summary>
     /// The <c>worldwideholidaysip</c> connector.
     /// </summary>
-    public const string Worldwideholidaysip = "worldwideholidaysip";
+    public const string WorldwideBankHolidaysIndependentPublisher = "worldwideholidaysip";
 
     /// <summary>
     /// The <c>wpconnectrforwordpre</c> connector.
     /// </summary>
-    public const string Wpconnectrforwordpre = "wpconnectrforwordpre";
+    public const string WPConnectrForWordPress = "wpconnectrforwordpre";
 
     /// <summary>
     /// The <c>wpformsbyreenhancedl</c> connector.
     /// </summary>
-    public const string Wpformsbyreenhancedl = "wpformsbyreenhancedl";
+    public const string WPFormsByReenhancedLLC = "wpformsbyreenhancedl";
 
     /// <summary>
     /// The <c>wqrmriskforecastserv</c> connector.
     /// </summary>
-    public const string Wqrmriskforecastserv = "wqrmriskforecastserv";
+    public const string WQRMRiskForecastServices = "wqrmriskforecastserv";
 
     /// <summary>
     /// The <c>writesonicip</c> connector.
     /// </summary>
-    public const string Writesonicip = "writesonicip";
+    public const string WritesonicIndependentPublisher = "writesonicip";
 
     /// <summary>
     /// The <c>wttrin</c> connector.
     /// </summary>
-    public const string Wttrin = "wttrin";
+    public const string WttrInIndependentPublisher = "wttrin";
 
     /// <summary>
     /// The <c>x12</c> connector.
@@ -7118,57 +7118,57 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>xbridgerdocumentmanager</c> connector.
     /// </summary>
-    public const string Xbridgerdocumentmanager = "xbridgerdocumentmanager";
+    public const string XbridgerDocumentManager = "xbridgerdocumentmanager";
 
     /// <summary>
     /// The <c>xcgatepreview</c> connector.
     /// </summary>
-    public const string Xcgatepreview = "xcgatepreview";
+    public const string XCGate = "xcgatepreview";
 
     /// <summary>
     /// The <c>xeroaccountingmagnet</c> connector.
     /// </summary>
-    public const string Xeroaccountingmagnet = "xeroaccountingmagnet";
+    public const string XeroAccountingMagnetism = "xeroaccountingmagnet";
 
     /// <summary>
     /// The <c>xkcdip</c> connector.
     /// </summary>
-    public const string Xkcdip = "xkcdip";
+    public const string XkcdIndependentPublisher = "xkcdip";
 
     /// <summary>
     /// The <c>xooablockchain</c> connector.
     /// </summary>
-    public const string Xooablockchain = "xooablockchain";
+    public const string XooaBlockchainDatabase = "xooablockchain";
 
     /// <summary>
     /// The <c>xooadb</c> connector.
     /// </summary>
-    public const string Xooadb = "xooadb";
+    public const string XooaBlockchainSmartContract = "xooadb";
 
     /// <summary>
     /// The <c>xsoarip</c> connector.
     /// </summary>
-    public const string Xsoarip = "xsoarip";
+    public const string XSOARIndependentPublisher = "xsoarip";
 
     /// <summary>
     /// The <c>xsspdfsolutionsinteg</c> connector.
     /// </summary>
-    public const string Xsspdfsolutionsinteg = "xsspdfsolutionsinteg";
+    public const string XSSPDFSolutionsIntegrations = "xsspdfsolutionsinteg";
 
     /// <summary>
     /// The <c>xssqrcodesolutions</c> connector.
     /// </summary>
-    public const string Xssqrcodesolutions = "xssqrcodesolutions";
+    public const string XSSQRCodeSolutions = "xssqrcodesolutions";
 
     /// <summary>
     /// The <c>yakchat</c> connector.
     /// </summary>
-    public const string Yakchat = "yakchat";
+    public const string YakChat = "yakchat";
 
     /// <summary>
     /// The <c>yammer</c> connector.
     /// </summary>
-    public const string Yammer = "yammer";
+    public const string VivaEngage = "yammer";
 
     /// <summary>
     /// The <c>yarado</c> connector.
@@ -7188,22 +7188,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>yelpip</c> connector.
     /// </summary>
-    public const string Yelpip = "yelpip";
+    public const string YelpIndependentPublisher = "yelpip";
 
     /// <summary>
     /// The <c>youneedabudgetip</c> connector.
     /// </summary>
-    public const string Youneedabudgetip = "youneedabudgetip";
+    public const string YouNeedABudgetIndependentPublisher = "youneedabudgetip";
 
     /// <summary>
     /// The <c>youtube</c> connector.
     /// </summary>
-    public const string Youtube = "youtube";
+    public const string YouTube = "youtube";
 
     /// <summary>
     /// The <c>youtubetranscript</c> connector.
     /// </summary>
-    public const string Youtubetranscript = "youtubetranscript";
+    public const string YouTubeTranscriptIndependentPublisher = "youtubetranscript";
 
     /// <summary>
     /// The <c>zahara</c> connector.
@@ -7213,17 +7213,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>zanranscaffolder</c> connector.
     /// </summary>
-    public const string Zanranscaffolder = "zanranscaffolder";
+    public const string ZanranScaffolder = "zanranscaffolder";
 
     /// <summary>
     /// The <c>zapiermcp</c> connector.
     /// </summary>
-    public const string Zapiermcp = "zapiermcp";
+    public const string ZapierMCP = "zapiermcp";
 
     /// <summary>
     /// The <c>zapiernlaip</c> connector.
     /// </summary>
-    public const string Zapiernlaip = "zapiernlaip";
+    public const string ZapierNLAIndependentPublisher = "zapiernlaip";
 
     /// <summary>
     /// The <c>zellis</c> connector.
@@ -7243,47 +7243,47 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>zenlerip</c> connector.
     /// </summary>
-    public const string Zenlerip = "zenlerip";
+    public const string ZenlerIndependentPublisher = "zenlerip";
 
     /// <summary>
     /// The <c>zenlogin</c> connector.
     /// </summary>
-    public const string Zenlogin = "zenlogin";
+    public const string ZenloginIndependentPublisher = "zenlogin";
 
     /// <summary>
     /// The <c>zeptomail</c> connector.
     /// </summary>
-    public const string Zeptomail = "zeptomail";
+    public const string ZohoZeptoMail = "zeptomail";
 
     /// <summary>
     /// The <c>zerotrainaicore</c> connector.
     /// </summary>
-    public const string Zerotrainaicore = "zerotrainaicore";
+    public const string ZeroTrainAICore = "zerotrainaicore";
 
     /// <summary>
     /// The <c>zforms</c> connector.
     /// </summary>
-    public const string Zforms = "zforms";
+    public const string ZohoForms = "zforms";
 
     /// <summary>
     /// The <c>zippopotamusip</c> connector.
     /// </summary>
-    public const string Zippopotamusip = "zippopotamusip";
+    public const string ZippopotamusIndependentPublisher = "zippopotamusip";
 
     /// <summary>
     /// The <c>zippydoc</c> connector.
     /// </summary>
-    public const string Zippydoc = "zippydoc";
+    public const string ZIPPYDOC = "zippydoc";
 
     /// <summary>
     /// The <c>zohocalendar</c> connector.
     /// </summary>
-    public const string Zohocalendar = "zohocalendar";
+    public const string ZohoCalendar = "zohocalendar";
 
     /// <summary>
     /// The <c>zohoinvoicebasic</c> connector.
     /// </summary>
-    public const string Zohoinvoicebasic = "zohoinvoicebasic";
+    public const string ZohoInvoiceBasicIndependentPublisher = "zohoinvoicebasic";
 
     /// <summary>
     /// The <c>zohosign</c> connector.
@@ -7293,31 +7293,31 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>zohoteaminbox</c> connector.
     /// </summary>
-    public const string Zohoteaminbox = "zohoteaminbox";
+    public const string ZohoTeamInbox = "zohoteaminbox";
 
     /// <summary>
     /// The <c>zoominfogtm</c> connector.
     /// </summary>
-    public const string Zoominfogtm = "zoominfogtm";
+    public const string ZoomInfoGTMMCP = "zoominfogtm";
 
     /// <summary>
     /// The <c>zoommeetingsip</c> connector.
     /// </summary>
-    public const string Zoommeetingsip = "zoommeetingsip";
+    public const string ZoomMeetingsIndependentPublisher = "zoommeetingsip";
 
     /// <summary>
     /// The <c>zreports</c> connector.
     /// </summary>
-    public const string Zreports = "zreports";
+    public const string ZReports = "zreports";
 
     /// <summary>
     /// The <c>zuvadocai</c> connector.
     /// </summary>
-    public const string Zuvadocai = "zuvadocai";
+    public const string ZuvaDocAI = "zuvadocai";
 
     /// <summary>
     /// The <c>zvanuparvaldnieks</c> connector.
     /// </summary>
-    public const string Zvanuparvaldnieks = "zvanuparvaldnieks";
+    public const string ZvanuParvaldnieks = "zvanuparvaldnieks";
 
 }
