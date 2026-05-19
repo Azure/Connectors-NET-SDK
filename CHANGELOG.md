@@ -19,15 +19,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **`TodoClient.ListToDosByFolderAsync` parameter `topCount` changed from `int` to `int?`** — the CodefulSdkGenerator (BPM PR 15737813) was updated to use nullable types for optional value-type parameters so that `null` correctly represents "unspecified" while `0` is a valid distinct value. Callers passing an `int` literal still compile (implicit conversion); subclasses that override this `virtual` method with the old `int` signature must update the parameter type to `int?`. This is the only affected method in the current connector set.
+- **`Teams.OnGroupMemberChangeResponseItem` model class and its model factory method removed** — Teams connector swagger (v1.0.4) changed the membership trigger response from a named typed definition (`OnGroupMemberChangeResponseItem` with a `UserId` property) to an inline anonymous object array. The generator no longer produces a named class for inline schemas without a definition reference; membership trigger payloads are now `TriggerCallbackPayload<object>`. Consumers referencing `OnGroupMemberChangeResponseItem` directly must migrate; the `id` field is still present at runtime in the deserialized callback body.
+
 - **`TriggerCallbackPayload<T>.Body` is now init-only** — the setter changed from `public set` to `init`. Post-construction assignment (`payload.Body = x;`) no longer compiles; use an object initializer or `ConnectorModelFactory.TriggerCallbackPayload<T>(body)` instead.
 - **`TriggerCallbackBody<T>.Value` setter is now internal and the type narrowed to `IReadOnlyList<T>?`** — the property changed from `public List<T>? Value { get; set; }` to `public IReadOnlyList<T>? Value { get; internal set; }`. External assignments (`body.Value = list;`) and `List<T>`-specific mutations no longer compile; use `ConnectorModelFactory.TriggerCallbackBody<T>(value)` to construct instances in tests.
 
 ### Added
 
+- **`[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods** — all generated clients now suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense autocomplete, reducing noise when working with client instances ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160))
+- **Teams trigger payload types** — `TeamsOnNewChannelMessageTriggerPayload`, `TeamsOnNewChannelMessageMentioningMeTriggerPayload`, `TeamsOnTeamMemberRemovedTriggerPayload`, and `TeamsOnTeamMemberAddedTriggerPayload` added; static `TeamsTriggers.Operations` dictionary maps operation names to payload types for dynamic dispatch
+
 - **11 connector clients (batch 5)** — `AzureADClient`, `AzureIoTCentralClient`, `MicrosoftFormsClient` regenerated with generator bug fixes; plus 8 new clients: `AzureQueuesClient`, `AzureTablesClient`, `DocumentDbClient`, `EventHubsClient`, `ExcelOnlineBusinessClient`, `OutlookClient`, `ServiceBusConnectorClient`, `WordOnlineBusinessClient`; also fixes generator bugs #135, #136, #137, #138, #139 (IPageable property name derived from x-ms-summary; array-typed `$ref` definitions resolved to `List<T>` instead of undefined class name)
 - **25 new connector clients (batch 6)** — `BoxClient`, `DocuSignClient`, `DropboxClient`, `DynamicsAXClient`, `EventbriteClient`, `FtpClient`, `GitHubClient`, `GoogleCalendarClient`, `GoogleDriveClient`, `GoogleTasksClient`, `JiraClient`, `MailChimpClient`, `MondayClient`, `OneDriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendGridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordPressClient`, `ZendeskClient`
 
 ### Changed
+
+- **Regenerated all 96 connector clients** from combined BPM generator improvements: Microsoft copyright header on every generated file ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)), `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)), and `protected` mock constructors now chain to `base()` ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159))
 
 - **Regenerated 15 existing connector clients** with latest generator bug fixes — `AzureMonitorLogsClient`, `AzureTablesClient`, `DocumentDbClient`, `ExcelOnlineBusinessClient`, `ExcelOnlineClient`, `InfusionsoftClient`, `Office365Client`, `Office365GroupsClient`, `Office365UsersClient`, `OneDriveForBusinessClient`, `PipedriveClient`, `PlumsailClient`, `SmtpClient`, `WdatpClient`, `YammerClient`
 

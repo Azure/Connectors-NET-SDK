@@ -31,6 +31,7 @@ The decisions recorded here were made during a formal API design review in May 2
 | `*ModelFactory` static classes for mocking | Each generated connector exposes a `<Connector>ModelFactory` with factory methods for constructing model instances in unit tests (design review suggestion #15) |
 | Copyright headers on all generated files | Every generated `.cs` file carries the standard Microsoft copyright header ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)) |
 | Mock constructors chain to protected parameterless base | Each generated client's `protected` mock constructor calls `base()` so `Moq`/`NSubstitute` correctly initialise the base class ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159)) |
+| `[EditorBrowsable(Never)]` on inherited `Object` methods | Generated clients suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense to reduce API noise ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)) |
 
 ---
 
@@ -107,7 +108,6 @@ The following items are in progress — not intentional divergences, but gaps be
 | [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` does not yet parse a structured `ErrorCode` from the response body | Pending fix |
 | [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | No `DiagnosticScope` distributed tracing | Pending |
 | [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | `object` used for dynamic-schema properties instead of `BinaryData`/`JsonElement` | Under evaluation |
-| [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` missing on inherited `Object` methods | Pending fix |
 | [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) + design review #14 | Output-only model properties still use `{ get; set; }` instead of `{ get; init; }` — the companion `*ModelFactory` classes are already in place for when this lands | Pending fix |
 | Design review #16 | Model types → `.Models` sub-namespace | Pending |
 | Design review #17 | PascalCase / human-friendly generated client names | Pending |
