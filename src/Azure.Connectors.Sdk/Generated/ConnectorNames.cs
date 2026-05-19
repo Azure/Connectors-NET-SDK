@@ -783,22 +783,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azurequeues</c> connector.
     /// </summary>
-    public const string Azurequeues = "azurequeues";
-
-    /// <summary>
-    /// The <c>azurequeues</c> connector.
-    /// </summary>
     public const string AzureQueues = "azurequeues";
 
     /// <summary>
     /// The <c>azurespeechpronuncia</c> connector.
     /// </summary>
     public const string Azurespeechpronuncia = "azurespeechpronuncia";
-
-    /// <summary>
-    /// The <c>azuretables</c> connector.
-    /// </summary>
-    public const string Azuretables = "azuretables";
 
     /// <summary>
     /// The <c>azuretables</c> connector.
@@ -1963,11 +1953,6 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>documentdb</c> connector.
     /// </summary>
-    public const string Documentdb = "documentdb";
-
-    /// <summary>
-    /// The <c>documentdb</c> connector.
-    /// </summary>
     public const string DocumentDb = "documentdb";
 
     /// <summary>
@@ -2424,11 +2409,6 @@ public static class ConnectorNames
     /// The <c>eventbrite</c> connector.
     /// </summary>
     public const string Eventbrite = "eventbrite";
-
-    /// <summary>
-    /// The <c>eventhubs</c> connector.
-    /// </summary>
-    public const string Eventhubs = "eventhubs";
 
     /// <summary>
     /// The <c>eventhubs</c> connector.
@@ -5724,11 +5704,6 @@ public static class ConnectorNames
     /// The <c>service-now</c> connector.
     /// </summary>
     public const string ServiceNow = "service-now";
-
-    /// <summary>
-    /// The <c>servicebus</c> connector.
-    /// </summary>
-    public const string Servicebus = "servicebus";
 
     /// <summary>
     /// The <c>servicebus</c> connector.
