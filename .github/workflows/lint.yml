@@ -20,8 +20,8 @@ jobs:
       markdown: ${{ steps.filter.outputs.markdown }}
       yaml: ${{ steps.filter.outputs.yaml }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: dorny/paths-filter@d1c1ffe0248fe513906c8e24db8ea791d46f8590 # v3
         id: filter
         with:
           filters: |
@@ -42,11 +42,10 @@ jobs:
     if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.powershell == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Run PSScriptAnalyzer
         shell: pwsh
         run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module -Name PSScriptAnalyzer -RequiredVersion 1.25.0 -Scope CurrentUser -Force
           $results = Invoke-ScriptAnalyzer -Path . -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
           if ($results) {
@@ -60,14 +59,14 @@ jobs:
     if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.markdown == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npx markdownlint-cli2@0.17.2 '**/*.md'
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - run: npx markdownlint-cli2@0.17.2 --config .markdownlint.json '**/*.md'
 
   yaml:
     needs: changes
     if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.yaml == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - run: pip install yamllint==1.38.0
       - run: yamllint -c .yamllint.yml .
