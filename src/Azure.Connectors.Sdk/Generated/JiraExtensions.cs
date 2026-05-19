@@ -10,8 +10,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1259,7 +1259,7 @@ namespace Azure.Connectors.Sdk.Jira
         {
         }
 
-        protected JiraClient() : this(new Uri("https://localhost")) { }
+        protected JiraClient() : base() { }
 
         public override string ConnectorName => "jira";
 
