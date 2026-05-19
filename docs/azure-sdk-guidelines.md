@@ -122,7 +122,7 @@ Previously tracked items now delivered:
 | [#108](https://github.com/Azure/Connectors-NET-SDK/issues/108) | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | [#109](https://github.com/Azure/Connectors-NET-SDK/pull/109) |
 | [#114](https://github.com/Azure/Connectors-NET-SDK/issues/114) | `.Models` sub-namespace + PascalCase client names | [#119](https://github.com/Azure/Connectors-NET-SDK/pull/119) |
 | [#116](https://github.com/Azure/Connectors-NET-SDK/issues/116) | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | [#117](https://github.com/Azure/Connectors-NET-SDK/pull/117) |
-| [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` on inherited `Object` methods | PR [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170) |
+| [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` on inherited `Object` methods | [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170) |
 
 ---
 
