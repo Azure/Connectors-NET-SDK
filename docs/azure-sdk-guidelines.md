@@ -32,6 +32,7 @@ The decisions recorded here were made during a formal API design review in May 2
 | Copyright headers on all generated files | Every generated `.cs` file carries the standard Microsoft copyright header ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)) |
 | Mock constructors chain to protected parameterless base | Each generated client's `protected` mock constructor calls `base()` so `Moq`/`NSubstitute` correctly initialise the base class ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159)) |
 | `[EditorBrowsable(Never)]` on inherited `Object` methods | Generated clients suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense to reduce API noise ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)) |
+| `ErrorCode` from structured error responses | `ConnectorException` parses `"code"` (top-level or nested `"error.code"`) from JSON response bodies to populate `RequestFailedException.ErrorCode` ([#155](https://github.com/Azure/Connectors-NET-SDK/issues/155)) |
 
 ---
 
@@ -105,13 +106,10 @@ The following items are in progress — not intentional divergences, but gaps be
 
 | Issue | Description | Status |
 |-------|-------------|--------|
-| [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` does not yet parse a structured `ErrorCode` from the response body | Pending fix |
 | [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | No `DiagnosticScope` distributed tracing | Pending |
 | [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | `object` used for dynamic-schema properties instead of `BinaryData`/`JsonElement` | Under evaluation |
 | [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only model properties still use `{ get; set; }` instead of `{ get; init; }` — the companion `*ModelFactory` classes are already in place for when this lands | Pending fix |
-| [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Add test coverage for nullable optional value-type parameters | Pending |
 | [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175) | Generator: emit `ArgumentNullException` guards for required parameters | Pending |
-| [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Add test coverage for Teams trigger payload types | Pending |
 
 ### Completed
 
@@ -122,7 +120,10 @@ Previously tracked items now delivered:
 | [#108](https://github.com/Azure/Connectors-NET-SDK/issues/108) | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | [#109](https://github.com/Azure/Connectors-NET-SDK/pull/109) |
 | [#114](https://github.com/Azure/Connectors-NET-SDK/issues/114) | `.Models` sub-namespace + PascalCase client names | [#119](https://github.com/Azure/Connectors-NET-SDK/pull/119) |
 | [#116](https://github.com/Azure/Connectors-NET-SDK/issues/116) | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | [#117](https://github.com/Azure/Connectors-NET-SDK/pull/117) |
+| [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` parses structured `ErrorCode` from JSON response body | This PR |
 | [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` on inherited `Object` methods | [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170) |
+| [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Test coverage for nullable optional value-type parameters | This PR |
+| [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Test coverage for Teams trigger payload types | This PR |
 
 ---
 

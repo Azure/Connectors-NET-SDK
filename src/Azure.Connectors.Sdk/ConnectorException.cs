@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Text.Json;
 using Azure;
 
 namespace Azure.Connectors.Sdk
@@ -23,7 +24,11 @@ namespace Azure.Connectors.Sdk
         /// <param name="statusCode">The HTTP status code.</param>
         /// <param name="responseBody">The response body from the connector service.</param>
         public ConnectorException(string connectorName, string operation, int statusCode, string responseBody)
-            : base(statusCode, $"[{connectorName}] {operation} failed with status {statusCode}: {TruncateBody(responseBody)}")
+            : base(
+                  statusCode,
+                  $"[{connectorName}] {operation} failed with status {statusCode}: {TruncateBody(responseBody)}",
+                  ExtractErrorCode(responseBody),
+                  innerException: null)
         {
             this.ConnectorName = connectorName;
             this.Operation = operation;
@@ -44,6 +49,46 @@ namespace Azure.Connectors.Sdk
         /// Gets the response body.
         /// </summary>
         public string ResponseBody { get; }
+
+        /// <summary>
+        /// Attempts to extract the <c>"code"</c> field from a JSON error response body
+        /// to populate <see cref="RequestFailedException.ErrorCode"/>.
+        /// Returns <see langword="null"/> if the body is not valid JSON or has no <c>code</c> property.
+        /// </summary>
+        private static string? ExtractErrorCode(string? responseBody)
+        {
+            if (string.IsNullOrEmpty(responseBody))
+            {
+                return null;
+            }
+
+            try
+            {
+                using var doc = JsonDocument.Parse(responseBody);
+
+                // Try top-level "code"
+                if (doc.RootElement.TryGetProperty("code", out var code) &&
+                    code.ValueKind == JsonValueKind.String)
+                {
+                    return code.GetString();
+                }
+
+                // Try nested "error.code" (common in Azure error responses)
+                if (doc.RootElement.TryGetProperty("error", out var errorObj) &&
+                    errorObj.ValueKind == JsonValueKind.Object &&
+                    errorObj.TryGetProperty("code", out var nestedCode) &&
+                    nestedCode.ValueKind == JsonValueKind.String)
+                {
+                    return nestedCode.GetString();
+                }
+            }
+            catch (JsonException)
+            {
+                // Not valid JSON — return null
+            }
+
+            return null;
+        }
 
         private static string TruncateBody(string body)
         {
