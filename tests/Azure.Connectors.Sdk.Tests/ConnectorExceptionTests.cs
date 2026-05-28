@@ -72,11 +72,12 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithNullResponseBody_ErrorCodeIsNull()
         {
-            // Act
-            var ex = new ConnectorException("office365", "POST /Mail", 500, null!);
+            // Act — null is coalesced to string.Empty
+            var ex = new ConnectorException("office365", "POST /Mail", 500, null);
 
             // Assert
             Assert.IsNull(ex.ErrorCode);
+            Assert.AreEqual(string.Empty, ex.ResponseBody);
         }
 
         [TestMethod]

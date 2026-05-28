@@ -22,8 +22,8 @@ namespace Azure.Connectors.Sdk
         /// <param name="connectorName">The connector name (e.g., "office365").</param>
         /// <param name="operation">The operation that failed (e.g., "POST /Mail").</param>
         /// <param name="statusCode">The HTTP status code.</param>
-        /// <param name="responseBody">The response body from the connector service.</param>
-        public ConnectorException(string connectorName, string operation, int statusCode, string responseBody)
+        /// <param name="responseBody">The response body from the connector service, or <see langword="null"/> if unavailable.</param>
+        public ConnectorException(string connectorName, string operation, int statusCode, string? responseBody)
             : base(
                   statusCode,
                   $"[{connectorName}] {operation} failed with status {statusCode}: {TruncateBody(responseBody)}",
@@ -32,7 +32,7 @@ namespace Azure.Connectors.Sdk
         {
             this.ConnectorName = connectorName;
             this.Operation = operation;
-            this.ResponseBody = responseBody;
+            this.ResponseBody = responseBody ?? string.Empty;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Azure.Connectors.Sdk
         public string Operation { get; }
 
         /// <summary>
-        /// Gets the response body.
+        /// Gets the response body, or <see cref="string.Empty"/> if unavailable.
         /// </summary>
         public string ResponseBody { get; }
 
@@ -90,7 +90,7 @@ namespace Azure.Connectors.Sdk
             return null;
         }
 
-        private static string TruncateBody(string body)
+        private static string? TruncateBody(string? body)
         {
             if (string.IsNullOrEmpty(body) || body.Length <= MaxResponseBodyLength)
             {
