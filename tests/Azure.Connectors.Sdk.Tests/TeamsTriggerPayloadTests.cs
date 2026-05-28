@@ -222,16 +222,23 @@ namespace Azure.Connectors.Sdk.Tests
                 .ToList();
 
             // Assert — every constant that has a payload type maps to a key in TeamsTriggers.Operations
-            var registeredOps = TeamsTriggers.Operations.Keys.ToHashSet();
             foreach (var constant in constants)
             {
-                if (registeredOps.Contains(constant))
+                // Only constants whose values appear as Operations keys should pass;
+                // others (webhook-only triggers) are intentionally absent from the registry.
+                if (TeamsTriggers.Operations.ContainsKey(constant))
                 {
-                    Assert.IsTrue(
-                        TeamsTriggers.Operations.ContainsKey(constant),
-                        $"TeamsTriggerOperations constant '{constant}' is not a key in TeamsTriggers.Operations.");
+                    Assert.AreEqual(
+                        constant,
+                        TeamsTriggers.Operations.Keys.First(key => string.Equals(key, constant, System.StringComparison.OrdinalIgnoreCase)),
+                        $"TeamsTriggerOperations constant '{constant}' does not match its registry key casing.");
                 }
             }
+
+            // At least some constants must be registered
+            var registeredCount = constants.Count(constant => TeamsTriggers.Operations.ContainsKey(constant));
+            Assert.IsTrue(registeredCount > 0,
+                "Expected at least one TeamsTriggerOperations constant to be registered in TeamsTriggers.Operations.");
         }
 
         [TestMethod]
