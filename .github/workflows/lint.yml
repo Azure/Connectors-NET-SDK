@@ -20,7 +20,7 @@ jobs:
       markdown: ${{ steps.filter.outputs.markdown }}
       yaml: ${{ steps.filter.outputs.yaml }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -42,7 +42,7 @@ jobs:
     if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.powershell == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run PSScriptAnalyzer
         shell: pwsh
         run: |
@@ -60,7 +60,7 @@ jobs:
     if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.markdown == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: npx markdownlint-cli2@0.17.2 '**/*.md'
 
   yaml:
@@ -68,6 +68,6 @@ jobs:
     if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.yaml == 'true')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: pip install yamllint==1.38.0
       - run: yamllint -c .yamllint.yml .
