@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.ZohoSign.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.ZohoSign.Models
@@ -85,7 +86,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
 
         /// <summary>Document form data</summary>
         [JsonPropertyName("document_form_data")]
-        public object DocumentFormData { get; set; }
+        public JsonElement? DocumentFormData { get; set; }
 
         /// <summary>status</summary>
         [JsonPropertyName("status")]
@@ -103,7 +104,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
 
         /// <summary>requests</summary>
         [JsonPropertyName("requests")]
-        public object Requests { get; set; }
+        public JsonElement? Requests { get; set; }
 
         /// <summary>Message</summary>
         [JsonPropertyName("message")]
@@ -125,7 +126,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
 
         /// <summary>requests</summary>
         [JsonPropertyName("requests")]
-        public object Requests { get; set; }
+        public JsonElement? Requests { get; set; }
 
         /// <summary>message</summary>
         [JsonPropertyName("message")]
@@ -143,7 +144,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
     {
         /// <summary>requests</summary>
         [JsonPropertyName("requests")]
-        public object Requests { get; set; }
+        public JsonElement? Requests { get; set; }
     }
 
     /// <summary>
@@ -189,7 +190,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
     {
         /// <summary>templates</summary>
         [JsonPropertyName("templates")]
-        public List<object> Templates { get; set; }
+        public List<JsonElement?> Templates { get; set; }
     }
 
     /// <summary>
@@ -293,7 +294,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         /// </summary>
         public static GetFormDataResponse GetFormDataResponse(
             int? code = default,
-            object documentFormData = default,
+            JsonElement? documentFormData = default,
             string status = default)
         {
             return new GetFormDataResponse
@@ -309,7 +310,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         /// </summary>
         public static CreateDocumentResponse CreateDocumentResponse(
             int? code = default,
-            object requests = default,
+            JsonElement? requests = default,
             string message = default,
             string status = default)
         {
@@ -327,7 +328,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         /// </summary>
         public static GetDocumentResponse GetDocumentResponse(
             int? code = default,
-            object requests = default,
+            JsonElement? requests = default,
             string message = default,
             string status = default)
         {
@@ -344,7 +345,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         /// Creates a new instance of <see cref="UpdateDocumentInput"/>.
         /// </summary>
         public static UpdateDocumentInput UpdateDocumentInput(
-            object requests = default)
+            JsonElement? requests = default)
         {
             return new UpdateDocumentInput
             {
@@ -388,7 +389,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         /// Creates a new instance of <see cref="GetTemplatesResponse"/>.
         /// </summary>
         public static GetTemplatesResponse GetTemplatesResponse(
-            List<object> templates = default)
+            List<JsonElement?> templates = default)
         {
             return new GetTemplatesResponse
             {
@@ -474,6 +475,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
 
         public override string ConnectorName => "zohosign";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.zohosign");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -497,12 +500,23 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Invoke API response.</returns>
         public virtual async Task<InvokeAPIResponse> InvokeAPIAsync(string uRLPath, InvokeAPIInput input, string method, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"method={Uri.EscapeDataString(method.ToString())}");
-            var path = $"/{Uri.EscapeDataString(uRLPath.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<InvokeAPIResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.InvokeAPIAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (method is null) throw new ArgumentNullException(nameof(method));
+                queryParams.Add($"method={Uri.EscapeDataString(method.ToString())}");
+                var path = $"/{Uri.EscapeDataString(uRLPath.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<InvokeAPIResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -514,10 +528,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Download Completion Certificate response.</returns>
         public virtual async Task<byte[]> DownloadCompletionCertificateAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/completioncertificate";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DownloadCompletionCertificateAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/completioncertificate";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -529,10 +553,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Download Document response.</returns>
         public virtual async Task<byte[]> DownloadDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DownloadDocumentAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -545,10 +579,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Download File response.</returns>
         public virtual async Task<byte[]> DownloadFileAsync(int requestId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DownloadFileAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -560,10 +604,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Get data of completed request response.</returns>
         public virtual async Task<GetFormDataResponse> GetFormDataAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/fielddata";
-            return await this
-                .CallConnectorAsync<GetFormDataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetFormDataAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/fielddata";
+                return await this
+                    .CallConnectorAsync<GetFormDataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -574,10 +628,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RecallDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/recall";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.RecallDocumentAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/recall";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -588,10 +652,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RemindDocumentRecipientsAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/remind";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.RemindDocumentRecipientsAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/remind";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -602,10 +676,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/delete";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DeleteDocumentAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/delete";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -616,10 +700,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Create a document for signing response.</returns>
         public virtual async Task<CreateDocumentResponse> CreateDocumentAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/requests";
-            return await this
-                .CallConnectorAsync<CreateDocumentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.CreateDocumentAsync");
+            try
+            {
+                var path = $"/requests";
+                return await this
+                    .CallConnectorAsync<CreateDocumentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -631,10 +725,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Get a document response.</returns>
         public virtual async Task<GetDocumentResponse> GetDocumentAsync(int requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetDocumentAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -647,10 +751,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Update the properties of a created request response.</returns>
         public virtual async Task<UpdateDocumentResponse> UpdateDocumentAsync(string requestId, UpdateDocumentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.UpdateDocumentAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -662,10 +776,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The SendSignRequest response.</returns>
         public virtual async Task<SendSignRequestResponse> SendSignRequestAsync(string requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/submit";
-            return await this
-                .CallConnectorAsync<SendSignRequestResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.SendSignRequestAsync");
+            try
+            {
+                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/submit";
+                return await this
+                    .CallConnectorAsync<SendSignRequestResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -676,10 +800,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetTemplateDetailsAsync([DynamicValues("GetTemplates")] string listOfTemplates, CancellationToken cancellationToken = default)
         {
-            var path = $"/templates/{Uri.EscapeDataString(listOfTemplates.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetTemplateDetailsAsync");
+            try
+            {
+                var path = $"/templates/{Uri.EscapeDataString(listOfTemplates.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -690,10 +824,20 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// <returns>The Get list of templates response.</returns>
         public virtual async Task<GetTemplatesResponse> GetTemplatesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/templates";
-            return await this
-                .CallConnectorAsync<GetTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetTemplatesAsync");
+            try
+            {
+                var path = $"/templates";
+                return await this
+                    .CallConnectorAsync<GetTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

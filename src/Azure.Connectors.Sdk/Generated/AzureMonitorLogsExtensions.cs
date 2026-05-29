@@ -22,6 +22,7 @@ using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.AzureMonitorLogs.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
@@ -51,12 +52,12 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000. </summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The subscription Id. </summary>
         [JsonPropertyName("subscriptionId")]
         [JsonInclude]
-        public string SubscriptionId { get; internal set; }
+        public string SubscriptionId { get; init; }
 
         /// <summary>The authorization source of the request. Valid values are one or more combinations of Legacy, RoleBased, Bypassed, Direct and Management. For example, &apos;Legacy, RoleBased&apos;. </summary>
         [JsonPropertyName("authorizationSource")]
@@ -75,7 +76,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>The URL to get the next set of results. </summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -86,12 +87,12 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY). </summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The Name of the resource group. </summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
     }
 
     /// <summary>
@@ -106,7 +107,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>The URL to get the next set of results. </summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -117,12 +118,12 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>The ID of the resource. </summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The Name of the resource .</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
     }
 
     /// <summary>
@@ -140,7 +141,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
 
         /// <summary>Time Range</summary>
         [JsonPropertyName("timerange")]
-        public object TimeRange { get; set; }
+        public JsonElement? TimeRange { get; set; }
     }
 
     /// <summary>
@@ -194,7 +195,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
 
         /// <summary>Time Range</summary>
         [JsonPropertyName("timerange")]
-        public object TimeRange { get; set; }
+        public JsonElement? TimeRange { get; set; }
     }
 
     /// <summary>
@@ -318,7 +319,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         public static QueryDataInput QueryDataInput(
             string query = default,
             string timeRangeType = default,
-            object timeRange = default)
+            JsonElement? timeRange = default)
         {
             return new QueryDataInput
             {
@@ -346,7 +347,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         public static VisualizeQueryInput VisualizeQueryInput(
             string query = default,
             string timeRangeType = default,
-            object timeRange = default)
+            JsonElement? timeRange = default)
         {
             return new VisualizeQueryInput
             {
@@ -432,6 +433,8 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
 
         public override string ConnectorName => "azuremonitorlogs";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azuremonitorlogs");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -469,6 +472,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            if (subscription is null) throw new ArgumentNullException(nameof(subscription));
             queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
             var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
@@ -489,8 +493,11 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
+            if (subscription is null) throw new ArgumentNullException(nameof(subscription));
             queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
             queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
             queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
             var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceItemListResult, ResourceItem>(
@@ -512,15 +519,29 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         /// <returns>The Run query and list results V2 response.</returns>
         public virtual async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.QueryDataAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+                if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+                if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+                if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+                var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -536,15 +557,29 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         /// <returns>The Get query schema response.</returns>
         public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.QuerySchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+                if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+                if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+                if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+                var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -561,16 +596,31 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         /// <returns>The Run query and visualize results V2 response.</returns>
         public virtual async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-            queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
-            var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.VisualizeQueryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+                if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+                if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+                if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+                if (chartType is null) throw new ArgumentNullException(nameof(chartType));
+                queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
+                var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

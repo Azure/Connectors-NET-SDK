@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Shifts.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Shifts.Models
@@ -39,7 +40,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of one or more Teams you are a part of.</summary>
         [JsonPropertyName("value")]
-        public List<object> TeamsList { get; set; }
+        public List<JsonElement?> TeamsList { get; set; }
     }
 
     /// <summary>
@@ -90,12 +91,12 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
         [JsonInclude]
-        public DateTime? ModifiedDateTime { get; internal set; }
+        public DateTime? ModifiedDateTime { get; init; }
 
         /// <summary>Assigned To User ID.</summary>
         [JsonPropertyName("userId")]
@@ -216,12 +217,12 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
         [JsonInclude]
-        public DateTime? ModifiedDateTime { get; internal set; }
+        public DateTime? ModifiedDateTime { get; init; }
 
         /// <summary>Assigned To User ID.</summary>
         [JsonPropertyName("userId")]
@@ -297,7 +298,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>activities</summary>
         [JsonPropertyName("activities")]
-        public List<object> Activities { get; set; }
+        public List<JsonElement?> Activities { get; set; }
     }
 
     /// <summary>
@@ -327,7 +328,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>activities</summary>
         [JsonPropertyName("activities")]
-        public List<object> Activities { get; set; }
+        public List<JsonElement?> Activities { get; set; }
     }
 
     /// <summary>
@@ -356,12 +357,12 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
         [JsonInclude]
-        public DateTime? ModifiedDateTime { get; internal set; }
+        public DateTime? ModifiedDateTime { get; init; }
 
         /// <summary>Scheduling Group ID</summary>
         [JsonPropertyName("schedulingGroupId")]
@@ -415,7 +416,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>activities</summary>
         [JsonPropertyName("activities")]
-        public List<object> Activities { get; set; }
+        public List<JsonElement?> Activities { get; set; }
     }
 
     /// <summary>
@@ -449,7 +450,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>activities</summary>
         [JsonPropertyName("activities")]
-        public List<object> Activities { get; set; }
+        public List<JsonElement?> Activities { get; set; }
     }
 
     /// <summary>
@@ -463,7 +464,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The list of Time Off Reasons.</summary>
         [JsonPropertyName("value")]
-        public List<object> ArrayContainingTimeOffReasons { get; set; }
+        public List<JsonElement?> ArrayContainingTimeOffReasons { get; set; }
     }
 
     /// <summary>
@@ -528,7 +529,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
@@ -649,7 +650,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
@@ -774,7 +775,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
@@ -903,7 +904,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
@@ -1053,7 +1054,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>sharedOpenShift</summary>
         [JsonPropertyName("sharedOpenShift")]
-        public object SharedOpenShift { get; set; }
+        public JsonElement? SharedOpenShift { get; set; }
     }
 
     /// <summary>
@@ -1067,7 +1068,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>Shared version of the Shift.</summary>
         [JsonPropertyName("sharedShift")]
-        public object Value { get; set; }
+        public JsonElement? Value { get; set; }
 
         /// <summary>Assigned to User ID</summary>
         [JsonPropertyName("userId")]
@@ -1081,7 +1082,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     {
         /// <summary>Shared version of a TimeOff.</summary>
         [JsonPropertyName("sharedTimeOff")]
-        public object Value { get; set; }
+        public JsonElement? Value { get; set; }
 
         /// <summary>Assigned to User ID</summary>
         [JsonPropertyName("userId")]
@@ -1156,7 +1157,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static GetAllTeamsResponse GetAllTeamsResponse(
             string context = default,
-            List<object> teamsList = default)
+            List<JsonElement?> teamsList = default)
         {
             return new GetAllTeamsResponse
             {
@@ -1356,7 +1357,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             DateTime? startTime = default,
             DateTime? endTime = default,
             string theme = default,
-            List<object> activities = default)
+            List<JsonElement?> activities = default)
         {
             return new SharedShift
             {
@@ -1378,7 +1379,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             DateTime? startTime = default,
             DateTime? endTime = default,
             string theme = default,
-            List<object> activities = default)
+            List<JsonElement?> activities = default)
         {
             return new DraftShift
             {
@@ -1441,7 +1442,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             DateTime? endTime = default,
             string theme = default,
             int? openSlotCount = default,
-            List<object> activities = default)
+            List<JsonElement?> activities = default)
         {
             return new SharedOpenShift
             {
@@ -1465,7 +1466,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             DateTime? endTime = default,
             string theme = default,
             int? openSlotCount = default,
-            List<object> activities = default)
+            List<JsonElement?> activities = default)
         {
             return new DraftOpenShift
             {
@@ -1484,7 +1485,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static GetTimeOffReasonsResponse GetTimeOffReasonsResponse(
             string context = default,
-            List<object> arrayContainingTimeOffReasons = default)
+            List<JsonElement?> arrayContainingTimeOffReasons = default)
         {
             return new GetTimeOffReasonsResponse
             {
@@ -1890,7 +1891,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static EditOpenShiftRequest EditOpenShiftRequest(
             string schedulingGroupId = default,
-            object sharedOpenShift = default)
+            JsonElement? sharedOpenShift = default)
         {
             return new EditOpenShiftRequest
             {
@@ -1904,7 +1905,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static CreateShiftRequest CreateShiftRequest(
             string schedulingGroupId = default,
-            object value = default,
+            JsonElement? value = default,
             string userId = default)
         {
             return new CreateShiftRequest
@@ -1919,7 +1920,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// Creates a new instance of <see cref="CreateTimeOffRequest"/>.
         /// </summary>
         public static CreateTimeOffRequest CreateTimeOffRequest(
-            object value = default,
+            JsonElement? value = default,
             string userId = default)
         {
             return new CreateTimeOffRequest
@@ -2027,6 +2028,8 @@ namespace Azure.Connectors.Sdk.Shifts
 
         public override string ConnectorName => "shifts";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.shifts");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2047,10 +2050,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List teams response.</returns>
         public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/me/joinedTeams";
-            return await this
-                .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetAllTeamsAsync");
+            try
+            {
+                var path = $"/v1.0/me/joinedTeams";
+                return await this
+                    .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2062,10 +2075,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get a Schedule&apos;s details response.</returns>
         public virtual async Task<ScheduleResponse> GetScheduleAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule";
-            return await this
-                .CallConnectorAsync<ScheduleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetScheduleAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule";
+                return await this
+                    .CallConnectorAsync<ScheduleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2080,17 +2103,27 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Time Off instances in a team response.</returns>
         public virtual async Task<ListTimesOffResponse> ListTimesOffAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fromStartTime != default)
-                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
-            if (toEndTime != default)
-                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListTimesOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimesOffAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fromStartTime != default)
+                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                if (toEndTime != default)
+                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListTimesOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2103,10 +2136,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Create a new Time Off instance response.</returns>
         public virtual async Task<TimeOffResponse> CreateTimeOffAsync([DynamicValues("GetAllTeams")] string team, CreateTimeOffRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff";
-            return await this
-                .CallConnectorAsync<TimeOffResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.CreateTimeOffAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff";
+                return await this
+                    .CallConnectorAsync<TimeOffResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2119,10 +2162,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get a Time Off instance response.</returns>
         public virtual async Task<TimeOffResponse> GetTimeOffAsync([DynamicValues("GetAllTeams")] string team, string timeOffId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
-            return await this
-                .CallConnectorAsync<TimeOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetTimeOffAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
+                return await this
+                    .CallConnectorAsync<TimeOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2134,10 +2187,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteTimeOffAsync([DynamicValues("GetAllTeams")] string team, string timeOffId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.DeleteTimeOffAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2152,17 +2215,27 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Shifts in a team response.</returns>
         public virtual async Task<ListShiftsResponse> ListShiftsAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fromStartTime != default)
-                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
-            if (toEndTime != default)
-                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListShiftsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fromStartTime != default)
+                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                if (toEndTime != default)
+                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2175,10 +2248,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Create a new Shift response.</returns>
         public virtual async Task<ShiftResponse> CreateShiftAsync([DynamicValues("GetAllTeams")] string team, CreateShiftRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts";
-            return await this
-                .CallConnectorAsync<ShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.CreateShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts";
+                return await this
+                    .CallConnectorAsync<ShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2191,10 +2274,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get a Shift response.</returns>
         public virtual async Task<ShiftResponse> GetShiftAsync([DynamicValues("GetAllTeams")] string team, string shiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2206,10 +2299,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteShiftAsync([DynamicValues("GetAllTeams")] string team, string shiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.DeleteShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2224,17 +2327,27 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Open Shifts in a team response.</returns>
         public virtual async Task<ListOpenShiftsResponse> ListOpenShiftsAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fromStartTime != default)
-                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
-            if (toEndTime != default)
-                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOpenShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fromStartTime != default)
+                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                if (toEndTime != default)
+                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOpenShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2247,10 +2360,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Create a new Open Shift response.</returns>
         public virtual async Task<OpenShiftResponse> CreateOpenShiftAsync([DynamicValues("GetAllTeams")] string team, EditOpenShiftRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts";
-            return await this
-                .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.CreateOpenShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts";
+                return await this
+                    .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2263,10 +2386,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get an Open Shift response.</returns>
         public virtual async Task<OpenShiftResponse> GetOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
-            return await this
-                .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetOpenShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
+                return await this
+                    .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2280,10 +2413,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Update an Open Shift response.</returns>
         public virtual async Task<OpenShiftResponse> UpdateOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftId, EditOpenShiftRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
-            return await this
-                .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.UpdateOpenShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
+                return await this
+                    .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2295,10 +2438,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteOpenShiftAsync([DynamicValues("GetAllTeams")] string team, string openShiftId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.DeleteOpenShiftAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2311,13 +2464,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Time Off Reasons in a team response.</returns>
         public virtual async Task<GetTimeOffReasonsResponse> ListTimeOffReasonsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffReasons" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetTimeOffReasonsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimeOffReasonsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffReasons" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetTimeOffReasonsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2330,13 +2493,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Scheduling Groups in a team response.</returns>
         public virtual async Task<ListSchedulingGroupsResponse> ListSchedulingGroupsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListSchedulingGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListSchedulingGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListSchedulingGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2349,10 +2522,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get a Scheduling Group response.</returns>
         public virtual async Task<SchedulingGroupResponse> GetSchedulingGroupAsync([DynamicValues("GetAllTeams")] string team, string schedulingGroupId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups/{Uri.EscapeDataString(schedulingGroupId.ToString())}";
-            return await this
-                .CallConnectorAsync<SchedulingGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetSchedulingGroupAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups/{Uri.EscapeDataString(schedulingGroupId.ToString())}";
+                return await this
+                    .CallConnectorAsync<SchedulingGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2366,15 +2549,25 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Time Off requests in a team response.</returns>
         public virtual async Task<ListTimeOffRequestsResponse> ListTimeOffRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            if (requestState != default)
-                queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListTimeOffRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimeOffRequestsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                if (requestState != default)
+                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListTimeOffRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2387,10 +2580,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get a Time Off request response.</returns>
         public virtual async Task<TimeOffRequestResponse> GetTimeOffShiftRequestAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}";
-            return await this
-                .CallConnectorAsync<TimeOffRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetTimeOffShiftRequestAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<TimeOffRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2404,10 +2607,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Approve a Time Off request response.</returns>
         public virtual async Task<TimeOffRequestApproveResponse> TimeOffRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestId, TimeOffRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/approve";
-            return await this
-                .CallConnectorAsync<TimeOffRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.TimeOffRequestApproveAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/approve";
+                return await this
+                    .CallConnectorAsync<TimeOffRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2421,10 +2634,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Decline a Time Off request response.</returns>
         public virtual async Task<TimeOffRequestDeclineResponse> TimeOffRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string timeOffRequestId, TimeOffRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/decline";
-            return await this
-                .CallConnectorAsync<TimeOffRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.TimeOffRequestDeclineAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/decline";
+                return await this
+                    .CallConnectorAsync<TimeOffRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2438,15 +2661,25 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Offer Shift requests in a team response.</returns>
         public virtual async Task<ListOfferShiftRequestsResponse> ListOfferShiftRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            if (requestState != default)
-                queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOfferShiftRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOfferShiftRequestsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                if (requestState != default)
+                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOfferShiftRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2459,10 +2692,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get an Offer Shift request response.</returns>
         public virtual async Task<OfferShiftRequestResponse> GetOfferShiftRequestAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}";
-            return await this
-                .CallConnectorAsync<OfferShiftRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetOfferShiftRequestAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<OfferShiftRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2476,10 +2719,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Approve an Offer Shift request response.</returns>
         public virtual async Task<OfferShiftRequestApproveResponse> OfferShiftRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestId, OfferShiftRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/approve";
-            return await this
-                .CallConnectorAsync<OfferShiftRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OfferShiftRequestApproveAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/approve";
+                return await this
+                    .CallConnectorAsync<OfferShiftRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2493,10 +2746,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Decline an Offer Shift request response.</returns>
         public virtual async Task<OfferShiftRequestDeclineResponse> OfferShiftRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string offerShiftRequestId, OfferShiftRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/decline";
-            return await this
-                .CallConnectorAsync<OfferShiftRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OfferShiftRequestDeclineAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/decline";
+                return await this
+                    .CallConnectorAsync<OfferShiftRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2510,15 +2773,25 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Swap Shifts requests in a team response.</returns>
         public virtual async Task<ListSwapShiftsChangeRequestsResponse> ListSwapShiftsChangeRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            if (requestState != default)
-                queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListSwapShiftsChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListSwapShiftsChangeRequestsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                if (requestState != default)
+                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListSwapShiftsChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2531,10 +2804,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get a Swap Shifts request response.</returns>
         public virtual async Task<SwapShiftsChangeRequestResponse> GetSwapShiftsChangeRequestAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}";
-            return await this
-                .CallConnectorAsync<SwapShiftsChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetSwapShiftsChangeRequestAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<SwapShiftsChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2548,10 +2831,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Approve a Swap Shifts request response.</returns>
         public virtual async Task<SwapShiftsChangeRequestApproveResponse> SwapShiftsChangeRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestId, SwapShiftsChangeRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/approve";
-            return await this
-                .CallConnectorAsync<SwapShiftsChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.SwapShiftsChangeRequestApproveAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/approve";
+                return await this
+                    .CallConnectorAsync<SwapShiftsChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2565,10 +2858,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Decline a Swap Shifts request response.</returns>
         public virtual async Task<SwapShiftsChangeRequestDeclineResponse> SwapShiftsChangeRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string swapShiftsChangeRequestId, SwapShiftsChangeRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/decline";
-            return await this
-                .CallConnectorAsync<SwapShiftsChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.SwapShiftsChangeRequestDeclineAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/decline";
+                return await this
+                    .CallConnectorAsync<SwapShiftsChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2582,15 +2885,25 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Open Shift requests in a team response.</returns>
         public virtual async Task<ListOpenShiftChangeRequestsResponse> ListOpenShiftChangeRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            if (requestState != default)
-                queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOpenShiftChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftChangeRequestsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                if (requestState != default)
+                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOpenShiftChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2603,10 +2916,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Get an Open Shift request response.</returns>
         public virtual async Task<OpenShiftChangeRequestResponse> GetOpenShiftChangeRequestAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}";
-            return await this
-                .CallConnectorAsync<OpenShiftChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetOpenShiftChangeRequestAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<OpenShiftChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2620,10 +2943,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Approve an Open Shift request response.</returns>
         public virtual async Task<OpenShiftChangeRequestApproveResponse> OpenShiftChangeRequestApproveAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestId, OpenShiftChangeRequestApproveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/approve";
-            return await this
-                .CallConnectorAsync<OpenShiftChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OpenShiftChangeRequestApproveAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/approve";
+                return await this
+                    .CallConnectorAsync<OpenShiftChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2637,10 +2970,20 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The Decline an Open Shift request response.</returns>
         public virtual async Task<OpenShiftChangeRequestDeclineResponse> OpenShiftChangeRequestDeclineAsync([DynamicValues("GetAllTeams")] string team, string openShiftChangeRequestId, OpenShiftChangeRequestDeclineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/decline";
-            return await this
-                .CallConnectorAsync<OpenShiftChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OpenShiftChangeRequestDeclineAsync");
+            try
+            {
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/decline";
+                return await this
+                    .CallConnectorAsync<OpenShiftChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2654,17 +2997,27 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Open Shifts from my teams response.</returns>
         public virtual async Task<ListOpenShiftsCrossTeamResponse> ListOpenShiftsCrossTeamAsync(string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fromStartTime != default)
-                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
-            if (toEndTime != default)
-                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/beta/me/joinedTeams/getOpenShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOpenShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftsCrossTeamAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fromStartTime != default)
+                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                if (toEndTime != default)
+                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/beta/me/joinedTeams/getOpenShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOpenShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2679,19 +3032,29 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Shifts from my teams response.</returns>
         public virtual async Task<ListShiftsCrossTeamResponse> ListShiftsCrossTeamAsync(string fromStartTime = default, string toEndTime = default, string userDisplayName = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fromStartTime != default)
-                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
-            if (toEndTime != default)
-                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
-            if (userDisplayName != default)
-                queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/beta/me/joinedTeams/getShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListShiftsCrossTeamAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fromStartTime != default)
+                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                if (toEndTime != default)
+                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                if (userDisplayName != default)
+                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/beta/me/joinedTeams/getShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2706,19 +3069,29 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <returns>The List all Times Off from my teams response.</returns>
         public virtual async Task<ListTimesOffCrossTeamResponse> ListTimesOffCrossTeamAsync(string fromStartTime = default, string toEndTime = default, string userDisplayName = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fromStartTime != default)
-                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
-            if (toEndTime != default)
-                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
-            if (userDisplayName != default)
-                queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            var path = $"/beta/me/joinedTeams/getTimesOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimesOffCrossTeamAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fromStartTime != default)
+                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                if (toEndTime != default)
+                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                if (userDisplayName != default)
+                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                var path = $"/beta/me/joinedTeams/getTimesOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

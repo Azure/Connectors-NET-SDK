@@ -23,6 +23,7 @@ using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Office365Groups.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Office365Groups.Models
@@ -33,7 +34,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     /// <summary>
     /// Response for List group members
     /// </summary>
-    public class ListGroupMembersResponse : IPageable<object>
+    public class ListGroupMembersResponse : IPageable<JsonElement?>
     {
         /// <summary>The OData context.</summary>
         [JsonPropertyName("@odata.context")]
@@ -45,13 +46,13 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
     /// Response for List groups
     /// </summary>
-    public class ListGroupsResponse : IPageable<object>
+    public class ListGroupsResponse : IPageable<JsonElement?>
     {
         /// <summary>The OData context.</summary>
         [JsonPropertyName("@odata.context")]
@@ -63,7 +64,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -105,19 +106,19 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>start</summary>
         [JsonPropertyName("start")]
-        public object Start { get; set; }
+        public JsonElement? Start { get; set; }
 
         /// <summary>end</summary>
         [JsonPropertyName("end")]
-        public object End { get; set; }
+        public JsonElement? End { get; set; }
 
         /// <summary>location</summary>
         [JsonPropertyName("location")]
-        public object Location { get; set; }
+        public JsonElement? Location { get; set; }
     }
 
     /// <summary>
@@ -143,7 +144,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -203,19 +204,19 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
 
         /// <summary>start</summary>
         [JsonPropertyName("start")]
-        public object Start { get; set; }
+        public JsonElement? Start { get; set; }
 
         /// <summary>end</summary>
         [JsonPropertyName("end")]
-        public object End { get; set; }
+        public JsonElement? End { get; set; }
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>location</summary>
         [JsonPropertyName("location")]
-        public object Location { get; set; }
+        public JsonElement? Location { get; set; }
 
         /// <summary>The importance of the event: Low, Normal, or High.</summary>
         [JsonPropertyName("importance")]
@@ -378,7 +379,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         public static ListGroupMembersResponse ListGroupMembersResponse(
             string context = default,
             string nextLink = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListGroupMembersResponse
             {
@@ -394,7 +395,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         public static ListGroupsResponse ListGroupsResponse(
             string context = default,
             string nextLink = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListGroupsResponse
             {
@@ -416,10 +417,10 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
             bool? isAllDay = default,
             bool? responseRequested = default,
             string showAs = default,
-            object body = default,
-            object start = default,
-            object end = default,
-            object location = default)
+            JsonElement? body = default,
+            JsonElement? start = default,
+            JsonElement? end = default,
+            JsonElement? location = default)
         {
             return new CreateCalendarEventResponse
             {
@@ -443,7 +444,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         /// </summary>
         public static ListOwnedGroupsResponse ListOwnedGroupsResponse(
             string oDataContext = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListOwnedGroupsResponse
             {
@@ -487,10 +488,10 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         /// </summary>
         public static UpdateCalendarEventHTMLRequest UpdateCalendarEventHTMLRequest(
             string subject = default,
-            object start = default,
-            object end = default,
-            object body = default,
-            object location = default,
+            JsonElement? start = default,
+            JsonElement? end = default,
+            JsonElement? body = default,
+            JsonElement? location = default,
             Importance? importance = default,
             bool? isAllDay = default,
             bool? isReminderOn = default,
@@ -672,6 +673,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
 
         public override string ConnectorName => "office365groups";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.office365groups");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -691,14 +694,14 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="groupId">Group Id</param>
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> ListGroupMembersAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListGroupMembersAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, int? top = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (top.HasValue)
                 queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ListGroupMembersResponse, object>(
+            return this.CreatePageable<ListGroupMembersResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupMembersResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -713,12 +716,23 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddMemberToGroupAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string userPrincipalName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.AddMemberToGroupAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (userPrincipalName is null) throw new ArgumentNullException(nameof(userPrincipalName));
+                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -731,8 +745,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="pageSize">Page size</param>
         /// <param name="skipToken">Skip token</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> ListGroupsAsync(bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, string filterRows = default, int? pageSize = default, string skipToken = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListGroupsAsync(bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, string filterRows = default, int? pageSize = default, string skipToken = default, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (extractSensitivityLabel.HasValue)
@@ -746,7 +760,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
             if (skipToken != default)
                 queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken.ToString())}");
             var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ListGroupsResponse, object>(
+            return this.CreatePageable<ListGroupsResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -763,10 +777,20 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <returns>The Update a group event response.</returns>
         public virtual async Task<CreateCalendarEventResponse> UpdateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string id, UpdateCalendarEventHTMLRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.UpdateCalendarEventAsync");
+            try
+            {
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+                return await this
+                    .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -778,12 +802,23 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RemoveMemberFromGroupAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string userPrincipalName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/memberId/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.RemoveMemberFromGroupAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (userPrincipalName is null) throw new ArgumentNullException(nameof(userPrincipalName));
+                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/memberId/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -791,11 +826,11 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// </summary>
         /// <remarks>Lists deleted groups that can be restored.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> ListDeletedGroupsAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListDeletedGroupsAsync(CancellationToken cancellationToken = default)
         {
             var path = $"/v1.0/directory/deletedItems/microsoft.graph.group";
-            return this.CreatePageable<ListGroupsResponse, object>(
+            return this.CreatePageable<ListGroupsResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -809,10 +844,20 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RestoreDeletedGroupAsync(string groupId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/directory/deletedItems/{Uri.EscapeDataString(groupId.ToString())}/restore";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.RestoreDeletedGroupAsync");
+            try
+            {
+                var path = $"/v1.0/directory/deletedItems/{Uri.EscapeDataString(groupId.ToString())}/restore";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -820,11 +865,11 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// </summary>
         /// <remarks>List deleted groups that can be restored by owner</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> ListDeletedGroupsByOwnerAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListDeletedGroupsByOwnerAsync(CancellationToken cancellationToken = default)
         {
             var path = $"/v1.0/directory/deletedItems/getUserOwnedObjects";
-            return this.CreatePageable<ListGroupsResponse, object>(
+            return this.CreatePageable<ListGroupsResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Post, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Post, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -839,10 +884,20 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CalendarDeleteItemAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.CalendarDeleteItemAsync");
+            try
+            {
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -855,10 +910,20 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <returns>The Create a group event (V2) response.</returns>
         public virtual async Task<CreateCalendarEventResponse> CreateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, UpdateCalendarEventHTMLRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events";
-            return await this
-                .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.CreateCalendarEventAsync");
+            try
+            {
+                var path = $"/v2/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events";
+                return await this
+                    .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -870,10 +935,20 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <returns>The Send an HTTP request V2 response.</returns>
         public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/httprequest";
-            return await this
-                .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.HttpRequestAsync");
+            try
+            {
+                var path = $"/v2/httprequest";
+                return await this
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -886,15 +961,25 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <returns>The List groups that I own and belong to response.</returns>
         public virtual async Task<ListOwnedGroupsResponse> ListOwnedGroupsAsync(bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (extractSensitivityLabel.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
-            if (sensitivityLabelMetadata.HasValue)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
-            var path = $"/v2/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOwnedGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.ListOwnedGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (extractSensitivityLabel.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                if (sensitivityLabelMetadata.HasValue)
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
+                var path = $"/v2/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOwnedGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

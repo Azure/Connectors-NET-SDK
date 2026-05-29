@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Trello.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Trello.Models
@@ -224,7 +225,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
 
         /// <summary>The nameData of them checkitem.</summary>
         [JsonPropertyName("nameData")]
-        public object CheckitemNameData { get; set; }
+        public JsonElement? CheckitemNameData { get; set; }
 
         /// <summary>The position of the checkitem.</summary>
         [JsonPropertyName("pos")]
@@ -1787,7 +1788,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
         public static Checkitem Checkitem(
             string checkitemId = default,
             string checkitemName = default,
-            object checkitemNameData = default,
+            JsonElement? checkitemNameData = default,
             double? checkitemPosition = default,
             string checkitemState = default,
             string checkitemDueDate = default,
@@ -2513,6 +2514,8 @@ namespace Azure.Connectors.Sdk.Trello
 
         public override string ConnectorName => "trello";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.trello");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2547,37 +2550,47 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List the cards in a board response.</returns>
         public virtual async Task<List<Card>> ListCardsAsync([DynamicValues("ListBoardsSimple")] string boardId, string actions = default, bool? attachments = default, string attachmentFields = default, bool? stickers = default, bool? members = default, string memberFields = default, bool? checkCardStates = default, string checklists = default, int? limit = default, string since = default, string before = default, string filter = default, string fields = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (actions != default)
-                queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
-            if (attachments.HasValue)
-                queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
-            if (attachmentFields != default)
-                queryParams.Add($"attachment_fields={Uri.EscapeDataString(attachmentFields.ToString())}");
-            if (stickers.HasValue)
-                queryParams.Add($"stickers={Uri.EscapeDataString(stickers.Value.ToString())}");
-            if (members.HasValue)
-                queryParams.Add($"members={Uri.EscapeDataString(members.Value.ToString())}");
-            if (memberFields != default)
-                queryParams.Add($"memeber_fields={Uri.EscapeDataString(memberFields.ToString())}");
-            if (checkCardStates.HasValue)
-                queryParams.Add($"checkItemStates={Uri.EscapeDataString(checkCardStates.Value.ToString())}");
-            if (checklists != default)
-                queryParams.Add($"checklists={Uri.EscapeDataString(checklists.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (since != default)
-                queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
-            if (before != default)
-                queryParams.Add($"before={Uri.EscapeDataString(before.ToString())}");
-            if (filter != default)
-                queryParams.Add($"filter={Uri.EscapeDataString(filter.ToString())}");
-            if (fields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (actions != default)
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
+                if (attachments.HasValue)
+                    queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
+                if (attachmentFields != default)
+                    queryParams.Add($"attachment_fields={Uri.EscapeDataString(attachmentFields.ToString())}");
+                if (stickers.HasValue)
+                    queryParams.Add($"stickers={Uri.EscapeDataString(stickers.Value.ToString())}");
+                if (members.HasValue)
+                    queryParams.Add($"members={Uri.EscapeDataString(members.Value.ToString())}");
+                if (memberFields != default)
+                    queryParams.Add($"memeber_fields={Uri.EscapeDataString(memberFields.ToString())}");
+                if (checkCardStates.HasValue)
+                    queryParams.Add($"checkItemStates={Uri.EscapeDataString(checkCardStates.Value.ToString())}");
+                if (checklists != default)
+                    queryParams.Add($"checklists={Uri.EscapeDataString(checklists.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (since != default)
+                    queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                if (before != default)
+                    queryParams.Add($"before={Uri.EscapeDataString(before.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"filter={Uri.EscapeDataString(filter.ToString())}");
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2589,10 +2602,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The A simple version of the list cards response.</returns>
         public virtual async Task<List<Card>> ListCardsSimpleAsync([DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/simple/boards/{Uri.EscapeDataString(boardId.ToString())}/cards";
-            return await this
-                .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardsSimpleAsync");
+            try
+            {
+                var path = $"/simple/boards/{Uri.EscapeDataString(boardId.ToString())}/cards";
+                return await this
+                    .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2628,58 +2651,69 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Get a card by id response.</returns>
         public virtual async Task<CardWithChecklists> GetCardAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, string actions = default, bool? actionsEntities = default, bool? actionsDisplay = default, int? actionsLimit = default, string actionFields = default, string memberCreatorActionFields = default, bool? attachments = default, string attachmentsFields = default, bool? members = default, string memberFields = default, bool? votedMembers = default, string votedMemberFields = default, bool? checkItemStates = default, string itemStateFields = default, string checklists = default, string checklistFields = default, bool? board = default, string boardFields = default, bool? list = default, string listFields = default, bool? stickers = default, string stickerFields = default, string fields = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            if (actions != default)
-                queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
-            if (actionsEntities.HasValue)
-                queryParams.Add($"actions_entities={Uri.EscapeDataString(actionsEntities.Value.ToString())}");
-            if (actionsDisplay.HasValue)
-                queryParams.Add($"actions_display={Uri.EscapeDataString(actionsDisplay.Value.ToString())}");
-            if (actionsLimit.HasValue)
-                queryParams.Add($"actions_limit={Uri.EscapeDataString(actionsLimit.Value.ToString())}");
-            if (actionFields != default)
-                queryParams.Add($"action_fields={Uri.EscapeDataString(actionFields.ToString())}");
-            if (memberCreatorActionFields != default)
-                queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(memberCreatorActionFields.ToString())}");
-            if (attachments.HasValue)
-                queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
-            if (attachmentsFields != default)
-                queryParams.Add($"attachment_fields={Uri.EscapeDataString(attachmentsFields.ToString())}");
-            if (members.HasValue)
-                queryParams.Add($"members={Uri.EscapeDataString(members.Value.ToString())}");
-            if (memberFields != default)
-                queryParams.Add($"member_fields={Uri.EscapeDataString(memberFields.ToString())}");
-            if (votedMembers.HasValue)
-                queryParams.Add($"membersVoted={Uri.EscapeDataString(votedMembers.Value.ToString())}");
-            if (votedMemberFields != default)
-                queryParams.Add($"memberVoted_fields={Uri.EscapeDataString(votedMemberFields.ToString())}");
-            if (checkItemStates.HasValue)
-                queryParams.Add($"checkItemStates={Uri.EscapeDataString(checkItemStates.Value.ToString())}");
-            if (itemStateFields != default)
-                queryParams.Add($"checkItemState_fields={Uri.EscapeDataString(itemStateFields.ToString())}");
-            if (checklists != default)
-                queryParams.Add($"checklists={Uri.EscapeDataString(checklists.ToString())}");
-            if (checklistFields != default)
-                queryParams.Add($"checklist_fields={Uri.EscapeDataString(checklistFields.ToString())}");
-            if (board.HasValue)
-                queryParams.Add($"board={Uri.EscapeDataString(board.Value.ToString())}");
-            if (boardFields != default)
-                queryParams.Add($"board_fields={Uri.EscapeDataString(boardFields.ToString())}");
-            if (list.HasValue)
-                queryParams.Add($"list={Uri.EscapeDataString(list.Value.ToString())}");
-            if (listFields != default)
-                queryParams.Add($"list_fields={Uri.EscapeDataString(listFields.ToString())}");
-            if (stickers.HasValue)
-                queryParams.Add($"stickers={Uri.EscapeDataString(stickers.Value.ToString())}");
-            if (stickerFields != default)
-                queryParams.Add($"sticker_fields={Uri.EscapeDataString(stickerFields.ToString())}");
-            if (fields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
-            var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CardWithChecklists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetCardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                if (actions != default)
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
+                if (actionsEntities.HasValue)
+                    queryParams.Add($"actions_entities={Uri.EscapeDataString(actionsEntities.Value.ToString())}");
+                if (actionsDisplay.HasValue)
+                    queryParams.Add($"actions_display={Uri.EscapeDataString(actionsDisplay.Value.ToString())}");
+                if (actionsLimit.HasValue)
+                    queryParams.Add($"actions_limit={Uri.EscapeDataString(actionsLimit.Value.ToString())}");
+                if (actionFields != default)
+                    queryParams.Add($"action_fields={Uri.EscapeDataString(actionFields.ToString())}");
+                if (memberCreatorActionFields != default)
+                    queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(memberCreatorActionFields.ToString())}");
+                if (attachments.HasValue)
+                    queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
+                if (attachmentsFields != default)
+                    queryParams.Add($"attachment_fields={Uri.EscapeDataString(attachmentsFields.ToString())}");
+                if (members.HasValue)
+                    queryParams.Add($"members={Uri.EscapeDataString(members.Value.ToString())}");
+                if (memberFields != default)
+                    queryParams.Add($"member_fields={Uri.EscapeDataString(memberFields.ToString())}");
+                if (votedMembers.HasValue)
+                    queryParams.Add($"membersVoted={Uri.EscapeDataString(votedMembers.Value.ToString())}");
+                if (votedMemberFields != default)
+                    queryParams.Add($"memberVoted_fields={Uri.EscapeDataString(votedMemberFields.ToString())}");
+                if (checkItemStates.HasValue)
+                    queryParams.Add($"checkItemStates={Uri.EscapeDataString(checkItemStates.Value.ToString())}");
+                if (itemStateFields != default)
+                    queryParams.Add($"checkItemState_fields={Uri.EscapeDataString(itemStateFields.ToString())}");
+                if (checklists != default)
+                    queryParams.Add($"checklists={Uri.EscapeDataString(checklists.ToString())}");
+                if (checklistFields != default)
+                    queryParams.Add($"checklist_fields={Uri.EscapeDataString(checklistFields.ToString())}");
+                if (board.HasValue)
+                    queryParams.Add($"board={Uri.EscapeDataString(board.Value.ToString())}");
+                if (boardFields != default)
+                    queryParams.Add($"board_fields={Uri.EscapeDataString(boardFields.ToString())}");
+                if (list.HasValue)
+                    queryParams.Add($"list={Uri.EscapeDataString(list.Value.ToString())}");
+                if (listFields != default)
+                    queryParams.Add($"list_fields={Uri.EscapeDataString(listFields.ToString())}");
+                if (stickers.HasValue)
+                    queryParams.Add($"stickers={Uri.EscapeDataString(stickers.Value.ToString())}");
+                if (stickerFields != default)
+                    queryParams.Add($"sticker_fields={Uri.EscapeDataString(stickerFields.ToString())}");
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CardWithChecklists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2692,12 +2726,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Delete a card response.</returns>
         public virtual async Task<ObjectEntity> DeleteCardAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.DeleteCardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2720,35 +2765,45 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List boards response.</returns>
         public virtual async Task<List<Board>> ListBoardsAsync(string filter = default, string fields = default, string actions = default, bool? actionEntities = default, int? actionLimit = default, string actionsFormat = default, string actionsSince = default, string actionFields = default, string memberships = default, bool? organization = default, string organizationFields = default, string lists = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filter != default)
-                queryParams.Add($"filter={Uri.EscapeDataString(filter.ToString())}");
-            if (fields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
-            if (actions != default)
-                queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
-            if (actionEntities.HasValue)
-                queryParams.Add($"actions_entities={Uri.EscapeDataString(actionEntities.Value.ToString())}");
-            if (actionLimit.HasValue)
-                queryParams.Add($"actions_limit={Uri.EscapeDataString(actionLimit.Value.ToString())}");
-            if (actionsFormat != default)
-                queryParams.Add($"actions_format={Uri.EscapeDataString(actionsFormat.ToString())}");
-            if (actionsSince != default)
-                queryParams.Add($"actions_since={Uri.EscapeDataString(actionsSince.ToString())}");
-            if (actionFields != default)
-                queryParams.Add($"action_fields={Uri.EscapeDataString(actionFields.ToString())}");
-            if (memberships != default)
-                queryParams.Add($"memberships={Uri.EscapeDataString(memberships.ToString())}");
-            if (organization.HasValue)
-                queryParams.Add($"organization={Uri.EscapeDataString(organization.Value.ToString())}");
-            if (organizationFields != default)
-                queryParams.Add($"organization_fields={Uri.EscapeDataString(organizationFields.ToString())}");
-            if (lists != default)
-                queryParams.Add($"lists={Uri.EscapeDataString(lists.ToString())}");
-            var path = $"/member/me/boards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Board>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListBoardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filter != default)
+                    queryParams.Add($"filter={Uri.EscapeDataString(filter.ToString())}");
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
+                if (actions != default)
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
+                if (actionEntities.HasValue)
+                    queryParams.Add($"actions_entities={Uri.EscapeDataString(actionEntities.Value.ToString())}");
+                if (actionLimit.HasValue)
+                    queryParams.Add($"actions_limit={Uri.EscapeDataString(actionLimit.Value.ToString())}");
+                if (actionsFormat != default)
+                    queryParams.Add($"actions_format={Uri.EscapeDataString(actionsFormat.ToString())}");
+                if (actionsSince != default)
+                    queryParams.Add($"actions_since={Uri.EscapeDataString(actionsSince.ToString())}");
+                if (actionFields != default)
+                    queryParams.Add($"action_fields={Uri.EscapeDataString(actionFields.ToString())}");
+                if (memberships != default)
+                    queryParams.Add($"memberships={Uri.EscapeDataString(memberships.ToString())}");
+                if (organization.HasValue)
+                    queryParams.Add($"organization={Uri.EscapeDataString(organization.Value.ToString())}");
+                if (organizationFields != default)
+                    queryParams.Add($"organization_fields={Uri.EscapeDataString(organizationFields.ToString())}");
+                if (lists != default)
+                    queryParams.Add($"lists={Uri.EscapeDataString(lists.ToString())}");
+                var path = $"/member/me/boards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Board>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2759,10 +2814,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The A simple version of the list boards response.</returns>
         public virtual async Task<List<Board>> ListBoardsSimpleAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/simple/member/me/boards";
-            return await this
-                .CallConnectorAsync<List<Board>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListBoardsSimpleAsync");
+            try
+            {
+                var path = $"/simple/member/me/boards";
+                return await this
+                    .CallConnectorAsync<List<Board>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2811,85 +2876,95 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Get a board by Id response.</returns>
         public virtual async Task<BoardWithChecklists> GetBoardAsync([DynamicValues("ListBoardsSimple")] string boardId, string actions = default, bool? actionEntities = default, bool? actionsDisplay = default, string actionsFormat = default, string actionsSince = default, int? actionsLimit = default, string actionField = default, bool? actionMember = default, string actionMemberFields = default, bool? actionMemberCreator = default, string actionMemberCreatorFields = default, string cards = default, string cardFields = default, bool? cardAttachments = default, string cardAttachmentFields = default, string cardChecklists = default, bool? cardStickers = default, string boardStars = default, string labels = default, string labelFields = default, int? labelLimits = default, string lists = default, string listFields = default, string memberships = default, bool? membershipsMember = default, string membershipsMemberFields = default, string members = default, string memberFields = default, string invitedMembers = default, string invitedMemberFields = default, string checklists = default, string checklistFields = default, bool? organization = default, string organizationFields = default, string organizationMemberships = default, bool? myPerfs = default, string fields = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (actions != default)
-                queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
-            if (actionEntities.HasValue)
-                queryParams.Add($"action_entities={Uri.EscapeDataString(actionEntities.Value.ToString())}");
-            if (actionsDisplay.HasValue)
-                queryParams.Add($"actions_display={Uri.EscapeDataString(actionsDisplay.Value.ToString())}");
-            if (actionsFormat != default)
-                queryParams.Add($"actions_format={Uri.EscapeDataString(actionsFormat.ToString())}");
-            if (actionsSince != default)
-                queryParams.Add($"actions_since={Uri.EscapeDataString(actionsSince.ToString())}");
-            if (actionsLimit.HasValue)
-                queryParams.Add($"actions_limit={Uri.EscapeDataString(actionsLimit.Value.ToString())}");
-            if (actionField != default)
-                queryParams.Add($"action_fields={Uri.EscapeDataString(actionField.ToString())}");
-            if (actionMember.HasValue)
-                queryParams.Add($"action_member={Uri.EscapeDataString(actionMember.Value.ToString())}");
-            if (actionMemberFields != default)
-                queryParams.Add($"action_member_fields={Uri.EscapeDataString(actionMemberFields.ToString())}");
-            if (actionMemberCreator.HasValue)
-                queryParams.Add($"action_memberCreator={Uri.EscapeDataString(actionMemberCreator.Value.ToString())}");
-            if (actionMemberCreatorFields != default)
-                queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(actionMemberCreatorFields.ToString())}");
-            if (cards != default)
-                queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
-            if (cardFields != default)
-                queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields.ToString())}");
-            if (cardAttachments.HasValue)
-                queryParams.Add($"card_attachments={Uri.EscapeDataString(cardAttachments.Value.ToString())}");
-            if (cardAttachmentFields != default)
-                queryParams.Add($"card_attachment_fields={Uri.EscapeDataString(cardAttachmentFields.ToString())}");
-            if (cardChecklists != default)
-                queryParams.Add($"card_checklists={Uri.EscapeDataString(cardChecklists.ToString())}");
-            if (cardStickers.HasValue)
-                queryParams.Add($"card_stickers={Uri.EscapeDataString(cardStickers.Value.ToString())}");
-            if (boardStars != default)
-                queryParams.Add($"boardStars={Uri.EscapeDataString(boardStars.ToString())}");
-            if (labels != default)
-                queryParams.Add($"labels={Uri.EscapeDataString(labels.ToString())}");
-            if (labelFields != default)
-                queryParams.Add($"label_fields={Uri.EscapeDataString(labelFields.ToString())}");
-            if (labelLimits.HasValue)
-                queryParams.Add($"labels_limit={Uri.EscapeDataString(labelLimits.Value.ToString())}");
-            if (lists != default)
-                queryParams.Add($"lists={Uri.EscapeDataString(lists.ToString())}");
-            if (listFields != default)
-                queryParams.Add($"list_fields={Uri.EscapeDataString(listFields.ToString())}");
-            if (memberships != default)
-                queryParams.Add($"memberships={Uri.EscapeDataString(memberships.ToString())}");
-            if (membershipsMember.HasValue)
-                queryParams.Add($"memberships_member={Uri.EscapeDataString(membershipsMember.Value.ToString())}");
-            if (membershipsMemberFields != default)
-                queryParams.Add($"memberships_member_fields={Uri.EscapeDataString(membershipsMemberFields.ToString())}");
-            if (members != default)
-                queryParams.Add($"members={Uri.EscapeDataString(members.ToString())}");
-            if (memberFields != default)
-                queryParams.Add($"member_fields={Uri.EscapeDataString(memberFields.ToString())}");
-            if (invitedMembers != default)
-                queryParams.Add($"membersInvited={Uri.EscapeDataString(invitedMembers.ToString())}");
-            if (invitedMemberFields != default)
-                queryParams.Add($"membersInvited_fields={Uri.EscapeDataString(invitedMemberFields.ToString())}");
-            if (checklists != default)
-                queryParams.Add($"checklists={Uri.EscapeDataString(checklists.ToString())}");
-            if (checklistFields != default)
-                queryParams.Add($"checklist_fields={Uri.EscapeDataString(checklistFields.ToString())}");
-            if (organization.HasValue)
-                queryParams.Add($"organization={Uri.EscapeDataString(organization.Value.ToString())}");
-            if (organizationFields != default)
-                queryParams.Add($"organization_fields={Uri.EscapeDataString(organizationFields.ToString())}");
-            if (organizationMemberships != default)
-                queryParams.Add($"organization_memberships={Uri.EscapeDataString(organizationMemberships.ToString())}");
-            if (myPerfs.HasValue)
-                queryParams.Add($"myPerfs={Uri.EscapeDataString(myPerfs.Value.ToString())}");
-            if (fields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BoardWithChecklists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetBoardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (actions != default)
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
+                if (actionEntities.HasValue)
+                    queryParams.Add($"action_entities={Uri.EscapeDataString(actionEntities.Value.ToString())}");
+                if (actionsDisplay.HasValue)
+                    queryParams.Add($"actions_display={Uri.EscapeDataString(actionsDisplay.Value.ToString())}");
+                if (actionsFormat != default)
+                    queryParams.Add($"actions_format={Uri.EscapeDataString(actionsFormat.ToString())}");
+                if (actionsSince != default)
+                    queryParams.Add($"actions_since={Uri.EscapeDataString(actionsSince.ToString())}");
+                if (actionsLimit.HasValue)
+                    queryParams.Add($"actions_limit={Uri.EscapeDataString(actionsLimit.Value.ToString())}");
+                if (actionField != default)
+                    queryParams.Add($"action_fields={Uri.EscapeDataString(actionField.ToString())}");
+                if (actionMember.HasValue)
+                    queryParams.Add($"action_member={Uri.EscapeDataString(actionMember.Value.ToString())}");
+                if (actionMemberFields != default)
+                    queryParams.Add($"action_member_fields={Uri.EscapeDataString(actionMemberFields.ToString())}");
+                if (actionMemberCreator.HasValue)
+                    queryParams.Add($"action_memberCreator={Uri.EscapeDataString(actionMemberCreator.Value.ToString())}");
+                if (actionMemberCreatorFields != default)
+                    queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(actionMemberCreatorFields.ToString())}");
+                if (cards != default)
+                    queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
+                if (cardFields != default)
+                    queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields.ToString())}");
+                if (cardAttachments.HasValue)
+                    queryParams.Add($"card_attachments={Uri.EscapeDataString(cardAttachments.Value.ToString())}");
+                if (cardAttachmentFields != default)
+                    queryParams.Add($"card_attachment_fields={Uri.EscapeDataString(cardAttachmentFields.ToString())}");
+                if (cardChecklists != default)
+                    queryParams.Add($"card_checklists={Uri.EscapeDataString(cardChecklists.ToString())}");
+                if (cardStickers.HasValue)
+                    queryParams.Add($"card_stickers={Uri.EscapeDataString(cardStickers.Value.ToString())}");
+                if (boardStars != default)
+                    queryParams.Add($"boardStars={Uri.EscapeDataString(boardStars.ToString())}");
+                if (labels != default)
+                    queryParams.Add($"labels={Uri.EscapeDataString(labels.ToString())}");
+                if (labelFields != default)
+                    queryParams.Add($"label_fields={Uri.EscapeDataString(labelFields.ToString())}");
+                if (labelLimits.HasValue)
+                    queryParams.Add($"labels_limit={Uri.EscapeDataString(labelLimits.Value.ToString())}");
+                if (lists != default)
+                    queryParams.Add($"lists={Uri.EscapeDataString(lists.ToString())}");
+                if (listFields != default)
+                    queryParams.Add($"list_fields={Uri.EscapeDataString(listFields.ToString())}");
+                if (memberships != default)
+                    queryParams.Add($"memberships={Uri.EscapeDataString(memberships.ToString())}");
+                if (membershipsMember.HasValue)
+                    queryParams.Add($"memberships_member={Uri.EscapeDataString(membershipsMember.Value.ToString())}");
+                if (membershipsMemberFields != default)
+                    queryParams.Add($"memberships_member_fields={Uri.EscapeDataString(membershipsMemberFields.ToString())}");
+                if (members != default)
+                    queryParams.Add($"members={Uri.EscapeDataString(members.ToString())}");
+                if (memberFields != default)
+                    queryParams.Add($"member_fields={Uri.EscapeDataString(memberFields.ToString())}");
+                if (invitedMembers != default)
+                    queryParams.Add($"membersInvited={Uri.EscapeDataString(invitedMembers.ToString())}");
+                if (invitedMemberFields != default)
+                    queryParams.Add($"membersInvited_fields={Uri.EscapeDataString(invitedMemberFields.ToString())}");
+                if (checklists != default)
+                    queryParams.Add($"checklists={Uri.EscapeDataString(checklists.ToString())}");
+                if (checklistFields != default)
+                    queryParams.Add($"checklist_fields={Uri.EscapeDataString(checklistFields.ToString())}");
+                if (organization.HasValue)
+                    queryParams.Add($"organization={Uri.EscapeDataString(organization.Value.ToString())}");
+                if (organizationFields != default)
+                    queryParams.Add($"organization_fields={Uri.EscapeDataString(organizationFields.ToString())}");
+                if (organizationMemberships != default)
+                    queryParams.Add($"organization_memberships={Uri.EscapeDataString(organizationMemberships.ToString())}");
+                if (myPerfs.HasValue)
+                    queryParams.Add($"myPerfs={Uri.EscapeDataString(myPerfs.Value.ToString())}");
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BoardWithChecklists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2902,10 +2977,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Update a board response.</returns>
         public virtual async Task<Board> UpdateBoardAsync([DynamicValues("ListBoardsSimple")] string boardId, UpdateBoard input, CancellationToken cancellationToken = default)
         {
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}";
-            return await this
-                .CallConnectorAsync<Board>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.UpdateBoardAsync");
+            try
+            {
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}";
+                return await this
+                    .CallConnectorAsync<Board>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2921,19 +3006,29 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List the card lists in a board response.</returns>
         public virtual async Task<List<List>> ListListsAsync([DynamicValues("ListBoardsSimple")] string boardId, string cards = default, string cardFields = default, string filter = default, string fields = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (cards != default)
-                queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
-            if (cardFields != default)
-                queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields.ToString())}");
-            if (filter != default)
-                queryParams.Add($"filter={Uri.EscapeDataString(filter.ToString())}");
-            if (fields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListListsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (cards != default)
+                    queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
+                if (cardFields != default)
+                    queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"filter={Uri.EscapeDataString(filter.ToString())}");
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2945,10 +3040,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The A simple version of list lists response.</returns>
         public virtual async Task<List<List>> ListListsSimpleAsync([DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/simple/boards/{Uri.EscapeDataString(boardId.ToString())}/lists";
-            return await this
-                .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListListsSimpleAsync");
+            try
+            {
+                var path = $"/simple/boards/{Uri.EscapeDataString(boardId.ToString())}/lists";
+                return await this
+                    .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2966,22 +3071,33 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Get list by Id response.</returns>
         public virtual async Task<List> GetListAsync([DynamicValues("ListListsSimple")] string listId, [DynamicValues("ListBoardsSimple")] string boardId, string cards = default, string cardFields = default, bool? board = default, string boardFields = default, string listFields = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            if (cards != default)
-                queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
-            if (cardFields != default)
-                queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields.ToString())}");
-            if (board.HasValue)
-                queryParams.Add($"board={Uri.EscapeDataString(board.Value.ToString())}");
-            if (boardFields != default)
-                queryParams.Add($"board_fields={Uri.EscapeDataString(boardFields.ToString())}");
-            if (listFields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(listFields.ToString())}");
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetListAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                if (cards != default)
+                    queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
+                if (cardFields != default)
+                    queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields.ToString())}");
+                if (board.HasValue)
+                    queryParams.Add($"board={Uri.EscapeDataString(board.Value.ToString())}");
+                if (boardFields != default)
+                    queryParams.Add($"board_fields={Uri.EscapeDataString(boardFields.ToString())}");
+                if (listFields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(listFields.ToString())}");
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2999,22 +3115,33 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Update a list response.</returns>
         public virtual async Task<CreateListResponse> UpdateListAsync([DynamicValues("ListListsSimple")] string listId, [DynamicValues("ListBoardsSimple")] string boardId, string listName = default, string closed = default, [DynamicValues("ListBoardsSimple")] string boardToMoveTo = default, string listPosition = default, string subscribed = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            if (listName != default)
-                queryParams.Add($"name={Uri.EscapeDataString(listName.ToString())}");
-            if (closed != default)
-                queryParams.Add($"closed={Uri.EscapeDataString(closed.ToString())}");
-            if (boardToMoveTo != default)
-                queryParams.Add($"idBoard={Uri.EscapeDataString(boardToMoveTo.ToString())}");
-            if (listPosition != default)
-                queryParams.Add($"pos={Uri.EscapeDataString(listPosition.ToString())}");
-            if (subscribed != default)
-                queryParams.Add($"subscribed={Uri.EscapeDataString(subscribed.ToString())}");
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateListResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.UpdateListAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                if (listName != default)
+                    queryParams.Add($"name={Uri.EscapeDataString(listName.ToString())}");
+                if (closed != default)
+                    queryParams.Add($"closed={Uri.EscapeDataString(closed.ToString())}");
+                if (boardToMoveTo != default)
+                    queryParams.Add($"idBoard={Uri.EscapeDataString(boardToMoveTo.ToString())}");
+                if (listPosition != default)
+                    queryParams.Add($"pos={Uri.EscapeDataString(listPosition.ToString())}");
+                if (subscribed != default)
+                    queryParams.Add($"subscribed={Uri.EscapeDataString(subscribed.ToString())}");
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateListResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3026,13 +3153,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Get your User Profile info response.</returns>
         public virtual async Task<ObjectEntity> GetUserProfileAsync(string fields = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fields != default)
-                queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
-            var path = $"/members/me" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetUserProfileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields.ToString())}");
+                var path = $"/members/me" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3043,10 +3180,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List teams you are a member of response.</returns>
         public virtual async Task<List<Team>> ListTeamsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/members/me/organizations";
-            return await this
-                .CallConnectorAsync<List<Team>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListTeamsAsync");
+            try
+            {
+                var path = $"/members/me/organizations";
+                return await this
+                    .CallConnectorAsync<List<Team>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3058,10 +3205,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List members of a team response.</returns>
         public virtual async Task<List<Member>> ListTeamMembersAsync([DynamicValues("ListTeams")] string teamId, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(teamId.ToString())}/members";
-            return await this
-                .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListTeamMembersAsync");
+            try
+            {
+                var path = $"/organizations/{Uri.EscapeDataString(teamId.ToString())}/members";
+                return await this
+                    .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3073,10 +3230,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List members of a board response.</returns>
         public virtual async Task<List<Member>> ListBoardMembersAsync([DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/members";
-            return await this
-                .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListBoardMembersAsync");
+            try
+            {
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/members";
+                return await this
+                    .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3088,12 +3255,22 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List labels of a board response.</returns>
         public virtual async Task<List<BoardLabel>> ListBoardLabelsAsync([DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("limit=1000");
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BoardLabel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListBoardLabelsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("limit=1000");
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BoardLabel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3105,10 +3282,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Get the team for a board response.</returns>
         public virtual async Task<Team> GetTeamForBoardAsync([DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/organization";
-            return await this
-                .CallConnectorAsync<Team>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetTeamForBoardAsync");
+            try
+            {
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/organization";
+                return await this
+                    .CallConnectorAsync<Team>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3121,12 +3308,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List members for a card response.</returns>
         public virtual async Task<List<Member>> ListCardMembersAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardMembersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3139,12 +3337,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The List comments for a card response.</returns>
         public virtual async Task<List<Comment>> ListCardCommentsAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/actions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Comment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardCommentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/actions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Comment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3158,12 +3367,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Add a comment to a card response.</returns>
         public virtual async Task<Comment> AddCommentToCardAsync([DynamicValues("ListCardsSimple")] string cardId, CommentPost input, [DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/actions/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.AddCommentToCardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/actions/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3177,13 +3397,25 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Add member to a card response.</returns>
         public virtual async Task<List<Member>> AddMemberToCardAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, [DynamicValues("ListBoardMembers")] string memberIdOrUsername, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            queryParams.Add($"memberId={Uri.EscapeDataString(memberIdOrUsername.ToString())}");
-            var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/idMembers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Member>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.AddMemberToCardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                if (memberIdOrUsername is null) throw new ArgumentNullException(nameof(memberIdOrUsername));
+                queryParams.Add($"memberId={Uri.EscapeDataString(memberIdOrUsername.ToString())}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/idMembers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Member>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3195,10 +3427,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Create a board response.</returns>
         public virtual async Task<Board> CreateBoardAsync(CreateBoard input, CancellationToken cancellationToken = default)
         {
-            var path = $"/boards";
-            return await this
-                .CallConnectorAsync<Board>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.CreateBoardAsync");
+            try
+            {
+                var path = $"/boards";
+                return await this
+                    .CallConnectorAsync<Board>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3210,10 +3452,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Create a list response.</returns>
         public virtual async Task<CreateListResponse> CreateListAsync(CreateList input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists";
-            return await this
-                .CallConnectorAsync<CreateListResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.CreateListAsync");
+            try
+            {
+                var path = $"/lists";
+                return await this
+                    .CallConnectorAsync<CreateListResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3225,10 +3477,20 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Close a board response.</returns>
         public virtual async Task<Board> CloseBoardAsync([DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/closed";
-            return await this
-                .CallConnectorAsync<Board>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.CloseBoardAsync");
+            try
+            {
+                var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/closed";
+                return await this
+                    .CallConnectorAsync<Board>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3241,12 +3503,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Create a card response.</returns>
         public virtual async Task<Card> CreateCardAsync(CreateCard input, [DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/v2/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Card>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.CreateCardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/v2/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Card>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3260,12 +3533,23 @@ namespace Azure.Connectors.Sdk.Trello
         /// <returns>The Update a card response.</returns>
         public virtual async Task<Card> UpdateCardAsync([DynamicValues("ListCardsSimple")] string cardId, UpdateCard input, [DynamicValues("ListBoardsSimple")] string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/v2/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Card>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.UpdateCardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/v2/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Card>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

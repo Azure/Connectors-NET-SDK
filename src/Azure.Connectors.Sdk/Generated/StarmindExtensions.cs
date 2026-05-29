@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Starmind.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Starmind.Models
@@ -49,7 +50,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
     {
         /// <summary>List of experts matching the search query. May be empty if no experts are found.</summary>
         [JsonPropertyName("experts")]
-        public List<object> Experts { get; set; }
+        public List<JsonElement?> Experts { get; set; }
 
         /// <summary>The matched labels for the expert search query. May be empty if no labels match.</summary>
         [JsonPropertyName("label_matches")]
@@ -97,7 +98,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>Paginated results of the question search.</summary>
         [JsonPropertyName("items")]
@@ -181,7 +182,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
 
         /// <summary>Optional array of GraphQL errors; only present if errors occurred</summary>
         [JsonPropertyName("errors")]
@@ -195,11 +196,11 @@ namespace Azure.Connectors.Sdk.Starmind.Models
     {
         /// <summary>extensions</summary>
         [JsonPropertyName("extensions")]
-        public object Extensions { get; set; }
+        public JsonElement? Extensions { get; set; }
 
         /// <summary>locations</summary>
         [JsonPropertyName("locations")]
-        public List<object> Locations { get; set; }
+        public List<JsonElement?> Locations { get; set; }
 
         /// <summary>message</summary>
         [JsonPropertyName("message")]
@@ -349,7 +350,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
         /// Creates a new instance of <see cref="FindExpertsResponse"/>.
         /// </summary>
         public static FindExpertsResponse FindExpertsResponse(
-            List<object> experts = default,
+            List<JsonElement?> experts = default,
             List<ConceptLabelMatch> labelMatches = default)
         {
             return new FindExpertsResponse
@@ -387,7 +388,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
         /// Creates a new instance of <see cref="FindQuestionsResponse"/>.
         /// </summary>
         public static FindQuestionsResponse FindQuestionsResponse(
-            object links = default,
+            JsonElement? links = default,
             List<Question> items = default,
             int? total = default)
         {
@@ -443,7 +444,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
         /// Creates a new instance of <see cref="GraphQLUserResponse"/>.
         /// </summary>
         public static GraphQLUserResponse GraphQLUserResponse(
-            object data = default,
+            JsonElement? data = default,
             List<GraphQLError> errors = default)
         {
             return new GraphQLUserResponse
@@ -457,8 +458,8 @@ namespace Azure.Connectors.Sdk.Starmind.Models
         /// Creates a new instance of <see cref="GraphQLError"/>.
         /// </summary>
         public static GraphQLError GraphQLError(
-            object extensions = default,
-            List<object> locations = default,
+            JsonElement? extensions = default,
+            List<JsonElement?> locations = default,
             string message = default,
             List<string> path = default)
         {
@@ -607,6 +608,8 @@ namespace Azure.Connectors.Sdk.Starmind
 
         public override string ConnectorName => "starmind";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.starmind");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -628,10 +631,20 @@ namespace Azure.Connectors.Sdk.Starmind
         /// <returns>The Find experts response.</returns>
         public virtual async Task<FindExpertsResponse> FindExpertsAsync(FindExpertsInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v3/experts";
-            return await this
-                .CallConnectorAsync<FindExpertsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.FindExpertsAsync");
+            try
+            {
+                var path = $"/api/v3/experts";
+                return await this
+                    .CallConnectorAsync<FindExpertsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -646,19 +659,29 @@ namespace Azure.Connectors.Sdk.Starmind
         /// <returns>The Find questions response.</returns>
         public virtual async Task<FindQuestionsResponse> FindQuestionsAsync(string searchQueryForQuestions = default, int? maximumNumberOfQuestionsToReturn = default, string predefinedFilterForQuestions = default, string sortCriteriaForQuestions = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (searchQueryForQuestions != default)
-                queryParams.Add($"query={Uri.EscapeDataString(searchQueryForQuestions.ToString())}");
-            if (maximumNumberOfQuestionsToReturn.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(maximumNumberOfQuestionsToReturn.Value.ToString())}");
-            if (predefinedFilterForQuestions != default)
-                queryParams.Add($"filter={Uri.EscapeDataString(predefinedFilterForQuestions.ToString())}");
-            if (sortCriteriaForQuestions != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(sortCriteriaForQuestions.ToString())}");
-            var path = $"/api/v3/questions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FindQuestionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.FindQuestionsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (searchQueryForQuestions != default)
+                    queryParams.Add($"query={Uri.EscapeDataString(searchQueryForQuestions.ToString())}");
+                if (maximumNumberOfQuestionsToReturn.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(maximumNumberOfQuestionsToReturn.Value.ToString())}");
+                if (predefinedFilterForQuestions != default)
+                    queryParams.Add($"filter={Uri.EscapeDataString(predefinedFilterForQuestions.ToString())}");
+                if (sortCriteriaForQuestions != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(sortCriteriaForQuestions.ToString())}");
+                var path = $"/api/v3/questions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FindQuestionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -670,10 +693,20 @@ namespace Azure.Connectors.Sdk.Starmind
         /// <returns>The Get user by id response.</returns>
         public virtual async Task<GraphQLUserResponse> GetUserByIdAsync(string theIdOfTheUser, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v3/users/{Uri.EscapeDataString(theIdOfTheUser.ToString())}";
-            return await this
-                .CallConnectorAsync<GraphQLUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.GetUserByIdAsync");
+            try
+            {
+                var path = $"/api/v3/users/{Uri.EscapeDataString(theIdOfTheUser.ToString())}";
+                return await this
+                    .CallConnectorAsync<GraphQLUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -685,10 +718,20 @@ namespace Azure.Connectors.Sdk.Starmind
         /// <returns>The Create a question draft response.</returns>
         public virtual async Task<Question> PostQuestionDraftAsync(PostQuestionDraftInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v3/questions";
-            return await this
-                .CallConnectorAsync<Question>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.PostQuestionDraftAsync");
+            try
+            {
+                var path = $"/api/v3/questions";
+                return await this
+                    .CallConnectorAsync<Question>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -700,10 +743,20 @@ namespace Azure.Connectors.Sdk.Starmind
         /// <returns>The Publish a question response.</returns>
         public virtual async Task<PublishQuestionDraftResponse> PublishQuestionDraftAsync(int idOfTheQuestionToPublish, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v3/questions/{Uri.EscapeDataString(idOfTheQuestionToPublish.ToString())}/publish";
-            return await this
-                .CallConnectorAsync<PublishQuestionDraftResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.PublishQuestionDraftAsync");
+            try
+            {
+                var path = $"/api/v3/questions/{Uri.EscapeDataString(idOfTheQuestionToPublish.ToString())}/publish";
+                return await this
+                    .CallConnectorAsync<PublishQuestionDraftResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

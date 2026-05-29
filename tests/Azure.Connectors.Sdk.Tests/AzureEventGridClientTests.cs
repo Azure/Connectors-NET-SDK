@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var expectedResponse = new TopicTypesResponse
             {
-                Value = new List<object> { new { name = "EventGrid" } }
+                Value = new List<JsonElement?>()
             };
 
             using var responseMessage = new HttpResponseMessage

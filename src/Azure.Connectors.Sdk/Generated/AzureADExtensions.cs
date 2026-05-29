@@ -22,6 +22,7 @@ using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.AzureAD.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.AzureAD.Models
@@ -75,7 +76,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>deletedDateTime</summary>
         [JsonPropertyName("deletedDateTime")]
         [JsonInclude]
-        public DateTime? DeletedDateTime { get; internal set; }
+        public DateTime? DeletedDateTime { get; init; }
 
         /// <summary>classification</summary>
         [JsonPropertyName("classification")]
@@ -84,7 +85,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>createdDateTime</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>description</summary>
         [JsonPropertyName("description")]
@@ -113,7 +114,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>onPremisesLastSyncDateTime</summary>
         [JsonPropertyName("onPremisesLastSyncDateTime")]
         [JsonInclude]
-        public DateTime? OnPremisesLastSyncDateTime { get; internal set; }
+        public DateTime? OnPremisesLastSyncDateTime { get; init; }
 
         /// <summary>onPremisesSecurityIdentifier</summary>
         [JsonPropertyName("onPremisesSecurityIdentifier")]
@@ -130,7 +131,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>renewedDateTime</summary>
         [JsonPropertyName("renewedDateTime")]
         [JsonInclude]
-        public DateTime? RenewedDateTime { get; internal set; }
+        public DateTime? RenewedDateTime { get; init; }
 
         /// <summary>securityEnabled</summary>
         [JsonPropertyName("securityEnabled")]
@@ -179,12 +180,12 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>Date-time the group was deleted.</summary>
         [JsonPropertyName("deletedDateTime")]
         [JsonInclude]
-        public DateTime? DeletedDateTime { get; internal set; }
+        public DateTime? DeletedDateTime { get; init; }
 
         /// <summary>Date-time the group was created.</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>An optional description for the group.</summary>
         [JsonPropertyName("description")]
@@ -205,7 +206,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         /// <summary>A date-time indicating the last time at which the group was synced with the on-premises directory.</summary>
         [JsonPropertyName("onPremisesLastSyncDateTime")]
         [JsonInclude]
-        public DateTime? OnPremisesLastSyncDateTime { get; internal set; }
+        public DateTime? OnPremisesLastSyncDateTime { get; init; }
 
         /// <summary>True if this group is synced from an on-premises directory.</summary>
         [JsonPropertyName("onPremisesSyncEnabled")]
@@ -403,11 +404,11 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
 
         /// <summary>Free form property name and value for this user.</summary>
         [JsonPropertyName("customProperties")]
-        public object CustomProperties { get; set; }
+        public JsonElement? CustomProperties { get; set; }
 
         /// <summary>onPremisesExtensionAttributes</summary>
         [JsonPropertyName("onPremisesExtensionAttributes")]
-        public object OnPremisesExtensionAttributes { get; set; }
+        public JsonElement? OnPremisesExtensionAttributes { get; set; }
     }
 
     /// <summary>
@@ -439,7 +440,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
 
         /// <summary>passwordProfile</summary>
         [JsonPropertyName("passwordProfile")]
-        public object PasswordProfile { get; set; }
+        public JsonElement? PasswordProfile { get; set; }
 
         /// <summary>The user principal name (UPN) of the user.</summary>
         [JsonPropertyName("userPrincipalName")]
@@ -740,8 +741,8 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
             string preferredLanguage = default,
             List<string> businessPhones = default,
             List<string> otherMails = default,
-            object customProperties = default,
-            object onPremisesExtensionAttributes = default)
+            JsonElement? customProperties = default,
+            JsonElement? onPremisesExtensionAttributes = default)
         {
             return new UpdateUserRequest
             {
@@ -782,7 +783,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
             bool? accountEnabled = default,
             string displayName = default,
             string mailNickname = default,
-            object passwordProfile = default,
+            JsonElement? passwordProfile = default,
             string userPrincipalName = default,
             string givenName = default,
             string surname = default,
@@ -883,6 +884,8 @@ namespace Azure.Connectors.Sdk.AzureAD
 
         public override string ConnectorName => "azuread";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azuread");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -904,10 +907,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Create Office 365 group response.</returns>
         public virtual async Task<CreateGroupResponse> CreateOffice365GroupAsync(CreateOffice365GroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/office365";
-            return await this
-                .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CreateOffice365GroupAsync");
+            try
+            {
+                var path = $"/v1.0/groups/office365";
+                return await this
+                    .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -919,10 +932,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Create security group response.</returns>
         public virtual async Task<CreateGroupResponse> CreateSecurityGroupAsync(CreateSecurityGroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/securityGroup";
-            return await this
-                .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CreateSecurityGroupAsync");
+            try
+            {
+                var path = $"/v1.0/groups/securityGroup";
+                return await this
+                    .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -934,10 +957,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Get group response.</returns>
         public virtual async Task<GetGroupResponse> GetGroupAsync(string groupId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetGroupAsync");
+            try
+            {
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -949,10 +982,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Get user response.</returns>
         public virtual async Task<GetUserResponse> GetUserAsync(string userIdOrPrincipalName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
-            return await this
-                .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetUserAsync");
+            try
+            {
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -964,10 +1007,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateUserAsync(string userIdOrPrincipalName, UpdateUserRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.UpdateUserAsync");
+            try
+            {
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -978,10 +1031,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RefreshTokensAsync(string userIdOrPrincipalName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/revokeSignInSessions";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.RefreshTokensAsync");
+            try
+            {
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/revokeSignInSessions";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -993,10 +1056,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Create user response.</returns>
         public virtual async Task<GetUserResponse> CreateUserAsync(CreateUserRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users";
-            return await this
-                .CallConnectorAsync<GetUserResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CreateUserAsync");
+            try
+            {
+                var path = $"/v1.0/users";
+                return await this
+                    .CallConnectorAsync<GetUserResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1028,10 +1101,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RemoveMemberFromGroupAsync(string groupId, string memberId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/{Uri.EscapeDataString(memberId.ToString())}/$ref";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.RemoveMemberFromGroupAsync");
+            try
+            {
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/{Uri.EscapeDataString(memberId.ToString())}/$ref";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1043,10 +1126,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddUserToGroupAsync(string groupId, GetGroupRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.AddUserToGroupAsync");
+            try
+            {
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1058,10 +1151,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AssignManagerAsync(string userIdOrPrincipalName, AssignManagerRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/manager/$ref";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.AssignManagerAsync");
+            try
+            {
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/manager/$ref";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1073,10 +1176,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Create group response.</returns>
         public virtual async Task<CreateGroupResponse> CreateGroupAsync(CreateGroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups";
-            return await this
-                .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CreateGroupAsync");
+            try
+            {
+                var path = $"/v1.0/groups";
+                return await this
+                    .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1089,10 +1202,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Check group membership (V2) response.</returns>
         public virtual async Task<GetMemberGroupsResponse> CheckMemberGroupsAsync(string userIdOrPrincipalName, CheckMemberGroupsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/checkMemberGroups";
-            return await this
-                .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CheckMemberGroupsAsync");
+            try
+            {
+                var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/checkMemberGroups";
+                return await this
+                    .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1105,10 +1228,20 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>The Get groups of a user (V2) response.</returns>
         public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string userIdOrPrincipalName, GetMemberGroupsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/getMemberGroups";
-            return await this
-                .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetMemberGroupsAsync");
+            try
+            {
+                var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/getMemberGroups";
+                return await this
+                    .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

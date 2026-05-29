@@ -36,7 +36,6 @@ using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
 using Azure.Connectors.Sdk.Onenote;
 using Azure.Connectors.Sdk.Orderful;
-using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
 using Azure.Connectors.Sdk.Planner;
 using Azure.Connectors.Sdk.Plivo;
@@ -48,7 +47,6 @@ using Azure.Connectors.Sdk.Revai;
 using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Shifts;
-using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Starmind;
 using Azure.Connectors.Sdk.StarrezRestV1;
@@ -60,7 +58,6 @@ using Azure.Connectors.Sdk.Todo;
 using Azure.Connectors.Sdk.UniversalPrint;
 using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
-using Azure.Connectors.Sdk.Yammer;
 using Azure.Connectors.Sdk.ZohoSign;
 using global::Azure.Core;
 using Microsoft.Extensions.Configuration;
@@ -348,12 +345,10 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddRepliconClient(configuration)
                 .AddRevaiClient(configuration)
                 .AddSharePointOnlineClient(configuration)
-                .AddSigningHubClient(configuration)
                 .AddSmtpClient(configuration)
                 .AddTeamsClient(configuration)
                 .AddUniversalPrintClient(configuration)
                 .AddWdatpClient(configuration)
-                .AddYammerClient(configuration)
                 .AddZohoSignClient(configuration)
                 .AddDocuwareClient(configuration)
                 .AddElfsquadDataClient(configuration)
@@ -361,7 +356,6 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddJedoxOdataHubClient(configuration)
                 .AddMeetingRoomMapClient(configuration)
                 .AddOrderfulClient(configuration)
-                .AddPdfCoClient(configuration)
                 .AddProjectplaceClient(configuration)
                 .AddSeismicPlannerClient(configuration)
                 .AddStarmindClient(configuration)
@@ -412,7 +406,6 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("office365users", provider.GetRequiredService<Office365UsersClient>().ConnectorName);
             Assert.AreEqual("onedriveforbusiness", provider.GetRequiredService<OneDriveForBusinessClient>().ConnectorName);
             Assert.AreEqual("orderful", provider.GetRequiredService<OrderfulClient>().ConnectorName);
-            Assert.AreEqual("pdfco", provider.GetRequiredService<PdfCoClient>().ConnectorName);
             Assert.AreEqual("pipedrive", provider.GetRequiredService<PipedriveClient>().ConnectorName);
             Assert.AreEqual("plivo", provider.GetRequiredService<PlivoClient>().ConnectorName);
             Assert.AreEqual("plumsail", provider.GetRequiredService<PlumsailClient>().ConnectorName);
@@ -421,7 +414,6 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("revai", provider.GetRequiredService<RevaiClient>().ConnectorName);
             Assert.AreEqual("seismicplanner", provider.GetRequiredService<SeismicPlannerClient>().ConnectorName);
             Assert.AreEqual("sharepointonline", provider.GetRequiredService<SharePointOnlineClient>().ConnectorName);
-            Assert.AreEqual("signinghub", provider.GetRequiredService<SigningHubClient>().ConnectorName);
             Assert.AreEqual("smtp", provider.GetRequiredService<SmtpClient>().ConnectorName);
             Assert.AreEqual("starmind", provider.GetRequiredService<StarmindClient>().ConnectorName);
             Assert.AreEqual("starrezrestv1", provider.GetRequiredService<StarrezRestV1Client>().ConnectorName);
@@ -445,7 +437,6 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("shifts", provider.GetRequiredService<ShiftsClient>().ConnectorName);
             Assert.AreEqual("todo", provider.GetRequiredService<TodoClient>().ConnectorName);
             Assert.AreEqual("wdatp", provider.GetRequiredService<WdatpClient>().ConnectorName);
-            Assert.AreEqual("yammer", provider.GetRequiredService<YammerClient>().ConnectorName);
             Assert.AreEqual("zohosign", provider.GetRequiredService<ZohoSignClient>().ConnectorName);
         }
 

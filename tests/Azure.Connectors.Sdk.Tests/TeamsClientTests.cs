@@ -98,7 +98,7 @@ namespace Azure.Connectors.Sdk.Tests
             var expectedResponse = new GetAllTeamsResponse
             {
                 Context = "https://graph.microsoft.com/beta/$metadata#teams",
-                TeamsList = new List<object> { "team1", "team2", "team3" }
+                TeamsList = new List<JsonElement?>()
             };
 
             using var client = CreateMockedClient(() => new HttpResponseMessage

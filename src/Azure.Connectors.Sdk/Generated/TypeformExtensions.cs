@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Typeform.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Typeform.Models
@@ -43,7 +44,7 @@ namespace Azure.Connectors.Sdk.Typeform.Models
 
         /// <summary>Forms in response.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -111,7 +112,7 @@ namespace Azure.Connectors.Sdk.Typeform.Models
         public static ListFormsResponse ListFormsResponse(
             int? totalItems = default,
             int? pageCount = default,
-            List<object> items = default)
+            List<JsonElement?> items = default)
         {
             return new ListFormsResponse
             {
@@ -237,6 +238,8 @@ namespace Azure.Connectors.Sdk.Typeform
 
         public override string ConnectorName => "typeform";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.typeform");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -261,19 +264,29 @@ namespace Azure.Connectors.Sdk.Typeform
         /// <returns>The List forms response.</returns>
         public virtual async Task<ListFormsResponse> ListFormsAsync(string search = default, int? page = default, int? pageSize = default, string workspaceId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (search != default)
-                queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
-            if (page.HasValue)
-                queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"page_size={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            if (workspaceId != default)
-                queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId.ToString())}");
-            var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TypeformClient.ConnectorActivitySource.StartActivity("TypeformClient.ListFormsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (search != default)
+                    queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+                if (page.HasValue)
+                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"page_size={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                if (workspaceId != default)
+                    queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId.ToString())}");
+                var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -45,7 +45,6 @@ using Azure.Connectors.Sdk.OneDriveForBusiness;
 using Azure.Connectors.Sdk.Onenote;
 using Azure.Connectors.Sdk.Orderful;
 using Azure.Connectors.Sdk.Outlook;
-using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
 using Azure.Connectors.Sdk.Planner;
 using Azure.Connectors.Sdk.Plivo;
@@ -58,7 +57,6 @@ using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.Servicebus;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Shifts;
-using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Starmind;
 using Azure.Connectors.Sdk.StarrezRestV1;
@@ -71,7 +69,6 @@ using Azure.Connectors.Sdk.UniversalPrint;
 using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.WordOnlineBusiness;
-using Azure.Connectors.Sdk.Yammer;
 using Azure.Connectors.Sdk.ZohoSign;
 using Azure.Core;
 using Azure.Identity;
@@ -648,22 +645,6 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="PdfCoClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddPdfCoClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<PdfCoClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.PDFco,
-                factory: (connectionRuntimeUrl, credential) => new PdfCoClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
         /// Registers <see cref="PipedriveClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -805,22 +786,6 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.SharePoint,
                 factory: (connectionRuntimeUrl, credential) => new SharePointOnlineClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="SigningHubClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddSigningHubClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<SigningHubClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.SigningHub,
-                factory: (connectionRuntimeUrl, credential) => new SigningHubClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -997,22 +962,6 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.WordOnlineBusiness,
                 factory: (connectionRuntimeUrl, credential) => new WordOnlineBusinessClient(connectionRuntimeUrl, credential));
-        }
-
-        /// <summary>
-        /// Registers <see cref="YammerClient"/> as a singleton using connection settings from the specified configuration section.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddYammerClient(
-            this IServiceCollection services,
-            IConfiguration configurationSection)
-        {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<YammerClient>(
-                services,
-                configurationSection,
-                connectorName: ConnectorNames.VivaEngage,
-                factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

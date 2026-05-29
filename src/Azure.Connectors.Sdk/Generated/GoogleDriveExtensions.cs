@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.GoogleDrive.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.GoogleDrive.Models
@@ -52,7 +53,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -69,7 +70,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -228,7 +229,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
     }
 
     #endregion Types
@@ -382,7 +383,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Table
             {
@@ -452,6 +453,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
 
         public override string ConnectorName => "googledrive";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.googledrive");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -473,10 +476,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Get file metadata using id response.</returns>
         public virtual async Task<BlobMetadata> GetFileMetadataAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetFileMetadataAsync");
+            try
+            {
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -489,10 +502,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Update file response.</returns>
         public virtual async Task<BlobMetadata> UpdateFileAsync(string @file, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.UpdateFileAsync");
+            try
+            {
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -503,10 +526,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteFileAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.DeleteFileAsync");
+            try
+            {
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -518,13 +551,24 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Get file metadata using path response.</returns>
         public virtual async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetFileMetadataByPathAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -537,15 +581,26 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Get file content using path response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync(string filePath, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetFileContentByPathAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -558,13 +613,23 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Get file content using id response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync(string fileId, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetFileContentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -578,14 +643,26 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Create file response.</returns>
         public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.CreateFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -599,16 +676,28 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Copy file response.</returns>
         public virtual async Task<BlobMetadata> CopyFileAsync(string sourceUrl, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.CopyFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceUrl is null) throw new ArgumentNullException(nameof(sourceUrl));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
+                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -620,10 +709,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The List files in folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ListFolderAsync(string folderId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/folders/{Uri.EscapeDataString(folderId.ToString())}";
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.ListFolderAsync");
+            try
+            {
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(folderId.ToString())}";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -634,10 +733,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The List files in root folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/folders";
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.ListRootFolderAsync");
+            try
+            {
+                var path = $"/datasets/default/folders";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -650,10 +759,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Get sheet metadata response.</returns>
         public virtual async Task<TableMetadata> GetTableAsync(string @file, [DynamicValues("GetTables")] string worksheet, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(worksheet.ToString())}";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetTableAsync");
+            try
+            {
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(worksheet.ToString())}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -665,10 +784,20 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Get sheets response.</returns>
         public virtual async Task<TablesList> GetTablesAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(@file.ToString())}/tables";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetTablesAsync");
+            try
+            {
+                var path = $"/datasets/{Uri.EscapeDataString(@file.ToString())}/tables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -682,16 +811,28 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         /// <returns>The Extract archive to folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.ExtractFolderAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceArchiveFilePath is null) throw new ArgumentNullException(nameof(sourceArchiveFilePath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                if (destinationFolderPath is null) throw new ArgumentNullException(nameof(destinationFolderPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

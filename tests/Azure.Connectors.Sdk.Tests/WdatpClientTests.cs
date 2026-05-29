@@ -132,7 +132,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var expectedResponse = new AdvancedHuntingResponse
             {
-                Results = new List<object> { new { DeviceName = "DESKTOP-1" } }
+                Results = new List<JsonElement?>()
             };
 
             using var responseMessage = new HttpResponseMessage

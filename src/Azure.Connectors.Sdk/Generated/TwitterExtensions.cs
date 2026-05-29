@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Twitter.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Twitter.Models
@@ -610,6 +611,8 @@ namespace Azure.Connectors.Sdk.Twitter
 
         public override string ConnectorName => "twitter";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.twitter");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -632,14 +635,25 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get user timeline response.</returns>
         public virtual async Task<List<TweetModel>> UserTimelineAsync(string userName, int? maximumResults = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            var path = $"/usertimeline" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.UserTimelineAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                var path = $"/usertimeline" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -651,13 +665,23 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get home timeline response.</returns>
         public virtual async Task<List<TweetModel>> HomeTimelineAsync(int? maximumResults = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            var path = $"/hometimeline" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.HomeTimelineAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                var path = $"/hometimeline" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -671,16 +695,27 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Search tweets response.</returns>
         public virtual async Task<List<TweetModel>> SearchTweetAsync(string searchText, int? maximumResults = default, string sinceId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"searchQuery={Uri.EscapeDataString(searchText.ToString())}");
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            if (sinceId != default)
-                queryParams.Add($"sinceId={Uri.EscapeDataString(sinceId.ToString())}");
-            var path = $"/searchtweets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.SearchTweetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (searchText is null) throw new ArgumentNullException(nameof(searchText));
+                queryParams.Add($"searchQuery={Uri.EscapeDataString(searchText.ToString())}");
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                if (sinceId != default)
+                    queryParams.Add($"sinceId={Uri.EscapeDataString(sinceId.ToString())}");
+                var path = $"/searchtweets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -693,14 +728,25 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get followers response.</returns>
         public virtual async Task<List<UserDetailsModel>> FollowersAsync(string userName, int? maximumResults = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            var path = $"/followers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.FollowersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                var path = $"/followers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -712,13 +758,23 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get my followers response.</returns>
         public virtual async Task<List<UserDetailsModel>> MyFollowersAsync(int? maximumResults = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            var path = $"/myfollowers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.MyFollowersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                var path = $"/myfollowers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -731,14 +787,25 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get following response.</returns>
         public virtual async Task<List<UserDetailsModel>> FollowingAsync(string userName, int? maximumResults = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            var path = $"/friends" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.FollowingAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                var path = $"/friends" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -750,13 +817,23 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get my following response.</returns>
         public virtual async Task<List<UserDetailsModel>> MyFollowingAsync(int? maximumResults = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumResults.HasValue)
-                queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            var path = $"/myfriends" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.MyFollowingAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (maximumResults.HasValue)
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                var path = $"/myfriends" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -768,12 +845,23 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Get user response.</returns>
         public virtual async Task<UserDetailsModel> UserAsync(string userName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
-            var path = $"/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<UserDetailsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.UserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                var path = $"/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<UserDetailsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -786,13 +874,23 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Post a tweet response.</returns>
         public virtual async Task<TweetResponseModel> TweetAsync(byte[] input, string tweetText = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (tweetText != default)
-                queryParams.Add($"tweetText={Uri.EscapeDataString(tweetText.ToString())}");
-            var path = $"/posttweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.TweetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (tweetText != default)
+                    queryParams.Add($"tweetText={Uri.EscapeDataString(tweetText.ToString())}");
+                var path = $"/posttweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -805,14 +903,25 @@ namespace Azure.Connectors.Sdk.Twitter
         /// <returns>The Retweet response.</returns>
         public virtual async Task<TweetResponseModel> RetweetAsync(string tweetId, bool? trimUser = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"tweetId={Uri.EscapeDataString(tweetId.ToString())}");
-            if (trimUser.HasValue)
-                queryParams.Add($"trimUser={Uri.EscapeDataString(trimUser.Value.ToString())}");
-            var path = $"/retweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TwitterClient.ConnectorActivitySource.StartActivity("TwitterClient.RetweetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (tweetId is null) throw new ArgumentNullException(nameof(tweetId));
+                queryParams.Add($"tweetId={Uri.EscapeDataString(tweetId.ToString())}");
+                if (trimUser.HasValue)
+                    queryParams.Add($"trimUser={Uri.EscapeDataString(trimUser.Value.ToString())}");
+                var path = $"/retweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Documentdb.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Documentdb.Models
@@ -149,7 +150,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>DocumentCollections</summary>
         [JsonPropertyName("DocumentCollections")]
-        public List<object> DocumentCollections { get; set; }
+        public List<JsonElement?> DocumentCollections { get; set; }
 
         /// <summary>_count</summary>
         [JsonPropertyName("_count")]
@@ -167,7 +168,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>Databases</summary>
         [JsonPropertyName("Databases")]
-        public List<object> Databases { get; set; }
+        public List<JsonElement?> Databases { get; set; }
 
         /// <summary>_count</summary>
         [JsonPropertyName("_count")]
@@ -255,7 +256,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>Documents</summary>
         [JsonPropertyName("Documents")]
-        public List<object> Documents { get; set; }
+        public List<JsonElement?> Documents { get; set; }
 
         /// <summary>List of columns along with their Sensitivity Labels</summary>
         [JsonPropertyName("@metadata")]
@@ -277,7 +278,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>StoredProcedures</summary>
         [JsonPropertyName("StoredProcedures")]
-        public List<object> StoredProcedures { get; set; }
+        public List<JsonElement?> StoredProcedures { get; set; }
     }
 
     /// <summary>
@@ -315,7 +316,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
 
         /// <summary>Dynamic document properties returned by the service.</summary>
         [JsonPropertyName("additionalProperties")]
-        public object AdditionalProperties { get; set; }
+        public JsonElement? AdditionalProperties { get; set; }
     }
 
     /// <summary>
@@ -470,7 +471,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// </summary>
         public static GetCollectionsResponse GetCollectionsResponse(
             string rid = default,
-            List<object> documentCollections = default,
+            List<JsonElement?> documentCollections = default,
             int? count = default)
         {
             return new GetCollectionsResponse
@@ -486,7 +487,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// </summary>
         public static GetDatabasesResponse GetDatabasesResponse(
             string rid = default,
-            List<object> databases = default,
+            List<JsonElement?> databases = default,
             int? count = default)
         {
             return new GetDatabasesResponse
@@ -558,7 +559,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         /// </summary>
         public static GetDocumentsResponse GetDocumentsResponse(
             string rid = default,
-            List<object> documents = default,
+            List<JsonElement?> documents = default,
             List<DataWithSensitivityLabelInfo> metadata = default)
         {
             return new GetDocumentsResponse
@@ -575,7 +576,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
         public static GetStoredProceduresResponse GetStoredProceduresResponse(
             int? count = default,
             string rid = default,
-            List<object> storedProcedures = default)
+            List<JsonElement?> storedProcedures = default)
         {
             return new GetStoredProceduresResponse
             {
@@ -596,7 +597,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
             string sessionToken = default,
             string activityId = default,
             List<DataWithSensitivityLabelInfo> metadata = default,
-            object additionalProperties = default)
+            JsonElement? additionalProperties = default)
         {
             return new QueryDocumentsResponse
             {
@@ -699,6 +700,8 @@ namespace Azure.Connectors.Sdk.Documentdb
 
         public override string ConnectorName => "documentdb";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.documentdb");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -719,10 +722,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Get Cosmos DB accounts response.</returns>
         public virtual async Task<CosmosDbAccountList> GetCosmosDbAccountsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/cosmosdbaccounts";
-            return await this
-                .CallConnectorAsync<CosmosDbAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCosmosDbAccountsAsync");
+            try
+            {
+                var path = $"/cosmosdbaccounts";
+                return await this
+                    .CallConnectorAsync<CosmosDbAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -737,10 +750,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Create or update document (V3) response.</returns>
         public virtual async Task<PostDocumentsResponse> CreateDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, PostDocumentsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs";
-            return await this
-                .CallConnectorAsync<PostDocumentsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.CreateDocumentAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs";
+                return await this
+                    .CallConnectorAsync<PostDocumentsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -755,10 +778,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Create stored procedure (V2) response.</returns>
         public virtual async Task<CreateStoredProcedureResponse> CreateStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, CreateStoredProcedureInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs";
-            return await this
-                .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.CreateStoredProcedureAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs";
+                return await this
+                    .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -772,10 +805,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.DeleteDocumentAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -790,10 +833,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Delete stored procedure (V2) response.</returns>
         public virtual async Task<string> DeleteStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, [DynamicValues("GetStoredProcedures_V2")] string sprocId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.DeleteStoredProcedureAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -809,10 +862,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Execute stored procedure (V2) response.</returns>
         public virtual async Task<ObjectWithoutType> ExecuteStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, [DynamicValues("GetStoredProcedures_V2")] string sprocId, string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ExecuteStoredProcedureAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -825,10 +888,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Get all collections (V2) response.</returns>
         public virtual async Task<GetCollectionsResponse> GetCollectionsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls";
-            return await this
-                .CallConnectorAsync<GetCollectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCollectionsAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls";
+                return await this
+                    .CallConnectorAsync<GetCollectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -840,10 +913,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Get all databases (V2) response.</returns>
         public virtual async Task<GetDatabasesResponse> GetDatabasesAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs";
-            return await this
-                .CallConnectorAsync<GetDatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDatabasesAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs";
+                return await this
+                    .CallConnectorAsync<GetDatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -860,15 +943,25 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Get a document (V2) response.</returns>
         public virtual async Task<GetDocumentResponse> GetDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, bool? extractSensitivityLabel = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (extractSensitivityLabel.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
-            if (purviewAccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDocumentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (extractSensitivityLabel.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -884,15 +977,25 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Get all documents (V3) response.</returns>
         public virtual async Task<GetDocumentsResponse> GetDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, bool? extractSensitivityLabel = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (extractSensitivityLabel.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
-            if (purviewAccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDocumentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (extractSensitivityLabel.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -906,10 +1009,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Get stored procedures (V2) response.</returns>
         public virtual async Task<GetStoredProceduresResponse> GetStoredProceduresAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs";
-            return await this
-                .CallConnectorAsync<GetStoredProceduresResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetStoredProceduresAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs";
+                return await this
+                    .CallConnectorAsync<GetStoredProceduresResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -931,27 +1044,37 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Query documents V5 response.</returns>
         public virtual async Task<QueryDocumentsResponse> QueryDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string containerId, string sQLSyntaxQuery = default, string partitionKeyValue = default, int? maxItemCount = default, string continuationToken = default, string consistencyLevel = default, string sessionToken = default, bool? extractSensitivityLabel = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sQLSyntaxQuery != default)
-                queryParams.Add($"queryText={Uri.EscapeDataString(sQLSyntaxQuery.ToString())}");
-            if (partitionKeyValue != default)
-                queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKeyValue.ToString())}");
-            if (maxItemCount.HasValue)
-                queryParams.Add($"maxItemCount={Uri.EscapeDataString(maxItemCount.Value.ToString())}");
-            if (continuationToken != default)
-                queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken.ToString())}");
-            if (consistencyLevel != default)
-                queryParams.Add($"consistencyLevel={Uri.EscapeDataString(consistencyLevel.ToString())}");
-            if (sessionToken != default)
-                queryParams.Add($"sessionToken={Uri.EscapeDataString(sessionToken.ToString())}");
-            if (extractSensitivityLabel.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
-            if (purviewAccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
-            var path = $"/v5/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(containerId.ToString())}/query" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<QueryDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.QueryDocumentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sQLSyntaxQuery != default)
+                    queryParams.Add($"queryText={Uri.EscapeDataString(sQLSyntaxQuery.ToString())}");
+                if (partitionKeyValue != default)
+                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKeyValue.ToString())}");
+                if (maxItemCount.HasValue)
+                    queryParams.Add($"maxItemCount={Uri.EscapeDataString(maxItemCount.Value.ToString())}");
+                if (continuationToken != default)
+                    queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken.ToString())}");
+                if (consistencyLevel != default)
+                    queryParams.Add($"consistencyLevel={Uri.EscapeDataString(consistencyLevel.ToString())}");
+                if (sessionToken != default)
+                    queryParams.Add($"sessionToken={Uri.EscapeDataString(sessionToken.ToString())}");
+                if (extractSensitivityLabel.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
+                var path = $"/v5/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(containerId.ToString())}/query" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<QueryDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -967,10 +1090,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Replace a document (V2) response.</returns>
         public virtual async Task<PutDocumentResponse> ReplaceDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, PutDocumentRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}";
-            return await this
-                .CallConnectorAsync<PutDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ReplaceDocumentAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PutDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -986,10 +1119,20 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <returns>The Replace stored procedure (V2) response.</returns>
         public virtual async Task<CreateStoredProcedureResponse> ReplaceStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, [DynamicValues("GetStoredProcedures_V2")] string sprocId, ReplaceStoredProcedureInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
-            return await this
-                .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ReplaceStoredProcedureAsync");
+            try
+            {
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

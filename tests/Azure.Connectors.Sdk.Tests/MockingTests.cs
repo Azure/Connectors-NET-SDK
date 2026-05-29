@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365.Models;
+using System.Text.Json;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Connectors.Sdk.Teams.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -54,7 +55,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange
             var expectedTeams = new GetAllTeamsResponse
             {
-                TeamsList = new List<object> { "Engineering" }
+                TeamsList = new List<JsonElement?>()
             };
 
             var mock = new Mock<TeamsClient>();
@@ -71,7 +72,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.TeamsList.Count);
-            Assert.AreEqual("Engineering", result.TeamsList[0]);
+            Assert.AreEqual("Engineering", result.TeamsList[0]?.GetString());
         }
 
         [TestMethod]

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.TextRequest.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.TextRequest.Models
@@ -35,11 +36,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of message entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -157,7 +158,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Array of custom field ids and values defined for this contact.</summary>
         [JsonPropertyName("custom_fields")]
-        public List<object> CustomFields { get; set; }
+        public List<JsonElement?> CustomFields { get; set; }
 
         /// <summary>Whether the conversation with this contact is resolved. Any new texts received by this contact will set this false.</summary>
         [JsonPropertyName("is_resolved")]
@@ -201,7 +202,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Last message sent to or from this contact.</summary>
         [JsonPropertyName("last_message")]
-        public object LastMessage { get; set; }
+        public JsonElement? LastMessage { get; set; }
     }
 
     /// <summary>
@@ -251,7 +252,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Array of custom field ids and values defined for this contact.</summary>
         [JsonPropertyName("custom_fields")]
-        public List<object> ContactCustomFields { get; set; }
+        public List<JsonElement?> ContactCustomFields { get; set; }
 
         /// <summary>Determines whether the current conversation with this contact is resolved. Any new texts received by this contact will set this false.</summary>
         [JsonPropertyName("is_resolved")]
@@ -309,7 +310,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Array of custom field ids and values defined for this contact.</summary>
         [JsonPropertyName("custom_fields")]
-        public List<object> CustomFields { get; set; }
+        public List<JsonElement?> CustomFields { get; set; }
 
         /// <summary>Whether the conversation with this contact is resolved. Any new texts received by this contact will set this false.</summary>
         [JsonPropertyName("is_resolved")]
@@ -353,7 +354,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Last message sent to or from this contact.</summary>
         [JsonPropertyName("last_message")]
-        public object LastMessage { get; set; }
+        public JsonElement? LastMessage { get; set; }
     }
 
     /// <summary>
@@ -363,11 +364,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of contact entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -451,11 +452,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of group entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -509,11 +510,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of tag entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -723,11 +724,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of payment entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -859,11 +860,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of conversation entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -873,11 +874,11 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     {
         /// <summary>Metadata about the data returned by this request. This data is returned by all bulk GET requests.</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
 
         /// <summary>List of dashboard entities gotten from Text Request.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -1015,8 +1016,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetMessagesByContactPhoneResponse"/>.
         /// </summary>
         public static GetMessagesByContactPhoneResponse GetMessagesByContactPhoneResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetMessagesByContactPhoneResponse
             {
@@ -1086,7 +1087,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
             string note = default,
             List<int?> groups = default,
             List<string> contactTags = default,
-            List<object> customFields = default,
+            List<JsonElement?> customFields = default,
             bool? isResolved = default,
             string firstContactUtc = default,
             string optedOutUtc = default,
@@ -1097,7 +1098,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
             int? responseCount = default,
             string dateCreatedUtc = default,
             string lastContactDateUtc = default,
-            object lastMessage = default)
+            JsonElement? lastMessage = default)
         {
             return new GetContactByPhoneNumberResponse
             {
@@ -1141,7 +1142,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
             string contactNote = default,
             List<int?> contactGroups = default,
             List<string> contactTags = default,
-            List<object> contactCustomFields = default,
+            List<JsonElement?> contactCustomFields = default,
             bool? whetherTheCurrentConversationWithThisContactHasBeenResolved = default)
         {
             return new CreateContactInput
@@ -1176,7 +1177,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
             string note = default,
             List<int?> groups = default,
             List<string> contactTags = default,
-            List<object> customFields = default,
+            List<JsonElement?> customFields = default,
             bool? isResolved = default,
             string firstContactUtc = default,
             string optedOutUtc = default,
@@ -1187,7 +1188,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
             int? responseCount = default,
             string dateCreatedUtc = default,
             string lastContactDateUtc = default,
-            object lastMessage = default)
+            JsonElement? lastMessage = default)
         {
             return new CreateContactResponse
             {
@@ -1221,8 +1222,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetContactsResponse"/>.
         /// </summary>
         public static GetContactsResponse GetContactsResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetContactsResponse
             {
@@ -1293,8 +1294,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetGroupsResponse"/>.
         /// </summary>
         public static GetGroupsResponse GetGroupsResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetGroupsResponse
             {
@@ -1343,8 +1344,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetTagsResponse"/>.
         /// </summary>
         public static GetTagsResponse GetTagsResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetTagsResponse
             {
@@ -1485,8 +1486,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetPaymentsResponse"/>.
         /// </summary>
         public static GetPaymentsResponse GetPaymentsResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetPaymentsResponse
             {
@@ -1595,8 +1596,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetConversationsResponse"/>.
         /// </summary>
         public static GetConversationsResponse GetConversationsResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetConversationsResponse
             {
@@ -1609,8 +1610,8 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
         /// Creates a new instance of <see cref="GetDashboardsResponse"/>.
         /// </summary>
         public static GetDashboardsResponse GetDashboardsResponse(
-            object meta = default,
-            List<object> items = default)
+            JsonElement? meta = default,
+            List<JsonElement?> items = default)
         {
             return new GetDashboardsResponse
             {
@@ -1759,6 +1760,8 @@ namespace Azure.Connectors.Sdk.TextRequest
 
         public override string ConnectorName => "textrequest";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.textrequest");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1783,13 +1786,23 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Get a conversation&apos;s messages by a contact&apos;s phone number response.</returns>
         public virtual async Task<GetMessagesByContactPhoneResponse> GetMessagesByContactPhoneAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string contactSPhoneNumberToSearchBy, int numberPageToGet, int amountOfEachEntityToGetPerPage, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
-            queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(contactSPhoneNumberToSearchBy.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetMessagesByContactPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetMessagesByContactPhoneAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(contactSPhoneNumberToSearchBy.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetMessagesByContactPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1803,10 +1816,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Send a message to the contact with the given phone number response.</returns>
         public virtual async Task<SendMessageByPhoneNumberResponse> SendMessageByPhoneNumberAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string phoneNumberToMessage, SendMessageByPhoneNumberInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberToMessage.ToString())}/messages";
-            return await this
-                .CallConnectorAsync<SendMessageByPhoneNumberResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.SendMessageByPhoneNumberAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberToMessage.ToString())}/messages";
+                return await this
+                    .CallConnectorAsync<SendMessageByPhoneNumberResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1819,10 +1842,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Archive a Conversation response.</returns>
         public virtual async Task<string> ArchiveConversationAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string phoneNumberOfConversation, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation.ToString())}/conversations/archive";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.ArchiveConversationAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation.ToString())}/conversations/archive";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1835,10 +1868,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Unarchive a Conversation response.</returns>
         public virtual async Task<string> UnarchiveConversationAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string phoneNumberOfConversation, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation.ToString())}/conversations/unarchive";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.UnarchiveConversationAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation.ToString())}/conversations/unarchive";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1851,10 +1894,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets the contact with the specified phone number response.</returns>
         public virtual async Task<GetContactByPhoneNumberResponse> GetContactByPhoneNumberAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string phoneNumberOfTheContact, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfTheContact.ToString())}";
-            return await this
-                .CallConnectorAsync<GetContactByPhoneNumberResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetContactByPhoneNumberAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfTheContact.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetContactByPhoneNumberResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1867,10 +1920,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Deletes the contact with the specified phone number response.</returns>
         public virtual async Task<string> DeleteContactAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string phoneNumberOfContact, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfContact.ToString())}";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.DeleteContactAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfContact.ToString())}";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1884,10 +1947,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Create or update a contact response.</returns>
         public virtual async Task<CreateContactResponse> CreateContactAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string phoneNumberOfContact, CreateContactInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfContact.ToString())}";
-            return await this
-                .CallConnectorAsync<CreateContactResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreateContactAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfContact.ToString())}";
+                return await this
+                    .CallConnectorAsync<CreateContactResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1923,57 +1996,67 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Get all contacts that match the specified filtering criterion response.</returns>
         public virtual async Task<GetContactsResponse> GetContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int numberPageToGet, int amountOfEachEntityToGetPerPage, string contactSPhoneNumberToSearchBy = default, string lastMessageTimeSentBeforeSearchTimestampInUTCTime = default, string lastMessageTimeSentAfterSearchTimestampInUTCTime = default, string createdBeforeSearchTimestamp = default, string createdAfterSearchTimestamp = default, bool? whetherContactSConversationIsResolved = default, bool? whetherContactIsBlocked = default, bool? whetherContactIsArchived = default, bool? whetherContactIsSuppressed = default, bool? whetherContactHasOptedOut = default, string lastMessageTimeSentBeforeSearchTimestamp = default, string lastMessageTimeSentAfterSearchTimestamp = default, string lastMessageTimeReceivedBeforeSearchTimestamp = default, string lastMessageTimeReceivedAfterSearchTimestamp = default, string contactTags = default, string contactGroups = default, string idOfCustomFieldToFilterBy = default, string valueOfCustomFieldToFilterBy = default, string idOfSecondCustomFieldToFilterBy = default, string valueOfSecondCustomFieldToFilterBy = default, string idOfThirdCustomFieldToFilterBy = default, string valueOfThirdCustomFieldToFilterBy = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (contactSPhoneNumberToSearchBy != default)
-                queryParams.Add($"contact_phone_number={Uri.EscapeDataString(contactSPhoneNumberToSearchBy.ToString())}");
-            if (lastMessageTimeSentBeforeSearchTimestampInUTCTime != default)
-                queryParams.Add($"last_message_timestamp_before_utc={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestampInUTCTime.ToString())}");
-            if (lastMessageTimeSentAfterSearchTimestampInUTCTime != default)
-                queryParams.Add($"last_message_timestamp_after_utc={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestampInUTCTime.ToString())}");
-            if (createdBeforeSearchTimestamp != default)
-                queryParams.Add($"contact_created_before={Uri.EscapeDataString(createdBeforeSearchTimestamp.ToString())}");
-            if (createdAfterSearchTimestamp != default)
-                queryParams.Add($"contact_created_after={Uri.EscapeDataString(createdAfterSearchTimestamp.ToString())}");
-            if (whetherContactSConversationIsResolved.HasValue)
-                queryParams.Add($"is_resolved={Uri.EscapeDataString(whetherContactSConversationIsResolved.Value.ToString())}");
-            if (whetherContactIsBlocked.HasValue)
-                queryParams.Add($"is_blocked={Uri.EscapeDataString(whetherContactIsBlocked.Value.ToString())}");
-            if (whetherContactIsArchived.HasValue)
-                queryParams.Add($"is_archived={Uri.EscapeDataString(whetherContactIsArchived.Value.ToString())}");
-            if (whetherContactIsSuppressed.HasValue)
-                queryParams.Add($"is_suppressed={Uri.EscapeDataString(whetherContactIsSuppressed.Value.ToString())}");
-            if (whetherContactHasOptedOut.HasValue)
-                queryParams.Add($"has_opted_out={Uri.EscapeDataString(whetherContactHasOptedOut.Value.ToString())}");
-            if (lastMessageTimeSentBeforeSearchTimestamp != default)
-                queryParams.Add($"last_message_sent_before={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestamp.ToString())}");
-            if (lastMessageTimeSentAfterSearchTimestamp != default)
-                queryParams.Add($"last_message_sent_after={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestamp.ToString())}");
-            if (lastMessageTimeReceivedBeforeSearchTimestamp != default)
-                queryParams.Add($"last_message_received_before={Uri.EscapeDataString(lastMessageTimeReceivedBeforeSearchTimestamp.ToString())}");
-            if (lastMessageTimeReceivedAfterSearchTimestamp != default)
-                queryParams.Add($"last_message_received_after={Uri.EscapeDataString(lastMessageTimeReceivedAfterSearchTimestamp.ToString())}");
-            if (contactTags != default)
-                queryParams.Add($"tags={Uri.EscapeDataString(contactTags.ToString())}");
-            if (contactGroups != default)
-                queryParams.Add($"groups={Uri.EscapeDataString(contactGroups.ToString())}");
-            if (idOfCustomFieldToFilterBy != default)
-                queryParams.Add($"custom_field_id_1={Uri.EscapeDataString(idOfCustomFieldToFilterBy.ToString())}");
-            if (valueOfCustomFieldToFilterBy != default)
-                queryParams.Add($"custom_field_value_1={Uri.EscapeDataString(valueOfCustomFieldToFilterBy.ToString())}");
-            if (idOfSecondCustomFieldToFilterBy != default)
-                queryParams.Add($"custom_field_id_2={Uri.EscapeDataString(idOfSecondCustomFieldToFilterBy.ToString())}");
-            if (valueOfSecondCustomFieldToFilterBy != default)
-                queryParams.Add($"custom_field_value_2={Uri.EscapeDataString(valueOfSecondCustomFieldToFilterBy.ToString())}");
-            if (idOfThirdCustomFieldToFilterBy != default)
-                queryParams.Add($"custom_field_id_3={Uri.EscapeDataString(idOfThirdCustomFieldToFilterBy.ToString())}");
-            if (valueOfThirdCustomFieldToFilterBy != default)
-                queryParams.Add($"custom_field_value_3={Uri.EscapeDataString(valueOfThirdCustomFieldToFilterBy.ToString())}");
-            queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
-            queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetContactsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (contactSPhoneNumberToSearchBy != default)
+                    queryParams.Add($"contact_phone_number={Uri.EscapeDataString(contactSPhoneNumberToSearchBy.ToString())}");
+                if (lastMessageTimeSentBeforeSearchTimestampInUTCTime != default)
+                    queryParams.Add($"last_message_timestamp_before_utc={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestampInUTCTime.ToString())}");
+                if (lastMessageTimeSentAfterSearchTimestampInUTCTime != default)
+                    queryParams.Add($"last_message_timestamp_after_utc={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestampInUTCTime.ToString())}");
+                if (createdBeforeSearchTimestamp != default)
+                    queryParams.Add($"contact_created_before={Uri.EscapeDataString(createdBeforeSearchTimestamp.ToString())}");
+                if (createdAfterSearchTimestamp != default)
+                    queryParams.Add($"contact_created_after={Uri.EscapeDataString(createdAfterSearchTimestamp.ToString())}");
+                if (whetherContactSConversationIsResolved.HasValue)
+                    queryParams.Add($"is_resolved={Uri.EscapeDataString(whetherContactSConversationIsResolved.Value.ToString())}");
+                if (whetherContactIsBlocked.HasValue)
+                    queryParams.Add($"is_blocked={Uri.EscapeDataString(whetherContactIsBlocked.Value.ToString())}");
+                if (whetherContactIsArchived.HasValue)
+                    queryParams.Add($"is_archived={Uri.EscapeDataString(whetherContactIsArchived.Value.ToString())}");
+                if (whetherContactIsSuppressed.HasValue)
+                    queryParams.Add($"is_suppressed={Uri.EscapeDataString(whetherContactIsSuppressed.Value.ToString())}");
+                if (whetherContactHasOptedOut.HasValue)
+                    queryParams.Add($"has_opted_out={Uri.EscapeDataString(whetherContactHasOptedOut.Value.ToString())}");
+                if (lastMessageTimeSentBeforeSearchTimestamp != default)
+                    queryParams.Add($"last_message_sent_before={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestamp.ToString())}");
+                if (lastMessageTimeSentAfterSearchTimestamp != default)
+                    queryParams.Add($"last_message_sent_after={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestamp.ToString())}");
+                if (lastMessageTimeReceivedBeforeSearchTimestamp != default)
+                    queryParams.Add($"last_message_received_before={Uri.EscapeDataString(lastMessageTimeReceivedBeforeSearchTimestamp.ToString())}");
+                if (lastMessageTimeReceivedAfterSearchTimestamp != default)
+                    queryParams.Add($"last_message_received_after={Uri.EscapeDataString(lastMessageTimeReceivedAfterSearchTimestamp.ToString())}");
+                if (contactTags != default)
+                    queryParams.Add($"tags={Uri.EscapeDataString(contactTags.ToString())}");
+                if (contactGroups != default)
+                    queryParams.Add($"groups={Uri.EscapeDataString(contactGroups.ToString())}");
+                if (idOfCustomFieldToFilterBy != default)
+                    queryParams.Add($"custom_field_id_1={Uri.EscapeDataString(idOfCustomFieldToFilterBy.ToString())}");
+                if (valueOfCustomFieldToFilterBy != default)
+                    queryParams.Add($"custom_field_value_1={Uri.EscapeDataString(valueOfCustomFieldToFilterBy.ToString())}");
+                if (idOfSecondCustomFieldToFilterBy != default)
+                    queryParams.Add($"custom_field_id_2={Uri.EscapeDataString(idOfSecondCustomFieldToFilterBy.ToString())}");
+                if (valueOfSecondCustomFieldToFilterBy != default)
+                    queryParams.Add($"custom_field_value_2={Uri.EscapeDataString(valueOfSecondCustomFieldToFilterBy.ToString())}");
+                if (idOfThirdCustomFieldToFilterBy != default)
+                    queryParams.Add($"custom_field_id_3={Uri.EscapeDataString(idOfThirdCustomFieldToFilterBy.ToString())}");
+                if (valueOfThirdCustomFieldToFilterBy != default)
+                    queryParams.Add($"custom_field_value_3={Uri.EscapeDataString(valueOfThirdCustomFieldToFilterBy.ToString())}");
+                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1984,12 +2067,22 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Bulk update contacts response.</returns>
-        public virtual async Task<List<object>> BulkUpdateContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, List<object> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<object>> BulkUpdateContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.BulkUpdateContactsAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts";
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2002,10 +2095,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Get a group by its id response.</returns>
         public virtual async Task<GetGroupByIdResponse> GetGroupByIdAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfTheGroup, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups/{Uri.EscapeDataString(idOfTheGroup.ToString())}";
-            return await this
-                .CallConnectorAsync<GetGroupByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetGroupByIdAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups/{Uri.EscapeDataString(idOfTheGroup.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetGroupByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2018,10 +2121,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Deletes the group with the specified id response.</returns>
         public virtual async Task<string> DeleteGroupAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfTheGroup, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups/{Uri.EscapeDataString(idOfTheGroup.ToString())}";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.DeleteGroupAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups/{Uri.EscapeDataString(idOfTheGroup.ToString())}";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2035,10 +2148,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Updates a group with the given id response.</returns>
         public virtual async Task<UpdateGroupResponse> UpdateGroupAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfTheGroup, UpdateGroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups/{Uri.EscapeDataString(idOfTheGroup.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateGroupResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.UpdateGroupAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups/{Uri.EscapeDataString(idOfTheGroup.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateGroupResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2052,13 +2175,23 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets all groups response.</returns>
         public virtual async Task<GetGroupsResponse> GetGroupsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int numberPageToGet, int amountOfEachEntityToGetPerPage, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
-            queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2071,10 +2204,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Creates a new group response.</returns>
         public virtual async Task<CreateGroupResponse> CreateGroupAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CreateGroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups";
-            return await this
-                .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreateGroupAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/groups";
+                return await this
+                    .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2088,13 +2231,23 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets all tags response.</returns>
         public virtual async Task<GetTagsResponse> GetTagsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int numberPageToGet, int amountOfEachEntityToGetPerPage, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
-            queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetTagsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetTagsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetTagsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2106,10 +2259,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets all custom fields response.</returns>
         public virtual async Task<List<object>> GetCustomFieldsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/fields";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetCustomFieldsAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/fields";
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2122,10 +2285,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets the payment with the specified id response.</returns>
         public virtual async Task<GetPaymentResponse> GetPaymentAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfThePayment, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}";
-            return await this
-                .CallConnectorAsync<GetPaymentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetPaymentAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetPaymentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2138,10 +2311,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Mark a payment as paid response.</returns>
         public virtual async Task<MarkPaymentPaidResponse> MarkPaymentPaidAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfThePayment, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}/mark_as_paid";
-            return await this
-                .CallConnectorAsync<MarkPaymentPaidResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.MarkPaymentPaidAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}/mark_as_paid";
+                return await this
+                    .CallConnectorAsync<MarkPaymentPaidResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2154,10 +2337,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Send a follow-up text reminding the user to pay the specified payment response.</returns>
         public virtual async Task<SendPaymentReminderResponse> SendPaymentReminderAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfThePayment, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}/resend";
-            return await this
-                .CallConnectorAsync<SendPaymentReminderResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.SendPaymentReminderAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}/resend";
+                return await this
+                    .CallConnectorAsync<SendPaymentReminderResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2170,10 +2363,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Cancels the specified payment response.</returns>
         public virtual async Task<CancelPaymentResponse> CancelPaymentAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int idOfThePayment, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}/cancel";
-            return await this
-                .CallConnectorAsync<CancelPaymentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CancelPaymentAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments/{Uri.EscapeDataString(idOfThePayment.ToString())}/cancel";
+                return await this
+                    .CallConnectorAsync<CancelPaymentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2191,21 +2394,31 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets all payments response.</returns>
         public virtual async Task<GetPaymentsResponse> GetPaymentsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int numberPageToGet, int amountOfEachEntityToGetPerPage, string referenceStringOfThePayment = default, string paymentPhoneNumber = default, string sortBy = default, string sortDirection = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (referenceStringOfThePayment != default)
-                queryParams.Add($"reference_number={Uri.EscapeDataString(referenceStringOfThePayment.ToString())}");
-            if (paymentPhoneNumber != default)
-                queryParams.Add($"phone_number={Uri.EscapeDataString(paymentPhoneNumber.ToString())}");
-            if (sortBy != default)
-                queryParams.Add($"sort_type={Uri.EscapeDataString(sortBy.ToString())}");
-            if (sortDirection != default)
-                queryParams.Add($"sort_direction={Uri.EscapeDataString(sortDirection.ToString())}");
-            queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
-            queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetPaymentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetPaymentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (referenceStringOfThePayment != default)
+                    queryParams.Add($"reference_number={Uri.EscapeDataString(referenceStringOfThePayment.ToString())}");
+                if (paymentPhoneNumber != default)
+                    queryParams.Add($"phone_number={Uri.EscapeDataString(paymentPhoneNumber.ToString())}");
+                if (sortBy != default)
+                    queryParams.Add($"sort_type={Uri.EscapeDataString(sortBy.ToString())}");
+                if (sortDirection != default)
+                    queryParams.Add($"sort_direction={Uri.EscapeDataString(sortDirection.ToString())}");
+                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetPaymentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2218,10 +2431,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Creates a new payment response.</returns>
         public virtual async Task<CreatePaymentResponse> CreatePaymentAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CreatePaymentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments";
-            return await this
-                .CallConnectorAsync<CreatePaymentResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreatePaymentAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/payments";
+                return await this
+                    .CallConnectorAsync<CreatePaymentResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2233,10 +2456,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Get info on this specific dashboard response.</returns>
         public virtual async Task<GetDashboardResponse> GetDashboardAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}";
-            return await this
-                .CallConnectorAsync<GetDashboardResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetDashboardAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetDashboardResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2248,10 +2481,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Deletes the specified dashboard response.</returns>
         public virtual async Task<string> DeleteDashboardAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.DeleteDashboardAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2264,10 +2507,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Update a specific dashboard&apos;s name response.</returns>
         public virtual async Task<UpdateDashboardsNameResponse> UpdateDashboardsNameAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, UpdateDashboardsNameInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateDashboardsNameResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.UpdateDashboardsNameAsync");
+            try
+            {
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateDashboardsNameResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2285,23 +2538,33 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Gets all conversations for this dashboard response.</returns>
         public virtual async Task<GetConversationsResponse> GetConversationsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string contactTags = default, string whetherToShowOnlyResolvedConversations = default, string whetherToIncludeArchivedConversations = default, string termToFilterByForPhoneNumbersAndContactName = default, int? numberPageToGet = default, int? amountOfEachEntityToGetPerPage = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (contactTags != default)
-                queryParams.Add($"tags={Uri.EscapeDataString(contactTags.ToString())}");
-            if (whetherToShowOnlyResolvedConversations != default)
-                queryParams.Add($"show_unresolved_only={Uri.EscapeDataString(whetherToShowOnlyResolvedConversations.ToString())}");
-            if (whetherToIncludeArchivedConversations != default)
-                queryParams.Add($"include_archived={Uri.EscapeDataString(whetherToIncludeArchivedConversations.ToString())}");
-            if (termToFilterByForPhoneNumbersAndContactName != default)
-                queryParams.Add($"search={Uri.EscapeDataString(termToFilterByForPhoneNumbersAndContactName.ToString())}");
-            if (numberPageToGet.HasValue)
-                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.Value.ToString())}");
-            if (amountOfEachEntityToGetPerPage.HasValue)
-                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.Value.ToString())}");
-            var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/conversations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetConversationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetConversationsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (contactTags != default)
+                    queryParams.Add($"tags={Uri.EscapeDataString(contactTags.ToString())}");
+                if (whetherToShowOnlyResolvedConversations != default)
+                    queryParams.Add($"show_unresolved_only={Uri.EscapeDataString(whetherToShowOnlyResolvedConversations.ToString())}");
+                if (whetherToIncludeArchivedConversations != default)
+                    queryParams.Add($"include_archived={Uri.EscapeDataString(whetherToIncludeArchivedConversations.ToString())}");
+                if (termToFilterByForPhoneNumbersAndContactName != default)
+                    queryParams.Add($"search={Uri.EscapeDataString(termToFilterByForPhoneNumbersAndContactName.ToString())}");
+                if (numberPageToGet.HasValue)
+                    queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.Value.ToString())}");
+                if (amountOfEachEntityToGetPerPage.HasValue)
+                    queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.Value.ToString())}");
+                var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/conversations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetConversationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2314,15 +2577,25 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Get all dashboards in an account response.</returns>
         public virtual async Task<GetDashboardsResponse> GetDashboardsAsync(int? numberPageToGet = default, int? amountOfEachEntityToGetPerPage = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (numberPageToGet.HasValue)
-                queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.Value.ToString())}");
-            if (amountOfEachEntityToGetPerPage.HasValue)
-                queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.Value.ToString())}");
-            var path = $"/dashboards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetDashboardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetDashboardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (numberPageToGet.HasValue)
+                    queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.Value.ToString())}");
+                if (amountOfEachEntityToGetPerPage.HasValue)
+                    queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.Value.ToString())}");
+                var path = $"/dashboards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetDashboardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2334,10 +2607,20 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <returns>The Create a new dashboard with the given name and phone number response.</returns>
         public virtual async Task<CreateDashboardResponse> CreateDashboardAsync(CreateDashboardInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/dashboards";
-            return await this
-                .CallConnectorAsync<CreateDashboardResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreateDashboardAsync");
+            try
+            {
+                var path = $"/dashboards";
+                return await this
+                    .CallConnectorAsync<CreateDashboardResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

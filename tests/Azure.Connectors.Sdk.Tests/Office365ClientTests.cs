@@ -249,7 +249,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange
             var expectedResponse = new GetRoomsResponse
             {
-                Value = new List<object> { "room-1", "room-2" }
+                Value = new List<JsonElement?>()
             };
             using var client = CreateMockedClient(() => new HttpResponseMessage
             {

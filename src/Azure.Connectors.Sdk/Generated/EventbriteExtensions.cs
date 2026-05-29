@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Eventbrite.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Eventbrite.Models
@@ -36,7 +37,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     {
         /// <summary>categories</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
     }
 
     /// <summary>
@@ -46,7 +47,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     {
         /// <summary>events</summary>
         [JsonPropertyName("events")]
-        public List<object> Events { get; set; }
+        public List<JsonElement?> Events { get; set; }
     }
 
     /// <summary>
@@ -56,11 +57,11 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     {
         /// <summary>name</summary>
         [JsonPropertyName("name")]
-        public object Name { get; set; }
+        public JsonElement? Name { get; set; }
 
         /// <summary>description</summary>
         [JsonPropertyName("description")]
-        public object Description { get; set; }
+        public JsonElement? Description { get; set; }
 
         /// <summary>The id of the event.</summary>
         [JsonPropertyName("id")]
@@ -72,21 +73,21 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
 
         /// <summary>start</summary>
         [JsonPropertyName("start")]
-        public object Start { get; set; }
+        public JsonElement? Start { get; set; }
 
         /// <summary>end</summary>
         [JsonPropertyName("end")]
-        public object End { get; set; }
+        public JsonElement? End { get; set; }
 
         /// <summary>The date-time the event was created at.</summary>
         [JsonPropertyName("created")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>The date-time the event was changed at.</summary>
         [JsonPropertyName("changed")]
         [JsonInclude]
-        public DateTime? ChagedDateTime { get; internal set; }
+        public DateTime? ChagedDateTime { get; init; }
 
         /// <summary>The capacity of the event.</summary>
         [JsonPropertyName("capacity")]
@@ -116,7 +117,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     {
         /// <summary>venues</summary>
         [JsonPropertyName("venues")]
-        public List<object> Venue { get; set; }
+        public List<JsonElement?> Venue { get; set; }
     }
 
     /// <summary>
@@ -126,7 +127,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     {
         /// <summary>organizers</summary>
         [JsonPropertyName("organizers")]
-        public List<object> Organizer { get; set; }
+        public List<JsonElement?> Organizer { get; set; }
     }
 
     #endregion Types
@@ -144,7 +145,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         /// Creates a new instance of <see cref="GetCategoriesResponse"/>.
         /// </summary>
         public static GetCategoriesResponse GetCategoriesResponse(
-            List<object> categories = default)
+            List<JsonElement?> categories = default)
         {
             return new GetCategoriesResponse
             {
@@ -156,7 +157,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         /// Creates a new instance of <see cref="GetMyEventsResponse"/>.
         /// </summary>
         public static GetMyEventsResponse GetMyEventsResponse(
-            List<object> events = default)
+            List<JsonElement?> events = default)
         {
             return new GetMyEventsResponse
             {
@@ -168,12 +169,12 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         /// Creates a new instance of <see cref="CreateEventResponse"/>.
         /// </summary>
         public static CreateEventResponse CreateEventResponse(
-            object name = default,
-            object description = default,
+            JsonElement? name = default,
+            JsonElement? description = default,
             string id = default,
             string url = default,
-            object start = default,
-            object end = default,
+            JsonElement? start = default,
+            JsonElement? end = default,
             DateTime? createdDateTime = default,
             DateTime? chagedDateTime = default,
             int? capacity = default,
@@ -204,7 +205,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         /// Creates a new instance of <see cref="GetMyVenuesResponse"/>.
         /// </summary>
         public static GetMyVenuesResponse GetMyVenuesResponse(
-            List<object> venue = default)
+            List<JsonElement?> venue = default)
         {
             return new GetMyVenuesResponse
             {
@@ -216,7 +217,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         /// Creates a new instance of <see cref="GetOrganizersResponse"/>.
         /// </summary>
         public static GetOrganizersResponse GetOrganizersResponse(
-            List<object> organizer = default)
+            List<JsonElement?> organizer = default)
         {
             return new GetOrganizersResponse
             {
@@ -397,6 +398,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
 
         public override string ConnectorName => "eventbrite";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.eventbrite");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -417,10 +420,20 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The Get categories response.</returns>
         public virtual async Task<GetCategoriesResponse> GetCategoriesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/categories/";
-            return await this
-                .CallConnectorAsync<GetCategoriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetCategoriesAsync");
+            try
+            {
+                var path = $"/v3/categories/";
+                return await this
+                    .CallConnectorAsync<GetCategoriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -431,10 +444,20 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The GetOrganizations response.</returns>
         public virtual async Task<List<object>> GetOrganizationsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/users/me/organizations/";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationsAsync");
+            try
+            {
+                var path = $"/v3/users/me/organizations/";
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -448,13 +471,25 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The Get organization events response.</returns>
         public virtual async Task<GetMyEventsResponse> GetOrganizationEventsAsync([DynamicValues("GetOrganizations")] string organization, string orderBy, string status, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
-            queryParams.Add($"status={Uri.EscapeDataString(status.ToString())}");
-            var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetMyEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationEventsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (orderBy is null) throw new ArgumentNullException(nameof(orderBy));
+                queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
+                if (status is null) throw new ArgumentNullException(nameof(status));
+                queryParams.Add($"status={Uri.EscapeDataString(status.ToString())}");
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetMyEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -485,42 +520,59 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The Create event (V2) response.</returns>
         public virtual async Task<CreateEventResponse> CreateEventAsync([DynamicValues("GetOrganizations")] string organization, string name, string description, string start, string end, string startTimezone, string endTimezone, string eventCurrency, [DynamicValues("GetOrganizersV2")] string organizer = default, [DynamicValues("GetMyVenuesV2")] string venue = default, [DynamicValues("GetCategories")] string category = default, string password = default, string capacity = default, bool? shareable = default, bool? inviteOnly = default, bool? onlineEvent = default, bool? listed = default, bool? hideStartDate = default, bool? hideEndDate = default, bool? showRemaining = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"event.name.html={Uri.EscapeDataString(name.ToString())}");
-            queryParams.Add($"event.description.html={Uri.EscapeDataString(description.ToString())}");
-            queryParams.Add($"event.start.utc={Uri.EscapeDataString(start.ToString())}");
-            queryParams.Add($"event.end.utc={Uri.EscapeDataString(end.ToString())}");
-            queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone.ToString())}");
-            queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone.ToString())}");
-            queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency.ToString())}");
-            if (organizer != default)
-                queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer.ToString())}");
-            if (venue != default)
-                queryParams.Add($"event.venue_id={Uri.EscapeDataString(venue.ToString())}");
-            if (category != default)
-                queryParams.Add($"event.category_id={Uri.EscapeDataString(category.ToString())}");
-            if (password != default)
-                queryParams.Add($"event.password={Uri.EscapeDataString(password.ToString())}");
-            if (capacity != default)
-                queryParams.Add($"event.capacity={Uri.EscapeDataString(capacity.ToString())}");
-            if (shareable.HasValue)
-                queryParams.Add($"event.shareable={Uri.EscapeDataString(shareable.Value.ToString())}");
-            if (inviteOnly.HasValue)
-                queryParams.Add($"event.invite_only={Uri.EscapeDataString(inviteOnly.Value.ToString())}");
-            if (onlineEvent.HasValue)
-                queryParams.Add($"event.online_event={Uri.EscapeDataString(onlineEvent.Value.ToString())}");
-            if (listed.HasValue)
-                queryParams.Add($"event.listed={Uri.EscapeDataString(listed.Value.ToString())}");
-            if (hideStartDate.HasValue)
-                queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(hideStartDate.Value.ToString())}");
-            if (hideEndDate.HasValue)
-                queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(hideEndDate.Value.ToString())}");
-            if (showRemaining.HasValue)
-                queryParams.Add($"event.show_remaining={Uri.EscapeDataString(showRemaining.Value.ToString())}");
-            var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.CreateEventAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (name is null) throw new ArgumentNullException(nameof(name));
+                queryParams.Add($"event.name.html={Uri.EscapeDataString(name.ToString())}");
+                if (description is null) throw new ArgumentNullException(nameof(description));
+                queryParams.Add($"event.description.html={Uri.EscapeDataString(description.ToString())}");
+                if (start is null) throw new ArgumentNullException(nameof(start));
+                queryParams.Add($"event.start.utc={Uri.EscapeDataString(start.ToString())}");
+                if (end is null) throw new ArgumentNullException(nameof(end));
+                queryParams.Add($"event.end.utc={Uri.EscapeDataString(end.ToString())}");
+                if (startTimezone is null) throw new ArgumentNullException(nameof(startTimezone));
+                queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone.ToString())}");
+                if (endTimezone is null) throw new ArgumentNullException(nameof(endTimezone));
+                queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone.ToString())}");
+                if (eventCurrency is null) throw new ArgumentNullException(nameof(eventCurrency));
+                queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency.ToString())}");
+                if (organizer != default)
+                    queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer.ToString())}");
+                if (venue != default)
+                    queryParams.Add($"event.venue_id={Uri.EscapeDataString(venue.ToString())}");
+                if (category != default)
+                    queryParams.Add($"event.category_id={Uri.EscapeDataString(category.ToString())}");
+                if (password != default)
+                    queryParams.Add($"event.password={Uri.EscapeDataString(password.ToString())}");
+                if (capacity != default)
+                    queryParams.Add($"event.capacity={Uri.EscapeDataString(capacity.ToString())}");
+                if (shareable.HasValue)
+                    queryParams.Add($"event.shareable={Uri.EscapeDataString(shareable.Value.ToString())}");
+                if (inviteOnly.HasValue)
+                    queryParams.Add($"event.invite_only={Uri.EscapeDataString(inviteOnly.Value.ToString())}");
+                if (onlineEvent.HasValue)
+                    queryParams.Add($"event.online_event={Uri.EscapeDataString(onlineEvent.Value.ToString())}");
+                if (listed.HasValue)
+                    queryParams.Add($"event.listed={Uri.EscapeDataString(listed.Value.ToString())}");
+                if (hideStartDate.HasValue)
+                    queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(hideStartDate.Value.ToString())}");
+                if (hideEndDate.HasValue)
+                    queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(hideEndDate.Value.ToString())}");
+                if (showRemaining.HasValue)
+                    queryParams.Add($"event.show_remaining={Uri.EscapeDataString(showRemaining.Value.ToString())}");
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -532,10 +584,20 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The Get venues (V2) response.</returns>
         public virtual async Task<GetMyVenuesResponse> GetMyVenuesAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/venues/";
-            return await this
-                .CallConnectorAsync<GetMyVenuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetMyVenuesAsync");
+            try
+            {
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/venues/";
+                return await this
+                    .CallConnectorAsync<GetMyVenuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -547,10 +609,20 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The Get organizers (V2) response.</returns>
         public virtual async Task<GetOrganizersResponse> GetOrganizersAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/organizers/";
-            return await this
-                .CallConnectorAsync<GetOrganizersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizersAsync");
+            try
+            {
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/organizers/";
+                return await this
+                    .CallConnectorAsync<GetOrganizersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -582,47 +654,61 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <returns>The Update event (V2) response.</returns>
         public virtual async Task<CreateEventResponse> UpdateEventAsync([DynamicValues("GetOrganizationEvents")] string @event, [DynamicValues("GetOrganizations")] string organization, string startTimezone, string endTimezone, string eventCurrency, string name = default, string description = default, string start = default, string end = default, [DynamicValues("GetOrganizersV2")] string organizer = default, [DynamicValues("GetMyVenuesV2")] string venue = default, [DynamicValues("GetCategories")] string category = default, string password = default, string capacity = default, bool? shareable = default, bool? inviteOnly = default, bool? onlineEvent = default, bool? listed = default, bool? hideStartDate = default, bool? hideEndDate = default, bool? showRemaining = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"organization_id={Uri.EscapeDataString(organization.ToString())}");
-            if (name != default)
-                queryParams.Add($"event.name.html={Uri.EscapeDataString(name.ToString())}");
-            if (description != default)
-                queryParams.Add($"event.description.html={Uri.EscapeDataString(description.ToString())}");
-            if (start != default)
-                queryParams.Add($"event.start.utc={Uri.EscapeDataString(start.ToString())}");
-            if (end != default)
-                queryParams.Add($"event.end.utc={Uri.EscapeDataString(end.ToString())}");
-            queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone.ToString())}");
-            queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone.ToString())}");
-            queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency.ToString())}");
-            if (organizer != default)
-                queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer.ToString())}");
-            if (venue != default)
-                queryParams.Add($"event.venue_id={Uri.EscapeDataString(venue.ToString())}");
-            if (category != default)
-                queryParams.Add($"event.category_id={Uri.EscapeDataString(category.ToString())}");
-            if (password != default)
-                queryParams.Add($"event.password={Uri.EscapeDataString(password.ToString())}");
-            if (capacity != default)
-                queryParams.Add($"event.capacity={Uri.EscapeDataString(capacity.ToString())}");
-            if (shareable.HasValue)
-                queryParams.Add($"event.shareable={Uri.EscapeDataString(shareable.Value.ToString())}");
-            if (inviteOnly.HasValue)
-                queryParams.Add($"event.invite_only={Uri.EscapeDataString(inviteOnly.Value.ToString())}");
-            if (onlineEvent.HasValue)
-                queryParams.Add($"event.online_event={Uri.EscapeDataString(onlineEvent.Value.ToString())}");
-            if (listed.HasValue)
-                queryParams.Add($"event.listed={Uri.EscapeDataString(listed.Value.ToString())}");
-            if (hideStartDate.HasValue)
-                queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(hideStartDate.Value.ToString())}");
-            if (hideEndDate.HasValue)
-                queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(hideEndDate.Value.ToString())}");
-            if (showRemaining.HasValue)
-                queryParams.Add($"event.show_remaining={Uri.EscapeDataString(showRemaining.Value.ToString())}");
-            var path = $"/v2/v3/events/{Uri.EscapeDataString(@event.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.UpdateEventAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (organization is null) throw new ArgumentNullException(nameof(organization));
+                queryParams.Add($"organization_id={Uri.EscapeDataString(organization.ToString())}");
+                if (name != default)
+                    queryParams.Add($"event.name.html={Uri.EscapeDataString(name.ToString())}");
+                if (description != default)
+                    queryParams.Add($"event.description.html={Uri.EscapeDataString(description.ToString())}");
+                if (start != default)
+                    queryParams.Add($"event.start.utc={Uri.EscapeDataString(start.ToString())}");
+                if (end != default)
+                    queryParams.Add($"event.end.utc={Uri.EscapeDataString(end.ToString())}");
+                if (startTimezone is null) throw new ArgumentNullException(nameof(startTimezone));
+                queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone.ToString())}");
+                if (endTimezone is null) throw new ArgumentNullException(nameof(endTimezone));
+                queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone.ToString())}");
+                if (eventCurrency is null) throw new ArgumentNullException(nameof(eventCurrency));
+                queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency.ToString())}");
+                if (organizer != default)
+                    queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer.ToString())}");
+                if (venue != default)
+                    queryParams.Add($"event.venue_id={Uri.EscapeDataString(venue.ToString())}");
+                if (category != default)
+                    queryParams.Add($"event.category_id={Uri.EscapeDataString(category.ToString())}");
+                if (password != default)
+                    queryParams.Add($"event.password={Uri.EscapeDataString(password.ToString())}");
+                if (capacity != default)
+                    queryParams.Add($"event.capacity={Uri.EscapeDataString(capacity.ToString())}");
+                if (shareable.HasValue)
+                    queryParams.Add($"event.shareable={Uri.EscapeDataString(shareable.Value.ToString())}");
+                if (inviteOnly.HasValue)
+                    queryParams.Add($"event.invite_only={Uri.EscapeDataString(inviteOnly.Value.ToString())}");
+                if (onlineEvent.HasValue)
+                    queryParams.Add($"event.online_event={Uri.EscapeDataString(onlineEvent.Value.ToString())}");
+                if (listed.HasValue)
+                    queryParams.Add($"event.listed={Uri.EscapeDataString(listed.Value.ToString())}");
+                if (hideStartDate.HasValue)
+                    queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(hideStartDate.Value.ToString())}");
+                if (hideEndDate.HasValue)
+                    queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(hideEndDate.Value.ToString())}");
+                if (showRemaining.HasValue)
+                    queryParams.Add($"event.show_remaining={Uri.EscapeDataString(showRemaining.Value.ToString())}");
+                var path = $"/v2/v3/events/{Uri.EscapeDataString(@event.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Onenote.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Onenote.Models
@@ -45,7 +46,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
         /// <summary>This section created time.</summary>
         [JsonPropertyName("createdTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>id</summary>
         [JsonPropertyName("id")]
@@ -62,11 +63,11 @@ namespace Azure.Connectors.Sdk.Onenote.Models
         /// <summary>The time this section was last modified.</summary>
         [JsonPropertyName("lastModifiedTime")]
         [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        public DateTime? LastModifiedTime { get; init; }
 
         /// <summary>OneNote client links.</summary>
         [JsonPropertyName("links")]
-        public object OneNoteClientLinks { get; set; }
+        public JsonElement? OneNoteClientLinks { get; set; }
 
         /// <summary>The name of the section.</summary>
         [JsonPropertyName("name")]
@@ -156,7 +157,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> PagesInSectionValueObject { get; set; }
+        public List<JsonElement?> PagesInSectionValueObject { get; set; }
     }
 
     /// <summary>
@@ -365,7 +366,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
             bool? defaultSectionFlag = default,
             string lastModifiedBy = default,
             DateTime? lastModifiedTime = default,
-            object oneNoteClientLinks = default,
+            JsonElement? oneNoteClientLinks = default,
             string sectionName = default,
             string thePagesUrl = default,
             string urlToCreateSectionInNotebook = default)
@@ -451,7 +452,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
         /// </summary>
         public static GetPagesInSectionResponse GetPagesInSectionResponse(
             string oDataContext = default,
-            List<object> pagesInSectionValueObject = default)
+            List<JsonElement?> pagesInSectionValueObject = default)
         {
             return new GetPagesInSectionResponse
             {
@@ -824,6 +825,8 @@ namespace Azure.Connectors.Sdk.Onenote
 
         public override string ConnectorName => "onenote";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.onenote");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -846,12 +849,23 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Create section in a notebook response.</returns>
         public virtual async Task<CreateSectionInNotebookResponse> CreateSectionInNotebookAsync(CreateSectionRequest input, [DynamicValues("GetNotebooks")] string notebookKey, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            var path = $"/notebooks/Dynamic/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateSectionInNotebookResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.CreateSectionInNotebookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                var path = $"/notebooks/Dynamic/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateSectionInNotebookResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -865,13 +879,25 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Create page in a section response.</returns>
         public virtual async Task<Page> CreatePageInSectionAsync(string input, [DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.CreatePageInSectionAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+                var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -884,13 +910,25 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Get pages for a specific section response.</returns>
         public virtual async Task<GetPagesInSectionResponse> GetPagesInSectionAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetPagesInSectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.GetPagesInSectionAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+                var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetPagesInSectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -902,10 +940,20 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Create a page in Quick Notes response.</returns>
         public virtual async Task<Page> CreatePageInQuickNotesAsync(string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/pages";
-            return await this
-                .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.CreatePageInQuickNotesAsync");
+            try
+            {
+                var path = $"/pages";
+                return await this
+                    .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -918,14 +966,27 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeletePageAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
-            var path = $"/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.DeletePageAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+                if (pageId is null) throw new ArgumentNullException(nameof(pageId));
+                queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
+                var path = $"/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -939,15 +1000,28 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Get page content response.</returns>
         public virtual async Task<string> GetPageContentAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("preAuthenticated=true");
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
-            var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.GetPageContentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("preAuthenticated=true");
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+                if (pageId is null) throw new ArgumentNullException(nameof(pageId));
+                queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
+                var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -960,16 +1034,29 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <param name="pageId">Page Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update page content response.</returns>
-        public virtual async Task<string> UpdatePageContentAsync(List<object> input, [DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
+        public virtual async Task<string> UpdatePageContentAsync(List<JsonElement?> input, [DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, [DynamicValues("GetPagesInSection")] string pageId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-            queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
-            var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.UpdatePageContentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
+                if (pageId is null) throw new ArgumentNullException(nameof(pageId));
+                queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
+                var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -980,10 +1067,20 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Get recent notebooks response.</returns>
         public virtual async Task<List<Notebook>> GetNotebooksAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/notebooks";
-            return await this
-                .CallConnectorAsync<List<Notebook>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.GetNotebooksAsync");
+            try
+            {
+                var path = $"/notebooks";
+                return await this
+                    .CallConnectorAsync<List<Notebook>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -995,12 +1092,23 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <returns>The Get sections in notebook response.</returns>
         public virtual async Task<GetSectionsInNotebookResponse> GetSectionsInNotebookAsync([DynamicValues("GetNotebooks")] string notebookKey, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-            var path = $"/notebooks/notebookKey/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSectionsInNotebookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.GetSectionsInNotebookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
+                var path = $"/notebooks/notebookKey/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSectionsInNotebookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

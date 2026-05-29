@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.KeyVault.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.KeyVault.Models
@@ -62,7 +63,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
         /// <summary>Time when the key was created</summary>
         [JsonPropertyName("createdTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>Time when the key was last updated</summary>
         [JsonPropertyName("lastUpdatedTime")]
@@ -143,7 +144,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
         /// <summary>Time when the secret was created</summary>
         [JsonPropertyName("createdTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>Time when the secret was last updated</summary>
         [JsonPropertyName("lastUpdatedTime")]
@@ -186,7 +187,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
         /// <summary>Time when the secret was created</summary>
         [JsonPropertyName("createdTime")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>Time when the secret was last updated</summary>
         [JsonPropertyName("lastUpdatedTime")]
@@ -517,6 +518,8 @@ namespace Azure.Connectors.Sdk.KeyVault
 
         public override string ConnectorName => "keyvault";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.keyvault");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -537,10 +540,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The List keys response.</returns>
         public virtual async Task<KeyMetadataCollection> ListKeysAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/keys";
-            return await this
-                .CallConnectorAsync<KeyMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.ListKeysAsync");
+            try
+            {
+                var path = $"/keys";
+                return await this
+                    .CallConnectorAsync<KeyMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -552,10 +565,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The List key versions response.</returns>
         public virtual async Task<KeyMetadataCollection> ListKeyVersionsAsync([DynamicValues("ListKeys")] string nameOfTheKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions";
-            return await this
-                .CallConnectorAsync<KeyMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.ListKeyVersionsAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions";
+                return await this
+                    .CallConnectorAsync<KeyMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -567,10 +590,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Get key metadata response.</returns>
         public virtual async Task<KeyMetadata> GetKeyMetadataAsync([DynamicValues("ListKeys")] string nameOfTheKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/metadata";
-            return await this
-                .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetKeyMetadataAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/metadata";
+                return await this
+                    .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -583,10 +616,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Get key version metadata response.</returns>
         public virtual async Task<KeyMetadata> GetKeyVersionMetadataAsync([DynamicValues("ListKeys")] string nameOfTheKey, string versionOfTheKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/metadata";
-            return await this
-                .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetKeyVersionMetadataAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/metadata";
+                return await this
+                    .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -599,10 +642,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Encrypt data with key response.</returns>
         public virtual async Task<KeyEncryptOutput> EncryptDataAsync([DynamicValues("ListKeys")] string nameOfTheKey, KeyEncryptInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/encrypt";
-            return await this
-                .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.EncryptDataAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/encrypt";
+                return await this
+                    .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -616,10 +669,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Encrypt data with key version response.</returns>
         public virtual async Task<KeyEncryptOutput> EncryptDataWithVersionAsync([DynamicValues("ListKeys")] string nameOfTheKey, string versionOfTheKey, KeyEncryptInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/encrypt";
-            return await this
-                .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.EncryptDataWithVersionAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/encrypt";
+                return await this
+                    .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -632,10 +695,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Decrypt data with key response.</returns>
         public virtual async Task<KeyDecryptOutput> DecryptDataAsync([DynamicValues("ListKeys")] string nameOfTheKey, KeyDecryptInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/decrypt";
-            return await this
-                .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.DecryptDataAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/decrypt";
+                return await this
+                    .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -649,10 +722,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Decrypt data with key version response.</returns>
         public virtual async Task<KeyDecryptOutput> DecryptDataWithVersionAsync([DynamicValues("ListKeys")] string nameOfTheKey, string versionOfTheKey, KeyDecryptInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/decrypt";
-            return await this
-                .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.DecryptDataWithVersionAsync");
+            try
+            {
+                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/decrypt";
+                return await this
+                    .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -663,10 +746,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The List secrets response.</returns>
         public virtual async Task<SecretMetadataCollection> ListSecretsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/secrets";
-            return await this
-                .CallConnectorAsync<SecretMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.ListSecretsAsync");
+            try
+            {
+                var path = $"/secrets";
+                return await this
+                    .CallConnectorAsync<SecretMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -678,10 +771,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The List secret versions response.</returns>
         public virtual async Task<SecretMetadataCollection> ListSecretVersionsAsync([DynamicValues("ListSecrets")] string nameOfTheSecret, CancellationToken cancellationToken = default)
         {
-            var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions";
-            return await this
-                .CallConnectorAsync<SecretMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.ListSecretVersionsAsync");
+            try
+            {
+                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions";
+                return await this
+                    .CallConnectorAsync<SecretMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -693,10 +796,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Get secret metadata response.</returns>
         public virtual async Task<SecretMetadata> GetSecretMetadataAsync([DynamicValues("ListSecrets")] string nameOfTheSecret, CancellationToken cancellationToken = default)
         {
-            var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/metadata";
-            return await this
-                .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretMetadataAsync");
+            try
+            {
+                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/metadata";
+                return await this
+                    .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -709,10 +822,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Get secret version metadata response.</returns>
         public virtual async Task<SecretMetadata> GetSecretVersionMetadataAsync([DynamicValues("ListSecrets")] string nameOfTheSecret, string versionOfTheSecret, CancellationToken cancellationToken = default)
         {
-            var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/metadata";
-            return await this
-                .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretVersionMetadataAsync");
+            try
+            {
+                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/metadata";
+                return await this
+                    .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -724,10 +847,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Get secret response.</returns>
         public virtual async Task<Secret> GetSecretAsync([DynamicValues("ListSecrets")] string nameOfTheSecret, CancellationToken cancellationToken = default)
         {
-            var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/value";
-            return await this
-                .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretAsync");
+            try
+            {
+                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/value";
+                return await this
+                    .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -740,10 +873,20 @@ namespace Azure.Connectors.Sdk.KeyVault
         /// <returns>The Get secret version response.</returns>
         public virtual async Task<Secret> GetSecretVersionAsync([DynamicValues("ListSecrets")] string nameOfTheSecret, string versionOfTheSecret, CancellationToken cancellationToken = default)
         {
-            var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/value";
-            return await this
-                .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretVersionAsync");
+            try
+            {
+                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/value";
+                return await this
+                    .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

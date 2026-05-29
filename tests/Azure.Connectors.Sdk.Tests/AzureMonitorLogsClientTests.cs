@@ -337,7 +337,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Query = "Heartbeat | summarize count()",
                 TimeRangeType = "Relative",
-                TimeRange = "Last 24 hours"
+                TimeRange = default(JsonElement?)
             };
 
             // Act
@@ -358,7 +358,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Query = "Heartbeat | summarize count() by Computer",
                 TimeRangeType = "Relative",
-                TimeRange = "Last 7 days"
+                TimeRange = default(JsonElement?)
             };
 
             // Act

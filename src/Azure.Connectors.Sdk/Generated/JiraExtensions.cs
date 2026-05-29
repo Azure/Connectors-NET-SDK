@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Jira.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Jira.Models
@@ -62,7 +63,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>fields</summary>
         [JsonPropertyName("fields")]
-        public object Fields { get; set; }
+        public JsonElement? Fields { get; set; }
     }
 
     /// <summary>
@@ -112,7 +113,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>Fields required for this transition</summary>
         [JsonPropertyName("fields")]
-        public object Fields { get; set; }
+        public JsonElement? Fields { get; set; }
     }
 
     /// <summary>
@@ -172,15 +173,15 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>params</summary>
         [JsonPropertyName("params")]
-        public object Params { get; set; }
+        public JsonElement? Params { get; set; }
 
         /// <summary>result</summary>
         [JsonPropertyName("result")]
-        public object Result { get; set; }
+        public JsonElement? Result { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
-        public object Error { get; set; }
+        public JsonElement? Error { get; set; }
     }
 
     /// <summary>
@@ -199,7 +200,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("created")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
     }
 
     /// <summary>
@@ -315,23 +316,23 @@ namespace Azure.Connectors.Sdk.Jira.Models
     {
         /// <summary>Transition</summary>
         [JsonPropertyName("transition")]
-        public object Transition { get; set; }
+        public JsonElement? Transition { get; set; }
 
         /// <summary>List of issue screen fields to update, specifying the sub-field to update and its value for each field. This field provides a straightforward option when setting a sub-field. When multiple sub-fields or other operations are required, use update. Fields included in here cannot be included in update.</summary>
         [JsonPropertyName("fields")]
-        public object Fields { get; set; }
+        public JsonElement? Fields { get; set; }
 
         /// <summary>A Map containing the field field name and a list of operations to perform on the issue screen field. Note that fields included in here cannot be included in fields.</summary>
         [JsonPropertyName("update")]
-        public object Update { get; set; }
+        public JsonElement? Update { get; set; }
 
         /// <summary>History meta data</summary>
         [JsonPropertyName("historyMetadata")]
-        public object HistoryMetadata { get; set; }
+        public JsonElement? HistoryMetadata { get; set; }
 
         /// <summary>Properties</summary>
         [JsonPropertyName("properties")]
-        public List<object> Properties { get; set; }
+        public List<JsonElement?> Properties { get; set; }
     }
 
     /// <summary>
@@ -381,7 +382,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>values</summary>
         [JsonPropertyName("values")]
-        public List<object> Values { get; set; }
+        public List<JsonElement?> Values { get; set; }
     }
 
     /// <summary>
@@ -395,7 +396,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>values</summary>
         [JsonPropertyName("values")]
-        public List<object> Values { get; set; }
+        public List<JsonElement?> Values { get; set; }
     }
 
     /// <summary>
@@ -489,19 +490,19 @@ namespace Azure.Connectors.Sdk.Jira.Models
     {
         /// <summary>fields</summary>
         [JsonPropertyName("fields")]
-        public object Fields { get; set; }
+        public JsonElement? Fields { get; set; }
 
         /// <summary>historyMetadata</summary>
         [JsonPropertyName("historyMetadata")]
-        public object HistoryMetadata { get; set; }
+        public JsonElement? HistoryMetadata { get; set; }
 
         /// <summary>transition</summary>
         [JsonPropertyName("transition")]
-        public object Transition { get; set; }
+        public JsonElement? Transition { get; set; }
 
         /// <summary>update</summary>
         [JsonPropertyName("update")]
-        public object Update { get; set; }
+        public JsonElement? Update { get; set; }
     }
 
     /// <summary>
@@ -523,15 +524,15 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>params</summary>
         [JsonPropertyName("params")]
-        public object Params { get; set; }
+        public JsonElement? Params { get; set; }
 
         /// <summary>result</summary>
         [JsonPropertyName("result")]
-        public object Result { get; set; }
+        public JsonElement? Result { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
-        public object Error { get; set; }
+        public JsonElement? Error { get; set; }
 
         /// <summary>callbackEndpoint</summary>
         [JsonPropertyName("callbackEndpoint")]
@@ -634,7 +635,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
             string issueId = default,
             string issueKey = default,
             string issueURL = default,
-            object fields = default)
+            JsonElement? fields = default)
         {
             return new FullIssue
             {
@@ -680,7 +681,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
             string id = default,
             string name = default,
             TransitionStatus to = default,
-            object fields = default)
+            JsonElement? fields = default)
         {
             return new Transition
             {
@@ -712,9 +713,9 @@ namespace Azure.Connectors.Sdk.Jira.Models
             string jsonrpc = default,
             string id = default,
             string method = default,
-            object @params = default,
-            object result = default,
-            object error = default)
+            JsonElement? @params = default,
+            JsonElement? result = default,
+            JsonElement? error = default)
         {
             return new MCPQueryResponse
             {
@@ -809,11 +810,11 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// Creates a new instance of <see cref="EditIssueInput"/>.
         /// </summary>
         public static EditIssueInput EditIssueInput(
-            object transition = default,
-            object fields = default,
-            object update = default,
-            object historyMetadata = default,
-            List<object> properties = default)
+            JsonElement? transition = default,
+            JsonElement? fields = default,
+            JsonElement? update = default,
+            JsonElement? historyMetadata = default,
+            List<JsonElement?> properties = default)
         {
             return new EditIssueInput
             {
@@ -830,7 +831,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// </summary>
         public static ListFiltersResponse ListFiltersResponse(
             string nextPage = default,
-            List<object> values = default)
+            List<JsonElement?> values = default)
         {
             return new ListFiltersResponse
             {
@@ -844,7 +845,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// </summary>
         public static ListProjectsResponse ListProjectsResponse(
             string nextPage = default,
-            List<object> values = default)
+            List<JsonElement?> values = default)
         {
             return new ListProjectsResponse
             {
@@ -907,10 +908,10 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// Creates a new instance of <see cref="TransitionInput"/>.
         /// </summary>
         public static TransitionInput TransitionInput(
-            object fields = default,
-            object historyMetadata = default,
-            object transition = default,
-            object update = default)
+            JsonElement? fields = default,
+            JsonElement? historyMetadata = default,
+            JsonElement? transition = default,
+            JsonElement? update = default)
         {
             return new TransitionInput
             {
@@ -928,9 +929,9 @@ namespace Azure.Connectors.Sdk.Jira.Models
             string jsonrpc = default,
             string id = default,
             string method = default,
-            object @params = default,
-            object result = default,
-            object error = default,
+            JsonElement? @params = default,
+            JsonElement? result = default,
+            JsonElement? error = default,
             string callbackEndpoint = default)
         {
             return new MCPQueryRequest
@@ -1263,6 +1264,8 @@ namespace Azure.Connectors.Sdk.Jira
 
         public override string ConnectorName => "jira";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.jira");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1283,10 +1286,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get list of Resources response.</returns>
         public virtual async Task<List<object>> ListResourcesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/oauth/token/accessible-resources";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListResourcesAsync");
+            try
+            {
+                var path = $"/oauth/token/accessible-resources";
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1297,14 +1310,24 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get list of issues response.</returns>
         public virtual async Task<ListIssuesResponse> ListIssuesAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("jql=created%20%3E%3D%20-3650d");
-            queryParams.Add("expand=%2A");
-            queryParams.Add("fields=%2Aall");
-            var path = $"/2/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListIssuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssuesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("jql=created%20%3E%3D%20-3650d");
+                queryParams.Add("expand=%2A");
+                queryParams.Add("fields=%2Aall");
+                var path = $"/2/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListIssuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1315,10 +1338,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get list of issues (Datacenter) response.</returns>
         public virtual async Task<ListIssuesResponseDatacenter> ListIssuesDatacenterAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datacenter/search";
-            return await this
-                .CallConnectorAsync<ListIssuesResponseDatacenter>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssuesDatacenterAsync");
+            try
+            {
+                var path = $"/datacenter/search";
+                return await this
+                    .CallConnectorAsync<ListIssuesResponseDatacenter>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1330,10 +1363,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get list of Transitions response.</returns>
         public virtual async Task<ListTransitionsResponse> ListTransitionsAsync(string issueIdOrKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/3/issue/{Uri.EscapeDataString(issueIdOrKey.ToString())}/transitions";
-            return await this
-                .CallConnectorAsync<ListTransitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListTransitionsAsync");
+            try
+            {
+                var path = $"/3/issue/{Uri.EscapeDataString(issueIdOrKey.ToString())}/transitions";
+                return await this
+                    .CallConnectorAsync<ListTransitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1346,10 +1389,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Performs an issue transition response.</returns>
         public virtual async Task<UpdateTransitionResponse> UpdateTransitionAsync(string issueIdOrKey, TransitionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/3/issue/{Uri.EscapeDataString(issueIdOrKey.ToString())}/transitions";
-            return await this
-                .CallConnectorAsync<UpdateTransitionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.UpdateTransitionAsync");
+            try
+            {
+                var path = $"/3/issue/{Uri.EscapeDataString(issueIdOrKey.ToString())}/transitions";
+                return await this
+                    .CallConnectorAsync<UpdateTransitionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1361,13 +1414,23 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get current user response.</returns>
         public virtual async Task<GetCurrentUserResponse> GetCurrentUserAsync(string expand = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (expand != default)
-                queryParams.Add($"expand={Uri.EscapeDataString(expand.ToString())}");
-            var path = $"/3/myself" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetCurrentUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetCurrentUserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (expand != default)
+                    queryParams.Add($"expand={Uri.EscapeDataString(expand.ToString())}");
+                var path = $"/3/myself" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetCurrentUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1380,13 +1443,23 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Jira MCP Server response.</returns>
         public virtual async Task<MCPQueryResponse> McpJiraIssueManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/mcp/JiraIssueManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.McpJiraIssueManagementAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/mcp/JiraIssueManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1399,10 +1472,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Add comment (V2) response.</returns>
         public virtual async Task<CommentResponse> AddCommentAsync(string issueKey, Comment input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/issue/{Uri.EscapeDataString(issueKey.ToString())}/comment";
-            return await this
-                .CallConnectorAsync<CommentResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.AddCommentAsync");
+            try
+            {
+                var path = $"/v2/issue/{Uri.EscapeDataString(issueKey.ToString())}/comment";
+                return await this
+                    .CallConnectorAsync<CommentResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1414,10 +1497,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Cancel Task (V2) response.</returns>
         public virtual async Task<CancelTaskResponse> CancelTaskAsync(string taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/task/{Uri.EscapeDataString(taskId.ToString())}/cancel";
-            return await this
-                .CallConnectorAsync<CancelTaskResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CancelTaskAsync");
+            try
+            {
+                var path = $"/v2/task/{Uri.EscapeDataString(taskId.ToString())}/cancel";
+                return await this
+                    .CallConnectorAsync<CancelTaskResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1431,13 +1524,25 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Create a new issue (V3) response.</returns>
         public virtual async Task<CreateIssueResponse> CreateIssueAsync(CreateIssueInput input, [DynamicValues("ListProjects_V3")] string project, [DynamicValues("ListIssueTypes_V2")] string issueTypeId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-            queryParams.Add($"issueTypeIds={Uri.EscapeDataString(issueTypeId.ToString())}");
-            var path = $"/v3/issue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateIssueResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CreateIssueAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (project is null) throw new ArgumentNullException(nameof(project));
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
+                if (issueTypeId is null) throw new ArgumentNullException(nameof(issueTypeId));
+                queryParams.Add($"issueTypeIds={Uri.EscapeDataString(issueTypeId.ToString())}");
+                var path = $"/v3/issue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateIssueResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1449,10 +1554,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Create a new project (V2) response.</returns>
         public virtual async Task<CreateProjectResponse> CreateProjectAsync(CreateProjectInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/project";
-            return await this
-                .CallConnectorAsync<CreateProjectResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CreateProjectAsync");
+            try
+            {
+                var path = $"/v2/project";
+                return await this
+                    .CallConnectorAsync<CreateProjectResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1464,10 +1579,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Create Project Category (V2) response.</returns>
         public virtual async Task<CreateProjectCategoryResponse> CreateProjectCategoryAsync(CreateProjectCategoryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/projectCategory";
-            return await this
-                .CallConnectorAsync<CreateProjectCategoryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CreateProjectCategoryAsync");
+            try
+            {
+                var path = $"/v2/projectCategory";
+                return await this
+                    .CallConnectorAsync<CreateProjectCategoryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1479,13 +1604,23 @@ namespace Azure.Connectors.Sdk.Jira
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteProjectAsync(string projectIdOrKey, bool? enableUndo = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (enableUndo.HasValue)
-                queryParams.Add($"enableUndo={Uri.EscapeDataString(enableUndo.Value.ToString())}");
-            var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.DeleteProjectAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (enableUndo.HasValue)
+                    queryParams.Add($"enableUndo={Uri.EscapeDataString(enableUndo.Value.ToString())}");
+                var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1501,17 +1636,27 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Edit Issue (V2) response.</returns>
         public virtual async Task<EditIssueResponse> EditIssueAsync(string issueIdOrKey, EditIssueInput input, bool? notifyUsers = default, bool? overrideScreenSecurity = default, bool? overrideEditableFlag = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (notifyUsers.HasValue)
-                queryParams.Add($"notifyUsers={Uri.EscapeDataString(notifyUsers.Value.ToString())}");
-            if (overrideScreenSecurity.HasValue)
-                queryParams.Add($"overrideScreenSecurity={Uri.EscapeDataString(overrideScreenSecurity.Value.ToString())}");
-            if (overrideEditableFlag.HasValue)
-                queryParams.Add($"overrideEditableFlag={Uri.EscapeDataString(overrideEditableFlag.Value.ToString())}");
-            var path = $"/v2/3/issue/{Uri.EscapeDataString(issueIdOrKey.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EditIssueResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.EditIssueAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (notifyUsers.HasValue)
+                    queryParams.Add($"notifyUsers={Uri.EscapeDataString(notifyUsers.Value.ToString())}");
+                if (overrideScreenSecurity.HasValue)
+                    queryParams.Add($"overrideScreenSecurity={Uri.EscapeDataString(overrideScreenSecurity.Value.ToString())}");
+                if (overrideEditableFlag.HasValue)
+                    queryParams.Add($"overrideEditableFlag={Uri.EscapeDataString(overrideEditableFlag.Value.ToString())}");
+                var path = $"/v2/3/issue/{Uri.EscapeDataString(issueIdOrKey.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<EditIssueResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1522,10 +1667,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get All Project Categories (V2) response.</returns>
         public virtual async Task<List<object>> GetAllProjectCategoriesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/projectCategory";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetAllProjectCategoriesAsync");
+            try
+            {
+                var path = $"/v2/projectCategory";
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1537,10 +1692,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get issue by key (V2) response.</returns>
         public virtual async Task<FullIssue> GetIssueAsync(string issueKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/issue/{Uri.EscapeDataString(issueKey.ToString())}";
-            return await this
-                .CallConnectorAsync<FullIssue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetIssueAsync");
+            try
+            {
+                var path = $"/v2/issue/{Uri.EscapeDataString(issueKey.ToString())}";
+                return await this
+                    .CallConnectorAsync<FullIssue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1552,10 +1717,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get Task (V2) response.</returns>
         public virtual async Task<GetTaskResponse> GetTaskAsync(string taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/task/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetTaskResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetTaskAsync");
+            try
+            {
+                var path = $"/v2/task/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetTaskResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1568,14 +1743,25 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get User (V2) response.</returns>
         public virtual async Task<GetUserResponse> GetUserAsync(string accountId, string expand = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"accountId={Uri.EscapeDataString(accountId.ToString())}");
-            if (expand != default)
-                queryParams.Add($"expand={Uri.EscapeDataString(expand.ToString())}");
-            var path = $"/v2/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetUserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (accountId is null) throw new ArgumentNullException(nameof(accountId));
+                queryParams.Add($"accountId={Uri.EscapeDataString(accountId.ToString())}");
+                if (expand != default)
+                    queryParams.Add($"expand={Uri.EscapeDataString(expand.ToString())}");
+                var path = $"/v2/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1586,10 +1772,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get list of Filters (V2) response.</returns>
         public virtual async Task<ListFiltersResponse> ListFiltersAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/filter/search";
-            return await this
-                .CallConnectorAsync<ListFiltersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListFiltersAsync");
+            try
+            {
+                var path = $"/v2/filter/search";
+                return await this
+                    .CallConnectorAsync<ListFiltersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1601,12 +1797,23 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get issue types (V2) response.</returns>
         public virtual async Task<List<object>> ListIssueTypesAsync([DynamicValues("ListProjects_V3")] string project, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-            var path = $"/v2/types/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (project is null) throw new ArgumentNullException(nameof(project));
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
+                var path = $"/v2/types/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1619,13 +1826,25 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get issue types fields (V2) response.</returns>
         public virtual async Task<List<object>> ListIssueTypesFieldsAsync(string project, string issueTypes, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-            queryParams.Add($"issuetypeIds={Uri.EscapeDataString(issueTypes.ToString())}");
-            var path = $"/v3/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesFieldsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (project is null) throw new ArgumentNullException(nameof(project));
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
+                if (issueTypes is null) throw new ArgumentNullException(nameof(issueTypes));
+                queryParams.Add($"issuetypeIds={Uri.EscapeDataString(issueTypes.ToString())}");
+                var path = $"/v3/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1636,10 +1855,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Get projects (V2) response.</returns>
         public virtual async Task<ListProjectsResponse> ListProjectsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/project/search";
-            return await this
-                .CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListProjectsAsync");
+            try
+            {
+                var path = $"/v2/project/search";
+                return await this
+                    .CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1651,12 +1880,23 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The List users by project (V2) response.</returns>
         public virtual async Task<List<object>> ListProjectUsersAsync([DynamicValues("ListProjects_V3")] string projectKey, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"projectKey={Uri.EscapeDataString(projectKey.ToString())}");
-            var path = $"/v2/user/permission/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListProjectUsersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (projectKey is null) throw new ArgumentNullException(nameof(projectKey));
+                queryParams.Add($"projectKey={Uri.EscapeDataString(projectKey.ToString())}");
+                var path = $"/v2/user/permission/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1667,10 +1907,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RemoveProjectCategoryAsync(int projectId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/projectCategory/{Uri.EscapeDataString(projectId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.RemoveProjectCategoryAsync");
+            try
+            {
+                var path = $"/v2/projectCategory/{Uri.EscapeDataString(projectId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1683,10 +1933,20 @@ namespace Azure.Connectors.Sdk.Jira
         /// <returns>The Update Project (V2) response.</returns>
         public virtual async Task<UpdateProjectResponse> UpdateProjectAsync(string projectIdOrKey, UpdateProjectInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateProjectResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.UpdateProjectAsync");
+            try
+            {
+                var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateProjectResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

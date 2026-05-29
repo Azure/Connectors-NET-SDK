@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.MicrosoftBookings.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
@@ -35,7 +36,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
     {
         /// <summary>webhook</summary>
         [JsonPropertyName("webhook")]
-        public object Webhook { get; set; }
+        public JsonElement? Webhook { get; set; }
     }
 
     /// <summary>
@@ -55,7 +56,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
     {
         /// <summary>webhook</summary>
         [JsonPropertyName("webhook")]
-        public object Webhook { get; set; }
+        public JsonElement? Webhook { get; set; }
     }
 
     /// <summary>
@@ -65,7 +66,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
     {
         /// <summary>webhook</summary>
         [JsonPropertyName("webhook")]
-        public object Webhook { get; set; }
+        public JsonElement? Webhook { get; set; }
     }
 
     /// <summary>
@@ -107,7 +108,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         /// Creates a new instance of <see cref="CreateAppointmentInput"/>.
         /// </summary>
         public static CreateAppointmentInput CreateAppointmentInput(
-            object webhook = default)
+            JsonElement? webhook = default)
         {
             return new CreateAppointmentInput
             {
@@ -131,7 +132,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         /// Creates a new instance of <see cref="UpdateAppointmentInput"/>.
         /// </summary>
         public static UpdateAppointmentInput UpdateAppointmentInput(
-            object webhook = default)
+            JsonElement? webhook = default)
         {
             return new UpdateAppointmentInput
             {
@@ -143,7 +144,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         /// Creates a new instance of <see cref="CancelAppointmentInput"/>.
         /// </summary>
         public static CancelAppointmentInput CancelAppointmentInput(
-            object webhook = default)
+            JsonElement? webhook = default)
         {
             return new CancelAppointmentInput
             {
@@ -265,6 +266,8 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
 
         public override string ConnectorName => "microsoftbookings";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.microsoftbookings");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -285,10 +288,20 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
         /// <returns>The List Booking Businesses where user is an admin response.</returns>
         public virtual async Task<ListMailboxResponse> ListBookingsBusinessUserAsAdminAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/BookingsService/api/V1/bookingBusinessesUserAsAdmin";
-            return await this
-                .CallConnectorAsync<ListMailboxResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MicrosoftBookingsClient.ConnectorActivitySource.StartActivity("MicrosoftBookingsClient.ListBookingsBusinessUserAsAdminAsync");
+            try
+            {
+                var path = $"/BookingsService/api/V1/bookingBusinessesUserAsAdmin";
+                return await this
+                    .CallConnectorAsync<ListMailboxResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

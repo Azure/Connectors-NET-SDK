@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.MailChimp.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.MailChimp.Models
@@ -54,7 +55,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         /// <summary>The date and time the campaign was created</summary>
         [JsonPropertyName("create_time")]
         [JsonInclude]
-        public string CreatedTime { get; internal set; }
+        public string CreatedTime { get; init; }
 
         /// <summary>The link to the campaign&apos;s archive version</summary>
         [JsonPropertyName("archive_url")]
@@ -855,7 +856,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         /// <summary>Date and time the subscriber signed up for the list</summary>
         [JsonPropertyName("timestamp_signup")]
         [JsonInclude]
-        public string SignupTimestamp { get; internal set; }
+        public string SignupTimestamp { get; init; }
 
         /// <summary>The IP address the subscriber used to confirm their opt-in status</summary>
         [JsonPropertyName("ip_opt")]
@@ -864,7 +865,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         /// <summary>Date and time the subscribe confirmed their opt-in status</summary>
         [JsonPropertyName("timestamp_opt")]
         [JsonInclude]
-        public string OptInTimestamp { get; internal set; }
+        public string OptInTimestamp { get; init; }
 
         /// <summary>Star rating for this member, between 1 and 5</summary>
         [JsonPropertyName("member_rating")]
@@ -943,7 +944,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         /// <summary>The date the note was created</summary>
         [JsonPropertyName("created_at")]
         [JsonInclude]
-        public string CreatedTime { get; internal set; }
+        public string CreatedTime { get; init; }
 
         /// <summary>The author of the note</summary>
         [JsonPropertyName("created_by")]
@@ -1012,7 +1013,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         /// <summary>Date and time the subscriber signed up for the list</summary>
         [JsonPropertyName("timestamp_signup")]
         [JsonInclude]
-        public string SignupTimestamp { get; internal set; }
+        public string SignupTimestamp { get; init; }
 
         /// <summary>The IP address the subscriber used to confirm their opt-in status</summary>
         [JsonPropertyName("ip_opt")]
@@ -1021,7 +1022,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         /// <summary>Date and time the subscribe confirmed their opt-in status</summary>
         [JsonPropertyName("timestamp_opt")]
         [JsonInclude]
-        public string OptInTimestamp { get; internal set; }
+        public string OptInTimestamp { get; init; }
 
         /// <summary>Star rating for this member, between 1 and 5</summary>
         [JsonPropertyName("member_rating")]
@@ -2694,6 +2695,8 @@ namespace Azure.Connectors.Sdk.MailChimp
 
         public override string ConnectorName => "mailchimp";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.mailchimp");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2714,10 +2717,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The List campaigns response.</returns>
         public virtual async Task<GetCampaignsResponse> GetCampaignsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/campaigns";
-            return await this
-                .CallConnectorAsync<GetCampaignsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.GetCampaignsAsync");
+            try
+            {
+                var path = $"/campaigns";
+                return await this
+                    .CallConnectorAsync<GetCampaignsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2728,10 +2741,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendcampaignAsync([DynamicValues("GetCampaigns")] string campaign, CancellationToken cancellationToken = default)
         {
-            var path = $"/campaigns/{Uri.EscapeDataString(campaign.ToString())}/actions/send";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.SendcampaignAsync");
+            try
+            {
+                var path = $"/campaigns/{Uri.EscapeDataString(campaign.ToString())}/actions/send";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2744,15 +2767,25 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The Get all the lists response.</returns>
         public virtual async Task<GetListsResponseModel> GetListsAsync(int? maximumResults = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumResults.HasValue)
-                queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetListsResponseModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.GetListsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (maximumResults.HasValue)
+                    queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetListsResponseModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2764,10 +2797,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The New List response.</returns>
         public virtual async Task<CreateNewListResponseModel> NewlistAsync(NewListRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists";
-            return await this
-                .CallConnectorAsync<CreateNewListResponseModel>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.NewlistAsync");
+            try
+            {
+                var path = $"/lists";
+                return await this
+                    .CallConnectorAsync<CreateNewListResponseModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2782,15 +2825,25 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The Subscribe or unsubscribe list members response.</returns>
         public virtual async Task<GetAddMembersBatchResponseModel> AddMembersAsync([DynamicValues("GetLists")] string listId, NewMembersInListRequest input, bool? skipMergeValidation = default, bool? skipDuplicateCheck = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (skipMergeValidation.HasValue)
-                queryParams.Add($"skip_merge_validation={Uri.EscapeDataString(skipMergeValidation.Value.ToString())}");
-            if (skipDuplicateCheck.HasValue)
-                queryParams.Add($"skip_duplicate_check={Uri.EscapeDataString(skipDuplicateCheck.Value.ToString())}");
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAddMembersBatchResponseModel>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.AddMembersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (skipMergeValidation.HasValue)
+                    queryParams.Add($"skip_merge_validation={Uri.EscapeDataString(skipMergeValidation.Value.ToString())}");
+                if (skipDuplicateCheck.HasValue)
+                    queryParams.Add($"skip_duplicate_check={Uri.EscapeDataString(skipDuplicateCheck.Value.ToString())}");
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAddMembersBatchResponseModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2804,15 +2857,25 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The Show list members response.</returns>
         public virtual async Task<GetAllMembersResponseModel> GetListMembersAsync([DynamicValues("GetLists")] string listId, int? maximumResults = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumResults.HasValue)
-                queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllMembersResponseModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.GetListMembersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (maximumResults.HasValue)
+                    queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllMembersResponseModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2825,10 +2888,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The Add member to list response.</returns>
         public virtual async Task<MemberResponseModel> AddmemberAsync([DynamicValues("GetLists")] string listId, NewMemberInListRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members";
-            return await this
-                .CallConnectorAsync<MemberResponseModel>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.AddmemberAsync");
+            try
+            {
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members";
+                return await this
+                    .CallConnectorAsync<MemberResponseModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2840,10 +2913,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The New Campaign (V2) response.</returns>
         public virtual async Task<CampaignResponseModel> NewcampaignAsync(NewCampaignRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/campaigns";
-            return await this
-                .CallConnectorAsync<CampaignResponseModel>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.NewcampaignAsync");
+            try
+            {
+                var path = $"/v2/campaigns";
+                return await this
+                    .CallConnectorAsync<CampaignResponseModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2854,10 +2937,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RemovememberAsync([DynamicValues("GetLists")] string listId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.RemovememberAsync");
+            try
+            {
+                var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2870,10 +2963,20 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <returns>The Update member information response.</returns>
         public virtual async Task<MemberResponseModel> UpdatememberAsync([DynamicValues("GetLists")] string listId, UpdateMemberInListRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
-            return await this
-                .CallConnectorAsync<MemberResponseModel>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.UpdatememberAsync");
+            try
+            {
+                var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
+                return await this
+                    .CallConnectorAsync<MemberResponseModel>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

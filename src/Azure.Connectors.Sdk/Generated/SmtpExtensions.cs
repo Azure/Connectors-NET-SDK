@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Smtp.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Smtp.Models
@@ -270,6 +271,8 @@ namespace Azure.Connectors.Sdk.Smtp
 
         public override string ConnectorName => "smtp";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.smtp");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -290,10 +293,20 @@ namespace Azure.Connectors.Sdk.Smtp
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
         {
-            var path = $"/SendEmailV3";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SmtpClient.ConnectorActivitySource.StartActivity("SmtpClient.SendEmailAsync");
+            try
+            {
+                var path = $"/SendEmailV3";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.GoogleCalendar.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.GoogleCalendar.Models
@@ -86,12 +87,12 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
         /// <summary>The (inclusive) start time of the event.</summary>
         [JsonPropertyName("start")]
         [JsonInclude]
-        public DateTime? StartDateTime { get; internal set; }
+        public DateTime? StartDateTime { get; init; }
 
         /// <summary>The (exclusive) end time of the event.</summary>
         [JsonPropertyName("end")]
         [JsonInclude]
-        public DateTime? EndDateTime { get; internal set; }
+        public DateTime? EndDateTime { get; init; }
 
         /// <summary>Description of the event.</summary>
         [JsonPropertyName("description")]
@@ -128,12 +129,12 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
         /// <summary>Creation time of the event.</summary>
         [JsonPropertyName("created")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>Last modification time of the event.</summary>
         [JsonPropertyName("updated")]
         [JsonInclude]
-        public DateTime? UpdatedDateTime { get; internal set; }
+        public DateTime? UpdatedDateTime { get; init; }
 
         /// <summary>Whether the end time is actually unspecified. An end time is still             provided for compatibility reasons, even if this attribute is set to True.</summary>
         [JsonPropertyName("endTimeUnspecified")]
@@ -178,12 +179,12 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
         /// <summary>The (inclusive) start time of the event.</summary>
         [JsonPropertyName("start")]
         [JsonInclude]
-        public DateTime? StartDateTime { get; internal set; }
+        public DateTime? StartDateTime { get; init; }
 
         /// <summary>The (exclusive) end time of the event.</summary>
         [JsonPropertyName("end")]
         [JsonInclude]
-        public DateTime? EndDateTime { get; internal set; }
+        public DateTime? EndDateTime { get; init; }
 
         /// <summary>Description of the event.</summary>
         [JsonPropertyName("description")]
@@ -220,12 +221,12 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
         /// <summary>Creation time of the event.</summary>
         [JsonPropertyName("created")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>Last modification time of the event.</summary>
         [JsonPropertyName("updated")]
         [JsonInclude]
-        public DateTime? UpdatedDateTime { get; internal set; }
+        public DateTime? UpdatedDateTime { get; init; }
 
         /// <summary>Whether the end time is actually unspecified. An end time is still             provided for compatibility reasons, even if this attribute is set to True.</summary>
         [JsonPropertyName("endTimeUnspecified")]
@@ -737,6 +738,8 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
 
         public override string ConnectorName => "googlecalendar";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.googlecalendar");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -758,13 +761,23 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The List calendars response.</returns>
         public virtual async Task<CalendarList> ListCalendarsAsync(string minimumAccessRole = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (minimumAccessRole != default)
-                queryParams.Add($"minAccessRole={Uri.EscapeDataString(minimumAccessRole.ToString())}");
-            var path = $"/users/me/calendarList" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.ListCalendarsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (minimumAccessRole != default)
+                    queryParams.Add($"minAccessRole={Uri.EscapeDataString(minimumAccessRole.ToString())}");
+                var path = $"/users/me/calendarList" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -775,12 +788,22 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The List writable calendars response.</returns>
         public virtual async Task<CalendarList> ListWritableCalendarsAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("minAccessRole=writer");
-            var path = $"/users/me/calendarList/1" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.ListWritableCalendarsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("minAccessRole=writer");
+                var path = $"/users/me/calendarList/1" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -795,17 +818,27 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The List the events on a calendar response.</returns>
         public virtual async Task<CalendarEventList> ListEventsAsync([DynamicValues("ListCalendars")] string calendarId, string minTime = default, string maxTime = default, string searchQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (minTime != default)
-                queryParams.Add($"timeMin={Uri.EscapeDataString(minTime.ToString())}");
-            if (maxTime != default)
-                queryParams.Add($"timeMax={Uri.EscapeDataString(maxTime.ToString())}");
-            if (searchQuery != default)
-                queryParams.Add($"q={Uri.EscapeDataString(searchQuery.ToString())}");
-            var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CalendarEventList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.ListEventsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (minTime != default)
+                    queryParams.Add($"timeMin={Uri.EscapeDataString(minTime.ToString())}");
+                if (maxTime != default)
+                    queryParams.Add($"timeMax={Uri.EscapeDataString(maxTime.ToString())}");
+                if (searchQuery != default)
+                    queryParams.Add($"q={Uri.EscapeDataString(searchQuery.ToString())}");
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CalendarEventList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -818,10 +851,20 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The Create an event response.</returns>
         public virtual async Task<ResponseEvent> CreateEventAsync([DynamicValues("ListWritableCalendars")] string calendarId, RequestEvent input, CancellationToken cancellationToken = default)
         {
-            var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
-            return await this
-                .CallConnectorAsync<ResponseEvent>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.CreateEventAsync");
+            try
+            {
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
+                return await this
+                    .CallConnectorAsync<ResponseEvent>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -834,10 +877,20 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The Get an event response.</returns>
         public virtual async Task<ResponseEvent> GetEventAsync([DynamicValues("ListCalendars")] string calendarId, string eventId, CancellationToken cancellationToken = default)
         {
-            var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
-            return await this
-                .CallConnectorAsync<ResponseEvent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.GetEventAsync");
+            try
+            {
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ResponseEvent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -850,10 +903,20 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The Delete an event response.</returns>
         public virtual async Task<ObjectEntity> DeleteEventAsync([DynamicValues("ListWritableCalendars")] string calendarId, string eventId, CancellationToken cancellationToken = default)
         {
-            var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.DeleteEventAsync");
+            try
+            {
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -867,10 +930,20 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// <returns>The Update an event response.</returns>
         public virtual async Task<ResponseEvent> UpdateEventAsync([DynamicValues("ListWritableCalendars")] string calendarId, string eventId, PatchEvent input, CancellationToken cancellationToken = default)
         {
-            var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
-            return await this
-                .CallConnectorAsync<ResponseEvent>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.UpdateEventAsync");
+            try
+            {
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ResponseEvent>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

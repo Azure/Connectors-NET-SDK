@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Box.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Box.Models
@@ -53,7 +54,7 @@ namespace Azure.Connectors.Sdk.Box.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -70,7 +71,7 @@ namespace Azure.Connectors.Sdk.Box.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -300,6 +301,8 @@ namespace Azure.Connectors.Sdk.Box
 
         public override string ConnectorName => "box";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.box");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -321,10 +324,20 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Get file metadata using id response.</returns>
         public virtual async Task<BlobMetadata> GetFileMetadataAsync(string fileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.GetFileMetadataAsync");
+            try
+            {
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -337,10 +350,20 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Update file response.</returns>
         public virtual async Task<BlobMetadata> UpdateFileAsync(string fileId, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.UpdateFileAsync");
+            try
+            {
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -351,10 +374,20 @@ namespace Azure.Connectors.Sdk.Box
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteFileAsync(string fileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.DeleteFileAsync");
+            try
+            {
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -366,13 +399,24 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Get file metadata using path response.</returns>
         public virtual async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.GetFileMetadataByPathAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -385,15 +429,26 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Get file content using path response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync(string filePath, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.GetFileContentByPathAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -406,13 +461,23 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Get file content using id response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync(string fileId, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.GetFileContentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -426,14 +491,26 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Create file response.</returns>
         public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.CreateFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -447,16 +524,28 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Copy file response.</returns>
         public virtual async Task<BlobMetadata> CopyFileAsync(string sourceUrl, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.CopyFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceUrl is null) throw new ArgumentNullException(nameof(sourceUrl));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
+                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -470,16 +559,28 @@ namespace Azure.Connectors.Sdk.Box
         /// <returns>The Extract archive to folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.ExtractFolderAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceArchiveFilePath is null) throw new ArgumentNullException(nameof(sourceArchiveFilePath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                if (destinationFolderPath is null) throw new ArgumentNullException(nameof(destinationFolderPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

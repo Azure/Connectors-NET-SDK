@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Etsy.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Etsy.Models
@@ -192,17 +193,17 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The transaction&apos;s shipping date and time, in epoch seconds.</summary>
         [JsonPropertyName("shipped_timestamp")]
         [JsonInclude]
-        public int? ShippedTimestamp { get; internal set; }
+        public int? ShippedTimestamp { get; init; }
 
         /// <summary>The transaction&apos;s creation date and time, in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreatedTimestamp { get; internal set; }
+        public int? CreatedTimestamp { get; init; }
 
         /// <summary>The date and time of the last change to the payment adjustment in epoch seconds.</summary>
         [JsonPropertyName("update_timestamp")]
         [JsonInclude]
-        public int? UpdateTimestamp { get; internal set; }
+        public int? UpdateTimestamp { get; init; }
 
         /// <summary>List of refund objects on an Etsy Payments transaction. All monetary amounts are in USD pennies unless otherwise specified.</summary>
         [JsonPropertyName("payment_adjustments")]
@@ -271,12 +272,12 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The transaction&apos;s creation date and time, in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreatedTimestamp { get; internal set; }
+        public int? CreatedTimestamp { get; init; }
 
         /// <summary>The date and time of the last change to the payment adjustment in epoch seconds.</summary>
         [JsonPropertyName("update_timestamp")]
         [JsonInclude]
-        public int? UpdateTimestamp { get; internal set; }
+        public int? UpdateTimestamp { get; init; }
     }
 
     /// <summary>
@@ -371,12 +372,12 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The receipt&apos;s creation time, in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreatedTimestamp { get; internal set; }
+        public int? CreatedTimestamp { get; init; }
 
         /// <summary>The time of the last update to the receipt, in epoch seconds.</summary>
         [JsonPropertyName("update_timestamp")]
         [JsonInclude]
-        public int? UpdateTimestamp { get; internal set; }
+        public int? UpdateTimestamp { get; init; }
 
         /// <summary>A gift message string the buyer requests delivered with the product.</summary>
         [JsonPropertyName("gift_message")]
@@ -431,7 +432,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The time at which Etsy notified the buyer of the shipment event, in epoch seconds.</summary>
         [JsonPropertyName("shipment_notification_timestamp")]
         [JsonInclude]
-        public int? ShipmentNotificationTimestamp { get; internal set; }
+        public int? ShipmentNotificationTimestamp { get; init; }
 
         /// <summary>The name string for the carrier/company responsible for delivering the shipment.</summary>
         [JsonPropertyName("carrier_name")]
@@ -516,17 +517,17 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The transaction&apos;s creation date and time, in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreatedTimestamp { get; internal set; }
+        public int? CreatedTimestamp { get; init; }
 
         /// <summary>The transaction&apos;s paid date and time, in epoch seconds.</summary>
         [JsonPropertyName("paid_timestamp")]
         [JsonInclude]
-        public int? PaidTimestamp { get; internal set; }
+        public int? PaidTimestamp { get; init; }
 
         /// <summary>The transaction&apos;s shipping date and time, in epoch seconds.</summary>
         [JsonPropertyName("shipped_timestamp")]
         [JsonInclude]
-        public int? ShippedTimestamp { get; internal set; }
+        public int? ShippedTimestamp { get; init; }
 
         /// <summary>The numeric quantity of products purchased in this transaction.</summary>
         [JsonPropertyName("quantity")]
@@ -619,12 +620,12 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The date and time the TransactionReview was created in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreatedTimestamp { get; internal set; }
+        public int? CreatedTimestamp { get; init; }
 
         /// <summary>The date and time the TransactionReview was updated in epoch seconds.</summary>
         [JsonPropertyName("update_timestamp")]
         [JsonInclude]
-        public int? UpdateTimestamp { get; internal set; }
+        public int? UpdateTimestamp { get; init; }
     }
 
     /// <summary>
@@ -1403,7 +1404,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The date and time the user created their account, in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreatedTimestamp { get; internal set; }
+        public int? CreatedTimestamp { get; init; }
 
         /// <summary>The numeric ID of the user who referred this user.</summary>
         [JsonPropertyName("referred_by_user_id")]
@@ -1681,7 +1682,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("shop_id")]
         public int? ShopId { get; set; }
 
-        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
+        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, T, c, and r. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}Tcr]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
@@ -1696,27 +1697,27 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The listing&apos;s creation time, in epoch seconds.</summary>
         [JsonPropertyName("creation_timestamp")]
         [JsonInclude]
-        public int? CreationTimestamp { get; internal set; }
+        public int? CreationTimestamp { get; init; }
 
         /// <summary>The listing&apos;s expiration time, in epoch seconds.</summary>
         [JsonPropertyName("ending_timestamp")]
         [JsonInclude]
-        public int? EndingTimestamp { get; internal set; }
+        public int? EndingTimestamp { get; init; }
 
         /// <summary>The listing&apos;s creation time, in epoch seconds.</summary>
         [JsonPropertyName("original_creation_timestamp")]
         [JsonInclude]
-        public int? OriginalCreationTimestamp { get; internal set; }
+        public int? OriginalCreationTimestamp { get; init; }
 
         /// <summary>The time of the last update to the listing, in epoch seconds.</summary>
         [JsonPropertyName("last_modified_timestamp")]
         [JsonInclude]
-        public int? LastModifiedTimestamp { get; internal set; }
+        public int? LastModifiedTimestamp { get; init; }
 
         /// <summary>The date and time of the last state change of this listing.</summary>
         [JsonPropertyName("state_timestamp")]
         [JsonInclude]
-        public int? LastStateChangeTimestamp { get; internal set; }
+        public int? LastStateChangeTimestamp { get; init; }
 
         /// <summary>The positive non-zero number of products available for purchase in the listing. Note: The listing quantity is the sum of available offering quantities. You can request the quantities for individual offerings from the ListingInventory resource using the get listing inventory endpoint.</summary>
         [JsonPropertyName("quantity")]
@@ -1726,7 +1727,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("shop_section_id")]
         public int? ShopSectionId { get; set; }
 
-        /// <summary>The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.</summary>
+        /// <summary>The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop&apos;s home page.</summary>
         [JsonPropertyName("featured_rank")]
         public int? FeaturedRank { get; set; }
 
@@ -1766,7 +1767,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("listing_type")]
         public bool? ListingType { get; set; }
 
-        /// <summary>A list of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&apos;™©®]/u) Default value is null.</summary>
+        /// <summary>A list of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, T, c, and r. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&apos;Tcr]/u) Default value is null.</summary>
         [JsonPropertyName("tags")]
         public List<string> Tags { get; set; }
 
@@ -1872,7 +1873,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("quantity")]
         public int? Quantity { get; set; }
 
-        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
+        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}Tcr]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
@@ -1916,7 +1917,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("processing_max")]
         public int? ProcessingMax { get; set; }
 
-        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;™©®]/u)</summary>
+        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;Tcr]/u)</summary>
         [JsonPropertyName("tags")]
         public string Tags { get; set; }
 
@@ -2062,7 +2063,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("quantity")]
         public int? Quantity { get; set; }
 
-        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
+        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}Tcr]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
@@ -2106,7 +2107,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("processing_max")]
         public int? ProcessingMax { get; set; }
 
-        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;™©®]/u)</summary>
+        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;Tcr]/u)</summary>
         [JsonPropertyName("tags")]
         public string Tags { get; set; }
 
@@ -2166,7 +2167,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("is_taxable")]
         public bool? IsTaxable { get; set; }
 
-        /// <summary>The positive non-zero numeric position in the featured listings of the shop with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.</summary>
+        /// <summary>The positive non-zero numeric position in the featured listings of the shop with rank 1 listings appearing in the left-most position in featured listing on a shop&apos;s home page.</summary>
         [JsonPropertyName("featured_ rank")]
         public int? FeaturedRank { get; set; }
 
@@ -2219,7 +2220,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// <summary>The unique numeric timestamp of a file associated with a digital listing.</summary>
         [JsonPropertyName("create_timestamp")]
         [JsonInclude]
-        public int? CreateTimestamp { get; internal set; }
+        public int? CreateTimestamp { get; init; }
     }
 
     /// <summary>
@@ -5123,6 +5124,8 @@ namespace Azure.Connectors.Sdk.Etsy
 
         public override string ConnectorName => "etsy";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.etsy");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -5143,10 +5146,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Ping response.</returns>
         public virtual async Task<Pong> PingAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/openapi-ping";
-            return await this
-                .CallConnectorAsync<Pong>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PingAsync");
+            try
+            {
+                var path = $"/openapi-ping";
+                return await this
+                    .CallConnectorAsync<Pong>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5162,17 +5175,27 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a shop payment account ledger&apos;s entries response.</returns>
         public virtual async Task<PaymentAccountLedgerEntries> PaymentLedgerEntriesAsync(int shopId, int minimumCreated, int maximumCreated, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.ToString())}");
-            queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PaymentAccountLedgerEntries>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PaymentLedgerEntriesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.ToString())}");
+                queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PaymentAccountLedgerEntries>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5185,12 +5208,23 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a payment from a payment account ledger entry ID response.</returns>
         public virtual async Task<Payments> PaymentGetEntryIdAsync(int shopId, string ledgerEntryIDs, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PaymentGetEntryIdAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (ledgerEntryIDs is null) throw new ArgumentNullException(nameof(ledgerEntryIDs));
+                queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5203,10 +5237,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a payment from a specific receipt response.</returns>
         public virtual async Task<Payments> PaymentGetReceiptAsync(int shopId, string receiptId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/payments";
-            return await this
-                .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PaymentGetReceiptAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/payments";
+                return await this
+                    .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5219,12 +5263,23 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a list of payments response.</returns>
         public virtual async Task<Payments> PaymentsGetAsync(int shopId, string paymentId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PaymentsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (paymentId is null) throw new ArgumentNullException(nameof(paymentId));
+                queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5237,10 +5292,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a receipt response.</returns>
         public virtual async Task<ShopReceipt> ReceiptGetAsync(int shopId, int receiptId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopReceipt>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ReceiptGetAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopReceipt>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5260,27 +5325,37 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get receipts response.</returns>
         public virtual async Task<ShopReceipts> ReceiptsGetAsync(int shopId, int? minimumCreated = default, int? maximumCreated = default, int? earliestLastModified = default, int? latestLastModified = default, int? limit = default, int? offset = default, bool? wasPaid = default, bool? wasShipped = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (minimumCreated.HasValue)
-                queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.Value.ToString())}");
-            if (maximumCreated.HasValue)
-                queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.Value.ToString())}");
-            if (earliestLastModified.HasValue)
-                queryParams.Add($"min_last_modified={Uri.EscapeDataString(earliestLastModified.Value.ToString())}");
-            if (latestLastModified.HasValue)
-                queryParams.Add($"max_last_modified={Uri.EscapeDataString(latestLastModified.Value.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            if (wasPaid.HasValue)
-                queryParams.Add($"was_paid={Uri.EscapeDataString(wasPaid.Value.ToString())}");
-            if (wasShipped.HasValue)
-                queryParams.Add($"was_shipped={Uri.EscapeDataString(wasShipped.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopReceipts>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ReceiptsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (minimumCreated.HasValue)
+                    queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.Value.ToString())}");
+                if (maximumCreated.HasValue)
+                    queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.Value.ToString())}");
+                if (earliestLastModified.HasValue)
+                    queryParams.Add($"min_last_modified={Uri.EscapeDataString(earliestLastModified.Value.ToString())}");
+                if (latestLastModified.HasValue)
+                    queryParams.Add($"max_last_modified={Uri.EscapeDataString(latestLastModified.Value.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (wasPaid.HasValue)
+                    queryParams.Add($"was_paid={Uri.EscapeDataString(wasPaid.Value.ToString())}");
+                if (wasShipped.HasValue)
+                    queryParams.Add($"was_shipped={Uri.EscapeDataString(wasShipped.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopReceipts>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5294,10 +5369,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a Shipment Receipt response.</returns>
         public virtual async Task<ShopReceipt> ReceiptCreateShipmentAsync(int shopId, int receiptId, ReceiptCreateShipmentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/tracking";
-            return await this
-                .CallConnectorAsync<ShopReceipt>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ReceiptCreateShipmentAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/tracking";
+                return await this
+                    .CallConnectorAsync<ShopReceipt>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5312,15 +5397,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Retrieve a listing&apos;s transactions response.</returns>
         public virtual async Task<ShopReceiptTransactions> TransactionsListingAsync(int shopId, int listingId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.TransactionsListingAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5333,10 +5428,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a receipt&apos;s transaction response.</returns>
         public virtual async Task<ShopReceiptTransactions> TransactionReceiptAsync(int shopId, int receiptId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/transactions";
-            return await this
-                .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.TransactionReceiptAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/transactions";
+                return await this
+                    .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5349,10 +5454,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a transaction response.</returns>
         public virtual async Task<ShopReceiptTransaction> TransactionGetAsync(int shopId, int transactionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopReceiptTransaction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.TransactionGetAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopReceiptTransaction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5366,15 +5481,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a shop&apos;s transaction response.</returns>
         public virtual async Task<ShopReceiptTransactions> TransactionGetShopAsync(int shopId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.TransactionGetShopAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5388,15 +5513,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get reviews response.</returns>
         public virtual async Task<TransactionReviews> ReviewsGetAsync(int shopId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TransactionReviews>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ReviewsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TransactionReviews>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5408,12 +5543,23 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get shipping carriers response.</returns>
         public virtual async Task<ShippingCarriers> ShippingCarriersAsync(string originCountryISO, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO.ToString())}");
-            var path = $"/shipping-carriers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShippingCarriers>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCarriersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (originCountryISO is null) throw new ArgumentNullException(nameof(originCountryISO));
+                queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO.ToString())}");
+                var path = $"/shipping-carriers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShippingCarriers>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5425,10 +5571,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get shipping profiles response.</returns>
         public virtual async Task<ShopShippingProfile> ShippingProfilesAsync(int shopId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
-            return await this
-                .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingProfilesAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5441,10 +5597,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a shipping profile response.</returns>
         public virtual async Task<ShopShippingProfile> ShippingCreateProfileAsync(int shopId, ShippingCreateProfileInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
-            return await this
-                .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCreateProfileAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5456,10 +5622,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ShippingGetProfileAsync(int shopId, int shippingProfileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingGetProfileAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5472,10 +5648,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Delete a shipping profile response.</returns>
         public virtual async Task<ShopShippingProfile> ShippingDeleteProfileAsync(int shopId, int shippingProfileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingDeleteProfileAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5489,10 +5675,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a shipping profile response.</returns>
         public virtual async Task<ShopShippingProfile> ShippingUpdateProfileAsync(int shopId, int shippingProfileId, ShippingUpdateProfileInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingUpdateProfileAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5507,21 +5703,31 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get profile destinations by shipping profile response.</returns>
         public virtual async Task<ShopShippingProfileDestinations> ShippingGetDestinationsAsync(int shopId, int shippingProfileId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopShippingProfileDestinations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingGetDestinationsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopShippingProfileDestinations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
         /// Create a shipping profile destination
         /// </summary>
-        /// <remarks>Creates a new shipping destination, which sets the shipping cost, carrier, and class for a destination in a shipping profile. This assigns costs using the currency of the associated shop. Set the destination using either destination country ISO or destination region; destination country ISO and destination region are mutually exclusive — set one or the other. Setting both triggers error 400. If the request sets neither destination country ISO nor destination region, the default destination is everywhere. You must also either assign both a shipping carrier ID and mail class or both min delivery days and max delivery days.</remarks>
+        /// <remarks>Creates a new shipping destination, which sets the shipping cost, carrier, and class for a destination in a shipping profile. This assigns costs using the currency of the associated shop. Set the destination using either destination country ISO or destination region; destination country ISO and destination region are mutually exclusive - set one or the other. Setting both triggers error 400. If the request sets neither destination country ISO nor destination region, the default destination is everywhere. You must also either assign both a shipping carrier ID and mail class or both min delivery days and max delivery days.</remarks>
         /// <param name="shopId">Shop ID</param>
         /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="input">The request body.</param>
@@ -5529,10 +5735,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a shipping profile destination response.</returns>
         public virtual async Task<ShopShippingProfileDestination> ShippingCreateDestinationAsync(int shopId, int shippingProfileId, ShippingCreateDestinationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations";
-            return await this
-                .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCreateDestinationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5545,10 +5761,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ShippingDeleteProfileDestinationAsync(int shopId, int shippingProfileId, int shippingProfileDestinationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingDeleteProfileDestinationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5563,10 +5789,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a shipping profile destination response.</returns>
         public virtual async Task<ShopShippingProfileDestination> ShippingUpdateProfileDestinationAsync(int shopId, string shippingProfileId, string shippingProfileDestinationId, ShippingUpdateProfileDestinationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingUpdateProfileDestinationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5579,10 +5815,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get shipping profile upgrades response.</returns>
         public virtual async Task<ShopShippingProfileUpgrades> ShippingGetProfileUpgradesAsync(int shopId, int shippingProfileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
-            return await this
-                .CallConnectorAsync<ShopShippingProfileUpgrades>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingGetProfileUpgradesAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfileUpgrades>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5596,10 +5842,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a shipping profile upgrade response.</returns>
         public virtual async Task<ShopShippingProfileUpgrade> ShippingCreateUpgradeAsync(int shopId, int shippingProfileId, ShippingCreateUpgradeInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
-            return await this
-                .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCreateUpgradeAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5612,10 +5868,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ShippingDeleteProfileUpgradeAsync(int shopId, int shippingProfileId, int upgradeId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingDeleteProfileUpgradeAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5630,10 +5896,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a shipping profile upgrade response.</returns>
         public virtual async Task<ShopShippingProfileUpgrade> ShippingUpdateProfileUpgradeAsync(int shopId, int shippingProfileId, int upgradeId, ShippingUpdateProfileUpgradeInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingUpdateProfileUpgradeAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5646,10 +5922,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a shop response.</returns>
         public virtual async Task<Shop> ShopUpdateAsync(int shopId, ShopUpdateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}";
-            return await this
-                .CallConnectorAsync<Shop>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopUpdateAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}";
+                return await this
+                    .CallConnectorAsync<Shop>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5661,10 +5947,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get shop by owner ID response.</returns>
         public virtual async Task<Shop> ShopGetByOwnerIdAsync(string userId, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}/shops";
-            return await this
-                .CallConnectorAsync<Shop>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopGetByOwnerIdAsync");
+            try
+            {
+                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}/shops";
+                return await this
+                    .CallConnectorAsync<Shop>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5678,16 +5974,27 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Search shops response.</returns>
         public virtual async Task<Shops> ShopSearchAsync(string shopName, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"shop_name={Uri.EscapeDataString(shopName.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Shops>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopSearchAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (shopName is null) throw new ArgumentNullException(nameof(shopName));
+                queryParams.Add($"shop_name={Uri.EscapeDataString(shopName.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Shops>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5699,10 +6006,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get shop sections response.</returns>
         public virtual async Task<ShopSections> ShopGetSectionsAsync(int shopId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
-            return await this
-                .CallConnectorAsync<ShopSections>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopGetSectionsAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
+                return await this
+                    .CallConnectorAsync<ShopSections>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5715,10 +6032,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a shop section response.</returns>
         public virtual async Task<ShopSection> ShopCreateSectionAsync(int shopId, ShopCreateSectionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
-            return await this
-                .CallConnectorAsync<ShopSection>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopCreateSectionAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
+                return await this
+                    .CallConnectorAsync<ShopSection>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5730,10 +6057,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get user response.</returns>
         public virtual async Task<User> UserGetAsync(int userId, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}";
-            return await this
-                .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.UserGetAsync");
+            try
+            {
+                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}";
+                return await this
+                    .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5746,10 +6083,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get shop section response.</returns>
         public virtual async Task<ShopSection> ShopGetSectionAsync(int shopId, int shopSectionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections/{Uri.EscapeDataString(shopSectionId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopSection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopGetSectionAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections/{Uri.EscapeDataString(shopSectionId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopSection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5761,10 +6108,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get user&apos;s address response.</returns>
         public virtual async Task<UserAddress> UserGetAddressAsync(int userAddressId, CancellationToken cancellationToken = default)
         {
-            var path = $"/user/addresses/{Uri.EscapeDataString(userAddressId.ToString())}";
-            return await this
-                .CallConnectorAsync<UserAddress>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.UserGetAddressAsync");
+            try
+            {
+                var path = $"/user/addresses/{Uri.EscapeDataString(userAddressId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UserAddress>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5777,15 +6134,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get user addresses response.</returns>
         public virtual async Task<UserAddresses> UserGetAddressesAsync(int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/user/addresses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<UserAddresses>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.UserGetAddressesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/user/addresses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<UserAddresses>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5796,10 +6163,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get seller taxonomy nodes response.</returns>
         public virtual async Task<SellerTaxonomyNodes> ListingGetTaxonomyNodesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/seller-taxonomy/nodes";
-            return await this
-                .CallConnectorAsync<SellerTaxonomyNodes>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetTaxonomyNodesAsync");
+            try
+            {
+                var path = $"/seller-taxonomy/nodes";
+                return await this
+                    .CallConnectorAsync<SellerTaxonomyNodes>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5811,10 +6188,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get product properties by taxonomy ID response.</returns>
         public virtual async Task<TaxonomyNodeProperties> ListingGetPropertiesByTaxonomyAsync(string taxonomyId, CancellationToken cancellationToken = default)
         {
-            var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(taxonomyId.ToString())}/properties";
-            return await this
-                .CallConnectorAsync<TaxonomyNodeProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetPropertiesByTaxonomyAsync");
+            try
+            {
+                var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(taxonomyId.ToString())}/properties";
+                return await this
+                    .CallConnectorAsync<TaxonomyNodeProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5831,21 +6218,31 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get listings by shop response.</returns>
         public virtual async Task<ShopListings> ListingGetShopAsync(int shopId, string state = default, int? limit = default, int? offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (state != default)
-                queryParams.Add($"State={Uri.EscapeDataString(state.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            if (sortOn != default)
-                queryParams.Add($"Sort On={Uri.EscapeDataString(sortOn.ToString())}");
-            if (sortOrder != default)
-                queryParams.Add($"Sort Order={Uri.EscapeDataString(sortOrder.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetShopAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (state != default)
+                    queryParams.Add($"State={Uri.EscapeDataString(state.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (sortOn != default)
+                    queryParams.Add($"Sort On={Uri.EscapeDataString(sortOn.ToString())}");
+                if (sortOrder != default)
+                    queryParams.Add($"Sort Order={Uri.EscapeDataString(sortOrder.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5858,10 +6255,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a draft listing response.</returns>
         public virtual async Task<ShopListing> ListingCreateAsync(int shopId, ListingCreateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings";
-            return await this
-                .CallConnectorAsync<ShopListing>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingCreateAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings";
+                return await this
+                    .CallConnectorAsync<ShopListing>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5873,13 +6280,23 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ListingGetAsync(int listingId, string includes = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includes != default)
-                queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (includes != default)
+                    queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5890,10 +6307,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ListingDeleteAsync(int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeleteAsync");
+            try
+            {
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5913,29 +6340,39 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get active listings response.</returns>
         public virtual async Task<ShopListings> ListingGetActiveAsync(int? limit = default, int? offset = default, string includes = default, string sortOn = default, string sortOrder = default, double? minimumPrice = default, double? maximumPrice = default, int? taxonomyId = default, string shopLocation = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            if (includes != default)
-                queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
-            if (sortOn != default)
-                queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
-            if (sortOrder != default)
-                queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
-            if (minimumPrice.HasValue)
-                queryParams.Add($"min_price={Uri.EscapeDataString(minimumPrice.Value.ToString())}");
-            if (maximumPrice.HasValue)
-                queryParams.Add($"max_price={Uri.EscapeDataString(maximumPrice.Value.ToString())}");
-            if (taxonomyId.HasValue)
-                queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyId.Value.ToString())}");
-            if (shopLocation != default)
-                queryParams.Add($"shop_location={Uri.EscapeDataString(shopLocation.ToString())}");
-            var path = $"/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetActiveAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (includes != default)
+                    queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
+                if (sortOn != default)
+                    queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
+                if (sortOrder != default)
+                    queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
+                if (minimumPrice.HasValue)
+                    queryParams.Add($"min_price={Uri.EscapeDataString(minimumPrice.Value.ToString())}");
+                if (maximumPrice.HasValue)
+                    queryParams.Add($"max_price={Uri.EscapeDataString(maximumPrice.Value.ToString())}");
+                if (taxonomyId.HasValue)
+                    queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyId.Value.ToString())}");
+                if (shopLocation != default)
+                    queryParams.Add($"shop_location={Uri.EscapeDataString(shopLocation.ToString())}");
+                var path = $"/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5950,17 +6387,27 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get active listings by shop response.</returns>
         public virtual async Task<ShopListings> ListingGetActiveByShopAsync(int shopId, int? limit = default, int? offset = default, string includes = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            if (includes != default)
-                queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetActiveByShopAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (includes != default)
+                    queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5973,14 +6420,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get listings by ID response.</returns>
         public virtual async Task<ShopListingsWithAssociations> ListingGetByIdAsync(string listingIDs, string includes = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs.ToString())}");
-            if (includes != default)
-                queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/listings/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListingsWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetByIdAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (listingIDs is null) throw new ArgumentNullException(nameof(listingIDs));
+                queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs.ToString())}");
+                if (includes != default)
+                    queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
+                var path = $"/listings/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListingsWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5994,15 +6452,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get featured listings by shop response.</returns>
         public virtual async Task<ShopListings> ListingGetFeaturedAsync(int shopId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetFeaturedAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6015,10 +6483,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ListingDeletePropertyAsync(int shopId, int listingId, int propertyId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeletePropertyAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6033,10 +6511,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a listing property response.</returns>
         public virtual async Task<ListingPropertyValue> ListingUpdatePropertyAsync(int shopId, int listingId, int propertyId, ListingUpdatePropertyInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdatePropertyAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6049,10 +6537,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s property (Beta) response.</returns>
         public virtual async Task<ListingPropertyValue> ListingGetPropertyAsync(int listingId, int propertyId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetPropertyAsync");
+            try
+            {
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6065,10 +6563,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s properties response.</returns>
         public virtual async Task<ListingPropertyValues> ListingGetPropertiesAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties";
-            return await this
-                .CallConnectorAsync<ListingPropertyValues>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetPropertiesAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties";
+                return await this
+                    .CallConnectorAsync<ListingPropertyValues>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6082,10 +6590,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a listing response.</returns>
         public virtual async Task<ShopListing> ListingUpdateAsync(int shopId, int listingId, ListingUpdateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopListing>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopListing>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6100,15 +6618,25 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get listings by shop receipt response.</returns>
         public virtual async Task<ShopListings> ListingGetByReceiptAsync(int shopId, int receiptId, int? limit = default, int? offset = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetByReceiptAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6125,20 +6653,31 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get listings by shop section ID response.</returns>
         public virtual async Task<ShopListings> ListingGetBySectionIdAsync(int shopId, string shopSectionIDs, int? limit = default, int? offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            if (sortOn != default)
-                queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
-            if (sortOrder != default)
-                queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shop-sections/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetBySectionIdAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (shopSectionIDs is null) throw new ArgumentNullException(nameof(shopSectionIDs));
+                queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (sortOn != default)
+                    queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
+                if (sortOrder != default)
+                    queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shop-sections/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6152,10 +6691,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a file from a listing response.</returns>
         public virtual async Task<ShopListingFile> ListingGetFileAsync(int shopId, int listingId, int listingFileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
-            return await this
-                .CallConnectorAsync<ShopListingFile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetFileAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ShopListingFile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6168,10 +6717,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ListingDeleteFileAsync(int shopId, int listingId, int listingFileId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeleteFileAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6184,10 +6743,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get all listing files response.</returns>
         public virtual async Task<ShopListingFiles> ListingGetFilesAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
-            return await this
-                .CallConnectorAsync<ShopListingFiles>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetFilesAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
+                return await this
+                    .CallConnectorAsync<ShopListingFiles>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6201,10 +6770,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Upload a listing file response.</returns>
         public virtual async Task<ShopListingFile> ListingUploadAsync(int shopId, int listingId, ListingUploadInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
-            return await this
-                .CallConnectorAsync<ShopListingFile>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUploadAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
+                return await this
+                    .CallConnectorAsync<ShopListingFile>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6218,10 +6797,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing image response.</returns>
         public virtual async Task<ListingImage> ListingGetImageAsync(int shopId, int listingId, int listingImageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingImage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetImageAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingImage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6234,10 +6823,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ListingDeleteImageAsync(int shopId, int listingId, int listingImageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeleteImageAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6250,10 +6849,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s images response.</returns>
         public virtual async Task<ListingImages> ListingGetImagesAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
-            return await this
-                .CallConnectorAsync<ListingImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetImagesAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
+                return await this
+                    .CallConnectorAsync<ListingImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6267,10 +6876,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Upload a listing image response.</returns>
         public virtual async Task<ListingImage> ListingUploadImageAsync(int shopId, int listingId, ListingUploadImageInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
-            return await this
-                .CallConnectorAsync<ListingImage>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUploadImageAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
+                return await this
+                    .CallConnectorAsync<ListingImage>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6283,13 +6902,23 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s inventory response.</returns>
         public virtual async Task<ListingInventoryWithAssociations> ListingGetInventoryAsync(int listingId, string includes = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includes != default)
-                queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListingInventoryWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetInventoryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (includes != default)
+                    queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListingInventoryWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6302,10 +6931,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a listing&apos;s inventory response.</returns>
         public virtual async Task<ListingInventory> ListingUpdateInventoryAsync(string listingId, ListingUpdateInventoryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory";
-            return await this
-                .CallConnectorAsync<ListingInventory>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateInventoryAsync");
+            try
+            {
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory";
+                return await this
+                    .CallConnectorAsync<ListingInventory>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6319,10 +6958,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s offering response.</returns>
         public virtual async Task<ListingInventoryProductOffering> ListingGetOfferingAsync(int listingId, int productId, int productOfferingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/products/{Uri.EscapeDataString(productId.ToString())}/offerings/{Uri.EscapeDataString(productOfferingId.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingInventoryProductOffering>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetOfferingAsync");
+            try
+            {
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/products/{Uri.EscapeDataString(productId.ToString())}/offerings/{Uri.EscapeDataString(productOfferingId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingInventoryProductOffering>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6335,10 +6984,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s product response.</returns>
         public virtual async Task<ListingInventoryProduct> ListingGetProductAsync(int listingId, int productId, CancellationToken cancellationToken = default)
         {
-            var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory/products/{Uri.EscapeDataString(productId.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingInventoryProduct>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetProductAsync");
+            try
+            {
+                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory/products/{Uri.EscapeDataString(productId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingInventoryProduct>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6352,10 +7011,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get a listing&apos;s translation response.</returns>
         public virtual async Task<ListingTranslation> ListingGetTranslationAsync(int shopId, int listingId, string language, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingTranslation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetTranslationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingTranslation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6370,10 +7039,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Create a listing translation response.</returns>
         public virtual async Task<ListingTranslation> ListingCreateTranslationAsync(int shopId, int listingId, string language, ListingCreateTranslationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingTranslation>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingCreateTranslationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingTranslation>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6388,10 +7067,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a listing translation response.</returns>
         public virtual async Task<ListingTranslation> ListingUpdateTranslationAsync(int shopId, int listingId, string language, ListingUpdateTranslationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
-            return await this
-                .CallConnectorAsync<ListingTranslation>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateTranslationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListingTranslation>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6404,10 +7093,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Get listing&apos;s variation images response.</returns>
         public virtual async Task<ListingVariationImages> ListingGetVariationAsync(int shopId, int listingId, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
-            return await this
-                .CallConnectorAsync<ListingVariationImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetVariationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
+                return await this
+                    .CallConnectorAsync<ListingVariationImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6421,10 +7120,20 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <returns>The Update a listing&apos;s variation images response.</returns>
         public virtual async Task<ListingVariationImages> ListingUpdateVariationAsync(int shopId, int listingId, ListingUpdateVariationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
-            return await this
-                .CallConnectorAsync<ListingVariationImages>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateVariationAsync");
+            try
+            {
+                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
+                return await this
+                    .CallConnectorAsync<ListingVariationImages>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

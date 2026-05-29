@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Sql.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Sql.Models
@@ -55,12 +56,12 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>Additional database properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
 
         /// <summary>Database items</summary>
         [JsonPropertyName("tables")]
         [JsonInclude]
-        public List<Table> Tables { get; internal set; }
+        public List<Table> Tables { get; init; }
     }
 
     /// <summary>
@@ -79,7 +80,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -108,12 +109,12 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>Additional server properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
 
         /// <summary>Table items</summary>
         [JsonPropertyName("databases")]
         [JsonInclude]
-        public List<Database> Databases { get; internal set; }
+        public List<Database> Databases { get; init; }
     }
 
     /// <summary>
@@ -261,7 +262,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public object DynamicProperties { get; set; }
+        public JsonElement? DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -557,7 +558,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     {
         /// <summary>Actual parameters</summary>
         [JsonPropertyName("actualParameters")]
-        public object ActualParameters { get; set; }
+        public JsonElement? ActualParameters { get; set; }
 
         /// <summary>Query Text</summary>
         [JsonPropertyName("query")]
@@ -565,7 +566,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
 
         /// <summary>Formal Parameters</summary>
         [JsonPropertyName("formalParameters")]
-        public object FormalParameters { get; set; }
+        public JsonElement? FormalParameters { get; set; }
     }
 
     #endregion Types
@@ -597,7 +598,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static Database Database(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default,
+            JsonElement? dynamicProperties = default,
             List<Table> tables = default)
         {
             return new Database
@@ -615,7 +616,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Table
             {
@@ -643,7 +644,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static Server Server(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default,
+            JsonElement? dynamicProperties = default,
             List<Database> databases = default)
         {
             return new Server
@@ -717,7 +718,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// Creates a new instance of <see cref="SqlItem"/>.
         /// </summary>
         public static SqlItem SqlItem(
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new SqlItem
             {
@@ -929,9 +930,9 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// Creates a new instance of <see cref="SqlPassThroughNativeQueryBody"/>.
         /// </summary>
         public static SqlPassThroughNativeQueryBody SqlPassThroughNativeQueryBody(
-            object actualParameters = default,
+            JsonElement? actualParameters = default,
             string query = default,
-            object formalParameters = default)
+            JsonElement? formalParameters = default)
         {
             return new SqlPassThroughNativeQueryBody
             {
@@ -1138,6 +1139,8 @@ namespace Azure.Connectors.Sdk.Sql
 
         public override string ConnectorName => "sql";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.sql");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1159,12 +1162,23 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The List the databases response.</returns>
         public virtual async Task<DatabasesList> GetDatabasesAsync(string serverName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"server={Uri.EscapeDataString(serverName.ToString())}");
-            var path = $"/databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DatabasesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetDatabasesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (serverName is null) throw new ArgumentNullException(nameof(serverName));
+                queryParams.Add($"server={Uri.EscapeDataString(serverName.ToString())}");
+                var path = $"/databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DatabasesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1175,10 +1189,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The List the servers response.</returns>
         public virtual async Task<ODataServersList> GetServersAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/servers";
-            return await this
-                .CallConnectorAsync<ODataServersList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetServersAsync");
+            try
+            {
+                var path = $"/servers";
+                return await this
+                    .CallConnectorAsync<ODataServersList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1192,10 +1216,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForDeleteItem_V2")] string tableName, string rowId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.DeleteItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1209,10 +1243,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Execute a SQL query (V2) response.</returns>
         public virtual async Task<ExecutePassThroughNativeQueryResponse> ExecutePassThroughNativeQueryAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
-            return await this
-                .CallConnectorAsync<ExecutePassThroughNativeQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecutePassThroughNativeQueryAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
+                return await this
+                    .CallConnectorAsync<ExecutePassThroughNativeQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1227,10 +1271,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Execute stored procedure (V2) response.</returns>
         public virtual async Task<ExecuteProcedureResponse> ExecuteProcedureAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetProcedures_V2")] string procedureName, ExecuteProcedureInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
-            return await this
-                .CallConnectorAsync<ExecuteProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecuteProcedureAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
+                return await this
+                    .CallConnectorAsync<ExecuteProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1245,10 +1299,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get row (V2) response.</returns>
         public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, string rowId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1271,29 +1335,39 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get rows (V2) response.</returns>
         public virtual async Task<GetItemsResponse> GetItemsAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTables_V2")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? skipCount = default, int? topCount = default, string selectQuery = default, bool? count = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (aggregationTransformation != default)
-                queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            if (count.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(count.Value.ToString())}");
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (aggregationTransformation != default)
+                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                if (count.HasValue)
+                    queryParams.Add($"$count={Uri.EscapeDataString(count.Value.ToString())}");
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1307,10 +1381,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get pass-through native SQL query metadata response.</returns>
         public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
-            return await this
-                .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataAsync");
+            try
+            {
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
+                return await this
+                    .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1324,10 +1408,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get metadata of a Procedure response.</returns>
         public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetProcedures_V2")] string procedureName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
-            return await this
-                .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureAsync");
+            try
+            {
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
+                return await this
+                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1340,10 +1434,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get stored procedures response.</returns>
         public virtual async Task<ProceduresList> GetProceduresAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures";
-            return await this
-                .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures";
+                return await this
+                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1359,15 +1463,25 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get metadata of a table response.</returns>
         public virtual async Task<TableMetadata> GetTableAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1381,10 +1495,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get metadata of a table for Patch operation response.</returns>
         public virtual async Task<TableMetadata> GetTableForPatchAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/forPatchItem";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableForPatchAsync");
+            try
+            {
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/forPatchItem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1399,15 +1523,25 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Get tables (V2) response.</returns>
         public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1420,10 +1554,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The GetTablesForDeleteItem response.</returns>
         public virtual async Task<TablesList> GetTablesForDeleteItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/deleteitem";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForDeleteItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/deleteitem";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1436,10 +1580,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The GetTablesForGetItem response.</returns>
         public virtual async Task<TablesList> GetTablesForGetItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getitem";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getitem";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1452,10 +1606,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The GetTablesForOnItemCreated response.</returns>
         public virtual async Task<TablesList> GetTablesForGetOnNewItemsAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonnewitems";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetOnNewItemsAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonnewitems";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1468,10 +1632,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The GetTablesForOnItemUpdated response.</returns>
         public virtual async Task<TablesList> GetTablesForGetOnUpdatedItemsAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonupdateditems";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetOnUpdatedItemsAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonupdateditems";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1484,10 +1658,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The GetTablesForPatchItem response.</returns>
         public virtual async Task<TablesList> GetTablesForPatchItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/patchitem";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForPatchItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/patchitem";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1500,10 +1684,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The GetTablesForPostItem response.</returns>
         public virtual async Task<TablesList> GetTablesForPostItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/postitem";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForPostItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/postitem";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1519,10 +1713,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Update row (V2) response.</returns>
         public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPatchItem_V2")] string tableName, string rowId, PatchItemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
-            return await this
-                .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PatchItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1537,10 +1741,20 @@ namespace Azure.Connectors.Sdk.Sql
         /// <returns>The Insert row (V2) response.</returns>
         public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPostItem_V2")] string tableName, PostItemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
-            return await this
-                .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PostItemAsync");
+            try
+            {
+                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Pipedrive.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Pipedrive.Models
@@ -93,17 +94,17 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("add_time")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("update_time")]
         [JsonInclude]
-        public DateTime? UpdatedDateTime { get; internal set; }
+        public DateTime? UpdatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("marked_as_done_time")]
         [JsonInclude]
-        public DateTime? CompletedDateTime { get; internal set; }
+        public DateTime? CompletedDateTime { get; init; }
 
         /// <summary>Id of the google calendar event.</summary>
         [JsonPropertyName("gcal_event_id")]
@@ -137,7 +138,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public List<object> Data { get; set; }
+        public List<JsonElement?> Data { get; set; }
     }
 
     /// <summary>
@@ -151,19 +152,19 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
 
         /// <summary>creator_user_id</summary>
         [JsonPropertyName("creator_user_id")]
-        public object Creator { get; set; }
+        public JsonElement? Creator { get; set; }
 
         /// <summary>user_id</summary>
         [JsonPropertyName("user_id")]
-        public object User { get; set; }
+        public JsonElement? User { get; set; }
 
         /// <summary>person_id</summary>
         [JsonPropertyName("person_id")]
-        public object Contact { get; set; }
+        public JsonElement? Contact { get; set; }
 
         /// <summary>org_id</summary>
         [JsonPropertyName("org_id")]
-        public object Organization { get; set; }
+        public JsonElement? Organization { get; set; }
 
         /// <summary>Open, won, lost or deleted.</summary>
         [JsonPropertyName("status")]
@@ -184,12 +185,12 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("add_time")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("update_time")]
         [JsonInclude]
-        public DateTime? UpdatedDateTime { get; internal set; }
+        public DateTime? UpdatedDateTime { get; init; }
 
         /// <summary>ID of stage the deal is placed in a pipeline.</summary>
         [JsonPropertyName("stage_id")]
@@ -202,7 +203,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("stage_change_time")]
         [JsonInclude]
-        public DateTime? StageUpdatedDateTime { get; internal set; }
+        public DateTime? StageUpdatedDateTime { get; init; }
 
         /// <summary>True if the deal is active.</summary>
         [JsonPropertyName("active")]
@@ -243,7 +244,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("close_time")]
         [JsonInclude]
-        public DateTime? ClosedDateTime { get; internal set; }
+        public DateTime? ClosedDateTime { get; init; }
 
         /// <summary>Id of pipeline the deal is associated with.</summary>
         [JsonPropertyName("pipeline_id")]
@@ -571,7 +572,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// Creates a new instance of <see cref="ListDealsResponse"/>.
         /// </summary>
         public static ListDealsResponse ListDealsResponse(
-            List<object> data = default)
+            List<JsonElement?> data = default)
         {
             return new ListDealsResponse
             {
@@ -584,10 +585,10 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// </summary>
         public static DealResponse DealResponse(
             int? dealId = default,
-            object creator = default,
-            object user = default,
-            object contact = default,
-            object organization = default,
+            JsonElement? creator = default,
+            JsonElement? user = default,
+            JsonElement? contact = default,
+            JsonElement? organization = default,
             string status = default,
             string dealTitle = default,
             double? dealValue = default,
@@ -899,6 +900,8 @@ namespace Azure.Connectors.Sdk.Pipedrive
 
         public override string ConnectorName => "pipedrive";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.pipedrive");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -919,10 +922,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The List deals response.</returns>
         public virtual async Task<ListDealsResponse> ListDealsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/deals";
-            return await this
-                .CallConnectorAsync<ListDealsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.ListDealsAsync");
+            try
+            {
+                var path = $"/v1/deals";
+                return await this
+                    .CallConnectorAsync<ListDealsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -934,10 +947,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The Get deal by id response.</returns>
         public virtual async Task<DealResponse> GetDealAsync([DynamicValues("ListDeals")] int dealId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
-            return await this
-                .CallConnectorAsync<DealResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.GetDealAsync");
+            try
+            {
+                var path = $"/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DealResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -950,10 +973,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The Update deal status response.</returns>
         public virtual async Task<DealResponse> UpdateDealStatusAsync([DynamicValues("ListDeals")] int dealId, UpdateDealStatusRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update_status_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
-            return await this
-                .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.UpdateDealStatusAsync");
+            try
+            {
+                var path = $"/update_status_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -965,10 +998,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The Add activity response.</returns>
         public virtual async Task<ActivityResponse> AddActivityAsync(AddActivityRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/activities";
-            return await this
-                .CallConnectorAsync<ActivityResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.AddActivityAsync");
+            try
+            {
+                var path = $"/v1/activities";
+                return await this
+                    .CallConnectorAsync<ActivityResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -980,10 +1023,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The Get stage by id response.</returns>
         public virtual async Task<StageResponse> GetStageAsync(int stageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/stages/{Uri.EscapeDataString(stageId.ToString())}";
-            return await this
-                .CallConnectorAsync<StageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.GetStageAsync");
+            try
+            {
+                var path = $"/v1/stages/{Uri.EscapeDataString(stageId.ToString())}";
+                return await this
+                    .CallConnectorAsync<StageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -995,10 +1048,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The Add deal (V2) response.</returns>
         public virtual async Task<DealResponse> AddDealAsync(AddDealRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/connector-v2/v1/deals";
-            return await this
-                .CallConnectorAsync<DealResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.AddDealAsync");
+            try
+            {
+                var path = $"/connector-v2/v1/deals";
+                return await this
+                    .CallConnectorAsync<DealResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1011,10 +1074,20 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <returns>The Update deal stage (V2) response.</returns>
         public virtual async Task<DealResponse> UpdateDealStageAsync([DynamicValues("ListDeals")] int dealId, UpdateDealStageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/connector-v2/update_stage_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
-            return await this
-                .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.UpdateDealStageAsync");
+            try
+            {
+                var path = $"/connector-v2/update_stage_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.PowerBI.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.PowerBI.Models
@@ -112,7 +113,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// <summary>The timestamp when the current value of the goal was set.</summary>
         [JsonPropertyName("currentValueTimestamp")]
         [JsonInclude]
-        public DateTime? CurrentValueTimestamp { get; internal set; }
+        public DateTime? CurrentValueTimestamp { get; init; }
 
         /// <summary>The target value of the goal.</summary>
         [JsonPropertyName("targetValue")]
@@ -121,7 +122,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// <summary>The timestamp when the target value of the goal was set.</summary>
         [JsonPropertyName("targetValueTimestamp")]
         [JsonInclude]
-        public DateTime? TargetValueTimestamp { get; internal set; }
+        public DateTime? TargetValueTimestamp { get; init; }
 
         /// <summary>The status of the goal.</summary>
         [JsonPropertyName("status")]
@@ -130,7 +131,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// <summary>The timestamp when the status of the goal was set.</summary>
         [JsonPropertyName("statusTimestamp")]
         [JsonInclude]
-        public DateTime? StatusTimestamp { get; internal set; }
+        public DateTime? StatusTimestamp { get; init; }
 
         /// <summary>Tracking cycle frequency interval shown on this goal&apos;s visuals.</summary>
         [JsonPropertyName("cycle")]
@@ -158,7 +159,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>The list of goals that were assigned to the new owner.</summary>
         [JsonPropertyName("assignedGoals")]
-        public List<object> Goals { get; set; }
+        public List<JsonElement?> Goals { get; set; }
     }
 
     /// <summary>
@@ -313,7 +314,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// <summary>The timestamp of when the failed refresh happened.</summary>
         [JsonPropertyName("timestamp")]
         [JsonInclude]
-        public string Timestamp { get; internal set; }
+        public string Timestamp { get; init; }
 
         /// <summary>Description of the error.</summary>
         [JsonPropertyName("message")]
@@ -327,11 +328,11 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>Added or updated check-ins.</summary>
         [JsonPropertyName("values")]
-        public List<object> CheckIns { get; set; }
+        public List<JsonElement?> CheckIns { get; set; }
 
         /// <summary>Added or changed notes.</summary>
         [JsonPropertyName("notes")]
-        public List<object> Notes { get; set; }
+        public List<JsonElement?> Notes { get; set; }
     }
 
     /// <summary>
@@ -375,7 +376,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>The value of the tile.</summary>
         [JsonPropertyName("tileValue")]
-        public object TileValue { get; set; }
+        public JsonElement? TileValue { get; set; }
     }
 
     /// <summary>
@@ -385,7 +386,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>Query results as an array of rows.</summary>
         [JsonPropertyName("firstTableRows")]
-        public List<object> FirstTableRows { get; set; }
+        public List<JsonElement?> FirstTableRows { get; set; }
     }
 
     /// <summary>
@@ -419,7 +420,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -429,7 +430,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -439,7 +440,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -449,7 +450,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>schema</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -459,7 +460,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>List of check-ins.</summary>
         [JsonPropertyName("value")]
-        public List<object> CheckIns { get; set; }
+        public List<JsonElement?> CheckIns { get; set; }
     }
 
     /// <summary>
@@ -481,7 +482,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>notes</summary>
         [JsonPropertyName("notes")]
-        public List<object> Notes { get; set; }
+        public List<JsonElement?> Notes { get; set; }
     }
 
     /// <summary>
@@ -491,7 +492,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>PowerBiInputs</summary>
         [JsonPropertyName("PowerBiInputs")]
-        public object PowerBiInputs { get; set; }
+        public JsonElement? PowerBiInputs { get; set; }
     }
 
     /// <summary>
@@ -505,7 +506,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>The report collection</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -519,7 +520,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>serializerSettings</summary>
         [JsonPropertyName("serializerSettings")]
-        public object SerializerSettings { get; set; }
+        public JsonElement? SerializerSettings { get; set; }
 
         /// <summary>A user identity in UPN format to run the query as another user.</summary>
         [JsonPropertyName("impersonatedUserName")]
@@ -677,7 +678,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>Power BI report Export to file configuration</summary>
         [JsonPropertyName("PowerBIReportExportConfiguration")]
-        public object PowerBIReportExportConfiguration { get; set; }
+        public JsonElement? PowerBIReportExportConfiguration { get; set; }
     }
 
     /// <summary>
@@ -691,7 +692,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>paginatedReportConfiguration</summary>
         [JsonPropertyName("paginatedReportConfiguration")]
-        public object PaginatedReportConfiguration { get; set; }
+        public JsonElement? PaginatedReportConfiguration { get; set; }
     }
 
     /// <summary>
@@ -1227,7 +1228,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="GoalsAssigned"/>.
         /// </summary>
         public static GoalsAssigned GoalsAssigned(
-            List<object> goals = default)
+            List<JsonElement?> goals = default)
         {
             return new GoalsAssigned
             {
@@ -1353,8 +1354,8 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="GoalValueOrNoteUpserted"/>.
         /// </summary>
         public static GoalValueOrNoteUpserted GoalValueOrNoteUpserted(
-            List<object> checkIns = default,
-            List<object> notes = default)
+            List<JsonElement?> checkIns = default,
+            List<JsonElement?> notes = default)
         {
             return new GoalValueOrNoteUpserted
             {
@@ -1387,7 +1388,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
             double? alertThreshold = default,
             bool? isAlertTriggered = default,
             string tileURL = default,
-            object tileValue = default)
+            JsonElement? tileValue = default)
         {
             return new EvaluatedAlert
             {
@@ -1403,7 +1404,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="QueryExecutionResults"/>.
         /// </summary>
         public static QueryExecutionResults QueryExecutionResults(
-            List<object> firstTableRows = default)
+            List<JsonElement?> firstTableRows = default)
         {
             return new QueryExecutionResults
             {
@@ -1415,7 +1416,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="Groups"/>.
         /// </summary>
         public static Groups Groups(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new Groups
             {
@@ -1427,7 +1428,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="Datasets"/>.
         /// </summary>
         public static Datasets Datasets(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new Datasets
             {
@@ -1439,7 +1440,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="Tables"/>.
         /// </summary>
         public static Tables Tables(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new Tables
             {
@@ -1451,7 +1452,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="Columns"/>.
         /// </summary>
         public static Columns Columns(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new Columns
             {
@@ -1463,7 +1464,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="GetGoalCheckinsResponse"/>.
         /// </summary>
         public static GetGoalCheckinsResponse GetGoalCheckinsResponse(
-            List<object> checkIns = default)
+            List<JsonElement?> checkIns = default)
         {
             return new GetGoalCheckinsResponse
             {
@@ -1478,7 +1479,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
             DateTime? date = default,
             double? value = default,
             string status = default,
-            List<object> notes = default)
+            List<JsonElement?> notes = default)
         {
             return new GetGoalCheckinResponse
             {
@@ -1493,7 +1494,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="PowerBiButtonClickedOutputs"/>.
         /// </summary>
         public static PowerBiButtonClickedOutputs PowerBiButtonClickedOutputs(
-            object powerBiInputs = default)
+            JsonElement? powerBiInputs = default)
         {
             return new PowerBiButtonClickedOutputs
             {
@@ -1506,7 +1507,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// </summary>
         public static Reports Reports(
             string odataContext = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new Reports
             {
@@ -1520,7 +1521,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// </summary>
         public static QuerySpecification QuerySpecification(
             string queryText = default,
-            object serializerSettings = default,
+            JsonElement? serializerSettings = default,
             string impersonateUser = default)
         {
             return new QuerySpecification
@@ -1634,7 +1635,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// </summary>
         public static ExportPayloadPowerBIReport ExportPayloadPowerBIReport(
             string format = default,
-            object powerBIReportExportConfiguration = default)
+            JsonElement? powerBIReportExportConfiguration = default)
         {
             return new ExportPayloadPowerBIReport
             {
@@ -1648,7 +1649,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// </summary>
         public static ExportPayloadPaginatedReport ExportPayloadPaginatedReport(
             string format = default,
-            object paginatedReportConfiguration = default)
+            JsonElement? paginatedReportConfiguration = default)
         {
             return new ExportPayloadPaginatedReport
             {
@@ -2021,6 +2022,8 @@ namespace Azure.Connectors.Sdk.PowerBI
 
         public override string ConnectorName => "powerbi";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.powerbi");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2042,12 +2045,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get scorecards response.</returns>
         public virtual async Task<ListedScorecards> GetScorecardsAsync([DynamicValues("ListGroups")] string workspace, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListedScorecards>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetScorecardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListedScorecards>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2060,12 +2073,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Create a scorecard response.</returns>
         public virtual async Task<CreatedScorecard> CreateScorecardAsync([DynamicValues("ListGroups")] string workspace, CreateScorecardRequest input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreatedScorecard>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.CreateScorecardAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreatedScorecard>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2078,13 +2101,23 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get multiple goals response.</returns>
         public virtual async Task<FetchedGoals> GetMultipleGoalsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("$expand=aggregations");
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FetchedGoals>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetMultipleGoalsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("$expand=aggregations");
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FetchedGoals>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2098,12 +2131,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Create a goal response.</returns>
         public virtual async Task<CreateGoalResponse> CreateGoalAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, CreateGoalRequest input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateGoalResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.CreateGoalAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateGoalResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2117,13 +2160,23 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get a goal response.</returns>
         public virtual async Task<FetchedGoal> GetGoalAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            queryParams.Add("$expand=aggregations");
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FetchedGoal>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetGoalAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                queryParams.Add("$expand=aggregations");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FetchedGoal>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2137,12 +2190,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateGoalAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, UpdateGoalRequest input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.UpdateGoalAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2153,12 +2216,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get alerts from Power BI response.</returns>
         public virtual async Task<List<Alert>> GetAlertsAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/metadata/v201606/alerts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Alert>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetAlertsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/metadata/v201606/alerts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Alert>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2172,12 +2245,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Run a query against a dataset response.</returns>
         public virtual async Task<QueryExecutionResults> ExecuteDatasetQueryAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, QuerySpecification input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<QueryExecutionResults>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ExecuteDatasetQueryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<QueryExecutionResults>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2191,12 +2274,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Run a json query against a dataset response.</returns>
         public virtual async Task<ExecuteDatasetQueriesJsonResponse> ExecuteDatasetQueriesJsonAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, ExecuteDatasetQueriesJsonInput input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ExecuteDatasetQueriesJsonResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ExecuteDatasetQueriesJsonAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ExecuteDatasetQueriesJsonResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2210,12 +2303,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddRowsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, [DynamicValues("ListTables")] string table, Payload input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.AddRowsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2226,12 +2329,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The ListGroups response.</returns>
         public virtual async Task<Groups> ListGroupsAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Groups>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ListGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Groups>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2243,12 +2356,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The ListDatasets response.</returns>
         public virtual async Task<Datasets> ListDatasetsAsync([DynamicValues("ListGroups")] string workspace, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Datasets>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ListDatasetsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Datasets>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2261,12 +2384,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The ListTables response.</returns>
         public virtual async Task<Tables> ListTablesAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Tables>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ListTablesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Tables>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2280,12 +2413,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The GetColumns response.</returns>
         public virtual async Task<Columns> GetColumnsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, [DynamicValues("ListTables")] string table, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Columns>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetColumnsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Columns>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2300,12 +2443,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GoalValueCheckinNoteAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, string checkInDate, string input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GoalValueCheckinNoteAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2319,12 +2472,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GoalValueCheckinAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, GoalValueCheckinRequest input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GoalValueCheckinAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2338,13 +2501,23 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get goal check-ins response.</returns>
         public virtual async Task<GetGoalCheckinsResponse> GetGoalCheckinsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            queryParams.Add("$expand=notes");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetGoalCheckinsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetGoalCheckinsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                queryParams.Add("$expand=notes");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetGoalCheckinsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2359,12 +2532,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateGoalCheckinAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, string checkInDate, GoalValueCheckinUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.UpdateGoalCheckinAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2379,13 +2562,23 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get a goal check-in response.</returns>
         public virtual async Task<GetGoalCheckinResponse> GetGoalCheckinAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetScorecards")] string scorecardId, [DynamicValues("GetMultipleGoals")] string goalId, string checkInDate, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            queryParams.Add("$expand=notes");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetGoalCheckinResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetGoalCheckinAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                queryParams.Add("$expand=notes");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetGoalCheckinResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2397,10 +2590,20 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get PowerBi Button Clicked hybrid trigger output response.</returns>
         public virtual async Task<PowerBiButtonClickedOutputs> GetPowerBiButtonClickedOutputsAsync(string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/powerbihybridtriggeroutput/triggers/PowerBiButtonClicked/PowerBiButtonClickedOutputs";
-            return await this
-                .CallConnectorAsync<PowerBiButtonClickedOutputs>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetPowerBiButtonClickedOutputsAsync");
+            try
+            {
+                var path = $"/powerbihybridtriggeroutput/triggers/PowerBiButtonClicked/PowerBiButtonClickedOutputs";
+                return await this
+                    .CallConnectorAsync<PowerBiButtonClickedOutputs>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2412,12 +2615,22 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RefreshDatasetAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("ListDatasets")] string dataset, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("pbi_source=powerAutomate");
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/refreshes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.RefreshDatasetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("pbi_source=powerAutomate");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/refreshes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2431,10 +2644,20 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Export To File for Power BI Reports response.</returns>
         public virtual async Task<byte[]> InitiateExportToFileForPbiReportsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetReportsInGroup")] string report, ExportPayloadPowerBIReport input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports/{Uri.EscapeDataString(report.ToString())}/ExportTo";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.InitiateExportToFileForPbiReportsAsync");
+            try
+            {
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports/{Uri.EscapeDataString(report.ToString())}/ExportTo";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2448,10 +2671,20 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Export To File for Paginated Reports response.</returns>
         public virtual async Task<byte[]> InitiateExportToFileForPaginatedReportsAsync([DynamicValues("ListGroups")] string workspace, [DynamicValues("GetReportsInGroup")] string report, ExportPayloadPaginatedReport input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports/{Uri.EscapeDataString(report.ToString())}/ExportToPaginatedReports";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.InitiateExportToFileForPaginatedReportsAsync");
+            try
+            {
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports/{Uri.EscapeDataString(report.ToString())}/ExportToPaginatedReports";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2463,10 +2696,20 @@ namespace Azure.Connectors.Sdk.PowerBI
         /// <returns>The Get Reports in Group response.</returns>
         public virtual async Task<Reports> GetReportsInGroupAsync([DynamicValues("ListGroups")] string workspace, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports";
-            return await this
-                .CallConnectorAsync<Reports>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetReportsInGroupAsync");
+            try
+            {
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports";
+                return await this
+                    .CallConnectorAsync<Reports>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.WordPress.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.WordPress.Models
@@ -237,7 +238,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>parent</summary>
         [JsonPropertyName("parent")]
-        public object Parent { get; set; }
+        public JsonElement? Parent { get; set; }
 
         /// <summary>type</summary>
         [JsonPropertyName("type")]
@@ -277,7 +278,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>post_thumbnail</summary>
         [JsonPropertyName("post_thumbnail")]
-        public object PostThumbnail { get; set; }
+        public JsonElement? PostThumbnail { get; set; }
 
         /// <summary>format</summary>
         [JsonPropertyName("format")]
@@ -566,7 +567,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             string status = default,
             bool? sticky = default,
             string password = default,
-            object parent = default,
+            JsonElement? parent = default,
             string type = default,
             bool? likesEnabled = default,
             bool? sharingEnabled = default,
@@ -576,7 +577,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             bool? isFollowing = default,
             string globalId = default,
             string featuredImage = default,
-            object postThumbnail = default,
+            JsonElement? postThumbnail = default,
             string format = default,
             bool? geo = default)
         {
@@ -755,6 +756,8 @@ namespace Azure.Connectors.Sdk.WordPress
 
         public override string ConnectorName => "wordpress";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.wordpress");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -776,12 +779,22 @@ namespace Azure.Connectors.Sdk.WordPress
         /// <returns>The Get site statistics response.</returns>
         public virtual async Task<SiteStatsModel> SiteStatsAsync([DynamicValues("ListSites")] string siteId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("fields=stats");
-            var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SiteStatsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.SiteStatsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("fields=stats");
+                var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SiteStatsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -794,10 +807,20 @@ namespace Azure.Connectors.Sdk.WordPress
         /// <returns>The Get post response.</returns>
         public virtual async Task<PostModel> GetAsync([DynamicValues("ListSites")] string siteId, string postId, CancellationToken cancellationToken = default)
         {
-            var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}";
-            return await this
-                .CallConnectorAsync<PostModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.GetAsync");
+            try
+            {
+                var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -810,10 +833,20 @@ namespace Azure.Connectors.Sdk.WordPress
         /// <returns>The Create post response.</returns>
         public virtual async Task<PostModel> CreateAsync([DynamicValues("ListSites")] string siteId, CreatePostModel input, CancellationToken cancellationToken = default)
         {
-            var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/new";
-            return await this
-                .CallConnectorAsync<PostModel>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.CreateAsync");
+            try
+            {
+                var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/new";
+                return await this
+                    .CallConnectorAsync<PostModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -824,12 +857,22 @@ namespace Azure.Connectors.Sdk.WordPress
         /// <returns>The List sites response.</returns>
         public virtual async Task<SiteList> ListSitesAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("fields=ID%2C%20name%2C%20description%2C%20URL%2C%20%20is_multisite%2C%20post_count%2Csubscribers_count%2C%20lang%2Cvisible%2Cis_private%2Csingle_user_site%2Cis_vip%2Cis_following");
-            var path = $"/me/sites" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SiteList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.ListSitesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("fields=ID%2C%20name%2C%20description%2C%20URL%2C%20%20is_multisite%2C%20post_count%2Csubscribers_count%2C%20lang%2Cvisible%2Cis_private%2Csingle_user_site%2Cis_vip%2Cis_following");
+                var path = $"/me/sites" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SiteList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

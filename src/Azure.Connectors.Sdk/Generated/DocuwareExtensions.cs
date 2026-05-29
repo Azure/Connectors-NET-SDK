@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Docuware.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Docuware.Models
@@ -35,7 +36,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Sections</summary>
         [JsonPropertyName("Sections")]
-        public List<object> Sections { get; set; }
+        public List<JsonElement?> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
         [JsonPropertyName("DocumentId")]
@@ -43,7 +44,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>IndexFields</summary>
         [JsonPropertyName("IndexFields")]
-        public object IndexFields { get; set; }
+        public JsonElement? IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
         [JsonPropertyName("DocumentTitle")]
@@ -71,7 +72,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>DocumentFlags</summary>
         [JsonPropertyName("DocumentFlags")]
-        public object DocumentFlags { get; set; }
+        public JsonElement? DocumentFlags { get; set; }
     }
 
     /// <summary>
@@ -81,7 +82,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Sections</summary>
         [JsonPropertyName("Sections")]
-        public List<object> Sections { get; set; }
+        public List<JsonElement?> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
         [JsonPropertyName("DocumentId")]
@@ -89,7 +90,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>IndexFields</summary>
         [JsonPropertyName("IndexFields")]
-        public object IndexFields { get; set; }
+        public JsonElement? IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
         [JsonPropertyName("DocumentTitle")]
@@ -117,7 +118,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>DocumentFlags</summary>
         [JsonPropertyName("DocumentFlags")]
-        public object DocumentFlags { get; set; }
+        public JsonElement? DocumentFlags { get; set; }
     }
 
     /// <summary>
@@ -143,7 +144,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>Documents</summary>
         [JsonPropertyName("Documents")]
-        public List<object> Documents { get; set; }
+        public List<JsonElement?> Documents { get; set; }
     }
 
     /// <summary>
@@ -163,7 +164,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>FileCabinets</summary>
         [JsonPropertyName("FileCabinets")]
-        public List<object> FileCabinets { get; set; }
+        public List<JsonElement?> FileCabinets { get; set; }
     }
 
     /// <summary>
@@ -173,7 +174,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Sections</summary>
         [JsonPropertyName("Sections")]
-        public List<object> Sections { get; set; }
+        public List<JsonElement?> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
         [JsonPropertyName("DocumentId")]
@@ -181,7 +182,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>IndexFields</summary>
         [JsonPropertyName("IndexFields")]
-        public object IndexFields { get; set; }
+        public JsonElement? IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
         [JsonPropertyName("DocumentTitle")]
@@ -209,7 +210,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>DocumentFlags</summary>
         [JsonPropertyName("DocumentFlags")]
-        public object DocumentFlags { get; set; }
+        public JsonElement? DocumentFlags { get; set; }
     }
 
     /// <summary>
@@ -219,7 +220,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Sections</summary>
         [JsonPropertyName("Sections")]
-        public List<object> Sections { get; set; }
+        public List<JsonElement?> Sections { get; set; }
 
         /// <summary>DocumentId</summary>
         [JsonPropertyName("DocumentId")]
@@ -227,7 +228,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>IndexFields</summary>
         [JsonPropertyName("IndexFields")]
-        public object IndexFields { get; set; }
+        public JsonElement? IndexFields { get; set; }
 
         /// <summary>DocumentTitle</summary>
         [JsonPropertyName("DocumentTitle")]
@@ -255,7 +256,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>DocumentFlags</summary>
         [JsonPropertyName("DocumentFlags")]
-        public object DocumentFlags { get; set; }
+        public JsonElement? DocumentFlags { get; set; }
     }
 
     /// <summary>
@@ -269,7 +270,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>Documents</summary>
         [JsonPropertyName("Documents")]
-        public List<object> Docs { get; set; }
+        public List<JsonElement?> Docs { get; set; }
 
         /// <summary>Choose whether the source documents should be deleted or not.</summary>
         [JsonPropertyName("KeepSource")]
@@ -291,7 +292,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>Documents</summary>
         [JsonPropertyName("Documents")]
-        public List<object> Documents { get; set; }
+        public List<JsonElement?> Documents { get; set; }
     }
 
     /// <summary>
@@ -329,7 +330,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>Fields</summary>
         [JsonPropertyName("Fields")]
-        public List<object> Field { get; set; }
+        public List<JsonElement?> Field { get; set; }
     }
 
     /// <summary>
@@ -339,7 +340,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Created</summary>
         [JsonPropertyName("Created")]
-        public object Created { get; set; }
+        public JsonElement? Created { get; set; }
 
         /// <summary>Type</summary>
         [JsonPropertyName("Type")]
@@ -373,7 +374,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Dialogs</summary>
         [JsonPropertyName("Dialogs")]
-        public List<object> Dialogs { get; set; }
+        public List<JsonElement?> Dialogs { get; set; }
     }
 
     /// <summary>
@@ -475,7 +476,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Stamps</summary>
         [JsonPropertyName("Stamps")]
-        public List<object> Stamps { get; set; }
+        public List<JsonElement?> Stamps { get; set; }
     }
 
     /// <summary>
@@ -485,7 +486,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Fields</summary>
         [JsonPropertyName("Fields")]
-        public List<object> Fields { get; set; }
+        public List<JsonElement?> Fields { get; set; }
     }
 
     /// <summary>
@@ -495,7 +496,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Fields</summary>
         [JsonPropertyName("Fields")]
-        public List<object> Fields { get; set; }
+        public List<JsonElement?> Fields { get; set; }
     }
 
     /// <summary>
@@ -505,7 +506,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     {
         /// <summary>Fields</summary>
         [JsonPropertyName("Fields")]
-        public List<object> Fields { get; set; }
+        public List<JsonElement?> Fields { get; set; }
     }
 
     /// <summary>
@@ -519,7 +520,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>Documents</summary>
         [JsonPropertyName("Documents")]
-        public List<object> Documents { get; set; }
+        public List<JsonElement?> Documents { get; set; }
     }
 
     #endregion Types
@@ -537,16 +538,16 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="StoreToFileCabinetResponse"/>.
         /// </summary>
         public static StoreToFileCabinetResponse StoreToFileCabinetResponse(
-            List<object> sections = default,
+            List<JsonElement?> sections = default,
             int? documentId = default,
-            object indexFields = default,
+            JsonElement? indexFields = default,
             string documentTitle = default,
             string fileCabinetId = default,
             int? totalPages = default,
             int? fileSize = default,
             string contentType = default,
             string versionStatus = default,
-            object documentFlags = default)
+            JsonElement? documentFlags = default)
         {
             return new StoreToFileCabinetResponse
             {
@@ -567,16 +568,16 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="ImportToDocumentTrayResponse"/>.
         /// </summary>
         public static ImportToDocumentTrayResponse ImportToDocumentTrayResponse(
-            List<object> sections = default,
+            List<JsonElement?> sections = default,
             int? documentId = default,
-            object indexFields = default,
+            JsonElement? indexFields = default,
             string documentTitle = default,
             string fileCabinetId = default,
             int? totalPages = default,
             int? fileSize = default,
             string contentType = default,
             string versionStatus = default,
-            object documentFlags = default)
+            JsonElement? documentFlags = default)
         {
             return new ImportToDocumentTrayResponse
             {
@@ -598,7 +599,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// </summary>
         public static SearchForDocumentsInFileCabinetResponse SearchForDocumentsInFileCabinetResponse(
             int? count = default,
-            List<object> documents = default)
+            List<JsonElement?> documents = default)
         {
             return new SearchForDocumentsInFileCabinetResponse
             {
@@ -623,7 +624,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetFileCabinetsResponse"/>.
         /// </summary>
         public static GetFileCabinetsResponse GetFileCabinetsResponse(
-            List<object> fileCabinets = default)
+            List<JsonElement?> fileCabinets = default)
         {
             return new GetFileCabinetsResponse
             {
@@ -635,16 +636,16 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetDocumentInformationResponse"/>.
         /// </summary>
         public static GetDocumentInformationResponse GetDocumentInformationResponse(
-            List<object> sections = default,
+            List<JsonElement?> sections = default,
             int? documentId = default,
-            object indexFields = default,
+            JsonElement? indexFields = default,
             string documentTitle = default,
             string fileCabinetId = default,
             int? totalPages = default,
             int? fileSize = default,
             string contentType = default,
             string versionStatus = default,
-            object documentFlags = default)
+            JsonElement? documentFlags = default)
         {
             return new GetDocumentInformationResponse
             {
@@ -665,16 +666,16 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="UpdateIndexFieldsResponse"/>.
         /// </summary>
         public static UpdateIndexFieldsResponse UpdateIndexFieldsResponse(
-            List<object> sections = default,
+            List<JsonElement?> sections = default,
             int? documentId = default,
-            object indexFields = default,
+            JsonElement? indexFields = default,
             string documentTitle = default,
             string fileCabinetId = default,
             int? totalPages = default,
             int? fileSize = default,
             string contentType = default,
             string versionStatus = default,
-            object documentFlags = default)
+            JsonElement? documentFlags = default)
         {
             return new UpdateIndexFieldsResponse
             {
@@ -696,7 +697,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// </summary>
         public static TransferDocumentInput TransferDocumentInput(
             string sourceFileCabinetDocumentTray = default,
-            List<object> docs = default,
+            List<JsonElement?> docs = default,
             bool? keepSource = default,
             bool? fillIntellix = default)
         {
@@ -714,7 +715,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// </summary>
         public static TransferDocumentResponse TransferDocumentResponse(
             int? count = default,
-            List<object> documents = default)
+            List<JsonElement?> documents = default)
         {
             return new TransferDocumentResponse
             {
@@ -734,7 +735,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
             double? verticalPositionYPosition = default,
             string stamp = default,
             string password = default,
-            List<object> field = default)
+            List<JsonElement?> field = default)
         {
             return new PlaceAStampInput
             {
@@ -753,7 +754,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="PlaceAStampResponse"/>.
         /// </summary>
         public static PlaceAStampResponse PlaceAStampResponse(
-            object created = default,
+            JsonElement? created = default,
             string type = default,
             string color = default,
             int? rotation = default,
@@ -777,7 +778,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetDialogsResponse"/>.
         /// </summary>
         public static GetDialogsResponse GetDialogsResponse(
-            List<object> dialogs = default)
+            List<JsonElement?> dialogs = default)
         {
             return new GetDialogsResponse
             {
@@ -849,7 +850,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetStampsResponse"/>.
         /// </summary>
         public static GetStampsResponse GetStampsResponse(
-            List<object> stamps = default)
+            List<JsonElement?> stamps = default)
         {
             return new GetStampsResponse
             {
@@ -861,7 +862,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetStampFieldsResponse"/>.
         /// </summary>
         public static GetStampFieldsResponse GetStampFieldsResponse(
-            List<object> fields = default)
+            List<JsonElement?> fields = default)
         {
             return new GetStampFieldsResponse
             {
@@ -873,7 +874,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetFileCabinetFieldsResponse"/>.
         /// </summary>
         public static GetFileCabinetFieldsResponse GetFileCabinetFieldsResponse(
-            List<object> fields = default)
+            List<JsonElement?> fields = default)
         {
             return new GetFileCabinetFieldsResponse
             {
@@ -885,7 +886,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// Creates a new instance of <see cref="GetDialogFieldsResponse"/>.
         /// </summary>
         public static GetDialogFieldsResponse GetDialogFieldsResponse(
-            List<object> fields = default)
+            List<JsonElement?> fields = default)
         {
             return new GetDialogFieldsResponse
             {
@@ -898,7 +899,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         /// </summary>
         public static ListDocumentsInDocumentTrayResponse ListDocumentsInDocumentTrayResponse(
             int? count = default,
-            List<object> documents = default)
+            List<JsonElement?> documents = default)
         {
             return new ListDocumentsInDocumentTrayResponse
             {
@@ -967,6 +968,8 @@ namespace Azure.Connectors.Sdk.Docuware
 
         public override string ConnectorName => "docuware";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.docuware");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -989,12 +992,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Store to file cabinet response.</returns>
         public virtual async Task<StoreToFileCabinetResponse> StoreToFileCabinetAsync([DynamicValues("GetFileCabinets")] string fileCabinet, [DynamicValues("GetDialogs")] string storeDialog, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<StoreToFileCabinetResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.StoreToFileCabinetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (storeDialog is null) throw new ArgumentNullException(nameof(storeDialog));
+                queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StoreToFileCabinetResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1007,13 +1021,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Import to document tray response.</returns>
         public virtual async Task<ImportToDocumentTrayResponse> ImportToDocumentTrayAsync([DynamicValues("GetFileCabinets")] string documentTray, [DynamicValues("GetDialogs")] string storeDialog = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (storeDialog != default)
-                queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
-            var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray.ToString())}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ImportToDocumentTrayResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ImportToDocumentTrayAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (storeDialog != default)
+                    queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
+                var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray.ToString())}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ImportToDocumentTrayResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1027,12 +1051,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Search in file cabinet response.</returns>
         public virtual async Task<SearchForDocumentsInFileCabinetResponse> SearchForDocumentsInFileCabinetAsync([DynamicValues("GetFileCabinets")] string fileCabinet, SearchForDocumentsInFileCabinetInput input, [DynamicValues("GetDialogs")] string searchDialog, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"SearchDialogId={Uri.EscapeDataString(searchDialog.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SearchForDocumentsInFileCabinetResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.SearchForDocumentsInFileCabinetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (searchDialog is null) throw new ArgumentNullException(nameof(searchDialog));
+                queryParams.Add($"SearchDialogId={Uri.EscapeDataString(searchDialog.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SearchForDocumentsInFileCabinetResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1043,10 +1078,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get organization response.</returns>
         public virtual async Task<GetOrganizationResponse> GetOrganizationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/Organization";
-            return await this
-                .CallConnectorAsync<GetOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetOrganizationAsync");
+            try
+            {
+                var path = $"/Organization";
+                return await this
+                    .CallConnectorAsync<GetOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1058,12 +1103,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get file cabinets and document trays response.</returns>
         public virtual async Task<GetFileCabinetsResponse> GetFileCabinetsAsync(string fileCabinetType, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"FileCabinetType={Uri.EscapeDataString(fileCabinetType.ToString())}");
-            var path = $"/FileCabinets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetFileCabinetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetFileCabinetsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fileCabinetType is null) throw new ArgumentNullException(nameof(fileCabinetType));
+                queryParams.Add($"FileCabinetType={Uri.EscapeDataString(fileCabinetType.ToString())}");
+                var path = $"/FileCabinets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetFileCabinetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1076,10 +1132,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get document information response.</returns>
         public virtual async Task<GetDocumentInformationResponse> GetDocumentInformationAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetDocumentInformationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetDocumentInformationAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetDocumentInformationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1091,10 +1157,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DeleteDocumentAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1109,12 +1185,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Download a file response.</returns>
         public virtual async Task<byte[]> DownloadFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, string fileNumber, string documentFormat, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DownloadFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (documentFormat is null) throw new ArgumentNullException(nameof(documentFormat));
+                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1128,12 +1215,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Download a document response.</returns>
         public virtual async Task<byte[]> DownloadDocumentAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, string documentFormat, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DownloadDocumentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (documentFormat is null) throw new ArgumentNullException(nameof(documentFormat));
+                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1145,12 +1243,22 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update index fields response.</returns>
-        public virtual async Task<UpdateIndexFieldsResponse> UpdateIndexFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinet, int documentId, List<object> input, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateIndexFieldsResponse> UpdateIndexFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinet, int documentId, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Fields";
-            return await this
-                .CallConnectorAsync<UpdateIndexFieldsResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.UpdateIndexFieldsAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Fields";
+                return await this
+                    .CallConnectorAsync<UpdateIndexFieldsResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1164,13 +1272,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Transfer documents response.</returns>
         public virtual async Task<TransferDocumentResponse> TransferDocumentAsync([DynamicValues("GetFileCabinets")] string destinationFileCabinetDocumentTray, TransferDocumentInput input, [DynamicValues("GetDialogs")] string storeDialog = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (storeDialog != default)
-                queryParams.Add($"StoreDialogID={Uri.EscapeDataString(storeDialog.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(destinationFileCabinetDocumentTray.ToString())}/Task/Transfer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TransferDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.TransferDocumentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (storeDialog != default)
+                    queryParams.Add($"StoreDialogID={Uri.EscapeDataString(storeDialog.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(destinationFileCabinetDocumentTray.ToString())}/Task/Transfer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TransferDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1184,10 +1302,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Place a stamp response.</returns>
         public virtual async Task<PlaceAStampResponse> PlaceAStampAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, PlaceAStampInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Annotation";
-            return await this
-                .CallConnectorAsync<PlaceAStampResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.PlaceAStampAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Annotation";
+                return await this
+                    .CallConnectorAsync<PlaceAStampResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1200,13 +1328,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get dialogs response.</returns>
         public virtual async Task<GetDialogsResponse> GetDialogsAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, string dialogType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (dialogType != default)
-                queryParams.Add($"DialogType={Uri.EscapeDataString(dialogType.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Dialogs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetDialogsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetDialogsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (dialogType != default)
+                    queryParams.Add($"DialogType={Uri.EscapeDataString(dialogType.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Dialogs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetDialogsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1219,12 +1357,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Append a file response.</returns>
         public virtual async Task<AppendFileResponse> AppendFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, string documentId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"DocID={Uri.EscapeDataString(documentId.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AppendFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.AppendFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (documentId is null) throw new ArgumentNullException(nameof(documentId));
+                queryParams.Add($"DocID={Uri.EscapeDataString(documentId.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AppendFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1237,10 +1386,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, int fileNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DeleteFileAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1254,10 +1413,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Replace a file response.</returns>
         public virtual async Task<ReplaceFileResponse> ReplaceFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, int fileNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
-            return await this
-                .CallConnectorAsync<ReplaceFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ReplaceFileAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
+                return await this
+                    .CallConnectorAsync<ReplaceFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1269,10 +1438,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get stamps response.</returns>
         public virtual async Task<GetStampsResponse> GetStampsAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Stamps";
-            return await this
-                .CallConnectorAsync<GetStampsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetStampsAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Stamps";
+                return await this
+                    .CallConnectorAsync<GetStampsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1285,10 +1464,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get stamp fields response.</returns>
         public virtual async Task<GetStampFieldsResponse> GetStampFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, [DynamicValues("GetStamps")] string stamp, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Stamps/{Uri.EscapeDataString(stamp.ToString())}/Fields";
-            return await this
-                .CallConnectorAsync<GetStampFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetStampFieldsAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Stamps/{Uri.EscapeDataString(stamp.ToString())}/Fields";
+                return await this
+                    .CallConnectorAsync<GetStampFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1301,13 +1490,23 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get file cabinet fields response.</returns>
         public virtual async Task<GetFileCabinetFieldsResponse> GetFileCabinetFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinet, string fieldType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fieldType != default)
-                queryParams.Add($"FieldType={Uri.EscapeDataString(fieldType.ToString())}");
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetFileCabinetFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetFileCabinetFieldsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fieldType != default)
+                    queryParams.Add($"FieldType={Uri.EscapeDataString(fieldType.ToString())}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetFileCabinetFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1320,10 +1519,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The Get dialog fields response.</returns>
         public virtual async Task<GetDialogFieldsResponse> GetDialogFieldsAsync([DynamicValues("GetFileCabinets")] string fileCabinet, [DynamicValues("GetDialogs")] string dialog, CancellationToken cancellationToken = default)
         {
-            var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Dialogs/{Uri.EscapeDataString(dialog.ToString())}/Fields";
-            return await this
-                .CallConnectorAsync<GetDialogFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetDialogFieldsAsync");
+            try
+            {
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Dialogs/{Uri.EscapeDataString(dialog.ToString())}/Fields";
+                return await this
+                    .CallConnectorAsync<GetDialogFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1335,10 +1544,20 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <returns>The List documents in document tray response.</returns>
         public virtual async Task<ListDocumentsInDocumentTrayResponse> ListDocumentsInDocumentTrayAsync([DynamicValues("GetFileCabinets")] string documentTray, CancellationToken cancellationToken = default)
         {
-            var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray.ToString())}/Search";
-            return await this
-                .CallConnectorAsync<ListDocumentsInDocumentTrayResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ListDocumentsInDocumentTrayAsync");
+            try
+            {
+                var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray.ToString())}/Search";
+                return await this
+                    .CallConnectorAsync<ListDocumentsInDocumentTrayResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

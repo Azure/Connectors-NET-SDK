@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Azurequeues.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Azurequeues.Models
@@ -287,6 +288,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
 
         public override string ConnectorName => "azurequeues";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azurequeues");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -307,10 +310,20 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <returns>The Get storage accounts response.</returns>
         public virtual async Task<StorageAccountList> GetStorageAccountsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/GetStorageAccounts";
-            return await this
-                .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.GetStorageAccountsAsync");
+            try
+            {
+                var path = $"/v2/GetStorageAccounts";
+                return await this
+                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -324,12 +337,23 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteMessageAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, [DynamicValues("ListQueues_V2")] string queueName, string messageId, string popReceipt, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt.ToString())}");
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.DeleteMessageAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (popReceipt is null) throw new ArgumentNullException(nameof(popReceipt));
+                queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt.ToString())}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -344,15 +368,25 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <returns>The Get messages (V2) response.</returns>
         public virtual async Task<Messages> GetMessagesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, [DynamicValues("ListQueues_V2")] string queueName, string numberOfMessages = default, string visibilityTimeout = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (numberOfMessages != default)
-                queryParams.Add($"numofmessages={Uri.EscapeDataString(numberOfMessages.ToString())}");
-            if (visibilityTimeout != default)
-                queryParams.Add($"visibilitytimeout={Uri.EscapeDataString(visibilityTimeout.ToString())}");
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Messages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.GetMessagesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (numberOfMessages != default)
+                    queryParams.Add($"numofmessages={Uri.EscapeDataString(numberOfMessages.ToString())}");
+                if (visibilityTimeout != default)
+                    queryParams.Add($"visibilitytimeout={Uri.EscapeDataString(visibilityTimeout.ToString())}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Messages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -364,10 +398,20 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <returns>The List queues (V2) response.</returns>
         public virtual async Task<List<QueueInfo>> ListQueuesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/list";
-            return await this
-                .CallConnectorAsync<List<QueueInfo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.ListQueuesAsync");
+            try
+            {
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/list";
+                return await this
+                    .CallConnectorAsync<List<QueueInfo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -380,10 +424,20 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task PutMessageAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, [DynamicValues("ListQueues_V2")] string queueName, string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.PutMessageAsync");
+            try
+            {
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -396,12 +450,23 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <returns>The Create a new queue (V2) response.</returns>
         public virtual async Task<string> PutQueueAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, string queueName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"queueName={Uri.EscapeDataString(queueName.ToString())}");
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.PutQueueAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (queueName is null) throw new ArgumentNullException(nameof(queueName));
+                queryParams.Add($"queueName={Uri.EscapeDataString(queueName.ToString())}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

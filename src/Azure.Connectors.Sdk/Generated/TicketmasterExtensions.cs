@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Ticketmaster.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Ticketmaster.Models
@@ -35,15 +36,15 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
 
         /// <summary>page</summary>
         [JsonPropertyName("page")]
-        public object Page { get; set; }
+        public JsonElement? Page { get; set; }
     }
 
     /// <summary>
@@ -53,19 +54,19 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>classifications</summary>
         [JsonPropertyName("classifications")]
-        public List<object> Classifications { get; set; }
+        public List<JsonElement?> Classifications { get; set; }
 
         /// <summary>dates</summary>
         [JsonPropertyName("dates")]
-        public object Dates { get; set; }
+        public JsonElement? Dates { get; set; }
 
         /// <summary>The identifier.</summary>
         [JsonPropertyName("id")]
@@ -73,7 +74,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
 
         /// <summary>images</summary>
         [JsonPropertyName("images")]
-        public List<object> Images { get; set; }
+        public List<JsonElement?> Images { get; set; }
 
         /// <summary>The locale.</summary>
         [JsonPropertyName("locale")]
@@ -89,15 +90,15 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
 
         /// <summary>priceRanges</summary>
         [JsonPropertyName("priceRanges")]
-        public List<object> PriceRanges { get; set; }
+        public List<JsonElement?> PriceRanges { get; set; }
 
         /// <summary>promoter</summary>
         [JsonPropertyName("promoter")]
-        public object Promoter { get; set; }
+        public JsonElement? Promoter { get; set; }
 
         /// <summary>sales</summary>
         [JsonPropertyName("sales")]
-        public object Sales { get; set; }
+        public JsonElement? Sales { get; set; }
 
         /// <summary>Whether test.</summary>
         [JsonPropertyName("test")]
@@ -127,11 +128,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
 
         /// <summary>images</summary>
         [JsonPropertyName("images")]
-        public List<object> Images { get; set; }
+        public List<JsonElement?> Images { get; set; }
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
     }
 
     /// <summary>
@@ -141,15 +142,15 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
 
         /// <summary>page</summary>
         [JsonPropertyName("page")]
-        public object Page { get; set; }
+        public JsonElement? Page { get; set; }
     }
 
     /// <summary>
@@ -179,15 +180,15 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
 
         /// <summary>images</summary>
         [JsonPropertyName("images")]
-        public List<object> Images { get; set; }
+        public List<JsonElement?> Images { get; set; }
 
         /// <summary>classifications</summary>
         [JsonPropertyName("classifications")]
-        public List<object> Classifications { get; set; }
+        public List<JsonElement?> Classifications { get; set; }
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
     }
 
     /// <summary>
@@ -197,15 +198,15 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
 
         /// <summary>page</summary>
         [JsonPropertyName("page")]
-        public object Page { get; set; }
+        public JsonElement? Page { get; set; }
     }
 
     /// <summary>
@@ -215,11 +216,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>segment</summary>
         [JsonPropertyName("segment")]
-        public object Segment { get; set; }
+        public JsonElement? Segment { get; set; }
     }
 
     /// <summary>
@@ -229,11 +230,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>The identifier.</summary>
         [JsonPropertyName("id")]
@@ -259,11 +260,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
     }
 
     /// <summary>
@@ -273,7 +274,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>The identifier.</summary>
         [JsonPropertyName("id")]
@@ -295,15 +296,15 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>page</summary>
         [JsonPropertyName("page")]
-        public object Page { get; set; }
+        public JsonElement? Page { get; set; }
     }
 
     /// <summary>
@@ -341,31 +342,31 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
 
         /// <summary>city</summary>
         [JsonPropertyName("city")]
-        public object City { get; set; }
+        public JsonElement? City { get; set; }
 
         /// <summary>state</summary>
         [JsonPropertyName("state")]
-        public object State { get; set; }
+        public JsonElement? State { get; set; }
 
         /// <summary>country</summary>
         [JsonPropertyName("country")]
-        public object Country { get; set; }
+        public JsonElement? Country { get; set; }
 
         /// <summary>address</summary>
         [JsonPropertyName("address")]
-        public object Address { get; set; }
+        public JsonElement? Address { get; set; }
 
         /// <summary>location</summary>
         [JsonPropertyName("location")]
-        public object Location { get; set; }
+        public JsonElement? Location { get; set; }
 
         /// <summary>markets</summary>
         [JsonPropertyName("markets")]
-        public List<object> Markets { get; set; }
+        public List<JsonElement?> Markets { get; set; }
 
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
     }
 
     /// <summary>
@@ -375,11 +376,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
     {
         /// <summary>_links</summary>
         [JsonPropertyName("_links")]
-        public object Links { get; set; }
+        public JsonElement? Links { get; set; }
 
         /// <summary>_embedded</summary>
         [JsonPropertyName("_embedded")]
-        public object Embedded { get; set; }
+        public JsonElement? Embedded { get; set; }
     }
 
     #endregion Types
@@ -397,9 +398,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="EventsGetResponse"/>.
         /// </summary>
         public static EventsGetResponse EventsGetResponse(
-            object links = default,
-            object embedded = default,
-            object page = default)
+            JsonElement? links = default,
+            JsonElement? embedded = default,
+            JsonElement? page = default)
         {
             return new EventsGetResponse
             {
@@ -413,18 +414,18 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="EventGetResponse"/>.
         /// </summary>
         public static EventGetResponse EventGetResponse(
-            object embedded = default,
-            object links = default,
-            List<object> classifications = default,
-            object dates = default,
+            JsonElement? embedded = default,
+            JsonElement? links = default,
+            List<JsonElement?> classifications = default,
+            JsonElement? dates = default,
             string id = default,
-            List<object> images = default,
+            List<JsonElement?> images = default,
             string locale = default,
             string name = default,
             string pleaseNote = default,
-            List<object> priceRanges = default,
-            object promoter = default,
-            object sales = default,
+            List<JsonElement?> priceRanges = default,
+            JsonElement? promoter = default,
+            JsonElement? sales = default,
             bool? test = default,
             string type = default,
             string url = default)
@@ -455,8 +456,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         public static EventImagesGetResponse EventImagesGetResponse(
             string type = default,
             string id = default,
-            List<object> images = default,
-            object links = default)
+            List<JsonElement?> images = default,
+            JsonElement? links = default)
         {
             return new EventImagesGetResponse
             {
@@ -471,9 +472,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="AttractionsGetResponse"/>.
         /// </summary>
         public static AttractionsGetResponse AttractionsGetResponse(
-            object links = default,
-            object embedded = default,
-            object page = default)
+            JsonElement? links = default,
+            JsonElement? embedded = default,
+            JsonElement? page = default)
         {
             return new AttractionsGetResponse
             {
@@ -492,9 +493,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
             string id = default,
             bool? test = default,
             string locale = default,
-            List<object> images = default,
-            List<object> classifications = default,
-            object links = default)
+            List<JsonElement?> images = default,
+            List<JsonElement?> classifications = default,
+            JsonElement? links = default)
         {
             return new AttractionGetResponse
             {
@@ -513,9 +514,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="ClassificationsGetResponse"/>.
         /// </summary>
         public static ClassificationsGetResponse ClassificationsGetResponse(
-            object links = default,
-            object embedded = default,
-            object page = default)
+            JsonElement? links = default,
+            JsonElement? embedded = default,
+            JsonElement? page = default)
         {
             return new ClassificationsGetResponse
             {
@@ -529,8 +530,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="ClassificationGetResponse"/>.
         /// </summary>
         public static ClassificationGetResponse ClassificationGetResponse(
-            object links = default,
-            object segment = default)
+            JsonElement? links = default,
+            JsonElement? segment = default)
         {
             return new ClassificationGetResponse
             {
@@ -543,8 +544,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="GenreGetResponse"/>.
         /// </summary>
         public static GenreGetResponse GenreGetResponse(
-            object embedded = default,
-            object links = default,
+            JsonElement? embedded = default,
+            JsonElement? links = default,
             string id = default,
             string name = default)
         {
@@ -563,8 +564,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         public static SegmentGetResponse SegmentGetResponse(
             string id = default,
             string name = default,
-            object links = default,
-            object embedded = default)
+            JsonElement? links = default,
+            JsonElement? embedded = default)
         {
             return new SegmentGetResponse
             {
@@ -579,7 +580,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="SubGenreGetResponse"/>.
         /// </summary>
         public static SubGenreGetResponse SubGenreGetResponse(
-            object links = default,
+            JsonElement? links = default,
             string id = default,
             string name = default,
             string locale = default)
@@ -597,9 +598,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="VenuesGetResponse"/>.
         /// </summary>
         public static VenuesGetResponse VenuesGetResponse(
-            object embedded = default,
-            object links = default,
-            object page = default)
+            JsonElement? embedded = default,
+            JsonElement? links = default,
+            JsonElement? page = default)
         {
             return new VenuesGetResponse
             {
@@ -620,13 +621,13 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
             string locale = default,
             string postalCode = default,
             string timezone = default,
-            object city = default,
-            object state = default,
-            object country = default,
-            object address = default,
-            object location = default,
-            List<object> markets = default,
-            object links = default)
+            JsonElement? city = default,
+            JsonElement? state = default,
+            JsonElement? country = default,
+            JsonElement? address = default,
+            JsonElement? location = default,
+            List<JsonElement?> markets = default,
+            JsonElement? links = default)
         {
             return new VenueGetResponse
             {
@@ -651,8 +652,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster.Models
         /// Creates a new instance of <see cref="SuggestionsGetResponse"/>.
         /// </summary>
         public static SuggestionsGetResponse SuggestionsGetResponse(
-            object links = default,
-            object embedded = default)
+            JsonElement? links = default,
+            JsonElement? embedded = default)
         {
             return new SuggestionsGetResponse
             {
@@ -721,6 +722,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
 
         public override string ConnectorName => "ticketmaster";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.ticketmaster");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -788,105 +791,115 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Event search response.</returns>
         public virtual async Task<EventsGetResponse> EventsGetAsync(int? size = default, string id = default, string keyword = default, string attractionId = default, string venueId = default, string postalCode = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string marketId = default, string startDateTime = default, string endDateTime = default, string includeTBA = default, string includeTBD = default, string includeTest = default, string page = default, string sort = default, string onsaleStartDateTime = default, string onsaleEndDateTime = default, object[] city = default, string countryCode = default, string stateCode = default, object[] classificationName = default, object[] classificationId = default, string dMAId = default, object[] localStartDateTime = default, object[] localStartEndDateTime = default, object[] startEndDateTime = default, object[] publicVisibilityStartDateTime = default, object[] preSaleDateTime = default, string onsaleOnStartDate = default, string onsaleOnAfterStartDate = default, object[] collectionId = default, object[] segmentId = default, object[] segmentName = default, string includeFamily = default, string promoterId = default, object[] genreId = default, object[] subGenreId = default, object[] typeId = default, object[] subTypeId = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (size.HasValue)
-                queryParams.Add($"size={Uri.EscapeDataString(size.Value.ToString())}");
-            if (id != default)
-                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
-            if (keyword != default)
-                queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
-            if (attractionId != default)
-                queryParams.Add($"attractionId={Uri.EscapeDataString(attractionId.ToString())}");
-            if (venueId != default)
-                queryParams.Add($"venueId={Uri.EscapeDataString(venueId.ToString())}");
-            if (postalCode != default)
-                queryParams.Add($"postalCode={Uri.EscapeDataString(postalCode.ToString())}");
-            if (latitudeLongitude != default)
-                queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
-            if (radius != default)
-                queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
-            if (unit != default)
-                queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
-            if (source != default)
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (marketId != default)
-                queryParams.Add($"marketId={Uri.EscapeDataString(marketId.ToString())}");
-            if (startDateTime != default)
-                queryParams.Add($"startDateTime={Uri.EscapeDataString(startDateTime.ToString())}");
-            if (endDateTime != default)
-                queryParams.Add($"endDateTime={Uri.EscapeDataString(endDateTime.ToString())}");
-            if (includeTBA != default)
-                queryParams.Add($"includeTBA={Uri.EscapeDataString(includeTBA.ToString())}");
-            if (includeTBD != default)
-                queryParams.Add($"includeTBD={Uri.EscapeDataString(includeTBD.ToString())}");
-            if (includeTest != default)
-                queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
-            if (page != default)
-                queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
-            if (onsaleStartDateTime != default)
-                queryParams.Add($"onsaleStartDateTime={Uri.EscapeDataString(onsaleStartDateTime.ToString())}");
-            if (onsaleEndDateTime != default)
-                queryParams.Add($"onsaleEndDateTime={Uri.EscapeDataString(onsaleEndDateTime.ToString())}");
-            if (city != default)
-                queryParams.Add($"city={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(city))}");
-            if (countryCode != default)
-                queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
-            if (stateCode != default)
-                queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
-            if (classificationName != default)
-                queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
-            if (classificationId != default)
-                queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
-            if (dMAId != default)
-                queryParams.Add($"dmaId={Uri.EscapeDataString(dMAId.ToString())}");
-            if (localStartDateTime != default)
-                queryParams.Add($"localStartDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartDateTime))}");
-            if (localStartEndDateTime != default)
-                queryParams.Add($"localStartEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartEndDateTime))}");
-            if (startEndDateTime != default)
-                queryParams.Add($"startEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(startEndDateTime))}");
-            if (publicVisibilityStartDateTime != default)
-                queryParams.Add($"publicVisibilityStartDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(publicVisibilityStartDateTime))}");
-            if (preSaleDateTime != default)
-                queryParams.Add($"preSaleDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(preSaleDateTime))}");
-            if (onsaleOnStartDate != default)
-                queryParams.Add($"onsaleOnStartDate={Uri.EscapeDataString(onsaleOnStartDate.ToString())}");
-            if (onsaleOnAfterStartDate != default)
-                queryParams.Add($"onsaleOnAfterStartDate={Uri.EscapeDataString(onsaleOnAfterStartDate.ToString())}");
-            if (collectionId != default)
-                queryParams.Add($"collectionId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(collectionId))}");
-            if (segmentId != default)
-                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
-            if (segmentName != default)
-                queryParams.Add($"segmentName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentName))}");
-            if (includeFamily != default)
-                queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
-            if (promoterId != default)
-                queryParams.Add($"promoterId={Uri.EscapeDataString(promoterId.ToString())}");
-            if (genreId != default)
-                queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
-            if (subGenreId != default)
-                queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreId))}");
-            if (typeId != default)
-                queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeId))}");
-            if (subTypeId != default)
-                queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
-            if (geoPoint != default)
-                queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
-            if (preferredCountry != default)
-                queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
-            if (includeSpellcheck != default)
-                queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/events.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EventsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.EventsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (size.HasValue)
+                    queryParams.Add($"size={Uri.EscapeDataString(size.Value.ToString())}");
+                if (id != default)
+                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                if (keyword != default)
+                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                if (attractionId != default)
+                    queryParams.Add($"attractionId={Uri.EscapeDataString(attractionId.ToString())}");
+                if (venueId != default)
+                    queryParams.Add($"venueId={Uri.EscapeDataString(venueId.ToString())}");
+                if (postalCode != default)
+                    queryParams.Add($"postalCode={Uri.EscapeDataString(postalCode.ToString())}");
+                if (latitudeLongitude != default)
+                    queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
+                if (radius != default)
+                    queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
+                if (unit != default)
+                    queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
+                if (source != default)
+                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (marketId != default)
+                    queryParams.Add($"marketId={Uri.EscapeDataString(marketId.ToString())}");
+                if (startDateTime != default)
+                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDateTime.ToString())}");
+                if (endDateTime != default)
+                    queryParams.Add($"endDateTime={Uri.EscapeDataString(endDateTime.ToString())}");
+                if (includeTBA != default)
+                    queryParams.Add($"includeTBA={Uri.EscapeDataString(includeTBA.ToString())}");
+                if (includeTBD != default)
+                    queryParams.Add($"includeTBD={Uri.EscapeDataString(includeTBD.ToString())}");
+                if (includeTest != default)
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                if (page != default)
+                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                if (onsaleStartDateTime != default)
+                    queryParams.Add($"onsaleStartDateTime={Uri.EscapeDataString(onsaleStartDateTime.ToString())}");
+                if (onsaleEndDateTime != default)
+                    queryParams.Add($"onsaleEndDateTime={Uri.EscapeDataString(onsaleEndDateTime.ToString())}");
+                if (city != default)
+                    queryParams.Add($"city={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(city))}");
+                if (countryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                if (stateCode != default)
+                    queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
+                if (classificationName != default)
+                    queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
+                if (classificationId != default)
+                    queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
+                if (dMAId != default)
+                    queryParams.Add($"dmaId={Uri.EscapeDataString(dMAId.ToString())}");
+                if (localStartDateTime != default)
+                    queryParams.Add($"localStartDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartDateTime))}");
+                if (localStartEndDateTime != default)
+                    queryParams.Add($"localStartEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartEndDateTime))}");
+                if (startEndDateTime != default)
+                    queryParams.Add($"startEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(startEndDateTime))}");
+                if (publicVisibilityStartDateTime != default)
+                    queryParams.Add($"publicVisibilityStartDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(publicVisibilityStartDateTime))}");
+                if (preSaleDateTime != default)
+                    queryParams.Add($"preSaleDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(preSaleDateTime))}");
+                if (onsaleOnStartDate != default)
+                    queryParams.Add($"onsaleOnStartDate={Uri.EscapeDataString(onsaleOnStartDate.ToString())}");
+                if (onsaleOnAfterStartDate != default)
+                    queryParams.Add($"onsaleOnAfterStartDate={Uri.EscapeDataString(onsaleOnAfterStartDate.ToString())}");
+                if (collectionId != default)
+                    queryParams.Add($"collectionId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(collectionId))}");
+                if (segmentId != default)
+                    queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
+                if (segmentName != default)
+                    queryParams.Add($"segmentName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentName))}");
+                if (includeFamily != default)
+                    queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
+                if (promoterId != default)
+                    queryParams.Add($"promoterId={Uri.EscapeDataString(promoterId.ToString())}");
+                if (genreId != default)
+                    queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
+                if (subGenreId != default)
+                    queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreId))}");
+                if (typeId != default)
+                    queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeId))}");
+                if (subTypeId != default)
+                    queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
+                if (geoPoint != default)
+                    queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
+                if (preferredCountry != default)
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                if (includeSpellcheck != default)
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/events.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<EventsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -900,15 +913,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get event details response.</returns>
         public virtual async Task<EventGetResponse> EventGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EventGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.EventGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<EventGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -922,15 +945,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get event images response.</returns>
         public virtual async Task<EventImagesGetResponse> EventImagesGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}/images" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EventImagesGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.EventImagesGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}/images" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<EventImagesGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -961,51 +994,61 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Attraction search response.</returns>
         public virtual async Task<AttractionsGetResponse> AttractionsGetAsync(string id = default, string keyword = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, object[] classificationName = default, object[] classificationId = default, string includeFamily = default, object[] segmentId = default, object[] genreId = default, object[] subGenreId = default, object[] typeId = default, object[] subTypeId = default, string countryCode = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (id != default)
-                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
-            if (keyword != default)
-                queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
-            if (source != default)
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (includeTest != default)
-                queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
-            if (size != default)
-                queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
-            if (page != default)
-                queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
-            if (classificationName != default)
-                queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
-            if (classificationId != default)
-                queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
-            if (includeFamily != default)
-                queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
-            if (segmentId != default)
-                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
-            if (genreId != default)
-                queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
-            if (subGenreId != default)
-                queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreId))}");
-            if (typeId != default)
-                queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeId))}");
-            if (subTypeId != default)
-                queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
-            if (countryCode != default)
-                queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
-            if (preferredCountry != default)
-                queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
-            if (includeSpellcheck != default)
-                queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/attractions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AttractionsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.AttractionsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (id != default)
+                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                if (keyword != default)
+                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                if (source != default)
+                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (includeTest != default)
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                if (size != default)
+                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                if (page != default)
+                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                if (classificationName != default)
+                    queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
+                if (classificationId != default)
+                    queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
+                if (includeFamily != default)
+                    queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
+                if (segmentId != default)
+                    queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
+                if (genreId != default)
+                    queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
+                if (subGenreId != default)
+                    queryParams.Add($"subGenreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subGenreId))}");
+                if (typeId != default)
+                    queryParams.Add($"typeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(typeId))}");
+                if (subTypeId != default)
+                    queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
+                if (countryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                if (preferredCountry != default)
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                if (includeSpellcheck != default)
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/attractions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AttractionsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1019,15 +1062,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get attraction details response.</returns>
         public virtual async Task<AttractionGetResponse> AttractionGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/attractions/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AttractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.AttractionGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/attractions/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AttractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1050,35 +1103,45 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Classification search response.</returns>
         public virtual async Task<ClassificationsGetResponse> ClassificationsGetAsync(string id = default, string keyword = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, string countryCode = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (id != default)
-                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
-            if (keyword != default)
-                queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
-            if (source != default)
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (includeTest != default)
-                queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
-            if (size != default)
-                queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
-            if (page != default)
-                queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
-            if (countryCode != default)
-                queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
-            if (preferredCountry != default)
-                queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
-            if (includeSpellcheck != default)
-                queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ClassificationsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.ClassificationsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (id != default)
+                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                if (keyword != default)
+                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                if (source != default)
+                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (includeTest != default)
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                if (size != default)
+                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                if (page != default)
+                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                if (countryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                if (preferredCountry != default)
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                if (includeSpellcheck != default)
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/classifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ClassificationsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1092,15 +1155,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get classification details response.</returns>
         public virtual async Task<ClassificationGetResponse> ClassificationGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ClassificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.ClassificationGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/classifications/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ClassificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1114,15 +1187,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get genre details response.</returns>
         public virtual async Task<GenreGetResponse> GenreGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/genres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.GenreGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/classifications/genres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1136,15 +1219,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get segment details response.</returns>
         public virtual async Task<SegmentGetResponse> SegmentGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/segments/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SegmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.SegmentGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/classifications/segments/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SegmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1158,15 +1251,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get sub-genre details response.</returns>
         public virtual async Task<SubGenreGetResponse> SubGenreGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/classifications/subgenres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SubGenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.SubGenreGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/classifications/subgenres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SubGenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1194,45 +1297,55 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Venue search response.</returns>
         public virtual async Task<VenuesGetResponse> VenuesGetAsync(string id = default, string keyword = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string includeTest = default, string size = default, string page = default, string sort = default, string countryCode = default, string stateCode = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (id != default)
-                queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
-            if (keyword != default)
-                queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
-            if (latitudeLongitude != default)
-                queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
-            if (radius != default)
-                queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
-            if (unit != default)
-                queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
-            if (source != default)
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (includeTest != default)
-                queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
-            if (size != default)
-                queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
-            if (page != default)
-                queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
-            if (countryCode != default)
-                queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
-            if (stateCode != default)
-                queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
-            if (geoPoint != default)
-                queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
-            if (preferredCountry != default)
-                queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
-            if (includeSpellcheck != default)
-                queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/venues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<VenuesGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.VenuesGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (id != default)
+                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                if (keyword != default)
+                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                if (latitudeLongitude != default)
+                    queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
+                if (radius != default)
+                    queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
+                if (unit != default)
+                    queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
+                if (source != default)
+                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (includeTest != default)
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                if (size != default)
+                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                if (page != default)
+                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                if (countryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                if (stateCode != default)
+                    queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
+                if (geoPoint != default)
+                    queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
+                if (preferredCountry != default)
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                if (includeSpellcheck != default)
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/venues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<VenuesGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1246,15 +1359,25 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Get venue details response.</returns>
         public virtual async Task<VenueGetResponse> VenueGetAsync(string id, string locale = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/venues/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<VenueGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.VenueGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/venues/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<VenueGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1284,49 +1407,59 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <returns>The Find suggestions response.</returns>
         public virtual async Task<SuggestionsGetResponse> SuggestionsGetAsync(string keyword = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string includeTBA = default, string includeTBD = default, string includeTest = default, string size = default, string countryCode = default, object[] segmentId = default, string geoPoint = default, object[] resource = default, string preferredCountry = default, object[] startEndDateTime = default, object[] localStartEndDateTime = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (keyword != default)
-                queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
-            if (latitudeLongitude != default)
-                queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
-            if (radius != default)
-                queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
-            if (unit != default)
-                queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
-            if (source != default)
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (includeTBA != default)
-                queryParams.Add($"includeTBA={Uri.EscapeDataString(includeTBA.ToString())}");
-            if (includeTBD != default)
-                queryParams.Add($"includeTBD={Uri.EscapeDataString(includeTBD.ToString())}");
-            if (includeTest != default)
-                queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
-            if (size != default)
-                queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
-            if (countryCode != default)
-                queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
-            if (segmentId != default)
-                queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
-            if (geoPoint != default)
-                queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
-            if (resource != default)
-                queryParams.Add($"resource={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(resource))}");
-            if (preferredCountry != default)
-                queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
-            if (startEndDateTime != default)
-                queryParams.Add($"startEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(startEndDateTime))}");
-            if (localStartEndDateTime != default)
-                queryParams.Add($"localStartEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartEndDateTime))}");
-            if (includeSpellcheck != default)
-                queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
-            if (domain != default)
-                queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-            var path = $"/discovery/v2/suggest" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SuggestionsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.SuggestionsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (keyword != default)
+                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                if (latitudeLongitude != default)
+                    queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
+                if (radius != default)
+                    queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
+                if (unit != default)
+                    queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
+                if (source != default)
+                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (includeTBA != default)
+                    queryParams.Add($"includeTBA={Uri.EscapeDataString(includeTBA.ToString())}");
+                if (includeTBD != default)
+                    queryParams.Add($"includeTBD={Uri.EscapeDataString(includeTBD.ToString())}");
+                if (includeTest != default)
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                if (size != default)
+                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                if (countryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                if (segmentId != default)
+                    queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
+                if (geoPoint != default)
+                    queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
+                if (resource != default)
+                    queryParams.Add($"resource={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(resource))}");
+                if (preferredCountry != default)
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                if (startEndDateTime != default)
+                    queryParams.Add($"startEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(startEndDateTime))}");
+                if (localStartEndDateTime != default)
+                    queryParams.Add($"localStartEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartEndDateTime))}");
+                if (includeSpellcheck != default)
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
+                var path = $"/discovery/v2/suggest" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SuggestionsGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

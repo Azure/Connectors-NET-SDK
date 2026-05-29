@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Infusionsoft.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Infusionsoft.Models
@@ -74,7 +75,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     {
         /// <summary>Collection of tasks.</summary>
         [JsonPropertyName("tasks")]
-        public List<object> Tasks { get; set; }
+        public List<JsonElement?> Tasks { get; set; }
     }
 
     /// <summary>
@@ -208,7 +209,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
         /// Creates a new instance of <see cref="ListTasksResponse"/>.
         /// </summary>
         public static ListTasksResponse ListTasksResponse(
-            List<object> tasks = default)
+            List<JsonElement?> tasks = default)
         {
             return new ListTasksResponse
             {
@@ -388,6 +389,8 @@ namespace Azure.Connectors.Sdk.Infusionsoft
 
         public override string ConnectorName => "infusionsoft";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.infusionsoft");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -409,10 +412,20 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The Create a task response.</returns>
         public virtual async Task<TaskResponse> CreateTaskAsync(CreateTaskRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/crm/rest/v1/tasks/";
-            return await this
-                .CallConnectorAsync<TaskResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.CreateTaskAsync");
+            try
+            {
+                var path = $"/crm/rest/v1/tasks/";
+                return await this
+                    .CallConnectorAsync<TaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -425,10 +438,20 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The Update a task response.</returns>
         public virtual async Task<TaskResponse> UpdateTaskAsync([DynamicValues("ListTasks")] int id, CreateTaskRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<TaskResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.UpdateTaskAsync");
+            try
+            {
+                var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(id.ToString())}";
+                return await this
+                    .CallConnectorAsync<TaskResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -439,12 +462,22 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The List tasks response.</returns>
         public virtual async Task<ListTasksResponse> ListTasksAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("order=-due_date");
-            var path = $"/crm/rest/v1/tasks/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.ListTasksAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("order=-due_date");
+                var path = $"/crm/rest/v1/tasks/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

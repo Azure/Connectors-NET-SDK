@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Campfire.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Campfire.Models
@@ -35,7 +36,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     {
         /// <summary>Collection Of Accounts</summary>
         [JsonPropertyName("accounts")]
-        public List<object> Accounts { get; set; }
+        public List<JsonElement?> Accounts { get; set; }
     }
 
     /// <summary>
@@ -45,7 +46,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     {
         /// <summary>Collection of Rooms</summary>
         [JsonPropertyName("rooms")]
-        public List<object> Rooms { get; set; }
+        public List<JsonElement?> Rooms { get; set; }
     }
 
     /// <summary>
@@ -55,7 +56,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     {
         /// <summary>A Campfire message</summary>
         [JsonPropertyName("message")]
-        public object Message { get; set; }
+        public JsonElement? Message { get; set; }
     }
 
     /// <summary>
@@ -65,7 +66,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     {
         /// <summary>Collection Of messages</summary>
         [JsonPropertyName("messages")]
-        public List<object> Messages { get; set; }
+        public List<JsonElement?> Messages { get; set; }
     }
 
     /// <summary>
@@ -75,7 +76,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     {
         /// <summary>Collection of Uploads</summary>
         [JsonPropertyName("uploads")]
-        public List<object> Uploads { get; set; }
+        public List<JsonElement?> Uploads { get; set; }
     }
 
     /// <summary>
@@ -85,7 +86,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     {
         /// <summary>user</summary>
         [JsonPropertyName("user")]
-        public object User { get; set; }
+        public JsonElement? User { get; set; }
     }
 
     #endregion Types
@@ -103,7 +104,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         /// Creates a new instance of <see cref="AccountsResponse"/>.
         /// </summary>
         public static AccountsResponse AccountsResponse(
-            List<object> accounts = default)
+            List<JsonElement?> accounts = default)
         {
             return new AccountsResponse
             {
@@ -115,7 +116,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         /// Creates a new instance of <see cref="RoomsResponse"/>.
         /// </summary>
         public static RoomsResponse RoomsResponse(
-            List<object> rooms = default)
+            List<JsonElement?> rooms = default)
         {
             return new RoomsResponse
             {
@@ -127,7 +128,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         /// Creates a new instance of <see cref="CreateMessageResponse"/>.
         /// </summary>
         public static CreateMessageResponse CreateMessageResponse(
-            object message = default)
+            JsonElement? message = default)
         {
             return new CreateMessageResponse
             {
@@ -139,7 +140,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         /// Creates a new instance of <see cref="MessagesResponse"/>.
         /// </summary>
         public static MessagesResponse MessagesResponse(
-            List<object> messages = default)
+            List<JsonElement?> messages = default)
         {
             return new MessagesResponse
             {
@@ -151,7 +152,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         /// Creates a new instance of <see cref="UploadResponse"/>.
         /// </summary>
         public static UploadResponse UploadResponse(
-            List<object> uploads = default)
+            List<JsonElement?> uploads = default)
         {
             return new UploadResponse
             {
@@ -163,7 +164,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         /// Creates a new instance of <see cref="UserResponse"/>.
         /// </summary>
         public static UserResponse UserResponse(
-            object user = default)
+            JsonElement? user = default)
         {
             return new UserResponse
             {
@@ -313,6 +314,8 @@ namespace Azure.Connectors.Sdk.Campfire
 
         public override string ConnectorName => "campfire";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.campfire");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -334,13 +337,23 @@ namespace Azure.Connectors.Sdk.Campfire
         /// <returns>The List accounts response.</returns>
         public virtual async Task<AccountsResponse> ListAccountsAsync(string parentOperation = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (parentOperation != default)
-                queryParams.Add($"parentOperation={Uri.EscapeDataString(parentOperation.ToString())}");
-            var path = $"/authorization.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.ListAccountsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentOperation != default)
+                    queryParams.Add($"parentOperation={Uri.EscapeDataString(parentOperation.ToString())}");
+                var path = $"/authorization.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -352,12 +365,23 @@ namespace Azure.Connectors.Sdk.Campfire
         /// <returns>The List Rooms response.</returns>
         public virtual async Task<RoomsResponse> ListRoomsAsync([DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-            var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<RoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.ListRoomsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (account is null) throw new ArgumentNullException(nameof(account));
+                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+                var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<RoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -371,13 +395,25 @@ namespace Azure.Connectors.Sdk.Campfire
         /// <returns>The Create a message response.</returns>
         public virtual async Task<CreateMessageResponse> CreateMessageAsync([DynamicValues("ListRooms")] string roomId, [DynamicValues("ListAccounts")] string account, string messageTextToBeCreated, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-            queryParams.Add($"message={Uri.EscapeDataString(messageTextToBeCreated.ToString())}");
-            var path = $"/room/{Uri.EscapeDataString(roomId.ToString())}/speak.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateMessageResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.CreateMessageAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (account is null) throw new ArgumentNullException(nameof(account));
+                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+                if (messageTextToBeCreated is null) throw new ArgumentNullException(nameof(messageTextToBeCreated));
+                queryParams.Add($"message={Uri.EscapeDataString(messageTextToBeCreated.ToString())}");
+                var path = $"/room/{Uri.EscapeDataString(roomId.ToString())}/speak.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateMessageResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -390,12 +426,23 @@ namespace Azure.Connectors.Sdk.Campfire
         /// <returns>The Get user by ID response.</returns>
         public virtual async Task<UserResponse> GetUserAsync(int userId, [DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<UserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.GetUserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (account is null) throw new ArgumentNullException(nameof(account));
+                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<UserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

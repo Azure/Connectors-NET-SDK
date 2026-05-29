@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.ClickSendSms.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.ClickSendSms.Models
@@ -35,7 +36,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     {
         /// <summary>Message</summary>
         [JsonPropertyName("messages")]
-        public List<object> Messages { get; set; }
+        public List<JsonElement?> Messages { get; set; }
     }
 
     /// <summary>
@@ -57,7 +58,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -89,7 +90,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -111,7 +112,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -121,7 +122,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     {
         /// <summary>Message</summary>
         [JsonPropertyName("messages")]
-        public List<object> Messages { get; set; }
+        public List<JsonElement?> Messages { get; set; }
     }
 
     /// <summary>
@@ -143,7 +144,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -253,7 +254,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -275,7 +276,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -303,7 +304,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     {
         /// <summary>Message</summary>
         [JsonPropertyName("messages")]
-        public List<object> Messages { get; set; }
+        public List<JsonElement?> Messages { get; set; }
 
         /// <summary>Supports maximum file size of 250kB, Gif can only be supported if it below 100 kB file size</summary>
         [JsonPropertyName("media_file")]
@@ -329,7 +330,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -339,7 +340,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     {
         /// <summary>Message</summary>
         [JsonPropertyName("messages")]
-        public List<object> Messages { get; set; }
+        public List<JsonElement?> Messages { get; set; }
 
         /// <summary>Maximum file size is 4 MB. All pages should be in portrait. Chat with ClickSend Support for complete specifications</summary>
         [JsonPropertyName("file_url")]
@@ -365,7 +366,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -397,7 +398,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -419,7 +420,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -449,7 +450,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>Recipient</summary>
         [JsonPropertyName("recipients")]
-        public List<object> Recipients { get; set; }
+        public List<JsonElement?> Recipients { get; set; }
 
         /// <summary>Source</summary>
         [JsonPropertyName("source")]
@@ -475,7 +476,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -485,7 +486,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     {
         /// <summary>item</summary>
         [JsonPropertyName("recipients")]
-        public List<object> Recipients { get; set; }
+        public List<JsonElement?> Recipients { get; set; }
 
         /// <summary>PDF File URL</summary>
         [JsonPropertyName("file_urls")]
@@ -511,7 +512,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
 
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -567,7 +568,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         /// Creates a new instance of <see cref="SmsSendInput"/>.
         /// </summary>
         public static SmsSendInput SmsSendInput(
-            List<object> messages = default)
+            List<JsonElement?> messages = default)
         {
             return new SmsSendInput
             {
@@ -582,7 +583,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SmsSendResponse
             {
@@ -612,7 +613,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateListResponse
             {
@@ -630,7 +631,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new GetContactListsResponse
             {
@@ -645,7 +646,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         /// Creates a new instance of <see cref="SendVoiceInput"/>.
         /// </summary>
         public static SendVoiceInput SendVoiceInput(
-            List<object> messages = default)
+            List<JsonElement?> messages = default)
         {
             return new SendVoiceInput
             {
@@ -660,7 +661,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SendVoiceResponse
             {
@@ -736,7 +737,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateListContactResponse
             {
@@ -754,7 +755,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new ViewListContactsResponse
             {
@@ -785,7 +786,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         /// Creates a new instance of <see cref="SendMmsInput"/>.
         /// </summary>
         public static SendMmsInput SendMmsInput(
-            List<object> messages = default,
+            List<JsonElement?> messages = default,
             string mediaFile = default)
         {
             return new SendMmsInput
@@ -802,7 +803,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SendMmsResponse
             {
@@ -817,7 +818,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         /// Creates a new instance of <see cref="SendFaxInput"/>.
         /// </summary>
         public static SendFaxInput SendFaxInput(
-            List<object> messages = default,
+            List<JsonElement?> messages = default,
             string fileUrl = default)
         {
             return new SendFaxInput
@@ -834,7 +835,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SendFaxResponse
             {
@@ -864,7 +865,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new UploadMediaResponse
             {
@@ -882,7 +883,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SearchContactListResponse
             {
@@ -902,7 +903,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? colour = default,
             int? duplex = default,
             int? priorityPost = default,
-            List<object> recipients = default,
+            List<JsonElement?> recipients = default,
             string source = default)
         {
             return new SendLetterInput
@@ -924,7 +925,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SendLetterResponse
             {
@@ -939,7 +940,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         /// Creates a new instance of <see cref="SendPostcardInput"/>.
         /// </summary>
         public static SendPostcardInput SendPostcardInput(
-            List<object> recipients = default,
+            List<JsonElement?> recipients = default,
             List<string> fileUrls = default)
         {
             return new SendPostcardInput
@@ -956,7 +957,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             int? httpCode = default,
             string responseCode = default,
             string responseMsg = default,
-            object data = default)
+            JsonElement? data = default)
         {
             return new SendPostcardResponse
             {
@@ -1071,6 +1072,8 @@ namespace Azure.Connectors.Sdk.ClickSendSms
 
         public override string ConnectorName => "clicksendsms";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.clicksendsms");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1092,10 +1095,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Send SMS response.</returns>
         public virtual async Task<SmsSendResponse> SmsSendAsync(SmsSendInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/sms/send";
-            return await this
-                .CallConnectorAsync<SmsSendResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SmsSendAsync");
+            try
+            {
+                var path = $"/sms/send";
+                return await this
+                    .CallConnectorAsync<SmsSendResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1107,10 +1120,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Create New Contact List response.</returns>
         public virtual async Task<CreateListResponse> CreateListAsync(CreateListInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists";
-            return await this
-                .CallConnectorAsync<CreateListResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.CreateListAsync");
+            try
+            {
+                var path = $"/lists";
+                return await this
+                    .CallConnectorAsync<CreateListResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1123,15 +1146,25 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Get Contact Lists response.</returns>
         public virtual async Task<GetContactListsResponse> GetContactListsAsync(int? pageNumber = default, int? numberOfRecordsPerPage = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pageNumber.HasValue)
-                queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
-            if (numberOfRecordsPerPage.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(numberOfRecordsPerPage.Value.ToString())}");
-            var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetContactListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.GetContactListsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pageNumber.HasValue)
+                    queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
+                if (numberOfRecordsPerPage.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(numberOfRecordsPerPage.Value.ToString())}");
+                var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetContactListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1143,10 +1176,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Send Voice Message response.</returns>
         public virtual async Task<SendVoiceResponse> SendVoiceAsync(SendVoiceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/voice/send";
-            return await this
-                .CallConnectorAsync<SendVoiceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SendVoiceAsync");
+            try
+            {
+                var path = $"/voice/send";
+                return await this
+                    .CallConnectorAsync<SendVoiceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1158,10 +1201,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Delete List response.</returns>
         public virtual async Task<DeleteListResponse> DeleteListAsync(int listId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}";
-            return await this
-                .CallConnectorAsync<DeleteListResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.DeleteListAsync");
+            try
+            {
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DeleteListResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1174,10 +1227,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Create New Contact response.</returns>
         public virtual async Task<CreateListContactResponse> CreateListContactAsync(int listId, CreateListContactInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
-            return await this
-                .CallConnectorAsync<CreateListContactResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.CreateListContactAsync");
+            try
+            {
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
+                return await this
+                    .CallConnectorAsync<CreateListContactResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1189,10 +1252,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Get Contacts in a List response.</returns>
         public virtual async Task<ViewListContactsResponse> ViewListContactsAsync(int listId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
-            return await this
-                .CallConnectorAsync<ViewListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.ViewListContactsAsync");
+            try
+            {
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
+                return await this
+                    .CallConnectorAsync<ViewListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1205,10 +1278,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Delete a Contact response.</returns>
         public virtual async Task<DeleteListContactResponse> DeleteListContactAsync(int listId, int contactId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts/{Uri.EscapeDataString(contactId.ToString())}";
-            return await this
-                .CallConnectorAsync<DeleteListContactResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.DeleteListContactAsync");
+            try
+            {
+                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts/{Uri.EscapeDataString(contactId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DeleteListContactResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1220,10 +1303,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Send MMS response.</returns>
         public virtual async Task<SendMmsResponse> SendMmsAsync(SendMmsInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/mms/send";
-            return await this
-                .CallConnectorAsync<SendMmsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SendMmsAsync");
+            try
+            {
+                var path = $"/mms/send";
+                return await this
+                    .CallConnectorAsync<SendMmsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1235,10 +1328,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Send Fax response.</returns>
         public virtual async Task<SendFaxResponse> SendFaxAsync(SendFaxInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/fax/send";
-            return await this
-                .CallConnectorAsync<SendFaxResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SendFaxAsync");
+            try
+            {
+                var path = $"/fax/send";
+                return await this
+                    .CallConnectorAsync<SendFaxResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1251,12 +1354,23 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Convert Media File Format response.</returns>
         public virtual async Task<UploadMediaResponse> UploadMediaAsync(UploadMediaInput input, string selectActionTheFileIsNeededFor, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"convert={Uri.EscapeDataString(selectActionTheFileIsNeededFor.ToString())}");
-            var path = $"/uploads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<UploadMediaResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.UploadMediaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (selectActionTheFileIsNeededFor is null) throw new ArgumentNullException(nameof(selectActionTheFileIsNeededFor));
+                queryParams.Add($"convert={Uri.EscapeDataString(selectActionTheFileIsNeededFor.ToString())}");
+                var path = $"/uploads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<UploadMediaResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1268,12 +1382,23 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Search Contact Lists response.</returns>
         public virtual async Task<SearchContactListResponse> SearchContactListAsync(string listName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"q={Uri.EscapeDataString(listName.ToString())}");
-            var path = $"/search/contacts-lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SearchContactListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SearchContactListAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (listName is null) throw new ArgumentNullException(nameof(listName));
+                queryParams.Add($"q={Uri.EscapeDataString(listName.ToString())}");
+                var path = $"/search/contacts-lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SearchContactListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1285,10 +1410,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Send Letter response.</returns>
         public virtual async Task<SendLetterResponse> SendLetterAsync(SendLetterInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/post/letters/send";
-            return await this
-                .CallConnectorAsync<SendLetterResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SendLetterAsync");
+            try
+            {
+                var path = $"/post/letters/send";
+                return await this
+                    .CallConnectorAsync<SendLetterResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1300,10 +1435,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         /// <returns>The Send Postcard response.</returns>
         public virtual async Task<SendPostcardResponse> SendPostcardAsync(SendPostcardInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/post/postcards/send";
-            return await this
-                .CallConnectorAsync<SendPostcardResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SendPostcardAsync");
+            try
+            {
+                var path = $"/post/postcards/send";
+                return await this
+                    .CallConnectorAsync<SendPostcardResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

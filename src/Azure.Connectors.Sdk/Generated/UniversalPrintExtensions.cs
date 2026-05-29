@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.UniversalPrint.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.UniversalPrint.Models
@@ -35,7 +36,7 @@ namespace Azure.Connectors.Sdk.UniversalPrint.Models
     {
         /// <summary>The list of printer shares</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     #endregion Types
@@ -53,7 +54,7 @@ namespace Azure.Connectors.Sdk.UniversalPrint.Models
         /// Creates a new instance of <see cref="ListRecentSharesResponse"/>.
         /// </summary>
         public static ListRecentSharesResponse ListRecentSharesResponse(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListRecentSharesResponse
             {
@@ -121,6 +122,8 @@ namespace Azure.Connectors.Sdk.UniversalPrint
 
         public override string ConnectorName => "universalprint";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.universalprint");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -141,10 +144,20 @@ namespace Azure.Connectors.Sdk.UniversalPrint
         /// <returns>The List recently used shares response.</returns>
         public virtual async Task<ListRecentSharesResponse> ListRecentSharesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/me/print/recentPrinterShares";
-            return await this
-                .CallConnectorAsync<ListRecentSharesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = UniversalPrintClient.ConnectorActivitySource.StartActivity("UniversalPrintClient.ListRecentSharesAsync");
+            try
+            {
+                var path = $"/beta/me/print/recentPrinterShares";
+                return await this
+                    .CallConnectorAsync<ListRecentSharesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -167,33 +180,45 @@ namespace Azure.Connectors.Sdk.UniversalPrint
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task PrintFileAsync(byte[] input, [DynamicValues("ListRecentShares")] string printerName, string fileName, int? copies = default, string orientation = default, string color = default, string paperSize = default, string printOnBothSides = default, int? pagesPerSheet = default, int? resolution = default, string quality = default, string mediaType = default, object[] finishing = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"printer={Uri.EscapeDataString(printerName.ToString())}");
-            queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
-            if (copies.HasValue)
-                queryParams.Add($"configuration_copies={Uri.EscapeDataString(copies.Value.ToString())}");
-            if (orientation != default)
-                queryParams.Add($"configuration_orientation={Uri.EscapeDataString(orientation.ToString())}");
-            if (color != default)
-                queryParams.Add($"configuration_colorMode={Uri.EscapeDataString(color.ToString())}");
-            if (paperSize != default)
-                queryParams.Add($"configuration_mediaSize={Uri.EscapeDataString(paperSize.ToString())}");
-            if (printOnBothSides != default)
-                queryParams.Add($"configuration_duplexMode={Uri.EscapeDataString(printOnBothSides.ToString())}");
-            if (pagesPerSheet.HasValue)
-                queryParams.Add($"configuration_pagesPerSheet={Uri.EscapeDataString(pagesPerSheet.Value.ToString())}");
-            if (resolution.HasValue)
-                queryParams.Add($"configuration_dpi={Uri.EscapeDataString(resolution.Value.ToString())}");
-            if (quality != default)
-                queryParams.Add($"configuration_quality={Uri.EscapeDataString(quality.ToString())}");
-            if (mediaType != default)
-                queryParams.Add($"configuration_mediaType={Uri.EscapeDataString(mediaType.ToString())}");
-            if (finishing != default)
-                queryParams.Add($"configuration_finishings={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(finishing))}");
-            var path = $"/v1.0/print/shares" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = UniversalPrintClient.ConnectorActivitySource.StartActivity("UniversalPrintClient.PrintFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (printerName is null) throw new ArgumentNullException(nameof(printerName));
+                queryParams.Add($"printer={Uri.EscapeDataString(printerName.ToString())}");
+                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
+                if (copies.HasValue)
+                    queryParams.Add($"configuration_copies={Uri.EscapeDataString(copies.Value.ToString())}");
+                if (orientation != default)
+                    queryParams.Add($"configuration_orientation={Uri.EscapeDataString(orientation.ToString())}");
+                if (color != default)
+                    queryParams.Add($"configuration_colorMode={Uri.EscapeDataString(color.ToString())}");
+                if (paperSize != default)
+                    queryParams.Add($"configuration_mediaSize={Uri.EscapeDataString(paperSize.ToString())}");
+                if (printOnBothSides != default)
+                    queryParams.Add($"configuration_duplexMode={Uri.EscapeDataString(printOnBothSides.ToString())}");
+                if (pagesPerSheet.HasValue)
+                    queryParams.Add($"configuration_pagesPerSheet={Uri.EscapeDataString(pagesPerSheet.Value.ToString())}");
+                if (resolution.HasValue)
+                    queryParams.Add($"configuration_dpi={Uri.EscapeDataString(resolution.Value.ToString())}");
+                if (quality != default)
+                    queryParams.Add($"configuration_quality={Uri.EscapeDataString(quality.ToString())}");
+                if (mediaType != default)
+                    queryParams.Add($"configuration_mediaType={Uri.EscapeDataString(mediaType.ToString())}");
+                if (finishing != default)
+                    queryParams.Add($"configuration_finishings={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(finishing))}");
+                var path = $"/v1.0/print/shares" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

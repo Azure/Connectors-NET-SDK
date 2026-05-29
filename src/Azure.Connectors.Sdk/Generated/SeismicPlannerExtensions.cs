@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.SeismicPlanner.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.SeismicPlanner.Models
@@ -306,7 +307,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// <summary>Longer GUID format</summary>
         [JsonPropertyName("nodeGuid")]
         [JsonInclude]
-        public string NodeGUID { get; internal set; }
+        public string NodeGUID { get; init; }
 
         /// <summary>Node ID</summary>
         [JsonPropertyName("nodeId")]
@@ -319,7 +320,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// <summary>Longer GUID format</summary>
         [JsonPropertyName("spaceGuid")]
         [JsonInclude]
-        public string SpaceGUID { get; internal set; }
+        public string SpaceGUID { get; init; }
 
         /// <summary>Space ID</summary>
         [JsonPropertyName("spaceId")]
@@ -337,7 +338,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Localization object</summary>
         [JsonPropertyName("localizations")]
-        public object Localizations { get; set; }
+        public JsonElement? Localizations { get; set; }
 
         /// <summary>Indicate if the custom property allows multiple values</summary>
         [JsonPropertyName("multipleValue")]
@@ -363,7 +364,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Value data for custom property value</summary>
         [JsonPropertyName("value")]
-        public object Value { get; set; }
+        public JsonElement? Value { get; set; }
     }
 
     /// <summary>
@@ -715,7 +716,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Form reference object</summary>
         [JsonPropertyName("formRef")]
-        public object FormRef { get; set; }
+        public JsonElement? FormRef { get; set; }
 
         /// <summary>id</summary>
         [JsonPropertyName("id")]
@@ -927,7 +928,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Actual value data</summary>
         [JsonPropertyName("value")]
-        public object Value { get; set; }
+        public JsonElement? Value { get; set; }
     }
 
     /// <summary>
@@ -1171,7 +1172,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Form reference object</summary>
         [JsonPropertyName("formRef")]
-        public object FormReference { get; set; }
+        public JsonElement? FormReference { get; set; }
 
         /// <summary>Planned duration in days</summary>
         [JsonPropertyName("plannedDuration")]
@@ -1349,7 +1350,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Form reference object</summary>
         [JsonPropertyName("formRef")]
-        public object FormReference { get; set; }
+        public JsonElement? FormReference { get; set; }
 
         /// <summary>Note used for notifications on status changes</summary>
         [JsonPropertyName("note")]
@@ -2002,7 +2003,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// </summary>
         public static CustomPropertyValues CustomPropertyValues(
             string customPropertyId = default,
-            object localizations = default,
+            JsonElement? localizations = default,
             bool? multipleValue = default,
             string name = default,
             List<CustomPropertyValuesValues> values = default)
@@ -2022,7 +2023,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// </summary>
         public static CustomPropertyValuesValues CustomPropertyValuesValues(
             string valueId = default,
-            object value = default)
+            JsonElement? value = default)
         {
             return new CustomPropertyValuesValues
             {
@@ -2233,7 +2234,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
             string creatorId = default,
             List<CustomPropertyValues> customProperties = default,
             List<Follower> followers = default,
-            object formRef = default,
+            JsonElement? formRef = default,
             string requestId = default,
             string note = default,
             int? plannedDuration = default,
@@ -2373,7 +2374,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         public static PossibleValuesItem PossibleValuesItem(
             string valueId = default,
             int? order = default,
-            object value = default)
+            JsonElement? value = default)
         {
             return new PossibleValuesItem
             {
@@ -2563,7 +2564,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
             List<AssociationReq> associations = default,
             List<ContentRef> contentReferences = default,
             List<CustomPropertyValuesInput> customProperties = default,
-            object formReference = default,
+            JsonElement? formReference = default,
             int? plannedDuration = default,
             DateTime? plannedEndDate = default,
             DateTime? plannedStartDate = default,
@@ -2688,7 +2689,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
             string assigneeId = default,
             List<ContentRef> contentReferenceObjects = default,
             List<CustomPropertyValuesInput> customProperties = default,
-            object formReference = default,
+            JsonElement? formReference = default,
             string note = default,
             int? plannedDuration = default,
             DateTime? plannedEndDate = default,
@@ -2807,6 +2808,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
 
         public override string ConnectorName => "seismicplanner";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.seismicplanner");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2833,19 +2836,29 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get comments response.</returns>
         public virtual async Task<CommentQueryResponse> GetCommentsAsync(string spaceId, string nodeId, object[] creatorIDs = default, string cursor = default, int? limit = default, object[] sort = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (creatorIDs != default)
-                queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
-            if (cursor != default)
-                queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CommentQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetCommentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (creatorIDs != default)
+                    queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
+                if (cursor != default)
+                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CommentQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2859,10 +2872,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Create comment response.</returns>
         public virtual async Task<Comment> CreateCommentAsync(string spaceId, string nodeId, CreateCommentModel input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments";
-            return await this
-                .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateCommentAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments";
+                return await this
+                    .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2876,10 +2899,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get comment response.</returns>
         public virtual async Task<Comment> GetCommentAsync(string spaceId, string nodeId, string commentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
-            return await this
-                .CallConnectorAsync<Comment>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetCommentAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<Comment>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2892,10 +2925,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteCommentAsync(string spaceId, string nodeId, string commentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteCommentAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2910,10 +2953,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Update comment response.</returns>
         public virtual async Task<Comment> UpdateCommentAsync(string spaceId, string nodeId, string commentId, UpdateCommentModel input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
-            return await this
-                .CallConnectorAsync<Comment>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateCommentAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<Comment>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2940,41 +2993,51 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get projects response.</returns>
         public virtual async Task<PlannerProjectQueryResponse> GetProjectsAsync(string spaceId, string plannedEndDateFrom = default, string plannedEndDateTo = default, string plannedStartDateFrom = default, string plannedStartDateTo = default, object[] projectIDs = default, string projectTitle = default, object[] managerIDs = default, object[] creatorIDs = default, object[] associatedNodeIDs = default, string cursor = default, int? limit = default, object[] sort = default, string customProperties = default, object[] followerIDs = default, bool? includeAssociations = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (plannedEndDateFrom != default)
-                queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
-            if (plannedEndDateTo != default)
-                queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
-            if (plannedStartDateFrom != default)
-                queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
-            if (plannedStartDateTo != default)
-                queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
-            if (projectIDs != default)
-                queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
-            if (projectTitle != default)
-                queryParams.Add($"title={Uri.EscapeDataString(projectTitle.ToString())}");
-            if (managerIDs != default)
-                queryParams.Add($"managerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(managerIDs))}");
-            if (creatorIDs != default)
-                queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
-            if (associatedNodeIDs != default)
-                queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
-            if (cursor != default)
-                queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
-            if (customProperties != default)
-                queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
-            if (followerIDs != default)
-                queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
-            if (includeAssociations.HasValue)
-                queryParams.Add($"includeAssociations={Uri.EscapeDataString(includeAssociations.Value.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PlannerProjectQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetProjectsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (plannedEndDateFrom != default)
+                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
+                if (plannedEndDateTo != default)
+                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
+                if (plannedStartDateFrom != default)
+                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
+                if (plannedStartDateTo != default)
+                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
+                if (projectIDs != default)
+                    queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
+                if (projectTitle != default)
+                    queryParams.Add($"title={Uri.EscapeDataString(projectTitle.ToString())}");
+                if (managerIDs != default)
+                    queryParams.Add($"managerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(managerIDs))}");
+                if (creatorIDs != default)
+                    queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
+                if (associatedNodeIDs != default)
+                    queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
+                if (cursor != default)
+                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
+                if (customProperties != default)
+                    queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
+                if (followerIDs != default)
+                    queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
+                if (includeAssociations.HasValue)
+                    queryParams.Add($"includeAssociations={Uri.EscapeDataString(includeAssociations.Value.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PlannerProjectQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2988,14 +3051,25 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Delete projects response.</returns>
         public virtual async Task<AsyncOperationResponse> DeleteProjectsAsync(string spaceId, object[] projectIDs, bool? deleteTasks = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
-            if (deleteTasks.HasValue)
-                queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteProjectsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (projectIDs is null) throw new ArgumentNullException(nameof(projectIDs));
+                queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
+                if (deleteTasks.HasValue)
+                    queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3008,10 +3082,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Create project response.</returns>
         public virtual async Task<PlannerProject> CreateProjectAsync(string spaceId, CreateProject input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects";
-            return await this
-                .CallConnectorAsync<PlannerProject>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateProjectAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects";
+                return await this
+                    .CallConnectorAsync<PlannerProject>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3026,15 +3110,25 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get project response.</returns>
         public virtual async Task<PlannerProject> GetProjectAsync(string spaceId, string projectId, int? associatedNodesDepth = default, bool? includeWorks = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (associatedNodesDepth.HasValue)
-                queryParams.Add($"associatedNodesDepth={Uri.EscapeDataString(associatedNodesDepth.Value.ToString())}");
-            if (includeWorks.HasValue)
-                queryParams.Add($"includeWorks={Uri.EscapeDataString(includeWorks.Value.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PlannerProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetProjectAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (associatedNodesDepth.HasValue)
+                    queryParams.Add($"associatedNodesDepth={Uri.EscapeDataString(associatedNodesDepth.Value.ToString())}");
+                if (includeWorks.HasValue)
+                    queryParams.Add($"includeWorks={Uri.EscapeDataString(includeWorks.Value.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PlannerProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3048,13 +3142,23 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Delete project response.</returns>
         public virtual async Task<AsyncOperationResponse> DeleteProjectAsync(string spaceId, string projectId, bool? deleteTasks = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (deleteTasks.HasValue)
-                queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteProjectAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (deleteTasks.HasValue)
+                    queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3068,10 +3172,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Update a project response.</returns>
         public virtual async Task<PlannerProject> UpdateProjectAsync(string spaceId, string projectId, UpdateProject input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}";
-            return await this
-                .CallConnectorAsync<PlannerProject>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateProjectAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PlannerProject>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3110,65 +3224,75 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get requests response.</returns>
         public virtual async Task<PlannerRequestQueryResponse> GetRequestsAsync(string spaceId, string plannedEndDateFrom = default, string plannedEndDateTo = default, string plannedStartDateFrom = default, string plannedStartDateTo = default, string createdAtFrom = default, string createdAtTo = default, string updatedAtFrom = default, string updatedAtTo = default, object[] requestIDs = default, string title = default, object[] assigneeIDs = default, object[] priorities = default, string keywords = default, object[] assignerIDs = default, object[] creatorIDs = default, object[] stepIDs = default, string statusSchemaId = default, string cursor = default, int? limit = default, object[] sort = default, string projectId = default, bool? hasProject = default, string customProperties = default, object[] followerIDs = default, object[] associatedNodeIDs = default, object[] contentReferenceObjects = default, bool? includeRequestFormCustomProperties = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (plannedEndDateFrom != default)
-                queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
-            if (plannedEndDateTo != default)
-                queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
-            if (plannedStartDateFrom != default)
-                queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
-            if (plannedStartDateTo != default)
-                queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
-            if (createdAtFrom != default)
-                queryParams.Add($"createdAtFrom={Uri.EscapeDataString(createdAtFrom.ToString())}");
-            if (createdAtTo != default)
-                queryParams.Add($"createdAtTo={Uri.EscapeDataString(createdAtTo.ToString())}");
-            if (updatedAtFrom != default)
-                queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(updatedAtFrom.ToString())}");
-            if (updatedAtTo != default)
-                queryParams.Add($"updatedAtTo={Uri.EscapeDataString(updatedAtTo.ToString())}");
-            if (requestIDs != default)
-                queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(requestIDs))}");
-            if (title != default)
-                queryParams.Add($"title={Uri.EscapeDataString(title.ToString())}");
-            if (assigneeIDs != default)
-                queryParams.Add($"assigneeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assigneeIDs))}");
-            if (priorities != default)
-                queryParams.Add($"priorities={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(priorities))}");
-            if (keywords != default)
-                queryParams.Add($"keywords={Uri.EscapeDataString(keywords.ToString())}");
-            if (assignerIDs != default)
-                queryParams.Add($"assignerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assignerIDs))}");
-            if (creatorIDs != default)
-                queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
-            if (stepIDs != default)
-                queryParams.Add($"stepIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(stepIDs))}");
-            if (statusSchemaId != default)
-                queryParams.Add($"statusSchemaId={Uri.EscapeDataString(statusSchemaId.ToString())}");
-            if (cursor != default)
-                queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
-            if (projectId != default)
-                queryParams.Add($"projectId={Uri.EscapeDataString(projectId.ToString())}");
-            if (hasProject.HasValue)
-                queryParams.Add($"hasProject={Uri.EscapeDataString(hasProject.Value.ToString())}");
-            if (customProperties != default)
-                queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
-            if (followerIDs != default)
-                queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
-            if (associatedNodeIDs != default)
-                queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
-            if (contentReferenceObjects != default)
-                queryParams.Add($"contentRefs={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(contentReferenceObjects))}");
-            if (includeRequestFormCustomProperties.HasValue)
-                queryParams.Add($"includeRequestFormCustomProperties={Uri.EscapeDataString(includeRequestFormCustomProperties.Value.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PlannerRequestQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetRequestsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (plannedEndDateFrom != default)
+                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
+                if (plannedEndDateTo != default)
+                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
+                if (plannedStartDateFrom != default)
+                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
+                if (plannedStartDateTo != default)
+                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
+                if (createdAtFrom != default)
+                    queryParams.Add($"createdAtFrom={Uri.EscapeDataString(createdAtFrom.ToString())}");
+                if (createdAtTo != default)
+                    queryParams.Add($"createdAtTo={Uri.EscapeDataString(createdAtTo.ToString())}");
+                if (updatedAtFrom != default)
+                    queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(updatedAtFrom.ToString())}");
+                if (updatedAtTo != default)
+                    queryParams.Add($"updatedAtTo={Uri.EscapeDataString(updatedAtTo.ToString())}");
+                if (requestIDs != default)
+                    queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(requestIDs))}");
+                if (title != default)
+                    queryParams.Add($"title={Uri.EscapeDataString(title.ToString())}");
+                if (assigneeIDs != default)
+                    queryParams.Add($"assigneeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assigneeIDs))}");
+                if (priorities != default)
+                    queryParams.Add($"priorities={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(priorities))}");
+                if (keywords != default)
+                    queryParams.Add($"keywords={Uri.EscapeDataString(keywords.ToString())}");
+                if (assignerIDs != default)
+                    queryParams.Add($"assignerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assignerIDs))}");
+                if (creatorIDs != default)
+                    queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
+                if (stepIDs != default)
+                    queryParams.Add($"stepIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(stepIDs))}");
+                if (statusSchemaId != default)
+                    queryParams.Add($"statusSchemaId={Uri.EscapeDataString(statusSchemaId.ToString())}");
+                if (cursor != default)
+                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
+                if (projectId != default)
+                    queryParams.Add($"projectId={Uri.EscapeDataString(projectId.ToString())}");
+                if (hasProject.HasValue)
+                    queryParams.Add($"hasProject={Uri.EscapeDataString(hasProject.Value.ToString())}");
+                if (customProperties != default)
+                    queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
+                if (followerIDs != default)
+                    queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
+                if (associatedNodeIDs != default)
+                    queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
+                if (contentReferenceObjects != default)
+                    queryParams.Add($"contentRefs={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(contentReferenceObjects))}");
+                if (includeRequestFormCustomProperties.HasValue)
+                    queryParams.Add($"includeRequestFormCustomProperties={Uri.EscapeDataString(includeRequestFormCustomProperties.Value.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PlannerRequestQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3181,10 +3305,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Delete requests response.</returns>
         public virtual async Task<AsyncOperationResponse> DeleteRequestsAsync(string spaceId, DeleteRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
-            return await this
-                .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteRequestsAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
+                return await this
+                    .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3197,10 +3331,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Create request response.</returns>
         public virtual async Task<PlannerRequest> CreateRequestAsync(string spaceId, CreateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
-            return await this
-                .CallConnectorAsync<PlannerRequest>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateRequestAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
+                return await this
+                    .CallConnectorAsync<PlannerRequest>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3213,10 +3357,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get request response.</returns>
         public virtual async Task<PlannerRequest> GetRequestAsync(string spaceId, string requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
-            return await this
-                .CallConnectorAsync<PlannerRequest>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetRequestAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PlannerRequest>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3228,10 +3382,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteRequestAsync(string spaceId, string requestId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteRequestAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3245,10 +3409,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Update request response.</returns>
         public virtual async Task<PlannerRequest> UpdateRequestAsync(string spaceId, string requestId, UpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
-            return await this
-                .CallConnectorAsync<PlannerRequest>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateRequestAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PlannerRequest>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3266,23 +3440,33 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get status schemas response.</returns>
         public virtual async Task<StatusSchemaQueryResponse> GetStatusSchemasAsync(string spaceId, bool? isDefault = default, string type = default, object[] statusSchemaIdS = default, object[] creatorIDs = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (isDefault.HasValue)
-                queryParams.Add($"isDefault={Uri.EscapeDataString(isDefault.Value.ToString())}");
-            if (type != default)
-                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
-            if (statusSchemaIdS != default)
-                queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(statusSchemaIdS))}");
-            if (creatorIDs != default)
-                queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
-            if (cursor != default)
-                queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<StatusSchemaQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetStatusSchemasAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (isDefault.HasValue)
+                    queryParams.Add($"isDefault={Uri.EscapeDataString(isDefault.Value.ToString())}");
+                if (type != default)
+                    queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                if (statusSchemaIdS != default)
+                    queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(statusSchemaIdS))}");
+                if (creatorIDs != default)
+                    queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
+                if (cursor != default)
+                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StatusSchemaQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3295,10 +3479,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get status schema response.</returns>
         public virtual async Task<StatusSchema> GetStatusSchemaAsync(string spaceId, string statusSchemaId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema/{Uri.EscapeDataString(statusSchemaId.ToString())}";
-            return await this
-                .CallConnectorAsync<StatusSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetStatusSchemaAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema/{Uri.EscapeDataString(statusSchemaId.ToString())}";
+                return await this
+                    .CallConnectorAsync<StatusSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3339,69 +3533,79 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get tasks response.</returns>
         public virtual async Task<PlannerTaskQueryResponse> GetTasksAsync(string spaceId, string plannedEndDateFrom = default, string plannedEndDateTo = default, string plannedStartDateFrom = default, string plannedStartDateTo = default, string createdAtFrom = default, string createdAtTo = default, string updatedAtFrom = default, string updatedAtTo = default, object[] taskIDs = default, string title = default, string description = default, object[] assigneeIDs = default, object[] priorities = default, string keywords = default, object[] assignerIDs = default, object[] stepIDs = default, string statusSchemaId = default, string cursor = default, int? limit = default, object[] sort = default, bool? recursive = default, string projectId = default, bool? hasProject = default, string customProperties = default, object[] followerIDs = default, object[] associatedNodeIDs = default, object[] creatorIDs = default, bool? includeAssociations = default, string parentId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (plannedEndDateFrom != default)
-                queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
-            if (plannedEndDateTo != default)
-                queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
-            if (plannedStartDateFrom != default)
-                queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
-            if (plannedStartDateTo != default)
-                queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
-            if (createdAtFrom != default)
-                queryParams.Add($"createdAtFrom={Uri.EscapeDataString(createdAtFrom.ToString())}");
-            if (createdAtTo != default)
-                queryParams.Add($"createdAtTo={Uri.EscapeDataString(createdAtTo.ToString())}");
-            if (updatedAtFrom != default)
-                queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(updatedAtFrom.ToString())}");
-            if (updatedAtTo != default)
-                queryParams.Add($"updatedAtTo={Uri.EscapeDataString(updatedAtTo.ToString())}");
-            if (taskIDs != default)
-                queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(taskIDs))}");
-            if (title != default)
-                queryParams.Add($"title={Uri.EscapeDataString(title.ToString())}");
-            if (description != default)
-                queryParams.Add($"description={Uri.EscapeDataString(description.ToString())}");
-            if (assigneeIDs != default)
-                queryParams.Add($"assigneeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assigneeIDs))}");
-            if (priorities != default)
-                queryParams.Add($"priorities={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(priorities))}");
-            if (keywords != default)
-                queryParams.Add($"keywords={Uri.EscapeDataString(keywords.ToString())}");
-            if (assignerIDs != default)
-                queryParams.Add($"assignerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assignerIDs))}");
-            if (stepIDs != default)
-                queryParams.Add($"stepIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(stepIDs))}");
-            if (statusSchemaId != default)
-                queryParams.Add($"statusSchemaId={Uri.EscapeDataString(statusSchemaId.ToString())}");
-            if (cursor != default)
-                queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (sort != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
-            if (recursive.HasValue)
-                queryParams.Add($"recursive={Uri.EscapeDataString(recursive.Value.ToString())}");
-            if (projectId != default)
-                queryParams.Add($"projectId={Uri.EscapeDataString(projectId.ToString())}");
-            if (hasProject.HasValue)
-                queryParams.Add($"hasProject={Uri.EscapeDataString(hasProject.Value.ToString())}");
-            if (customProperties != default)
-                queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
-            if (followerIDs != default)
-                queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
-            if (associatedNodeIDs != default)
-                queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
-            if (creatorIDs != default)
-                queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
-            if (includeAssociations.HasValue)
-                queryParams.Add($"includeAssociations={Uri.EscapeDataString(includeAssociations.Value.ToString())}");
-            if (parentId != default)
-                queryParams.Add($"parentId={Uri.EscapeDataString(parentId.ToString())}");
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PlannerTaskQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetTasksAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (plannedEndDateFrom != default)
+                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
+                if (plannedEndDateTo != default)
+                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
+                if (plannedStartDateFrom != default)
+                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
+                if (plannedStartDateTo != default)
+                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
+                if (createdAtFrom != default)
+                    queryParams.Add($"createdAtFrom={Uri.EscapeDataString(createdAtFrom.ToString())}");
+                if (createdAtTo != default)
+                    queryParams.Add($"createdAtTo={Uri.EscapeDataString(createdAtTo.ToString())}");
+                if (updatedAtFrom != default)
+                    queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(updatedAtFrom.ToString())}");
+                if (updatedAtTo != default)
+                    queryParams.Add($"updatedAtTo={Uri.EscapeDataString(updatedAtTo.ToString())}");
+                if (taskIDs != default)
+                    queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(taskIDs))}");
+                if (title != default)
+                    queryParams.Add($"title={Uri.EscapeDataString(title.ToString())}");
+                if (description != default)
+                    queryParams.Add($"description={Uri.EscapeDataString(description.ToString())}");
+                if (assigneeIDs != default)
+                    queryParams.Add($"assigneeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assigneeIDs))}");
+                if (priorities != default)
+                    queryParams.Add($"priorities={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(priorities))}");
+                if (keywords != default)
+                    queryParams.Add($"keywords={Uri.EscapeDataString(keywords.ToString())}");
+                if (assignerIDs != default)
+                    queryParams.Add($"assignerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assignerIDs))}");
+                if (stepIDs != default)
+                    queryParams.Add($"stepIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(stepIDs))}");
+                if (statusSchemaId != default)
+                    queryParams.Add($"statusSchemaId={Uri.EscapeDataString(statusSchemaId.ToString())}");
+                if (cursor != default)
+                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (sort != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
+                if (recursive.HasValue)
+                    queryParams.Add($"recursive={Uri.EscapeDataString(recursive.Value.ToString())}");
+                if (projectId != default)
+                    queryParams.Add($"projectId={Uri.EscapeDataString(projectId.ToString())}");
+                if (hasProject.HasValue)
+                    queryParams.Add($"hasProject={Uri.EscapeDataString(hasProject.Value.ToString())}");
+                if (customProperties != default)
+                    queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
+                if (followerIDs != default)
+                    queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
+                if (associatedNodeIDs != default)
+                    queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
+                if (creatorIDs != default)
+                    queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
+                if (includeAssociations.HasValue)
+                    queryParams.Add($"includeAssociations={Uri.EscapeDataString(includeAssociations.Value.ToString())}");
+                if (parentId != default)
+                    queryParams.Add($"parentId={Uri.EscapeDataString(parentId.ToString())}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PlannerTaskQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3414,10 +3618,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Create task response.</returns>
         public virtual async Task<PlannerTask> CreateTaskAsync(string spaceId, CreateTask input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks";
-            return await this
-                .CallConnectorAsync<PlannerTask>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateTaskAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks";
+                return await this
+                    .CallConnectorAsync<PlannerTask>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3430,10 +3644,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Get task response.</returns>
         public virtual async Task<PlannerTask> GetTaskAsync(string spaceId, string taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<PlannerTask>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetTaskAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PlannerTask>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3446,10 +3670,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Delete task response.</returns>
         public virtual async Task<AsyncOperationResponse> DeleteTaskAsync(string spaceId, string taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteTaskAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3463,10 +3697,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <returns>The Update task response.</returns>
         public virtual async Task<PlannerTask> UpdateTaskAsync(string spaceId, string taskId, UpdateTask input, CancellationToken cancellationToken = default)
         {
-            var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<PlannerTask>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateTaskAsync");
+            try
+            {
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PlannerTask>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

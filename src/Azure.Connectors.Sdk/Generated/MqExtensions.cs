@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Mq.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Mq.Models
@@ -52,7 +53,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
         /// <summary>PutDateTime</summary>
         [JsonPropertyName("PutDateTime")]
         [JsonInclude]
-        public DateTime? PutDateTime { get; internal set; }
+        public DateTime? PutDateTime { get; init; }
 
         /// <summary>UserIdentifier</summary>
         [JsonPropertyName("UserIdentifier")]
@@ -627,6 +628,8 @@ namespace Azure.Connectors.Sdk.Mq
 
         public override string ConnectorName => "mq";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.mq");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -648,10 +651,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Delete message (v2) response.</returns>
         public virtual async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/delete";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.DeleteAsync");
+            try
+            {
+                var path = $"/v2/delete";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -663,10 +676,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Delete messages (v2) response.</returns>
         public virtual async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/deleteall";
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.DeleteAllAsync");
+            try
+            {
+                var path = $"/v2/deleteall";
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -678,10 +701,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Browse message (v2) response.</returns>
         public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/read";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReadAsync");
+            try
+            {
+                var path = $"/v2/read";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -693,10 +726,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Browse messages (v2) response.</returns>
         public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/readall";
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReadAllAsync");
+            try
+            {
+                var path = $"/v2/readall";
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -708,10 +751,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Receive message (v2) response.</returns>
         public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/receive";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReceiveAsync");
+            try
+            {
+                var path = $"/v2/receive";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -723,10 +776,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Receive messages (v2) response.</returns>
         public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/receiveall";
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReceiveAllAsync");
+            try
+            {
+                var path = $"/v2/receiveall";
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -738,10 +801,20 @@ namespace Azure.Connectors.Sdk.Mq
         /// <returns>The Send message (v2) response.</returns>
         public virtual async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/send";
-            return await this
-                .CallConnectorAsync<SendResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.SendAsync");
+            try
+            {
+                var path = $"/v2/send";
+                return await this
+                    .CallConnectorAsync<SendResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

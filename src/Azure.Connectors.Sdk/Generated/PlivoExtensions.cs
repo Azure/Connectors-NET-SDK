@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Plivo.Models;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.Plivo.Models
@@ -57,11 +58,11 @@ namespace Azure.Connectors.Sdk.Plivo.Models
 
         /// <summary>Meta information about the response.</summary>
         [JsonPropertyName("meta")]
-        public object MetaInformation { get; set; }
+        public JsonElement? MetaInformation { get; set; }
 
         /// <summary>Details of all messages.</summary>
         [JsonPropertyName("objects")]
-        public List<object> MessageList { get; set; }
+        public List<JsonElement?> MessageList { get; set; }
     }
 
     /// <summary>
@@ -110,7 +111,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// <summary>Timestamp at which the message was sent or received (yyyy-MM-dd HH:mm:ss UTC).</summary>
         [JsonPropertyName("message_time")]
         [JsonInclude]
-        public string Timestamp { get; internal set; }
+        public string Timestamp { get; init; }
 
         /// <summary>Type of the message.</summary>
         [JsonPropertyName("message_type")]
@@ -213,8 +214,8 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// </summary>
         public static ListMessagesResponse ListMessagesResponse(
             string apiId = default,
-            object metaInformation = default,
-            List<object> messageList = default)
+            JsonElement? metaInformation = default,
+            List<JsonElement?> messageList = default)
         {
             return new ListMessagesResponse
             {
@@ -370,6 +371,8 @@ namespace Azure.Connectors.Sdk.Plivo
 
         public override string ConnectorName => "plivo";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.plivo");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -392,10 +395,20 @@ namespace Azure.Connectors.Sdk.Plivo
         /// <returns>The Make a call response.</returns>
         public virtual async Task<MakeCallResponse> MakeCallAsync(string authId, Call input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Call/";
-            return await this
-                .CallConnectorAsync<MakeCallResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.MakeCallAsync");
+            try
+            {
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Call/";
+                return await this
+                    .CallConnectorAsync<MakeCallResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -407,10 +420,20 @@ namespace Azure.Connectors.Sdk.Plivo
         /// <returns>The List all messages response.</returns>
         public virtual async Task<ListMessagesResponse> ListMessagesAsync(string authId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
-            return await this
-                .CallConnectorAsync<ListMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.ListMessagesAsync");
+            try
+            {
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
+                return await this
+                    .CallConnectorAsync<ListMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -423,10 +446,20 @@ namespace Azure.Connectors.Sdk.Plivo
         /// <returns>The Send SMS response.</returns>
         public virtual async Task<SendSMSResponse> SendSMSAsync(string authId, SMS input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
-            return await this
-                .CallConnectorAsync<SendSMSResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.SendSMSAsync");
+            try
+            {
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
+                return await this
+                    .CallConnectorAsync<SendSMSResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -439,10 +472,20 @@ namespace Azure.Connectors.Sdk.Plivo
         /// <returns>The Get message response.</returns>
         public virtual async Task<GetMessageResponse> GetMessageAsync(string authId, string messageUUID, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/{Uri.EscapeDataString(messageUUID.ToString())}/";
-            return await this
-                .CallConnectorAsync<GetMessageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.GetMessageAsync");
+            try
+            {
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/{Uri.EscapeDataString(messageUUID.ToString())}/";
+                return await this
+                    .CallConnectorAsync<GetMessageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex)
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }
