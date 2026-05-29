@@ -332,43 +332,35 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void QueryDataInput_JsonSerialization_RoundTrips()
         {
-            // Arrange
-            var input = new QueryDataInput
-            {
-                Query = "Heartbeat | summarize count()",
-                TimeRangeType = "Relative",
-                TimeRange = default(JsonElement?)
-            };
+            // Arrange — construct via JSON to populate JsonElement? properties
+            var json = "{\"query\":\"Heartbeat | summarize count()\",\"timerangetype\":\"Relative\",\"timerange\":\"Last 24 hours\"}";
 
             // Act
-            var json = JsonSerializer.Serialize(input);
             var deserialized = JsonSerializer.Deserialize<QueryDataInput>(json);
+            var reserialized = JsonSerializer.Serialize(deserialized);
+            var roundTripped = JsonSerializer.Deserialize<QueryDataInput>(reserialized);
 
             // Assert
-            Assert.IsNotNull(deserialized);
-            Assert.AreEqual("Heartbeat | summarize count()", deserialized!.Query);
-            Assert.AreEqual("Relative", deserialized.TimeRangeType);
+            Assert.IsNotNull(roundTripped);
+            Assert.AreEqual("Heartbeat | summarize count()", roundTripped!.Query);
+            Assert.AreEqual("Relative", roundTripped.TimeRangeType);
         }
 
         [TestMethod]
         public void VisualizeQueryInput_JsonSerialization_RoundTrips()
         {
-            // Arrange
-            var input = new VisualizeQueryInput
-            {
-                Query = "Heartbeat | summarize count() by Computer",
-                TimeRangeType = "Relative",
-                TimeRange = default(JsonElement?)
-            };
+            // Arrange — construct via JSON to populate JsonElement? properties
+            var json = "{\"query\":\"Heartbeat | summarize count() by Computer\",\"timerangetype\":\"Relative\",\"timerange\":\"Last 7 days\"}";
 
             // Act
-            var json = JsonSerializer.Serialize(input);
             var deserialized = JsonSerializer.Deserialize<VisualizeQueryInput>(json);
+            var reserialized = JsonSerializer.Serialize(deserialized);
+            var roundTripped = JsonSerializer.Deserialize<VisualizeQueryInput>(reserialized);
 
             // Assert
-            Assert.IsNotNull(deserialized);
-            Assert.AreEqual("Heartbeat | summarize count() by Computer", deserialized!.Query);
-            Assert.AreEqual("Last 7 days", deserialized.TimeRange?.ToString());
+            Assert.IsNotNull(roundTripped);
+            Assert.AreEqual("Heartbeat | summarize count() by Computer", roundTripped!.Query);
+            Assert.AreEqual("Last 7 days", roundTripped.TimeRange?.ToString());
         }
 
         [TestMethod]

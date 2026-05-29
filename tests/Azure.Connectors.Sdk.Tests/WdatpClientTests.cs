@@ -130,15 +130,10 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task AdvancedHuntingAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            var expectedResponse = new AdvancedHuntingResponse
-            {
-                Results = new List<JsonElement?>()
-            };
-
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                Content = new StringContent("{\"results\":[{\"DeviceName\":\"DESKTOP-1\"}]}")
             };
 
             using var client = CreateMockedClient(responseMessage);

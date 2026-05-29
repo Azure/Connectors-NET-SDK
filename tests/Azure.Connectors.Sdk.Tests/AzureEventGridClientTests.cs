@@ -91,15 +91,10 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task TopicTypesListAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            var expectedResponse = new TopicTypesResponse
-            {
-                Value = new List<JsonElement?>()
-            };
-
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                Content = new StringContent("{\"value\":[{\"name\":\"EventGrid\"}]}")
             };
 
             using var client = CreateMockedClient(responseMessage);

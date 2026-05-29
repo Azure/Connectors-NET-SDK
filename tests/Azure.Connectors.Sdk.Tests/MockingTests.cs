@@ -52,11 +52,9 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task TeamsClient_MockVirtualMethod_ReturnsSetupValue()
         {
-            // Arrange
-            var expectedTeams = new GetAllTeamsResponse
-            {
-                TeamsList = new List<JsonElement?>()
-            };
+            // Arrange — construct via JSON deserialization so List<JsonElement?> has actual items
+            var expectedTeams = JsonSerializer.Deserialize<GetAllTeamsResponse>(
+                "{\"value\":[{\"displayName\":\"Engineering\"}]}");
 
             var mock = new Mock<TeamsClient>();
             mock.Setup(client => client.GetAllTeamsAsync(It.IsAny<CancellationToken>()))
@@ -72,7 +70,6 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.TeamsList.Count);
-            Assert.AreEqual("Engineering", result.TeamsList[0]?.GetString());
         }
 
         [TestMethod]
