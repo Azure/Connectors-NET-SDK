@@ -84,7 +84,10 @@ namespace Azure.Connectors.Sdk
             }
             catch (JsonException)
             {
-                // Not valid JSON — return null
+                // Response body is not valid JSON (e.g., HTML error page, plain text).
+                // ErrorCode remains null — callers can still use Status, Message, and
+                // ResponseBody for diagnostics. This is a best-effort extraction in
+                // a constructor call chain; throwing here would mask the original error.
             }
 
             return null;
