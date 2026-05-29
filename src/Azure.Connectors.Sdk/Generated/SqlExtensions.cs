@@ -1166,7 +1166,8 @@ namespace Azure.Connectors.Sdk.Sql
             try
             {
                 var queryParams = new List<string>();
-                if (serverName is null) throw new ArgumentNullException(nameof(serverName));
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
                 queryParams.Add($"server={Uri.EscapeDataString(serverName.ToString())}");
                 var path = $"/databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

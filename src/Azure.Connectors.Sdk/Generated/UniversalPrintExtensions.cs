@@ -184,9 +184,11 @@ namespace Azure.Connectors.Sdk.UniversalPrint
             try
             {
                 var queryParams = new List<string>();
-                if (printerName is null) throw new ArgumentNullException(nameof(printerName));
+                if (printerName is null)
+                    throw new ArgumentNullException(nameof(printerName));
                 queryParams.Add($"printer={Uri.EscapeDataString(printerName.ToString())}");
-                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
                 if (copies.HasValue)
                     queryParams.Add($"configuration_copies={Uri.EscapeDataString(copies.Value.ToString())}");

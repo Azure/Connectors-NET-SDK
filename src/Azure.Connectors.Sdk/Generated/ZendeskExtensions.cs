@@ -376,7 +376,8 @@ namespace Azure.Connectors.Sdk.Zendesk
             try
             {
                 var queryParams = new List<string>();
-                if (query is null) throw new ArgumentNullException(nameof(query));
+                if (query is null)
+                    throw new ArgumentNullException(nameof(query));
                 queryParams.Add($"query={Uri.EscapeDataString(query.ToString())}");
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");

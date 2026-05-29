@@ -5998,7 +5998,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (type is null) throw new ArgumentNullException(nameof(type));
+                if (type is null)
+                    throw new ArgumentNullException(nameof(type));
                 queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -6025,7 +6026,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (pattern is null) throw new ArgumentNullException(nameof(pattern));
+                if (pattern is null)
+                    throw new ArgumentNullException(nameof(pattern));
                 queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -6052,7 +6054,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (headers is null) throw new ArgumentNullException(nameof(headers));
+                if (headers is null)
+                    throw new ArgumentNullException(nameof(headers));
                 queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -6079,7 +6082,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (typeOfSplit is null) throw new ArgumentNullException(nameof(typeOfSplit));
+                if (typeOfSplit is null)
+                    throw new ArgumentNullException(nameof(typeOfSplit));
                 queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -6129,7 +6133,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (processName is null) throw new ArgumentNullException(nameof(processName));
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
                 queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
                 var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -6581,7 +6586,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (typeOfSplit is null) throw new ArgumentNullException(nameof(typeOfSplit));
+                if (typeOfSplit is null)
+                    throw new ArgumentNullException(nameof(typeOfSplit));
                 queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
                 var path = $"/flow/v1/Documents/jobs/SplitPdfV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -6835,7 +6841,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (type is null) throw new ArgumentNullException(nameof(type));
+                if (type is null)
+                    throw new ArgumentNullException(nameof(type));
                 queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
                 var path = $"/flow/v1/Documents/jobs/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -7139,7 +7146,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (processName is null) throw new ArgumentNullException(nameof(processName));
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
                 queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
                 var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcess" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -7168,7 +7176,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             try
             {
                 var queryParams = new List<string>();
-                if (processName is null) throw new ArgumentNullException(nameof(processName));
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
                 queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
                 var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

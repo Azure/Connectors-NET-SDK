@@ -1528,9 +1528,11 @@ namespace Azure.Connectors.Sdk.Jira
             try
             {
                 var queryParams = new List<string>();
-                if (project is null) throw new ArgumentNullException(nameof(project));
+                if (project is null)
+                    throw new ArgumentNullException(nameof(project));
                 queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-                if (issueTypeId is null) throw new ArgumentNullException(nameof(issueTypeId));
+                if (issueTypeId is null)
+                    throw new ArgumentNullException(nameof(issueTypeId));
                 queryParams.Add($"issueTypeIds={Uri.EscapeDataString(issueTypeId.ToString())}");
                 var path = $"/v3/issue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1747,7 +1749,8 @@ namespace Azure.Connectors.Sdk.Jira
             try
             {
                 var queryParams = new List<string>();
-                if (accountId is null) throw new ArgumentNullException(nameof(accountId));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 queryParams.Add($"accountId={Uri.EscapeDataString(accountId.ToString())}");
                 if (expand != default)
                     queryParams.Add($"expand={Uri.EscapeDataString(expand.ToString())}");
@@ -1801,7 +1804,8 @@ namespace Azure.Connectors.Sdk.Jira
             try
             {
                 var queryParams = new List<string>();
-                if (project is null) throw new ArgumentNullException(nameof(project));
+                if (project is null)
+                    throw new ArgumentNullException(nameof(project));
                 queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
                 var path = $"/v2/types/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1830,9 +1834,11 @@ namespace Azure.Connectors.Sdk.Jira
             try
             {
                 var queryParams = new List<string>();
-                if (project is null) throw new ArgumentNullException(nameof(project));
+                if (project is null)
+                    throw new ArgumentNullException(nameof(project));
                 queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-                if (issueTypes is null) throw new ArgumentNullException(nameof(issueTypes));
+                if (issueTypes is null)
+                    throw new ArgumentNullException(nameof(issueTypes));
                 queryParams.Add($"issuetypeIds={Uri.EscapeDataString(issueTypes.ToString())}");
                 var path = $"/v3/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1884,7 +1890,8 @@ namespace Azure.Connectors.Sdk.Jira
             try
             {
                 var queryParams = new List<string>();
-                if (projectKey is null) throw new ArgumentNullException(nameof(projectKey));
+                if (projectKey is null)
+                    throw new ArgumentNullException(nameof(projectKey));
                 queryParams.Add($"projectKey={Uri.EscapeDataString(projectKey.ToString())}");
                 var path = $"/v2/user/permission/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

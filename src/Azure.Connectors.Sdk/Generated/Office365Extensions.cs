@@ -4950,7 +4950,8 @@ namespace Azure.Connectors.Sdk.Office365
             try
             {
                 var queryParams = new List<string>();
-                if (messageId is null) throw new ArgumentNullException(nameof(messageId));
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
                 var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -5002,9 +5003,11 @@ namespace Azure.Connectors.Sdk.Office365
             try
             {
                 var queryParams = new List<string>();
-                if (messageId is null) throw new ArgumentNullException(nameof(messageId));
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 queryParams.Add($"messageId={Uri.EscapeDataString(messageId.ToString())}");
-                if (category is null) throw new ArgumentNullException(nameof(category));
+                if (category is null)
+                    throw new ArgumentNullException(nameof(category));
                 queryParams.Add($"category={Uri.EscapeDataString(category.ToString())}");
                 var path = $"/Mail/Category" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -5877,11 +5880,14 @@ namespace Azure.Connectors.Sdk.Office365
             try
             {
                 var queryParams = new List<string>();
-                if (calendarId is null) throw new ArgumentNullException(nameof(calendarId));
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-                if (startTime is null) throw new ArgumentNullException(nameof(startTime));
+                if (startTime is null)
+                    throw new ArgumentNullException(nameof(startTime));
                 queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime.ToString())}");
-                if (endTime is null) throw new ArgumentNullException(nameof(endTime));
+                if (endTime is null)
+                    throw new ArgumentNullException(nameof(endTime));
                 queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime.ToString())}");
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -6048,7 +6054,8 @@ namespace Azure.Connectors.Sdk.Office365
             try
             {
                 var queryParams = new List<string>();
-                if (folder is null) throw new ArgumentNullException(nameof(folder));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
                 if (originalMailboxAddress != default)
                     queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress.ToString())}");

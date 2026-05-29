@@ -2315,7 +2315,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             try
             {
                 var queryParams = new List<string>();
-                if (resultType is null) throw new ArgumentNullException(nameof(resultType));
+                if (resultType is null)
+                    throw new ArgumentNullException(nameof(resultType));
                 queryParams.Add($"resultType={Uri.EscapeDataString(resultType.ToString())}");
                 var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/results" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2343,7 +2344,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             try
             {
                 var queryParams = new List<string>();
-                if (sOSLSearchString is null) throw new ArgumentNullException(nameof(sOSLSearchString));
+                if (sOSLSearchString is null)
+                    throw new ArgumentNullException(nameof(sOSLSearchString));
                 queryParams.Add($"q={Uri.EscapeDataString(sOSLSearchString.ToString())}");
                 var path = $"/codeless/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

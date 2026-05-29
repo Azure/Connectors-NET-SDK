@@ -864,7 +864,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -896,7 +897,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             {
                 var queryParams = new List<string>();
                 queryParams.Add("populateColumn=false");
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 if (keyColumn != default)
                     queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
@@ -937,7 +939,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -1082,9 +1085,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (keyColumn is null) throw new ArgumentNullException(nameof(keyColumn));
+                if (keyColumn is null)
+                    throw new ArgumentNullException(nameof(keyColumn));
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
                 if (dateTimeFormat != default)
                     queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
@@ -1122,9 +1127,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (keyColumn is null) throw new ArgumentNullException(nameof(keyColumn));
+                if (keyColumn is null)
+                    throw new ArgumentNullException(nameof(keyColumn));
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
                 var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -1159,9 +1166,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (keyColumn is null) throw new ArgumentNullException(nameof(keyColumn));
+                if (keyColumn is null)
+                    throw new ArgumentNullException(nameof(keyColumn));
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
                 if (dateTimeFormat != default)
                     queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
@@ -1219,7 +1228,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1251,7 +1261,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 if (extractSensitivityLabel.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
@@ -1286,7 +1297,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1318,7 +1330,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 if (extractSensitivityLabel.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
@@ -1353,7 +1366,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/metadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1385,7 +1399,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             {
                 var queryParams = new List<string>();
                 queryParams.Add("formattedPostfix=Formatted");
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rawandformattedtablemetadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1416,7 +1431,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1449,7 +1465,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 if (dateTimeFormat != default)
                     queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
@@ -1481,11 +1498,14 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (chosenScriptSource is null) throw new ArgumentNullException(nameof(chosenScriptSource));
+                if (chosenScriptSource is null)
+                    throw new ArgumentNullException(nameof(chosenScriptSource));
                 queryParams.Add($"scriptSource={Uri.EscapeDataString(chosenScriptSource.ToString())}");
-                if (chosenScriptDrive is null) throw new ArgumentNullException(nameof(chosenScriptDrive));
+                if (chosenScriptDrive is null)
+                    throw new ArgumentNullException(nameof(chosenScriptDrive));
                 queryParams.Add($"scriptDrive={Uri.EscapeDataString(chosenScriptDrive.ToString())}");
-                if (chosenScript is null) throw new ArgumentNullException(nameof(chosenScript));
+                if (chosenScript is null)
+                    throw new ArgumentNullException(nameof(chosenScript));
                 queryParams.Add($"scriptId={Uri.EscapeDataString(chosenScript.ToString())}");
                 var path = $"/v2/officescripting/api/storage/script" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1519,9 +1539,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (workbookLocation is null) throw new ArgumentNullException(nameof(workbookLocation));
+                if (workbookLocation is null)
+                    throw new ArgumentNullException(nameof(workbookLocation));
                 queryParams.Add($"source={Uri.EscapeDataString(workbookLocation.ToString())}");
-                if (scriptLocation is null) throw new ArgumentNullException(nameof(scriptLocation));
+                if (scriptLocation is null)
+                    throw new ArgumentNullException(nameof(scriptLocation));
                 queryParams.Add($"scriptSource={Uri.EscapeDataString(scriptLocation.ToString())}");
                 var path = $"/v2/officescripting/api/unattended/run/{Uri.EscapeDataString(workbookLibrary.ToString())}/{Uri.EscapeDataString(workbook.ToString())}/{Uri.EscapeDataString(scriptLibrary.ToString())}/{Uri.EscapeDataString(script.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

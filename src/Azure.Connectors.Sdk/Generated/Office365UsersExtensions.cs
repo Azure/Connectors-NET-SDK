@@ -1143,7 +1143,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             try
             {
                 var queryParams = new List<string>();
-                if (userUPN is null) throw new ArgumentNullException(nameof(userUPN));
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 queryParams.Add($"userId={Uri.EscapeDataString(userUPN.ToString())}");
                 var path = $"/users/photo" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

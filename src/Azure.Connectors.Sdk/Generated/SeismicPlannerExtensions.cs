@@ -3055,7 +3055,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             try
             {
                 var queryParams = new List<string>();
-                if (projectIDs is null) throw new ArgumentNullException(nameof(projectIDs));
+                if (projectIDs is null)
+                    throw new ArgumentNullException(nameof(projectIDs));
                 queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
                 if (deleteTasks.HasValue)
                     queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");

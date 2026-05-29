@@ -720,7 +720,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
             try
             {
                 var queryParams = new List<string>();
-                if (userPrincipalName is null) throw new ArgumentNullException(nameof(userPrincipalName));
+                if (userPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userPrincipalName));
                 queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -806,7 +807,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
             try
             {
                 var queryParams = new List<string>();
-                if (userPrincipalName is null) throw new ArgumentNullException(nameof(userPrincipalName));
+                if (userPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userPrincipalName));
                 queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/memberId/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this

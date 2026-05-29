@@ -2126,7 +2126,8 @@ namespace Azure.Connectors.Sdk.Insightly
             try
             {
                 var queryParams = new List<string>();
-                if (taskId is null) throw new ArgumentNullException(nameof(taskId));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 queryParams.Add($"id={Uri.EscapeDataString(taskId.ToString())}");
                 var path = $"/Tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2204,7 +2205,8 @@ namespace Azure.Connectors.Sdk.Insightly
             try
             {
                 var queryParams = new List<string>();
-                if (projectId is null) throw new ArgumentNullException(nameof(projectId));
+                if (projectId is null)
+                    throw new ArgumentNullException(nameof(projectId));
                 queryParams.Add($"id={Uri.EscapeDataString(projectId.ToString())}");
                 var path = $"/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2282,7 +2284,8 @@ namespace Azure.Connectors.Sdk.Insightly
             try
             {
                 var queryParams = new List<string>();
-                if (leadId is null) throw new ArgumentNullException(nameof(leadId));
+                if (leadId is null)
+                    throw new ArgumentNullException(nameof(leadId));
                 queryParams.Add($"id={Uri.EscapeDataString(leadId.ToString())}");
                 var path = $"/Leads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2360,7 +2363,8 @@ namespace Azure.Connectors.Sdk.Insightly
             try
             {
                 var queryParams = new List<string>();
-                if (contactId is null) throw new ArgumentNullException(nameof(contactId));
+                if (contactId is null)
+                    throw new ArgumentNullException(nameof(contactId));
                 queryParams.Add($"id={Uri.EscapeDataString(contactId.ToString())}");
                 var path = $"/Contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

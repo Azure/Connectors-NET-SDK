@@ -7293,7 +7293,8 @@ namespace Azure.Connectors.Sdk.Impexium
             try
             {
                 var queryParams = new List<string>();
-                if (abandonedFrom is null) throw new ArgumentNullException(nameof(abandonedFrom));
+                if (abandonedFrom is null)
+                    throw new ArgumentNullException(nameof(abandonedFrom));
                 queryParams.Add($"abandonedFrom={Uri.EscapeDataString(abandonedFrom.ToString())}");
                 if (productCode != default)
                     queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
@@ -9676,7 +9677,8 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 queryParams.Add("includeOrgAddresses=true");
-                if (lookupValue is null) throw new ArgumentNullException(nameof(lookupValue));
+                if (lookupValue is null)
+                    throw new ArgumentNullException(nameof(lookupValue));
                 queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
                 var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -9863,7 +9865,8 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 queryParams.Add("includeAddresses=true");
-                if (lookupValue is null) throw new ArgumentNullException(nameof(lookupValue));
+                if (lookupValue is null)
+                    throw new ArgumentNullException(nameof(lookupValue));
                 queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
                 var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -10045,7 +10048,8 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add("includeAddress=true");
                 queryParams.Add("includePhone=true");
                 queryParams.Add("includeEmail=true");
-                if (phoneNumber is null) throw new ArgumentNullException(nameof(phoneNumber));
+                if (phoneNumber is null)
+                    throw new ArgumentNullException(nameof(phoneNumber));
                 queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
                 var path = $"/api/v1/Customers/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

@@ -996,7 +996,8 @@ namespace Azure.Connectors.Sdk.Docuware
             try
             {
                 var queryParams = new List<string>();
-                if (storeDialog is null) throw new ArgumentNullException(nameof(storeDialog));
+                if (storeDialog is null)
+                    throw new ArgumentNullException(nameof(storeDialog));
                 queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1055,7 +1056,8 @@ namespace Azure.Connectors.Sdk.Docuware
             try
             {
                 var queryParams = new List<string>();
-                if (searchDialog is null) throw new ArgumentNullException(nameof(searchDialog));
+                if (searchDialog is null)
+                    throw new ArgumentNullException(nameof(searchDialog));
                 queryParams.Add($"SearchDialogId={Uri.EscapeDataString(searchDialog.ToString())}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1107,7 +1109,8 @@ namespace Azure.Connectors.Sdk.Docuware
             try
             {
                 var queryParams = new List<string>();
-                if (fileCabinetType is null) throw new ArgumentNullException(nameof(fileCabinetType));
+                if (fileCabinetType is null)
+                    throw new ArgumentNullException(nameof(fileCabinetType));
                 queryParams.Add($"FileCabinetType={Uri.EscapeDataString(fileCabinetType.ToString())}");
                 var path = $"/FileCabinets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1189,7 +1192,8 @@ namespace Azure.Connectors.Sdk.Docuware
             try
             {
                 var queryParams = new List<string>();
-                if (documentFormat is null) throw new ArgumentNullException(nameof(documentFormat));
+                if (documentFormat is null)
+                    throw new ArgumentNullException(nameof(documentFormat));
                 queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1219,7 +1223,8 @@ namespace Azure.Connectors.Sdk.Docuware
             try
             {
                 var queryParams = new List<string>();
-                if (documentFormat is null) throw new ArgumentNullException(nameof(documentFormat));
+                if (documentFormat is null)
+                    throw new ArgumentNullException(nameof(documentFormat));
                 queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat.ToString())}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1361,7 +1366,8 @@ namespace Azure.Connectors.Sdk.Docuware
             try
             {
                 var queryParams = new List<string>();
-                if (documentId is null) throw new ArgumentNullException(nameof(documentId));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 queryParams.Add($"DocID={Uri.EscapeDataString(documentId.ToString())}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

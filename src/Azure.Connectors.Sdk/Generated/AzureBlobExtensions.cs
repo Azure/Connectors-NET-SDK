@@ -789,9 +789,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceUrl is null) throw new ArgumentNullException(nameof(sourceUrl));
+                if (sourceUrl is null)
+                    throw new ArgumentNullException(nameof(sourceUrl));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
-                if (destinationBlobPath is null) throw new ArgumentNullException(nameof(destinationBlobPath));
+                if (destinationBlobPath is null)
+                    throw new ArgumentNullException(nameof(destinationBlobPath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationBlobPath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -823,9 +825,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
             try
             {
                 var queryParams = new List<string>();
-                if (specifyFolderPathToUpload is null) throw new ArgumentNullException(nameof(specifyFolderPathToUpload));
+                if (specifyFolderPathToUpload is null)
+                    throw new ArgumentNullException(nameof(specifyFolderPathToUpload));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(specifyFolderPathToUpload.ToString())}");
-                if (specifyNameOfTheBlobToCreate is null) throw new ArgumentNullException(nameof(specifyNameOfTheBlobToCreate));
+                if (specifyNameOfTheBlobToCreate is null)
+                    throw new ArgumentNullException(nameof(specifyNameOfTheBlobToCreate));
                 queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate.ToString())}");
                 var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -857,9 +861,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-                if (blobName is null) throw new ArgumentNullException(nameof(blobName));
+                if (blobName is null)
+                    throw new ArgumentNullException(nameof(blobName));
                 queryParams.Add($"name={Uri.EscapeDataString(blobName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -889,7 +895,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             try
             {
                 var queryParams = new List<string>();
-                if (blobPath is null) throw new ArgumentNullException(nameof(blobPath));
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -946,9 +953,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceArchiveBlobPath is null) throw new ArgumentNullException(nameof(sourceArchiveBlobPath));
+                if (sourceArchiveBlobPath is null)
+                    throw new ArgumentNullException(nameof(sourceArchiveBlobPath));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath.ToString())}");
-                if (destinationFolderPath is null) throw new ArgumentNullException(nameof(destinationFolderPath));
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -979,7 +988,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             try
             {
                 var queryParams = new List<string>();
-                if (blobPath is null) throw new ArgumentNullException(nameof(blobPath));
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1048,7 +1058,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (blobPath is null) throw new ArgumentNullException(nameof(blobPath));
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -1119,7 +1130,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (blobPath is null) throw new ArgumentNullException(nameof(blobPath));
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
@@ -1212,9 +1224,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
             try
             {
                 var queryParams = new List<string>();
-                if (blobPath is null) throw new ArgumentNullException(nameof(blobPath));
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-                if (blobTier is null) throw new ArgumentNullException(nameof(blobTier));
+                if (blobTier is null)
+                    throw new ArgumentNullException(nameof(blobTier));
                 queryParams.Add($"newTier={Uri.EscapeDataString(blobTier.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this

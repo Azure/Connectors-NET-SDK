@@ -2663,7 +2663,8 @@ namespace Azure.Connectors.Sdk.Arm
             try
             {
                 var queryParams = new List<string>();
-                if (clientApiVersion is null) throw new ArgumentNullException(nameof(clientApiVersion));
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
                 queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2696,7 +2697,8 @@ namespace Azure.Connectors.Sdk.Arm
             try
             {
                 var queryParams = new List<string>();
-                if (clientApiVersion is null) throw new ArgumentNullException(nameof(clientApiVersion));
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
                 queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2727,7 +2729,8 @@ namespace Azure.Connectors.Sdk.Arm
             try
             {
                 var queryParams = new List<string>();
-                if (clientApiVersion is null) throw new ArgumentNullException(nameof(clientApiVersion));
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
                 queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2761,7 +2764,8 @@ namespace Azure.Connectors.Sdk.Arm
             try
             {
                 var queryParams = new List<string>();
-                if (clientApiVersion is null) throw new ArgumentNullException(nameof(clientApiVersion));
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
                 queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2792,7 +2796,8 @@ namespace Azure.Connectors.Sdk.Arm
             try
             {
                 var queryParams = new List<string>();
-                if (clientApiVersion is null) throw new ArgumentNullException(nameof(clientApiVersion));
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
                 queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2824,7 +2829,8 @@ namespace Azure.Connectors.Sdk.Arm
             try
             {
                 var queryParams = new List<string>();
-                if (clientApiVersion is null) throw new ArgumentNullException(nameof(clientApiVersion));
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
                 queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

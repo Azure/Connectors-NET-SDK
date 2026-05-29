@@ -853,7 +853,8 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var queryParams = new List<string>();
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
                 var path = $"/notebooks/Dynamic/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -883,9 +884,11 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var queryParams = new List<string>();
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                if (notebookSection is null)
+                    throw new ArgumentNullException(nameof(notebookSection));
                 queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
                 var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -914,9 +917,11 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var queryParams = new List<string>();
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                if (notebookSection is null)
+                    throw new ArgumentNullException(nameof(notebookSection));
                 queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
                 var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -970,11 +975,14 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var queryParams = new List<string>();
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                if (notebookSection is null)
+                    throw new ArgumentNullException(nameof(notebookSection));
                 queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-                if (pageId is null) throw new ArgumentNullException(nameof(pageId));
+                if (pageId is null)
+                    throw new ArgumentNullException(nameof(pageId));
                 queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
                 var path = $"/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -1005,11 +1013,14 @@ namespace Azure.Connectors.Sdk.Onenote
             {
                 var queryParams = new List<string>();
                 queryParams.Add("preAuthenticated=true");
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                if (notebookSection is null)
+                    throw new ArgumentNullException(nameof(notebookSection));
                 queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-                if (pageId is null) throw new ArgumentNullException(nameof(pageId));
+                if (pageId is null)
+                    throw new ArgumentNullException(nameof(pageId));
                 queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
                 var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1040,11 +1051,14 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var queryParams = new List<string>();
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
-                if (notebookSection is null) throw new ArgumentNullException(nameof(notebookSection));
+                if (notebookSection is null)
+                    throw new ArgumentNullException(nameof(notebookSection));
                 queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection.ToString())}");
-                if (pageId is null) throw new ArgumentNullException(nameof(pageId));
+                if (pageId is null)
+                    throw new ArgumentNullException(nameof(pageId));
                 queryParams.Add($"pageId={Uri.EscapeDataString(pageId.ToString())}");
                 var path = $"/pages/Dynamic/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1096,7 +1110,8 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var queryParams = new List<string>();
-                if (notebookKey is null) throw new ArgumentNullException(nameof(notebookKey));
+                if (notebookKey is null)
+                    throw new ArgumentNullException(nameof(notebookKey));
                 queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey.ToString())}");
                 var path = $"/notebooks/notebookKey/sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

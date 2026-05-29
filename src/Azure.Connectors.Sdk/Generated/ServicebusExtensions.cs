@@ -802,7 +802,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (queueType != default)
                     queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
@@ -836,7 +837,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (queueType != default)
                     queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
@@ -904,7 +906,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (queueType != default)
                     queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
@@ -939,7 +942,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (sessionId != default)
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
@@ -974,7 +978,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (queueType != default)
                     queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
@@ -1092,7 +1097,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (subscriptionType != default)
                     queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
@@ -1127,7 +1133,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (subscriptionType != default)
                     queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
@@ -1197,7 +1204,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (subscriptionType != default)
                     queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
@@ -1233,7 +1241,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (sessionId != default)
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
@@ -1269,7 +1278,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (lockTokenOfTheMessage is null) throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
                 queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
                 if (subscriptionType != default)
                     queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
@@ -1443,7 +1453,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             try
             {
                 var queryParams = new List<string>();
-                if (subscriptionFilterType is null) throw new ArgumentNullException(nameof(subscriptionFilterType));
+                if (subscriptionFilterType is null)
+                    throw new ArgumentNullException(nameof(subscriptionFilterType));
                 queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(subscriptionFilterType.ToString())}");
                 var path = $"/subscriptionfilterV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

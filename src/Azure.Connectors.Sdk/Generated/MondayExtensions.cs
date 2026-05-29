@@ -1825,7 +1825,8 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1853,7 +1854,8 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1882,7 +1884,8 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
                 if (columnId != default)
                     queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
@@ -2305,7 +2308,8 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (parentBoardId is null) throw new ArgumentNullException(nameof(parentBoardId));
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
                 queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
                 var path = $"/getSchema/getSubitemColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2333,7 +2337,8 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (parentBoardId is null) throw new ArgumentNullException(nameof(parentBoardId));
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
                 queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
                 var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2363,11 +2368,14 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (workspace is null) throw new ArgumentNullException(nameof(workspace));
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
-                if (board is null) throw new ArgumentNullException(nameof(board));
+                if (board is null)
+                    throw new ArgumentNullException(nameof(board));
                 queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
-                if (itemId is null) throw new ArgumentNullException(nameof(itemId));
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
                 queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
                 var path = $"/getData/getSubitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2422,11 +2430,14 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (itemId is null) throw new ArgumentNullException(nameof(itemId));
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
                 queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
-                if (workspace is null) throw new ArgumentNullException(nameof(workspace));
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
-                if (board is null) throw new ArgumentNullException(nameof(board));
+                if (board is null)
+                    throw new ArgumentNullException(nameof(board));
                 queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
                 var path = $"/getData/getItemById" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2493,11 +2504,14 @@ namespace Azure.Connectors.Sdk.Monday
             try
             {
                 var queryParams = new List<string>();
-                if (workspace is null) throw new ArgumentNullException(nameof(workspace));
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
-                if (board is null) throw new ArgumentNullException(nameof(board));
+                if (board is null)
+                    throw new ArgumentNullException(nameof(board));
                 queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
-                if (group is null) throw new ArgumentNullException(nameof(group));
+                if (group is null)
+                    throw new ArgumentNullException(nameof(group));
                 queryParams.Add($"groupId={Uri.EscapeDataString(group.ToString())}");
                 if (filter1Column != default)
                     queryParams.Add($"filter1Column={Uri.EscapeDataString(filter1Column.ToString())}");

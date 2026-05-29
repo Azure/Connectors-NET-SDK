@@ -475,9 +475,11 @@ namespace Azure.Connectors.Sdk.Eventbrite
             try
             {
                 var queryParams = new List<string>();
-                if (orderBy is null) throw new ArgumentNullException(nameof(orderBy));
+                if (orderBy is null)
+                    throw new ArgumentNullException(nameof(orderBy));
                 queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
-                if (status is null) throw new ArgumentNullException(nameof(status));
+                if (status is null)
+                    throw new ArgumentNullException(nameof(status));
                 queryParams.Add($"status={Uri.EscapeDataString(status.ToString())}");
                 var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -524,19 +526,26 @@ namespace Azure.Connectors.Sdk.Eventbrite
             try
             {
                 var queryParams = new List<string>();
-                if (name is null) throw new ArgumentNullException(nameof(name));
+                if (name is null)
+                    throw new ArgumentNullException(nameof(name));
                 queryParams.Add($"event.name.html={Uri.EscapeDataString(name.ToString())}");
-                if (description is null) throw new ArgumentNullException(nameof(description));
+                if (description is null)
+                    throw new ArgumentNullException(nameof(description));
                 queryParams.Add($"event.description.html={Uri.EscapeDataString(description.ToString())}");
-                if (start is null) throw new ArgumentNullException(nameof(start));
+                if (start is null)
+                    throw new ArgumentNullException(nameof(start));
                 queryParams.Add($"event.start.utc={Uri.EscapeDataString(start.ToString())}");
-                if (end is null) throw new ArgumentNullException(nameof(end));
+                if (end is null)
+                    throw new ArgumentNullException(nameof(end));
                 queryParams.Add($"event.end.utc={Uri.EscapeDataString(end.ToString())}");
-                if (startTimezone is null) throw new ArgumentNullException(nameof(startTimezone));
+                if (startTimezone is null)
+                    throw new ArgumentNullException(nameof(startTimezone));
                 queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone.ToString())}");
-                if (endTimezone is null) throw new ArgumentNullException(nameof(endTimezone));
+                if (endTimezone is null)
+                    throw new ArgumentNullException(nameof(endTimezone));
                 queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone.ToString())}");
-                if (eventCurrency is null) throw new ArgumentNullException(nameof(eventCurrency));
+                if (eventCurrency is null)
+                    throw new ArgumentNullException(nameof(eventCurrency));
                 queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency.ToString())}");
                 if (organizer != default)
                     queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer.ToString())}");
@@ -658,7 +667,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
             try
             {
                 var queryParams = new List<string>();
-                if (organization is null) throw new ArgumentNullException(nameof(organization));
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
                 queryParams.Add($"organization_id={Uri.EscapeDataString(organization.ToString())}");
                 if (name != default)
                     queryParams.Add($"event.name.html={Uri.EscapeDataString(name.ToString())}");
@@ -668,11 +678,14 @@ namespace Azure.Connectors.Sdk.Eventbrite
                     queryParams.Add($"event.start.utc={Uri.EscapeDataString(start.ToString())}");
                 if (end != default)
                     queryParams.Add($"event.end.utc={Uri.EscapeDataString(end.ToString())}");
-                if (startTimezone is null) throw new ArgumentNullException(nameof(startTimezone));
+                if (startTimezone is null)
+                    throw new ArgumentNullException(nameof(startTimezone));
                 queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone.ToString())}");
-                if (endTimezone is null) throw new ArgumentNullException(nameof(endTimezone));
+                if (endTimezone is null)
+                    throw new ArgumentNullException(nameof(endTimezone));
                 queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone.ToString())}");
-                if (eventCurrency is null) throw new ArgumentNullException(nameof(eventCurrency));
+                if (eventCurrency is null)
+                    throw new ArgumentNullException(nameof(eventCurrency));
                 queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency.ToString())}");
                 if (organizer != default)
                     queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer.ToString())}");

@@ -556,7 +556,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -586,7 +587,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -648,9 +650,11 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -681,9 +685,11 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceUrl is null) throw new ArgumentNullException(nameof(sourceUrl));
+                if (sourceUrl is null)
+                    throw new ArgumentNullException(nameof(sourceUrl));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -816,9 +822,11 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceArchiveFilePath is null) throw new ArgumentNullException(nameof(sourceArchiveFilePath));
+                if (sourceArchiveFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceArchiveFilePath));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-                if (destinationFolderPath is null) throw new ArgumentNullException(nameof(destinationFolderPath));
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");

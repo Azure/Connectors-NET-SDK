@@ -305,7 +305,8 @@ namespace Azure.Connectors.Sdk.Rss
             try
             {
                 var queryParams = new List<string>();
-                if (theRSSFeedURL is null) throw new ArgumentNullException(nameof(theRSSFeedURL));
+                if (theRSSFeedURL is null)
+                    throw new ArgumentNullException(nameof(theRSSFeedURL));
                 queryParams.Add($"feedUrl={Uri.EscapeDataString(theRSSFeedURL.ToString())}");
                 if (since != default)
                     queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");

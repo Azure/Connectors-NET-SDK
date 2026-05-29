@@ -639,7 +639,8 @@ namespace Azure.Connectors.Sdk.Twitter
             try
             {
                 var queryParams = new List<string>();
-                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                if (userName is null)
+                    throw new ArgumentNullException(nameof(userName));
                 queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
                 if (maximumResults.HasValue)
                     queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
@@ -699,7 +700,8 @@ namespace Azure.Connectors.Sdk.Twitter
             try
             {
                 var queryParams = new List<string>();
-                if (searchText is null) throw new ArgumentNullException(nameof(searchText));
+                if (searchText is null)
+                    throw new ArgumentNullException(nameof(searchText));
                 queryParams.Add($"searchQuery={Uri.EscapeDataString(searchText.ToString())}");
                 if (maximumResults.HasValue)
                     queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
@@ -732,7 +734,8 @@ namespace Azure.Connectors.Sdk.Twitter
             try
             {
                 var queryParams = new List<string>();
-                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                if (userName is null)
+                    throw new ArgumentNullException(nameof(userName));
                 queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
                 if (maximumResults.HasValue)
                     queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
@@ -791,7 +794,8 @@ namespace Azure.Connectors.Sdk.Twitter
             try
             {
                 var queryParams = new List<string>();
-                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                if (userName is null)
+                    throw new ArgumentNullException(nameof(userName));
                 queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
                 if (maximumResults.HasValue)
                     queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
@@ -849,7 +853,8 @@ namespace Azure.Connectors.Sdk.Twitter
             try
             {
                 var queryParams = new List<string>();
-                if (userName is null) throw new ArgumentNullException(nameof(userName));
+                if (userName is null)
+                    throw new ArgumentNullException(nameof(userName));
                 queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
                 var path = $"/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -907,7 +912,8 @@ namespace Azure.Connectors.Sdk.Twitter
             try
             {
                 var queryParams = new List<string>();
-                if (tweetId is null) throw new ArgumentNullException(nameof(tweetId));
+                if (tweetId is null)
+                    throw new ArgumentNullException(nameof(tweetId));
                 queryParams.Add($"tweetId={Uri.EscapeDataString(tweetId.ToString())}");
                 if (trimUser.HasValue)
                     queryParams.Add($"trimUser={Uri.EscapeDataString(trimUser.Value.ToString())}");

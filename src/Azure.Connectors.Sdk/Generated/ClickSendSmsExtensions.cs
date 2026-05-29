@@ -1358,7 +1358,8 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             try
             {
                 var queryParams = new List<string>();
-                if (selectActionTheFileIsNeededFor is null) throw new ArgumentNullException(nameof(selectActionTheFileIsNeededFor));
+                if (selectActionTheFileIsNeededFor is null)
+                    throw new ArgumentNullException(nameof(selectActionTheFileIsNeededFor));
                 queryParams.Add($"convert={Uri.EscapeDataString(selectActionTheFileIsNeededFor.ToString())}");
                 var path = $"/uploads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1386,7 +1387,8 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             try
             {
                 var queryParams = new List<string>();
-                if (listName is null) throw new ArgumentNullException(nameof(listName));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 queryParams.Add($"q={Uri.EscapeDataString(listName.ToString())}");
                 var path = $"/search/contacts-lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

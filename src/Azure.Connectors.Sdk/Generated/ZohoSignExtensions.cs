@@ -504,7 +504,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
             try
             {
                 var queryParams = new List<string>();
-                if (method is null) throw new ArgumentNullException(nameof(method));
+                if (method is null)
+                    throw new ArgumentNullException(nameof(method));
                 queryParams.Add($"method={Uri.EscapeDataString(method.ToString())}");
                 var path = $"/{Uri.EscapeDataString(uRLPath.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

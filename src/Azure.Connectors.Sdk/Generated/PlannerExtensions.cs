@@ -1211,7 +1211,8 @@ namespace Azure.Connectors.Sdk.Planner
             try
             {
                 var queryParams = new List<string>();
-                if (groupId is null) throw new ArgumentNullException(nameof(groupId));
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
                 var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId.ToString())}/buckets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1252,7 +1253,8 @@ namespace Azure.Connectors.Sdk.Planner
         public virtual AsyncPageable<GetTaskResponse> ListTasksAsync([DynamicValues("ListGroupPlans")] string planId, [DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (groupId is null) throw new ArgumentNullException(nameof(groupId));
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
             queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
             var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListTasksResponse, GetTaskResponse>(

@@ -5212,7 +5212,8 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                if (ledgerEntryIDs is null) throw new ArgumentNullException(nameof(ledgerEntryIDs));
+                if (ledgerEntryIDs is null)
+                    throw new ArgumentNullException(nameof(ledgerEntryIDs));
                 queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -5267,7 +5268,8 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                if (paymentId is null) throw new ArgumentNullException(nameof(paymentId));
+                if (paymentId is null)
+                    throw new ArgumentNullException(nameof(paymentId));
                 queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -5547,7 +5549,8 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                if (originCountryISO is null) throw new ArgumentNullException(nameof(originCountryISO));
+                if (originCountryISO is null)
+                    throw new ArgumentNullException(nameof(originCountryISO));
                 queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO.ToString())}");
                 var path = $"/shipping-carriers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -5978,7 +5981,8 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                if (shopName is null) throw new ArgumentNullException(nameof(shopName));
+                if (shopName is null)
+                    throw new ArgumentNullException(nameof(shopName));
                 queryParams.Add($"shop_name={Uri.EscapeDataString(shopName.ToString())}");
                 if (limit.HasValue)
                     queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
@@ -6424,7 +6428,8 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                if (listingIDs is null) throw new ArgumentNullException(nameof(listingIDs));
+                if (listingIDs is null)
+                    throw new ArgumentNullException(nameof(listingIDs));
                 queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs.ToString())}");
                 if (includes != default)
                     queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
@@ -6657,7 +6662,8 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                if (shopSectionIDs is null) throw new ArgumentNullException(nameof(shopSectionIDs));
+                if (shopSectionIDs is null)
+                    throw new ArgumentNullException(nameof(shopSectionIDs));
                 queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs.ToString())}");
                 if (limit.HasValue)
                     queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");

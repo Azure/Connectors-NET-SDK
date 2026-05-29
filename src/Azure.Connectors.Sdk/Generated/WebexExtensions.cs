@@ -1708,7 +1708,8 @@ namespace Azure.Connectors.Sdk.Webex
             try
             {
                 var queryParams = new List<string>();
-                if (space is null) throw new ArgumentNullException(nameof(space));
+                if (space is null)
+                    throw new ArgumentNullException(nameof(space));
                 queryParams.Add($"roomId={Uri.EscapeDataString(space.ToString())}");
                 if (mentionedPeople != default)
                     queryParams.Add($"mentionedPeople={Uri.EscapeDataString(mentionedPeople.ToString())}");

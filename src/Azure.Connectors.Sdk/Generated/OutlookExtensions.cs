@@ -3560,7 +3560,8 @@ namespace Azure.Connectors.Sdk.Outlook
             try
             {
                 var queryParams = new List<string>();
-                if (folder is null) throw new ArgumentNullException(nameof(folder));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
                 var path = $"/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4164,11 +4165,14 @@ namespace Azure.Connectors.Sdk.Outlook
             try
             {
                 var queryParams = new List<string>();
-                if (calendarId is null) throw new ArgumentNullException(nameof(calendarId));
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-                if (startTime is null) throw new ArgumentNullException(nameof(startTime));
+                if (startTime is null)
+                    throw new ArgumentNullException(nameof(startTime));
                 queryParams.Add($"startDateTimeOffset={Uri.EscapeDataString(startTime.ToString())}");
-                if (endTime is null) throw new ArgumentNullException(nameof(endTime));
+                if (endTime is null)
+                    throw new ArgumentNullException(nameof(endTime));
                 queryParams.Add($"endDateTimeOffset={Uri.EscapeDataString(endTime.ToString())}");
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");

@@ -2373,7 +2373,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (requestingSiteId is null) throw new ArgumentNullException(nameof(requestingSiteId));
+                if (requestingSiteId is null)
+                    throw new ArgumentNullException(nameof(requestingSiteId));
                 queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(hubSiteAddress.ToString())}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2461,9 +2462,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceFilePath is null) throw new ArgumentNullException(nameof(sourceFilePath));
+                if (sourceFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceFilePath));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwriteFlag.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
@@ -2549,9 +2552,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2689,7 +2694,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2720,7 +2726,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -2751,7 +2758,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (fileIdentifier is null) throw new ArgumentNullException(nameof(fileIdentifier));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2781,7 +2789,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2836,7 +2845,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (hubSiteId is null) throw new ArgumentNullException(nameof(hubSiteId));
+                if (hubSiteId is null)
+                    throw new ArgumentNullException(nameof(hubSiteId));
                 queryParams.Add($"hubSiteId={Uri.EscapeDataString(hubSiteId.ToString())}");
                 if (approvalToken != default)
                     queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
@@ -3035,7 +3045,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (emailOrName is null) throw new ArgumentNullException(nameof(emailOrName));
+                if (emailOrName is null)
+                    throw new ArgumentNullException(nameof(emailOrName));
                 queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3394,7 +3405,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (since is null) throw new ArgumentNullException(nameof(since));
+                if (since is null)
+                    throw new ArgumentNullException(nameof(since));
                 queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
                 if (until != default)
                     queryParams.Add($"until={Uri.EscapeDataString(until.ToString())}");
@@ -3630,7 +3642,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (action is null) throw new ArgumentNullException(nameof(action));
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
                 queryParams.Add($"approvalAction={Uri.EscapeDataString(action.ToString())}");
                 if (comments != default)
                     queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
@@ -3719,7 +3732,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4298,9 +4312,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceFilePath is null) throw new ArgumentNullException(nameof(sourceFilePath));
+                if (sourceFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceFilePath));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-                if (destinationFolderPath is null) throw new ArgumentNullException(nameof(destinationFolderPath));
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
                 if (overwriteFlag.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");

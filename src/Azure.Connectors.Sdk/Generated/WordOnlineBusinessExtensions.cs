@@ -221,11 +221,14 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (source is null) throw new ArgumentNullException(nameof(source));
+                if (source is null)
+                    throw new ArgumentNullException(nameof(source));
                 queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-                if (drive is null) throw new ArgumentNullException(nameof(drive));
+                if (drive is null)
+                    throw new ArgumentNullException(nameof(drive));
                 queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
-                if (@file is null) throw new ArgumentNullException(nameof(@file));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
                 var path = $"/api/templates/schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -256,11 +259,14 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
             try
             {
                 var queryParams = new List<string>();
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (documentLibrary is null) throw new ArgumentNullException(nameof(documentLibrary));
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
                 queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
-                if (@file is null) throw new ArgumentNullException(nameof(@file));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
                 var path = $"/api/templates/getFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -373,11 +379,14 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
             {
                 var queryParams = new List<string>();
                 queryParams.Add("format=pdf");
-                if (location is null) throw new ArgumentNullException(nameof(location));
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (documentLibrary is null) throw new ArgumentNullException(nameof(documentLibrary));
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
                 queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
-                if (@file is null) throw new ArgumentNullException(nameof(@file));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
                 if (extractSensitivityLabel.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");

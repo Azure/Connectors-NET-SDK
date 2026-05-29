@@ -5001,9 +5001,11 @@ namespace Azure.Connectors.Sdk.Teams
             try
             {
                 var queryParams = new List<string>();
-                if (lookupBy is null) throw new ArgumentNullException(nameof(lookupBy));
+                if (lookupBy is null)
+                    throw new ArgumentNullException(nameof(lookupBy));
                 queryParams.Add($"lookupType={Uri.EscapeDataString(lookupBy.ToString())}");
-                if (lookupValue is null) throw new ArgumentNullException(nameof(lookupValue));
+                if (lookupValue is null)
+                    throw new ArgumentNullException(nameof(lookupValue));
                 queryParams.Add($"lookupValue={Uri.EscapeDataString(lookupValue.ToString())}");
                 var path = $"/v1.0/me/onlineMeetings/lookup" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

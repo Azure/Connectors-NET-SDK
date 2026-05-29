@@ -2500,7 +2500,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (documentGUID is null) throw new ArgumentNullException(nameof(documentGUID));
+                if (documentGUID is null)
+                    throw new ArgumentNullException(nameof(documentGUID));
                 queryParams.Add($"documentGuid={Uri.EscapeDataString(documentGUID.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/docGenFormFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2530,7 +2531,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (voidReason is null) throw new ArgumentNullException(nameof(voidReason));
+                if (voidReason is null)
+                    throw new ArgumentNullException(nameof(voidReason));
                 queryParams.Add($"voidedReason={Uri.EscapeDataString(voidReason.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/voidEnvelope" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2589,9 +2591,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 var queryParams = new List<string>();
                 queryParams.Add($"reminderEnabled={Uri.EscapeDataString(reminderEnabled.ToString())}");
-                if (reminderDelay is null) throw new ArgumentNullException(nameof(reminderDelay));
+                if (reminderDelay is null)
+                    throw new ArgumentNullException(nameof(reminderDelay));
                 queryParams.Add($"reminderDelay={Uri.EscapeDataString(reminderDelay.ToString())}");
-                if (reminderFrequency is null) throw new ArgumentNullException(nameof(reminderFrequency));
+                if (reminderFrequency is null)
+                    throw new ArgumentNullException(nameof(reminderFrequency));
                 queryParams.Add($"reminderFrequency={Uri.EscapeDataString(reminderFrequency.ToString())}");
                 if (expireAfter != default)
                     queryParams.Add($"expireAfter={Uri.EscapeDataString(expireAfter.ToString())}");
@@ -2732,7 +2736,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (emailSubject is null) throw new ArgumentNullException(nameof(emailSubject));
+                if (emailSubject is null)
+                    throw new ArgumentNullException(nameof(emailSubject));
                 queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
                 if (emailBody != default)
                     queryParams.Add($"emailBody={Uri.EscapeDataString(emailBody.ToString())}");
@@ -2766,11 +2771,13 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (emailSubject is null) throw new ArgumentNullException(nameof(emailSubject));
+                if (emailSubject is null)
+                    throw new ArgumentNullException(nameof(emailSubject));
                 queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
                 if (emailBody != default)
                     queryParams.Add($"emailBody={Uri.EscapeDataString(emailBody.ToString())}");
-                if (envelopeStatus is null) throw new ArgumentNullException(nameof(envelopeStatus));
+                if (envelopeStatus is null)
+                    throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/compositeTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2805,9 +2812,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recordType is null) throw new ArgumentNullException(nameof(recordType));
+                if (recordType is null)
+                    throw new ArgumentNullException(nameof(recordType));
                 queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId is null) throw new ArgumentNullException(nameof(recordId));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
                 queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
                 if (startDate != default)
                     queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
@@ -2853,9 +2862,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recordType is null) throw new ArgumentNullException(nameof(recordType));
+                if (recordType is null)
+                    throw new ArgumentNullException(nameof(recordType));
                 queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId is null) throw new ArgumentNullException(nameof(recordId));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
                 queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
                 if (startDate != default)
                     queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
@@ -2899,9 +2910,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recordType is null) throw new ArgumentNullException(nameof(recordType));
+                if (recordType is null)
+                    throw new ArgumentNullException(nameof(recordType));
                 queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId is null) throw new ArgumentNullException(nameof(recordId));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
                 queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
                 if (startDate != default)
                     queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
@@ -2953,7 +2966,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                     queryParams.Add($"crmType={Uri.EscapeDataString(cRMType.ToString())}");
                 if (cRMOrgURL != default)
                     queryParams.Add($"crmOrgUrl={Uri.EscapeDataString(cRMOrgURL.ToString())}");
-                if (commaSeparatedEmailAddresses is null) throw new ArgumentNullException(nameof(commaSeparatedEmailAddresses));
+                if (commaSeparatedEmailAddresses is null)
+                    throw new ArgumentNullException(nameof(commaSeparatedEmailAddresses));
                 queryParams.Add($"emailContacts={Uri.EscapeDataString(commaSeparatedEmailAddresses.ToString())}");
                 if (top.HasValue)
                     queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
@@ -3172,9 +3186,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
-                if (envelopeStatus is null) throw new ArgumentNullException(nameof(envelopeStatus));
+                if (envelopeStatus is null)
+                    throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/createFromTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3204,9 +3220,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
-                if (envelopeStatus is null) throw new ArgumentNullException(nameof(envelopeStatus));
+                if (envelopeStatus is null)
+                    throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/createFromTemplateNoRecipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3239,9 +3257,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (envelopeStatus is null) throw new ArgumentNullException(nameof(envelopeStatus));
+                if (envelopeStatus is null)
+                    throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
                 if (emailSubject != default)
                     queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
@@ -3276,7 +3296,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
                 if (emailSubject != default)
                     queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
@@ -3334,7 +3355,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (customFieldName is null) throw new ArgumentNullException(nameof(customFieldName));
+                if (customFieldName is null)
+                    throw new ArgumentNullException(nameof(customFieldName));
                 queryParams.Add($"fieldName={Uri.EscapeDataString(customFieldName.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3367,13 +3389,17 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (fieldId is null) throw new ArgumentNullException(nameof(fieldId));
+                if (fieldId is null)
+                    throw new ArgumentNullException(nameof(fieldId));
                 queryParams.Add($"fieldId={Uri.EscapeDataString(fieldId.ToString())}");
-                if (fieldType is null) throw new ArgumentNullException(nameof(fieldType));
+                if (fieldType is null)
+                    throw new ArgumentNullException(nameof(fieldType));
                 queryParams.Add($"fieldType={Uri.EscapeDataString(fieldType.ToString())}");
-                if (name is null) throw new ArgumentNullException(nameof(name));
+                if (name is null)
+                    throw new ArgumentNullException(nameof(name));
                 queryParams.Add($"name={Uri.EscapeDataString(name.ToString())}");
-                if (value is null) throw new ArgumentNullException(nameof(value));
+                if (value is null)
+                    throw new ArgumentNullException(nameof(value));
                 queryParams.Add($"value={Uri.EscapeDataString(value.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3405,9 +3431,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (openIn is null) throw new ArgumentNullException(nameof(openIn));
+                if (openIn is null)
+                    throw new ArgumentNullException(nameof(openIn));
                 queryParams.Add($"openIn={Uri.EscapeDataString(openIn.ToString())}");
-                if (returnURL is null) throw new ArgumentNullException(nameof(returnURL));
+                if (returnURL is null)
+                    throw new ArgumentNullException(nameof(returnURL));
                 queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/views/sender" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3437,7 +3465,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (folder is null) throw new ArgumentNullException(nameof(folder));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 queryParams.Add($"folderId={Uri.EscapeDataString(folder.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3468,9 +3497,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (folder is null) throw new ArgumentNullException(nameof(folder));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 queryParams.Add($"folderId={Uri.EscapeDataString(folder.ToString())}");
-                if (recipient is null) throw new ArgumentNullException(nameof(recipient));
+                if (recipient is null)
+                    throw new ArgumentNullException(nameof(recipient));
                 queryParams.Add($"RemoveRecipientFromEnvelopeRecipientId={Uri.EscapeDataString(recipient.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3568,11 +3599,14 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recipientId is null) throw new ArgumentNullException(nameof(recipientId));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
                 queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
-                if (recipientType is null) throw new ArgumentNullException(nameof(recipientType));
+                if (recipientType is null)
+                    throw new ArgumentNullException(nameof(recipientType));
                 queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
-                if (verificationType is null) throw new ArgumentNullException(nameof(verificationType));
+                if (verificationType is null)
+                    throw new ArgumentNullException(nameof(verificationType));
                 queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3616,11 +3650,13 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recipientId is null) throw new ArgumentNullException(nameof(recipientId));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
                 queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
                 if (signatureType != default)
                     queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
-                if (recipientType is null) throw new ArgumentNullException(nameof(recipientType));
+                if (recipientType is null)
+                    throw new ArgumentNullException(nameof(recipientType));
                 queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
                 if (clientUserId != default)
                     queryParams.Add($"clientUserId={Uri.EscapeDataString(clientUserId.ToString())}");
@@ -3673,7 +3709,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
                 if (preserveTemplateRecipient != default)
                     queryParams.Add($"preserve_template_recipient={Uri.EscapeDataString(preserveTemplateRecipient.ToString())}");
@@ -3705,7 +3742,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (bulkSendListName is null) throw new ArgumentNullException(nameof(bulkSendListName));
+                if (bulkSendListName is null)
+                    throw new ArgumentNullException(nameof(bulkSendListName));
                 queryParams.Add($"name={Uri.EscapeDataString(bulkSendListName.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/bulk_send_lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3735,7 +3773,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (templateId is null) throw new ArgumentNullException(nameof(templateId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
                 queryParams.Add($"envelopeOrTemplateId={Uri.EscapeDataString(templateId.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/bulk_send_lists/{Uri.EscapeDataString(bulkSendListGUID.ToString())}/send" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4042,7 +4081,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (documentName is null) throw new ArgumentNullException(nameof(documentName));
+                if (documentName is null)
+                    throw new ArgumentNullException(nameof(documentName));
                 queryParams.Add($"documentName={Uri.EscapeDataString(documentName.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/get_document_info" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4126,7 +4166,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (tabType is null) throw new ArgumentNullException(nameof(tabType));
+                if (tabType is null)
+                    throw new ArgumentNullException(nameof(tabType));
                 queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipient.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4157,7 +4198,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (tabLabel is null) throw new ArgumentNullException(nameof(tabLabel));
+                if (tabLabel is null)
+                    throw new ArgumentNullException(nameof(tabLabel));
                 queryParams.Add($"tabLabel={Uri.EscapeDataString(tabLabel.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4293,7 +4335,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (instanceName is null) throw new ArgumentNullException(nameof(instanceName));
+                if (instanceName is null)
+                    throw new ArgumentNullException(nameof(instanceName));
                 queryParams.Add($"instanceName={Uri.EscapeDataString(instanceName.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/maestro-workflows/trigger/{Uri.EscapeDataString(workflow.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4393,7 +4436,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (tabType is null) throw new ArgumentNullException(nameof(tabType));
+                if (tabType is null)
+                    throw new ArgumentNullException(nameof(tabType));
                 queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
                 var path = $"/anchortab_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4446,7 +4490,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recipientType is null) throw new ArgumentNullException(nameof(recipientType));
+                if (recipientType is null)
+                    throw new ArgumentNullException(nameof(recipientType));
                 queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
                 if (signatureType != default)
                     queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
@@ -4476,7 +4521,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (returnURL is null) throw new ArgumentNullException(nameof(returnURL));
+                if (returnURL is null)
+                    throw new ArgumentNullException(nameof(returnURL));
                 queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
                 var path = $"/embeddedSender_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4504,7 +4550,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (verificationType is null) throw new ArgumentNullException(nameof(verificationType));
+                if (verificationType is null)
+                    throw new ArgumentNullException(nameof(verificationType));
                 queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
                 var path = $"/verificationtype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4597,7 +4644,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (recipientType is null) throw new ArgumentNullException(nameof(recipientType));
+                if (recipientType is null)
+                    throw new ArgumentNullException(nameof(recipientType));
                 queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
                 if (clientUserId != default)
                     queryParams.Add($"clientUserId={Uri.EscapeDataString(clientUserId.ToString())}");
@@ -4656,11 +4704,14 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (isThisAnInPersonSigner is null) throw new ArgumentNullException(nameof(isThisAnInPersonSigner));
+                if (isThisAnInPersonSigner is null)
+                    throw new ArgumentNullException(nameof(isThisAnInPersonSigner));
                 queryParams.Add($"isInPersonSigner={Uri.EscapeDataString(isThisAnInPersonSigner.ToString())}");
-                if (authenticationMethod is null) throw new ArgumentNullException(nameof(authenticationMethod));
+                if (authenticationMethod is null)
+                    throw new ArgumentNullException(nameof(authenticationMethod));
                 queryParams.Add($"authenticationMethod={Uri.EscapeDataString(authenticationMethod.ToString())}");
-                if (returnURL is null) throw new ArgumentNullException(nameof(returnURL));
+                if (returnURL is null)
+                    throw new ArgumentNullException(nameof(returnURL));
                 queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/views/recipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4716,9 +4767,11 @@ namespace Azure.Connectors.Sdk.DocuSign
             try
             {
                 var queryParams = new List<string>();
-                if (returnURL is null) throw new ArgumentNullException(nameof(returnURL));
+                if (returnURL is null)
+                    throw new ArgumentNullException(nameof(returnURL));
                 queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                if (isThisAnPersonSigner is null) throw new ArgumentNullException(nameof(isThisAnPersonSigner));
+                if (isThisAnPersonSigner is null)
+                    throw new ArgumentNullException(nameof(isThisAnPersonSigner));
                 queryParams.Add($"isInPersonSigner={Uri.EscapeDataString(isThisAnPersonSigner.ToString())}");
                 var path = $"/embeddedSigning_schema_v2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

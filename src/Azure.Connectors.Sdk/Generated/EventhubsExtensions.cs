@@ -381,7 +381,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
             try
             {
                 var queryParams = new List<string>();
-                if (theEventHubName is null) throw new ArgumentNullException(nameof(theEventHubName));
+                if (theEventHubName is null)
+                    throw new ArgumentNullException(nameof(theEventHubName));
                 queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
                 var path = $"/consumergroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -433,7 +434,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
             try
             {
                 var queryParams = new List<string>();
-                if (theEventHubName is null) throw new ArgumentNullException(nameof(theEventHubName));
+                if (theEventHubName is null)
+                    throw new ArgumentNullException(nameof(theEventHubName));
                 queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
                 var path = $"/partitions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

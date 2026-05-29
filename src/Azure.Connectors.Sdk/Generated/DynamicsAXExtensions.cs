@@ -1022,9 +1022,11 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             try
             {
                 var queryParams = new List<string>();
-                if (category is null) throw new ArgumentNullException(nameof(category));
+                if (category is null)
+                    throw new ArgumentNullException(nameof(category));
                 queryParams.Add($"businesseventcategory={Uri.EscapeDataString(category.ToString())}");
-                if (businessEvent is null) throw new ArgumentNullException(nameof(businessEvent));
+                if (businessEvent is null)
+                    throw new ArgumentNullException(nameof(businessEvent));
                 queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

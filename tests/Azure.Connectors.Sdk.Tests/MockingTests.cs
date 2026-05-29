@@ -3,11 +3,11 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365.Models;
-using System.Text.Json;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Connectors.Sdk.Teams.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

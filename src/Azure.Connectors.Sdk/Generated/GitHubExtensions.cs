@@ -4158,7 +4158,8 @@ namespace Azure.Connectors.Sdk.GitHub
             try
             {
                 var queryParams = new List<string>();
-                if (q is null) throw new ArgumentNullException(nameof(q));
+                if (q is null)
+                    throw new ArgumentNullException(nameof(q));
                 queryParams.Add($"q={Uri.EscapeDataString(q.ToString())}");
                 if (sort != default)
                     queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");

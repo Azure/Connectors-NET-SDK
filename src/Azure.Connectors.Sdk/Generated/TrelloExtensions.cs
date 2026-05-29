@@ -2655,7 +2655,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 if (actions != default)
                     queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
@@ -2730,7 +2731,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3075,7 +3077,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 if (cards != default)
                     queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
@@ -3119,7 +3122,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 if (listName != default)
                     queryParams.Add($"name={Uri.EscapeDataString(listName.ToString())}");
@@ -3312,7 +3316,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3341,7 +3346,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/actions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3371,7 +3377,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/actions/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3401,9 +3408,11 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
-                if (memberIdOrUsername is null) throw new ArgumentNullException(nameof(memberIdOrUsername));
+                if (memberIdOrUsername is null)
+                    throw new ArgumentNullException(nameof(memberIdOrUsername));
                 queryParams.Add($"memberId={Uri.EscapeDataString(memberIdOrUsername.ToString())}");
                 var path = $"/cards/{Uri.EscapeDataString(cardId.ToString())}/idMembers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3507,7 +3516,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/v2/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3537,7 +3547,8 @@ namespace Azure.Connectors.Sdk.Trello
             try
             {
                 var queryParams = new List<string>();
-                if (boardId is null) throw new ArgumentNullException(nameof(boardId));
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/v2/cards/{Uri.EscapeDataString(cardId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

@@ -2049,7 +2049,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<DeviceGroup> DeviceGroupsListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/deviceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceGroupCollection, DeviceGroup>(
@@ -2072,7 +2073,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2102,7 +2104,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2130,7 +2133,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2156,7 +2160,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<Device> DeviceGroupsGetDevicesAsync(string deviceGroupId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId.ToString())}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceGroupDeviceCollection, Device>(
@@ -2180,7 +2185,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplateId != default)
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
@@ -2213,7 +2219,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplateId != default)
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
@@ -2248,7 +2255,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplateId != default)
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
@@ -2276,7 +2284,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<DeviceRelationshipStatic> DeviceRelationshipsListAsync(string deviceId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}/relationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceRelationshipCollection, DeviceRelationshipStatic>(
@@ -2300,7 +2309,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2331,7 +2341,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2362,7 +2373,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2391,7 +2403,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2416,7 +2429,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<JobStatic> JobsListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<JobCollection, JobStatic>(
@@ -2439,7 +2453,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2470,7 +2485,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (jobType != default)
                     queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
@@ -2498,7 +2514,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<JobDeviceStatus> JobsGetDevicesAsync(string jobId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId.ToString())}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<JobDeviceStatusCollection, JobDeviceStatus>(
@@ -2520,7 +2537,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId.ToString())}/stop" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2548,7 +2566,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId.ToString())}/resume" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2578,7 +2597,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId.ToString())}/rerun/{Uri.EscapeDataString(rerunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2603,7 +2623,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<Organization> OrganizationsListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/organizations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<OrganizationCollection, Organization>(
@@ -2626,7 +2647,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(organizationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2656,7 +2678,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(organizationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2684,7 +2707,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(organizationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2709,7 +2733,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<ScheduledJob> ScheduledJobsListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/scheduledJobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ScheduledJobCollection, ScheduledJob>(
@@ -2732,7 +2757,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -2764,7 +2790,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (jobType != default)
                     queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
@@ -2799,7 +2826,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (scheduleEndType != default)
                     queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduleEndType.ToString())}");
@@ -2829,7 +2857,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -2855,7 +2884,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<JobStatic> ScheduledJobsListJobsAsync(string scheduledJobId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId.ToString())}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ScheduledJobJobCollection, JobStatic>(
@@ -2878,7 +2908,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplateId != default)
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
@@ -2908,7 +2939,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (rule != default)
                     queryParams.Add($"rule={Uri.EscapeDataString(rule.ToString())}");
@@ -2939,7 +2971,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (jobType != default)
                     queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
@@ -2972,7 +3005,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (scheduledJobEndType != default)
                     queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduledJobEndType.ToString())}");
@@ -3007,7 +3041,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3038,7 +3073,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3072,7 +3108,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3106,7 +3143,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3140,7 +3178,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3175,7 +3214,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3210,7 +3250,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3243,7 +3284,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3277,7 +3319,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3309,7 +3352,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3342,7 +3386,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3369,7 +3414,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<Device> DevicesListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/v1/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceCollection, Device>(
@@ -3391,7 +3437,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -3423,7 +3470,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3458,7 +3506,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3493,7 +3542,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3529,7 +3579,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3561,7 +3612,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3593,7 +3645,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3626,7 +3679,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3657,7 +3711,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(template.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3682,7 +3737,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public virtual AsyncPageable<DeviceTemplate> DeviceTemplatesListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (application is null) throw new ArgumentNullException(nameof(application));
+            if (application is null)
+                throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/v1/deviceTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceTemplateCollection, DeviceTemplate>(
@@ -3704,7 +3760,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(template.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -3733,7 +3790,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/roles/{Uri.EscapeDataString(role.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3761,7 +3819,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/roles" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3793,7 +3852,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3831,7 +3891,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3867,7 +3928,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (deviceTemplate != default)
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
@@ -3905,7 +3967,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (userType != default)
                     queryParams.Add($"user_type={Uri.EscapeDataString(userType.ToString())}");
@@ -3940,7 +4003,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (userType != default)
                     queryParams.Add($"user_type={Uri.EscapeDataString(userType.ToString())}");
@@ -3971,7 +4035,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/users/{Uri.EscapeDataString(user.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -3999,7 +4064,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -4027,7 +4093,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/users/{Uri.EscapeDataString(user.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -4058,7 +4125,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 if (userType != default)
                     queryParams.Add($"user_type={Uri.EscapeDataString(userType.ToString())}");
@@ -4092,9 +4160,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"template={Uri.EscapeDataString(template.ToString())}");
                 if (component != default)
                     queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
@@ -4130,9 +4200,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"template={Uri.EscapeDataString(template.ToString())}");
                 if (module != default)
                     queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
@@ -4163,9 +4235,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             try
             {
                 var queryParams = new List<string>();
-                if (application is null) throw new ArgumentNullException(nameof(application));
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (template is null) throw new ArgumentNullException(nameof(template));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 queryParams.Add($"template={Uri.EscapeDataString(template.ToString())}");
                 var path = $"/api/v1/_internal/workflow/modules" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

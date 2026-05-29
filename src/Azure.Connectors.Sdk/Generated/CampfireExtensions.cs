@@ -369,7 +369,8 @@ namespace Azure.Connectors.Sdk.Campfire
             try
             {
                 var queryParams = new List<string>();
-                if (account is null) throw new ArgumentNullException(nameof(account));
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
                 var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -399,9 +400,11 @@ namespace Azure.Connectors.Sdk.Campfire
             try
             {
                 var queryParams = new List<string>();
-                if (account is null) throw new ArgumentNullException(nameof(account));
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-                if (messageTextToBeCreated is null) throw new ArgumentNullException(nameof(messageTextToBeCreated));
+                if (messageTextToBeCreated is null)
+                    throw new ArgumentNullException(nameof(messageTextToBeCreated));
                 queryParams.Add($"message={Uri.EscapeDataString(messageTextToBeCreated.ToString())}");
                 var path = $"/room/{Uri.EscapeDataString(roomId.ToString())}/speak.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -430,7 +433,8 @@ namespace Azure.Connectors.Sdk.Campfire
             try
             {
                 var queryParams = new List<string>();
-                if (account is null) throw new ArgumentNullException(nameof(account));
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
                 var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

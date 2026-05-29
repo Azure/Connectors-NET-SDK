@@ -684,7 +684,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -713,7 +714,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -774,9 +776,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-                if (fileName is null) throw new ArgumentNullException(nameof(fileName));
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -806,9 +810,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (sourceURL is null) throw new ArgumentNullException(nameof(sourceURL));
+                if (sourceURL is null)
+                    throw new ArgumentNullException(nameof(sourceURL));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceURL.ToString())}");
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -840,7 +846,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -872,9 +879,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -906,7 +915,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -938,9 +948,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
-                if (destinationFilePath is null) throw new ArgumentNullException(nameof(destinationFilePath));
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
@@ -1000,7 +1012,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 if (targetType != default)
                     queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
@@ -1056,7 +1069,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (tag is null) throw new ArgumentNullException(nameof(tag));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 queryParams.Add($"tag={Uri.EscapeDataString(tag.ToString())}");
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1084,7 +1098,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (tag is null) throw new ArgumentNullException(nameof(tag));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 queryParams.Add($"tag={Uri.EscapeDataString(tag.ToString())}");
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -1113,7 +1128,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (thumbnailSize is null) throw new ArgumentNullException(nameof(thumbnailSize));
+                if (thumbnailSize is null)
+                    throw new ArgumentNullException(nameof(thumbnailSize));
                 queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1168,9 +1184,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (searchQuery is null) throw new ArgumentNullException(nameof(searchQuery));
+                if (searchQuery is null)
+                    throw new ArgumentNullException(nameof(searchQuery));
                 queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
-                if (fileSearchMode is null) throw new ArgumentNullException(nameof(fileSearchMode));
+                if (fileSearchMode is null)
+                    throw new ArgumentNullException(nameof(fileSearchMode));
                 queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
                 if (numberOfFilesToReturn.HasValue)
                     queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.Value.ToString())}");
@@ -1203,11 +1221,14 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (searchQuery is null) throw new ArgumentNullException(nameof(searchQuery));
+                if (searchQuery is null)
+                    throw new ArgumentNullException(nameof(searchQuery));
                 queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
-                if (folderPath is null) throw new ArgumentNullException(nameof(folderPath));
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
-                if (fileSearchMode is null) throw new ArgumentNullException(nameof(fileSearchMode));
+                if (fileSearchMode is null)
+                    throw new ArgumentNullException(nameof(fileSearchMode));
                 queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
                 if (numberOfFilesToReturn.HasValue)
                     queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.Value.ToString())}");
@@ -1238,7 +1259,8 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (linkType is null) throw new ArgumentNullException(nameof(linkType));
+                if (linkType is null)
+                    throw new ArgumentNullException(nameof(linkType));
                 queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1267,9 +1289,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (filePath is null) throw new ArgumentNullException(nameof(filePath));
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-                if (linkType is null) throw new ArgumentNullException(nameof(linkType));
+                if (linkType is null)
+                    throw new ArgumentNullException(nameof(linkType));
                 queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
                 var path = $"/datasets/default/CreateShareLinkByPathV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -1299,9 +1323,11 @@ namespace Azure.Connectors.Sdk.OneDrive
             try
             {
                 var queryParams = new List<string>();
-                if (sourceArchiveFilePath is null) throw new ArgumentNullException(nameof(sourceArchiveFilePath));
+                if (sourceArchiveFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceArchiveFilePath));
                 queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-                if (destinationFolderPath is null) throw new ArgumentNullException(nameof(destinationFolderPath));
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
                 if (overwrite.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");

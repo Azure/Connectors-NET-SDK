@@ -341,7 +341,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
             try
             {
                 var queryParams = new List<string>();
-                if (popReceipt is null) throw new ArgumentNullException(nameof(popReceipt));
+                if (popReceipt is null)
+                    throw new ArgumentNullException(nameof(popReceipt));
                 queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt.ToString())}");
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -454,7 +455,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
             try
             {
                 var queryParams = new List<string>();
-                if (queueName is null) throw new ArgumentNullException(nameof(queueName));
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 queryParams.Add($"queueName={Uri.EscapeDataString(queueName.ToString())}");
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this

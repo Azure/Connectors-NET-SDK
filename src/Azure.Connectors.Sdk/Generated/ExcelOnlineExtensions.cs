@@ -667,7 +667,8 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                if (keyColumn is null) throw new ArgumentNullException(nameof(keyColumn));
+                if (keyColumn is null)
+                    throw new ArgumentNullException(nameof(keyColumn));
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
                 if (dateTimeFormat != default)
                     queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
@@ -701,7 +702,8 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                if (keyColumn is null) throw new ArgumentNullException(nameof(keyColumn));
+                if (keyColumn is null)
+                    throw new ArgumentNullException(nameof(keyColumn));
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
                 var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(keyValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
@@ -736,7 +738,8 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             {
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                if (keyColumn is null) throw new ArgumentNullException(nameof(keyColumn));
+                if (keyColumn is null)
+                    throw new ArgumentNullException(nameof(keyColumn));
                 queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
                 if (dateTimeFormat != default)
                     queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");

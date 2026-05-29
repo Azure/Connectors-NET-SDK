@@ -472,7 +472,8 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
             var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
@@ -493,11 +494,14 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public virtual AsyncPageable<ResourceItem> ListResourcesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
-            if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-            if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-            if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+            if (resourceType is null)
+                throw new ArgumentNullException(nameof(resourceType));
             queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
             var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceItemListResult, ResourceItem>(
@@ -523,13 +527,17 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
             try
             {
                 var queryParams = new List<string>();
-                if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
                 queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-                if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-                if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+                if (resourceType is null)
+                    throw new ArgumentNullException(nameof(resourceType));
                 queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-                if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
+                if (resourceName is null)
+                    throw new ArgumentNullException(nameof(resourceName));
                 queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
                 var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -561,13 +569,17 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
             try
             {
                 var queryParams = new List<string>();
-                if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
                 queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-                if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-                if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+                if (resourceType is null)
+                    throw new ArgumentNullException(nameof(resourceType));
                 queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-                if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
+                if (resourceName is null)
+                    throw new ArgumentNullException(nameof(resourceName));
                 queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
                 var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
@@ -600,15 +612,20 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
             try
             {
                 var queryParams = new List<string>();
-                if (subscription is null) throw new ArgumentNullException(nameof(subscription));
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
                 queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-                if (resourceGroup is null) throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-                if (resourceType is null) throw new ArgumentNullException(nameof(resourceType));
+                if (resourceType is null)
+                    throw new ArgumentNullException(nameof(resourceType));
                 queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-                if (resourceName is null) throw new ArgumentNullException(nameof(resourceName));
+                if (resourceName is null)
+                    throw new ArgumentNullException(nameof(resourceName));
                 queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-                if (chartType is null) throw new ArgumentNullException(nameof(chartType));
+                if (chartType is null)
+                    throw new ArgumentNullException(nameof(chartType));
                 queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
                 var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
