@@ -399,6 +399,8 @@ namespace Azure.Connectors.Sdk.Campfire
             using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.CreateMessageAsync");
             try
             {
+                if (roomId is null)
+                    throw new ArgumentNullException(nameof(roomId));
                 var queryParams = new List<string>();
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));

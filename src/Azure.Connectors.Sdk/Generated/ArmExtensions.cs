@@ -1997,6 +1997,8 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.SubscriptionsListLocationsAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2024,6 +2026,8 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.SubscriptionsGetAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2071,6 +2075,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsGetAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 if (waitForDeployment.HasValue)
@@ -2104,6 +2114,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsCreateOrUpdateAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 if (waitForDeployment.HasValue)
@@ -2134,6 +2150,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsDeleteAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2162,6 +2184,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsCancelAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2192,6 +2220,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsValidateAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2221,6 +2255,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsExportTemplateAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2248,6 +2288,10 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
         public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2276,6 +2320,14 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentOperationsGetAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                if (operationId is null)
+                    throw new ArgumentNullException(nameof(operationId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2303,6 +2355,12 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
         public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            if (deploymentName is null)
+                throw new ArgumentNullException(nameof(deploymentName));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (top.HasValue)
@@ -2327,6 +2385,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProvidersUnregisterAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2355,6 +2417,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProvidersRegisterAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2381,6 +2447,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
         public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int? top = default, string expand = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (top.HasValue)
@@ -2408,6 +2476,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProvidersGetAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 if (expand != default)
@@ -2438,6 +2510,10 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
         public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2466,6 +2542,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsGetAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2495,6 +2575,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsCreateOrUpdateAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroupName is null)
+                    throw new ArgumentNullException(nameof(resourceGroupName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2522,6 +2606,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsDeleteAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2551,6 +2639,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsPatchAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2580,6 +2672,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsExportTemplateAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2606,6 +2702,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
         public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2631,6 +2729,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
         public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2662,6 +2762,14 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesGetByIdAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
@@ -2696,6 +2804,14 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesCreateOrUpdateByIdAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
@@ -2728,6 +2844,14 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesDeleteByIdAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
@@ -2763,6 +2887,16 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesInvokeAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                if (actionName is null)
+                    throw new ArgumentNullException(nameof(actionName));
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
@@ -2795,6 +2929,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProviderResourcesGetByIdAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
@@ -2828,6 +2968,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProviderResourcesInvokeAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
@@ -2859,6 +3005,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsCreateOrUpdateValueAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
+                if (tagValue is null)
+                    throw new ArgumentNullException(nameof(tagValue));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2887,6 +3039,12 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsDeleteValueAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
+                if (tagValue is null)
+                    throw new ArgumentNullException(nameof(tagValue));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2915,6 +3073,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsCreateOrUpdateAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2942,6 +3104,10 @@ namespace Azure.Connectors.Sdk.Arm
             using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsDeleteAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2966,6 +3132,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
         public virtual AsyncPageable<TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

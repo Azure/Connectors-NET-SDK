@@ -632,7 +632,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add Model response.</returns>
-        public virtual async Task<List<object>> AddModelsAsync(List<JsonElement?> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> AddModelsAsync(List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.AddModelsAsync");
             try
@@ -641,7 +641,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/models" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -689,6 +689,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.DeleteModelAsync");
             try
             {
+                if (modelId is null)
+                    throw new ArgumentNullException(nameof(modelId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -717,6 +719,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.GetModelByIdAsync");
             try
             {
+                if (modelId is null)
+                    throw new ArgumentNullException(nameof(modelId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 if (includeModelDefinition != default)
@@ -746,6 +750,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.UpdateModelAsync");
             try
             {
+                if (modelId is null)
+                    throw new ArgumentNullException(nameof(modelId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/models/{Uri.EscapeDataString(modelId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -773,6 +779,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.GetTwinByIdAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -799,6 +807,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.DeleteTwinAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -827,6 +837,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.AddTwinAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -854,6 +866,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.UpdateTwinAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -882,6 +896,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.GetComponentAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (dTDLComponent is null)
+                    throw new ArgumentNullException(nameof(dTDLComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -910,6 +928,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.UpdateComponentAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (dTDLComponent is null)
+                    throw new ArgumentNullException(nameof(dTDLComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -938,6 +960,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.GetRelationshipByIdAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -965,6 +991,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.DeleteRelationshipAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -994,6 +1024,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.AddRelationshipAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1022,6 +1056,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.UpdateRelationshipAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/relationships/{Uri.EscapeDataString(relationshipId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1047,6 +1085,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>An async enumerable of <see cref="IncomingRelationship"/> items across all pages.</returns>
         public virtual AsyncPageable<IncomingRelationship> ListIncomingRelationshipsAsync(string digitalTwinId, string continuationToken = default, CancellationToken cancellationToken = default)
         {
+            if (digitalTwinId is null)
+                throw new ArgumentNullException(nameof(digitalTwinId));
             var queryParams = new List<string>();
             queryParams.Add("api-version=2020-10-31");
             if (continuationToken != default)
@@ -1070,6 +1110,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.SendTelemetryAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1098,6 +1140,10 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.SendComponentTelemetryAsync");
             try
             {
+                if (digitalTwinId is null)
+                    throw new ArgumentNullException(nameof(digitalTwinId));
+                if (dTDLComponent is null)
+                    throw new ArgumentNullException(nameof(dTDLComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId.ToString())}/components/{Uri.EscapeDataString(dTDLComponent.ToString())}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1123,6 +1169,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// <returns>An async enumerable of <see cref="TwinRelationship"/> items across all pages.</returns>
         public virtual AsyncPageable<TwinRelationship> ListRelationshipsAsync(string digitalTwinId, string continuationToken = default, CancellationToken cancellationToken = default)
         {
+            if (digitalTwinId is null)
+                throw new ArgumentNullException(nameof(digitalTwinId));
             var queryParams = new List<string>();
             queryParams.Add("api-version=2020-10-31");
             if (continuationToken != default)

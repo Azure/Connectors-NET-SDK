@@ -2072,6 +2072,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceGroupsGetAsync");
             try
             {
+                if (deviceGroupId is null)
+                    throw new ArgumentNullException(nameof(deviceGroupId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2103,6 +2105,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceGroupsSetAsync");
             try
             {
+                if (deviceGroupId is null)
+                    throw new ArgumentNullException(nameof(deviceGroupId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2132,6 +2136,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceGroupsRemoveAsync");
             try
             {
+                if (deviceGroupId is null)
+                    throw new ArgumentNullException(nameof(deviceGroupId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2159,6 +2165,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <returns>An async enumerable of <see cref="Device"/> items across all pages.</returns>
         public virtual AsyncPageable<Device> DeviceGroupsGetDevicesAsync(string deviceGroupId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
+            if (deviceGroupId is null)
+                throw new ArgumentNullException(nameof(deviceGroupId));
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
@@ -2184,6 +2192,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetCloudPropertiesAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2218,6 +2228,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesUpdateCloudPropertiesAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2254,6 +2266,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesExecuteComponentCommandAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2283,6 +2301,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <returns>An async enumerable of <see cref="DeviceRelationshipStatic"/> items across all pages.</returns>
         public virtual AsyncPageable<DeviceRelationshipStatic> DeviceRelationshipsListAsync(string deviceId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
+            if (deviceId is null)
+                throw new ArgumentNullException(nameof(deviceId));
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
@@ -2308,6 +2328,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceRelationshipsGetAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2340,6 +2364,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceRelationshipsSetAsync");
             try
             {
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2372,6 +2400,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceRelationshipsUpdateAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2402,6 +2434,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceRelationshipsRemoveAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (relationshipId is null)
+                    throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2452,6 +2488,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.JobsGetAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2484,6 +2522,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.JobsSetAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2513,6 +2553,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <returns>An async enumerable of <see cref="JobDeviceStatus"/> items across all pages.</returns>
         public virtual AsyncPageable<JobDeviceStatus> JobsGetDevicesAsync(string jobId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
+            if (jobId is null)
+                throw new ArgumentNullException(nameof(jobId));
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
@@ -2536,6 +2578,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.JobsStopAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2565,6 +2609,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.JobsResumeAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2596,6 +2642,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.JobsRerunAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
+                if (rerunId is null)
+                    throw new ArgumentNullException(nameof(rerunId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2646,6 +2696,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.OrganizationsGetAsync");
             try
             {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2677,6 +2729,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.OrganizationsSetAsync");
             try
             {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2706,6 +2760,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.OrganizationsRemoveAsync");
             try
             {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2756,6 +2812,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.ScheduledJobsGetAsync");
             try
             {
+                if (scheduledJobId is null)
+                    throw new ArgumentNullException(nameof(scheduledJobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2789,6 +2847,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.ScheduledJobsSetAsync");
             try
             {
+                if (scheduledJobId is null)
+                    throw new ArgumentNullException(nameof(scheduledJobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2825,6 +2885,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.ScheduledJobsUpdateAsync");
             try
             {
+                if (scheduledJobId is null)
+                    throw new ArgumentNullException(nameof(scheduledJobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2856,6 +2918,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.ScheduledJobsRemoveAsync");
             try
             {
+                if (scheduledJobId is null)
+                    throw new ArgumentNullException(nameof(scheduledJobId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -2883,6 +2947,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <returns>An async enumerable of <see cref="JobStatic"/> items across all pages.</returns>
         public virtual AsyncPageable<JobStatic> ScheduledJobsListJobsAsync(string scheduledJobId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
+            if (scheduledJobId is null)
+                throw new ArgumentNullException(nameof(scheduledJobId));
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
@@ -3040,6 +3106,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3072,6 +3140,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetCommandResponseAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3107,6 +3179,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetComponentCommandResponseAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3142,6 +3220,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetComponentTelemetryValueAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceTelemetry is null)
+                    throw new ArgumentNullException(nameof(deviceTelemetry));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3177,6 +3261,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetModuleCommandResponseAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3213,6 +3303,14 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetModuleComponentCommandResponseAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3249,6 +3347,14 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetModuleComponentTelemetryValueAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceTelemetry is null)
+                    throw new ArgumentNullException(nameof(deviceTelemetry));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3283,6 +3389,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetModulePropertiesAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3318,6 +3428,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetModuleTelemetryValueAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
+                if (deviceTelemetry is null)
+                    throw new ArgumentNullException(nameof(deviceTelemetry));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3351,6 +3467,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetPropertiesAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3385,6 +3503,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetTelemetryValueAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceTelemetry is null)
+                    throw new ArgumentNullException(nameof(deviceTelemetry));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3436,6 +3558,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesRemoveAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3469,6 +3593,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesRunCommandAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3505,6 +3633,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesRunComponentCommandAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3541,6 +3675,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesRunModuleCommandAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3578,6 +3718,14 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesRunModuleComponentCommandAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
+                if (deviceComponent is null)
+                    throw new ArgumentNullException(nameof(deviceComponent));
+                if (deviceCommand is null)
+                    throw new ArgumentNullException(nameof(deviceCommand));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3611,6 +3759,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesSetAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3644,6 +3794,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesUpdateModulePropertiesAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
+                if (deviceModule is null)
+                    throw new ArgumentNullException(nameof(deviceModule));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3678,6 +3832,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesUpdatePropertiesAsync");
             try
             {
+                if (deviceId is null)
+                    throw new ArgumentNullException(nameof(deviceId));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3710,6 +3866,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceTemplatesGetAsync");
             try
             {
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3759,6 +3917,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceTemplatesRemoveAsync");
             try
             {
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -3789,6 +3949,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.RolesGetAsync");
             try
             {
+                if (role is null)
+                    throw new ArgumentNullException(nameof(role));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -4002,6 +4164,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.UsersCreateAsync");
             try
             {
+                if (user is null)
+                    throw new ArgumentNullException(nameof(user));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -4034,6 +4198,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.UsersGetAsync");
             try
             {
+                if (user is null)
+                    throw new ArgumentNullException(nameof(user));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -4092,6 +4258,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.UsersRemoveAsync");
             try
             {
+                if (user is null)
+                    throw new ArgumentNullException(nameof(user));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -4124,6 +4292,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.UsersUpdateAsync");
             try
             {
+                if (user is null)
+                    throw new ArgumentNullException(nameof(user));
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
@@ -4154,7 +4324,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="type">type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetCapabilities_V1 response.</returns>
-        public virtual async Task<List<object>> WorkflowGetCapabilitiesAsync([DynamicValues("Applications_List")] string application, string template, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> WorkflowGetCapabilitiesAsync([DynamicValues("Applications_List")] string application, string template, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetCapabilitiesAsync");
             try
@@ -4174,7 +4344,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
                 var path = $"/api/v1/_internal/workflow/capabilities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4194,7 +4364,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="module">module</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetComponents_V1 response.</returns>
-        public virtual async Task<List<object>> WorkflowGetComponentsAsync([DynamicValues("Applications_List")] string application, string template, string module = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> WorkflowGetComponentsAsync([DynamicValues("Applications_List")] string application, string template, string module = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetComponentsAsync");
             try
@@ -4210,7 +4380,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
                 var path = $"/api/v1/_internal/workflow/components" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4229,7 +4399,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="template">template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetModules_V1 response.</returns>
-        public virtual async Task<List<object>> WorkflowGetModulesAsync([DynamicValues("Applications_List")] string application, string template, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> WorkflowGetModulesAsync([DynamicValues("Applications_List")] string application, string template, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetModulesAsync");
             try
@@ -4243,7 +4413,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 queryParams.Add($"template={Uri.EscapeDataString(template.ToString())}");
                 var path = $"/api/v1/_internal/workflow/modules" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

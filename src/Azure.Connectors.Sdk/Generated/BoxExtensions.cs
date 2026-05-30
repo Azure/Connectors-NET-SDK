@@ -327,6 +327,8 @@ namespace Azure.Connectors.Sdk.Box
             using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.GetFileMetadataAsync");
             try
             {
+                if (fileId is null)
+                    throw new ArgumentNullException(nameof(fileId));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -353,6 +355,8 @@ namespace Azure.Connectors.Sdk.Box
             using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.UpdateFileAsync");
             try
             {
+                if (fileId is null)
+                    throw new ArgumentNullException(nameof(fileId));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
@@ -377,6 +381,8 @@ namespace Azure.Connectors.Sdk.Box
             using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.DeleteFileAsync");
             try
             {
+                if (fileId is null)
+                    throw new ArgumentNullException(nameof(fileId));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -466,6 +472,8 @@ namespace Azure.Connectors.Sdk.Box
             using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.GetFileContentAsync");
             try
             {
+                if (fileId is null)
+                    throw new ArgumentNullException(nameof(fileId));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");

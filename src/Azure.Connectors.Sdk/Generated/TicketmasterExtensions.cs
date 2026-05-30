@@ -916,6 +916,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.EventGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -948,6 +950,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.EventImagesGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -1065,6 +1069,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.AttractionGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -1158,6 +1164,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.ClassificationGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -1190,6 +1198,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.GenreGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -1222,6 +1232,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.SegmentGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -1254,6 +1266,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.SubGenreGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
@@ -1362,6 +1376,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.VenueGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
                     queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");

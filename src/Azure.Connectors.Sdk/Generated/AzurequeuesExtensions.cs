@@ -340,6 +340,12 @@ namespace Azure.Connectors.Sdk.Azurequeues
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.DeleteMessageAsync");
             try
             {
+                if (storageAccountNameOrQueueEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (popReceipt is null)
                     throw new ArgumentNullException(nameof(popReceipt));
@@ -372,6 +378,10 @@ namespace Azure.Connectors.Sdk.Azurequeues
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.GetMessagesAsync");
             try
             {
+                if (storageAccountNameOrQueueEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (numberOfMessages != default)
                     queryParams.Add($"numofmessages={Uri.EscapeDataString(numberOfMessages.ToString())}");
@@ -402,6 +412,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.ListQueuesAsync");
             try
             {
+                if (storageAccountNameOrQueueEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/list";
                 return await this
                     .CallConnectorAsync<List<QueueInfo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -428,6 +440,10 @@ namespace Azure.Connectors.Sdk.Azurequeues
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.PutMessageAsync");
             try
             {
+                if (storageAccountNameOrQueueEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString())}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -454,6 +470,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.PutQueueAsync");
             try
             {
+                if (storageAccountNameOrQueueEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
                 var queryParams = new List<string>();
                 if (queueName is null)
                     throw new ArgumentNullException(nameof(queueName));

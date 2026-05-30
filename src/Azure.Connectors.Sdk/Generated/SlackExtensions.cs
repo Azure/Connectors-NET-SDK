@@ -359,7 +359,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     /// Typed trigger payload for the OnNewFile trigger (Slack "When a file is created", operationId: OnNewFile).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SlackOnNewFileTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class SlackOnNewFileTriggerPayload : TriggerCallbackPayload<object>
+    public class SlackOnNewFileTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 

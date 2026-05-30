@@ -503,6 +503,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.InvokeAPIAsync");
             try
             {
+                if (uRLPath is null)
+                    throw new ArgumentNullException(nameof(uRLPath));
                 var queryParams = new List<string>();
                 if (method is null)
                     throw new ArgumentNullException(nameof(method));
@@ -755,6 +757,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.UpdateDocumentAsync");
             try
             {
+                if (requestId is null)
+                    throw new ArgumentNullException(nameof(requestId));
                 var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
                 return await this
                     .CallConnectorAsync<UpdateDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -780,6 +784,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.SendSignRequestAsync");
             try
             {
+                if (requestId is null)
+                    throw new ArgumentNullException(nameof(requestId));
                 var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/submit";
                 return await this
                     .CallConnectorAsync<SendSignRequestResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -804,6 +810,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetTemplateDetailsAsync");
             try
             {
+                if (listOfTemplates is null)
+                    throw new ArgumentNullException(nameof(listOfTemplates));
                 var path = $"/templates/{Uri.EscapeDataString(listOfTemplates.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)

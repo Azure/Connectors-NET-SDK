@@ -328,6 +328,8 @@ namespace Azure.Connectors.Sdk.Ftp
             using var activity = FtpClient.ConnectorActivitySource.StartActivity("FtpClient.GetFileMetadataAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -354,6 +356,8 @@ namespace Azure.Connectors.Sdk.Ftp
             using var activity = FtpClient.ConnectorActivitySource.StartActivity("FtpClient.UpdateFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
@@ -378,6 +382,8 @@ namespace Azure.Connectors.Sdk.Ftp
             using var activity = FtpClient.ConnectorActivitySource.StartActivity("FtpClient.DeleteFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -504,6 +510,8 @@ namespace Azure.Connectors.Sdk.Ftp
             using var activity = FtpClient.ConnectorActivitySource.StartActivity("FtpClient.GetFileContentAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");

@@ -1110,6 +1110,8 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// <returns>An async enumerable of <see cref="Conversation"/> items across all pages.</returns>
         public virtual AsyncPageable<Conversation> ListConversationsAsync([DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations";
             return this.CreatePageable<ListConversationsResponse, Conversation>(
                 ct => this.CallConnectorAsync<ListConversationsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -1130,6 +1132,8 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.CreateConversationAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations";
                 return await this
                     .CallConnectorAsync<CreateConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1156,6 +1160,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.GetGroupConversationAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (conversationId is null)
+                    throw new ArgumentNullException(nameof(conversationId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}";
                 return await this
                     .CallConnectorAsync<Conversation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1179,6 +1187,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// <returns>An async enumerable of <see cref="ConversationThread"/> items across all pages.</returns>
         public virtual AsyncPageable<ConversationThread> ListConversationThreadsAsync([DynamicValues("ListGroups")] string groupId, string conversationId, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
+            if (conversationId is null)
+                throw new ArgumentNullException(nameof(conversationId));
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads";
             return this.CreatePageable<ListConversationThreadsResponse, ConversationThread>(
                 ct => this.CallConnectorAsync<ListConversationThreadsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -1200,6 +1212,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.CreateConversationThreadAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (conversationId is null)
+                    throw new ArgumentNullException(nameof(conversationId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads";
                 return await this
                     .CallConnectorAsync<NewConversationThreadResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1222,6 +1238,8 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// <returns>An async enumerable of <see cref="ConversationThread"/> items across all pages.</returns>
         public virtual AsyncPageable<ConversationThread> ListGroupThreadsAsync([DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads";
             return this.CreatePageable<ListGroupThreadsResponse, ConversationThread>(
                 ct => this.CallConnectorAsync<ListGroupThreadsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -1242,6 +1260,8 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.CreateGroupThreadAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads";
                 return await this
                     .CallConnectorAsync<NewConversationThreadResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1268,6 +1288,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.GetConversationThreadAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (threadId is null)
+                    throw new ArgumentNullException(nameof(threadId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}";
                 return await this
                     .CallConnectorAsync<ConversationThread>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1293,6 +1317,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.DeleteConversationThreadAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (threadId is null)
+                    throw new ArgumentNullException(nameof(threadId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1316,6 +1344,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// <returns>An async enumerable of <see cref="Post"/> items across all pages.</returns>
         public virtual AsyncPageable<Post> ListThreadPostsAsync([DynamicValues("ListGroups")] string groupId, string threadId, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
+            if (threadId is null)
+                throw new ArgumentNullException(nameof(threadId));
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts";
             return this.CreatePageable<ListThreadPostsResponse, Post>(
                 ct => this.CallConnectorAsync<ListThreadPostsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -1337,6 +1369,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.GetThreadAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (threadId is null)
+                    throw new ArgumentNullException(nameof(threadId));
+                if (postId is null)
+                    throw new ArgumentNullException(nameof(postId));
                 var queryParams = new List<string>();
                 queryParams.Add("$expand=attachments");
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1363,6 +1401,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// <returns>An async enumerable of <see cref="Attachment"/> items across all pages.</returns>
         public virtual AsyncPageable<Attachment> GetAttachmentsAsync([DynamicValues("ListGroups")] string groupId, string threadId, string postId, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
+            if (threadId is null)
+                throw new ArgumentNullException(nameof(threadId));
+            if (postId is null)
+                throw new ArgumentNullException(nameof(postId));
             var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/attachments";
             return this.CreatePageable<GetAttachmentsResponse, Attachment>(
                 ct => this.CallConnectorAsync<GetAttachmentsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -1411,6 +1455,10 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.ReplyToAThreadAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (threadId is null)
+                    throw new ArgumentNullException(nameof(threadId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/reply";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -1438,6 +1486,12 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.ReplyAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (threadId is null)
+                    throw new ArgumentNullException(nameof(threadId));
+                if (postId is null)
+                    throw new ArgumentNullException(nameof(postId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/reply";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -1491,6 +1545,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.ForwardAsync");
             try
             {
+                if (groupMail is null)
+                    throw new ArgumentNullException(nameof(groupMail));
+                if (conversationId is null)
+                    throw new ArgumentNullException(nameof(conversationId));
+                if (threadId is null)
+                    throw new ArgumentNullException(nameof(threadId));
+                if (postId is null)
+                    throw new ArgumentNullException(nameof(postId));
                 var path = $"/beta/groups/{Uri.EscapeDataString(groupMail.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/forward";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)

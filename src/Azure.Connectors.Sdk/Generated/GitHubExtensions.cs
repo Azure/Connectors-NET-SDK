@@ -3071,6 +3071,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CreateIssueAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues";
                 return await this
                     .CallConnectorAsync<IssueDetailsModel>(HttpMethod.Post, path, input, cancellationToken)
@@ -3108,6 +3112,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetIssuesAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (milestone != default)
                     queryParams.Add($"milestone={Uri.EscapeDataString(milestone.ToString())}");
@@ -3157,6 +3165,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetRepositoryPublicKeyAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/actions/secrets/public-key";
                 return await this
                     .CallConnectorAsync<ActionsPublicKey>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3184,6 +3196,12 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CreateUpdateRepositorySecretAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
+                if (secretName is null)
+                    throw new ArgumentNullException(nameof(secretName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/actions/secrets/{Uri.EscapeDataString(secretName.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
@@ -3211,6 +3229,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CreateRepositoryUsingTemplateAsync");
             try
             {
+                if (templateOwner is null)
+                    throw new ArgumentNullException(nameof(templateOwner));
+                if (templateRepository is null)
+                    throw new ArgumentNullException(nameof(templateRepository));
                 var path = $"/repos/{Uri.EscapeDataString(templateOwner.ToString())}/{Uri.EscapeDataString(templateRepository.ToString())}/generate";
                 return await this
                     .CallConnectorAsync<RepositoryDetails>(HttpMethod.Post, path, input, cancellationToken)
@@ -3263,6 +3285,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CreateReferenceAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/git/refs";
                 return await this
                     .CallConnectorAsync<GitReference>(HttpMethod.Post, path, input, cancellationToken)
@@ -3290,6 +3316,12 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetReferenceAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
+                if (reference is null)
+                    throw new ArgumentNullException(nameof(reference));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/git/ref/{Uri.EscapeDataString(reference.ToString())}";
                 return await this
                     .CallConnectorAsync<GitReference>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3318,6 +3350,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.MergePullRequestAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/merge";
                 return await this
                     .CallConnectorAsync<PullRequestMergeResult>(HttpMethod.Put, path, input, cancellationToken)
@@ -3345,6 +3381,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetPullRequestAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}";
                 return await this
                     .CallConnectorAsync<PullRequest>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3373,6 +3413,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.UpdatePullRequestAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}";
                 return await this
                     .CallConnectorAsync<PullRequest>(HttpMethod.Patch, path, input, cancellationToken)
@@ -3400,6 +3444,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetPullRequestFilesAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/files";
                 return await this
                     .CallConnectorAsync<List<PullRequestFile>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3427,6 +3475,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.RequestReviewersPullRequestAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/requested_reviewers";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3454,6 +3506,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.RemoveReviewersPullRequestAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/requested_reviewers";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
@@ -3481,6 +3537,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CreatePullRequestAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls";
                 return await this
                     .CallConnectorAsync<PullRequest>(HttpMethod.Post, path, input, cancellationToken)
@@ -3514,6 +3574,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetPullRequestsAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (state != default)
                     queryParams.Add($"state={Uri.EscapeDataString(state.ToString())}");
@@ -3555,6 +3619,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CreateRepositoryDispatchEventAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/dispatches";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3583,6 +3651,14 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CompareRepositoryCommitsAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
+                if (@base is null)
+                    throw new ArgumentNullException(nameof(@base));
+                if (head is null)
+                    throw new ArgumentNullException(nameof(head));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/compare/{Uri.EscapeDataString(@base.ToString())}...{Uri.EscapeDataString(head.ToString())}";
                 return await this
                     .CallConnectorAsync<CommitComparison>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3609,6 +3685,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.AddSelectedRepoToOrgSecretAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (secretName is null)
+                    throw new ArgumentNullException(nameof(secretName));
                 var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner.ToString())}/actions/secrets/{Uri.EscapeDataString(secretName.ToString())}/repositories/{Uri.EscapeDataString(repositoryId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
@@ -3635,6 +3715,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.RemoveSelectedRepoFromOrgSecretAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (secretName is null)
+                    throw new ArgumentNullException(nameof(secretName));
                 var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner.ToString())}/actions/secrets/{Uri.EscapeDataString(secretName.ToString())}/repositories/{Uri.EscapeDataString(repositoryId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3661,6 +3745,12 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.DeleteWebhookTriggerAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
+                if (gitHubWebhookId is null)
+                    throw new ArgumentNullException(nameof(gitHubWebhookId));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/hooks/{Uri.EscapeDataString(gitHubWebhookId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3688,6 +3778,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetIssueNumAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues/{Uri.EscapeDataString(issueNumber.ToString())}";
                 return await this
                     .CallConnectorAsync<IssueDetailsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3716,6 +3810,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.UpdateIssueNumAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues/{Uri.EscapeDataString(issueNumber.ToString())}";
                 return await this
                     .CallConnectorAsync<IssueDetailsModel>(HttpMethod.Patch, path, input, cancellationToken)
@@ -3744,6 +3842,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.UpdateMilestoneAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/milestones/{Uri.EscapeDataString(milestoneNumber.ToString())}";
                 return await this
                     .CallConnectorAsync<Milestone>(HttpMethod.Patch, path, input, cancellationToken)
@@ -3820,6 +3922,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetAssigneesAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
                     queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
@@ -3853,6 +3959,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.ListCollaboratorsAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
                     queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
@@ -3885,6 +3995,12 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CheckCollaboratorAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
+                if (userName is null)
+                    throw new ArgumentNullException(nameof(userName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/collaborators/{Uri.EscapeDataString(userName.ToString())}";
                 return await this
                     .CallConnectorAsync<GeneralAPIModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3916,6 +4032,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetMilestonesAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (state != default)
                     queryParams.Add($"state={Uri.EscapeDataString(state.ToString())}");
@@ -3955,6 +4075,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetLabelsAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
                     queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
@@ -3989,6 +4113,10 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetIssueLabelsAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
+                if (repositoryName is null)
+                    throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
                     queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
@@ -4024,6 +4152,8 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetReposAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
                 var queryParams = new List<string>();
                 if (type != default)
                     queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
@@ -4065,6 +4195,8 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetOrgReposAsync");
             try
             {
+                if (repositoryOwner is null)
+                    throw new ArgumentNullException(nameof(repositoryOwner));
                 var queryParams = new List<string>();
                 if (type != default)
                     queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");

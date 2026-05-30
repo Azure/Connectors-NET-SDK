@@ -753,6 +753,12 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.CreateDocumentAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs";
                 return await this
                     .CallConnectorAsync<PostDocumentsResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -781,6 +787,12 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.CreateStoredProcedureAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs";
                 return await this
                     .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -808,6 +820,14 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.DeleteDocumentAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -836,6 +856,14 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.DeleteStoredProcedureAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
+                if (sprocId is null)
+                    throw new ArgumentNullException(nameof(sprocId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -865,6 +893,14 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ExecuteStoredProcedureAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
+                if (sprocId is null)
+                    throw new ArgumentNullException(nameof(sprocId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
                 return await this
                     .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
@@ -891,6 +927,10 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCollectionsAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls";
                 return await this
                     .CallConnectorAsync<GetCollectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -916,6 +956,8 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDatabasesAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs";
                 return await this
                     .CallConnectorAsync<GetDatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -946,6 +988,14 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDocumentAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var queryParams = new List<string>();
                 if (extractSensitivityLabel.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
@@ -980,6 +1030,12 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDocumentsAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
                 var queryParams = new List<string>();
                 if (extractSensitivityLabel.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
@@ -1012,6 +1068,12 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetStoredProceduresAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs";
                 return await this
                     .CallConnectorAsync<GetStoredProceduresResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1047,6 +1109,12 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.QueryDocumentsAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (containerId is null)
+                    throw new ArgumentNullException(nameof(containerId));
                 var queryParams = new List<string>();
                 if (sQLSyntaxQuery != default)
                     queryParams.Add($"queryText={Uri.EscapeDataString(sQLSyntaxQuery.ToString())}");
@@ -1093,6 +1161,14 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ReplaceDocumentAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/docs/{Uri.EscapeDataString(documentId.ToString())}";
                 return await this
                     .CallConnectorAsync<PutDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -1122,6 +1198,14 @@ namespace Azure.Connectors.Sdk.Documentdb
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ReplaceStoredProcedureAsync");
             try
             {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                if (collectionId is null)
+                    throw new ArgumentNullException(nameof(collectionId));
+                if (sprocId is null)
+                    throw new ArgumentNullException(nameof(sprocId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
                 return await this
                     .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Put, path, input, cancellationToken)

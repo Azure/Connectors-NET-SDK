@@ -610,6 +610,8 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.UpdateToDoListAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
                 return await this
                     .CallConnectorAsync<TodoList>(HttpMethod.Patch, path, input, cancellationToken)
@@ -634,6 +636,8 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.DeleteToDoListAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -660,6 +664,8 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.CreateToDoAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks";
                 return await this
                     .CallConnectorAsync<ToDo>(HttpMethod.Post, path, input, cancellationToken)
@@ -710,6 +716,10 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.DeleteToDoAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                if (toDoTask is null)
+                    throw new ArgumentNullException(nameof(toDoTask));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -760,6 +770,10 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetToDoAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                if (toDoTask is null)
+                    throw new ArgumentNullException(nameof(toDoTask));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
                 return await this
                     .CallConnectorAsync<ToDo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -785,6 +799,8 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetToDoListAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
                 return await this
                     .CallConnectorAsync<TodoList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -811,6 +827,8 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.ListToDosByFolderAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -841,6 +859,10 @@ namespace Azure.Connectors.Sdk.Todo
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.UpdateToDoAsync");
             try
             {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                if (toDoTask is null)
+                    throw new ArgumentNullException(nameof(toDoTask));
                 var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
                 return await this
                     .CallConnectorAsync<ToDo>(HttpMethod.Patch, path, input, cancellationToken)

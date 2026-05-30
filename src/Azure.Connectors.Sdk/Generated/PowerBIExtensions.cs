@@ -2048,6 +2048,8 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetScorecardsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2076,6 +2078,8 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.CreateScorecardAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2104,6 +2108,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetMultipleGoalsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
                 var queryParams = new List<string>();
                 queryParams.Add("$expand=aggregations");
                 queryParams.Add("pbi_source=powerAutomate");
@@ -2134,6 +2142,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.CreateGoalAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2163,6 +2175,12 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetGoalAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 queryParams.Add("$expand=aggregations");
@@ -2193,6 +2211,12 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.UpdateGoalAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2248,6 +2272,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ExecuteDatasetQueryAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2277,6 +2305,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ExecuteDatasetQueriesJsonAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2306,6 +2338,12 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.AddRowsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2359,6 +2397,8 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ListDatasetsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2387,6 +2427,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.ListTablesAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2416,6 +2460,12 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetColumnsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2446,6 +2496,14 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GoalValueCheckinNoteAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
+                if (checkInDate is null)
+                    throw new ArgumentNullException(nameof(checkInDate));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2475,6 +2533,12 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GoalValueCheckinAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2504,6 +2568,12 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetGoalCheckinsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 queryParams.Add("$expand=notes");
@@ -2535,6 +2605,14 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.UpdateGoalCheckinAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
+                if (checkInDate is null)
+                    throw new ArgumentNullException(nameof(checkInDate));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/internalScorecards({Uri.EscapeDataString(scorecardId.ToString())})/goals({Uri.EscapeDataString(goalId.ToString())})/goalValues({Uri.EscapeDataString(checkInDate.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2565,6 +2643,14 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetGoalCheckinAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (scorecardId is null)
+                    throw new ArgumentNullException(nameof(scorecardId));
+                if (goalId is null)
+                    throw new ArgumentNullException(nameof(goalId));
+                if (checkInDate is null)
+                    throw new ArgumentNullException(nameof(checkInDate));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 queryParams.Add("$expand=notes");
@@ -2618,6 +2704,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.RefreshDatasetAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/refreshes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -2647,6 +2737,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.InitiateExportToFileForPbiReportsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (report is null)
+                    throw new ArgumentNullException(nameof(report));
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports/{Uri.EscapeDataString(report.ToString())}/ExportTo";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
@@ -2674,6 +2768,10 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.InitiateExportToFileForPaginatedReportsAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                if (report is null)
+                    throw new ArgumentNullException(nameof(report));
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports/{Uri.EscapeDataString(report.ToString())}/ExportToPaginatedReports";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
@@ -2699,6 +2797,8 @@ namespace Azure.Connectors.Sdk.PowerBI
             using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetReportsInGroupAsync");
             try
             {
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/reports";
                 return await this
                     .CallConnectorAsync<Reports>(HttpMethod.Get, path, cancellationToken: cancellationToken)

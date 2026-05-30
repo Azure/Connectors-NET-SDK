@@ -524,7 +524,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     /// Typed trigger payload for the OnGroupMembershipChange trigger (Office365Groups "When a group member is added or removed", operationId: OnGroupMembershipChange).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365GroupsOnGroupMembershipChangeTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class Office365GroupsOnGroupMembershipChangeTriggerPayload : TriggerCallbackPayload<object>
+    public class Office365GroupsOnGroupMembershipChangeTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -532,7 +532,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     /// Typed trigger payload for the OnNewEvent trigger (Office365Groups "When there is a new event", operationId: OnNewEvent).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365GroupsOnNewEventTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class Office365GroupsOnNewEventTriggerPayload : TriggerCallbackPayload<object>
+    public class Office365GroupsOnNewEventTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -697,6 +697,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
         public virtual AsyncPageable<JsonElement?> ListGroupMembersAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
             var queryParams = new List<string>();
             if (top.HasValue)
                 queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
@@ -719,6 +721,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.AddMemberToGroupAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var queryParams = new List<string>();
                 if (userPrincipalName is null)
                     throw new ArgumentNullException(nameof(userPrincipalName));
@@ -781,6 +785,10 @@ namespace Azure.Connectors.Sdk.Office365Groups
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.UpdateCalendarEventAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -806,6 +814,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.RemoveMemberFromGroupAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var queryParams = new List<string>();
                 if (userPrincipalName is null)
                     throw new ArgumentNullException(nameof(userPrincipalName));
@@ -849,6 +859,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.RestoreDeletedGroupAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v1.0/directory/deletedItems/{Uri.EscapeDataString(groupId.ToString())}/restore";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -889,6 +901,10 @@ namespace Azure.Connectors.Sdk.Office365Groups
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.CalendarDeleteItemAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -915,6 +931,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.CreateCalendarEventAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v2/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events";
                 return await this
                     .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Post, path, input, cancellationToken)

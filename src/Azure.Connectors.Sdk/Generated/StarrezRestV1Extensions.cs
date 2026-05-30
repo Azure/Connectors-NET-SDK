@@ -13701,14 +13701,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry response.</returns>
-        public virtual async Task<List<object>> SelectEntryAsync(SelectEntryInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryAsync(SelectEntryInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryAsync");
             try
             {
                 var path = $"/select/entry.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -13783,6 +13783,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.DeleteAsync");
             try
             {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var path = $"/delete/{Uri.EscapeDataString(tableName.ToString())}.json/{Uri.EscapeDataString(rowId.ToString())}";
                 return await this
                     .CallConnectorAsync<DeleteResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -13803,14 +13805,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Custom Field response.</returns>
-        public virtual async Task<List<object>> SelectEntryCustomFieldAsync(SelectEntryCustomFieldInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryCustomFieldAsync(SelectEntryCustomFieldInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryCustomFieldAsync");
             try
             {
                 var path = $"/select/EntryCustomField.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -13854,14 +13856,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Term response.</returns>
-        public virtual async Task<List<object>> SelectTermAsync(SelectTermInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectTermAsync(SelectTermInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectTermAsync");
             try
             {
                 var path = $"/select/Term.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -13879,14 +13881,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Address response.</returns>
-        public virtual async Task<List<object>> SelectEntryAddressAsync(SelectEntryAddressInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryAddressAsync(SelectEntryAddressInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryAddressAsync");
             try
             {
                 var path = $"/select/EntryAddress.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -13930,14 +13932,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Application response.</returns>
-        public virtual async Task<List<object>> SelectEntryApplicationAsync(SelectEntryApplicationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryApplicationAsync(SelectEntryApplicationInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryApplicationAsync");
             try
             {
                 var path = $"/select/EntryApplication.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14006,14 +14008,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Term Session response.</returns>
-        public virtual async Task<List<object>> SelectTermSessionAsync(SelectTermSessionInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectTermSessionAsync(SelectTermSessionInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectTermSessionAsync");
             try
             {
                 var path = $"/select/TermSession.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14031,14 +14033,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Detail response.</returns>
-        public virtual async Task<List<object>> SelectEntryDetailAsync(SelectEntryDetailInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryDetailAsync(SelectEntryDetailInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryDetailAsync");
             try
             {
                 var path = $"/select/EntryDetail.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14082,14 +14084,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Enrollment response.</returns>
-        public virtual async Task<List<object>> SelectEntryEnrollmentAsync(SelectEntryEnrollmentInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryEnrollmentAsync(SelectEntryEnrollmentInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryEnrollmentAsync");
             try
             {
                 var path = $"/select/EntryEnrollment.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14158,14 +14160,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Booking response.</returns>
-        public virtual async Task<List<object>> SelectBookingAsync(SelectBookingInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectBookingAsync(SelectBookingInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectBookingAsync");
             try
             {
                 var path = $"/select/Booking.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14234,14 +14236,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Room Space response.</returns>
-        public virtual async Task<List<object>> SelectRoomSpaceAsync(SelectRoomSpaceInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectRoomSpaceAsync(SelectRoomSpaceInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectRoomSpaceAsync");
             try
             {
                 var path = $"/select/RoomSpace.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14284,14 +14286,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Room Location response.</returns>
-        public virtual async Task<List<object>> SelectRoomLocationAsync(SelectRoomLocationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectRoomLocationAsync(SelectRoomLocationInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectRoomLocationAsync");
             try
             {
                 var path = $"/select/RoomLocation.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14309,14 +14311,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Transaction response.</returns>
-        public virtual async Task<List<object>> SelectTransactionAsync(SelectTransactionInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectTransactionAsync(SelectTransactionInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectTransactionAsync");
             try
             {
                 var path = $"/select/Transaction.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -14359,14 +14361,14 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Room Space Maintenance response.</returns>
-        public virtual async Task<List<object>> SelectRoomSpaceMaintenanceAsync(SelectRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectRoomSpaceMaintenanceAsync(SelectRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
         {
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectRoomSpaceMaintenanceAsync");
             try
             {
                 var path = $"/select/RoomSpaceMaintenance.json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -3307,7 +3307,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// Typed trigger payload for the OnTeamMemberRemoved trigger (Teams "When a new team member is removed", operationId: OnGroupMembershipRemoval).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberRemovedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<object>
+    public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -3315,7 +3315,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// Typed trigger payload for the OnTeamMemberAdded trigger (Teams "When a new team member is added", operationId: OnGroupMembershipAdd).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberAddedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnTeamMemberAddedTriggerPayload : TriggerCallbackPayload<object>
+    public class TeamsOnTeamMemberAddedTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -3646,6 +3646,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateTeamsMeetingAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
                 return await this
                     .CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -3721,6 +3723,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetChannelsForGroupAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -3752,6 +3756,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateChannelAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
                 return await this
                     .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -3778,6 +3784,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetChannelAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
                 var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
                 return await this
                     .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3805,6 +3815,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAllChannelsForTeamAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -3836,6 +3848,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetChatsAsync");
             try
             {
+                if (chatTypes is null)
+                    throw new ArgumentNullException(nameof(chatTypes));
+                if (topic is null)
+                    throw new ArgumentNullException(nameof(topic));
                 var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
                 return await this
                     .CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3862,6 +3878,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostFeedNotificationAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (notificationType is null)
+                    throw new ArgumentNullException(nameof(notificationType));
                 var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3888,6 +3908,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AtMentionTagAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
                 return await this
                     .CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3911,6 +3935,10 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
         public virtual AsyncPageable<ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
         {
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            if (channel is null)
+                throw new ArgumentNullException(nameof(channel));
             var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
             return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
                 ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3932,6 +3960,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsAsync");
             try
             {
+                if (message is null)
+                    throw new ArgumentNullException(nameof(message));
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
                 var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
                 return await this
                     .CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
@@ -3960,6 +3992,12 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListRepliesToMessageAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                if (message is null)
+                    throw new ArgumentNullException(nameof(message));
                 var queryParams = new List<string>();
                 if (latestRepliesCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.Value.ToString())}");
@@ -3990,6 +4028,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMembersAsync");
             try
             {
+                if (threadType is null)
+                    throw new ArgumentNullException(nameof(threadType));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -4020,6 +4060,12 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetUnifiedActionSchemaAsync");
             try
             {
+                if (unifiedAction is null)
+                    throw new ArgumentNullException(nameof(unifiedAction));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
                 return await this
                     .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4047,6 +4093,12 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetPostToConversationResponseSchemaAsync");
             try
             {
+                if (unifiedAction is null)
+                    throw new ArgumentNullException(nameof(unifiedAction));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
                 return await this
                     .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4072,6 +4124,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAdaptiveCardInputMetadataAsync");
             try
             {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4097,6 +4151,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetNotificationInputMetadataAsync");
             try
             {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4146,6 +4202,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionInputMetadataAsync");
             try
             {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4171,6 +4229,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionOutputMetadataAsync");
             try
             {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4197,6 +4257,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionOutputMetadataAsync");
             try
             {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
@@ -4224,6 +4286,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
                 var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
@@ -4324,6 +4390,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTeamAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
                 return await this
                     .CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4349,6 +4417,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AtMentionUserAsync");
             try
             {
+                if (user is null)
+                    throw new ArgumentNullException(nameof(user));
                 var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
                 return await this
                     .CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4399,6 +4469,8 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
         public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationId, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
         {
+            if (conversationId is null)
+                throw new ArgumentNullException(nameof(conversationId));
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -4477,6 +4549,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListTeamMembersAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -4507,6 +4581,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToTeamAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/members";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -4532,6 +4608,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveMemberFromTeamAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (membershipId is null)
+                    throw new ArgumentNullException(nameof(membershipId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -4558,6 +4638,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToChannelAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -4584,6 +4668,12 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveMemberFromChannelAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                if (membershipId is null)
+                    throw new ArgumentNullException(nameof(membershipId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -4611,6 +4701,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostMessageToConversationAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
                 var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
                 return await this
                     .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -4638,6 +4732,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ReplyWithMessageToConversationAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
                 var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
                 return await this
                     .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -4665,6 +4763,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostCardToConversationAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
                 var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
                 return await this
                     .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -4692,6 +4794,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostCardAndWaitForResponseAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
                 var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
                 return await this
                     .CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -4719,6 +4825,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ReplyWithCardToConversationAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
                 var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
                 return await this
                     .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -4746,6 +4856,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateCardInConversationAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
                 var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
                 return await this
                     .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -4771,6 +4885,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsInputSchemaAsync");
             try
             {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
                 var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
                 return await this
                     .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4796,6 +4912,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsResponseSchemaAsync");
             try
             {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
                 var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
                 return await this
                     .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4821,6 +4939,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMembersInputSchemaAsync");
             try
             {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
                 var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
                 return await this
                     .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4846,6 +4966,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerRequestSchemaAsync");
             try
             {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
                 var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
                 return await this
                     .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4872,6 +4994,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerResponseSchemaAsync");
             try
             {
+                if (triggerType is null)
+                    throw new ArgumentNullException(nameof(triggerType));
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
                 var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
                 return await this
                     .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4898,6 +5024,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageLocationsAsync");
             try
             {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
                 var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
                 return await this
                     .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4924,6 +5054,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFeedNotificationInputSchemaAsync");
             try
             {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (notificationType is null)
+                    throw new ArgumentNullException(nameof(notificationType));
                 var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
                 return await this
                     .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4974,6 +5108,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToChatAsync");
             try
             {
+                if (conversationId is null)
+                    throw new ArgumentNullException(nameof(conversationId));
                 var path = $"/v1.0/chats/{Uri.EscapeDataString(conversationId.ToString())}/members";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -5032,6 +5168,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMeetingTranscriptsAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
                 var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/transcripts";
                 return await this
                     .CallConnectorAsync<CallTranscriptCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5058,6 +5196,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingTranscriptAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
                 var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}";
                 return await this
                     .CallConnectorAsync<CallTranscriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5084,6 +5226,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingTranscriptContentAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
                 var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}/content";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5109,6 +5255,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMeetingRecordingsAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
                 var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/recordings";
                 return await this
                     .CallConnectorAsync<CallRecordingCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5135,6 +5283,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingRecordingAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
                 var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}";
                 return await this
                     .CallConnectorAsync<CallRecordingResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5161,6 +5313,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingRecordingContentAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
                 var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}/content";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5235,6 +5391,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSectionAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}";
                 return await this
                     .CallConnectorAsync<SectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5261,6 +5419,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateSectionAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}";
                 return await this
                     .CallConnectorAsync<SectionResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -5285,6 +5445,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.DeleteSectionAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -5310,6 +5472,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListSectionItemsAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items";
                 return await this
                     .CallConnectorAsync<ListSectionItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5336,6 +5500,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddSectionItemAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items";
                 return await this
                     .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -5361,6 +5527,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveSectionItemAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                if (sectionItemId is null)
+                    throw new ArgumentNullException(nameof(sectionItemId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items/{Uri.EscapeDataString(sectionItemId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -5388,6 +5558,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.MoveSectionItemAsync");
             try
             {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                if (sectionItemId is null)
+                    throw new ArgumentNullException(nameof(sectionItemId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items/{Uri.EscapeDataString(sectionItemId.ToString())}/move";
                 return await this
                     .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -5413,6 +5587,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSubscriptionScopeSchemaAsync");
             try
             {
+                if (scopeType is null)
+                    throw new ArgumentNullException(nameof(scopeType));
                 var path = $"/internalparameters/triggers/subscriptionscope/{Uri.EscapeDataString(scopeType.ToString())}/schema";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5438,6 +5614,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTagsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags";
                 return await this
                     .CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5464,6 +5642,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateTagAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags";
                 return await this
                     .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
@@ -5490,6 +5670,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTagAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
                 return await this
                     .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5517,6 +5701,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateTagAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
                 return await this
                     .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Patch, path, input, cancellationToken)
@@ -5542,6 +5730,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.DeleteTagAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -5569,6 +5761,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToTagAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
                 return await this
                     .CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
@@ -5595,6 +5791,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTagMembersAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
                 return await this
                     .CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5621,6 +5821,12 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.DeleteTagMemberAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                if (tagMemberId is null)
+                    throw new ArgumentNullException(nameof(tagMemberId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -5646,6 +5852,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListCallRecordingsAsync");
             try
             {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
                 var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/recordings";
                 return await this
                     .CallConnectorAsync<CallRecordingCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5672,6 +5880,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallRecordingAsync");
             try
             {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
                 var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}";
                 return await this
                     .CallConnectorAsync<CallRecordingResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5698,6 +5910,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallRecordingContentAsync");
             try
             {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
                 var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}/content";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5723,6 +5939,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListCallTranscriptsAsync");
             try
             {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
                 var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/transcripts";
                 return await this
                     .CallConnectorAsync<CallTranscriptCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5749,6 +5967,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallTranscriptAsync");
             try
             {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
                 var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}";
                 return await this
                     .CallConnectorAsync<CallTranscriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5775,6 +5997,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallTranscriptContentAsync");
             try
             {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
                 var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}/content";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5880,6 +6106,8 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListAiInsightsAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
                 var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/aiInsights";
                 return await this
                     .CallConnectorAsync<AiInsightCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5906,6 +6134,10 @@ namespace Azure.Connectors.Sdk.Teams
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAiInsightAsync");
             try
             {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (aIInsightId is null)
+                    throw new ArgumentNullException(nameof(aIInsightId));
                 var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/aiInsights/{Uri.EscapeDataString(aIInsightId.ToString())}";
                 return await this
                     .CallConnectorAsync<AiInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

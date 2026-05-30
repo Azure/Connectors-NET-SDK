@@ -960,6 +960,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetGroupAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -985,6 +987,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetUserAsync");
             try
             {
+                if (userIdOrPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
                 return await this
                     .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1010,6 +1014,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.UpdateUserAsync");
             try
             {
+                if (userIdOrPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
@@ -1034,6 +1040,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.RefreshTokensAsync");
             try
             {
+                if (userIdOrPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/revokeSignInSessions";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1082,6 +1090,8 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <returns>An async enumerable of <see cref="GetUserResponse"/> items across all pages.</returns>
         public virtual AsyncPageable<GetUserResponse> GetGroupMembersAsync(string groupId, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (groupId is null)
+                throw new ArgumentNullException(nameof(groupId));
             var queryParams = new List<string>();
             if (top.HasValue)
                 queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
@@ -1104,6 +1114,10 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.RemoveMemberFromGroupAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
+                if (memberId is null)
+                    throw new ArgumentNullException(nameof(memberId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/{Uri.EscapeDataString(memberId.ToString())}/$ref";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1129,6 +1143,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.AddUserToGroupAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -1154,6 +1170,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.AssignManagerAsync");
             try
             {
+                if (userIdOrPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/manager/$ref";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
@@ -1205,6 +1223,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CheckMemberGroupsAsync");
             try
             {
+                if (userIdOrPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/checkMemberGroups";
                 return await this
                     .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1231,6 +1251,8 @@ namespace Azure.Connectors.Sdk.AzureAD
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetMemberGroupsAsync");
             try
             {
+                if (userIdOrPrincipalName is null)
+                    throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/getMemberGroups";
                 return await this
                     .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)

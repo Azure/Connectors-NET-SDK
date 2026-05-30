@@ -2078,6 +2078,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetScheduleAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule";
                 return await this
                     .CallConnectorAsync<ScheduleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2106,6 +2108,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimesOffAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
                     queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
@@ -2139,6 +2143,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.CreateTimeOffAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff";
                 return await this
                     .CallConnectorAsync<TimeOffResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2165,6 +2171,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetTimeOffAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (timeOffId is null)
+                    throw new ArgumentNullException(nameof(timeOffId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
                 return await this
                     .CallConnectorAsync<TimeOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2190,6 +2200,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.DeleteTimeOffAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (timeOffId is null)
+                    throw new ArgumentNullException(nameof(timeOffId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2218,6 +2232,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListShiftsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
                     queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
@@ -2251,6 +2267,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.CreateShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts";
                 return await this
                     .CallConnectorAsync<ShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2277,6 +2295,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (shiftId is null)
+                    throw new ArgumentNullException(nameof(shiftId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
                 return await this
                     .CallConnectorAsync<ShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2302,6 +2324,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.DeleteShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (shiftId is null)
+                    throw new ArgumentNullException(nameof(shiftId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2330,6 +2356,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
                     queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
@@ -2363,6 +2391,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.CreateOpenShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts";
                 return await this
                     .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2389,6 +2419,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetOpenShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (openShiftId is null)
+                    throw new ArgumentNullException(nameof(openShiftId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
                 return await this
                     .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2416,6 +2450,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.UpdateOpenShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (openShiftId is null)
+                    throw new ArgumentNullException(nameof(openShiftId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
                 return await this
                     .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -2441,6 +2479,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.DeleteOpenShiftAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (openShiftId is null)
+                    throw new ArgumentNullException(nameof(openShiftId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2467,6 +2509,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimeOffReasonsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
@@ -2496,6 +2540,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListSchedulingGroupsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
@@ -2525,6 +2571,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetSchedulingGroupAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (schedulingGroupId is null)
+                    throw new ArgumentNullException(nameof(schedulingGroupId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups/{Uri.EscapeDataString(schedulingGroupId.ToString())}";
                 return await this
                     .CallConnectorAsync<SchedulingGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2552,6 +2602,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimeOffRequestsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
@@ -2583,6 +2635,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetTimeOffShiftRequestAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (timeOffRequestId is null)
+                    throw new ArgumentNullException(nameof(timeOffRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}";
                 return await this
                     .CallConnectorAsync<TimeOffRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2610,6 +2666,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.TimeOffRequestApproveAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (timeOffRequestId is null)
+                    throw new ArgumentNullException(nameof(timeOffRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/approve";
                 return await this
                     .CallConnectorAsync<TimeOffRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2637,6 +2697,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.TimeOffRequestDeclineAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (timeOffRequestId is null)
+                    throw new ArgumentNullException(nameof(timeOffRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/decline";
                 return await this
                     .CallConnectorAsync<TimeOffRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2664,6 +2728,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOfferShiftRequestsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
@@ -2695,6 +2761,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetOfferShiftRequestAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (offerShiftRequestId is null)
+                    throw new ArgumentNullException(nameof(offerShiftRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}";
                 return await this
                     .CallConnectorAsync<OfferShiftRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2722,6 +2792,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OfferShiftRequestApproveAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (offerShiftRequestId is null)
+                    throw new ArgumentNullException(nameof(offerShiftRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/approve";
                 return await this
                     .CallConnectorAsync<OfferShiftRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2749,6 +2823,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OfferShiftRequestDeclineAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (offerShiftRequestId is null)
+                    throw new ArgumentNullException(nameof(offerShiftRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/decline";
                 return await this
                     .CallConnectorAsync<OfferShiftRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2776,6 +2854,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListSwapShiftsChangeRequestsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
@@ -2807,6 +2887,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetSwapShiftsChangeRequestAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (swapShiftsChangeRequestId is null)
+                    throw new ArgumentNullException(nameof(swapShiftsChangeRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}";
                 return await this
                     .CallConnectorAsync<SwapShiftsChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2834,6 +2918,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.SwapShiftsChangeRequestApproveAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (swapShiftsChangeRequestId is null)
+                    throw new ArgumentNullException(nameof(swapShiftsChangeRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/approve";
                 return await this
                     .CallConnectorAsync<SwapShiftsChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2861,6 +2949,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.SwapShiftsChangeRequestDeclineAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (swapShiftsChangeRequestId is null)
+                    throw new ArgumentNullException(nameof(swapShiftsChangeRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/decline";
                 return await this
                     .CallConnectorAsync<SwapShiftsChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2888,6 +2980,8 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftChangeRequestsAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
@@ -2919,6 +3013,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetOpenShiftChangeRequestAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (openShiftChangeRequestId is null)
+                    throw new ArgumentNullException(nameof(openShiftChangeRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}";
                 return await this
                     .CallConnectorAsync<OpenShiftChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2946,6 +3044,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OpenShiftChangeRequestApproveAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (openShiftChangeRequestId is null)
+                    throw new ArgumentNullException(nameof(openShiftChangeRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/approve";
                 return await this
                     .CallConnectorAsync<OpenShiftChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2973,6 +3075,10 @@ namespace Azure.Connectors.Sdk.Shifts
             using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.OpenShiftChangeRequestDeclineAsync");
             try
             {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (openShiftChangeRequestId is null)
+                    throw new ArgumentNullException(nameof(openShiftChangeRequestId));
                 var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/decline";
                 return await this
                     .CallConnectorAsync<OpenShiftChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)

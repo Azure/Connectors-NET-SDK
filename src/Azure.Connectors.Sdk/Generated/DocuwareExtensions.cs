@@ -995,6 +995,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.StoreToFileCabinetAsync");
             try
             {
+                if (fileCabinet is null)
+                    throw new ArgumentNullException(nameof(fileCabinet));
                 var queryParams = new List<string>();
                 if (storeDialog is null)
                     throw new ArgumentNullException(nameof(storeDialog));
@@ -1025,6 +1027,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ImportToDocumentTrayAsync");
             try
             {
+                if (documentTray is null)
+                    throw new ArgumentNullException(nameof(documentTray));
                 var queryParams = new List<string>();
                 if (storeDialog != default)
                     queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog.ToString())}");
@@ -1055,6 +1059,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.SearchForDocumentsInFileCabinetAsync");
             try
             {
+                if (fileCabinet is null)
+                    throw new ArgumentNullException(nameof(fileCabinet));
                 var queryParams = new List<string>();
                 if (searchDialog is null)
                     throw new ArgumentNullException(nameof(searchDialog));
@@ -1138,6 +1144,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetDocumentInformationAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetDocumentInformationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1163,6 +1171,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DeleteDocumentAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1191,6 +1201,10 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DownloadFileAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
+                if (fileNumber is null)
+                    throw new ArgumentNullException(nameof(fileNumber));
                 var queryParams = new List<string>();
                 if (documentFormat is null)
                     throw new ArgumentNullException(nameof(documentFormat));
@@ -1222,6 +1236,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DownloadDocumentAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var queryParams = new List<string>();
                 if (documentFormat is null)
                     throw new ArgumentNullException(nameof(documentFormat));
@@ -1253,6 +1269,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.UpdateIndexFieldsAsync");
             try
             {
+                if (fileCabinet is null)
+                    throw new ArgumentNullException(nameof(fileCabinet));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Fields";
                 return await this
                     .CallConnectorAsync<UpdateIndexFieldsResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -1280,6 +1298,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.TransferDocumentAsync");
             try
             {
+                if (destinationFileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(destinationFileCabinetDocumentTray));
                 var queryParams = new List<string>();
                 if (storeDialog != default)
                     queryParams.Add($"StoreDialogID={Uri.EscapeDataString(storeDialog.ToString())}");
@@ -1310,6 +1330,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.PlaceAStampAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Annotation";
                 return await this
                     .CallConnectorAsync<PlaceAStampResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -1336,6 +1358,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetDialogsAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var queryParams = new List<string>();
                 if (dialogType != default)
                     queryParams.Add($"DialogType={Uri.EscapeDataString(dialogType.ToString())}");
@@ -1365,6 +1389,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.AppendFileAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var queryParams = new List<string>();
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
@@ -1395,6 +1421,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DeleteFileAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1422,6 +1450,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ReplaceFileAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Documents/{Uri.EscapeDataString(documentId.ToString())}/Sections/{Uri.EscapeDataString(fileNumber.ToString())}/Data";
                 return await this
                     .CallConnectorAsync<ReplaceFileResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1447,6 +1477,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetStampsAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Stamps";
                 return await this
                     .CallConnectorAsync<GetStampsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1473,6 +1505,10 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetStampFieldsAsync");
             try
             {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
+                if (stamp is null)
+                    throw new ArgumentNullException(nameof(stamp));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray.ToString())}/Stamps/{Uri.EscapeDataString(stamp.ToString())}/Fields";
                 return await this
                     .CallConnectorAsync<GetStampFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1499,6 +1535,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetFileCabinetFieldsAsync");
             try
             {
+                if (fileCabinet is null)
+                    throw new ArgumentNullException(nameof(fileCabinet));
                 var queryParams = new List<string>();
                 if (fieldType != default)
                     queryParams.Add($"FieldType={Uri.EscapeDataString(fieldType.ToString())}");
@@ -1528,6 +1566,10 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.GetDialogFieldsAsync");
             try
             {
+                if (fileCabinet is null)
+                    throw new ArgumentNullException(nameof(fileCabinet));
+                if (dialog is null)
+                    throw new ArgumentNullException(nameof(dialog));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet.ToString())}/Dialogs/{Uri.EscapeDataString(dialog.ToString())}/Fields";
                 return await this
                     .CallConnectorAsync<GetDialogFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1553,6 +1595,8 @@ namespace Azure.Connectors.Sdk.Docuware
             using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ListDocumentsInDocumentTrayAsync");
             try
             {
+                if (documentTray is null)
+                    throw new ArgumentNullException(nameof(documentTray));
                 var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray.ToString())}/Search";
                 return await this
                     .CallConnectorAsync<ListDocumentsInDocumentTrayResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

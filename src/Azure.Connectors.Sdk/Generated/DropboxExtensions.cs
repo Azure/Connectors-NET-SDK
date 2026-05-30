@@ -387,6 +387,8 @@ namespace Azure.Connectors.Sdk.Dropbox
             using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.GetFileMetadataAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -413,6 +415,8 @@ namespace Azure.Connectors.Sdk.Dropbox
             using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.UpdateFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
@@ -437,6 +441,8 @@ namespace Azure.Connectors.Sdk.Dropbox
             using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.DeleteFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -526,6 +532,8 @@ namespace Azure.Connectors.Sdk.Dropbox
             using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.GetFileContentAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");

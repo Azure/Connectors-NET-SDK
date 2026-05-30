@@ -554,6 +554,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.CreateTableAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -583,6 +587,12 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.CreateIdColumnAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 queryParams.Add("populateColumn=false");
@@ -621,6 +631,12 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetItemsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (filterQuery != default)
@@ -665,6 +681,14 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetItemAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (keyValue is null)
+                    throw new ArgumentNullException(nameof(keyValue));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (keyColumn is null)
@@ -700,6 +724,14 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.DeleteItemAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (keyValue is null)
+                    throw new ArgumentNullException(nameof(keyValue));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (keyColumn is null)
@@ -736,6 +768,14 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.PatchItemAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (keyValue is null)
+                    throw new ArgumentNullException(nameof(keyValue));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (keyColumn is null)
@@ -769,6 +809,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetAllWorksheetsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -798,6 +842,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.CreateWorksheetAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -826,6 +874,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetTablesAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -855,6 +907,12 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetColumnsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -886,6 +944,12 @@ namespace Azure.Connectors.Sdk.ExcelOnline
             using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.AddRowAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (dateTimeFormat != default)

@@ -1789,6 +1789,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetMessagesByContactPhoneAsync");
             try
             {
+                if (contactSPhoneNumberToSearchBy is null)
+                    throw new ArgumentNullException(nameof(contactSPhoneNumberToSearchBy));
                 var queryParams = new List<string>();
                 queryParams.Add($"page={Uri.EscapeDataString(numberPageToGet.ToString())}");
                 queryParams.Add($"page_size={Uri.EscapeDataString(amountOfEachEntityToGetPerPage.ToString())}");
@@ -1819,6 +1821,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.SendMessageByPhoneNumberAsync");
             try
             {
+                if (phoneNumberToMessage is null)
+                    throw new ArgumentNullException(nameof(phoneNumberToMessage));
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberToMessage.ToString())}/messages";
                 return await this
                     .CallConnectorAsync<SendMessageByPhoneNumberResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1845,6 +1849,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.ArchiveConversationAsync");
             try
             {
+                if (phoneNumberOfConversation is null)
+                    throw new ArgumentNullException(nameof(phoneNumberOfConversation));
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation.ToString())}/conversations/archive";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
@@ -1871,6 +1877,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.UnarchiveConversationAsync");
             try
             {
+                if (phoneNumberOfConversation is null)
+                    throw new ArgumentNullException(nameof(phoneNumberOfConversation));
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation.ToString())}/conversations/unarchive";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
@@ -1897,6 +1905,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetContactByPhoneNumberAsync");
             try
             {
+                if (phoneNumberOfTheContact is null)
+                    throw new ArgumentNullException(nameof(phoneNumberOfTheContact));
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfTheContact.ToString())}";
                 return await this
                     .CallConnectorAsync<GetContactByPhoneNumberResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1923,6 +1933,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.DeleteContactAsync");
             try
             {
+                if (phoneNumberOfContact is null)
+                    throw new ArgumentNullException(nameof(phoneNumberOfContact));
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfContact.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1950,6 +1962,8 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreateContactAsync");
             try
             {
+                if (phoneNumberOfContact is null)
+                    throw new ArgumentNullException(nameof(phoneNumberOfContact));
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts/{Uri.EscapeDataString(phoneNumberOfContact.ToString())}";
                 return await this
                     .CallConnectorAsync<CreateContactResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2067,14 +2081,14 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Bulk update contacts response.</returns>
-        public virtual async Task<List<object>> BulkUpdateContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, List<JsonElement?> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> BulkUpdateContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.BulkUpdateContactsAsync");
             try
             {
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/contacts";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2257,14 +2271,14 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <param name="idOfTheDashboardToMakeThisCallOn">Id of the dashboard to make this call on</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Gets all custom fields response.</returns>
-        public virtual async Task<List<object>> GetCustomFieldsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetCustomFieldsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, CancellationToken cancellationToken = default)
         {
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetCustomFieldsAsync");
             try
             {
                 var path = $"/dashboards/{Uri.EscapeDataString(idOfTheDashboardToMakeThisCallOn.ToString())}/fields";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

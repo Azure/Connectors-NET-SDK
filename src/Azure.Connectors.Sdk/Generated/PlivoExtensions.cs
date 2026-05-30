@@ -398,6 +398,8 @@ namespace Azure.Connectors.Sdk.Plivo
             using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.MakeCallAsync");
             try
             {
+                if (authId is null)
+                    throw new ArgumentNullException(nameof(authId));
                 var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Call/";
                 return await this
                     .CallConnectorAsync<MakeCallResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -423,6 +425,8 @@ namespace Azure.Connectors.Sdk.Plivo
             using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.ListMessagesAsync");
             try
             {
+                if (authId is null)
+                    throw new ArgumentNullException(nameof(authId));
                 var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
                 return await this
                     .CallConnectorAsync<ListMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -449,6 +453,8 @@ namespace Azure.Connectors.Sdk.Plivo
             using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.SendSMSAsync");
             try
             {
+                if (authId is null)
+                    throw new ArgumentNullException(nameof(authId));
                 var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
                 return await this
                     .CallConnectorAsync<SendSMSResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -475,6 +481,10 @@ namespace Azure.Connectors.Sdk.Plivo
             using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.GetMessageAsync");
             try
             {
+                if (authId is null)
+                    throw new ArgumentNullException(nameof(authId));
+                if (messageUUID is null)
+                    throw new ArgumentNullException(nameof(messageUUID));
                 var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/{Uri.EscapeDataString(messageUUID.ToString())}/";
                 return await this
                     .CallConnectorAsync<GetMessageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

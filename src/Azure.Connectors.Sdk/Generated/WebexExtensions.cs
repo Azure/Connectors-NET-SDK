@@ -1769,6 +1769,8 @@ namespace Azure.Connectors.Sdk.Webex
             using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetMessageDetailsAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var path = $"/v1/messages/{Uri.EscapeDataString(messageId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetMessageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1908,6 +1910,8 @@ namespace Azure.Connectors.Sdk.Webex
             using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetSpaceDetailAsync");
             try
             {
+                if (space is null)
+                    throw new ArgumentNullException(nameof(space));
                 var path = $"/v1/rooms/{Uri.EscapeDataString(space.ToString())}";
                 return await this
                     .CallConnectorAsync<GetSpaceDetailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

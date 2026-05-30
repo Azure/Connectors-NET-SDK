@@ -1669,6 +1669,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetTableAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
                 var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1694,6 +1696,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForGetItemAsync");
             try
             {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/getitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1719,6 +1723,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPatchItemAsync");
             try
             {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/patchitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1744,6 +1750,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPostItemAsync");
             try
             {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/postitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1793,6 +1801,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetExternalIdFieldsAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields";
                 return await this
                     .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1820,6 +1830,12 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemByExternalIdAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (externalIdField is null)
+                    throw new ArgumentNullException(nameof(externalIdField));
+                if (externalId is null)
+                    throw new ArgumentNullException(nameof(externalId));
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetItemByExternalIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1850,6 +1866,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -2126,6 +2144,10 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.DeleteItemAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2213,6 +2235,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.UploadJobDataAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/batches";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
@@ -2238,6 +2262,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetJobInfoAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
                 return await this
                     .CallConnectorAsync<CheckJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2264,6 +2290,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.CloseJobAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
                 return await this
                     .CallConnectorAsync<JobInfo>(HttpMethod.Patch, path, input, cancellationToken)
@@ -2288,6 +2316,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.DeleteJobAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2314,6 +2344,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetJobRecordResultsAsync");
             try
             {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 if (resultType is null)
                     throw new ArgumentNullException(nameof(resultType));
@@ -2453,6 +2485,10 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
                 var queryParams = new List<string>();
                 if (selectQuery != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
@@ -2484,6 +2520,10 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PatchItemAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
                 var queryParams = new List<string>();
                 if (selectQuery != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
@@ -2515,6 +2555,12 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PatchItemByExternalIdAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (externalIdField is null)
+                    throw new ArgumentNullException(nameof(externalIdField));
+                if (externalId is null)
+                    throw new ArgumentNullException(nameof(externalId));
                 var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
                 return await this
                     .CallConnectorAsync<PatchItemByExternalIdResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -2541,6 +2587,8 @@ namespace Azure.Connectors.Sdk.Salesforce
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PostItemAsync");
             try
             {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
                 var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)

@@ -2839,6 +2839,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetCommentsAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (nodeId is null)
+                    throw new ArgumentNullException(nameof(nodeId));
                 var queryParams = new List<string>();
                 if (creatorIDs != default)
                     queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
@@ -2875,6 +2879,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateCommentAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (nodeId is null)
+                    throw new ArgumentNullException(nameof(nodeId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments";
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
@@ -2902,6 +2910,12 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetCommentAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (nodeId is null)
+                    throw new ArgumentNullException(nameof(nodeId));
+                if (commentId is null)
+                    throw new ArgumentNullException(nameof(commentId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2928,6 +2942,12 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteCommentAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (nodeId is null)
+                    throw new ArgumentNullException(nameof(nodeId));
+                if (commentId is null)
+                    throw new ArgumentNullException(nameof(commentId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2956,6 +2976,12 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateCommentAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (nodeId is null)
+                    throw new ArgumentNullException(nameof(nodeId));
+                if (commentId is null)
+                    throw new ArgumentNullException(nameof(commentId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Put, path, input, cancellationToken)
@@ -2996,6 +3022,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetProjectsAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (plannedEndDateFrom != default)
                     queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
@@ -3054,6 +3082,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteProjectsAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (projectIDs is null)
                     throw new ArgumentNullException(nameof(projectIDs));
@@ -3086,6 +3116,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateProjectAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects";
                 return await this
                     .CallConnectorAsync<PlannerProject>(HttpMethod.Post, path, input, cancellationToken)
@@ -3114,6 +3146,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetProjectAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (projectId is null)
+                    throw new ArgumentNullException(nameof(projectId));
                 var queryParams = new List<string>();
                 if (associatedNodesDepth.HasValue)
                     queryParams.Add($"associatedNodesDepth={Uri.EscapeDataString(associatedNodesDepth.Value.ToString())}");
@@ -3146,6 +3182,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteProjectAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (projectId is null)
+                    throw new ArgumentNullException(nameof(projectId));
                 var queryParams = new List<string>();
                 if (deleteTasks.HasValue)
                     queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
@@ -3176,6 +3216,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateProjectAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (projectId is null)
+                    throw new ArgumentNullException(nameof(projectId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}";
                 return await this
                     .CallConnectorAsync<PlannerProject>(HttpMethod.Put, path, input, cancellationToken)
@@ -3228,6 +3272,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetRequestsAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (plannedEndDateFrom != default)
                     queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
@@ -3309,6 +3355,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteRequestsAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
                 return await this
                     .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, input, cancellationToken)
@@ -3335,6 +3383,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateRequestAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
                 return await this
                     .CallConnectorAsync<PlannerRequest>(HttpMethod.Post, path, input, cancellationToken)
@@ -3361,6 +3411,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetRequestAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (requestId is null)
+                    throw new ArgumentNullException(nameof(requestId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
                 return await this
                     .CallConnectorAsync<PlannerRequest>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3386,6 +3440,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteRequestAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (requestId is null)
+                    throw new ArgumentNullException(nameof(requestId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3413,6 +3471,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateRequestAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (requestId is null)
+                    throw new ArgumentNullException(nameof(requestId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
                 return await this
                     .CallConnectorAsync<PlannerRequest>(HttpMethod.Put, path, input, cancellationToken)
@@ -3444,6 +3506,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetStatusSchemasAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (isDefault.HasValue)
                     queryParams.Add($"isDefault={Uri.EscapeDataString(isDefault.Value.ToString())}");
@@ -3483,6 +3547,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetStatusSchemaAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (statusSchemaId is null)
+                    throw new ArgumentNullException(nameof(statusSchemaId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema/{Uri.EscapeDataString(statusSchemaId.ToString())}";
                 return await this
                     .CallConnectorAsync<StatusSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3537,6 +3605,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetTasksAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (plannedEndDateFrom != default)
                     queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
@@ -3622,6 +3692,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.CreateTaskAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks";
                 return await this
                     .CallConnectorAsync<PlannerTask>(HttpMethod.Post, path, input, cancellationToken)
@@ -3648,6 +3720,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetTaskAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
                     .CallConnectorAsync<PlannerTask>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3674,6 +3750,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.DeleteTaskAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
                     .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3701,6 +3781,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.UpdateTaskAsync");
             try
             {
+                if (spaceId is null)
+                    throw new ArgumentNullException(nameof(spaceId));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
                     .CallConnectorAsync<PlannerTask>(HttpMethod.Put, path, input, cancellationToken)

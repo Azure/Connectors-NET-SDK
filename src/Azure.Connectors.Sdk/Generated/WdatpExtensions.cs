@@ -2629,6 +2629,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleAlertAsync");
             try
             {
+                if (idOfTheAlert is null)
+                    throw new ArgumentNullException(nameof(idOfTheAlert));
                 var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
                 return await this
                     .CallConnectorAsync<Alert>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2655,6 +2657,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.PatchAlertAsync");
             try
             {
+                if (idOfTheAlert is null)
+                    throw new ArgumentNullException(nameof(idOfTheAlert));
                 var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
                 return await this
                     .CallConnectorAsync<Alert>(HttpMethod.Patch, path, input, cancellationToken)
@@ -2681,6 +2685,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.InitiateInvestigationAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/initiateInvestigation";
                 return await this
                     .CallConnectorAsync<InitiateInvestigationResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2707,6 +2713,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.StartInvestigationAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/startInvestigation";
                 return await this
                     .CallConnectorAsync<Investigation>(HttpMethod.Post, path, input, cancellationToken)
@@ -2732,6 +2740,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleMachineActionAsync");
             try
             {
+                if (idOfTheMachineAction is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachineAction));
                 var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2758,6 +2768,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.CancelSingleMachineActionAsync");
             try
             {
+                if (idOfTheMachineAction is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachineAction));
                 var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/cancel";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -2784,6 +2796,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetLiveResponseDownloadLinkAsync");
             try
             {
+                if (idOfTheMachineAction is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachineAction));
                 var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/GetLiveResponseResultDownloadLink(index={Uri.EscapeDataString(indexOfTheLiveResponseCommand.ToString())})";
                 return await this
                     .CallConnectorAsync<GetLiveResponseDownloadLinkResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2844,6 +2858,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetFileStatsAsync");
             try
             {
+                if (theFileIdentifierSha1OrSha256 is null)
+                    throw new ArgumentNullException(nameof(theFileIdentifierSha1OrSha256));
                 var queryParams = new List<string>();
                 if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
                     queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
@@ -2873,6 +2889,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetDomainStatsAsync");
             try
             {
+                if (theDomainName is null)
+                    throw new ArgumentNullException(nameof(theDomainName));
                 var queryParams = new List<string>();
                 if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
                     queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
@@ -2902,6 +2920,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetIpStatsAsync");
             try
             {
+                if (theIpAddress is null)
+                    throw new ArgumentNullException(nameof(theIpAddress));
                 var queryParams = new List<string>();
                 if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
                     queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
@@ -2930,6 +2950,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleInvestigationAsync");
             try
             {
+                if (idOfTheInvestigation is null)
+                    throw new ArgumentNullException(nameof(idOfTheInvestigation));
                 var path = $"/api/investigations/{Uri.EscapeDataString(idOfTheInvestigation.ToString())}";
                 return await this
                     .CallConnectorAsync<Investigation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2990,6 +3012,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.CollectInvestigationPackageAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/collectInvestigationPackage";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3015,6 +3039,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetInvestigationPackageUriAsync");
             try
             {
+                if (actionId is null)
+                    throw new ArgumentNullException(nameof(actionId));
                 var path = $"/api/machineactions/{Uri.EscapeDataString(actionId.ToString())}/getPackageUri";
                 return await this
                     .CallConnectorAsync<GetInvestigationPackageUriResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3041,6 +3067,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.IsolateMachineAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/isolate";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3067,6 +3095,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.UnisolateMachineAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unisolate";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3093,6 +3123,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.RestrictAppExecutionAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/restrictCodeExecution";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3119,6 +3151,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.UnrestrictAppExecutionAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unrestrictCodeExecution";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3145,6 +3179,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.RunAntivirusScanAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runAntiVirusScan";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3171,6 +3207,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.RunLiveResponseAsync");
             try
             {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
                 var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runliveresponse";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
@@ -3230,6 +3268,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleRemediationActivityAsync");
             try
             {
+                if (idOfTheRemediationActivity is null)
+                    throw new ArgumentNullException(nameof(idOfTheRemediationActivity));
                 var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}";
                 return await this
                     .CallConnectorAsync<RemediationActivity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3252,6 +3292,8 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>An async enumerable of <see cref="Machine"/> items across all pages.</returns>
         public virtual AsyncPageable<Machine> GetRemediationActivityMachineListAsync(string idOfTheRemediationActivity, CancellationToken cancellationToken = default)
         {
+            if (idOfTheRemediationActivity is null)
+                throw new ArgumentNullException(nameof(idOfTheRemediationActivity));
             var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}/machinereferences";
             return this.CreatePageable<GetRemediationActivityMachineListResponse, Machine>(
                 ct => this.CallConnectorAsync<GetRemediationActivityMachineListResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3305,6 +3347,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleMachineAsync");
             try
             {
+                if (idOfTheMachine is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachine));
                 var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}";
                 return await this
                     .CallConnectorAsync<Machine>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3331,6 +3375,8 @@ namespace Azure.Connectors.Sdk.Wdatp
             using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.MachineTagAsync");
             try
             {
+                if (idOfTheMachine is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachine));
                 var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}/tags";
                 return await this
                     .CallConnectorAsync<Machine>(HttpMethod.Post, path, input, cancellationToken)

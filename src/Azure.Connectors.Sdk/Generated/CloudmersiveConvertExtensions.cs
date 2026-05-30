@@ -5664,14 +5664,14 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <remarks>Convert a CSV file to a JSON object array</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert CSV to JSON conversion response.</returns>
-        public virtual async Task<List<object>> ConvertDataCsvToJsonAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ConvertDataCsvToJsonAsync(CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataCsvToJsonAsync");
             try
             {
                 var path = $"/convert/csv/to/json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7060,6 +7060,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageMultipageImageFormatConvertAsync");
             try
             {
+                if (inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide is null)
+                    throw new ArgumentNullException(nameof(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide));
+                if (outputConvertToThisFormatFileFormatAsA3LetterFileExtens is null)
+                    throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
                 var path = $"/convert/image-multipage/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide.ToString())}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens.ToString())}";
                 return await this
                     .CallConnectorAsync<MultipageImageFormatConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -7135,6 +7139,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageFormatConvertAsync");
             try
             {
+                if (inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide is null)
+                    throw new ArgumentNullException(nameof(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide));
+                if (outputConvertToThisFormatFileFormatAsA3LetterFileExtens is null)
+                    throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
                 var path = $"/convert/image/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide.ToString())}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens.ToString())}";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -8242,14 +8250,14 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <remarks>Convert an Excel (97-2003) XLS file to a JSON object array</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert Excel (97-2003) XLS to JSON conversion response.</returns>
-        public virtual async Task<List<object>> ConvertDataXlsToJsonAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ConvertDataXlsToJsonAsync(CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXlsToJsonAsync");
             try
             {
                 var path = $"/convert/xls/to/json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8338,14 +8346,14 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <remarks>Convert an Excel XLSX file to a JSON object array</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert Excel XLSX to JSON conversion response.</returns>
-        public virtual async Task<List<object>> ConvertDataXlsxToJsonAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ConvertDataXlsxToJsonAsync(CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXlsxToJsonAsync");
             try
             {
                 var path = $"/convert/xlsx/to/json";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

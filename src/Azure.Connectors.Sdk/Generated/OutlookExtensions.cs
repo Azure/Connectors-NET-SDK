@@ -3504,6 +3504,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEmailAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (includeAttachments.HasValue)
                     queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
@@ -3533,6 +3535,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.DeleteEmailAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3559,6 +3563,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.MoveAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
@@ -3587,6 +3593,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.FlagAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var path = $"/Mail/Flag/{Uri.EscapeDataString(messageId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3611,6 +3619,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.MarkAsReadAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var path = $"/Mail/MarkAsRead/{Uri.EscapeDataString(messageId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3637,6 +3647,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetAttachmentAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                if (attachmentId is null)
+                    throw new ArgumentNullException(nameof(attachmentId));
                 var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}/Attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3736,6 +3750,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarDeleteItemAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/datasets/calendars/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3789,6 +3807,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactGetItemsAsync");
             try
             {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -3824,6 +3844,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactPostItemAsync");
             try
             {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
                 var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -3850,6 +3872,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactGetItemAsync");
             try
             {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
                 var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3875,6 +3901,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactDeleteItemAsync");
             try
             {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3902,6 +3932,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactPatchItemAsync");
             try
             {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -3928,6 +3962,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.RespondToEventAsync");
             try
             {
+                if (eventId is null)
+                    throw new ArgumentNullException(nameof(eventId));
+                if (response is null)
+                    throw new ArgumentNullException(nameof(response));
                 var path = $"/codeless/api/v2.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3953,6 +3991,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ForwardEmailAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var path = $"/codeless/api/v2.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3979,6 +4019,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetItemAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
                 var path = $"/datasets/calendars/v2/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
                 return await this
                     .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4008,6 +4052,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetItemsAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -4044,6 +4090,10 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarPatchItemAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Patch, path, input, cancellationToken)
@@ -4070,6 +4120,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarPostItemAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
                 return await this
                     .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Post, path, input, cancellationToken)
@@ -4209,6 +4261,8 @@ namespace Azure.Connectors.Sdk.Outlook
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ReplyToAsync");
             try
             {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
                 var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)

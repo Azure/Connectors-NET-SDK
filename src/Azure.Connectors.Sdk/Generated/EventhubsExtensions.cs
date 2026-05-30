@@ -463,6 +463,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
             using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.SendEventAsync");
             try
             {
+                if (eventHubName is null)
+                    throw new ArgumentNullException(nameof(eventHubName));
                 var queryParams = new List<string>();
                 if (partitionKey != default)
                     queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
@@ -492,6 +494,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
             using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.SendEventsAsync");
             try
             {
+                if (eventHubName is null)
+                    throw new ArgumentNullException(nameof(eventHubName));
                 var queryParams = new List<string>();
                 if (partitionKey != default)
                     queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");

@@ -678,14 +678,14 @@ namespace Azure.Connectors.Sdk.Projectplace
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists the boards the user have access to response.</returns>
-        public virtual async Task<List<object>> ListBoardsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ListBoardsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = ProjectplaceClient.ConnectorActivitySource.StartActivity("ProjectplaceClient.ListBoardsAsync");
             try
             {
                 var path = $"/v1/external_notifications/lists/list_boards";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

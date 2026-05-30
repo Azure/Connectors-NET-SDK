@@ -787,6 +787,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CopyFileAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceUrl is null)
@@ -824,6 +826,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateBlockBlobAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 if (specifyFolderPathToUpload is null)
                     throw new ArgumentNullException(nameof(specifyFolderPathToUpload));
@@ -859,6 +863,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateFileAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
@@ -894,6 +900,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateShareLinkByPathAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
@@ -923,6 +931,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.DeleteFileAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -951,6 +963,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ExtractFolderAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceArchiveBlobPath is null)
@@ -987,6 +1001,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetAccessPoliciesAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
@@ -1020,6 +1036,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -1056,6 +1076,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentByPathAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (blobPath is null)
@@ -1095,6 +1117,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
@@ -1128,6 +1154,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataByPathAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (blobPath is null)
@@ -1167,6 +1195,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ListFolderAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 var queryParams = new List<string>();
                 if (pagingMarker != default)
                     queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
@@ -1199,6 +1231,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
         public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
         {
+            if (storageAccountNameOrBlobEndpoint is null)
+                throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
             var queryParams = new List<string>();
             queryParams.Add("useFlatListing=false");
             if (pagingMarker != default)
@@ -1223,6 +1257,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.SetBlobTierByPathAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 var queryParams = new List<string>();
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
@@ -1257,6 +1293,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.UpdateFileAsync");
             try
             {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)

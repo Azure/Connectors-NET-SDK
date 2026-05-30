@@ -424,6 +424,8 @@ namespace Azure.Connectors.Sdk.GoogleTasks
             using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.ListTasksAsync");
             try
             {
+                if (taskListId is null)
+                    throw new ArgumentNullException(nameof(taskListId));
                 var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks";
                 return await this
                     .CallConnectorAsync<TaskList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -450,6 +452,8 @@ namespace Azure.Connectors.Sdk.GoogleTasks
             using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.CraeteTaskAsync");
             try
             {
+                if (taskListId is null)
+                    throw new ArgumentNullException(nameof(taskListId));
                 var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks";
                 return await this
                     .CallConnectorAsync<TaskObject>(HttpMethod.Post, path, input, cancellationToken)
@@ -476,6 +480,10 @@ namespace Azure.Connectors.Sdk.GoogleTasks
             using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.ListTaskAsync");
             try
             {
+                if (taskListId is null)
+                    throw new ArgumentNullException(nameof(taskListId));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
                     .CallConnectorAsync<TaskObject>(HttpMethod.Get, path, cancellationToken: cancellationToken)

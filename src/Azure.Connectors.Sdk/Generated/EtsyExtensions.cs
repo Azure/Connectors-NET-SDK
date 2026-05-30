@@ -5241,6 +5241,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PaymentGetReceiptAsync");
             try
             {
+                if (receiptId is null)
+                    throw new ArgumentNullException(nameof(receiptId));
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/payments";
                 return await this
                     .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5795,6 +5797,10 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingUpdateProfileDestinationAsync");
             try
             {
+                if (shippingProfileId is null)
+                    throw new ArgumentNullException(nameof(shippingProfileId));
+                if (shippingProfileDestinationId is null)
+                    throw new ArgumentNullException(nameof(shippingProfileDestinationId));
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
                 return await this
                     .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Put, path, input, cancellationToken)
@@ -5953,6 +5959,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopGetByOwnerIdAsync");
             try
             {
+                if (userId is null)
+                    throw new ArgumentNullException(nameof(userId));
                 var path = $"/users/{Uri.EscapeDataString(userId.ToString())}/shops";
                 return await this
                     .CallConnectorAsync<Shop>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6195,6 +6203,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetPropertiesByTaxonomyAsync");
             try
             {
+                if (taxonomyId is null)
+                    throw new ArgumentNullException(nameof(taxonomyId));
                 var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(taxonomyId.ToString())}/properties";
                 return await this
                     .CallConnectorAsync<TaxonomyNodeProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6940,6 +6950,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateInventoryAsync");
             try
             {
+                if (listingId is null)
+                    throw new ArgumentNullException(nameof(listingId));
                 var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory";
                 return await this
                     .CallConnectorAsync<ListingInventory>(HttpMethod.Put, path, input, cancellationToken)
@@ -7020,6 +7032,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetTranslationAsync");
             try
             {
+                if (language is null)
+                    throw new ArgumentNullException(nameof(language));
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
                 return await this
                     .CallConnectorAsync<ListingTranslation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -7048,6 +7062,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingCreateTranslationAsync");
             try
             {
+                if (language is null)
+                    throw new ArgumentNullException(nameof(language));
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
                 return await this
                     .CallConnectorAsync<ListingTranslation>(HttpMethod.Post, path, input, cancellationToken)
@@ -7076,6 +7092,8 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateTranslationAsync");
             try
             {
+                if (language is null)
+                    throw new ArgumentNullException(nameof(language));
                 var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
                 return await this
                     .CallConnectorAsync<ListingTranslation>(HttpMethod.Put, path, input, cancellationToken)

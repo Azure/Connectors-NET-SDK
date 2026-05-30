@@ -182,7 +182,6 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Excel Online | ✅ E2E Validated | GetTables (connectivity confirmed via sdk-test-gateway-prod) |
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
-| Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 | Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
@@ -197,7 +196,6 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Plumsail | 🔄 SDK Generated | AddWatermarkToPdf, RegExpMatch, ParseCsv |
 | Replicon | 🔄 SDK Generated | BulkGetProjectDetails3, CreateProjectOrApplyModifications |
 | Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
-| SigningHub | 🔄 SDK Generated | AttachmentGetAttachments, AttachmentDeleteAttachment |
 | Zoho Sign | 🔄 SDK Generated | InvokeAPI, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
 | Docuware | 🔄 SDK Generated | GetOrganization, StoreToFileCabinet |
 | Elfsquad Data | 🔄 SDK Generated | GetSchemas, GetEntities |

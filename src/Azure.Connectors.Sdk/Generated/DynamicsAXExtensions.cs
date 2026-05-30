@@ -942,6 +942,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProcedureAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
                 var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -968,6 +972,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetExportableTableAsync");
             try
             {
+                if (datasetName is null)
+                    throw new ArgumentNullException(nameof(datasetName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables/{Uri.EscapeDataString(tableName.ToString())}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -994,6 +1002,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetTableAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
                 var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1021,6 +1033,8 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetLegalEntitiesAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
                 var queryParams = new List<string>();
                 if (category is null)
                     throw new ArgumentNullException(nameof(category));
@@ -1053,6 +1067,8 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventCategoriesAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories";
                 return await this
                     .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1079,6 +1095,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventsAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (businessEventCategory is null)
+                    throw new ArgumentNullException(nameof(businessEventCategory));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories/{Uri.EscapeDataString(businessEventCategory.ToString())}/businessevents";
                 return await this
                     .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1104,6 +1124,8 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProceduresAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures";
                 return await this
                     .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1131,6 +1153,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.ExecuteProcedureAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
                 return await this
                     .CallConnectorAsync<AxOnlineProcedureResult>(HttpMethod.Post, path, input, cancellationToken)
@@ -1188,6 +1214,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetItemsAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
                 var queryParams = new List<string>();
                 if (aggregationTransformation != default)
                     queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
@@ -1230,6 +1260,10 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.PostItemAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1257,6 +1291,12 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetItemAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                if (objectId is null)
+                    throw new ArgumentNullException(nameof(objectId));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1283,6 +1323,12 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.DeleteItemAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                if (objectId is null)
+                    throw new ArgumentNullException(nameof(objectId));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1311,6 +1357,12 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.PatchItemAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                if (objectId is null)
+                    throw new ArgumentNullException(nameof(objectId));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -1336,6 +1388,8 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetExportableTablesAsync");
             try
             {
+                if (datasetName is null)
+                    throw new ArgumentNullException(nameof(datasetName));
                 var path = $"/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1361,6 +1415,8 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetTablesAsync");
             try
             {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
                 var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)

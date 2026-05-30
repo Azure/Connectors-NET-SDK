@@ -1243,6 +1243,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.TranscriptionGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<TranscriptionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1268,6 +1270,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.TranscriptionDeleteAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1289,7 +1293,7 @@ namespace Azure.Connectors.Sdk.Revai
         /// <param name="startingAfter">Starting After</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get transcription job list response.</returns>
-        public virtual async Task<List<object>> TranscriptionsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> TranscriptionsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
         {
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.TranscriptionsGetAsync");
             try
@@ -1301,7 +1305,7 @@ namespace Azure.Connectors.Sdk.Revai
                     queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
                 var path = $"/speechtotext/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1349,6 +1353,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.TranscriptGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}/transcript";
                 return await this
                     .CallConnectorAsync<TranscriptGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1374,6 +1380,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.CaptionsGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}/captions";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1418,7 +1426,7 @@ namespace Azure.Connectors.Sdk.Revai
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get list of vocabularies response.</returns>
-        public virtual async Task<List<object>> VocabulariesGetAsync(int? limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> VocabulariesGetAsync(int? limit = default, CancellationToken cancellationToken = default)
         {
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.VocabulariesGetAsync");
             try
@@ -1428,7 +1436,7 @@ namespace Azure.Connectors.Sdk.Revai
                     queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
                 var path = $"/speechtotext/v1/vocabularies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1476,6 +1484,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.VocabularyGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<VocabularyGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1501,6 +1511,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.VocabularyDeleteAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1522,7 +1534,7 @@ namespace Azure.Connectors.Sdk.Revai
         /// <param name="startingAfter">Starting After</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get topic extraction jobs response.</returns>
-        public virtual async Task<List<object>> ExtractionsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ExtractionsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
         {
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.ExtractionsGetAsync");
             try
@@ -1534,7 +1546,7 @@ namespace Azure.Connectors.Sdk.Revai
                     queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
                 var path = $"/topic_extraction/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1582,6 +1594,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.ExtractionGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<ExtractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1607,6 +1621,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.ExtractionDeleteAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1633,6 +1649,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.ExtractionResultGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (threshold.HasValue)
                     queryParams.Add($"threshold={Uri.EscapeDataString(threshold.Value.ToString())}");
@@ -1716,6 +1734,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AnalysisGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<AnalysisGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1741,6 +1761,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AnalysisDeleteAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1767,6 +1789,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AnalysisResultGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (filterFor != default)
                     queryParams.Add($"filter_for={Uri.EscapeDataString(filterFor.ToString())}");
@@ -1791,7 +1815,7 @@ namespace Azure.Connectors.Sdk.Revai
         /// <param name="startingAfter">Starting After</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get language identification jobs response.</returns>
-        public virtual async Task<List<object>> IdentificationsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> IdentificationsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
         {
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.IdentificationsGetAsync");
             try
@@ -1803,7 +1827,7 @@ namespace Azure.Connectors.Sdk.Revai
                     queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
                 var path = $"/languageid/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1851,6 +1875,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.IdentificationGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<IdentificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1876,6 +1902,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.IdentificationDeleteAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1901,6 +1929,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.IdentificationResultGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result";
                 return await this
                     .CallConnectorAsync<IdentificationResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1922,7 +1952,7 @@ namespace Azure.Connectors.Sdk.Revai
         /// <param name="startingAfter">Starting After</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get forced alignment jobs response.</returns>
-        public virtual async Task<List<object>> AlignmentsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> AlignmentsGetAsync(int? limit = default, string startingAfter = default, CancellationToken cancellationToken = default)
         {
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AlignmentsGetAsync");
             try
@@ -1934,7 +1964,7 @@ namespace Azure.Connectors.Sdk.Revai
                     queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
                 var path = $"/alignment/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1982,6 +2012,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AlignmentGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<AlignmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2007,6 +2039,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AlignmentDeleteAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2032,6 +2066,8 @@ namespace Azure.Connectors.Sdk.Revai
             using var activity = RevaiClient.ConnectorActivitySource.StartActivity("RevaiClient.AlignmentTranscriptGetAsync");
             try
             {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}/transcript";
                 return await this
                     .CallConnectorAsync<AlignmentTranscriptGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

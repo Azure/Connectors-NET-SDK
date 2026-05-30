@@ -2553,6 +2553,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardsAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 if (actions != default)
                     queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
@@ -2605,6 +2607,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardsSimpleAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var path = $"/simple/boards/{Uri.EscapeDataString(boardId.ToString())}/cards";
                 return await this
                     .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2654,6 +2658,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetCardAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -2730,6 +2736,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.DeleteCardAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -2881,6 +2889,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetBoardAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 if (actions != default)
                     queryParams.Add($"actions={Uri.EscapeDataString(actions.ToString())}");
@@ -2982,6 +2992,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.UpdateBoardAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}";
                 return await this
                     .CallConnectorAsync<Board>(HttpMethod.Put, path, input, cancellationToken)
@@ -3011,6 +3023,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListListsAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 if (cards != default)
                     queryParams.Add($"cards={Uri.EscapeDataString(cards.ToString())}");
@@ -3045,6 +3059,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListListsSimpleAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var path = $"/simple/boards/{Uri.EscapeDataString(boardId.ToString())}/lists";
                 return await this
                     .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3076,6 +3092,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetListAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -3121,6 +3139,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.UpdateListAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -3212,6 +3232,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListTeamMembersAsync");
             try
             {
+                if (teamId is null)
+                    throw new ArgumentNullException(nameof(teamId));
                 var path = $"/organizations/{Uri.EscapeDataString(teamId.ToString())}/members";
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3237,6 +3259,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListBoardMembersAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/members";
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3262,6 +3286,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListBoardLabelsAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 queryParams.Add("limit=1000");
                 var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -3289,6 +3315,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.GetTeamForBoardAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/organization";
                 return await this
                     .CallConnectorAsync<Team>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3315,6 +3343,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardMembersAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -3345,6 +3375,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.ListCardCommentsAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -3376,6 +3408,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.AddCommentToCardAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -3407,6 +3441,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.AddMemberToCardAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
@@ -3489,6 +3525,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.CloseBoardAsync");
             try
             {
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
                 var path = $"/boards/{Uri.EscapeDataString(boardId.ToString())}/closed";
                 return await this
                     .CallConnectorAsync<Board>(HttpMethod.Put, path, cancellationToken: cancellationToken)
@@ -3546,6 +3584,8 @@ namespace Azure.Connectors.Sdk.Trello
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.UpdateCardAsync");
             try
             {
+                if (cardId is null)
+                    throw new ArgumentNullException(nameof(cardId));
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));

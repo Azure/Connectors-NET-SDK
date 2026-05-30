@@ -479,6 +479,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetFileMetadataAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -505,6 +507,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.UpdateFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
@@ -529,6 +533,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.DeleteFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -618,6 +624,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetFileContentAsync");
             try
             {
+                if (fileId is null)
+                    throw new ArgumentNullException(nameof(fileId));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -718,6 +726,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.ListFolderAsync");
             try
             {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
                 var path = $"/datasets/default/folders/{Uri.EscapeDataString(folderId.ToString())}";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -768,6 +778,10 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetTableAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (worksheet is null)
+                    throw new ArgumentNullException(nameof(worksheet));
                 var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(worksheet.ToString())}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -793,6 +807,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.GetTablesAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/{Uri.EscapeDataString(@file.ToString())}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)

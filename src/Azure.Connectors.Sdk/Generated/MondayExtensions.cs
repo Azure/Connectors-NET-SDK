@@ -1791,7 +1791,7 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="workspaceId">workspaceId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get boards response.</returns>
-        public virtual async Task<List<object>> GetBoardsAsync(string workspaceId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetBoardsAsync(string workspaceId = default, CancellationToken cancellationToken = default)
         {
             using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetBoardsAsync");
             try
@@ -1801,7 +1801,7 @@ namespace Azure.Connectors.Sdk.Monday
                     queryParams.Add($"workspaceId={Uri.EscapeDataString(workspaceId.ToString())}");
                 var path = $"/getData/getBoards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1819,7 +1819,7 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="boardId">boardId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get groups for the Get Items operation response.</returns>
-        public virtual async Task<List<object>> GetGroupsForGetItemsAsync(string boardId, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetGroupsForGetItemsAsync(string boardId, CancellationToken cancellationToken = default)
         {
             using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetGroupsForGetItemsAsync");
             try
@@ -1830,7 +1830,7 @@ namespace Azure.Connectors.Sdk.Monday
                 queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1848,7 +1848,7 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="boardId">boardId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get columns for item filtering response.</returns>
-        public virtual async Task<List<object>> GetColumnsForItemFilteringAsync(string boardId, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetColumnsForItemFilteringAsync(string boardId, CancellationToken cancellationToken = default)
         {
             using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnsForItemFilteringAsync");
             try
@@ -1859,7 +1859,7 @@ namespace Azure.Connectors.Sdk.Monday
                 queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
                 var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1878,7 +1878,7 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="columnId">columnId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get column filter operator response.</returns>
-        public virtual async Task<List<object>> GetColumnFilterOperatorAsync(string boardId, string columnId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetColumnFilterOperatorAsync(string boardId, string columnId = default, CancellationToken cancellationToken = default)
         {
             using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnFilterOperatorAsync");
             try
@@ -1891,7 +1891,7 @@ namespace Azure.Connectors.Sdk.Monday
                     queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
                 var path = $"/getData/getColumnFilterOperator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

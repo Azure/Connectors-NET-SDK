@@ -6160,6 +6160,8 @@ namespace Azure.Connectors.Sdk.Plumsail
             using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync");
             try
             {
+                if (processId is null)
+                    throw new ArgumentNullException(nameof(processId));
                 var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId.ToString())}/schema";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)

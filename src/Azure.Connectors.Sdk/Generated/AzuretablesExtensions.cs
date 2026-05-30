@@ -460,6 +460,10 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.CreateEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities";
                 return await this
                     .CallConnectorAsync<InsertEntityResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -486,6 +490,8 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.CreateTableAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables";
                 return await this
                     .CallConnectorAsync<GetTableResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -513,6 +519,14 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.DeleteEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -538,6 +552,10 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.DeleteTableAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -566,6 +584,10 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetEntitiesAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -600,6 +622,14 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
                 var queryParams = new List<string>();
                 if (selectQuery != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
@@ -629,6 +659,10 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetTableAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}";
                 return await this
                     .CallConnectorAsync<GetTableResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -654,6 +688,8 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetTablesAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables";
                 return await this
                     .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -682,6 +718,14 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.InsertMergeEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
@@ -710,6 +754,14 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.InsertReplaceEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
@@ -738,6 +790,14 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.MergeEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
@@ -766,6 +826,14 @@ namespace Azure.Connectors.Sdk.Azuretables
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.ReplaceEntityAsync");
             try
             {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)

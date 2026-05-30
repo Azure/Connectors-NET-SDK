@@ -568,6 +568,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.ListKeyVersionsAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions";
                 return await this
                     .CallConnectorAsync<KeyMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -593,6 +595,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetKeyMetadataAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/metadata";
                 return await this
                     .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -619,6 +623,10 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetKeyVersionMetadataAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
+                if (versionOfTheKey is null)
+                    throw new ArgumentNullException(nameof(versionOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/metadata";
                 return await this
                     .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -645,6 +653,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.EncryptDataAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/encrypt";
                 return await this
                     .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
@@ -672,6 +682,10 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.EncryptDataWithVersionAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
+                if (versionOfTheKey is null)
+                    throw new ArgumentNullException(nameof(versionOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/encrypt";
                 return await this
                     .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
@@ -698,6 +712,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.DecryptDataAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/decrypt";
                 return await this
                     .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
@@ -725,6 +741,10 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.DecryptDataWithVersionAsync");
             try
             {
+                if (nameOfTheKey is null)
+                    throw new ArgumentNullException(nameof(nameOfTheKey));
+                if (versionOfTheKey is null)
+                    throw new ArgumentNullException(nameof(versionOfTheKey));
                 var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/decrypt";
                 return await this
                     .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
@@ -774,6 +794,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.ListSecretVersionsAsync");
             try
             {
+                if (nameOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(nameOfTheSecret));
                 var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions";
                 return await this
                     .CallConnectorAsync<SecretMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -799,6 +821,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretMetadataAsync");
             try
             {
+                if (nameOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(nameOfTheSecret));
                 var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/metadata";
                 return await this
                     .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -825,6 +849,10 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretVersionMetadataAsync");
             try
             {
+                if (nameOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(nameOfTheSecret));
+                if (versionOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(versionOfTheSecret));
                 var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/metadata";
                 return await this
                     .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -850,6 +878,8 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretAsync");
             try
             {
+                if (nameOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(nameOfTheSecret));
                 var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/value";
                 return await this
                     .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -876,6 +906,10 @@ namespace Azure.Connectors.Sdk.KeyVault
             using var activity = KeyVaultClient.ConnectorActivitySource.StartActivity("KeyVaultClient.GetSecretVersionAsync");
             try
             {
+                if (nameOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(nameOfTheSecret));
+                if (versionOfTheSecret is null)
+                    throw new ArgumentNullException(nameof(versionOfTheSecret));
                 var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/value";
                 return await this
                     .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)

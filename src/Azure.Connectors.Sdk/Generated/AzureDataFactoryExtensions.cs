@@ -783,6 +783,12 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>An async enumerable of <see cref="Pipeline"/> items across all pages.</returns>
         public virtual AsyncPageable<Pipeline> ListPipelinesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            if (dataFactoryName is null)
+                throw new ArgumentNullException(nameof(dataFactoryName));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -809,6 +815,14 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
             using var activity = AzureDataFactoryClient.ConnectorActivitySource.StartActivity("AzureDataFactoryClient.CreatePipelineRunAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (dataFactoryName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryName));
+                if (dataFactoryPipelineName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryPipelineName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2017-09-01-preview");
                 if (referencePipelineRunId != default)
@@ -840,6 +854,14 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
             using var activity = AzureDataFactoryClient.ConnectorActivitySource.StartActivity("AzureDataFactoryClient.CancelPipelineRunAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (dataFactoryName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryName));
+                if (dataFactoryPipelineRunId is null)
+                    throw new ArgumentNullException(nameof(dataFactoryPipelineRunId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2017-09-01-preview");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/cancelpipelineRun/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -865,6 +887,10 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>An async enumerable of <see cref="DataFactory"/> items across all pages.</returns>
         public virtual AsyncPageable<DataFactory> ListDataFactoriesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -889,6 +915,14 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
             using var activity = AzureDataFactoryClient.ConnectorActivitySource.StartActivity("AzureDataFactoryClient.GetPipelineRunAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (dataFactoryName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryName));
+                if (dataFactoryPipelineRunId is null)
+                    throw new ArgumentNullException(nameof(dataFactoryPipelineRunId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2017-09-01-preview");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelineRuns/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -932,6 +966,8 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
         public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             if (filter != default)

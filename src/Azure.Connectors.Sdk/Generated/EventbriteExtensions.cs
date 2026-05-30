@@ -234,7 +234,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     /// Typed trigger payload for the OnNewEvent trigger (Eventbrite "When an event is created (V2)", operationId: OnNewEventV2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;EventbriteOnNewEventTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class EventbriteOnNewEventTriggerPayload : TriggerCallbackPayload<object>
+    public class EventbriteOnNewEventTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -242,7 +242,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     /// Typed trigger payload for the OnOrderChanged trigger (Eventbrite "When an order changes (V2)", operationId: OnOrderChangedV2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;EventbriteOnOrderChangedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class EventbriteOnOrderChangedTriggerPayload : TriggerCallbackPayload<object>
+    public class EventbriteOnOrderChangedTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -442,14 +442,14 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The GetOrganizations response.</returns>
-        public virtual async Task<List<object>> GetOrganizationsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetOrganizationsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationsAsync");
             try
             {
                 var path = $"/v3/users/me/organizations/";
                 return await this
-                    .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -474,6 +474,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationEventsAsync");
             try
             {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
                 var queryParams = new List<string>();
                 if (orderBy is null)
                     throw new ArgumentNullException(nameof(orderBy));
@@ -525,6 +527,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.CreateEventAsync");
             try
             {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
                 var queryParams = new List<string>();
                 if (name is null)
                     throw new ArgumentNullException(nameof(name));
@@ -596,6 +600,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetMyVenuesAsync");
             try
             {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
                 var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/venues/";
                 return await this
                     .CallConnectorAsync<GetMyVenuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -621,6 +627,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizersAsync");
             try
             {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
                 var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/organizers/";
                 return await this
                     .CallConnectorAsync<GetOrganizersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -666,6 +674,8 @@ namespace Azure.Connectors.Sdk.Eventbrite
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.UpdateEventAsync");
             try
             {
+                if (@event is null)
+                    throw new ArgumentNullException(nameof(@event));
                 var queryParams = new List<string>();
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));

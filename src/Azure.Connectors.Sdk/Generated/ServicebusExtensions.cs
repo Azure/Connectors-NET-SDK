@@ -644,6 +644,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSubscriptionsAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
                 var path = $"/topics/{Uri.EscapeDataString(topicName.ToString())}/subscriptions";
                 return await this
                     .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -742,6 +744,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.SendMessageAsync");
             try
             {
+                if (queueTopicName is null)
+                    throw new ArgumentNullException(nameof(queueTopicName));
                 var queryParams = new List<string>();
                 if (systemProperties != default)
                     queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
@@ -771,6 +775,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.SendMessagesAsync");
             try
             {
+                if (queueTopicName is null)
+                    throw new ArgumentNullException(nameof(queueTopicName));
                 var queryParams = new List<string>();
                 if (systemProperties != default)
                     queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
@@ -801,6 +807,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CompleteMessageInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -836,6 +844,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.AbandonMessageInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -872,6 +882,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetDeferredMessageFromQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
                 if (queueType != default)
@@ -905,6 +917,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeferMessageInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -941,6 +955,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeadLetterMessageInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -977,6 +993,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnMessageInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -1011,6 +1029,8 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetMessagesFromQueueWithPeekLockAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (maximumMessageCount.HasValue)
                     queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
@@ -1043,6 +1063,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CloseSessionInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
                 var path = $"/{Uri.EscapeDataString(queueName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1068,6 +1092,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnSessionInQueueAsync");
             try
             {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
                 var path = $"/{Uri.EscapeDataString(queueName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1096,6 +1124,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CompleteMessageInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -1132,6 +1164,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.AbandonMessageInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -1169,6 +1205,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetDeferredMessageFromTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
                 if (subscriptionType != default)
@@ -1203,6 +1243,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeferMessageInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -1240,6 +1284,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeadLetterMessageInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -1277,6 +1325,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnMessageInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
@@ -1311,6 +1363,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CreateTopicSubscriptionAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (filterType != default)
                     queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(filterType.ToString())}");
@@ -1339,6 +1395,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeleteTopicSubscriptionAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1368,6 +1428,10 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetMessagesFromTopicWithPeekLockAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (maximumMessageCount.HasValue)
                     queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
@@ -1401,6 +1465,12 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CloseSessionInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
                 var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1427,6 +1497,12 @@ namespace Azure.Connectors.Sdk.Servicebus
             using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnSessionInTopicAsync");
             try
             {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
                 var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)

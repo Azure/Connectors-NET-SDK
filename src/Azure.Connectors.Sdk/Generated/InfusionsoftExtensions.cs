@@ -254,7 +254,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     /// Typed trigger payload for the OnNewOrder trigger (Infusionsoft "When there is a new order", operationId: OnNewOrder).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewOrderTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class InfusionsoftOnNewOrderTriggerPayload : TriggerCallbackPayload<object>
+    public class InfusionsoftOnNewOrderTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 

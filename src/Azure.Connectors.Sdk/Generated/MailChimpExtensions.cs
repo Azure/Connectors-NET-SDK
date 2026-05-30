@@ -2744,6 +2744,8 @@ namespace Azure.Connectors.Sdk.MailChimp
             using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.SendcampaignAsync");
             try
             {
+                if (campaign is null)
+                    throw new ArgumentNullException(nameof(campaign));
                 var path = $"/campaigns/{Uri.EscapeDataString(campaign.ToString())}/actions/send";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -2828,6 +2830,8 @@ namespace Azure.Connectors.Sdk.MailChimp
             using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.AddMembersAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var queryParams = new List<string>();
                 if (skipMergeValidation.HasValue)
                     queryParams.Add($"skip_merge_validation={Uri.EscapeDataString(skipMergeValidation.Value.ToString())}");
@@ -2860,6 +2864,8 @@ namespace Azure.Connectors.Sdk.MailChimp
             using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.GetListMembersAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var queryParams = new List<string>();
                 if (maximumResults.HasValue)
                     queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
@@ -2891,6 +2897,8 @@ namespace Azure.Connectors.Sdk.MailChimp
             using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.AddmemberAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members";
                 return await this
                     .CallConnectorAsync<MemberResponseModel>(HttpMethod.Post, path, input, cancellationToken)
@@ -2940,6 +2948,8 @@ namespace Azure.Connectors.Sdk.MailChimp
             using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.RemovememberAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2966,6 +2976,8 @@ namespace Azure.Connectors.Sdk.MailChimp
             using var activity = MailChimpClient.ConnectorActivitySource.StartActivity("MailChimpClient.UpdatememberAsync");
             try
             {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
                 var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
                 return await this
                     .CallConnectorAsync<MemberResponseModel>(HttpMethod.Patch, path, input, cancellationToken)

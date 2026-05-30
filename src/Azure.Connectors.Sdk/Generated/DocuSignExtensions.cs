@@ -2472,6 +2472,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDocgenFormFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/docGenFormFields";
                 return await this
                     .CallConnectorAsync<DocGenFormFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2499,6 +2503,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateDocgenFormFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (documentGUID is null)
                     throw new ArgumentNullException(nameof(documentGUID));
@@ -2530,6 +2538,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.VoidEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (voidReason is null)
                     throw new ArgumentNullException(nameof(voidReason));
@@ -2559,6 +2571,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ResendEnvelopeAsync");
             try
             {
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var path = $"/accounts/copilotAccount/envelopes/{Uri.EscapeDataString(envelope.ToString())}/resendEnvelope";
                 return await this
                     .CallConnectorAsync<EnvelopeResendResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
@@ -2589,6 +2603,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRemindersAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 queryParams.Add($"reminderEnabled={Uri.EscapeDataString(reminderEnabled.ToString())}");
                 if (reminderDelay is null)
@@ -2626,6 +2644,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeDocumentTabsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
                 return await this
                     .CallConnectorAsync<ListTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2653,6 +2677,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateEnvelopePrefillTabsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
@@ -2680,6 +2710,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetTemplateDocumentTabsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/templates/{Uri.EscapeDataString(template.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
                 return await this
                     .CallConnectorAsync<ListTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2707,6 +2743,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeDocumentFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
                 return await this
                     .CallConnectorAsync<ListEnvelopeDocumentFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2735,6 +2777,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateBlankEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (emailSubject is null)
                     throw new ArgumentNullException(nameof(emailSubject));
@@ -2770,6 +2814,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CompositeTemplatesAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (emailSubject is null)
                     throw new ArgumentNullException(nameof(emailSubject));
@@ -3071,6 +3117,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SearchListEnvelopesAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (recipientName != default)
                     queryParams.Add($"recipientName={Uri.EscapeDataString(recipientName.ToString())}");
@@ -3185,6 +3233,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateEnvelopeFromTemplateAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
@@ -3219,6 +3269,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateEnvelopeFromTemplateNoRecipientsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
@@ -3256,6 +3308,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SendEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
@@ -3295,6 +3349,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SendEnvelopeWithRecipientFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
@@ -3327,6 +3383,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SendDraftEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}";
                 return await this
                     .CallConnectorAsync<SendDraftEnvelopeResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
@@ -3354,6 +3414,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeCustomFieldAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (customFieldName is null)
                     throw new ArgumentNullException(nameof(customFieldName));
@@ -3388,6 +3452,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateEnvelopeCustomFieldAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (fieldId is null)
                     throw new ArgumentNullException(nameof(fieldId));
@@ -3430,6 +3498,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GenerateEmbeddedSenderURLAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (openIn is null)
                     throw new ArgumentNullException(nameof(openIn));
@@ -3464,6 +3536,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetRecipientStatusAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
@@ -3496,6 +3572,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.RemoveRecipientFromEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
@@ -3533,6 +3613,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetRecipientFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (recipientEmail != default)
                     queryParams.Add($"recipientEmail={Uri.EscapeDataString(recipientEmail.ToString())}");
@@ -3568,6 +3652,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAuditEventsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/audit_events";
                 return await this
                     .CallConnectorAsync<AuditResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3598,6 +3686,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddVerificationToRecipientAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
@@ -3649,6 +3741,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateEnvelopeRecipientAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
@@ -3708,6 +3804,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ApplyTemplatesToDocumentsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
@@ -3741,6 +3841,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateBulkSendListAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var queryParams = new List<string>();
                 if (bulkSendListName is null)
                     throw new ArgumentNullException(nameof(bulkSendListName));
@@ -3772,6 +3874,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.BulkSendAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (bulkSendListGUID is null)
+                    throw new ArgumentNullException(nameof(bulkSendListGUID));
                 var queryParams = new List<string>();
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
@@ -3825,6 +3931,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAllWorkflowIDsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/all_identity_verification";
                 return await this
                     .CallConnectorAsync<GetWorkFlowIdsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3849,6 +3957,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetCustomFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/custom_fields";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3874,6 +3984,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeTemplatesAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/templates";
                 return await this
                     .CallConnectorAsync<ListTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3899,6 +4011,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetSigningGroupsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/signing_groups";
                 return await this
                     .CallConnectorAsync<ListSigningGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3923,6 +4037,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAccountCustomFieldsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/account_custom_fields";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3948,6 +4064,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderListAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/folders";
                 return await this
                     .CallConnectorAsync<ListFoldersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3974,6 +4092,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderEnvelopeListAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/folders/{Uri.EscapeDataString(folder.ToString())}";
                 return await this
                     .CallConnectorAsync<ListEnvelopesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4001,6 +4123,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddDocumentsToEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents";
                 return await this
                     .CallConnectorAsync<AddDocumentsResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -4027,6 +4153,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ListTemplateDocumentsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/templates/{Uri.EscapeDataString(template.ToString())}/documents";
                 return await this
                     .CallConnectorAsync<ListTemplateDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4053,6 +4183,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ListEnvelopeDocumentsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/envelopeDocuments";
                 return await this
                     .CallConnectorAsync<ListDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4080,6 +4214,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeDocumentInfoAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (documentName is null)
                     throw new ArgumentNullException(nameof(documentName));
@@ -4110,6 +4248,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDynamicSignersAsync");
             try
             {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
                 var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/recipients";
                 return await this
                     .CallConnectorAsync<GetDynamicSignersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4136,6 +4278,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDynamicRecipientsAsync");
             try
             {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
                 var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetDynamicRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4165,6 +4311,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRecipientTabsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (recipient is null)
+                    throw new ArgumentNullException(nameof(recipient));
                 var queryParams = new List<string>();
                 if (tabType is null)
                     throw new ArgumentNullException(nameof(tabType));
@@ -4197,6 +4349,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetTabInfoAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
                 var queryParams = new List<string>();
                 if (tabLabel is null)
                     throw new ArgumentNullException(nameof(tabLabel));
@@ -4228,6 +4386,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateRecipientTabsValuesAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (recipient is null)
+                    throw new ArgumentNullException(nameof(recipient));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipient.ToString())}/tabs";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
@@ -4255,6 +4419,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeRecipientTabsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/recipientTabs";
                 return await this
                     .CallConnectorAsync<RecipientTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4280,6 +4450,8 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetMaestroWorkflowDefinitionsAsync");
             try
             {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows";
                 return await this
                     .CallConnectorAsync<WorkflowDefinitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4306,6 +4478,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetMaestroWorkflowDefinitionAsync");
             try
             {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (workflowId is null)
+                    throw new ArgumentNullException(nameof(workflowId));
                 var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows/{Uri.EscapeDataString(workflowId.ToString())}";
                 return await this
                     .CallConnectorAsync<WorkflowDefinitionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4334,6 +4510,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.TriggerMaestroFlowAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (workflow is null)
+                    throw new ArgumentNullException(nameof(workflow));
                 var queryParams = new List<string>();
                 if (instanceName is null)
                     throw new ArgumentNullException(nameof(instanceName));
@@ -4643,6 +4823,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRecipientToEnvelopeAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (recipientType is null)
                     throw new ArgumentNullException(nameof(recipientType));
@@ -4703,6 +4887,10 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GenerateEmbeddedSigningURLAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
                 var queryParams = new List<string>();
                 if (isThisAnInPersonSigner is null)
                     throw new ArgumentNullException(nameof(isThisAnInPersonSigner));
@@ -4740,6 +4928,12 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDocumentsAsync");
             try
             {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                if (envelope is null)
+                    throw new ArgumentNullException(nameof(envelope));
+                if (outputFormat is null)
+                    throw new ArgumentNullException(nameof(outputFormat));
                 var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(outputFormat.ToString())}/documentsDownload";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)

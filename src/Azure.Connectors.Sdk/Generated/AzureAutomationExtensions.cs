@@ -447,6 +447,8 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
         public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2015-10-31");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -469,6 +471,10 @@ namespace Azure.Connectors.Sdk.AzureAutomation
             using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.AutomationAccountsListAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -499,6 +505,14 @@ namespace Azure.Connectors.Sdk.AzureAutomation
             using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.GetJobOutputAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (automationAccount is null)
+                    throw new ArgumentNullException(nameof(automationAccount));
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs/{Uri.EscapeDataString(jobId.ToString())}/output" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -529,6 +543,14 @@ namespace Azure.Connectors.Sdk.AzureAutomation
             using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.GetStatusOfJobAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (automationAccount is null)
+                    throw new ArgumentNullException(nameof(automationAccount));
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs/{Uri.EscapeDataString(jobId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -558,6 +580,12 @@ namespace Azure.Connectors.Sdk.AzureAutomation
             using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.RunbooksListAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (automationAccount is null)
+                    throw new ArgumentNullException(nameof(automationAccount));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/runbooks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -590,6 +618,12 @@ namespace Azure.Connectors.Sdk.AzureAutomation
             using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.CreateJobAsync");
             try
             {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (automationAccount is null)
+                    throw new ArgumentNullException(nameof(automationAccount));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
                 if (runbookName != default)

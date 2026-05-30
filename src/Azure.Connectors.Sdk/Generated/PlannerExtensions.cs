@@ -958,6 +958,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.DeleteTaskAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -984,6 +986,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.UnassignUsersAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/unassignusers";
                 return await this
                     .CallConnectorAsync<GetTaskResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -1010,6 +1014,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.AssignUsersAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/assignusers";
                 return await this
                     .CallConnectorAsync<GetTaskResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -1035,6 +1041,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.ListGroupPlansAsync");
             try
             {
+                if (groupId is null)
+                    throw new ArgumentNullException(nameof(groupId));
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/planner/plans";
                 return await this
                     .CallConnectorAsync<ListMyPlansResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1084,6 +1092,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.GetPlanDetailsAsync");
             try
             {
+                if (planId is null)
+                    throw new ArgumentNullException(nameof(planId));
                 var path = $"/v1.0/planner/plans/{Uri.EscapeDataString(planId.ToString())}/details";
                 return await this
                     .CallConnectorAsync<GetPlanDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1159,6 +1169,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.GetTaskAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetTaskResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1184,6 +1196,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.GetTaskDetailsAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/details";
                 return await this
                     .CallConnectorAsync<GetTaskDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1210,6 +1224,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.ListBucketsAsync");
             try
             {
+                if (planId is null)
+                    throw new ArgumentNullException(nameof(planId));
                 var queryParams = new List<string>();
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
@@ -1252,6 +1268,8 @@ namespace Azure.Connectors.Sdk.Planner
         /// <returns>An async enumerable of <see cref="GetTaskResponse"/> items across all pages.</returns>
         public virtual AsyncPageable<GetTaskResponse> ListTasksAsync([DynamicValues("ListGroupPlans")] string planId, [DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
+            if (planId is null)
+                throw new ArgumentNullException(nameof(planId));
             var queryParams = new List<string>();
             if (groupId is null)
                 throw new ArgumentNullException(nameof(groupId));
@@ -1276,6 +1294,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.UpdateTaskAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v2/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetTaskResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -1302,6 +1322,8 @@ namespace Azure.Connectors.Sdk.Planner
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.UpdateTaskDetailsAsync");
             try
             {
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/details";
                 return await this
                     .CallConnectorAsync<GetTaskDetailsResponse>(HttpMethod.Patch, path, input, cancellationToken)

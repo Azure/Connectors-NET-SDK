@@ -1320,6 +1320,8 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ViewByIdAsync");
             try
             {
+                if (viewId is null)
+                    throw new ArgumentNullException(nameof(viewId));
                 var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views({Uri.EscapeDataString(viewId.ToString())})";
                 return await this
                     .CallConnectorAsync<View>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1353,6 +1355,8 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ViewCellsAsync");
             try
             {
+                if (viewId is null)
+                    throw new ArgumentNullException(nameof(viewId));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1427,6 +1431,8 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectsByIdAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorProjectGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1455,6 +1461,8 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1488,6 +1496,10 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectsByNameAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1517,6 +1529,10 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ExtractsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1551,6 +1567,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ExtractByNameAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (extractName is null)
+                    throw new ArgumentNullException(nameof(extractName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts('{Uri.EscapeDataString(extractName.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1581,6 +1603,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ExtractRowsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (extractName is null)
+                    throw new ArgumentNullException(nameof(extractName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1617,6 +1645,10 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.JobsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1651,6 +1683,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.JobByNameAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (jobName is null)
+                    throw new ArgumentNullException(nameof(jobName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1678,6 +1716,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunJobAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (jobName is null)
+                    throw new ArgumentNullException(nameof(jobName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1706,6 +1750,14 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunJobWithVariablesAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (jobName is null)
+                    throw new ArgumentNullException(nameof(jobName));
+                if (variables is null)
+                    throw new ArgumentNullException(nameof(variables));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1735,6 +1787,10 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.LoadsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1769,6 +1825,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.LoadByNameAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (loadName is null)
+                    throw new ArgumentNullException(nameof(loadName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1796,6 +1858,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunLoadAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (loadName is null)
+                    throw new ArgumentNullException(nameof(loadName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run()";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1824,6 +1892,14 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunLoadWithVariablesAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (loadName is null)
+                    throw new ArgumentNullException(nameof(loadName));
+                if (variables is null)
+                    throw new ArgumentNullException(nameof(variables));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1853,6 +1929,10 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.TransformsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1887,6 +1967,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.TransformByNameAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (transformName is null)
+                    throw new ArgumentNullException(nameof(transformName));
                 var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms('{Uri.EscapeDataString(transformName.ToString())}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1917,6 +2003,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.TransformRowsAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (transformName is null)
+                    throw new ArgumentNullException(nameof(transformName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
@@ -1976,6 +2068,8 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetViewCellResultSchemaAsync");
             try
             {
+                if (viewIdentifier is null)
+                    throw new ArgumentNullException(nameof(viewIdentifier));
                 var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/views/{Uri.EscapeDataString(viewIdentifier.ToString())}/cells";
                 return await this
                     .CallConnectorAsync<GetViewCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2003,6 +2097,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetExtractRowsResultSchemaAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (extractName is null)
+                    throw new ArgumentNullException(nameof(extractName));
                 var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/extracts/{Uri.EscapeDataString(extractName.ToString())}/rows";
                 return await this
                     .CallConnectorAsync<GetExtractRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2030,6 +2130,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetTransformRowsResultSchemaAsync");
             try
             {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (transformName is null)
+                    throw new ArgumentNullException(nameof(transformName));
                 var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/transforms/{Uri.EscapeDataString(transformName.ToString())}/rows";
                 return await this
                     .CallConnectorAsync<GetTransformRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

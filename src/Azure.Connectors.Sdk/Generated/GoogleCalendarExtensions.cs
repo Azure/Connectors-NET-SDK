@@ -821,6 +821,8 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.ListEventsAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 var queryParams = new List<string>();
                 if (minTime != default)
                     queryParams.Add($"timeMin={Uri.EscapeDataString(minTime.ToString())}");
@@ -854,6 +856,8 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.CreateEventAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
                 var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Post, path, input, cancellationToken)
@@ -880,6 +884,10 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.GetEventAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (eventId is null)
+                    throw new ArgumentNullException(nameof(eventId));
                 var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -906,6 +914,10 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.DeleteEventAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (eventId is null)
+                    throw new ArgumentNullException(nameof(eventId));
                 var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -933,6 +945,10 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.UpdateEventAsync");
             try
             {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (eventId is null)
+                    throw new ArgumentNullException(nameof(eventId));
                 var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Patch, path, input, cancellationToken)

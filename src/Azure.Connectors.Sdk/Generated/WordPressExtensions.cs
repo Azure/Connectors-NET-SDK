@@ -782,6 +782,8 @@ namespace Azure.Connectors.Sdk.WordPress
             using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.SiteStatsAsync");
             try
             {
+                if (siteId is null)
+                    throw new ArgumentNullException(nameof(siteId));
                 var queryParams = new List<string>();
                 queryParams.Add("fields=stats");
                 var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -810,6 +812,10 @@ namespace Azure.Connectors.Sdk.WordPress
             using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.GetAsync");
             try
             {
+                if (siteId is null)
+                    throw new ArgumentNullException(nameof(siteId));
+                if (postId is null)
+                    throw new ArgumentNullException(nameof(postId));
                 var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}";
                 return await this
                     .CallConnectorAsync<PostModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -836,6 +842,8 @@ namespace Azure.Connectors.Sdk.WordPress
             using var activity = WordPressClient.ConnectorActivitySource.StartActivity("WordPressClient.CreateAsync");
             try
             {
+                if (siteId is null)
+                    throw new ArgumentNullException(nameof(siteId));
                 var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/new";
                 return await this
                     .CallConnectorAsync<PostModel>(HttpMethod.Post, path, input, cancellationToken)

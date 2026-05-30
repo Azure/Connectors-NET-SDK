@@ -292,6 +292,8 @@ namespace Azure.Connectors.Sdk.Zendesk
             using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.PostItemAsync");
             try
             {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
@@ -317,6 +319,10 @@ namespace Azure.Connectors.Sdk.Zendesk
             using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.DeleteItemAsync");
             try
             {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (itemKey is null)
+                    throw new ArgumentNullException(nameof(itemKey));
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -344,6 +350,10 @@ namespace Azure.Connectors.Sdk.Zendesk
             using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.PatchItemAsync");
             try
             {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (itemKey is null)
+                    throw new ArgumentNullException(nameof(itemKey));
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)

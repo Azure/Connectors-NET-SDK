@@ -2266,6 +2266,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -2297,6 +2301,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemChangesMetadataAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
                 var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
                 return await this
                     .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2346,6 +2354,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAllTablesAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2372,6 +2382,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.ApproveHubSiteJoinAsync");
             try
             {
+                if (hubSiteAddress is null)
+                    throw new ArgumentNullException(nameof(hubSiteAddress));
                 var queryParams = new List<string>();
                 if (requestingSiteId is null)
                     throw new ArgumentNullException(nameof(requestingSiteId));
@@ -2401,6 +2413,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CancelHubSiteJoinApprovalAsync");
             try
             {
+                if (requestingSiteAddress is null)
+                    throw new ArgumentNullException(nameof(requestingSiteAddress));
                 var queryParams = new List<string>();
                 if (approvalCorrelationId != default)
                     queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
@@ -2432,6 +2446,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateSharingLinkAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
                 return await this
                     .CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken)
@@ -2460,6 +2478,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CopyFileAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceFilePath is null)
@@ -2496,6 +2516,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CopyFileAsync");
             try
             {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2522,6 +2544,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CopyFolderAsync");
             try
             {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2550,6 +2574,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateFileAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
@@ -2584,6 +2610,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileMetadataAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2611,6 +2641,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.UpdateFileAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken)
@@ -2636,6 +2670,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DeleteFileAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -2663,6 +2701,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileContentAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -2692,6 +2734,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileMetadataByPathAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
@@ -2724,6 +2768,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileContentByPathAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
@@ -2757,6 +2803,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFolderMetadataAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
@@ -2787,6 +2835,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFolderMetadataByPathAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
@@ -2817,6 +2867,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.HttpRequestAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -2844,6 +2896,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.JoinHubSiteAsync");
             try
             {
+                if (requestingSiteAddress is null)
+                    throw new ArgumentNullException(nameof(requestingSiteAddress));
                 var queryParams = new List<string>();
                 if (hubSiteId is null)
                     throw new ArgumentNullException(nameof(hubSiteId));
@@ -2878,6 +2932,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.MoveFileAsync");
             try
             {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2904,6 +2960,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.MoveFolderAsync");
             try
             {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2929,6 +2987,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.NotifyHubSiteJoinApprovalStartedAsync");
             try
             {
+                if (requestingSiteAddress is null)
+                    throw new ArgumentNullException(nameof(requestingSiteAddress));
                 var queryParams = new List<string>();
                 if (approvalCorrelationId != default)
                     queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
@@ -2957,6 +3017,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2984,6 +3046,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateNewDocumentSetAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (library is null)
+                    throw new ArgumentNullException(nameof(library));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
                 return await this
                     .CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -3012,6 +3078,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateNewFolderAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibrary is null)
+                    throw new ArgumentNullException(nameof(listOrLibrary));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3044,6 +3114,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SearchForUserAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibrary is null)
+                    throw new ArgumentNullException(nameof(listOrLibrary));
+                if (column is null)
+                    throw new ArgumentNullException(nameof(column));
                 var queryParams = new List<string>();
                 if (emailOrName is null)
                     throw new ArgumentNullException(nameof(emailOrName));
@@ -3077,6 +3153,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetEntitiesForUserAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3106,6 +3186,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/forms";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3138,6 +3222,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileItemsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -3177,6 +3265,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetListImageFieldsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3209,6 +3301,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -3250,6 +3346,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PostItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3281,6 +3381,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3310,6 +3414,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DeleteItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3339,6 +3447,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PatchItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3371,6 +3483,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateApprovalRequestAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibrary is null)
+                    throw new ArgumentNullException(nameof(listOrLibrary));
                 var queryParams = new List<string>();
                 queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -3404,6 +3520,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemChangesAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
                 var queryParams = new List<string>();
                 if (since is null)
                     throw new ArgumentNullException(nameof(since));
@@ -3441,6 +3561,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CheckInFileAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3467,6 +3591,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CheckOutFileAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3493,6 +3621,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DiscardFileCheckOutAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3521,6 +3653,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3551,6 +3687,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GrantAccessAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -3580,6 +3720,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PatchFileItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
@@ -3611,6 +3755,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PatchFileItemWithPredictedValuesAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
@@ -3641,6 +3789,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SetApprovalStatusAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (action is null)
                     throw new ArgumentNullException(nameof(action));
@@ -3675,6 +3827,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.UnshareItemAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3702,6 +3858,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemAttachmentsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
                 return await this
                     .CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3731,6 +3893,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateAttachmentAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
@@ -3762,6 +3928,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DeleteAttachmentAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -3790,6 +3962,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAttachmentContentAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3816,6 +3994,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyTemplatesAsync");
             try
             {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointDocumentLibraryName is null)
+                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3847,6 +4029,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateContentAssemblyDocumentAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                if (documentTemplate is null)
+                    throw new ArgumentNullException(nameof(documentTemplate));
                 var queryParams = new List<string>();
                 if (folderPath != default)
                     queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
@@ -3881,6 +4069,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyPlaceholdersAsync");
             try
             {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointDocumentLibraryName is null)
+                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
+                if (documentTemplate is null)
+                    throw new ArgumentNullException(nameof(documentTemplate));
                 var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3907,6 +4101,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableViewsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3932,6 +4130,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForApprovalAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3957,6 +4157,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLibrariesAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3982,6 +4184,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLightweightApprovalAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4007,6 +4211,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForListsAndLibrariesAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4032,6 +4238,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplatesAsync");
             try
             {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
                 var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4062,6 +4270,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateAgreementsSolutionDocumentAsync");
             try
             {
+                if (agreementsSolutionWorkspace is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionWorkspace));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
                 var queryParams = new List<string>();
                 if (fileName != default)
                     queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
@@ -4095,6 +4307,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplateFieldsAsync");
             try
             {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
                 var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4197,6 +4413,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                if (formName is null)
+                    throw new ArgumentNullException(nameof(formName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/forms/{Uri.EscapeDataString(formName.ToString())}";
                 return await this
                     .CallConnectorAsync<TableForm>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4224,6 +4446,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormFieldsAsync");
             try
             {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointListName is null)
+                    throw new ArgumentNullException(nameof(sharePointListName));
+                if (formIdentifier is null)
+                    throw new ArgumentNullException(nameof(formIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointListName.ToString())}/docgenforms/{Uri.EscapeDataString(formIdentifier.ToString())}/fields";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4253,6 +4481,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SubmitDocGenFormAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                if (formName is null)
+                    throw new ArgumentNullException(nameof(formName));
                 var queryParams = new List<string>();
                 if (viewNoEffect != default)
                     queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
@@ -4282,6 +4516,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormsAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
                 var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/docgenforms";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4310,6 +4548,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.ExtractFolderAsync");
             try
             {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceFilePath is null)

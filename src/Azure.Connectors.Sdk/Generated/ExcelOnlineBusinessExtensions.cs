@@ -863,6 +863,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.CreateTableAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -895,6 +899,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.CreateIdColumnAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("populateColumn=false");
                 if (location is null)
@@ -938,6 +948,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetItemsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -985,6 +1001,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetCommentsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (location != default)
                     queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
@@ -1016,6 +1036,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetCommentAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (commentId is null)
+                    throw new ArgumentNullException(nameof(commentId));
                 var queryParams = new List<string>();
                 if (location != default)
                     queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
@@ -1048,6 +1074,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.ReplyCommentAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (commentId is null)
+                    throw new ArgumentNullException(nameof(commentId));
                 var queryParams = new List<string>();
                 if (location != default)
                     queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
@@ -1084,6 +1116,14 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetItemAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (keyValue is null)
+                    throw new ArgumentNullException(nameof(keyValue));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1126,6 +1166,14 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.DeleteItemAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (keyValue is null)
+                    throw new ArgumentNullException(nameof(keyValue));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1165,6 +1213,14 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.PatchItemAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (keyValue is null)
+                    throw new ArgumentNullException(nameof(keyValue));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1260,6 +1316,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetAllWorksheetsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1296,6 +1356,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.CreateWorksheetAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1329,6 +1393,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetTablesAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1365,6 +1433,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetTableAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1397,6 +1471,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetRawAndFormattedTableAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("formattedPostfix=Formatted");
                 if (location is null)
@@ -1430,6 +1510,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetColumnsAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1464,6 +1550,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.AddRowAsync");
             try
             {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
@@ -1538,6 +1630,14 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.RunScriptProdAsync");
             try
             {
+                if (workbookLibrary is null)
+                    throw new ArgumentNullException(nameof(workbookLibrary));
+                if (workbook is null)
+                    throw new ArgumentNullException(nameof(workbook));
+                if (scriptLibrary is null)
+                    throw new ArgumentNullException(nameof(scriptLibrary));
+                if (script is null)
+                    throw new ArgumentNullException(nameof(script));
                 var queryParams = new List<string>();
                 if (workbookLocation is null)
                     throw new ArgumentNullException(nameof(workbookLocation));

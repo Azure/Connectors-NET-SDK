@@ -696,6 +696,8 @@ namespace Azure.Connectors.Sdk.Starmind
             using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.GetUserByIdAsync");
             try
             {
+                if (theIdOfTheUser is null)
+                    throw new ArgumentNullException(nameof(theIdOfTheUser));
                 var path = $"/api/v3/users/{Uri.EscapeDataString(theIdOfTheUser.ToString())}";
                 return await this
                     .CallConnectorAsync<GraphQLUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

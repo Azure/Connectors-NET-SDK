@@ -1220,6 +1220,14 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.DeleteItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (rowId is null)
+                    throw new ArgumentNullException(nameof(rowId));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -1247,6 +1255,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecutePassThroughNativeQueryAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
                 return await this
                     .CallConnectorAsync<ExecutePassThroughNativeQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1275,6 +1287,12 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecuteProcedureAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (procedureName is null)
+                    throw new ArgumentNullException(nameof(procedureName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
                 return await this
                     .CallConnectorAsync<ExecuteProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1303,6 +1321,14 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (rowId is null)
+                    throw new ArgumentNullException(nameof(rowId));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1339,6 +1365,12 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemsAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
                 if (aggregationTransformation != default)
                     queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
@@ -1385,6 +1417,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
                 return await this
                     .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
@@ -1412,6 +1448,12 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (procedureName is null)
+                    throw new ArgumentNullException(nameof(procedureName));
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1438,6 +1480,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures";
                 return await this
                     .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1467,6 +1513,12 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
@@ -1499,6 +1551,12 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableForPatchAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/forPatchItem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1527,6 +1585,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
@@ -1558,6 +1620,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForDeleteItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/deleteitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1584,6 +1650,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1610,6 +1680,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetOnNewItemsAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonnewitems";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1636,6 +1710,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetOnUpdatedItemsAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonupdateditems";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1662,6 +1740,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForPatchItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/patchitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1688,6 +1770,10 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForPostItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/postitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1717,6 +1803,14 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PatchItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (rowId is null)
+                    throw new ArgumentNullException(nameof(rowId));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
@@ -1745,6 +1839,12 @@ namespace Azure.Connectors.Sdk.Sql
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PostItemAsync");
             try
             {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)

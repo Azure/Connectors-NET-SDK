@@ -1117,6 +1117,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.RelevantPeopleAsync");
             try
             {
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 var path = $"/users/{Uri.EscapeDataString(userUPN.ToString())}/relevantpeople";
                 return await this
                     .CallConnectorAsync<LinklessEntityListResponseListPerson>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1174,6 +1176,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.TrendingDocumentsAsync");
             try
             {
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -1233,6 +1237,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.DirectReportsAsync");
             try
             {
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (selectFields != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
@@ -1264,6 +1270,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.ManagerAsync");
             try
             {
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (selectFields != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
@@ -1345,6 +1353,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserPhotoAsync");
             try
             {
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/photo/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1371,6 +1381,8 @@ namespace Azure.Connectors.Sdk.Office365Users
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserProfileAsync");
             try
             {
+                if (userUPN is null)
+                    throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (selectFields != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");

@@ -541,6 +541,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.GetFileMetadataAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -567,6 +569,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.UpdateFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
@@ -591,6 +595,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.DeleteFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
@@ -678,6 +684,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.GetFileContentAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
@@ -778,6 +786,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.CopyDriveFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
@@ -847,6 +857,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.MoveFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
@@ -915,6 +927,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.ConvertFileAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (targetType != default)
                     queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
@@ -976,6 +990,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.GetFileThumbnailAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (thumbnailSize is null)
                     throw new ArgumentNullException(nameof(thumbnailSize));
@@ -1032,6 +1048,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.FindFilesAsync");
             try
             {
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
                 var queryParams = new List<string>();
                 if (searchQuery is null)
                     throw new ArgumentNullException(nameof(searchQuery));
@@ -1108,6 +1126,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.CreateShareLinkAsync");
             try
             {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (linkType is null)
                     throw new ArgumentNullException(nameof(linkType));
@@ -1208,6 +1228,8 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
         public virtual AsyncPageable<BlobMetadata> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
         {
+            if (folder is null)
+                throw new ArgumentNullException(nameof(folder));
             var queryParams = new List<string>();
             queryParams.Add("top=20");
             var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(folder.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
