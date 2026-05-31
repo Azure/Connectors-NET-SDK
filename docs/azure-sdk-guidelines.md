@@ -92,6 +92,66 @@ Pagination returns `AsyncPageable<T>` (not `AsyncPageable<Response<T>>`) consist
 
 ---
 
+### Output-only model properties use `init` setters, not `internal set` ([#161](https://github.com/Azure/Connectors-NET-SDK/issues/161))
+
+| Guideline | This SDK |
+|-----------|----------|
+| Output-only model properties use `{ get; internal set; }` so only the deserializer (in the same assembly) can populate them | `{ get; init; }` |
+
+**Rationale:** The [Model Types guidance](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-model-types) prescribes `internal set` for output-only properties (e.g. its `Locked` example uses `public bool Locked { get; internal set; }`) so the value is immutable to callers while remaining settable by same-assembly deserialization. This SDK uses `init` instead because:
+
+- **True immutability.** `init` makes the property unsettable after object construction by *anyone* — including same-assembly code — which is a stronger guarantee than `internal set`. `System.Text.Json` populates `init` setters during deserialization via object-initializer semantics, so the deserialization path still works without `[JsonInclude]` on internal members.
+- **Test and mocking ergonomics.** `init` setters are usable from object initializers in test code and from the generated `*ModelFactory` classes, so unit tests can construct fully-populated model instances without reflection. `internal set` would require `[InternalsVisibleTo]` or factory-only construction.
+- **No polyfill cost.** The usual objection to `init` — that `IsExternalInit` is missing on older targets — does not apply: this SDK targets **net8.0 only**, where `System.Runtime.CompilerServices.IsExternalInit` is built into the framework.
+
+**Trade-off:** `init` is part of the public API surface (callers see it in IntelliSense as settable at construction time), whereas `internal set` hides the setter entirely. The team accepts this surface in exchange for true immutability and test ergonomics. Affects ~493 output-only properties across generated models.
+
+---
+
+### Required reference-type parameters get null guards even when service-bound ([#175](https://github.com/Azure/Connectors-NET-SDK/issues/175))
+
+| Guideline | This SDK |
+|-----------|----------|
+| DO validate client parameters; **DO NOT** validate service parameters — let the service validate its own parameters | Required reference-type parameters that are dereferenced during request construction get an explicit `ArgumentNullException` null guard, even when their value is service-bound (URL/query segment) |
+
+**Rationale:** The [Parameter Validation guidance](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-parameter-validation) says not to reimplement the service's validation of *service parameters*. This SDK still null-guards required reference-type parameters (e.g. `method`, `requestingSiteId`, `lockTokenOfTheMessage`) because the guard protects **client-side request construction**, not service semantics:
+
+- The generator appends these parameters to the URL/query string via `.ToString()`. A `null` value makes a well-formed request **impossible to build** — there is no service round-trip to defer the error to.
+- The guard checks only for `null` (constructability), never the value's format, range, or business rules — the service still owns all value validation.
+- The choice is purely between a clear `ArgumentNullException(nameof(param))` and an opaque `NullReferenceException` thrown deep inside request construction (generated files use `#nullable disable`).
+
+Guards are emitted only for required reference-type parameters dereferenced during request construction; optional parameters and service-validated value content are untouched. Originally surfaced by Copilot review on PR [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170).
+
+---
+
+### Per-method tracing uses `ActivitySource` directly, not `DiagnosticScope` ([#156](https://github.com/Azure/Connectors-NET-SDK/issues/156))
+
+| Guideline | This SDK |
+|-----------|----------|
+| Create per-method operation spans via Azure.Core `ClientDiagnostics.CreateScope(...)` returning a `DiagnosticScope` | Per-method operation spans created with `System.Diagnostics.ActivitySource` / `Activity` directly |
+
+**Rationale:** The [.NET implementation tracing guidance](https://azure.github.io/azure-sdk/dotnet_implementation.html#dotnet-tracing) describes `ClientDiagnostics`/`DiagnosticScope` as the canonical mechanism. This SDK emits operation spans with raw `ActivitySource`/`Activity` because:
+
+- **One tracing primitive.** `ConnectorHttpClient` already emits its HTTP spans via a raw `ActivitySource`. Using the same primitive for the method-level operation span keeps a single tracing mechanism instead of mixing `ActivitySource` (HTTP layer) and `DiagnosticScope` (method layer).
+- **`DiagnosticScope` wraps `ActivitySource`.** Azure.Core's `DiagnosticScope` is itself built on `ActivitySource`/`Activity`; using `ActivitySource` directly produces the same parent/child span correlation that OpenTelemetry exporters consume, and HTTP spans become children of the operation `Activity` automatically via `Activity.Current`.
+- **No `ClientDiagnostics` surface.** Avoids introducing `ClientDiagnostics` construction into every generated client for correlation the HTTP layer already establishes.
+
+The per-method catch filters fatal exceptions (`!ex.IsFatal()`) so process-fatal conditions are never swallowed or annotated. Paginated (`AsyncPageable`) methods are traced at the HTTP-pipeline level only.
+
+---
+
+### Dynamic model properties use `JsonElement?`, not `object` ([#157](https://github.com/Azure/Connectors-NET-SDK/issues/157))
+
+| Guideline | This SDK |
+|-----------|----------|
+| (No explicit Model Types rule on dynamic-property typing) | Properties holding arbitrary JSON use `JsonElement?` instead of `object` |
+
+**Rationale:** The [Model Types guidance](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-model-types) does not prescribe a type for dynamically-typed (free-form JSON) properties — this is an unguided choice made on engineering merits. `JsonElement?` is preferred over `object` because `System.Text.Json` already materializes these values as `JsonElement` at runtime, so the type signature becomes honest; the JSON structure is preserved for caller navigation without re-parsing; and it matches the same files' existing `[JsonExtensionData] Dictionary<string, JsonElement>` usage. `JsonElement?` (nullable) also distinguishes an absent property from `JsonValueKind.Null`.
+
+**Breaking change:** This changes the type of affected properties (`MCPQueryResponse`, `MCPQueryRequest`, and similar). Consumers that assigned arbitrary .NET objects must now pre-serialize to `JsonElement`. Intentional and acceptable for the pre-1.0 SDK.
+
+---
+
 ## Section 3: Deferred
 
 ### `IAsyncDisposable`
@@ -104,12 +164,7 @@ Pagination returns `AsyncPageable<T>` (not `AsyncPageable<Response<T>>`) consist
 
 The following items are in progress — not intentional divergences, but gaps being closed incrementally.
 
-| Issue | Description | Status |
-|-------|-------------|--------|
-| [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | No `DiagnosticScope` distributed tracing | Pending |
-| [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | `object` used for dynamic-schema properties instead of `BinaryData`/`JsonElement` | Under evaluation |
-| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only model properties still use `{ get; set; }` instead of `{ get; init; }` — the companion `*ModelFactory` classes are already in place for when this lands | Pending fix |
-| [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175) | Generator: emit `ArgumentNullException` guards for required parameters | Pending |
+_No items currently in progress._
 
 ### Completed
 
@@ -121,8 +176,12 @@ Previously tracked items now delivered:
 | [#114](https://github.com/Azure/Connectors-NET-SDK/issues/114) | `.Models` sub-namespace + PascalCase client names | [#119](https://github.com/Azure/Connectors-NET-SDK/pull/119) |
 | [#116](https://github.com/Azure/Connectors-NET-SDK/issues/116) | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | [#117](https://github.com/Azure/Connectors-NET-SDK/pull/117) |
 | [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` parses structured `ErrorCode` from JSON response body | This PR |
+| [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | Per-method operation-span tracing via `ActivitySource` (see Section 2) | This PR |
+| [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | Dynamic model properties use `JsonElement?` instead of `object` (see Section 2) | This PR |
 | [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` on inherited `Object` methods | [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170) |
+| [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only model properties use `init` setters (see Section 2) | This PR |
 | [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Test coverage for nullable optional value-type parameters | This PR |
+| [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175) | `ArgumentNullException` guards for required reference-type parameters (see Section 2) | This PR |
 | [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Test coverage for Teams trigger payload types | This PR |
 
 ---
