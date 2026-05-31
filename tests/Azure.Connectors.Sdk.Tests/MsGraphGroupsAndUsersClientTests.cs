@@ -94,12 +94,9 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task ListUsersAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            // Arrange
-            var expectedResponse = new ListUsersResponse
-            {
-                Context = "https://graph.microsoft.com/v1.0/$metadata#users",
-                Value = new List<object> { "user1", "user2" }
-            };
+            // Arrange — construct via JSON so List<JsonElement?> has actual items
+            var expectedResponse = JsonSerializer.Deserialize<ListUsersResponse>(
+                "{\"@odata.context\":\"https://graph.microsoft.com/v1.0/$metadata#users\",\"value\":[{\"displayName\":\"Alice\"},{\"displayName\":\"Bob\"}]}");
 
             using var client = CreateMockedClient(() => new HttpResponseMessage
             {
@@ -115,6 +112,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Value.Count);
+            Assert.AreEqual("Alice", result.Value[0]!.Value.GetProperty("displayName").GetString());
         }
 
         [TestMethod]
@@ -212,13 +210,9 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task ListGroupsByDisplayNameSearchAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            // Arrange
-            var expectedResponse = new ListGroupsByDisplayNameSearchResponse
-            {
-                Context = "https://graph.microsoft.com/v1.0/$metadata#groups",
-                Count = 1,
-                Value = new List<object> { "group-1" }
-            };
+            // Arrange — construct via JSON so List<JsonElement?> has actual items
+            var expectedResponse = JsonSerializer.Deserialize<ListGroupsByDisplayNameSearchResponse>(
+                "{\"@odata.context\":\"https://graph.microsoft.com/v1.0/$metadata#groups\",\"@odata.count\":1,\"value\":[{\"displayName\":\"Engineering\"}]}");
             using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,

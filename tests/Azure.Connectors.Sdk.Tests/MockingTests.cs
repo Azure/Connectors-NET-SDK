@@ -70,6 +70,8 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.TeamsList.Count);
+            Assert.IsTrue(result.TeamsList[0].HasValue);
+            Assert.AreEqual("Engineering", result.TeamsList[0]!.Value.GetProperty("displayName").GetString());
         }
 
         [TestMethod]
