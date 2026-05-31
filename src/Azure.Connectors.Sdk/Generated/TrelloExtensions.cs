@@ -2588,7 +2588,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -2615,7 +2615,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -2716,7 +2716,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -2748,7 +2748,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -2809,7 +2809,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -2833,7 +2833,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -2972,7 +2972,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3000,7 +3000,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3040,7 +3040,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3067,7 +3067,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3114,7 +3114,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3161,7 +3161,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3189,7 +3189,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3213,7 +3213,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3240,7 +3240,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3267,7 +3267,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3296,7 +3296,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3323,7 +3323,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3355,7 +3355,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3387,7 +3387,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3420,7 +3420,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3456,7 +3456,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3481,7 +3481,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3506,7 +3506,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3533,7 +3533,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3563,7 +3563,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
@@ -3596,7 +3596,7 @@ namespace Azure.Connectors.Sdk.Trello
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!ex.IsFatal())
             {
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
