@@ -4,6 +4,8 @@ This document explains which [Azure SDK design guidelines for .NET](https://azur
 
 The decisions recorded here were made during a formal API design review in May 2026 with Azure SDK team reviewers (Anu Thomas, Steven Vukelich) and the APIView AI reviewer. The detailed per-suggestion analysis — 30 suggestions, each with rationale and a recorded decision — lives in [`docs/API-DESIGN-EVALUATION.md`](https://github.com/daviburg_microsoft/azure-logicapps-connector-sdk/blob/main/docs/API-DESIGN-EVALUATION.md) (internal). This document is the summary reference.
 
+This document was reconciled rule-by-rule against the live [.NET design](https://azure.github.io/azure-sdk/dotnet_introduction.html) and [.NET implementation](https://azure.github.io/azure-sdk/dotnet_implementation.html) guideline pages on 2026-05-31; every normative `DO` / `DO NOT` / `SHOULD` is accounted for as Followed, an Intentional Divergence, Not Applicable, or Deferred. Note this SDK is **pre-1.0** (currently `0.9.0-preview.1`), so source- and binary-breaking changes are permitted ahead of GA where they improve the long-term API.
+
 ---
 
 ## Section 1: Followed Guidelines
@@ -12,7 +14,7 @@ The decisions recorded here were made during a formal API design review in May 2
 |-----------|---------------|
 | `Azure.*` namespace convention | Root namespace is `Azure.Connectors.Sdk`; generated clients use `Azure.Connectors.<Connector>` |
 | `ClientOptions` inheritance | `ConnectorClientOptions : ClientOptions` — callers get standard `Retry`, `Transport`, and `Diagnostics` properties |
-| `ServiceVersion` enum | `ConnectorClientOptions.ServiceVersion` with a required constructor parameter (defaults to `V1`) |
+| `ServiceVersion` enum | `ConnectorClientOptions.ServiceVersion` enum (`V1 = 1`), selectable via the options constructor (see the optionality divergence in Section 2) |
 | `TokenCredential` authentication | All clients accept `Azure.Core.TokenCredential`; no custom `ITokenProvider` interface |
 | `ManagedIdentityCredential` as production default | Simplest constructor uses `ManagedIdentityCredential(SystemAssigned)` — not `DefaultAzureCredential` (CodeQL SM05137) |
 | `Uri` primary constructor | Primary constructor takes `Uri connectionRuntimeUrl`; `string` overload delegates to it as a convenience for app-settings scenarios |
@@ -33,6 +35,16 @@ The decisions recorded here were made during a formal API design review in May 2
 | Mock constructors chain to protected parameterless base | Each generated client's `protected` mock constructor calls `base()` so `Moq`/`NSubstitute` correctly initialise the base class ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159)) |
 | `[EditorBrowsable(Never)]` on inherited `Object` methods | Generated clients suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense to reduce API noise ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)) |
 | `ErrorCode` from structured error responses | `ConnectorException` parses `"code"` (top-level or nested `"error.code"`) from JSON response bodies to populate `RequestFailedException.ErrorCode` ([#155](https://github.com/Azure/Connectors-NET-SDK/issues/155)) |
+| Service client `Client` suffix | Every generated client is named `<Connector>Client` (e.g. `KustoClient`, `Office365Client`) |
+| Immutable, reference-type clients | `ConnectorClientBase` and all clients are `class` types with `readonly` fields — never structs, and not mutable after construction |
+| Thread-safe clients | All public client members are safe for concurrent use; client state is immutable after construction |
+| `ClientOptions` subclass `Options` suffix | `ConnectorClientOptions` follows the `<Client>Options` naming convention |
+| Credential rotation without a new client | `BearerTokenAuthenticationPolicy` re-reads the `TokenCredential` on every request, so rotated credentials take effect without reconstructing the client |
+| `System.Text.Json` for serialization | All models serialize/deserialize via `System.Text.Json`; there is no `Newtonsoft.Json` dependency |
+| No APIs in the second-level namespace | Public types live in `Azure.Connectors.Sdk` and `Azure.Connectors.<Connector>` (third level), never directly under `Azure.*` |
+| Dependency allow-list | Package references are limited to `Azure.*`, `System.*`, and `Microsoft.Extensions.*` packages (`Directory.Packages.props`) |
+| No native dependencies | Pure managed code; no native/interop dependencies |
+| `MAJOR.MINOR.PATCH` versioning | Version is `MAJOR.MINOR.PATCH` with a pre-release suffix (`eng/build/Version.props`, currently `0.9.0-preview.1`) |
 
 ---
 
@@ -128,9 +140,9 @@ Guards are emitted only for required reference-type parameters dereferenced duri
 
 | Guideline | This SDK |
 |-----------|----------|
-| Create per-method operation spans via Azure.Core `ClientDiagnostics.CreateScope(...)` returning a `DiagnosticScope` | Per-method operation spans created with `System.Diagnostics.ActivitySource` / `Activity` directly |
+| ✅ DO support distributed tracing using `ClientDiagnostics`/`DiagnosticScope`; ⛔️ **DO NOT use `DiagnosticSource` or `ActivitySource` API directly from client libraries** | Per-method operation spans created with `System.Diagnostics.ActivitySource` / `Activity` directly |
 
-**Rationale:** The [.NET implementation tracing guidance](https://azure.github.io/azure-sdk/dotnet_implementation.html#dotnet-tracing) describes `ClientDiagnostics`/`DiagnosticScope` as the canonical mechanism. This SDK emits operation spans with raw `ActivitySource`/`Activity` because:
+**Rationale:** The [.NET implementation tracing guidance](https://azure.github.io/azure-sdk/dotnet_implementation.html#dotnet-tracing) is explicit on both points: use `ClientDiagnostics`/`DiagnosticScope`, and *do not* use `ActivitySource` directly (`Activity` may be used only where `DiagnosticScope` lacks an API). This SDK knowingly diverges from that `DO NOT` and emits operation spans with raw `ActivitySource`/`Activity` because:
 
 - **One tracing primitive.** `ConnectorHttpClient` already emits its HTTP spans via a raw `ActivitySource`. Using the same primitive for the method-level operation span keeps a single tracing mechanism instead of mixing `ActivitySource` (HTTP layer) and `DiagnosticScope` (method layer).
 - **`DiagnosticScope` wraps `ActivitySource`.** Azure.Core's `DiagnosticScope` is itself built on `ActivitySource`/`Activity`; using `ActivitySource` directly produces the same parent/child span correlation that OpenTelemetry exporters consume, and HTTP spans become children of the operation `Activity` automatically via `Activity.Current`.
@@ -152,7 +164,65 @@ The per-method catch filters fatal exceptions (`!ex.IsFatal()`) so process-fatal
 
 ---
 
-## Section 3: Deferred
+### Single target framework: `net8.0` only, no `netstandard2.0`
+
+| Guideline | This SDK |
+|-----------|----------|
+| DO build all libraries for `netstandard2.0` (plus the current LTS .NET) | Targets `net8.0` only (`eng/build/Engineering.props`) |
+
+**Rationale:** The `netstandard2.0` requirement exists so libraries remain usable from .NET Framework and other legacy runtimes. This SDK's only consumer surface is modern Azure Functions / .NET 8+ hosts — there is no .NET Framework or netstandard consumer. Targeting `net8.0` only eliminates polyfill shim packages and lets the generator rely on built-in framework features (`IsExternalInit` for the `init` setters above, `ArgumentNullException.ThrowIfNull`, collection expressions, nullable reference types) without the multi-TFM API-parity burden. Revisit if a .NET Framework / netstandard consumer ever materializes.
+
+---
+
+### Namespace group `Azure.Connectors` is not a pre-approved group
+
+| Guideline | This SDK |
+|-----------|----------|
+| DO use one of the pre-approved namespace groups (`Azure.AI`, `Azure.Data`, `Azure.Messaging`, …) and register namespaces with adparch | Root `Azure.Connectors.Sdk`; clients in `Azure.Connectors.<Connector>` |
+
+**Rationale:** `Connectors` is not on the published pre-approved group list. The SDK still honors the structural rules around it — the `Azure.<group>.<service>` shape, the `Client` suffix, and **no APIs in the second-level namespace**. The `Azure.Connectors` group reflects the Logic Apps connector domain and is the natural home for the 90+ generated connector clients. Formal group registration/approval with the Architecture Board is tracked outside this repo.
+
+---
+
+### DI extensions use `IServiceCollection`, not the `Microsoft.Extensions.Azure` builder
+
+| Guideline | This SDK |
+|-----------|----------|
+| DO provide `*ClientBuilderExtensions` in the `Microsoft.Extensions.Azure` namespace using `IAzureClientFactoryBuilder.RegisterClientFactory` | `ConnectorServiceCollectionExtensions.Add<Connector>Client(IServiceCollection, IConfiguration)` in `Azure.Connectors.Sdk` |
+
+**Rationale:** The `Microsoft.Extensions.Azure` builder pattern centers on a single `TokenCredential` flowing through `IAzureClientFactoryBuilderWithCredential`. Connector clients instead bind to a per-connection runtime URL plus connection-level identity sourced from `IConfiguration` (app settings), not one account credential — so an `IServiceCollection` + `IConfiguration` registration maps directly onto the Functions configuration model connector consumers already use. Adopting `IAzureClientFactoryBuilder` would add a `Microsoft.Extensions.Azure` dependency without matching the connection-per-connector binding model. ([#116](https://github.com/Azure/Connectors-NET-SDK/issues/116))
+
+---
+
+### `ServiceVersion` is an optional parameter, not required
+
+| Guideline | This SDK |
+|-----------|----------|
+| The `version` parameter must be required (no default), be the first constructor parameter, and throw `ArgumentException` when `0` is passed | `ConnectorClientOptions(ServiceVersion version = ServiceVersion.V1)` — optional, with a default |
+
+**Rationale:** There is exactly one service version (`V1 = 1`). A required, defaultless `version` parameter with a `0`-guard exists to force callers of a *multi-version* client to make a conscious version choice; with a single version it would be friction with no benefit. The enum starts at `1` (value `0` is unused). The parameter will be made required, and a `0`-guard added, if and when a second service version is introduced.
+
+---
+
+## Section 3: Not Applicable
+
+These guidelines target hand-authored, first-party Azure *service* SDKs. They do not apply here because this SDK generates flat clients from 1,500+ external connector swagger definitions and exposes no Azure-style resource hierarchy or long-running-operation model.
+
+| Guideline | Why not applicable |
+|-----------|--------------------|
+| Synchronous `Pageable<T>` variants | Subsumed by the async-only decision in Section 2; paging is async-only via `AsyncPageable<T>` |
+| Long-Running Operations (`Operation<T>`, `WaitUntil`) | Connector operations are request/response; no service exposes Azure-style LRO polling through the connection runtime |
+| Subclients and `Get<Child>Client()` factory methods | Each connector is a single flat client; there is no resource hierarchy to model |
+| Standard verb method naming (`Create`/`Set`/`Get`/`Delete`) | Method names are generated from swagger `operationId`s authored by external connector teams, not chosen by this SDK |
+| Model types as `struct` / `IEquatable<T>` / `IComparable<T>` | Generated models are mutable JSON DTOs with no value-equality semantics |
+| Conditional-request methods (`MatchConditions`/`RequestConditions`, `If-Match`) | Connector swaggers do not expose ETag-based optimistic concurrency |
+| Custom `[Package]EventSource` logging | HTTP request/retry logging is handled by the `Azure.Core` `HttpPipeline`; there are no SDK-specific events worth logging |
+| `Sample1_HelloWorld.md` sample naming / `#region` snippet conventions | Functional samples live in the separate `Connectors-NET-Samples` repo as runnable Azure Functions, not in-repo region snippets |
+| Azure.Core `Argument` validation class | Generated guards use BCL `ArgumentNullException.ThrowIfNull`; the shared-source `Argument` class is an internal Azure.Core engineering-system convenience not consumed by this repo (see the parameter-guard divergence in Section 2) |
+
+---
+
+## Section 4: Deferred
 
 ### `IAsyncDisposable`
 
@@ -160,7 +230,7 @@ The per-method catch filters fatal exceptions (`!ex.IsFatal()`) so process-fatal
 
 ---
 
-## Section 4: Active Work
+## Section 5: Active Work
 
 The following items are in progress — not intentional divergences, but gaps being closed incrementally.
 
@@ -189,6 +259,7 @@ Previously tracked items now delivered:
 ## Further Reading
 
 - [Azure SDK .NET design guidelines](https://azure.github.io/azure-sdk/dotnet_introduction.html)
+- [Azure SDK .NET implementation guidelines](https://azure.github.io/azure-sdk/dotnet_implementation.html)
 - [`docs/API-DESIGN-EVALUATION.md`](https://github.com/daviburg_microsoft/azure-logicapps-connector-sdk/blob/main/docs/API-DESIGN-EVALUATION.md) — Full per-suggestion decision log from the May 2026 API review (internal)
 - [docs/concepts.md](concepts.md) — Architecture overview and glossary
 - [docs/connection-setup.md](connection-setup.md) — Connection provisioning walkthrough
