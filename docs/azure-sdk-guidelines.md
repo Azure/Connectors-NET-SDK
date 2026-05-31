@@ -14,7 +14,7 @@ This document was reconciled rule-by-rule against the live [.NET design](https:/
 |-----------|---------------|
 | `Azure.*` namespace convention | Root namespace is `Azure.Connectors.Sdk`; generated clients use `Azure.Connectors.<Connector>` |
 | `ClientOptions` inheritance | `ConnectorClientOptions : ClientOptions` — callers get standard `Retry`, `Transport`, and `Diagnostics` properties |
-| `ServiceVersion` enum | `ConnectorClientOptions.ServiceVersion` enum (`V1 = 1`), selectable via the options constructor (see the optionality divergence in Section 2) |
+| `ServiceVersion` enum (version-first, enum-from-1, `0` reserved) | `ConnectorClientOptions(ServiceVersion version = ServiceVersion.V1)` — `version` is the first parameter and defaults to the latest version (per the guideline's own canonical example), the enum uses explicit values starting at `1`, and the reserved value `0` throws `ArgumentException` |
 | `TokenCredential` authentication | All clients accept `Azure.Core.TokenCredential`; no custom `ITokenProvider` interface |
 | `ManagedIdentityCredential` as production default | Simplest constructor uses `ManagedIdentityCredential(SystemAssigned)` — not `DefaultAzureCredential` (CodeQL SM05137) |
 | `Uri` primary constructor | Primary constructor takes `Uri connectionRuntimeUrl`; `string` overload delegates to it as a convenience for app-settings scenarios |
@@ -170,7 +170,7 @@ The per-method catch filters fatal exceptions (`!ex.IsFatal()`) so process-fatal
 |-----------|----------|
 | DO build all libraries for `netstandard2.0` (plus the current LTS .NET) | Targets `net8.0` only (`eng/build/Engineering.props`) |
 
-**Rationale:** The `netstandard2.0` requirement exists so libraries remain usable from .NET Framework and other legacy runtimes. This SDK's only consumer surface is modern Azure Functions / .NET 8+ hosts — there is no .NET Framework or netstandard consumer. Targeting `net8.0` only eliminates polyfill shim packages and lets the generator rely on built-in framework features (`IsExternalInit` for the `init` setters above, `ArgumentNullException.ThrowIfNull`, collection expressions, nullable reference types) without the multi-TFM API-parity burden. Revisit if a .NET Framework / netstandard consumer ever materializes.
+**Rationale:** The `netstandard2.0` requirement exists so libraries remain usable from .NET Framework and other legacy runtimes. This SDK's only consumer surface is modern Azure Functions / .NET 8+ hosts — there is no .NET Framework or netstandard consumer. Targeting `net8.0` only eliminates polyfill shim packages and lets the generator rely on built-in framework features (`IsExternalInit` for the `init` setters above, `ArgumentNullException.ThrowIfNull`, collection expressions, nullable reference types) without the multi-TFM API-parity burden. **This is a confirmed decision:** there is no ask for legacy (.NET Framework / netstandard) client consumption, and the cost and constraints of multi-targeting older frameworks are not justifiable without an explicit customer need. Revisit only if such a need is raised.
 
 ---
 
@@ -180,7 +180,9 @@ The per-method catch filters fatal exceptions (`!ex.IsFatal()`) so process-fatal
 |-----------|----------|
 | DO use one of the pre-approved namespace groups (`Azure.AI`, `Azure.Data`, `Azure.Messaging`, …) and register namespaces with adparch | Root `Azure.Connectors.Sdk`; clients in `Azure.Connectors.<Connector>` |
 
-**Rationale:** `Connectors` is not on the published pre-approved group list. The SDK still honors the structural rules around it — the `Azure.<group>.<service>` shape, the `Client` suffix, and **no APIs in the second-level namespace**. The `Azure.Connectors` group reflects the Logic Apps connector domain and is the natural home for the 90+ generated connector clients. Formal group registration/approval with the Architecture Board is tracked outside this repo.
+**Rationale:** `Connectors` is not on the published pre-approved group list. The SDK still honors the structural rules around it — the `Azure.<group>.<service>` shape, the `Client` suffix, and **no APIs in the second-level namespace**. The `Azure.Connectors` group reflects the Logic Apps connector domain and is the natural home for the 90+ generated connector clients.
+
+**Disclosure: the `Azure.Connectors` namespace group is not yet approved by the Azure SDK Architecture Board ([adparch](https://github.com/azure/azure-sdk/issues)).** Registration and approval are pending and tracked outside this repo. The group name may change if the Board requires a different grouping before GA; consumers should treat the namespace as provisional until approval is recorded.
 
 ---
 
@@ -190,17 +192,7 @@ The per-method catch filters fatal exceptions (`!ex.IsFatal()`) so process-fatal
 |-----------|----------|
 | DO provide `*ClientBuilderExtensions` in the `Microsoft.Extensions.Azure` namespace using `IAzureClientFactoryBuilder.RegisterClientFactory` | `ConnectorServiceCollectionExtensions.Add<Connector>Client(IServiceCollection, IConfiguration)` in `Azure.Connectors.Sdk` |
 
-**Rationale:** The `Microsoft.Extensions.Azure` builder pattern centers on a single `TokenCredential` flowing through `IAzureClientFactoryBuilderWithCredential`. Connector clients instead bind to a per-connection runtime URL plus connection-level identity sourced from `IConfiguration` (app settings), not one account credential — so an `IServiceCollection` + `IConfiguration` registration maps directly onto the Functions configuration model connector consumers already use. Adopting `IAzureClientFactoryBuilder` would add a `Microsoft.Extensions.Azure` dependency without matching the connection-per-connector binding model. ([#116](https://github.com/Azure/Connectors-NET-SDK/issues/116))
-
----
-
-### `ServiceVersion` is an optional parameter, not required
-
-| Guideline | This SDK |
-|-----------|----------|
-| The `version` parameter must be required (no default), be the first constructor parameter, and throw `ArgumentException` when `0` is passed | `ConnectorClientOptions(ServiceVersion version = ServiceVersion.V1)` — optional, with a default |
-
-**Rationale:** There is exactly one service version (`V1 = 1`). A required, defaultless `version` parameter with a `0`-guard exists to force callers of a *multi-version* client to make a conscious version choice; with a single version it would be friction with no benefit. The enum starts at `1` (value `0` is unused). The parameter will be made required, and a `0`-guard added, if and when a second service version is introduced.
+**Rationale:** The `Microsoft.Extensions.Azure` builder pattern centers on a single `TokenCredential` flowing through `IAzureClientFactoryBuilderWithCredential`. Connector clients instead bind to a per-connection runtime URL plus connection-level identity sourced from `IConfiguration` (app settings), not one account credential — so an `IServiceCollection` + `IConfiguration` registration maps directly onto the Functions configuration model connector consumers already use. Adopting `IAzureClientFactoryBuilder` would add a `Microsoft.Extensions.Azure` dependency without matching the connection-per-connector binding model. This divergence is accepted and documented as the SDK's standard DI integration pattern. ([#116](https://github.com/Azure/Connectors-NET-SDK/issues/116))
 
 ---
 
