@@ -54,7 +54,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange — construct via JSON deserialization so List<JsonElement?> has actual items
             var expectedTeams = JsonSerializer.Deserialize<GetAllTeamsResponse>(
-                "{\"value\":[{\"displayName\":\"Engineering\"}]}");
+                "{\"value\":[{\"displayName\":\"Engineering\"}]}")!;
 
             var mock = new Mock<TeamsClient>();
             mock.Setup(client => client.GetAllTeamsAsync(It.IsAny<CancellationToken>()))
