@@ -221,7 +221,6 @@ These guidelines target hand-authored, first-party Azure *service* SDKs. They do
 | Repository in `azure/azure-sdk-for-net` / Azure SDK engineering system | This SDK is published as an independent open-source repository ([`Azure/Connectors-NET-SDK`](https://github.com/Azure/Connectors-NET-SDK)) with its own CI/CD pipeline, not built inside the monorepo or with the Azure SDK engineering system tooling |
 | Custom `HttpPipelinePolicy` subclasses | All HTTP policies (retry, auth, logging, telemetry) come from `Azure.Core` built-in policies; no SDK-specific custom policy is needed |
 | Custom credential types | Standard `TokenCredential` from `Azure.Identity` covers all authentication scenarios; no custom credential type is defined |
-| `IConnectorClient` marker interface | `IConnectorClient` exists as a marker on `ConnectorClientBase` for `IDisposable` aggregation; it is not returned from or consumed as a parameter by any SDK method, so the "commonly overlooked" guideline (`DO NOT use abstractions unless both returned and consumed`) technically applies — retained for potential DI resolution and extensibility, pending review |
 
 ---
 
@@ -256,6 +255,7 @@ Previously tracked items now delivered:
 | [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Test coverage for nullable optional value-type parameters | This PR |
 | [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175) | `ArgumentNullException` guards for required reference-type parameters (see Section 2) | This PR |
 | [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Test coverage for Teams trigger payload types | This PR |
+| — | Remove `IConnectorClient` marker interface (`DO NOT use abstractions unless both returned and consumed`; `DO NOT use interfaces if abstract classes work`) — `ConnectorClientBase : IDisposable` directly | This PR |
 
 ---
 
