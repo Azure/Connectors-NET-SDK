@@ -236,7 +236,7 @@ These guidelines target hand-authored, first-party Azure *service* SDKs. They do
 
 The following items are in progress — not intentional divergences, but gaps being closed incrementally.
 
-_No items currently in progress._
+*No items currently in progress.*
 
 ### Completed
 
