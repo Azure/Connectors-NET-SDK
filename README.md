@@ -231,6 +231,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | OneNote | 🔄 SDK Generated | GetNotebooks, CreatePageInSection, GetPageContent |
 | Planner | 🔄 SDK Generated | ListMyTasks, CreateTask, UpdateTask |
 | Power BI | 🔄 SDK Generated | ExecuteDatasetQuery, AddRows, RefreshDataset |
+| SigningHub | 🔄 SDK Generated | AttachmentGetAttachments, AttachmentDeleteAttachment |
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
 | Box | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
@@ -257,6 +258,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | Typeform | 🔄 SDK Generated | ListForms |
 | Webex | 🔄 SDK Generated | SendMessage, GetMessages, GetSpaces, CreateSpace |
 | WordPress | 🔄 SDK Generated | SiteStats, Get, Create, ListSites |
+| Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 | Zendesk | 🔄 SDK Generated | PostItem, DeleteItem, PatchItem, SearchArticles |
 
 ## Related Projects
