@@ -4,7 +4,7 @@ This document explains which [Azure SDK design guidelines for .NET](https://azur
 
 The decisions recorded here were made during a formal API design review in May 2026 with Azure SDK team reviewers (Anu Thomas, Steven Vukelich) and the APIView AI reviewer. The detailed per-suggestion analysis — 30 suggestions, each with rationale and a recorded decision — lives in [`docs/API-DESIGN-EVALUATION.md`](https://github.com/daviburg_microsoft/azure-logicapps-connector-sdk/blob/main/docs/API-DESIGN-EVALUATION.md) (internal). This document is the summary reference.
 
-This document was reconciled rule-by-rule against the live [.NET design](https://azure.github.io/azure-sdk/dotnet_introduction.html) and [.NET implementation](https://azure.github.io/azure-sdk/dotnet_implementation.html) guideline pages on 2026-05-31; every normative `DO` / `DO NOT` / `SHOULD` is accounted for as Followed, an Intentional Divergence, Not Applicable, or Deferred. Note this SDK is **pre-1.0** (currently `0.9.0-preview.1`), so source- and binary-breaking changes are permitted ahead of GA where they improve the long-term API.
+This document was reconciled rule-by-rule against the live [.NET design](https://azure.github.io/azure-sdk/dotnet_introduction.html), [.NET implementation](https://azure.github.io/azure-sdk/dotnet_implementation.html), [general design](https://azure.github.io/azure-sdk/general_design.html), and [general implementation](https://azure.github.io/azure-sdk/general_implementation.html) guideline pages on 2026-06-01; every normative `DO` / `DO NOT` / `SHOULD` is accounted for as Followed, an Intentional Divergence, Not Applicable, or Deferred. Note this SDK is **pre-1.0** (currently `0.9.0-preview.1`), so source- and binary-breaking changes are permitted ahead of GA where they improve the long-term API.
 
 ---
 
@@ -45,6 +45,11 @@ This document was reconciled rule-by-rule against the live [.NET design](https:/
 | Dependency allow-list | Package references are limited to `Azure.*`, `System.*`, and `Microsoft.Extensions.*` packages (`Directory.Packages.props`) |
 | No native dependencies | Pure managed code; no native/interop dependencies |
 | `MAJOR.MINOR.PATCH` versioning | Version is `MAJOR.MINOR.PATCH` with a pre-release suffix (`eng/build/Version.props`, currently `0.9.0-preview.1`) |
+| No default parameters in simplest client constructor | Simplest constructor `Client(Uri connectionRuntimeUrl)` takes only the required binding parameter with no defaults; options/credentials overloads add optional parameters (standard Azure SDK pattern) |
+| Package name matches main namespace | NuGet package ID is `Azure.Connectors.Sdk`, matching the root namespace |
+| Version-resilient serialization | Optional value-type model properties are `Nullable<T>` (`bool?`, `DateTime?`, `int?`); generated files use `#nullable disable` so reference-type properties accept `null` gracefully; `System.Text.Json` ignores unknown properties during deserialization |
+| No non-guideline dependency types in public API | All types exposed in the public API surface come from `Azure.Core` (`ClientOptions`, `TokenCredential`, `HttpPipeline`, `RequestFailedException`, `AsyncPageable<T>`), `System.*`, or `Microsoft.Extensions.*` — all on the approved dependency list |
+| Configuration via `ClientOptions` inheritance | Each client accepts `ConnectorClientOptions : ClientOptions`, which inherits global retry, transport, and diagnostics configuration; different client instances can use different options; configuration is immutable after construction |
 
 ---
 
@@ -211,6 +216,12 @@ These guidelines target hand-authored, first-party Azure *service* SDKs. They do
 | Custom `[Package]EventSource` logging | HTTP request/retry logging is handled by the `Azure.Core` `HttpPipeline`; there are no SDK-specific events worth logging |
 | `Sample1_HelloWorld.md` sample naming / `#region` snippet conventions | Functional samples live in the separate `Connectors-NET-Samples` repo as runnable Azure Functions, not in-repo region snippets |
 | Azure.Core `Argument` validation class | Generated guards use BCL `ArgumentNullException.ThrowIfNull`; the shared-source `Argument` class is an internal Azure.Core engineering-system convenience not consumed by this repo (see the parameter-guard divergence in Section 2) |
+| Connection string constructors | No portal-provided connection string exists for Connector Namespace connections; clients authenticate via `Uri` + `TokenCredential`, the standard Azure SDK credential pattern |
+| Repeatable request headers (`Repeatability-Request-ID` / `Repeatability-First-Sent`) | The connector runtime gateway manages request idempotency; this SDK does not add OASIS repeatability headers because the intermediary endpoint is not an OASIS-conformant service |
+| Repository in `azure/azure-sdk-for-net` / Azure SDK engineering system | This SDK is published as an independent open-source repository ([`Azure/Connectors-NET-SDK`](https://github.com/Azure/Connectors-NET-SDK)) with its own CI/CD pipeline, not built inside the monorepo or with the Azure SDK engineering system tooling |
+| Custom `HttpPipelinePolicy` subclasses | All HTTP policies (retry, auth, logging, telemetry) come from `Azure.Core` built-in policies; no SDK-specific custom policy is needed |
+| Custom credential types | Standard `TokenCredential` from `Azure.Identity` covers all authentication scenarios; no custom credential type is defined |
+| `IConnectorClient` marker interface | `IConnectorClient` exists as a marker on `ConnectorClientBase` for `IDisposable` aggregation; it is not returned from or consumed as a parameter by any SDK method, so the "commonly overlooked" guideline (`DO NOT use abstractions unless both returned and consumed`) technically applies — retained for potential DI resolution and extensibility, pending review |
 
 ---
 
