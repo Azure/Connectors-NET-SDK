@@ -22,7 +22,6 @@ using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.AzureIoTCentral.Models;
 using Azure.Core;
-using Azure.Core.Pipeline;
 using Azure.Identity;
 
 namespace Azure.Connectors.Sdk.AzureIoTCentral.Models

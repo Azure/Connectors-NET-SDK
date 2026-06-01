@@ -11,8 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365.Models;
-using global::Azure.Core;
-using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Azure.Connectors.Sdk.Tests
@@ -64,7 +62,7 @@ namespace Azure.Connectors.Sdk.Tests
             var operationActivity = capturedActivities.Find(a =>
                 string.Equals(a.DisplayName, "Office365Client.GetOutlookCategoryNamesAsync", StringComparison.Ordinal));
             Assert.IsNotNull(operationActivity, "Expected an Activity named 'Office365Client.GetOutlookCategoryNamesAsync'.");
-            Assert.AreNotEqual(ActivityStatusCode.Error, operationActivity.Status);
+            Assert.AreNotEqual(ActivityStatusCode.Error, operationActivity!.Status);
         }
 
         [TestMethod]
@@ -112,7 +110,7 @@ namespace Azure.Connectors.Sdk.Tests
             var operationActivity = capturedActivities.Find(a =>
                 string.Equals(a.DisplayName, "Office365Client.GetOutlookCategoryNamesAsync", StringComparison.Ordinal));
             Assert.IsNotNull(operationActivity, "Expected an Activity named 'Office365Client.GetOutlookCategoryNamesAsync'.");
-            Assert.AreEqual(ActivityStatusCode.Error, operationActivity.Status);
+            Assert.AreEqual(ActivityStatusCode.Error, operationActivity!.Status);
         }
     }
 }
