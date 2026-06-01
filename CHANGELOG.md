@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`TriggerCallbackPayload<T>.Body` is now init-only** — the setter changed from `public set` to `init`. Post-construction assignment (`payload.Body = x;`) no longer compiles; use an object initializer or `ConnectorModelFactory.TriggerCallbackPayload<T>(body)` instead.
 - **`TriggerCallbackBody<T>.Value` setter is now internal and the type narrowed to `IReadOnlyList<T>?`** — the property changed from `public List<T>? Value { get; set; }` to `public IReadOnlyList<T>? Value { get; internal set; }`. External assignments (`body.Value = list;`) and `List<T>`-specific mutations no longer compile; use `ConnectorModelFactory.TriggerCallbackBody<T>(value)` to construct instances in tests.
+- **Dynamic model properties changed from `object` to `JsonElement?`** — all generated model properties typed as `object` (for free-form JSON) are now `JsonElement?`. Consumers that assigned arbitrary .NET objects must now pre-serialize to `JsonElement`. Affects ~493 properties across Kusto, MsGraphGroupsAndUsers, Projectplace, and others. ([#157](https://github.com/Azure/Connectors-NET-SDK/issues/157))
+- **Output-only model properties changed from `{ get; set; }` to `{ get; init; }`** — all generated output-only model properties now use `init` setters. Post-construction assignment (`model.Prop = x;`) no longer compiles; use object initializers or the generated `*ModelFactory` classes. ([#161](https://github.com/Azure/Connectors-NET-SDK/issues/161))
+- **`PdfCoClient`, `SigningHubClient`, and `YammerClient` removed** — these connectors were decommissioned from the connector runtime. Their client types, DI extension methods, and test files have been removed.
+- **`IConnectorClient` marker interface removed** — `ConnectorClientBase` now implements `IDisposable` directly. Code referencing `IConnectorClient` must use `ConnectorClientBase` instead.
 
 ### Added
 

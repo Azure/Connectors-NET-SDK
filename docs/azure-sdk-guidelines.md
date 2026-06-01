@@ -247,14 +247,14 @@ Previously tracked items now delivered:
 | [#108](https://github.com/Azure/Connectors-NET-SDK/issues/108) | Internal visibility cleanup (`ExceptionExtensions`, `HttpExtensions`, `RetryPolicy`) | [#109](https://github.com/Azure/Connectors-NET-SDK/pull/109) |
 | [#114](https://github.com/Azure/Connectors-NET-SDK/issues/114) | `.Models` sub-namespace + PascalCase client names | [#119](https://github.com/Azure/Connectors-NET-SDK/pull/119) |
 | [#116](https://github.com/Azure/Connectors-NET-SDK/issues/116) | DI integration extensions (`Add<Connector>Client` for `IServiceCollection`) | [#117](https://github.com/Azure/Connectors-NET-SDK/pull/117) |
-| [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` parses structured `ErrorCode` from JSON response body | This PR |
+| [#155](https://github.com/Azure/Connectors-NET-SDK/issues/155) | `ConnectorException` parses structured `ErrorCode` from JSON response body | [#180](https://github.com/Azure/Connectors-NET-SDK/pull/180) |
 | [#156](https://github.com/Azure/Connectors-NET-SDK/issues/156) | Per-method operation-span tracing via `ActivitySource` (see Section 2) | This PR |
 | [#157](https://github.com/Azure/Connectors-NET-SDK/issues/157) | Dynamic model properties use `JsonElement?` instead of `object` (see Section 2) | This PR |
 | [#160](https://github.com/Azure/Connectors-NET-SDK/issues/160) | `[EditorBrowsable(Never)]` on inherited `Object` methods | [#170](https://github.com/Azure/Connectors-NET-SDK/pull/170) |
 | [#161](https://github.com/Azure/Connectors-NET-SDK/issues/161) | Output-only model properties use `init` setters (see Section 2) | This PR |
-| [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Test coverage for nullable optional value-type parameters | This PR |
+| [#174](https://github.com/Azure/Connectors-NET-SDK/issues/174) | Test coverage for nullable optional value-type parameters | [#180](https://github.com/Azure/Connectors-NET-SDK/pull/180) |
 | [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175) | `ArgumentNullException` guards for required reference-type parameters (see Section 2) | This PR |
-| [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Test coverage for Teams trigger payload types | This PR |
+| [#176](https://github.com/Azure/Connectors-NET-SDK/issues/176) | Test coverage for Teams trigger payload types | [#180](https://github.com/Azure/Connectors-NET-SDK/pull/180) |
 | — | Remove `IConnectorClient` marker interface (`DO NOT use abstractions unless both returned and consumed`; `DO NOT use interfaces if abstract classes work`) — `ConnectorClientBase : IDisposable` directly | This PR |
 
 ---
