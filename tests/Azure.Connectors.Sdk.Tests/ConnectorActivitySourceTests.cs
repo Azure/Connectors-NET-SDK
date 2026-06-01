@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
@@ -26,7 +27,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GeneratedMethod_WithActivityListener_EmitsOperationSpan()
         {
             // Arrange
-            var capturedActivities = new System.Collections.Generic.List<Activity>();
+            var capturedActivities = new ConcurrentBag<Activity>();
 
             using var listener = new ActivityListener
             {
@@ -59,7 +60,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert — the generated tracing wrapper should emit an operation span
             Assert.IsTrue(capturedActivities.Count >= 1, "Expected at least one Activity from the connector ActivitySource.");
 
-            var operationActivity = capturedActivities.Find(a =>
+            var operationActivity = capturedActivities.FirstOrDefault(a =>
                 string.Equals(a.DisplayName, "Office365Client.GetOutlookCategoryNamesAsync", StringComparison.Ordinal));
             Assert.IsNotNull(operationActivity, "Expected an Activity named 'Office365Client.GetOutlookCategoryNamesAsync'.");
             Assert.AreNotEqual(ActivityStatusCode.Error, operationActivity!.Status);
@@ -69,7 +70,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task GeneratedMethod_OnException_SetsErrorStatus()
         {
             // Arrange
-            var capturedActivities = new System.Collections.Generic.List<Activity>();
+            var capturedActivities = new ConcurrentBag<Activity>();
 
             using var listener = new ActivityListener
             {
@@ -107,7 +108,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(caught, "Expected an exception from the 500 response.");
             Assert.IsTrue(capturedActivities.Count >= 1, "Expected at least one Activity from the connector ActivitySource.");
 
-            var operationActivity = capturedActivities.Find(a =>
+            var operationActivity = capturedActivities.FirstOrDefault(a =>
                 string.Equals(a.DisplayName, "Office365Client.GetOutlookCategoryNamesAsync", StringComparison.Ordinal));
             Assert.IsNotNull(operationActivity, "Expected an Activity named 'Office365Client.GetOutlookCategoryNamesAsync'.");
             Assert.AreEqual(ActivityStatusCode.Error, operationActivity!.Status);
