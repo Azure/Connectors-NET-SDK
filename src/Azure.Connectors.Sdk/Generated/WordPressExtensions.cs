@@ -449,7 +449,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
     /// <summary>
     /// Model factory for creating instances of WordPress models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class WordPressModelFactory
     {

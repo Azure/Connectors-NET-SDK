@@ -1259,7 +1259,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     /// <summary>
     /// Model factory for creating instances of Insightly models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class InsightlyModelFactory
     {

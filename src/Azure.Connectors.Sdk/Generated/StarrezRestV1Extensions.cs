@@ -9467,7 +9467,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     /// <summary>
     /// Model factory for creating instances of StarrezRestV1 models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class StarrezRestV1ModelFactory
     {
