@@ -25,15 +25,24 @@ jobs:
       - name: Fetch main branch
         run: git fetch origin main
 
+      - name: Resolve tag to commit SHA
+        id: resolve
+        run: |
+          # For annotated tags, GITHUB_SHA is the tag object SHA, not the commit.
+          # Dereference to the underlying commit so merge-base works correctly.
+          TAG_COMMIT="$(git rev-parse "${GITHUB_SHA}^{commit}")"
+          echo "Tag: ${GITHUB_REF_NAME}"
+          echo "GITHUB_SHA: ${GITHUB_SHA}"
+          echo "Resolved commit: ${TAG_COMMIT}"
+          echo "commit=${TAG_COMMIT}" >> "$GITHUB_OUTPUT"
+
       - name: Verify tag commit is on main
         run: |
-          TAG_COMMIT="${GITHUB_SHA}"
-          echo "Tag: ${GITHUB_REF_NAME}"
-          echo "Tag commit: ${TAG_COMMIT}"
+          TAG_COMMIT="${{ steps.resolve.outputs.commit }}"
 
           # Check if the tagged commit is an ancestor of main
           if git merge-base --is-ancestor "${TAG_COMMIT}" origin/main; then
-            echo "✅ Tag commit is reachable from main — release integrity verified."
+            echo "✅ Tag commit ${TAG_COMMIT} is reachable from main — release integrity verified."
           else
             echo "❌ Tag commit ${TAG_COMMIT} is NOT on main."
             echo "   This tag was created on a branch with changes that did not go through PR review."
@@ -49,12 +58,13 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const tagCommit = '${{ steps.resolve.outputs.commit }}' || context.sha;
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `⚠️ Release tag ${context.ref.replace('refs/tags/', '')} is not on main`,
               body: [
-                `The tag \`${context.ref.replace('refs/tags/', '')}\` (commit \`${context.sha.substring(0, 8)}\`) was pushed but the commit is **not reachable from \`main\`**.`,
+                `The tag \`${context.ref.replace('refs/tags/', '')}\` (commit \`${tagCommit.substring(0, 8)}\`) was pushed but the commit is **not reachable from \`main\`**.`,
                 '',
                 'This violates the PR-first-then-tag release process. Tagged changes must go through a reviewed PR to `main` before tagging.',
                 '',
