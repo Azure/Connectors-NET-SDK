@@ -9,7 +9,7 @@
 - Breaking: `IConnectorClient` marker interface removed — `ConnectorClientBase` now implements `IDisposable` directly.
 - Breaking: `Teams.OnGroupMemberChangeResponseItem` removed; membership trigger payloads are now `TriggerCallbackPayload<object>`.
 - Added Teams trigger payload types — `TeamsOnNewChannelMessageTriggerPayload`, `TeamsOnNewChannelMessageMentioningMeTriggerPayload`, `TeamsOnTeamMemberRemovedTriggerPayload`, `TeamsOnTeamMemberAddedTriggerPayload`, plus the `TeamsTriggers.Operations` registry.
-- Added OpenTelemetry distributed tracing — every operation starts an `Activity` via a per-client `ConnectorActivitySource` (source name `Azure.Connectors.Sdk`). (#183)
+- Added OpenTelemetry distributed tracing — each generated client has a per-connector `ConnectorActivitySource` (e.g., `Azure.Connectors.Sdk.teams`); subscribe to `Azure.Connectors.Sdk.*` to capture all connector operations. (#183)
 - Added `ConnectorException` error-code parsing to populate `RequestFailedException.ErrorCode`. (#155, #174, #176)
 - Added `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods. (#160)
 - Regenerated all 96 connector clients with copyright headers (#158), base-chained mock constructors (#159), and null-guard hardening (#156, #175).

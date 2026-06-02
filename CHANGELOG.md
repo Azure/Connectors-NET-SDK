@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Teams trigger payload types** — `TeamsOnNewChannelMessageTriggerPayload`, `TeamsOnNewChannelMessageMentioningMeTriggerPayload`, `TeamsOnTeamMemberRemovedTriggerPayload`, and `TeamsOnTeamMemberAddedTriggerPayload` added; static `TeamsTriggers.Operations` dictionary maps operation names to payload types for dynamic dispatch
-- **OpenTelemetry distributed tracing on all generated clients** — each operation now starts an `Activity` via a per-client `ConnectorActivitySource` (source name `Azure.Connectors.Sdk`), enabling end-to-end traceability when subscribed through `ActivitySource` listeners or OpenTelemetry exporters (#183)
+- **OpenTelemetry distributed tracing on all generated clients** — each generated client has a per-connector `ConnectorActivitySource` (e.g., `Azure.Connectors.Sdk.teams`, `Azure.Connectors.Sdk.office365`) and every operation starts an `Activity`, enabling end-to-end traceability when subscribed through `ActivitySource` listeners or OpenTelemetry exporters. Subscribe to `Azure.Connectors.Sdk.*` to capture all connector operations. (#183)
 - **`ConnectorException` now parses the connector error code** — the response body's error code is extracted to populate `RequestFailedException.ErrorCode`, giving callers a structured error code alongside `Status`, `Message`, and `ResponseBody` (#155, #174, #176)
 - **`[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods** — all generated clients now suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense autocomplete, reducing noise when working with client instances ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160))
 
