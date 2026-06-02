@@ -22,6 +22,9 @@ jobs:
         with:
           fetch-depth: 0 # full history needed for merge-base check
 
+      - name: Fetch main branch
+        run: git fetch origin main
+
       - name: Verify tag commit is on main
         run: |
           TAG_COMMIT="${GITHUB_SHA}"
@@ -63,5 +66,4 @@ jobs:
                 `Triggered by: @${context.actor}`,
                 `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
               ].join('\n'),
-              labels: ['release-integrity'],
             });

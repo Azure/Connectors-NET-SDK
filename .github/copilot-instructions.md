@@ -453,11 +453,12 @@ The build appends suffixes based on context (see `eng/build/Version.targets` and
 > GitHub Actions workflow, which fails if a `v*` tag points to a commit not on `main`.
 
 1. **PR the release prep to main:**
-   - Create a branch (e.g., `release/v{version}`) with version bump in `Version.props`, finalized `CHANGELOG.md`, updated `release_notes.md`
+   - Create a branch (e.g., `release/v{version}`) with version bump in `Version.props`, finalized `CHANGELOG.md`, updated `release_notes.md`, and `README.md` connector count/table if needed
    - Open a PR targeting `main`, get it reviewed and merged
    - The PR ensures all release metadata changes go through code review
 
 2. **Pull the merged main and tag it:**
+
    ```powershell
    git checkout main && git pull origin main
    git tag v{version}
@@ -465,6 +466,7 @@ The build appends suffixes based on context (see `eng/build/Version.targets` and
    ```
 
 3. **Create GitHub Release:**
+
    ```powershell
    gh release create v{version} --title "v{version}" --prerelease --notes "..."
    ```
