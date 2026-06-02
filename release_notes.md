@@ -1,5 +1,29 @@
 ## What's Changed
 
+### 0.12.0-preview.1 (2026-06-02)
+
+- Breaking: All 1,460 `ConnectorNames.*` constants renamed to PascalCase derived from ARM display names (e.g. `Googledrive` → `GoogleDrive`, `Microsoftteams` → `MicrosoftTeams`, `Office365` → `Office365Outlook`). Update any references by name. (#170)
+- Breaking: Optional value-type parameters across all generated clients are now nullable (`int?`, `bool?`, `double?`) so `null` means "unspecified"; overriding subclasses must update signatures. (#180)
+- Breaking: Dynamic model properties changed from `object` to `JsonElement?`; pre-serialize arbitrary values to `JsonElement`. (#157)
+- Breaking: Output-only model properties changed to `{ get; init; }`; use object initializers or the generated `*ModelFactory` classes. (#161)
+- Breaking: `IConnectorClient` marker interface removed — `ConnectorClientBase` now implements `IDisposable` directly. (#183)
+- Breaking: `Teams.OnGroupMemberChangeResponseItem` removed; membership trigger payloads are now `TriggerCallbackPayload<object>`. (#170)
+- Added Teams trigger payload types — `TeamsOnNewChannelMessageTriggerPayload`, `TeamsOnNewChannelMessageMentioningMeTriggerPayload`, `TeamsOnTeamMemberRemovedTriggerPayload`, `TeamsOnTeamMemberAddedTriggerPayload`, plus the `TeamsTriggers.Operations` registry. (#170)
+- Added OpenTelemetry distributed tracing — each generated client has a per-connector `ConnectorActivitySource` (e.g., `Azure.Connectors.Sdk.teams`); subscribe to `Azure.Connectors.Sdk.*` to capture all connector operations. (#183)
+- Added `ConnectorException` error-code parsing to populate `RequestFailedException.ErrorCode`. (#180)
+- Added `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods. (#160)
+- Regenerated all 96 connector clients with copyright headers (#158), base-chained mock constructors (#159), and null-guard hardening (#156, #175).
+
+### 0.11.0-preview.1 (2026-05-15)
+
+- Fixed: `TriggerCallbackBody<T>` now handles both batch and single-item callback shapes, preventing silent zero-item processing when splitOn is enabled. (#149)
+- Breaking: `TriggerCallbackPayload<T>.Body` is now init-only and `TriggerCallbackBody<T>.Value` is `IReadOnlyList<T>?` with an internal setter; use `ConnectorModelFactory` to construct in tests.
+- Breaking: Removed CamelCase JSON naming policy; properties without `[JsonPropertyName]` now serialize as PascalCase. (#84, #85)
+- Breaking: Renamed `AzuremonitorlogsClient` → `AzureMonitorLogsClient` and `Office365usersClient` → `Office365UsersClient` (namespaces, DI methods, model factories, and `ConnectorNames` updated). (#126)
+- Breaking: `IPageable<T>` is now internal; `ConnectorClientBase.CreatePageable` is private protected; JSON converter types are internal. (#124, #127)
+- Added constructor overload `(Uri, TokenCredential)` without `ClientOptions`, and `ConnectorHttpClient` mocking support. (#123, #125)
+- 36 new connector clients across batches 5–6 (Azure AD, Azure IoT Central, Outlook, Service Bus, Box, DocuSign, GitHub, Google Drive, Jira, Salesforce, SQL, Trello, and more).
+
 ### 0.10.0-preview.1 (2026-05-11)
 
 - Breaking: Removed CamelCase JSON naming policy from ConnectorClientBase.JsonOptions; properties without `[JsonPropertyName]` now serialize as PascalCase.

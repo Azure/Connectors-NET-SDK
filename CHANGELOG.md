@@ -13,34 +13,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
      the same content into release_notes.md for NuGet packaging. Do NOT put HTML
      comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
 
+## [0.12.0-preview.1] - 2026-06-02
+
+### Breaking Changes
+
+- **All 1,460 `ConnectorNames.*` constants renamed to PascalCase** — constant names now derive from ARM connector display names via `IdentifierNormalizer.Normalize` instead of just capitalizing the first character of the raw connector ID. For example: `Googledrive` → `GoogleDrive`, `Microsoftteams` → `MicrosoftTeams`, `Sharepointonline` → `SharePoint`, `Office365` → `Office365Outlook`. Brand casing overrides applied where ARM display name differs from official brand: `DataBlend`, `VATCheckApi`, `MetaTask`. Consumers referencing any renamed constant by name must update their references. (#170)
+- **Optional value-type parameters changed to nullable across all generated clients** — the generator was updated to use nullable types for optional value-type parameters so that `null` correctly represents "unspecified" while `0`/`false` are valid distinct values. Affects `int`, `bool`, and `double` optional parameters across many connectors including `TodoClient`, `TicketmasterClient`, `ShiftsClient`, `TeamsClient`, `SharePointOnlineClient`, `ServiceBusConnectorClient`, `WaywedoClient`, `UniversalPrintClient`, `TextRequestClient`, `RevaiClient`, `SigningHubClient`, and `SeismicPlannerClient`. Callers passing literals still compile (implicit conversion); subclasses that override these `virtual` methods with the old non-nullable signature must update the parameter type. (#180)
+- **`Teams.OnGroupMemberChangeResponseItem` model class and its model factory method removed** — Teams connector swagger (v1.0.4) changed the membership trigger response from a named typed definition (`OnGroupMemberChangeResponseItem` with a `UserId` property) to an inline anonymous object array. The generator no longer produces a named class for inline schemas without a definition reference; membership trigger payloads are now `TriggerCallbackPayload<object>`. Consumers referencing `OnGroupMemberChangeResponseItem` directly must migrate; the `id` field is still present at runtime in the deserialized callback body. (#170)
+- **Dynamic model properties changed from `object` to `JsonElement?`** — all generated model properties typed as `object` (for free-form JSON) are now `JsonElement?`. Consumers that assigned arbitrary .NET objects must now pre-serialize to `JsonElement`. Affects ~493 properties across Kusto, MsGraphGroupsAndUsers, Projectplace, and others. ([#157](https://github.com/Azure/Connectors-NET-SDK/issues/157))
+- **Output-only model properties changed from `{ get; internal set; }` to `{ get; init; }`** — all generated output-only model properties now use `init` setters. Post-construction assignment (`model.Prop = x;`) no longer compiles; use object initializers or the generated `*ModelFactory` classes. ([#161](https://github.com/Azure/Connectors-NET-SDK/issues/161))
+- **`IConnectorClient` marker interface removed** — `ConnectorClientBase` now implements `IDisposable` directly. Code referencing `IConnectorClient` must use `ConnectorClientBase` instead. (#183)
+
+### Added
+
+- **Teams trigger payload types** — `TeamsOnNewChannelMessageTriggerPayload`, `TeamsOnNewChannelMessageMentioningMeTriggerPayload`, `TeamsOnTeamMemberRemovedTriggerPayload`, and `TeamsOnTeamMemberAddedTriggerPayload` added; static `TeamsTriggers.Operations` dictionary maps operation names to payload types for dynamic dispatch (#170)
+- **OpenTelemetry distributed tracing on all generated clients** — each generated client has a per-connector `ConnectorActivitySource` (e.g., `Azure.Connectors.Sdk.teams`, `Azure.Connectors.Sdk.office365`) and every operation starts an `Activity`, enabling end-to-end traceability when subscribed through `ActivitySource` listeners or OpenTelemetry exporters. Subscribe to `Azure.Connectors.Sdk.*` to capture all connector operations. (#183)
+- **`ConnectorException` now parses the connector error code** — the response body's error code is extracted to populate `RequestFailedException.ErrorCode`, giving callers a structured error code alongside `Status`, `Message`, and `ResponseBody` (#180)
+- **`[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods** — all generated clients now suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense autocomplete, reducing noise when working with client instances ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160))
+
+### Changed
+
+- **Regenerated all 96 connector clients** from combined BPM generator improvements: Microsoft copyright header on every generated file ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)), `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)), `protected` mock constructors now chain to `base()` ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159)), and null-guard hardening ([#156](https://github.com/Azure/Connectors-NET-SDK/issues/156), [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175))
+
+## [0.11.0-preview.1] - 2026-05-15
+
 ### Fixed
 
 - **`TriggerCallbackBody<T>` now handles both batch and single-item callback shapes** — Connector Namespace delivers trigger callbacks in two shapes depending on the trigger configuration's splitOn setting: batch `{"body":{"value":[...]}}` and single-item `{"body":{...item...}}`. The new `TriggerCallbackBodyConverter<T>` transparently normalizes both shapes into `Body.Value` as a list, preventing silent zero-item processing when splitOn is enabled. All 77+ generated `TriggerCallbackPayload<T>` subclasses inherit this fix automatically. (#149)
 
 ### Breaking Changes
 
-- **All 1,460 `ConnectorNames.*` constants renamed to PascalCase** — constant names now derive from ARM connector display names via `IdentifierNormalizer.Normalize` instead of just capitalizing the first character of the raw connector ID. For example: `Googledrive` → `GoogleDrive`, `Microsoftteams` → `MicrosoftTeams`, `Sharepointonline` → `SharePoint`, `Office365` → `Office365Outlook`. Brand casing overrides applied where ARM display name differs from official brand: `DataBlend`, `VATCheckApi`, `MetaTask`. Consumers referencing any renamed constant by name must update their references.
-- **Optional value-type parameters changed to nullable across all generated clients** — the generator was updated to use nullable types for optional value-type parameters so that `null` correctly represents "unspecified" while `0`/`false` are valid distinct values. Affects `int`, `bool`, and `double` optional parameters across many connectors including `TodoClient`, `TicketmasterClient`, `ShiftsClient`, `TeamsClient`, `SharePointOnlineClient`, `ServiceBusConnectorClient`, `WaywedoClient`, `UniversalPrintClient`, `TextRequestClient`, `RevaiClient`, `SigningHubClient`, and `SeismicPlannerClient`. Callers passing literals still compile (implicit conversion); subclasses that override these `virtual` methods with the old non-nullable signature must update the parameter type.
-- **`Teams.OnGroupMemberChangeResponseItem` model class and its model factory method removed** — Teams connector swagger (v1.0.4) changed the membership trigger response from a named typed definition (`OnGroupMemberChangeResponseItem` with a `UserId` property) to an inline anonymous object array. The generator no longer produces a named class for inline schemas without a definition reference; membership trigger payloads are now `TriggerCallbackPayload<object>`. Consumers referencing `OnGroupMemberChangeResponseItem` directly must migrate; the `id` field is still present at runtime in the deserialized callback body.
-
 - **`TriggerCallbackPayload<T>.Body` is now init-only** — the setter changed from `public set` to `init`. Post-construction assignment (`payload.Body = x;`) no longer compiles; use an object initializer or `ConnectorModelFactory.TriggerCallbackPayload<T>(body)` instead.
 - **`TriggerCallbackBody<T>.Value` setter is now internal and the type narrowed to `IReadOnlyList<T>?`** — the property changed from `public List<T>? Value { get; set; }` to `public IReadOnlyList<T>? Value { get; internal set; }`. External assignments (`body.Value = list;`) and `List<T>`-specific mutations no longer compile; use `ConnectorModelFactory.TriggerCallbackBody<T>(value)` to construct instances in tests.
-- **Dynamic model properties changed from `object` to `JsonElement?`** — all generated model properties typed as `object` (for free-form JSON) are now `JsonElement?`. Consumers that assigned arbitrary .NET objects must now pre-serialize to `JsonElement`. Affects ~493 properties across Kusto, MsGraphGroupsAndUsers, Projectplace, and others. ([#157](https://github.com/Azure/Connectors-NET-SDK/issues/157))
-- **Output-only model properties changed from `{ get; internal set; }` to `{ get; init; }`** — all generated output-only model properties now use `init` setters. Post-construction assignment (`model.Prop = x;`) no longer compiles; use object initializers or the generated `*ModelFactory` classes. ([#161](https://github.com/Azure/Connectors-NET-SDK/issues/161))
-- **`IConnectorClient` marker interface removed** — `ConnectorClientBase` now implements `IDisposable` directly. Code referencing `IConnectorClient` must use `ConnectorClientBase` instead.
+- **Removed `CamelCase` JSON naming policy** from `ConnectorClientBase.JsonOptions` and `ConnectorJsonSerializer` — properties without `[JsonPropertyName]` attributes now serialize using their C# PascalCase names, matching swagger/connector API expectations. Properties with `[JsonPropertyName]` are unaffected. Also changed `JsonStringEnumConverter` to use default casing instead of camelCase. (#84, #85)
+- **Renamed `AzuremonitorlogsClient` to `AzureMonitorLogsClient`** and `Office365usersClient` to `Office365UsersClient` for consistent PascalCase naming (#126)
+  - Namespaces updated: `Azure.Connectors.Sdk.Azuremonitorlogs` → `Azure.Connectors.Sdk.AzureMonitorLogs`, `Azure.Connectors.Sdk.Office365users` → `Azure.Connectors.Sdk.Office365Users`
+  - DI extension methods renamed: `AddAzuremonitorlogsClient` → `AddAzureMonitorLogsClient`, `AddOffice365usersClient` → `AddOffice365UsersClient`
+  - Model factories renamed: `AzuremonitorlogsModelFactory` → `AzureMonitorLogsModelFactory`, `Office365usersModelFactory` → `Office365UsersModelFactory`
+  - `ConnectorNames` constants renamed: `ConnectorNames.Azuremonitorlogs` → `ConnectorNames.AzureMonitorLogs`, `ConnectorNames.Office365users` → `ConnectorNames.Office365Users`
+- **Made `IPageable<T>` internal** — this interface is now an internal deserialization contract only; generated clients already return `AsyncPageable<T>` from Azure.Core publicly (#127)
+- **Changed `ConnectorClientBase.CreatePageable` from `protected` to `private protected`** — only accessible to derived classes within the assembly; external subclasses of `ConnectorClientBase` cannot call this method directly (#127)
+- **Made JSON converter types internal** — `Iso8601DateTimeConverter`, `Iso8601TimeSpanConverter`, `NullableTimeSpanConverter` are serialization infrastructure not intended for direct consumer use (#124)
 
 ### Added
 
-- **`[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods** — all generated clients now suppress `Equals`, `GetHashCode`, and `ToString` from IntelliSense autocomplete, reducing noise when working with client instances ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160))
-- **Teams trigger payload types** — `TeamsOnNewChannelMessageTriggerPayload`, `TeamsOnNewChannelMessageMentioningMeTriggerPayload`, `TeamsOnTeamMemberRemovedTriggerPayload`, and `TeamsOnTeamMemberAddedTriggerPayload` added; static `TeamsTriggers.Operations` dictionary maps operation names to payload types for dynamic dispatch
-
+- **Constructor overload `(Uri, TokenCredential)` without `ClientOptions` parameter** on `ConnectorClientBase` and all 12 generated clients, following the [Azure SDK constructor guideline](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-client-constructor-minimal) (#123)
+- **`ConnectorHttpClient` now supports mocking** — added protected parameterless constructor and marked `SendAsync` as virtual (#125)
+- **5 new connector clients** — `ExcelOnlineClient`, `AzureEventGridClient`, `YammerClient`, `WdatpClient` (Microsoft Defender ATP), `UniversalPrintClient` (#7)
+- **15 more connector clients (batch 2)** — `CampfireClient`, `ClickSendSmsClient`, `CloudmersiveConvertClient`, `EtsyClient`, `FormstackFormsClient`, `FreshServiceClient`, `InfusionsoftClient`, `InsightlyClient`, `PipedriveClient`, `PlivoClient`, `PlumsailClient`, `RepliconClient`, `RevaiClient`, `SigningHubClient`, `ZohoSignClient` (#7)
+- **15 more connector clients (batch 3)** — `DocuwareClient`, `ElfsquadDataClient`, `ImpexiumClient`, `JedoxOdataHubClient`, `MeetingRoomMapClient`, `OrderfulClient`, `PdfCoClient`, `ProjectplaceClient`, `SeismicPlannerClient`, `StarmindClient`, `StarrezRestV1Client`, `TallyfyClient`, `TextRequestClient`, `TicketmasterClient`, `WaywedoClient` (#7)
+- **13 Microsoft 1st-party connector clients (batch 4)** — `AzureAutomationClient`, `AzureDataFactoryClient`, `AzureDigitalTwinsClient`, `AzureVMClient`, `KeyVaultClient`, `MicrosoftBookingsClient`, `Office365GroupsClient`, `Office365GroupsMailClient`, `OnenoteClient`, `PlannerClient`, `PowerBIClient`, `ShiftsClient`, `TodoClient` (#7)
 - **11 connector clients (batch 5)** — `AzureADClient`, `AzureIoTCentralClient`, `MicrosoftFormsClient` regenerated with generator bug fixes; plus 8 new clients: `AzureQueuesClient`, `AzureTablesClient`, `DocumentDbClient`, `EventHubsClient`, `ExcelOnlineBusinessClient`, `OutlookClient`, `ServiceBusConnectorClient`, `WordOnlineBusinessClient`; also fixes generator bugs #135, #136, #137, #138, #139 (IPageable property name derived from x-ms-summary; array-typed `$ref` definitions resolved to `List<T>` instead of undefined class name)
-- **25 new connector clients (batch 6)** — `BoxClient`, `DocuSignClient`, `DropboxClient`, `DynamicsAXClient`, `EventbriteClient`, `FtpClient`, `GitHubClient`, `GoogleCalendarClient`, `GoogleDriveClient`, `GoogleTasksClient`, `JiraClient`, `MailChimpClient`, `MondayClient`, `OneDriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendGridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordPressClient`, `ZendeskClient`
+- **25 new connector clients (batch 6)** — `BoxClient`, `DocusignClient`, `DropboxClient`, `DynamicsaxClient`, `EventbriteClient`, `FtpClient`, `GithubClient`, `GooglecalendarClient`, `GoogledriveClient`, `GoogletasksClient`, `JiraClient`, `MailchimpClient`, `MondayClient`, `OnedriveClient` (personal OneDrive), `RssClient`, `SalesforceClient`, `SendgridClient`, `SlackClient`, `SqlClient`, `TrelloClient`, `TwitterClient`, `TypeformClient`, `WebexClient`, `WordpressClient`, `ZendeskClient`
 
 ### Changed
 
-- **Regenerated all 96 connector clients** from combined BPM generator improvements: Microsoft copyright header on every generated file ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)), `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)), and `protected` mock constructors now chain to `base()` ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159))
-
+- **Regenerated all 12 connector clients** from updated CodefulSdkGenerator with PascalCase name overrides and constructor additions
 - **Regenerated 15 existing connector clients** with latest generator bug fixes — `AzureMonitorLogsClient`, `AzureTablesClient`, `DocumentDbClient`, `ExcelOnlineBusinessClient`, `ExcelOnlineClient`, `InfusionsoftClient`, `Office365Client`, `Office365GroupsClient`, `Office365UsersClient`, `OneDriveForBusinessClient`, `PipedriveClient`, `PlumsailClient`, `SmtpClient`, `WdatpClient`, `YammerClient`
 
 ## [0.10.0-preview.1] - 2026-05-11
@@ -229,7 +257,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.10.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.12.0-preview.1...HEAD
+[0.12.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.11.0-preview.1...v0.12.0-preview.1
+[0.11.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.10.0-preview.1...v0.11.0-preview.1
 [0.10.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...v0.10.0-preview.1
 [0.9.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.8.0-preview.1...v0.9.0-preview.1
 [0.8.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.7.0-preview.1...v0.8.0-preview.1
