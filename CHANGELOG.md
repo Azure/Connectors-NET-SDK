@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Regenerated all 96 connector clients** from combined BPM generator improvements: Microsoft copyright header on every generated file ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)), `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)), `protected` mock constructors now chain to `base()` ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159)), and null-guard hardening ([#156](https://github.com/Azure/Connectors-NET-SDK/issues/156), [#175](https://github.com/Azure/Connectors-NET-SDK/issues/175))
+- **Regenerated all 96 connector clients** from combined BPM generator improvements: Microsoft copyright header on every generated file ([#158](https://github.com/Azure/Connectors-NET-SDK/issues/158)), `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods ([#160](https://github.com/Azure/Connectors-NET-SDK/issues/160)), `protected` mock constructors now chain to `base()` ([#159](https://github.com/Azure/Connectors-NET-SDK/issues/159)), and null-guard hardening ([#175](https://github.com/Azure/Connectors-NET-SDK/issues/175))
 
 ## [0.11.0-preview.1] - 2026-05-15
 

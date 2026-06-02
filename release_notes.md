@@ -12,7 +12,7 @@
 - Added OpenTelemetry distributed tracing — each generated client has a per-connector `ConnectorActivitySource` (e.g., `Azure.Connectors.Sdk.teams`); subscribe to `Azure.Connectors.Sdk.*` to capture all connector operations. (#183)
 - Added `ConnectorException` error-code parsing to populate `RequestFailedException.ErrorCode`. (#180)
 - Added `[EditorBrowsable(EditorBrowsableState.Never)]` on inherited `Object` methods. (#160)
-- Regenerated all 96 connector clients with copyright headers (#158), base-chained mock constructors (#159), and null-guard hardening (#156, #175).
+- Regenerated all 96 connector clients with copyright headers (#158), base-chained mock constructors (#159), and null-guard hardening (#175).
 
 ### 0.11.0-preview.1 (2026-05-15)
 
