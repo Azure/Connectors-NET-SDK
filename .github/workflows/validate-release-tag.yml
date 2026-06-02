@@ -1,0 +1,79 @@
+name: Validate Release Tag
+
+# Enforces PR-first-then-tag release process: every v* tag must point to a
+# commit that is reachable from main (i.e., the tagged changes went through
+# a reviewed PR before tagging). Tags on unreviewed branches will fail this
+# check and create an issue alerting maintainers.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # full history needed for merge-base check
+
+      - name: Fetch main branch
+        run: git fetch origin main
+
+      - name: Resolve tag to commit SHA
+        id: resolve
+        run: |
+          # For annotated tags, GITHUB_SHA is the tag object SHA, not the commit.
+          # Dereference to the underlying commit so merge-base works correctly.
+          TAG_COMMIT="$(git rev-parse "${GITHUB_SHA}^{commit}")"
+          echo "Tag: ${GITHUB_REF_NAME}"
+          echo "GITHUB_SHA: ${GITHUB_SHA}"
+          echo "Resolved commit: ${TAG_COMMIT}"
+          echo "commit=${TAG_COMMIT}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag commit is on main
+        run: |
+          TAG_COMMIT="${{ steps.resolve.outputs.commit }}"
+
+          # Check if the tagged commit is an ancestor of main
+          if git merge-base --is-ancestor "${TAG_COMMIT}" origin/main; then
+            echo "✅ Tag commit ${TAG_COMMIT} is reachable from main — release integrity verified."
+          else
+            echo "❌ Tag commit ${TAG_COMMIT} is NOT on main."
+            echo "   This tag was created on a branch with changes that did not go through PR review."
+            echo "   Release process requires: PR to main → merge → tag the merged main commit."
+            echo ""
+            echo "   To fix: delete this tag, merge the changes to main via PR, then re-tag."
+            echo "   git push origin :refs/tags/${GITHUB_REF_NAME}"
+            exit 1
+          fi
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tagCommit = '${{ steps.resolve.outputs.commit }}' || context.sha;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Release tag ${context.ref.replace('refs/tags/', '')} is not on main`,
+              body: [
+                `The tag \`${context.ref.replace('refs/tags/', '')}\` (commit \`${tagCommit.substring(0, 8)}\`) was pushed but the commit is **not reachable from \`main\`**.`,
+                '',
+                'This violates the PR-first-then-tag release process. Tagged changes must go through a reviewed PR to `main` before tagging.',
+                '',
+                '**Action required:**',
+                '1. Delete the tag: `git push origin :refs/tags/' + context.ref.replace('refs/tags/', '') + '`',
+                '2. Merge the release changes to `main` via PR',
+                '3. Re-tag from the merged `main` commit',
+                '',
+                `Triggered by: @${context.actor}`,
+                `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              ].join('\n'),
+            });

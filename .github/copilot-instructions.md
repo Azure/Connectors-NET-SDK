@@ -447,21 +447,50 @@ The build appends suffixes based on context (see `eng/build/Version.targets` and
 
 ### Release steps
 
-1. Create `release/v{version}` branch with version bump in `Version.props`, finalized `CHANGELOG.md`, updated `README.md`
-2. Push the release branch: `git push origin release/v{version}`
-3. Tag and push: `git tag v{version} && git push origin v{version}`
-4. Create GitHub Release: `gh release create v{version} --title "v{version}" --prerelease --notes "..."`
-5. Wait for `code-mirror` (1717) to complete for both the branch and tag
-6. Verify `connectors-sdk.official` (1718) runs automatically from the tag — check it produced a clean `.nupkg` (no `.ci.` suffix)
-7. If the tag build is not the latest, re-queue it: `az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1718 --branch "refs/tags/v{version}"`
-8. **Run the release pipeline from `main`:**
+> **Principle: PR-first, then tag.** All release changes (version bump, changelog cut, release notes)
+> must land on `main` through a reviewed PR before tagging. The tag is created on the merged main
+> commit — never on a branch with unreviewed changes. This is enforced by the `validate-release-tag`
+> GitHub Actions workflow, which fails if a `v*` tag points to a commit not on `main`.
+
+1. **PR the release prep to main:**
+   - Create a branch (e.g., `release/v{version}`) with version bump in `Version.props`, finalized `CHANGELOG.md`, updated `release_notes.md`, and `README.md` connector count/table if needed
+   - Open a PR targeting `main`, get it reviewed and merged
+   - The PR ensures all release metadata changes go through code review
+
+2. **Pull the merged main and tag it:**
+
+   ```powershell
+   git checkout main && git pull origin main
+   git tag v{version}
+   git push origin v{version}
+   ```
+
+3. **Create GitHub Release:**
+
+   ```powershell
+   gh release create v{version} --title "v{version}" --prerelease --notes "..."
+   ```
+
+4. **Wait for pipelines:**
+   - `code-mirror` (1717) completes for the tag
+   - `connectors-sdk.official` (1718) runs automatically from the tag — verify it produced a clean `.nupkg` (no `.ci.` suffix)
+   - If the tag build is not the latest, re-queue it: `az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1718 --branch "refs/tags/v{version}"`
+
+5. **Run the release pipeline from `main`:**
 
    ```powershell
    az pipelines run --org "https://dev.azure.com/azfunc" --project "internal" --id 1719 --branch "main" --parameters "isReleaseBranchOrTag=True" "publishToNugetOrg=True" --output json | ConvertFrom-Json | Select-Object id, status
    ```
 
    The release pipeline picks up the **latest** `connectors-sdk.official` artifact. It must be the clean tag build.
-9. Approve the release gate (see the pipeline's environment approval check for the current approvers list)
+
+6. **Approve the release gate** (see the pipeline's environment approval check for the current approvers list)
+
+### Release integrity enforcement
+
+The `validate-release-tag` workflow (`.github/workflows/validate-release-tag.yml`) runs on every `v*` tag push and verifies the tagged commit is reachable from `main`. If someone tags a branch with unreviewed changes, the workflow **fails** and creates a GitHub issue alerting maintainers.
+
+This closes the gap where unreviewed code could be tagged, built, signed, and published to nuget.org with only the release pipeline's environment approval as a gate.
 
 ### Critical: release pipeline must run from `main`
 
